@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.itour</groupId>
+  <artifactId>itour-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>itour-online-web</module>
+    <module>itour-eureka-server</module>
+  </modules>
+  <!-- 将当前项目作为一个springboot-starter的子模块 -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.0.RELEASE</version>
+  </parent>
+  <properties>
+  	<java.version>1.8</java.version>
+  	<spring-cloud.version>Hoxton.M3</spring-cloud.version>
+  	<fastjson.version>1.2.62</fastjson.version>
+  	<json-lib.version>2.4</json-lib.version>
+  	<ezmorph.version>1.0.6</ezmorph.version>
+  	<gson.version>2.8.6</gson.version>
+  	<json.version>20190722</json.version>
+  	<mybatis-plus.version>3.2.0</mybatis-plus.version>
+  	<oracle.version>8.0.0</oracle.version>
+  	<mysql.version>8.0.18</mysql.version>
+  	<mybatis-plus-generator.version>3.3.0</mybatis-plus-generator.version>
+  	<beetl.version>1.2.19.RELEASE</beetl.version>
+  	<pagehelper.version>5.1.11</pagehelper.version>
+  	<shiro-spring.version>1.4.2</shiro-spring.version>
+  	<guava.version>28.1-jre</guava.version>
+  	<shiro-spring-boot-web-starter.version>1.4.2</shiro-spring-boot-web-starter.version>
+  	<dom4j.version>1.6.1</dom4j.version>
+  	<xstream.version>1.4.11.1</xstream.version>
+  </properties> 
+  <dependencies>
+  <!-- springboot web -->
+  	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+	<!-- springboot-boot -start -->
+	<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+  <!-- springboot 单元测试 -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+		<exclusions>
+			<exclusion>
+				<groupId>org.junit.vintage</groupId>
+				<artifactId>junit-vintage-engine</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<!-- eureka server -->
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+	</dependency>
+	<!-- eureka client -->
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+	</dependency>
+	<!--zuul-->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+    </dependency>
+    <!-- openfeign -->
+    <dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-starter-openfeign</artifactId>
+	</dependency>
+        
+        <!-- fastjson  -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>${fastjson.version}</version>
+	</dependency> 
+	 <!-- json-lib 建议不要使用此工具包转换处理问题比较多--> 
+	<dependency>
+	    <groupId>net.sf.json-lib</groupId>
+	    <artifactId>json-lib</artifactId>
+	    <version>${json-lib.version}</version>
+	    <classifier>jdk15</classifier>
+	</dependency>
+	<!-- 
+	json-lib需要此包的支持;
+	如果没有引入会报错: java.lang.NoClassDefFoundError: net/sf/ezmorph/Morpher
+	  
+	 -->
+	 <!-- gsonn -->
+	 <dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>${gson.version}</version>
+	</dependency>
+	<!-- -json -->
+	 <dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>${json.version}</version>
+	</dependency>
+	 
+	<dependency>
+	    <groupId>net.sf.ezmorph</groupId>
+	    <artifactId>ezmorph</artifactId>
+	    <version>${ezmorph.version}</version>
+	</dependency>
+	
+    <!-- lombok 代码入侵太强
+  	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <scope>provided</scope>
+	</dependency>
+	-->
+	<!-- springboot 热部署 -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-devtools</artifactId>
+	</dependency>
+	<!-- -数据绑定 -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	</dependency>	
+	<dependency>
+	<!-- guava工具 -->
+    <groupId>com.google.guava</groupId>
+    <artifactId>guava</artifactId>
+    <version>${guava.version}</version>    
+</dependency>
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+	
+  </dependencies>
+  <!-- springCloud -->
+  	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- oracle 驱动包 -->
+		  	<dependency>
+				<groupId>oracle</groupId>
+		  		<artifactId>ojdbc8</artifactId>	  
+				<version>${oracle.version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<!-- mysql驱动包 -->
+			<dependency>
+			    <groupId>mysql</groupId>
+			    <artifactId>mysql-connector-java</artifactId>
+			    <version>${mysql.version}</version>
+			</dependency>
+			
+			 <!-- mybatis plus -->
+		    <dependency>
+			    <groupId>com.baomidou</groupId>
+			    <artifactId>mybatis-plus-boot-starter</artifactId>
+			    <version>${mybatis-plus.version}</version>
+			</dependency>
+			<!-- mybatis plus 代码生成器 -->
+			<dependency>
+			    <groupId>com.baomidou</groupId>
+			    <artifactId>mybatis-plus-generator</artifactId>
+			    <version>${mybatis-plus-generator.version}</version>
+			</dependency>
+			<!-- beetl模板引擎 -->
+			<dependency>
+			    <groupId>com.ibeetl</groupId>
+			    <artifactId>beetl-framework-starter</artifactId>
+			    <version>${beetl.version}</version>
+			</dependency>
+
+			<!--分页插件 pageHelper -->
+			<dependency>
+			    <groupId>com.github.pagehelper</groupId>
+			    <artifactId>pagehelper</artifactId>
+			    <version>${pagehelper.version}</version>
+			</dependency>
+			<!-- shiro -->
+			<dependency>
+			    <groupId>org.apache.shiro</groupId>
+			    <artifactId>shiro-spring</artifactId>
+			    <version>${shiro-spring.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.shiro</groupId>
+			    <artifactId>shiro-spring-boot-web-starter</artifactId>
+			    <version>${shiro-spring-boot-web-starter.version}</version>
+			</dependency>
+			<!-- 微信公众号开发 -->
+			<dependency>
+			    <groupId>dom4j</groupId>
+			    <artifactId>dom4j</artifactId>
+			    <version>${dom4j.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.thoughtworks.xstream</groupId>
+			    <artifactId>xstream</artifactId>
+			    <version>${xstream.version}</version>
+			</dependency>
+		</dependencies>
+		
+	</dependencyManagement>
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build> 
+  <repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>  
+  <!--配置信息
+     id: 不同环境Profile的唯一id;
+     properties:properties下可以自定义多个字段(名字随便取，可以有多个);
+     activation:用来指定激活方式，可以根据jdk环境，环境变量，文件的存在或缺失;
+   -->
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <!--环境标识-->
+            <id>dev</id>
+            <activation>
+                <!--默认激活：如果在不指定profile时默认是开发环境-->
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <profiles.active>dev</profiles.active>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
+                <server.eureka.port>9090</server.eureka.port>
+                <server.zuul.port>9091</server.zuul.port>
+                <server.wechat.port>9094</server.wechat.port>
+                <eureka.host>127.0.0.1</eureka.host>
+                <!-- 数据库相关 -->
+                <spring.datasource.url>jdbc:oracle:thin:@10.103.32.24:1521:onlinetest</spring.datasource.url>
+                <spring.datasource.driverClassName>oracle.jdbc.driver.OracleDriver</spring.datasource.driverClassName>
+                <spring.datasource.username>onlinetest</spring.datasource.username>
+                <spring.datasource.password>onlinetest438</spring.datasource.password>
+                <!-- 图片滑动验证码 图片路径 -->
+                <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
+                 <!-- wechat第三方接口相关参数配置 -->
+                 <wechat.api.requestUrl>https://api.weixin.qq.com</wechat.api.requestUrl>
+                 <wechat.api.appid>wxf4c100beea39b4db</wechat.api.appid>
+                 <wechat.api.appsecret>acf77040a595c51646f87b1a2308e775</wechat.api.appsecret>
+                <!-- 百度AI第三方接口相关参数配置 -->
+                <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
+                <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
+                <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+            </properties>
+        </profile>
+        <!--测试环境-->
+        <profile>
+            <id>test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profiles.active>test</profiles.active>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
+                <server.eureka.port>9090</server.eureka.port>
+                <server.zuul.port>9091</server.zuul.port>
+                <server.wechat.port>9094</server.wechat.port>
+                <eureka.host>127.0.0.1</eureka.host>
+                <spring.datasource.url>jdbc:mysql://localhost:3306/ibeer?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
+                <spring.datasource.username>root</spring.datasource.username>
+                <spring.datasource.password>root</spring.datasource.password>
+                <!-- 图片滑动验证码 图片路径-->
+               <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
+                <!-- wechat第三方接口相关参数配置 -->
+                 <wechat.api.requestUrl>https://api.weixin.qq.com</wechat.api.requestUrl>
+                 <wechat.api.appid>wxf4c100beea39b4db</wechat.api.appid>
+                 <wechat.api.appsecret>acf77040a595c51646f87b1a2308e775</wechat.api.appsecret>
+                <!-- 百度AI第三方接口相关参数配置 -->
+                <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
+                <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
+                <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+            </properties>
+        </profile>
+         <!--模拟生产环境-->
+        <profile>
+            <id>spro</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <profiles.active>pro</profiles.active>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
+                <server.eureka.port>9090</server.eureka.port>
+                <server.zuul.port>9091</server.zuul.port>
+                <server.wechat.port>9094</server.wechat.port>
+                <eureka.host>127.0.0.1</eureka.host>
+                <spring.datasource.url>jdbc:mysql://localhost:3306/ibeer?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
+                <spring.datasource.username>root</spring.datasource.username>
+                <spring.datasource.password>root</spring.datasource.password>
+                <!-- 图片滑动验证码 图片路径-->
+               <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
+                <!-- wechat第三方接口相关参数配置 -->
+                 <wechat.api.requestUrl>https://api.weixin.qq.com</wechat.api.requestUrl>
+                 <wechat.api.appid>wxf4c100beea39b4db</wechat.api.appid>
+                 <wechat.api.appsecret>acf77040a595c51646f87b1a2308e775</wechat.api.appsecret>
+                <!-- 百度AI第三方接口相关参数配置 -->
+                <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
+                <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
+                <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+            </properties>
+        </profile>
+        <!--生产环境-->
+        <profile>
+            <id>pro</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <profiles.active>pro</profiles.active>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
+                <server.eureka.port>9090</server.eureka.port>
+                <server.zuul.port>9091</server.zuul.port>
+                <server.wechat.port>9094</server.wechat.port>
+                <eureka.host>127.0.0.1</eureka.host>
+                <spring.datasource.url>jdbc:mysql://localhost:3306/ibeer?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
+                <spring.datasource.username>root</spring.datasource.username>
+                <spring.datasource.password>root</spring.datasource.password>
+                <!-- 图片滑动验证码 图片路径-->
+               <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
+                <!-- wechat第三方接口相关参数配置 -->
+                 <wechat.api.requestUrl>https://api.weixin.qq.com</wechat.api.requestUrl>
+                 <wechat.api.appid>wxf4c100beea39b4db</wechat.api.appid>
+                 <wechat.api.appsecret>acf77040a595c51646f87b1a2308e775</wechat.api.appsecret>
+                <!-- 百度AI第三方接口相关参数配置 -->
+                <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
+                <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
+                <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+            </properties>
+        </profile>
+    </profiles>
+</project>
