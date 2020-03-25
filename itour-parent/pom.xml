@@ -62,26 +62,26 @@
 			</exclusion>
 		</exclusions>
 	</dependency>
-	<!-- eureka server -->
+	<!-- eureka server 
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-	</dependency>
-	<!-- eureka client -->
+	</dependency>-->
+	<!-- eureka client 
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-	</dependency>
-	<!--zuul-->
+	</dependency>-->
+	<!--zuul
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-    </dependency>
-    <!-- openfeign -->
+    </dependency>-->
+    <!-- openfeign 
     <dependency>
 	    <groupId>org.springframework.cloud</groupId>
 	    <artifactId>spring-cloud-starter-openfeign</artifactId>
-	</dependency>
+	</dependency>-->
         
         <!-- fastjson  -->
 	<dependency>
