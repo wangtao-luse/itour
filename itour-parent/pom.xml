@@ -335,7 +335,7 @@
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
             </properties>
         </profile>
-        <!--生产环境-->
+        <!--生产环境 -->
         <profile>
             <id>pro</id>
             <activation>
