@@ -8,6 +8,7 @@
   <modules>
     <module>itour-online-web</module>
     <module>itour-eureka-server</module>
+    <module>itour-common</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
