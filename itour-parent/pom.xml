@@ -9,6 +9,9 @@
     <module>itour-online-web</module>
     <module>itour-eureka-server</module>
     <module>itour-common</module>
+    <module>itour-account-presist</module>
+    <module>itour-account-service</module>
+    <module>itour-manager-web</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
