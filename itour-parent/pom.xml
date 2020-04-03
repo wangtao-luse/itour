@@ -62,26 +62,26 @@
 			</exclusion>
 		</exclusions>
 	</dependency>
-	<!-- eureka server 
+	<!-- eureka server -->
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-	</dependency>-->
-	<!-- eureka client 
+	</dependency>
+	<!-- eureka client -->
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-	</dependency>-->
-	<!--zuul
+	</dependency>
+	<!--zuul-->
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-    </dependency>-->
-    <!-- openfeign 
+    </dependency>
+    <!-- openfeign -->
     <dependency>
 	    <groupId>org.springframework.cloud</groupId>
 	    <artifactId>spring-cloud-starter-openfeign</artifactId>
-	</dependency>-->
+	</dependency>
         
         <!-- fastjson  -->
 	<dependency>
@@ -251,7 +251,7 @@
             <id>dev</id>
             <activation>
                 <!--默认激活：如果在不指定profile时默认是开发环境-->
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
@@ -282,7 +282,7 @@
         <profile>
             <id>test</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>test</profiles.active>

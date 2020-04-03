@@ -1,0 +1,19 @@
+#端口号
+server:  port: '@server.online.port@'
+  
+spring:  profiles:    active: '@profiles.active@' #指定激活环境
+  application:    name: itour-online-web #指定项目名称#eureka
+eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka    
+      
+#beetl
+beetl:
+  templatesPath: /templates/
+#全局配置 
+
+ribbon: 
+  ConnectTimeout: 90000  #请求连接的超时时间 默认的时间为 1 秒
+  ReadTimeout: 90000     #请求处理的超时时间
+  MaxAutoRetries: 0      #解决fegin超时重试多条数据插入数据库问题
+  MaxAutoRetriesNextServer: 0  #解决fegin超时重试多条数据插入数据库问题
+  
+  
