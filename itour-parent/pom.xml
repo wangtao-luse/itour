@@ -62,16 +62,16 @@
 			</exclusion>
 		</exclusions>
 	</dependency>
-	<!-- eureka server 
+	<!-- eureka server--> 
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-	</dependency>-->
-	<!-- eureka client 
+	</dependency>
+	<!-- eureka client -->
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-	</dependency>-->
+	</dependency>
 	<!--zuul
     <dependency>
         <groupId>org.springframework.cloud</groupId>
