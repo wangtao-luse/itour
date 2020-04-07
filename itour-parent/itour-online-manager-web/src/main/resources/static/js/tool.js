@@ -26,8 +26,8 @@ var postAjax = function(url,postData,successFunction,options){
         successMessage: "",
         type: "post",
         async: true,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
+        contentType: "application/json; charset=utf-8",//请求的数据格式
+        dataType: "json",//预期服务器返回的数据类型
         cache:false
     };
     var currentOptions = $.extend(defaultOptions,options);

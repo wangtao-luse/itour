@@ -24,6 +24,7 @@
 				fit:true,
 				border:false
 			});
+			searchFun('/getList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'jsd'});
 	    })
 	    
 	           function getList(options) {
@@ -61,8 +62,7 @@
 								<input type="text" placeholder="请输入编号"  name="id"/>
 								<input type="text" placeholder="请输入姓名" name="name"/>
 								<input type="text" placeholder="请输入爱好" name="hobby"/>
-								<a onclick="searchFun('/getList', $('#dataGrid'), getList,
-                           {'current': 1, 'size': 40,'k':'jsd'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+								<a onclick="searchFun('/getList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'jsd'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 								<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true">清空搜索条件</a>
 							</form>
 					    </div>

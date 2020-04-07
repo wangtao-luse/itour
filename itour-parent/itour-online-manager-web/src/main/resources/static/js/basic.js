@@ -21,6 +21,20 @@ function initDataGrid(dataGridNode,newOptions){
 	};
 	$.extend(options, newOptions);
 	dataGridNode.datagrid(options);
+	//获取当前datagrid的分页（pager）对象且使用 javascript 创建分页（pagination）
+	dataGridNode.datagrid('getPager').pagination({
+		onSelectPage:function(pageNumber, pageSize){
+			//当用户选择新的页面时触发
+			alert("当用户选择新的页面时触发");
+		},
+		onChangePageSize:function(pageSize){
+			//当用户改变页面尺寸时触发
+			alert("当用户改变页面尺寸时触发");
+		},
+		onRefresh:function(){
+			//刷新之后触发
+		}
+	});
 	return dataGridNode;
 	
 }
@@ -34,20 +48,14 @@ function initAjaxDataGrid(url,dataGridNode,newOptions){
 	    	  if(data.returnResult.result.records) {
                   formatData.total = data.returnResult.result.total;
                   formatData.rows = data.returnResult.result.records;
-                  formatData={
-      					"total":"2",
-      					"rows":[
-      						{"id":"01","name":"zhangsan","age":"18"},
-      						{"id":"02","name":"mk","age":"25"}
-      					]
-      				}
-                 var t= JSON.stringify(formatData);
+                  formatData={"total":"2","rows":[{"id":"01","name":"zhangsan","age":"18"},{"id":"02","name":"mk","age":"25"}]};
               }else{
                   internalError();
                   return;
               }
 	    	}
-	    	 options.data = t;	    	
+	    	 options.data = formatData;	
+	    	 console.log(options);
 	    	 initDataGrid(dataGridNode, options);
 	    },{})
 }
@@ -60,7 +68,8 @@ function searchFun(url,node,funcName,op){
     op&&op.k?postData[op.k]=formData:'';
     postData.page.current=op&&op.current?op.current:"1";
     postData.page.size=op&&op.size?op.size:"100";
-        initAjaxDataGrid(url,node,{postData: postData},op);
+    var options = funcName({postData: postData});
+    initAjaxDataGrid(url,node,options);
     }
 function showErrorMsg(errorMsg) {
     $.messager.alert('提示', errorMsg, 'error')
