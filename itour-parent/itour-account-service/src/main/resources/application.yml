@@ -1,0 +1,7 @@
+ #端口
+server:
+  port: '@server.account.port@' 
+ #配置的应用名称
+spring:  application:    name: itour-account-service       
+#注册到eureka
+eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka

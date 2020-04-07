@@ -1,0 +1,14 @@
+#端口
+server:  port: '@server.manager.port@'
+  
+spring:  application:    name: itour-manager-web
+  profiles:
+    active: '@profiles.active@'
+#eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka   
+#beetl
+beetl:
+  templatesPath: /templates/   

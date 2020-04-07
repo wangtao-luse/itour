@@ -1,2 +1,38 @@
 2020-3-20 
+一.SpringCloud eureka搭建
 1.搭建eureka server
+  a.配置eureka
+  b.使用@EnableEurekaServer注解
+2.搭建服务提供者向eureka注册服务
+  a.配置服务将服务注册到eureka
+  b.使用@EnableEurekaClient注解
+3.搭建服务消费者向eureka订阅服务;
+  a.配置eureka向eureka订阅服务;
+
+二.Springboot;
+  1.Springboot处理静态资源；
+  2.springboot 配置文件;
+   
+三.后台管理系统
+1.beetl模板集成
+ 1.需要引入beetl.jar
+ 2.添加配置类BeetlConF.java
+ 3.beetl.properties 文件
+2.eayui dataGride 封装
+  1.JSON和JavaScript对象(区别,转换);
+  2.$.extend()方法;
+  3.JS回调函数
+  4.JS创建函数的方式
+  5.JS中的数据类型
+  6.JS中的正则表达式
+  7.前端序列化对象/数组/字符串
+  8.Jquery ajax
+四.Maven来管理项目
+  1.jar的管理
+  2.利用maven实现项目多环境变量的切换
+
+五.GIT 
+  1.基本的命令
+ 六.html/css
+   1.元素塌陷问题解决方案;
+    
