@@ -1,7 +1,7 @@
 #端口
-server:  port: '@server.manager.port@'
+server:  port: '@server.demo.port@'
   
-spring:  application:    name: itour-manager-web
+spring:  application:    name: itour-demo-web
   profiles:
     active: '@profiles.active@'
 #eureka

@@ -11,7 +11,8 @@
     <module>itour-common</module>
     <module>itour-account-presist</module>
     <module>itour-account-service</module>
-    <module>itour-manager-web</module>
+    <module>itour-demo-web</module>
+    <module>itour-online-manager-web</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
@@ -266,7 +267,8 @@
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
                 <server.wechat.port>9094</server.wechat.port>
-                <server.manager.port>9095</server.manager.port>
+                <server.online-manager.port>9095</server.online-manager.port>
+                <server.demo.port>9096</server.demo.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:oracle:thin:@10.103.32.24:1521:onlinetest</spring.datasource.url>
@@ -298,7 +300,8 @@
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
                 <server.wechat.port>9094</server.wechat.port>
-                 <server.manager.port>9095</server.manager.port>
+                <server.online-manager.port>9095</server.online-manager.port>
+                <server.demo.port>9096</server.demo.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <spring.datasource.url>jdbc:mysql://localhost:3306/ibeer?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
@@ -329,7 +332,8 @@
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
                 <server.wechat.port>9094</server.wechat.port>
-                <server.manager.port>9095</server.manager.port>
+                <server.online-manager.port>9095</server.online-manager.port>
+                <server.demo.port>9096</server.demo.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <spring.datasource.url>jdbc:mysql://localhost:3306/ibeer?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
@@ -360,7 +364,8 @@
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
                 <server.wechat.port>9094</server.wechat.port>
-                <server.manager.port>9095</server.manager.port>
+                <server.online-manager.port>9095</server.online-manager.port>
+                <server.demo.port>9096</server.demo.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <spring.datasource.url>jdbc:mysql://localhost:3306/ibeer?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
