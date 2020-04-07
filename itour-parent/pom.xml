@@ -62,7 +62,11 @@
 			</exclusion>
 		</exclusions>
 	</dependency>
+<<<<<<< HEAD
+	<!-- eureka server--> 
+=======
 	<!-- eureka server -->
+>>>>>>> bd8d816b071ee0037c24eac4df44e3af95f539f0
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
@@ -72,7 +76,11 @@
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 	</dependency>
+<<<<<<< HEAD
+	<!--zuul
+=======
 	<!--zuul-->
+>>>>>>> bd8d816b071ee0037c24eac4df44e3af95f539f0
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
