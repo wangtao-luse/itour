@@ -12,9 +12,10 @@
 二.Springboot;
   1.Springboot处理静态资源；
   2.springboot 配置文件;
-  2.整合mybatis
-    1.导入驱动包
+  2.整合mysql和mybatisplus
+    1.导入相关jar
     2.在springboot配置文件中配置数据库相关信息;
+    
    
 三.后台管理系统
 1.beetl模板集成
