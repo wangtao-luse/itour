@@ -6,6 +6,11 @@
 <!--基本的css-->
 		<link rel="stylesheet" type="text/css" href="/css/themes/default/easyui.css">
 	    <link rel="stylesheet" type="text/css" href="/css/themes/icon.css">
+	    <link type="text/css" href="/itrip/themes/default/itrip.core.min.css" rel="stylesheet">
+	    <link type="text/css" href="/itrip/themes/default/itrip.blue.css" rel="stylesheet">
+	    <link type="text/css" href="/plugins/font-awesome/css/font-awesome.css" rel="stylesheet">
+	    
+	    
 	     <!--基本的JS -->
 	    <script type="text/javascript" src="/js/jquery.min.js"></script>
 	    <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
@@ -15,6 +20,70 @@
     	<script type="text/javascript" src="/js/basic.js"></script>
     	<script type="text/javascript" src="/js/extEasyUI.js"></script>
     	<script type="text/javascript" src="/js/plugins/jquery.datagrid.js"></script>
+    	 <style>
+        .nav-bar .nav-left{
+            width: 230px;
+            float: left;
+        }
+        .nav-bar .nav-right{
+            width: 410px;
+            float: right;
+
+        }
+        .nav-bar .nav-center{
+            margin-left: 230px;
+            margin-right: 245px;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+
+        }
+        .banner .nav-bar>div{
+            height: 50px;
+            line-height: 50px;
+        }
+        .nav-center ul{
+            list-style-type: none;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            font-size: 0;
+            position: relative;
+            left: 0;
+        }
+        .nav-center ul li{
+            display: inline-block;
+            text-align: center;
+            margin: 0;
+            width: 100px;
+        }
+        .nav-center ul li a{
+            text-decoration: none;
+        }
+        .nav-btn{
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            font-size: 20px;
+        }
+        .nav-group{
+            position: relative;
+            transition: all .3s;
+            padding: 0;
+        }
+        /*.nav-bar .nav-btn:hover,.nav-bar .nav-group li:hover,.nav-bar .nav-group li a:hover{*/
+        /*background: #367fa9;*/
+        /*color:white;*/
+        /*}*/
+        .nav-group  .bannerMenu{
+            padding: 5px 0;
+        }
+        .hide {
+            display: none !important;
+        }
+    </style>
 	    <script type="text/javascript">
 	    $(function(){
 	    	//easyui layout
@@ -51,7 +120,7 @@
 </head>
 <body>
 <div id="index-layout">
-			<div data-options="region:'north',href:'/northPage'" style="height: 86px; overflow: hidden;background: red;">north</div>
+			<div id="north" data-options="region:'north',href:'/northPage'" class="banner" style="height: 50px; overflow: hidden;">north</div>
 			<div data-options="region:'west',href:'/westPage'" style="width: 210px; overflow: hidden;background: orange;">west</div>
 			<div data-options="region:'center'" style="overflow: hidden;">
 				<div id="index-tabs">

@@ -6,8 +6,8 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource(value={"classpath:beetl.properties"})
-public class ManagerApplication{
+public class DemoApplication{
 	public static void main(String[] args) {
-		SpringApplication.run(ManagerApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 }
