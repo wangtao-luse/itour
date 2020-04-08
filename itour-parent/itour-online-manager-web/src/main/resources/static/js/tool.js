@@ -55,7 +55,7 @@ var postAjax = function(url,postData,successFunction,options){
     	complete: function(){
     		
     	},
-    	error:function(){
+    	error:function(resultData){
     		parent.$.messager.progress('close');
     		defaultOptions.errorFunction(resultData);
     		return;
@@ -67,8 +67,16 @@ function isSuccess(result){
 	return result.resultCode=="10";
 }
 function errorFunction(resultData) {
-    $.messager.alert('提示', resultData.returnResult.resultMessage, 'info')
+    $.messager.alert('提示', resultData.resultMessage, 'info')
 }
 function internalError() {
     showErrorMsg(500 + " " + "程序内部错误")
+}
+
+function getContextPath() {
+    // alert(document.location.pathname);
+    var pathName = document.location.pathname;
+    var index = pathName.substr(1).indexOf("/");
+    var result = pathName.substr(0, index + 1);
+    return result;
 }

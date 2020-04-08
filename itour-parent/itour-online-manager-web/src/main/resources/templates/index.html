@@ -13,6 +13,7 @@
     	<script type="text/javascript" src="/js/locale/easyui-lang-zh_CN.js"></script>
     	<script type="text/javascript" src="/js/tool.js"></script>
     	<script type="text/javascript" src="/js/basic.js"></script>
+    	<script type="text/javascript" src="/js/extEasyUI.js"></script>
 	    <script type="text/javascript">
 	    $(function(){
 	    	//easyui layout
@@ -24,14 +25,14 @@
 				fit:true,
 				border:false
 			});
-			searchFun('/getList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'jsd'});
+			searchFun('/getUser', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'jsd'});
 	    })
 	    
 	           function getList(options) {
             var op = {
                 fitColumns:false,fit:true,
                 singleSelect:false,
-                pageList:[20,40,80,200,500],
+                pageList:[10,40,80,200,500],
                 columns:[[
 					{field:'id',title:'编号',width:100},
 					{field:'name',title:'名字',width:100},
@@ -48,10 +49,8 @@
 </head>
 <body>
 <div id="index-layout">
-			<div data-options="region:'north'" style="height: 86px; overflow: hidden;background: red;">north</div>
-			<div data-options="region:'west'" style="width: 210px; overflow: hidden;background: orange;">west
-			  <a href="#">用户管理</a>
-			</div>
+			<div data-options="region:'north',href:'/northPage'" style="height: 86px; overflow: hidden;background: red;">north</div>
+			<div data-options="region:'west',href:'/westPage'" style="width: 210px; overflow: hidden;background: orange;">west</div>
 			<div data-options="region:'center'" style="overflow: hidden;">
 				<div id="index-tabs">
 					<div title="首页">
@@ -62,12 +61,15 @@
 								<input type="text" placeholder="请输入编号"  name="id"/>
 								<input type="text" placeholder="请输入姓名" name="name"/>
 								<input type="text" placeholder="请输入爱好" name="hobby"/>
-								<a onclick="searchFun('/getList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'jsd'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+								<a onclick="searchFun('/getUser', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'jsd'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 								<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true">清空搜索条件</a>
 							</form>
 					    </div>
 					    <div data-options="region:'center',title:'用户管理',border:false,split:true">
 					    	<table id="dataGrid"></table>
+					    </div>
+					    <div id="toolbar">
+					      <a href="#" onclick="editFun('查看详情','/detail?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1100})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
 					    </div>
 					</div>
 					</div>

@@ -9,16 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.common.resp.ResponseMessage;
-
 @Controller
-public class TestController {
-	@RequestMapping("/index")
-	public String index() {
-		return "index";
-	}
-	@RequestMapping("/getList")
+public class ControllerTest {
+	@RequestMapping("/getUser")
 	@ResponseBody
 	public ResponseMessage getList(@RequestBody JSONObject jsonObject) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
@@ -28,10 +23,14 @@ public class TestController {
 		list.add(new Student("02", "amy", "18"));
 		list.add(new Student("03", "cindy", "20"));
 		stu.setRecords(list);
-		PageInfo page = new PageInfo<Student>(list);
+		Page page= new Page();
+		page.setRecords(list);
 		responseMessage.setReturnResult(page);
 	
 		return responseMessage;
 	}
-
+	@RequestMapping("/detail")
+	public String getDetail() {
+		return "/system/detail";
+	}
 }
