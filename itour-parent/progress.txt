@@ -12,12 +12,15 @@
 二.Springboot;
   1.Springboot处理静态资源；
   2.springboot 配置文件;
+  2.整合mybatis
+    1.导入驱动包
+    2.在springboot配置文件中配置数据库相关信息;
    
 三.后台管理系统
 1.beetl模板集成
  1.需要引入beetl.jar
  2.添加配置类BeetlConF.java
- 3.beetl.properties 文件
+ 3.beetl.properties 文件 
 2.eayui dataGride 封装
   1.JSON和JavaScript对象(区别,转换);
   2.$.extend()方法;
@@ -27,6 +30,14 @@
   6.JS中的正则表达式
   7.前端序列化对象/数组/字符串
   8.Jquery ajax
+3.easyui相关
+1.easyui layout
+2.easyui datagrid
+3.easyui tab
+4.easyui message消息框和对话框（浮出层）的封装;
+5.html/css iframe的用法;
+6.jquery.data();方法
+7.easyui分页组件;
 四.Maven来管理项目
   1.jar的管理
   2.利用maven实现项目多环境变量的切换
@@ -35,4 +46,16 @@
   1.基本的命令
  六.html/css
    1.元素塌陷问题解决方案;
-    
+   
+七.itour-common
+ 1.对请求对象的和响应对象精选封装;
+ 八、数据库
+   
+九、缓存
+ 1.使用redis;
+十、权限
+   shiro;
+十一、itour-online
+   1.beetl模板集成
+十二、lombok使用会带来哪些问题;   
+
