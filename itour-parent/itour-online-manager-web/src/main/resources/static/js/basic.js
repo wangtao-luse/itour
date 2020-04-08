@@ -23,6 +23,7 @@ function initDataGrid(url,dataGridNode,newOptions){
 	dataGridNode.datagrid(options);
 	//获取当前datagrid的分页（pager）对象且使用 javascript 创建分页（pagination）
 	dataGridNode.datagrid('getPager').pagination({
+		total:newOptions.data.total,
 		onSelectPage:function(pageNumber, pageSize){
 			//当用户选择新的页面时触发
 			alert("当用户选择新的页面时触发");
@@ -63,6 +64,10 @@ function initAjaxDataGrid(url,dataGridNode,newOptions){
               }
 	    	}
 	    	 options.data = formatData;	
+	    	 //待研究
+	    	 if ($.data(dataGridNode[0], "datagrid")) {
+                 dataGridNode.datagrid('unselectAll').datagrid('uncheckAll')
+             }
 	    	 console.log(options);
 	    	 initDataGrid(url,dataGridNode, options);
 	    },{})

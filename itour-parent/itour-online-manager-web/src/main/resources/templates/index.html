@@ -14,6 +14,7 @@
     	<script type="text/javascript" src="/js/tool.js"></script>
     	<script type="text/javascript" src="/js/basic.js"></script>
     	<script type="text/javascript" src="/js/extEasyUI.js"></script>
+    	<script type="text/javascript" src="/js/plugins/jquery.datagrid.js"></script>
 	    <script type="text/javascript">
 	    $(function(){
 	    	//easyui layout
@@ -30,7 +31,8 @@
 	    
 	           function getList(options) {
             var op = {
-                fitColumns:false,fit:true,
+                fitColumns:false,
+                fit:true,
                 singleSelect:false,
                 pageList:[10,40,80,200,500],
                 columns:[[

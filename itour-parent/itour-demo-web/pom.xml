@@ -8,10 +8,10 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.itour</groupId>
-  <artifactId>itour-manager-web</artifactId>
+  <artifactId>itour-demo-web</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>itour-manager-web Maven Webapp</name>
+  <name>itour-demo-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -27,6 +27,6 @@
 	</dependency>
   </dependencies>
   <build>
-    <finalName>itour-manager-web</finalName>
+    <finalName>itour-demo-web</finalName>
   </build>
 </project>

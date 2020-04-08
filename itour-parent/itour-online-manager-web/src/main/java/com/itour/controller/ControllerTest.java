@@ -25,6 +25,7 @@ public class ControllerTest {
 		stu.setRecords(list);
 		Page page= new Page();
 		page.setRecords(list);
+		page.setTotal(3);
 		responseMessage.setReturnResult(page);
 	
 		return responseMessage;
