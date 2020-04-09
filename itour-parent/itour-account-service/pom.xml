@@ -26,11 +26,11 @@
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
 	</dependency>
-	<dependency>
+	<!-- <dependency>
 		<groupId>oracle</groupId>
   		<artifactId>ojdbc8</artifactId>	  
 		<scope>compile</scope>
-	</dependency> 
+	</dependency>  -->
 	<dependency>
 		<groupId>com.itour</groupId>
 		<artifactId>itour-account-presist</artifactId>
