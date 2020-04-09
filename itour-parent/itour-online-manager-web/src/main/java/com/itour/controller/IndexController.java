@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class IndexController {
+@RequestMapping("/index")
+public String index() {
+	return "index";
+}
 @RequestMapping("/northPage")
 public String northPage() {
-	return "/north";
+	return "/layout/north";
 }
 @RequestMapping("/westPage")
 public String westPage() {
-	return "/west";
+	return "/layout/west";
 }
 }

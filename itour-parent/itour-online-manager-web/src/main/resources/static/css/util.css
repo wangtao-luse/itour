@@ -1,0 +1,23 @@
+.fLeft {
+	float: left
+}
+
+.fRight {
+	float: right
+}
+
+.clear {
+	clear: both
+}
+
+.mTop10 {
+	margin-Top: 10px
+}
+
+.sSelectW {
+	width: 200px
+}
+
+.bold {
+	font-weight: bold
+}

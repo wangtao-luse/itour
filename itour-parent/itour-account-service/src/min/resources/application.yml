@@ -1,0 +1,12 @@
+#端口
+server:  port: '@server.account.port@'
+#项目名称
+spring:  application:    name: itour-account-service  datasource: #mysql    url: '@spring.datasource.url@'
+    driver-class-name: '@spring.datasource.driverClassName@'
+    username: '@spring.datasource.username@'
+    password: '@spring.datasource.password@'
+#eureka
+eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
+#mybatis plus
+mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
+  type-aliases-package: com.itour.model  

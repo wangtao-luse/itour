@@ -13,6 +13,7 @@
     <module>itour-account-service</module>
     <module>itour-demo-web</module>
     <module>itour-online-manager-web</module>
+    <module>itour-model</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>

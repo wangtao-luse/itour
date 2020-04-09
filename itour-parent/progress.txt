@@ -8,20 +8,22 @@
   b.使用@EnableEurekaClient注解
 3.搭建服务消费者向eureka订阅服务;
   a.配置eureka向eureka订阅服务;
-
+4.openfig整合到springboot项目
 二.Springboot;
-  1.Springboot处理静态资源；
+  1.Springboot处理静态资源;
   2.springboot 配置文件;
-  2.整合mysql和mybatisplus
+  2.整合mysql和mybatisplus;
     1.导入相关jar
     2.在springboot配置文件中配置数据库和mybatisplus相关信息;
-    
-   
+    3.启动类使用@MapperScan("com.itour.account.presist");
+  3.pageHelper 和 mybatis plus page分页方式;
 三.后台管理系统
 1.beetl模板集成
  1.需要引入beetl.jar
  2.添加配置类BeetlConF.java
  3.beetl.properties 文件 
+2.beetl 中使用html和shiro集成
+3.beetl 中的layout
 2.eayui dataGride 封装
   1.JSON和JavaScript对象(区别,转换);
   2.$.extend()方法;
@@ -31,6 +33,7 @@
   6.JS中的正则表达式
   7.前端序列化对象/数组/字符串
   8.Jquery ajax
+3.图标https://fontawesome.dashgame.com
 3.easyui相关
 1.easyui layout
 2.easyui datagrid
@@ -39,6 +42,7 @@
 5.html/css iframe的用法;
 6.jquery.data();方法
 7.easyui分页组件;
+8.easyui Tree
 四.Maven来管理项目
   1.jar的管理
   2.利用maven实现项目多环境变量的切换
@@ -59,4 +63,5 @@
 十一、itour-online
    1.beetl模板集成
 十二、lombok使用会带来哪些问题;   
-
+十三、html/css
+  1.box-sizing
