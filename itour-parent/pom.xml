@@ -14,6 +14,7 @@
     <module>itour-demo-web</module>
     <module>itour-online-manager-web</module>
     <module>itour-model</module>
+    <module>itour-account-api</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
@@ -169,12 +170,12 @@
 				<version>${oracle.version}</version>
 				<scope>compile</scope>
 			</dependency>
-		  	<!-- <dependency>
+		  	 <dependency>
 				<groupId>oracle</groupId>
 		  		<artifactId>ojdbc8</artifactId>	  
 				<version>${oracle.version}</version>
 				<scope>compile</scope>
-			</dependency> -->
+			</dependency> 
 			<!-- mysql驱动包 -->
 			<dependency>
 			    <groupId>mysql</groupId>

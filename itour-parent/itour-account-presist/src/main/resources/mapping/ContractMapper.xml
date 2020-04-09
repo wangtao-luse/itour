@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.ContractMapper">
+  <resultMap id="BaseResultMap" type="com.itour.model.Contract">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="HTHM" jdbcType="VARCHAR" property="hthm" />
+    <result column="HYDM" jdbcType="VARCHAR" property="hydm" />
+    <result column="HYMC" jdbcType="VARCHAR" property="hymc" />
+    <result column="CREATERQ" jdbcType="DATE" property="createRq" />
+    <result column="HZMC" jdbcType="VARCHAR" property="hzmc" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List">
+    ID, HTHM, HYDM, HYMC, CREATERQ, HZMC
+  </sql>
+  
+
+</mapper>

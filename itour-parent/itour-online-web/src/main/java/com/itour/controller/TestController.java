@@ -3,6 +3,7 @@ package com.itour.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
+import com.tour.account.api.AccountApi;
 
 @Controller
 public class TestController {
+	@Autowired
+	AccountApi accountApi;
 	@RequestMapping("/index")
 	public String index() {
 		return "index";
@@ -30,5 +34,10 @@ public class TestController {
 		responseMessage.setReturnResult(stu);
 		return responseMessage;
 	}
-
+    @RequestMapping("/hello")
+    @ResponseBody
+	public String hello() {
+    	String hello = accountApi.hello();
+		return hello;
+	}
 }

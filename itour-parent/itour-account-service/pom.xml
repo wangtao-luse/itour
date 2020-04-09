@@ -27,12 +27,23 @@
 	    <artifactId>mysql-connector-java</artifactId>
 	</dependency>
 	<dependency>
-	    <groupId>com.baomidou</groupId>
-	    <artifactId>mybatis-plus-boot-starter</artifactId>
-	</dependency>
+		<groupId>oracle</groupId>
+  		<artifactId>ojdbc8</artifactId>	  
+		<scope>compile</scope>
+	</dependency> 
 	<dependency>
 		<groupId>com.itour</groupId>
 		<artifactId>itour-account-presist</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-common</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-account-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   </dependencies>

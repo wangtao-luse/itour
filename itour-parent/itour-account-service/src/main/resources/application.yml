@@ -1,7 +1,12 @@
- #端口
-server:
-  port: '@server.account.port@' 
- #配置的应用名称
-spring:  application:    name: itour-account-service       
-#注册到eureka
+#端口
+server:  port: '@server.account.port@'
+#项目名称和mysql的配置
+spring:  application:    name: itour-account-service  datasource:     url: '@spring.datasource.url@'
+    driver-class-name: '@spring.datasource.driverClassName@'
+    username: '@spring.datasource.username@'
+    password: '@spring.datasource.password@'
+#eureka
 eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
+#mybatis plus
+mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
+  type-aliases-package: com.itour.model  
