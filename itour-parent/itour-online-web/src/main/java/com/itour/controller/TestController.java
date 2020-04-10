@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.account.api.AccountApi;
 import com.itour.common.resp.ResponseMessage;
-import com.tour.account.api.AccountApi;
 
 @Controller
 public class TestController {

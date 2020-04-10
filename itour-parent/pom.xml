@@ -260,7 +260,7 @@
             <id>dev</id>
             <activation>
                 <!--默认激活：如果在不指定profile时默认是开发环境-->
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
@@ -293,7 +293,7 @@
         <profile>
             <id>test</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>test</profiles.active>
