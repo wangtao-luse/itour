@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.itour.common.constant.ConstantBase;
+import com.itour.constant.ConstantBase;
 
 
 

@@ -1,4 +1,4 @@
-package com.itour.common.constant;
+package com.itour.constant;
 
 public class ConstantBase {
 public static final String SUCCESS_CODE="10";

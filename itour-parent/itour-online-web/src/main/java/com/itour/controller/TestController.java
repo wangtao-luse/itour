@@ -17,6 +17,7 @@ import com.tour.account.api.AccountApi;
 public class TestController {
 	@Autowired
 	AccountApi accountApi;
+	
 	@RequestMapping("/index")
 	public String index() {
 		return "index";
