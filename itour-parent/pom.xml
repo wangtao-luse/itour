@@ -273,10 +273,10 @@
                 <server.demo.port>9096</server.demo.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
-                <spring.datasource.url>jdbc:oracle:thin:@10.103.32.24:1521:onlinetest</spring.datasource.url>
+                <spring.datasource.url>jdbc:oracle:thin:@localhost:1521:test</spring.datasource.url>
                 <spring.datasource.driverClassName>oracle.jdbc.driver.OracleDriver</spring.datasource.driverClassName>
-                <spring.datasource.username>onlinetest</spring.datasource.username>
-                <spring.datasource.password>onlinetest438</spring.datasource.password>
+                <spring.datasource.username>test</spring.datasource.username>
+                <spring.datasource.password>test</spring.datasource.password>
                 <!-- 图片滑动验证码 图片路径 -->
                 <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                  <!-- wechat第三方接口相关参数配置 -->
