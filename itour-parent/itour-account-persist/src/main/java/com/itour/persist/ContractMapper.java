@@ -1,4 +1,4 @@
-package com.itour.presist;
+package com.itour.persist;
 
 
 import org.apache.ibatis.annotations.Param;

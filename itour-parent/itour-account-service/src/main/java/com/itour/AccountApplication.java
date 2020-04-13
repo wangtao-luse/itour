@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication /* (exclude = DataSourceAutoConfiguration.class) */
 @EnableEurekaClient
-@MapperScan("com.itour.presist")
+@MapperScan("com.itour.persist")
 public class AccountApplication {
  public static void main(String[] args) {
 	SpringApplication.run(AccountApplication.class, args);

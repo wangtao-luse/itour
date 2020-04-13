@@ -5,16 +5,20 @@
   <artifactId>itour-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <modules>
-    <module>itour-online-web</module>
+  <modules>   
     <module>itour-eureka-server</module>
-    <module>itour-common</module>
-    <module>itour-account-presist</module>
-    <module>itour-account-service</module>
-    <module>itour-demo-web</module>
-    <module>itour-online-manager-web</module>
     <module>itour-model</module>
+    <module>itour-common</module>
+    <module>itour-account-persist</module>
+    <module>itour-account-service</module>
     <module>itour-account-api</module>
+    <module>itour-online-web</module>
+    <module>itour-online-manager-web</module>
+    <module>itour-demo-web</module>
+    <module>itour-travel-service</module>
+    <module>itour-travel-persist</module>
+    <module>itour-travel-api</module>
+    <module>itour-account-persist</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
