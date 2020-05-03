@@ -1,4 +1,4 @@
-package com.itour.model;
+package com.itour.model.test;
 
 import java.io.Serializable;
 import java.util.Date;
