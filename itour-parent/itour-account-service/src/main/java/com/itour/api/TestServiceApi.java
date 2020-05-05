@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.itour.account.api.AccountApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.model.Contract;
+import com.itour.model.test.Contract;
 @RestController
 public class TestServiceApi implements AccountApi  {
 	//@Autowired

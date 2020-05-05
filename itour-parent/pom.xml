@@ -47,6 +47,7 @@
   	<xstream.version>1.4.11.1</xstream.version>
   	<spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
   	<jackson-datatype-guava.version>1.9.2</jackson-datatype-guava.version>
+  	<commons-lang3.version>3.10</commons-lang3.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -128,7 +129,11 @@
 	    <version>${json.version}</version>
 	</dependency>
 	 
-	
+	 <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
 	
 	
     <!-- lombok 代码入侵太强
@@ -155,11 +160,16 @@
 	</dependency>
 	
 	<dependency>
-	<!-- guava工具 -->
-    <groupId>com.google.guava</groupId>
-    <artifactId>guava</artifactId>
-    <version>${guava.version}</version>    
-</dependency>
+		<!-- guava工具 -->
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>${guava.version}</version>    
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	</dependency>
+
 	<dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -170,11 +180,8 @@
 	    <artifactId>spring-boot-starter-redis</artifactId>
 	    <version>${spring-boot-starter-redis.version}</version>
 	</dependency>
-	<dependency>
-	    <groupId>org.apache.shiro</groupId>
-	    <artifactId>shiro-spring-boot-web-starter</artifactId>
-	    <version>${shiro-spring-boot-web-starter.version}</version>
-	</dependency>
+	
+	
 </dependencies>
   <!-- springCloud -->
   	<dependencyManagement>
@@ -237,7 +244,11 @@
 			    <artifactId>shiro-spring</artifactId>
 			    <version>${shiro-spring.version}</version>
 			</dependency>
-			
+			<dependency>
+			    <groupId>org.apache.shiro</groupId>
+			    <artifactId>shiro-spring-boot-web-starter</artifactId>
+			    <version>${shiro-spring-boot-web-starter.version}</version>
+			</dependency>
 			
 			
 			<!-- 微信公众号开发 -->

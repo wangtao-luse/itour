@@ -4,7 +4,8 @@ package com.itour.persist;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.itour.model.Contract;
+import com.itour.model.test.Contract;
+
 
 
 

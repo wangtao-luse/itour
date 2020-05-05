@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.itour.constant.ConstantBase;
+import com.itour.constant.Constant;
 
 
 
@@ -27,14 +27,14 @@ public final class ResponseMessage implements Serializable {
 	}
 	public ResponseMessage(Map map) {
 		super();
-		this.resultCode = ConstantBase.SUCCESS_CODE;
-		this.resultMessage = ConstantBase.SUCESS_MESSAGE;
+		this.resultCode = Constant.SUCCESS_CODE;
+		this.resultMessage = Constant.SUCESS_MESSAGE;
 		this.returnResult=map;
 	}
 	public ResponseMessage(Object object) {
 		super();
-		this.resultCode = ConstantBase.SUCCESS_CODE;
-		this.resultMessage = ConstantBase.SUCESS_MESSAGE;
+		this.resultCode = Constant.SUCCESS_CODE;
+		this.resultMessage = Constant.SUCESS_MESSAGE;
 		this.returnResult.put("result", object);
 	}
 	public String getResultCode() {
@@ -82,17 +82,17 @@ public final class ResponseMessage implements Serializable {
 	}
 
 	public static ResponseMessage getSucess() {
-		return new ResponseMessage(ConstantBase.SUCCESS_CODE, ConstantBase.SUCESS_MESSAGE);
+		return new ResponseMessage(Constant.SUCCESS_CODE, Constant.SUCESS_MESSAGE);
 	}
 	public static ResponseMessage getSucess(String successMsg) {
-		return new ResponseMessage(ConstantBase.SUCCESS_CODE, successMsg);
+		return new ResponseMessage(Constant.SUCCESS_CODE, successMsg);
 	}
 
 	public static ResponseMessage getFailed() {
-		return new ResponseMessage(ConstantBase.FAILED_CODE, ConstantBase.FAILED_MESSAGE);
+		return new ResponseMessage(Constant.FAILED_CODE, Constant.FAILED_MESSAGE);
 	}
 	public static ResponseMessage getFailed(String faileMsg) {
-		return new ResponseMessage(ConstantBase.FAILED_CODE, faileMsg);
+		return new ResponseMessage(Constant.FAILED_CODE, faileMsg);
 	}
 
 }
