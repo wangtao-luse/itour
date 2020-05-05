@@ -32,7 +32,7 @@
 	    <artifactId>mysql-connector-java</artifactId>
 	    <scope>provided</scope>
 	</dependency>
-	<!-- shiro -->
+	<!-- shiro 相关的一些帮助类需要shiro的支持-->
 	<dependency>
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-spring</artifactId>

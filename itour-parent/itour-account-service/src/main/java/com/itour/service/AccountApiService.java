@@ -1,11 +1,7 @@
 package com.itour.service;
 
-import java.util.Base64;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ctc.wstx.util.StringUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
@@ -23,11 +18,13 @@ import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Account;
 import com.itour.model.account.AccountGroup;
+import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
 import com.itour.model.test.Contract;
 import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
 import com.itour.persist.ContractMapper;
+import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.Base64Util;
 import com.itour.util.SimpleHashUtil;
@@ -42,6 +39,8 @@ private OauthMapper oauthMapper;
 private BaseService baseService;
 	@Autowired
 private AccountGroupMapper accountGroupMapper;
+	@Autowired
+private LoginListMapper loginListMapper;
 	/** 注册
 	 * 1.插入用户表(t_a_account)
 	 * 2.插入用户认证表(t_a_oauth)
@@ -91,9 +90,12 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 }
 /**
  * 登录
+ * 1.校验用户名和密码(t_a_oauth)
+ * 2.插入登录记录(t_a_login_list)
  * @param requestMessage
  * @return
  */
+@Transactional
 public ResponseMessage loginSub(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -105,7 +107,11 @@ public ResponseMessage loginSub(RequestMessage requestMessage) {
         if(null==selectOne) {
         	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
         }
+        
         responseMessage.setReturnResult(selectOne);
+        LoginList loginList = new LoginList();
+        loginList.setuId(selectOne.getuId());
+        this.loginListMapper.insert(loginList);
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();

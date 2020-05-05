@@ -1,5 +1,30 @@
 package com.itour;
  
+import java.lang.reflect.Method;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.cache.Cache;
@@ -9,27 +34,8 @@ import com.itour.common.req.RequestBody;
 import com.itour.common.req.RequestHeader;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.constant.ConstantBase;
+import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-
-import org.apache.commons.lang.StringUtils;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
- 
-import javax.servlet.http.HttpServletRequest;
-
-import java.lang.reflect.Method;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
  
  
 @Aspect
@@ -148,11 +154,11 @@ public class WebLogApplication {
         }
         catch (Exception e) {
             e.printStackTrace();
-            return ResponseMessage.getFailed(ConstantBase.FAILED_CODE);
+            return ResponseMessage.getFailed(Constant.FAILED_CODE);
         } catch (Throwable e) {
 			// TODO Auto-generated catch block
         	e.printStackTrace();
-            return ResponseMessage.getFailed(ConstantBase.FAILED_CODE);
+            return ResponseMessage.getFailed(Constant.FAILED_CODE);
 		}
     }
     /**
