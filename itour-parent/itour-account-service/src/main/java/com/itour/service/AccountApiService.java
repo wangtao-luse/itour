@@ -59,6 +59,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		String uid = baseService.getUid();
 		account.setUid(uid);
 		account.setUtype("0");
+		account.setCreatedate(System.currentTimeMillis());
 		this.baseMapper.insert(account);
 		//2.插入用户认证表
 		Oauth oauth = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
@@ -110,6 +111,9 @@ public ResponseMessage loginSub(RequestMessage requestMessage) {
         
         responseMessage.setReturnResult(selectOne);
         LoginList loginList = new LoginList();
+        loginList.setLoginTime(System.currentTimeMillis());
+        loginList.setOauthId(oauth.getOauthId());
+        loginList.setOauthType(oauth.getOauthType());
         loginList.setuId(selectOne.getuId());
         this.loginListMapper.insert(loginList);
 	}catch (BaseException e) {

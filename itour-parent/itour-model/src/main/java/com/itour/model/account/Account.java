@@ -39,7 +39,7 @@ public class Account extends Model<Account> {
      * 注册日期
      */
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
 
     /**
      * 注册IP
@@ -51,7 +51,7 @@ public class Account extends Model<Account> {
      * 上次登录时间
      */
     @TableField("LASTTIME")
-    private Integer lasttime;
+    private Long lasttime;
 
     /**
      * 状态
@@ -89,11 +89,11 @@ public class Account extends Model<Account> {
         this.sex = sex;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 
@@ -105,11 +105,11 @@ public class Account extends Model<Account> {
         this.createip = createip;
     }
 
-    public Integer getLasttime() {
+    public Long getLasttime() {
         return lasttime;
     }
 
-    public void setLasttime(Integer lasttime) {
+    public void setLasttime(Long lasttime) {
         this.lasttime = lasttime;
     }
 

@@ -42,7 +42,7 @@ public class LoginList extends Model<LoginList> {
      * 登录时间
      */
     @TableField("LOGIN_TIME")
-    private Integer loginTime;
+    private Long loginTime;
 
     /**
      * 登录IP
@@ -72,11 +72,11 @@ public class LoginList extends Model<LoginList> {
         this.uId = uId;
     }
 
-    public Integer getLoginTime() {
+    public Long getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Integer loginTime) {
+    public void setLoginTime(Long loginTime) {
         this.loginTime = loginTime;
     }
 
