@@ -35,10 +35,5 @@ public class TestController {
 		responseMessage.setReturnResult(stu);
 		return responseMessage;
 	}
-    @RequestMapping("/hello")
-    @ResponseBody
-	public String hello() {
-    	String hello = accountApi.hello();
-		return hello;
-	}
+   
 }

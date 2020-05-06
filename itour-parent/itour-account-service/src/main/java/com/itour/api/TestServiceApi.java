@@ -9,25 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.account.api.AccountApi;
+import com.itour.account.api.TestApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.model.test.Contract;
 @RestController
-public class TestServiceApi implements AccountApi  {
-	//@Autowired
-	//ContractMapper contractMapper;
+public class TestServiceApi implements TestApi  {
+	
 	@RequestMapping("/hello")
     public String  hello() {
 		String str="hello world!!!";
 		return str;
     }
-	
-	
-	
-	
-	
-	
 	/**
 	   *   测试有参有返回 
 	 * @param requestMessage 请求对象
@@ -57,11 +50,6 @@ public class TestServiceApi implements AccountApi  {
 		return ResponseMessage.getSucess().add("wangtao");
 	}
 	
-//@RequestMapping("/getContract")
-// public Contract  hello() {
-	// Contract queryById = contractMapper.queryById(new Long("179")); 
-	// return queryById;
-// }
 
 @RequestMapping("/test11")
 public ResponseMessage test11(RequestMessage requestMessage){
