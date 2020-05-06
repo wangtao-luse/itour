@@ -63,9 +63,9 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             // 策略配置
             StrategyConfig strategy = new StrategyConfig();
             // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-            strategy.setTablePrefix(new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_"});// 此处可以修改为您的表前缀
+            strategy.setTablePrefix(new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_"});// 此处可以修改为您的表前缀
             strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-            strategy.setInclude(new String[] {"t_a_login_list"}); // 需要生成的表
+            strategy.setInclude(new String[] {"t_b_bloginfo","t_b_btype","t_b_bcolumn"}); // 需要生成的表
             // strategy.setExclude(new String[]{"test"}); // 排除生成的表
             mpg.setStrategy(strategy);
 
