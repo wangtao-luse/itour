@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.GroupMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.account.Group">
+        <id column="ID" property="id" />
+        <result column="G_NAME" property="gName" />
+        <result column="G_PARENT" property="gParent" />
+        <result column="G_DESC" property="gDesc" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, G_NAME, G_PARENT, G_DESC
+    </sql>
+
+</mapper>
