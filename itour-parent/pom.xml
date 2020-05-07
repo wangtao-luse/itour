@@ -19,6 +19,9 @@
     <module>itour-travel-persist</module>
     <module>itour-travel-api</module>
     <module>itour-account-persist</module>
+    <module>itour-work-api</module>
+    <module>itour-work-service</module>
+    <module>itour-work-persist</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
