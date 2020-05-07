@@ -1,7 +1,7 @@
-package src.mapper;
+package com.itour.persist;
 
-import src.entity.Btype;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.travel.Btype;
 
 /**
  * <p>

@@ -1,6 +1,7 @@
 package com.itour.persist;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.travel.Bcolumn;
 
 /**
  * <p>

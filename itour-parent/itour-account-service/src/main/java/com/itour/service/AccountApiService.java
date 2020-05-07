@@ -107,8 +107,7 @@ public ResponseMessage loginSub(RequestMessage requestMessage) {
 		Oauth selectOne = this.oauthMapper.selectOne(queryWrapper);
         if(null==selectOne) {
         	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-        }
-        
+        }        
         responseMessage.setReturnResult(selectOne);
         LoginList loginList = new LoginList();
         loginList.setLoginTime(System.currentTimeMillis());

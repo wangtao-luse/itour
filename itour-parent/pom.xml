@@ -180,7 +180,12 @@
 	    <artifactId>spring-boot-starter-redis</artifactId>
 	    <version>${spring-boot-starter-redis.version}</version>
 	</dependency>
-	
+	<!--分页插件 pageHelper -->
+			<dependency>
+			    <groupId>com.github.pagehelper</groupId>
+			    <artifactId>pagehelper</artifactId>
+			    <version>${pagehelper.version}</version>
+			</dependency>
 	
 </dependencies>
   <!-- springCloud -->
@@ -232,12 +237,7 @@
 			    <version>${beetl.version}</version>
 			</dependency>
 
-			<!--分页插件 pageHelper -->
-			<dependency>
-			    <groupId>com.github.pagehelper</groupId>
-			    <artifactId>pagehelper</artifactId>
-			    <version>${pagehelper.version}</version>
-			</dependency>
+			
 			<!-- shiro -->
 			<dependency>
 			    <groupId>org.apache.shiro</groupId>
