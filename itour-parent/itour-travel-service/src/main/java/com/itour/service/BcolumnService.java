@@ -36,6 +36,11 @@ public ResponseMessage queryColumnList(RequestMessage requestMessage) {
 	}
 	return responseMessage;
 }
+/**
+ * 旅行博客专栏新增
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage insertColumnList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -47,6 +52,11 @@ public ResponseMessage insertColumnList(RequestMessage requestMessage) {
 	}
 	return responseMessage;
 }
+/**
+ * 旅行博客专栏修改
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage updateColumnList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -58,6 +68,11 @@ public ResponseMessage updateColumnList(RequestMessage requestMessage) {
 	}
 	return responseMessage;
 }
+/**
+ * 旅行博客专栏删除
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage deleteColumnList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
