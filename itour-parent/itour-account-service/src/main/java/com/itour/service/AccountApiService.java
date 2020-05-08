@@ -2,6 +2,8 @@ package com.itour.service;
 
 import java.util.UUID;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +60,9 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		account.setCreatedate(System.currentTimeMillis());
 		this.baseMapper.insert(account);
 		//2.插入用户认证表
-		Oauth oauth = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
+		Oauth o = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
+		Oauth oauth = new Oauth();
+		BeanUtils.copyProperties(oauth, o);		
 		String salt = UUID.randomUUID().toString();
 		
 		oauth.setPwd(uid+salt);
@@ -70,6 +74,10 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		oauth.setOauthType("email");
 		oauth.setCredential(result);
 		oauth.setPwd(uid+salt);
+		oauth.setNickname(oauth.getNickname());
+		oauthMapper.insert(oauth);
+		oauth.setOauthType("uname");
+		oauth.setOauthId(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		//3.插入用户组表
 		AccountGroup accountGroup = new AccountGroup();

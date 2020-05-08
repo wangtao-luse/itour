@@ -36,7 +36,7 @@ public class Oauth extends Model<Oauth> {
     private String oauthId;
 
     /**
-     * 第三方登录平台标识(手机号，邮箱，用户名，第三方应用名称（微信，QQ，微博…）)	手机：phone;邮箱：email;QQ:qq;微信：wechat;用户名：uid;微博:weibo
+     * 第三方登录平台标识(手机号，邮箱，用户名，第三方应用名称（微信，QQ，微博…）)	手机：phone;邮箱：email;QQ:qq;微信：wechat;用户名：uname;微博:weibo
      */
     @TableField("OAUTH_TYPE")
     private String oauthType;

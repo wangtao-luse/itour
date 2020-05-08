@@ -35,6 +35,11 @@
 		<artifactId>itour-account-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-model</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>itour-online-web</finalName>

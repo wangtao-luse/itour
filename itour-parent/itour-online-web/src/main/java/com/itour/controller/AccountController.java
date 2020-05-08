@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AccountConnector;
+import com.itour.model.account.Oauth;
 
 @Controller
 @RequestMapping("/account")
@@ -34,7 +35,13 @@ public String reg() {
 @ResponseBody
 @RequestMapping("/regSub")
 public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	ResponseMessage regSub = this.accountConnector.regSub(jsonObject,request);	
+	 JSONObject tmpJson = new JSONObject();
+	 Oauth oauth = new Oauth();
+	       oauth.setOauthId(jsonObject.getString("email"));
+	       oauth.setCredential(jsonObject.getString("kl"));
+	       oauth.setNickname(jsonObject.getString("regName"));
+	       tmpJson.put("vo", oauth);
+	ResponseMessage regSub = this.accountConnector.regSub(tmpJson,request);	
 	return regSub;
 }
 /**

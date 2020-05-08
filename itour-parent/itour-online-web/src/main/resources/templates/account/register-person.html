@@ -11,6 +11,8 @@
     <link type="text/css" rel="stylesheet" href="../css/account/reg.css">
     <link type="text/css" rel="stylesheet" href="../css/common/style6.0.0.min.css" />
     <script src="../js/jquery-3.4.1.js.js"></script>
+    <script src="../js/public.js"></script>
+    <script src="../js/account/reg.js"></script>
         
 <body>
         <!-- widget header begin -->
@@ -47,36 +49,9 @@
     <!--  reg-steps begin -->
     <div class="main ">
         <div class="reg-form">
-            <form action="" id="register-form" method="POST" novalidate="novalidate">
-                <!--chrome autocomplete off bug hack-->
-                <input style="display:none" name="hack" value="test-001088">
-                <input type="password" style="display:none" name="hack1">
-                <!--hack end-->
-                <input type="hidden" name="uuid" id="uuid" value="4db15e69-8e9d-4643-8467-458287bdd122">
-                <input type="hidden" name="eid" id="eid" value="XBSCRFZHSLH3OCVODATBPERXZ4FUF44RBQAPMOPMNQ2BQFFQCSSODKWD664ATB4LPE2Y3JPPJTE2KZ7P2FI55WZXBE">
-                <input type="hidden" name="fp" id="sessionId" value="25c9652ce23b43025d83cfcf528dbda8">
-                <input type="hidden" id="token" name="SyoURjYiWn" value="pFAfq">
-                <input type="hidden" id="publicKey" name="publicKey" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCbGddyRSw4pUibfpPbekSXfpxHQa4e5p3bPF0dDuMhXq08M1/obrosi6EFo39MI6WuBGmFco8ELtQAQM8yUPnWtYPZgRptKPD2sYzvjjsePMyHx1aGThxqdwrHP8qyKXfiyYbsHoGdW/mWB8CWaG21wgM9LPXX6kVd9ec+GXBCWQIDAQAB">
-                <input type="hidden" id="source" name="source" value="main">
-                <input type="hidden" id="closeImageAuthCode" value="">
-                <input type="hidden" id="theme" value="">
-                <input type="hidden" id="chineseMobilePattern" value="1[3456789]{1}[0-9]{9}">
-                <input type="hidden" id="sourceDesc" value="">
-                <input type="hidden" id="tgId" value="">
-                <input type="hidden" id="closeEmailCheck" value="">
-                <input type="hidden" id="emailWhiteList" value="\@qq.com,\@163.com,\@126.com,\@Gmail.com,\@Sohu.com,\@Sina.com,\@foxmail.com,\@yahoo.com,\@139.com,\@jd.com,\@live.com,\@live.cn.\@188.com,\@189.com,\@189.cn,\@hotmail.com,\@21cn.com,\@yeah.net,\@tom.com,\@sogou.com">
-                <input type="hidden" id="loginUrl" value="#">
-                <input type="hidden" id="backUrl" value="#">
-                <input type="hidden" id="authCodeStrategy" name="authCodeStrategy" value="1">
-                <input id="slideAppId" value="16dd32e1eb3" type="hidden">
-                <input id="slideScene" value="reg" type="hidden">
-                <input id="slideProduct" value="embed" type="hidden">
-                <input id="slideWidth" value="100%" type="hidden">
-                <input id="slidePlaceHolder" value="" type="hidden">
-                <input id="slideSuccessMsg" value="" type="hidden">
-                <input type="hidden" id="popupProtocol" value="1">
+            <form action="" id="register-form" method="POST" novalidate="novalidate">               
                 <div id="step1-wrap">
-                    <div class="item-phone-wrap" style="display: none;">
+                  <!--   <div class="item-phone-wrap" style="display: none;">
                         <div class="form-item form-item-phone">
                             <label class="select-country" id="select-country" country_id="0086">中国 0086<a href="javascript:void(0)" class="arrow"></a></label>
                             <div class="item-input-wrap">
@@ -88,7 +63,7 @@
                                 <span></span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="item-email-wrap">
                         <div class="form-item">
                             <label>邮 箱 验 证</label>
@@ -130,7 +105,7 @@
                             <span></span>
                         </div>
                     </div>
-                    <div class="item-phonecode-wrap" style="display: none;">
+              <!--       <div class="item-phonecode-wrap" style="display: none;">
                         <div class="form-item form-item-phonecode">
                             <div class="phonecode-left">
                                 <label>手机验证码</label>
@@ -144,7 +119,7 @@
                             </div>
                             <div class="audio-tip">收不到短信验证码？点击&nbsp;<span class="get-auth-code" clstag="#">获取语音验证码</span></div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="item-mailcode-wrap">
                         <div class="form-item form-item-mailcode">
                             <div class="mailcode-left">
@@ -174,7 +149,7 @@
                     </div>
                     <div class="form-item">
                         <label>设 置 密 码</label>
-                        <input autocomplete="off" type="password" name="pwd" id="form-pwd" class="field" maxlength="20" placeholder="建议使用两种或两种以上字符组合" default="&lt;i class='i-def'&gt;&lt;/i&gt;建议使用字母、数字和符号两种及以上的组合，8-20个字符">
+                        <input autocomplete="off" type="password" name="kl" id="form-pwd" class="field" maxlength="20" placeholder="建议使用两种或两种以上字符组合" default="&lt;i class='i-def'&gt;&lt;/i&gt;建议使用字母、数字和符号两种及以上的组合，8-20个字符">
                         <i class="i-status"></i>
                         <i class="i-cancel"></i>
                     <div class="capslock-tip tips">大写已开启<b class="arrow"></b><b class="arrow-inner"></b></div></div>
@@ -190,7 +165,7 @@
                     <div class="input-tip">
                         <span></span>
                     </div>
-                    <div class="item-email-wrap" style="display: none;">
+                   <!--  <div class="item-email-wrap" style="display: none;">
                         <div class="form-item">
                             <label>邮 箱 验 证</label>
                             <input type="text" name="email" id="form-email" class="field" autocomplete="off" maxlength="50" placeholder="请输入邮箱" default="&lt;i class='i-def'&gt;&lt;/i&gt;验证完成后，你可以使用该邮箱登录">
@@ -207,8 +182,8 @@
                         <div class="input-tip">
                             <span></span>
                         </div>
-                    </div>
-                    <div class="item-mailcode-wrap">
+                    </div> -->
+            <!--         <div class="item-mailcode-wrap">
                         <div class="form-item form-item-mailcode">
                             <div class="mailcode-left">
                                 <label>邮箱验证码</label>
@@ -221,7 +196,7 @@
                                 <span></span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div><button class="btn-register" id="form-register" clstag="#">立即注册</button></div>
                     <div class="input-tip">
                         <span></span>
