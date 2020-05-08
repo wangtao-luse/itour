@@ -1,9 +1,10 @@
 package com.itour.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.itour.persist.AccountMapper;
-
+@Service
 public class BaseService {
 @Autowired
 private AccountMapper accountMapper;

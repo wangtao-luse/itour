@@ -18,10 +18,7 @@ public class TestController {
 	@Autowired
 	AccountApi accountApi;
 	
-	@RequestMapping("/index")
-	public String index() {
-		return "index";
-	}
+	
 	@RequestMapping("/getList")
 	@ResponseBody
 	public ResponseMessage getList(@RequestBody JSONObject jsonObject) {

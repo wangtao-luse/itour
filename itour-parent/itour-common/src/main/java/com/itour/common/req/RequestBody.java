@@ -10,7 +10,7 @@ private JSONObject content;
 /**
  * 用户唯一号
  */
-private Integer uId;
+private String uId;
 /**
  * 第三方登录唯一ID
  */
@@ -34,10 +34,10 @@ public JSONObject getContent() {
 public void setContent(JSONObject content) {
 	this.content = content;
 }
-public Integer getuId() {
+public String getuId() {
 	return uId;
 }
-public void setuId(Integer uId) {
+public void setuId(String uId) {
 	this.uId = uId;
 }
 public String getOauthId() {

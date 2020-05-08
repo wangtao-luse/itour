@@ -5,8 +5,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -20,10 +18,8 @@ import com.itour.model.account.Account;
 import com.itour.model.account.AccountGroup;
 import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
-import com.itour.model.test.Contract;
 import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
-import com.itour.persist.ContractMapper;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.Base64Util;
@@ -131,14 +127,6 @@ public ResponseMessage loginSub(RequestMessage requestMessage) {
 	
 	
 	
-	@Autowired
-	ContractMapper contractMapper;
-	@RequestMapping("/list")
-	@ResponseBody
-	public Contract getList() {
-		Contract queryById = contractMapper.queryById(177L);
-		return queryById;
-		
-	}
+	
 
 }
