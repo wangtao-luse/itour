@@ -68,7 +68,6 @@ $("#form-account").blur(function(){
  */
 $("#form-account").focus(function(){
 	showDefault($(this));
-	
 });
 /**
  * 鼠标释放时校验用户名
@@ -92,6 +91,95 @@ $("#form-account").keyup(function(){
 		showDefault($(this));
 	}
 });
+/**
+ * 鼠标失焦时校验密码
+ */
+$("#form-pwd").blur(function(){
+	var pwd = $(this).val();
+	if(test_pwd(pwd)){
+		//隐藏清除的图标
+		hideClose($(this));
+		
+		showsucess($(this));
+	}else{
+		pwd?showError($(this),"form-pwd-error","只支持6-20个字符"):"";
+	}
+	//清楚默认的提示信息
+	clearTip($(this));
+});
+/**
+ * 鼠标聚焦时校验密码
+ */
+$("#form-pwd").focus(function(){
+	showDefault($(this));
+});
+/**
+ * 键盘释放时校验密码
+ */
+$("#form-pwd").keyup(function(){
+	var pwd = $(this).val();
+	if(pwd){//不为空
+		if(!test_pwd(pwd)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-pwd-error","格式错误")
+		}
+	}else{//为空
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
+/**
+ * 失焦确认密码
+ */
+$("#form-equalTopwd").blur(function(){
+	var eqpwd = $(this).val();
+	if(test_pwd(eqpwd)&&equalTopwd($("#form-pwd").val(),eqpwd)){
+		//隐藏清除的图标
+		hideClose($(this));
+		
+		showsucess($(this));
+	}else{
+		eqpwd?showError($(this),"form-equalTopwd-error","两次密码不一致"):"";
+	}
+	//清楚默认的提示信息
+	clearTip($(this));
+});
+/**
+ * 鼠标聚焦时校验密码
+ */
+$("#form-equalTopwd").focus(function(){
+	showDefault($(this));
+});
+/**
+ * 键盘释放时处理
+ */
+$("#form-equalTopwd").keyup(function(){
+	var equalTopwd = $(this).val();
+	if(equalTopwd){//不为空
+		if(!test_pwd(equalTopwd)&&equalTopwd($("#form-pwd").val(),eqpwd)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-equalTopwd-error","两次密码不一致");
+		}
+	}else{//为空
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
+//清除文本
 $(".i-cancel").click(function(){
 	$(this).parent().find("input").val("");
 	hideClose($(this));
@@ -101,6 +189,10 @@ $(".i-cancel").click(function(){
 });
 /**注册提交*/
 $("#form-register").click(function(){
+	var hasError = $("#register-form").find(".input-tip span").hasClass("error");
+	if(hasError){
+		return;
+	}
 	var url="/account/regSub";
 	var data=$.serializeObject($('#register-form'));	
 	postAjax(url,JSON.stringify(data),function(result){
@@ -189,4 +281,5 @@ function showClose($this){
  */
 function hideClose($this){
 	$this.parent().find(".i-cancel").css("display","none");
+	$this.parent().find(".i-status").css("display","none");
 }

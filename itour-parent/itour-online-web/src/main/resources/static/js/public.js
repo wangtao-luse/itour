@@ -109,11 +109,20 @@ var test_nickName = function(nickName){
 	var nickName_reg=/^([a-zA-Z])([a-zA-Z0-9_\-]{2,18})$/;
 	return nickName_reg.test(nickName);
 }
-
+var test_pwd = function(pwd){
+/**
+ * 密码：必须（6-20位）字符
+ */	
+	var pwd_reg = /^[a-zA-z0-9_\-\.\*\#\@\?\%\!]{6,20}$/;
+	return pwd_reg.test(pwd);
+}
 var test_phone = function(phone){
 	/**
 	 * 电话号码:长度必须为11位,必须以1开头,第二位必须为3、4、5、6、7、8、9中的一位;
 	 */
 	var phone_reg = /^1[3456789]\d{9}$/;
 	return phone_reg.test(phone);
+}
+var equalTopwd = function(pwd,topPwd){
+	return pwd == topPwd;
 }
