@@ -82,7 +82,7 @@
 .i-suc,
 .registerDialog .close,
 .registerDialog .ico {
-	background: url(icon.png) no-repeat
+	background: url(../../img/account/icon.png) no-repeat
 }
 
 .i-error {
@@ -336,7 +336,7 @@ input::-ms-reveal {
 .i-error1,
 .i-global,
 .i-suc {
-	background: url(icon.png) no-repeat
+	background: url(../../img/account/icon.png) no-repeat
 }
 
 .progress-bar .pro-line,
@@ -492,7 +492,7 @@ input::-ms-reveal {
 .i-pwd-strong,
 .i-pwd-weak,
 .i-suc {
-	background: url(icon.png) no-repeat
+	background: url(../../img/account/icon.png) no-repeat
 }
 
 .form-agreen .agree-tip i,
@@ -553,7 +553,9 @@ body {
 	height: 52px;
 	z-index: 0
 }
-
+.form-item-email:hover{
+	border-color: #666;
+}
 .form-item label {
 	float: left;
 	width: 87px;
@@ -721,7 +723,7 @@ body {
 }
 
 .form-item-phone .arrow {
-	background: url(icon.png) no-repeat;
+	background: url(../../img/account/icon.png) no-repeat;
 	width: 15px;
 	height: 15px;
 	display: inline-block;
@@ -868,7 +870,7 @@ body {
 }
 
 .btn-register:active {
-	background: #c81623;
+	background: #0099FF;
 	color: #eababc
 }
 
