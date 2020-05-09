@@ -15,7 +15,8 @@ $("#form-email").focus(function(){
  */
 $("#form-email").blur(function(){
 	var email=$(this).val();
-	if(test_email(email)){//校验通过		
+	if(test_email(email)){//校验通过
+		hideClose($(this));
 		showsucess($(this));
 	}else{//校验失败
 		//显示错误信息		
@@ -37,6 +38,10 @@ $("#form-email").keyup(function(){
 			showClose($(this));
 			//显示错误信息	
 			showError($(this),"form-email-error","格式错误")
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
 		}
 	}else{//为空
 		//隐藏清除的图标
@@ -55,9 +60,10 @@ $("#form-email").keyup(function(){
 $("#form-account").blur(function(){
 	var account = $(this).val();
 	if(test_nickName(account)){//校验通过
+		hideClose($(this));
 		showsucess($(this));
 	}else{
-		account?showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，4-18个字符"):"";
+		account?showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，3-18个字符"):"";
 	}
 	//清楚默认的提示信息
 	clearTip($(this));
@@ -73,15 +79,19 @@ $("#form-account").focus(function(){
  * 鼠标释放时校验用户名
  */
 $("#form-account").keyup(function(){
-	var email = $(this).val();
-	if(email){//不为空
-		if(!test_email(email)){//校验失败
+	var account = $(this).val();
+	if(account){//不为空
+		if(!test_nickName(account)){//校验失败
 			//隐藏成功图标
 			hideSucess($(this));
 			//显示清除的图标
 			showClose($(this));
 			//显示错误信息	
-			showError($(this),"form-account-error","格式错误")
+			showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，3-18个字符")
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
 		}
 	}else{//为空
 		//隐藏清除的图标
@@ -98,8 +108,7 @@ $("#form-pwd").blur(function(){
 	var pwd = $(this).val();
 	if(test_pwd(pwd)){
 		//隐藏清除的图标
-		hideClose($(this));
-		
+		hideClose($(this));		
 		showsucess($(this));
 	}else{
 		pwd?showError($(this),"form-pwd-error","只支持6-20个字符"):"";
@@ -126,6 +135,10 @@ $("#form-pwd").keyup(function(){
 			showClose($(this));
 			//显示错误信息	
 			showError($(this),"form-pwd-error","格式错误")
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
 		}
 	}else{//为空
 		//隐藏清除的图标
@@ -143,7 +156,7 @@ $("#form-equalTopwd").blur(function(){
 	if(test_pwd(eqpwd)&&equalTopwd($("#form-pwd").val(),eqpwd)){
 		//隐藏清除的图标
 		hideClose($(this));
-		
+		//显示状态图标
 		showsucess($(this));
 	}else{
 		eqpwd?showError($(this),"form-equalTopwd-error","两次密码不一致"):"";
@@ -161,15 +174,19 @@ $("#form-equalTopwd").focus(function(){
  * 键盘释放时处理
  */
 $("#form-equalTopwd").keyup(function(){
-	var equalTopwd = $(this).val();
-	if(equalTopwd){//不为空
-		if(!test_pwd(equalTopwd)&&equalTopwd($("#form-pwd").val(),eqpwd)){//校验失败
+	var eqpwd = $(this).val();
+	if(eqpwd){//不为空
+		if(!test_pwd(eqpwd)&&equalTopwd($("#form-pwd").val(),eqpwd)){//校验失败
 			//隐藏成功图标
 			hideSucess($(this));
 			//显示清除的图标
 			showClose($(this));
 			//显示错误信息	
 			showError($(this),"form-equalTopwd-error","两次密码不一致");
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
 		}
 	}else{//为空
 		//隐藏清除的图标
@@ -214,7 +231,7 @@ function showError($this,id,errormsg){
 $this.parent().next().find("span").addClass("error").attr("id",id).html("<i class='i-error'></i>"+errormsg);
 }
 /**
- * 移除错误信息
+ * 清除错误信息
  * @param $this
  * @returns
  */
@@ -223,7 +240,7 @@ function clearError($this){
 	$this.parent().next().find("span i").removeClass("i-error").addClass("i-def");
 }
 /**
- * 校验成功后显示成功图标
+ * 校验成功后显示状态图标
  * @param $this
  * @returns
  */
@@ -234,7 +251,7 @@ function showsucess($this){
 	$this.parent().next().find("span").html("").removeClass("error");
 }
 /**
- * 隐藏成功图标
+ * 隐藏状态图标
  * @param $this
  * @returns
  */
@@ -281,5 +298,4 @@ function showClose($this){
  */
 function hideClose($this){
 	$this.parent().find(".i-cancel").css("display","none");
-	$this.parent().find(".i-status").css("display","none");
 }
