@@ -6,6 +6,7 @@ $(function(){
  */
 $("#form-email").focus(function(){
 	showDefault($(this));
+	
 });
 /**
  * 校验email
@@ -20,9 +21,84 @@ $("#form-email").blur(function(){
 		//显示错误信息		
 		email?showError($(this),"form-email-error","格式错误"):"";
 	}
+	//清楚默认的提示信息
 	clearTip($(this));
 });
+/**
+ * 鼠标释放时校验email
+ */
+$("#form-email").keyup(function(){
+	var email = $(this).val();
+	if(email){//不为空
+		if(!test_email(email)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-email-error","格式错误")
+		}
+	}else{//为空
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
 
+/**
+ * 校验用户名
+ * 校验通过显示成功图标
+ * 校验失败提示错误信息
+ */
+$("#form-account").blur(function(){
+	var account = $(this).val();
+	if(test_nickName(account)){//校验通过
+		showsucess($(this));
+	}else{
+		account?showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，4-18个字符"):"";
+	}
+	//清楚默认的提示信息
+	clearTip($(this));
+});
+/**
+ *  校验用户名
+ *  显示提示信息
+ */
+$("#form-account").focus(function(){
+	showDefault($(this));
+	
+});
+/**
+ * 鼠标释放时校验用户名
+ */
+$("#form-account").keyup(function(){
+	var email = $(this).val();
+	if(email){//不为空
+		if(!test_email(email)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-account-error","格式错误")
+		}
+	}else{//为空
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
+$(".i-cancel").click(function(){
+	$(this).parent().find("input").val("");
+	hideClose($(this));
+	//显示默认的提示信息(需要先清楚错误信息)
+	clearError($(this));
+	showDefault($(this));
+});
 /**注册提交*/
 $("#form-register").click(function(){
 	var url="/account/regSub";
@@ -46,6 +122,15 @@ function showError($this,id,errormsg){
 $this.parent().next().find("span").addClass("error").attr("id",id).html("<i class='i-error'></i>"+errormsg);
 }
 /**
+ * 移除错误信息
+ * @param $this
+ * @returns
+ */
+function clearError($this){
+	$this.parent().next().find("span").removeClass("error").attr("id","");
+	$this.parent().next().find("span i").removeClass("i-error").addClass("i-def");
+}
+/**
  * 校验成功后显示成功图标
  * @param $this
  * @returns
@@ -55,6 +140,15 @@ function showsucess($this){
 	$this.parent().addClass("form-item-valid");
 	//2.移除错误信息提示
 	$this.parent().next().find("span").html("").removeClass("error");
+}
+/**
+ * 隐藏成功图标
+ * @param $this
+ * @returns
+ */
+function hideSucess($this){
+	//1.添加成功的图标
+	$this.parent().removeClass("form-item-valid");
 }
 /**
  * 显示默认的提示信息
@@ -79,4 +173,20 @@ function clearTip($this){
 	}
 	
 
+}
+/**
+ * 显示清除图片
+ * @param $this
+ * @returns
+ */
+function showClose($this){
+	$this.parent().find(".i-cancel").css("display","block");
+}
+/**
+ * 隐藏清除图片
+ * @param $this
+ * @returns
+ */
+function hideClose($this){
+	$this.parent().find(".i-cancel").css("display","none");
 }
