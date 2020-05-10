@@ -1,9 +1,9 @@
 package com.itour.service;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +25,7 @@ import com.itour.persist.AccountMapper;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.Base64Util;
+import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
 
 
@@ -57,7 +58,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		String uid = baseService.getUid();
 		account.setUid(uid);
 		account.setUtype("0");
-		account.setCreatedate(System.currentTimeMillis());
+		account.setCreatedate(DateUtil.getlongDate(new Date()));
 		this.baseMapper.insert(account);
 		//2.插入用户认证表
 		Oauth o = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
@@ -65,15 +66,14 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		BeanUtils.copyProperties(oauth, o);		
 		String salt = UUID.randomUUID().toString();
 		
-		oauth.setPwd(uid+salt);
+		oauth.setPwd(salt);
 		String credential = oauth.getCredential();
-		String result = SimpleHashUtil.SimpleHashMd5(credential, uid+salt);		
+		String result = SimpleHashUtil.SimpleHashMd5(credential, salt);		
 		String encodeToString = Base64Util.base64Str(oauth.getOauthId());
 		oauth.setOauthId(encodeToString);
 		oauth.setuId(uid);
 		oauth.setOauthType("email");
 		oauth.setCredential(result);
-		oauth.setPwd(uid+salt);
 		oauth.setNickname(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		oauth.setOauthType("uname");
