@@ -50,22 +50,29 @@ $(function(){
 	   		 	 showEmailCodeInput();
 	   		 	
 	   		   	}, {errorFunction:function(data){
+	   		        //调整拖动按钮位置
+	   		    	resetlocation();
 	   		   		console.log(data.resultMessage);
 	   		   	},cache: false, async: false}); 
 	   		    	
 	   		 
    		    }else{
    		    	//调整拖动按钮位置
-   		    	divMove.css({"left": (0) + "px"});
-   			    $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+   		    	resetlocation();
    		    }
 	   	}, {errorFunction:function(data){
+	   			//调整拖动按钮位置
+		    	resetlocation();
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
 		
-		
 	});
-	
+	//重置滑块图片和拖动按钮位置
+	function resetlocation(){
+		//调整拖动按钮位置
+	    	divMove.css({"left": (0) + "px"});
+		    $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+	}
 	//当鼠标指针在指定的元素中移动时，就会发生 mousemove 事件。
 	$(".itour-slide-btn").mousemove(function(e){
 		var event = e||event;
@@ -81,7 +88,13 @@ $(function(){
 
 		}
 	});
-	
+	/**
+	 * 更新图片验证码
+	 * @returns
+	 */
+	$(".itour-img-refresh").click(function(){
+		$(".checkCode").trigger("click");
+	});
 });
 /**
  * 隐藏验证码浮出层和验证码按钮
@@ -121,3 +134,4 @@ var timer = function(){
 	time--;
 	
 }
+

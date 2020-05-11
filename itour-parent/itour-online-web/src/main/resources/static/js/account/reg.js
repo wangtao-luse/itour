@@ -67,11 +67,11 @@ $(".checkCode").click(function(){
         	postAjax(url,JSON.stringify(postData),function(data){
         		 console.log(data);	
         		 //带阴影的图片
-        		 $(".itour-bigimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.bigImage);
+        		 $(".itour-bigimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.srcImage);
         		 //滑动的小图片
-        		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.smallImage);
+        		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.cutImage);
         		 //滑动小图片的纵坐标
-        		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.YPosition+"px");
+        		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
         		 //显示验证码浮出层
         		 $(".slide-authCode-wraper").css("display","block");
         	}, {errorFunction:function(data){

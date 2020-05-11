@@ -1,15 +1,12 @@
 package com.itour.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -44,17 +41,8 @@ public class ImageCodeController {
 	    File[] files = file.listFiles();
 	    int n = new Random().nextInt(files.length);
 	    File imageUrl = files[n];
-	    VerifyImage verifyImage = VerifyImageUtil.getVerifyImage(imageUrl);
-	    String cutImage = verifyImage.getCutImage();
-	    String srcImage = verifyImage.getSrcImage();
-	    Integer xPosition = verifyImage.getXPosition();
-	    Integer yPosition = verifyImage.getYPosition();		
-		  resultMap.put("bigImage", srcImage);//大图 
-		  resultMap.put("smallImage", cutImage);//小图
-		  resultMap.put("xWidth",xPosition); 
-		  resultMap.put("yHeight",yPosition);		 
-	    request.getSession().setAttribute("xWidth", resultMap.get("xWidth"));
-	    resultMap.remove("xWidth");
+	    VerifyImage verifyImage = VerifyImageUtil.getVerifyImage(imageUrl);		
+	    resultMap.put("verifyImage", verifyImage);
 	    resultMap.put("errcode", "10");
 	    resultMap.put("errmsg", "success");
 	    return new ResponseMessage(resultMap);
