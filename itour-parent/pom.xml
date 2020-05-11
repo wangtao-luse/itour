@@ -22,6 +22,9 @@
     <module>itour-work-api</module>
     <module>itour-work-service</module>
     <module>itour-work-persist</module>
+    <module>itour-msg-api</module>
+    <module>itour-msg-persist</module>
+    <module>itour-msg-service</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
@@ -51,6 +54,7 @@
   	<spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
   	<jackson-datatype-guava.version>1.9.2</jackson-datatype-guava.version>
   	<commons-lang3.version>3.10</commons-lang3.version>
+  	<mail.version>1.4.7</mail.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -184,12 +188,17 @@
 	    <version>${spring-boot-starter-redis.version}</version>
 	</dependency>
 	<!--分页插件 pageHelper -->
-			<dependency>
-			    <groupId>com.github.pagehelper</groupId>
-			    <artifactId>pagehelper</artifactId>
-			    <version>${pagehelper.version}</version>
-			</dependency>
-	
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>${pagehelper.version}</version>
+	</dependency>
+	<!-- MAIL -->
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>${mail.version}</version>
+	</dependency>
 </dependencies>
   <!-- springCloud -->
   	<dependencyManagement>
