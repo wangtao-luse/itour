@@ -61,7 +61,22 @@ $(".checkCode").click(function(){
 		if(iserror){
 			return;
 		}else{//显示验证码
-			$(".slide-authCode-wraper").css("display","block");
+			//获取图片验证码
+			var url="/getVerifyImage";
+        	var postData ={};
+        	postAjax(url,JSON.stringify(postData),function(data){
+        		 console.log(data);	
+        		 //带阴影的图片
+        		 $(".itour-bigimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.bigImage);
+        		 //滑动的小图片
+        		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.smallImage);
+        		 //滑动小图片的纵坐标
+        		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.YPosition+"px");
+        		 //显示验证码浮出层
+        		 $(".slide-authCode-wraper").css("display","block");
+        	}, {errorFunction:function(data){
+        		alert(data.resultMessage);
+        	},cache: false, async: false});
 		}
 	}
 });
