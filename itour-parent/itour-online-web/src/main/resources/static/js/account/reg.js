@@ -51,7 +51,33 @@ $("#form-email").keyup(function(){
 		showDefault($(this));
 	}
 });
-
+/**
+ * 点击按钮进行验证
+ */
+$(".checkCode").click(function(){
+	var email=$("#form-email").val();
+	if(email){
+		var iserror=$(".item-email-wrap").find("span").hasClass("error");
+		if(iserror){
+			return;
+		}else{//显示验证码
+			$(".slide-authCode-wraper").css("display","block");
+		}
+	}
+});
+$("#step1-next").click(function(){
+	var iserror = $(this).parent().find("span").hasClass("error");
+	if(iserror){
+		return;
+	}else{
+		$("#step1-wrap").css("display","none");
+    	$("#step2-wrap").css("display","block");
+    	$(".cur-step").addClass("done-step");
+    	$(".cur-step span").text("");
+    	$(".cur-step").removeClass("cur-step");    	
+    	$(".person-pro-step2").addClass("cur-step");
+	}
+})
 /**
  * 校验用户名
  * 校验通过显示成功图标
