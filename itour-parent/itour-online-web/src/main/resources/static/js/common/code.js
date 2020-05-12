@@ -47,11 +47,14 @@ $(function(){
 	   		 	postAjax("/sendCodetoEmail",postData,function(data){	   		 	
 	   		 	  //重发验证码倒计时
 	   		 	  timer120();
+	   		 	  //显示验证码文本框
 	   		 	 showEmailCodeInput();
 	   		 	
 	   		   	}, {errorFunction:function(data){
 	   		        //调整拖动按钮位置
 	   		    	resetlocation();
+	   		    	//重置轨迹
+			    	resetSlidBar();
 	   		   		console.log(data.resultMessage);
 	   		   	},cache: false, async: false}); 
 	   		    	
@@ -59,10 +62,16 @@ $(function(){
    		    }else{
    		    	//调整拖动按钮位置
    		    	resetlocation();
+   		    	//重置轨迹
+		    	resetSlidBar();
+   		    	//提示错误信息
+   		    	showError($(this),"form-taoValidate-error",result.errmsg)
    		    }
 	   	}, {errorFunction:function(data){
 	   			//调整拖动按钮位置
 		    	resetlocation();
+		    	//重置轨迹
+		    	resetSlidBar();
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
 		
@@ -79,10 +88,12 @@ $(function(){
 		//鼠标滑动的x的坐标
 		var x = event.pageX;
 		console.log("X:"+x);
+		
 		if(isMousedown){
 			//鼠标滑动的x的坐标大于滑块区域x的坐标+30且滑块区域x的坐标+整个盒子的宽度-20-----》   需要研究
 			if(x>(dX+30) && x<dX+$(".taoValidate-wrap").width()-20){				
                 divMove.css({"left": (x - dX - 20) + "px"});//div动态位置赋值------》 需要研究
+                $(".taoValidate-wrap .itour-slide-bar").css("display","block").css({"width": (x - dX+10) + "px"})
                 $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (x - dX-30) + "px"});//---->需要研究
             }
 
@@ -128,12 +139,14 @@ var time=120;
 var timer = function(){
 	  if(time<0){
        clearInterval(setTime);
-       $("#getPhoneCode").text("重新获取"); 
+       $("#getMailCode").text("重新获取"); 
        time=120;
        return;
    }
-	  $("#getPhoneCode").text(time+"秒后重新获取"); 
+	  $("#getMailCode").text(time+"秒后重新获取"); 
 	time--;
 	
 }
-
+function resetSlidBar(){
+	$(".taoValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
+}

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 
-@FeignClient(name = "itour-account-service")
+@FeignClient(name = "itour-msg-service")
 public interface MessageApi {
 	
 	@RequestMapping(value = "msg/sendCode",produces = {"application/json;charset=UTF-8"})

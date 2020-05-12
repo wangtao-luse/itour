@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-05-12
  */
-@TableName("t_a_messagelist")
+@TableName("t_a_messagetext")
 public class MessageText extends Model<MessageText> {
 
     private static final long serialVersionUID = 1L;
