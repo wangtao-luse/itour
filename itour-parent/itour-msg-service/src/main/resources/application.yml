@@ -1,0 +1,18 @@
+#端口
+server:  port: '@server.msg.port@'
+#项目名称
+spring:  application:    name: itour-msg-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
+    driver-class-name: '@spring.datasource.driverClassName@'
+    username: '@spring.datasource.username@'
+    password: '@spring.datasource.password@'  redis:     #reids相关配置    host: '@spring.redis.host@'    port: '@spring.redis.port@'
+    password: '@spring.redis.password@'
+    jedis:      pool:        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0    timeout: 30000
+  
+#eureka
+eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
+#mybatis plus
+mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
+  type-aliases-package: com.itour.model
