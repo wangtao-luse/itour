@@ -11,4 +11,6 @@ public interface AccountApi {
 public ResponseMessage regSub(RequestMessage requestMessage);
 @RequestMapping(value = "account/loginSub",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage loginSub(RequestMessage requestMessage);
+@RequestMapping(value = "account/checkRegName",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage checkRegName(RequestMessage requestMessage);
 }

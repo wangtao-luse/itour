@@ -38,8 +38,7 @@ private OauthMapper oauthMapper;
 private BaseService baseService;
 	@Autowired
 private AccountGroupMapper accountGroupMapper;
-	@Autowired
-private LoginListMapper loginListMapper;
+
 	/** 注册
 	 * 1.插入用户表(t_a_account)
 	 * 2.插入用户认证表(t_a_oauth)
@@ -93,48 +92,4 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 	   
 	return responseMessage;
 }
-/**
- * 登录
- * 1.校验用户名和密码(t_a_oauth)
- * 2.插入登录记录(t_a_login_list)
- * @param requestMessage
- * @return
- */
-@Transactional
-public ResponseMessage loginSub(RequestMessage requestMessage) {
-	ResponseMessage responseMessage = ResponseMessage.getSucess();
-	try {
-		Oauth oauth = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Oauth.class);
-		QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
-		queryWrapper.eq("oauthId", oauth.getOauthId());
-		queryWrapper.eq("credential", oauth.getCredential());
-		Oauth selectOne = this.oauthMapper.selectOne(queryWrapper);
-        if(null==selectOne) {
-        	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-        }        
-        responseMessage.setReturnResult(selectOne);
-        LoginList loginList = new LoginList();
-        loginList.setLoginTime(System.currentTimeMillis());
-        loginList.setOauthId(oauth.getOauthId());
-        loginList.setOauthType(oauth.getOauthType());
-        loginList.setuId(selectOne.getuId());
-        this.loginListMapper.insert(loginList);
-	}catch (BaseException e) {
-		// TODO: handle exception
-		e.printStackTrace();
-		throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-	}catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
-	}
-	return responseMessage;
-}
-	
-	
-	
-	
-	
-	
-
 }

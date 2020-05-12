@@ -9,12 +9,15 @@ import com.itour.account.api.AccountApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.AccountApiService;
+import com.itour.service.OauthApiService;
 
 @RestController
 @RequestMapping("/account")
 public class AccountApiController implements AccountApi {
 @Autowired
 AccountApiService accountApiService; 
+@Autowired
+OauthApiService oauthApiService;
 @Override
 @RequestMapping("/regSub")
 public ResponseMessage regSub(@RequestBody RequestMessage requestMessage) {
@@ -24,7 +27,13 @@ public ResponseMessage regSub(@RequestBody RequestMessage requestMessage) {
 @Override
 @RequestMapping("/loginSub")
 public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
-	return accountApiService.loginSub(requestMessage);
+	return oauthApiService.loginSub(requestMessage);
+}
+@Override
+@RequestMapping("/checkRegName")
+public ResponseMessage checkRegName(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return ResponseMessage.getSucess();
 }
 
 }

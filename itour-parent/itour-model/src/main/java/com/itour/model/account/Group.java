@@ -24,7 +24,7 @@ public class Group extends Model<Group> {
     private Integer id;
 
     /**
-     * 编号
+     * 编号名称
      */
     @TableField("G_NAME")
     private String gName;

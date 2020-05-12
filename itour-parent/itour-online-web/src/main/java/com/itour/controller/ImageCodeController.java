@@ -8,21 +8,27 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.VerifyImage;
+import com.itour.connector.MessageConnector;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantMessage;
+import com.itour.model.msg.MessageText;
 import com.itour.util.VerifyImageUtil;
 
 
 @Controller
 public class ImageCodeController {
+	@Autowired
+	MessageConnector meesageConnector;
 	/**
 	 * @param @return 参数说明
 	 * @return BaseRestResult 返回类型
@@ -45,6 +51,8 @@ public class ImageCodeController {
 	    resultMap.put("verifyImage", verifyImage);
 	    resultMap.put("errcode", "10");
 	    resultMap.put("errmsg", "success");
+	    //用于校验验证码
+	    request.getSession().setAttribute("xWidth", verifyImage.getxPosition());
 	    return new ResponseMessage(resultMap);
 	}
 	
@@ -84,25 +92,13 @@ public class ImageCodeController {
 	@RequestMapping(value = "/sendCodetoEmail", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public ResponseMessage sendCodetoEmail(@RequestParam(value = "email") String email,HttpServletRequest request) {
-	    Map<String, Object> resultMap = new HashMap<>();
-	    try {
-	          Random r = new Random();
-	          int nextInt = r.nextInt(999999)+100000;
-	          String sendCode = String.valueOf(nextInt);
-	          
-	          request.getSession().setAttribute("sendCode", sendCode+email);
-	        if (StringUtils.isEmpty(email)) {
-	            resultMap.put("errcode", 1);
-	            resultMap.put("errmsg", "手机号码不能为空！");
-	            return new ResponseMessage(resultMap);
-	        }
-	       System.out.println("验证码为：-------------------》"+sendCode);
-	    } catch (Exception e) {
-	        return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
-	    } finally {
-	    	request.getSession().removeAttribute("sendCode");
-	    }
-	    return new ResponseMessage(resultMap);
+	    JSONObject  jsonObject = new JSONObject();
+	    MessageText msg = new MessageText();
+	    msg.setAim(ConstantMessage.REGCODE);
+	    msg.setTo(email);
+	    jsonObject.put("vo", msg);
+	   ResponseMessage responseMessage = this.meesageConnector.sendCode(jsonObject, request);
+	    return responseMessage;
 	}
 	
 

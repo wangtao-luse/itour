@@ -1,6 +1,7 @@
 package com.itour.model.account;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.LongRange;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -55,7 +56,12 @@ public class LoginList extends Model<LoginList> {
      */
     @TableField("LOGIN_IP_LOOKUP")
     private String loginIpLookup;
-
+    /**
+     * 登录日期取决查询
+     */
+    @TableField(exist = false)
+    private LongRange loginDate;
+    
     public Integer getId() {
         return id;
     }
@@ -115,6 +121,14 @@ public class LoginList extends Model<LoginList> {
 
 	public void setOauthType(String oauthType) {
 		this.oauthType = oauthType;
+	}
+
+	public LongRange getLoginDate() {
+		return loginDate;
+	}
+
+	public void setLoginDate(LongRange loginDate) {
+		this.loginDate = loginDate;
 	}
 
 	@Override

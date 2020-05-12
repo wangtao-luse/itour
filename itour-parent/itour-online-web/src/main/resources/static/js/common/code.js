@@ -35,12 +35,12 @@ $(function(){
 		//修改鼠标拖拽标记
 		isMousedown=false;
 		//校验验证码
-		var url="/verifyImageCode";
+		var url="/checkImageCode";
 		var postData={"moveLength":lastX};
 		postAjax(url,postData,function(data){
 			var result = data.returnResult;
-   		    if(result.errcode == '10'){//校验成功
-   		    	//隐藏验证码浮出层和验证码按钮
+   		    if(result.errcode == '0'){//校验成功
+   		    	//隐藏验证码浮出层和验证码按钮显示邮箱验证码框
    		    	hideCodeAndInput();
    		    	//发送验证码
    		    	postData={"email":$("#form-email").val()};
@@ -104,6 +104,8 @@ function hideCodeAndInput(){
     	$(".item-getcode-wrap").css("display","none");
     	//隐藏验证验证码按钮
     	$(".slide-authCode-wraper").css("display","none");
+    	//显示验证码文本框
+    	$(".item-mailcode-wrap").css("display","block");
     	
 }
 /**

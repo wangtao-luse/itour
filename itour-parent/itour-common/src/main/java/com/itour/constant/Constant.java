@@ -8,4 +8,6 @@ public static final String FAILED_MESSAGE="操作失败";
 public static final String FAILED_SYSTEM_ERROR="系统错误";
 
 
+
+
 }

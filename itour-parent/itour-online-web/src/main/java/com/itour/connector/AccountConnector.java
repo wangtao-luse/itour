@@ -26,6 +26,12 @@ public ResponseMessage regSub(JSONObject jsonObject,HttpServletRequest request) 
 	ResponseMessage responseMessage = accountApi.regSub(postData);
 	return responseMessage;
 }
+public ResponseMessage checkRegName(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.checkRegName(postData);
+	return responseMessage;
+}
+
 /**
  * 登录提交
  * @param jsonObject
