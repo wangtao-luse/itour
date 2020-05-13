@@ -26,6 +26,12 @@ public ResponseMessage regSub(JSONObject jsonObject,HttpServletRequest request) 
 	ResponseMessage responseMessage = accountApi.regSub(postData);
 	return responseMessage;
 }
+/**
+   * 检查email或用户名是否已经存在
+ * @param jsonObject
+ * @param request
+ * @return
+ */
 public ResponseMessage checkRegName(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
 	ResponseMessage responseMessage = accountApi.checkRegName(postData);

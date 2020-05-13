@@ -67,27 +67,22 @@ public class ImageCodeController {
 	@ResponseBody
 	public ResponseMessage verifyImageCode(@RequestParam(value = "moveLength") String moveLength,HttpServletRequest request) {
 	    Double dMoveLength = Double.valueOf(moveLength);
-	    Map<String, Object> resultMap = new HashMap<>();
 	    try {
 	        Integer xWidth = (Integer) request.getSession().getAttribute("xWidth");
-	        if (xWidth == null) {
-	            resultMap.put("errcode", 1);
-	            resultMap.put("errmsg", "验证过期，请重试");
-	            return new ResponseMessage(resultMap);
+	        if (xWidth == null) {	            
+	            return ResponseMessage.getFailed("验证过期，请重试");
 	        }
-	        if (Math.abs(xWidth - dMoveLength) > 10) {
-	            resultMap.put("errcode", 1);
-	            resultMap.put("errmsg", "验证不通过");
+	        if (Math.abs(xWidth - dMoveLength) > 10) {	            
+	            return ResponseMessage.getFailed("验证不通过");
 	        } else {
-	            resultMap.put("errcode", 0);
-	            resultMap.put("errmsg", "验证通过");
+	           
+	            return ResponseMessage.getSucess("验证通过");
 	        }
 	    } catch (Exception e) {
 	        return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	    } finally {
 	    	request.getSession().removeAttribute("xWidth");
 	    }
-	    return new ResponseMessage(resultMap);
 	}
 	@RequestMapping(value = "/sendCodetoEmail", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
@@ -97,8 +92,8 @@ public class ImageCodeController {
 	    msg.setAim(ConstantMessage.REGCODE);
 	    msg.setTo(email);
 	    jsonObject.put("vo", msg);
-	   ResponseMessage responseMessage = this.meesageConnector.sendCode(jsonObject, request);
-	    return responseMessage;
+	  // ResponseMessage responseMessage = this.meesageConnector.sendCode(jsonObject, request);
+	    return ResponseMessage.getSucess();
 	}
 	
 

@@ -33,7 +33,7 @@ public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
 @RequestMapping("/checkRegName")
 public ResponseMessage checkRegName(RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
-	return ResponseMessage.getSucess();
+	return oauthApiService.checkRegName(requestMessage);
 }
 
 }

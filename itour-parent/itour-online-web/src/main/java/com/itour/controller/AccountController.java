@@ -47,13 +47,31 @@ public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequ
 	return regSub;
 }
 /**
- * 检查用户名是否用
+ * 检查用户名是否可用
  * @param regName
  * @return
  */
 @ResponseBody
 @RequestMapping("/checkRegName")
-public ResponseMessage checkRegName(@RequestParam(value = "regName") String regName) {
+public ResponseMessage checkRegName(@RequestParam(value = "regName")String regName,HttpServletRequest request) {
+	JSONObject jsonObject =new JSONObject();
+	jsonObject.put("type", "uname");
+	jsonObject.put("regName", regName);
+	ResponseMessage checkRegName = this.accountConnector.checkRegName(jsonObject, request);
+	return checkRegName;
+}
+/**
+ * 检查邮箱是否可用
+ * @param regName
+ * @return
+ */
+@ResponseBody
+@RequestMapping("/checkEmail")
+public ResponseMessage checkEmail(@RequestParam(value = "email")String email,HttpServletRequest request) {
+	JSONObject jsonObject =new JSONObject();
+	jsonObject.put("type", "email");
+	jsonObject.put("regName", email);
+//	/ResponseMessage checkRegName = this.accountConnector.checkRegName(jsonObject, request);
 	return ResponseMessage.getSucess();
 }
 

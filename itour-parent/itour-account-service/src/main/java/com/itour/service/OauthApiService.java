@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
@@ -68,7 +70,7 @@ private LoginListMapper loginListMapper;
 		return responseMessage;
 	}
 	/**
-	 * 检查用户名是否可用
+	 * 检查用户名、邮箱是否可用
 	 * @param requestMessage
 	 * @return
 	 */
@@ -76,9 +78,22 @@ private LoginListMapper loginListMapper;
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			 String regName = requestMessage.getBody().getContent().getString("regName");
+			 String type = requestMessage.getBody().getContent().getString("type");
+			 if(StringUtils.isEmpty(regName)||StringUtils.isEmpty(type)) {
+				 throw new BaseException(ExceptionInfo.EXCEPTION_ISEMPTY);
+			 }
+			 
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
-			queryWrapper.eq("OAUTH_ID", regName);
-			List<Oauth> selectList = this.baseMapper.selectList(queryWrapper);
+			if(ConstAccount.EMAIL.equals(type)) {
+				queryWrapper.eq("OAUTH_TYPE", type);
+			}else if(ConstAccount.UNAME.equals(type)) {
+				queryWrapper.eq("OAUTH_TYPE", type);
+			}
+			queryWrapper.eq("OAUTH_ID", regName);			
+			List<Oauth> selectList = this.baseMapper.selectList(queryWrapper);			
+			if(null!=selectList&&selectList.size()>0) {
+				throw new BaseException(Constant.FAILED_MESSAGE);
+			}
 			responseMessage.setReturnResult(selectList);
 		}catch (BaseException e) {
 			// TODO: handle exception

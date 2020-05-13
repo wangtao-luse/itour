@@ -38,47 +38,42 @@ $(function(){
 		var url="/checkImageCode";
 		var postData={"moveLength":lastX};
 		postAjax(url,postData,function(data){
-			var result = data.returnResult;
-   		    if(result.errcode == '0'){//校验成功
-   		    	//隐藏验证码浮出层和验证码按钮显示邮箱验证码框
-   		    	hideCodeAndInput();
-   		    	//发送验证码
-   		    	postData={"email":$("#form-email").val()};
-	   		 	postAjax("/sendCodetoEmail",postData,function(data){	   		 	
-	   		 	  //重发验证码倒计时
-	   		 	  timer120();
-	   		 	  //显示验证码文本框
-	   		 	 showEmailCodeInput();
-	   		 	
-	   		   	}, {errorFunction:function(data){
-	   		        //调整拖动按钮位置
-	   		    	resetlocation();
-	   		    	//重置轨迹
-			    	resetSlidBar();
-	   		   		console.log(data.resultMessage);
-	   		   	},cache: false, async: false}); 
-	   		    	
-	   		 
+			var code = data.resultCode;
+			var email = $("#form-email").val();
+   		    if(code == '10'){//校验二维码成功
+   		    	
+	   		 //校验email
+   		    	checkEmail(email);
    		    }else{
+   		    	$(".taoValidate-wrap .itour-slide").addClass("itour-slide-err");
    		    	//调整拖动按钮位置
-   		    	resetlocation();
-   		    	//重置轨迹
-		    	resetSlidBar();
-   		    	//提示错误信息
-   		    	showError($(this),"form-taoValidate-error",result.errmsg)
+   		    	setTimeout(function () {
+   		    	    // 这里就是处理的事件
+   		    		resetlocation();
+   		    		//重置轨迹
+   			    	resetSlidBar();
+   		    	}, 500);
+   		    	
+   		    	
+   		    	
    		    }
 	   	}, {errorFunction:function(data){
-	   			//调整拖动按钮位置
-		    	resetlocation();
-		    	//重置轨迹
-		    	resetSlidBar();
+	   		$(".taoValidate-wrap .itour-slide").addClass("itour-slide-err");
+		    	//调整拖动按钮位置
+		    	setTimeout(function () {
+		    	    // 这里就是处理的事件
+		    		resetlocation();
+		    		//重置轨迹
+			    	resetSlidBar();
+		    	}, 1000);
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
-		
+		$(".checkCode").trigger("click");
 	});
 	//重置滑块图片和拖动按钮位置
 	function resetlocation(){
 		//调整拖动按钮位置
+		   $(".taoValidate-wrap .itour-slide").removeClass("itour-slide-err");
 	    	divMove.css({"left": (0) + "px"});
 		    $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
 	}
@@ -119,6 +114,10 @@ function hideCodeAndInput(){
     	$(".item-mailcode-wrap").css("display","block");
     	
 }
+function hiddeCode(){
+	//隐藏验证码浮出框
+	$(".item-getcode-wrap").css("display","none");
+}
 /**
  * 显示邮箱验证码文本框
  * @returns
@@ -147,6 +146,67 @@ var timer = function(){
 	time--;
 	
 }
+/**
+ * 重置轨迹
+ * @returns
+ */
 function resetSlidBar(){
 	$(".taoValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
+}
+/**
+ * 发送验证码
+ * @returns
+ */
+function sendCode(email){
+	    //隐藏验证码浮出层和验证码按钮显示邮箱验证码框
+	    hideCodeAndInput();
+	    //发送验证码
+   	    postData={"email":email};
+	 	postAjax("/sendCodetoEmail",postData,function(data){	   		 	
+	 	  //重发验证码倒计时
+	 	  timer120();
+	 	  //显示验证码文本框
+	 	 showEmailCodeInput();
+	 	
+	   	}, {errorFunction:function(data){
+	        //调整拖动按钮位置
+	    	resetlocation();
+	    	//重置轨迹
+    	   resetSlidBar();
+	   		console.log(data.resultMessage);
+	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
+}
+/**
+ * 校验email是否已经注册
+ * @param email
+ * @returns
+ */
+function checkEmail(email){
+	//校验邮箱是否可用
+   	url="/account/checkEmail";
+   	postData={"email":email};
+   	postAjax(url,postData,function(data){
+   		var code = data.resultCode;
+   		if(code=='10'){//校验成功
+   			$(".taoValidate-wrap .itour-slide-btn").css("display","none");
+   			$(".taoValidate-wrap .itour-slide-bar").css("width","360px");
+   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
+   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block");
+   			setTimeout(function () {
+   			//发送验证码
+   	   			sendCode(email);
+		    	}, 500);
+		    	
+   			
+   		}else{//校验失败
+   		   //隐藏验证码浮出框
+   			hiddeCode();
+   			var errormsg=data.resultMessage;
+   			$(".item-email-wrap .input-tip").find("span").addClass("error").attr("id","form-account-error").html("<i class='i-error'></i>"+errormsg);
+   			
+   		}
+   	},{cache: false, async: false,contentType:"application/x-www-form-urlencoded"});
+   
+   
+	    	
 }

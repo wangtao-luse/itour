@@ -2,7 +2,7 @@ var postAjax = function(url,postData,successFunction,options){
 			var returnFlag=false;
 			var defaultOptions={
 				type:"post",
-				async:true,
+				async:true,//异步方式
 				errorFunction:errorFunction,
 				successArguments: "",
 				errorArguments: "",
@@ -104,7 +104,7 @@ var test_email = function(email){
 }
 var test_nickName = function(nickName){
 	/**
-	 * 用户名:数字、字母、下划线(3-18位)、不能以数字开头
+	 * 用户名:仅支持数字、字母、下划线(3-18位)、中划线、不能以数字开头
 	 */
 	var nickName_reg=/^([a-zA-Z])([a-zA-Z0-9_\-]{2,18})$/;
 	return nickName_reg.test(nickName);
