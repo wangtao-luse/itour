@@ -1,7 +1,7 @@
 package com.itour.persist;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.msg.MessageText;
+import com.itour.model.msg.Messageinfo;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.itour.model.msg.MessageText;
  * </p>
  *
  * @author wangtao
- * @since 2020-05-12
+ * @since 2020-05-14
  */
-public interface MessageTextMapper extends BaseMapper<MessageText> {
+public interface MessageinfoMapper extends BaseMapper<Messageinfo> {
 
 }

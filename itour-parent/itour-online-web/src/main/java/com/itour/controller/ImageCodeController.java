@@ -8,6 +8,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +22,14 @@ import com.itour.common.vo.VerifyImage;
 import com.itour.connector.MessageConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantMessage;
-import com.itour.model.msg.MessageText;
+import com.itour.model.msg.Messageinfo;
+import com.itour.util.DateUtil;
 import com.itour.util.VerifyImageUtil;
 
 
 @Controller
 public class ImageCodeController {
-	@Autowired
-	MessageConnector meesageConnector;
+
 	/**
 	 * @param @return 参数说明
 	 * @return BaseRestResult 返回类型
@@ -84,17 +85,30 @@ public class ImageCodeController {
 	    	request.getSession().removeAttribute("xWidth");
 	    }
 	}
-	@RequestMapping(value = "/sendCodetoEmail", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-	@ResponseBody
-	public ResponseMessage sendCodetoEmail(@RequestParam(value = "email") String email,HttpServletRequest request) {
-	    JSONObject  jsonObject = new JSONObject();
-	    MessageText msg = new MessageText();
-	    msg.setAim(ConstantMessage.REGCODE);
-	    msg.setTo(email);
-	    jsonObject.put("vo", msg);
-	  // ResponseMessage responseMessage = this.meesageConnector.sendCode(jsonObject, request);
-	    return ResponseMessage.getSucess();
-	}
 	
+	/**
+	 * 校验验证码
+	 * @param code
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/chckemailCode", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public ResponseMessage chckemailCode(@RequestParam(value = "code") Object code,HttpServletRequest request) {
+		   Object ecode = request.getSession().getAttribute("code");
+		   Object time = request.getSession().getAttribute("limittime");
+		   if(!code.equals(ecode)) {//
+			   return ResponseMessage.getFailed("验证码错误");
+		   }else {
+			   long valueOf = Long.valueOf(time.toString());
+			   long longDate = DateUtil.longDate(valueOf);
+			   if(valueOf>longDate) {
+				   return ResponseMessage.getFailed("验证码已失效");
+			   }else {
+				   return ResponseMessage.getSucess();
+			   }
+		   }
+		
+	}
 
 }

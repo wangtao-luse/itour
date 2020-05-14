@@ -9,7 +9,7 @@ import com.itour.common.resp.ResponseMessage;
 @FeignClient(name = "itour-msg-service")
 public interface MessageApi {
 	
-	@RequestMapping(value = "msg/sendCode",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage sendCode(RequestMessage requestMessage);
+	@RequestMapping(value = "msg/sendEmailCode",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage sendEmailCode(RequestMessage requestMessage);
 	
 }

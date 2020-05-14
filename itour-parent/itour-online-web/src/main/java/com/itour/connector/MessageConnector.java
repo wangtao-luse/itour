@@ -21,9 +21,9 @@ public class MessageConnector {
 	 * @param request
 	 * @return
 	 */
-	public ResponseMessage sendCode(JSONObject jsonObject,HttpServletRequest request) {
+	public ResponseMessage sendEmailCode(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage = mssageApi.sendCode(postData);
+		ResponseMessage responseMessage = mssageApi.sendEmailCode(postData);
 		return responseMessage;
 	}
 }

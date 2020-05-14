@@ -80,17 +80,16 @@ $(".checkCode").click(function(){
 		}
 	}
 });
+/**
+ * 注册下一步按钮
+ */
 $("#step1-next").click(function(){
 	var iserror = $(this).parent().find("span").hasClass("error");
 	if(iserror){
 		return;
-	}else{
-		$("#step1-wrap").css("display","none");
-    	$("#step2-wrap").css("display","block");
-    	$(".cur-step").addClass("done-step");
-    	$(".cur-step span").text("");
-    	$(".cur-step").removeClass("cur-step");    	
-    	$(".person-pro-step2").addClass("cur-step");
+	}else{	
+		
+		checkEmailCode($("#mailCode").val());
 	}
 })
 /**
@@ -259,7 +258,13 @@ $("#form-register").click(function(){
 		alert(data.resultMessage);
 	},cache: false, async: false})
 });	
-	
+/**
+ * 重新获取验证码
+ */
+$("#getMailCode").click(function(){
+	sendCode($("#form-email").val());
+});
+
 });
 /**
  * 用于文本框错误信息提示
@@ -339,4 +344,21 @@ function showClose($this){
  */
 function hideClose($this){
 	$this.parent().find(".i-cancel").css("display","none");
+}
+/**
+ * 校验验证码
+ * @param ecode
+ * @returns
+ */
+function checkEmailCode(ecode){
+   	url="/msg/chckemailCode";
+   	postData={"code":code};
+   	postAjax(url,postData,function(data){
+   		$("#step1-wrap").css("display","none");
+    	$("#step2-wrap").css("display","block");
+    	$(".cur-step").addClass("done-step");
+    	$(".cur-step span").text("");
+    	$(".cur-step").removeClass("cur-step");    	
+    	$(".person-pro-step2").addClass("cur-step");
+   	},{cache: false, async: false,contentType:"application/x-www-form-urlencoded"});	
 }

@@ -71,7 +71,7 @@ public ResponseMessage checkEmail(@RequestParam(value = "email")String email,Htt
 	JSONObject jsonObject =new JSONObject();
 	jsonObject.put("type", "email");
 	jsonObject.put("regName", email);
-//	/ResponseMessage checkRegName = this.accountConnector.checkRegName(jsonObject, request);
+	//ResponseMessage checkRegName = this.accountConnector.checkRegName(jsonObject, request);
 	return ResponseMessage.getSucess();
 }
 

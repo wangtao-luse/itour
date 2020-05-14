@@ -76,7 +76,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		oauth.setNickname(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		oauth.setOauthType("uname");
-		oauth.setOauthId(oauth.getNickname());
+		oauth.setOauthId(Base64Util.base64Str(oauth.getNickname()));
 		oauthMapper.insert(oauth);
 		//3.插入用户组表
 		AccountGroup accountGroup = new AccountGroup();
@@ -91,5 +91,8 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 	}
 	   
 	return responseMessage;
+}
+public static void main(String[] args) {
+	System.out.println("414598c3a3f5f83061373e6b41b8663d".length());
 }
 }

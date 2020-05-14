@@ -1,5 +1,6 @@
 package com.itour.model.msg;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -10,17 +11,17 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-05-12
+ * @since 2020-05-14
  */
-@TableName("t_a_messagetext")
-public class MessageText extends Model<MessageText> {
+@TableName("t_a_messageinfo")
+public class Messageinfo extends Model<Messageinfo> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 编号
      */
-    @TableId("ID")
+    @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -38,27 +39,38 @@ public class MessageText extends Model<MessageText> {
     /**
      * 发送者
      */
+    @TableField("`FROM`")
     private String from;
 
     /**
      * 接受者
      */
+    @TableField("`TO`")
     private String to;
 
     /**
      * 消息目的
      */
+    @TableField("AIM")
     private String aim;
 
     /**
      * 消息类型
      */
+    @TableField("TYPE")
     private String type;
 
     /**
-     * 备注
+     * 消息有效期
      */
-    private String remark;
+    @TableField("LIMITTIME")
+    private Long limittime;
+
+    /**
+     * 消息发送时间
+     */
+    @TableField("SENDTIME")
+    private Long sendtime;
 
     public Integer getId() {
         return id;
@@ -116,12 +128,20 @@ public class MessageText extends Model<MessageText> {
         this.type = type;
     }
 
-    public String getRemark() {
-        return remark;
+    public Long getLimittime() {
+        return limittime;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setLimittime(Long limittime) {
+        this.limittime = limittime;
+    }
+
+    public Long getSendtime() {
+        return sendtime;
+    }
+
+    public void setSendtime(Long sendtime) {
+        this.sendtime = sendtime;
     }
 
     @Override
@@ -131,7 +151,7 @@ public class MessageText extends Model<MessageText> {
 
     @Override
     public String toString() {
-        return "Messagelist{" +
+        return "Messageinfo{" +
         ", id=" + id +
         ", subject=" + subject +
         ", text=" + text +
@@ -139,7 +159,8 @@ public class MessageText extends Model<MessageText> {
         ", to=" + to +
         ", aim=" + aim +
         ", type=" + type +
-        ", remark=" + remark +
+        ", limittime=" + limittime +
+        ", sendtime=" + sendtime +
         "}";
     }
 }

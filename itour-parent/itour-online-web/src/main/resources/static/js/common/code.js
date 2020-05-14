@@ -54,7 +54,7 @@ $(function(){
    			    	resetSlidBar();
    		    	}, 500);
    		    	
-   		    	
+   		    	$(".checkCode").trigger("click");
    		    	
    		    }
 	   	}, {errorFunction:function(data){
@@ -68,7 +68,7 @@ $(function(){
 		    	}, 1000);
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
-		$(".checkCode").trigger("click");
+		
 	});
 	//重置滑块图片和拖动按钮位置
 	function resetlocation(){
@@ -118,6 +118,9 @@ function hiddeCode(){
 	//隐藏验证码浮出框
 	$(".item-getcode-wrap").css("display","none");
 }
+function hideCheckInput(){
+	$(".slide-authCode-wraper").css("display","none");
+}
 /**
  * 显示邮箱验证码文本框
  * @returns
@@ -159,10 +162,13 @@ function resetSlidBar(){
  */
 function sendCode(email){
 	    //隐藏验证码浮出层和验证码按钮显示邮箱验证码框
-	    hideCodeAndInput();
+	  //  hideCodeAndInput();
+	      hiddeCode();
 	    //发送验证码
    	    postData={"email":email};
-	 	postAjax("/sendCodetoEmail",postData,function(data){	   		 	
+	 	postAjax("/msg/sendCodetoEmail",postData,function(data){
+	 		//隐藏图片验证码按钮
+	 		hideCheckInput();
 	 	  //重发验证码倒计时
 	 	  timer120();
 	 	  //显示验证码文本框
