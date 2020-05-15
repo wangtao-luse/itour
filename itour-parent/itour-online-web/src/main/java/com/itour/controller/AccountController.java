@@ -57,7 +57,7 @@ public ResponseMessage checkRegName(@RequestParam(value = "regName")String regNa
 	JSONObject jsonObject =new JSONObject();
 	jsonObject.put("type", "uname");
 	jsonObject.put("regName", regName);
-	ResponseMessage checkRegName = this.accountConnector.checkRegName(jsonObject, request);
+	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
 	return checkRegName;
 }
 /**
@@ -71,8 +71,8 @@ public ResponseMessage checkEmail(@RequestParam(value = "email")String email,Htt
 	JSONObject jsonObject =new JSONObject();
 	jsonObject.put("type", "email");
 	jsonObject.put("regName", email);
-	//ResponseMessage checkRegName = this.accountConnector.checkRegName(jsonObject, request);
-	return ResponseMessage.getSucess();
+	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
+	return checkRegName;
 }
 
 

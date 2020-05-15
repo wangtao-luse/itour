@@ -34,7 +34,7 @@ $(function(){
 		var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
 		//修改鼠标拖拽标记
 		isMousedown=false;
-		//校验验证码
+		//校图片验证验证码
 		var url="/checkImageCode";
 		var postData={"moveLength":lastX};
 		postAjax(url,postData,function(data){
@@ -42,18 +42,19 @@ $(function(){
 			var email = $("#form-email").val();
    		    if(code == '10'){//校验二维码成功
    		    	
-	   		 //校验email
+	   		 //校验email是否已经被注册
    		    	checkEmail(email);
    		    }else{
+   		    	//失败样式
    		    	$(".taoValidate-wrap .itour-slide").addClass("itour-slide-err");
    		    	//调整拖动按钮位置
    		    	setTimeout(function () {
-   		    	    // 这里就是处理的事件
+   		    	    //重置滑块图片和拖动按钮位置
    		    		resetlocation();
    		    		//重置轨迹
    			    	resetSlidBar();
    		    	}, 500);
-   		    	
+   		    	//重新获取二维码
    		    	$(".checkCode").trigger("click");
    		    	
    		    }
@@ -66,6 +67,8 @@ $(function(){
 		    		//重置轨迹
 			    	resetSlidBar();
 		    	}, 1000);
+		    	//重新获取二维码
+   		    	$(".checkCode").trigger("click");
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
 		
@@ -114,12 +117,20 @@ function hideCodeAndInput(){
     	$(".item-mailcode-wrap").css("display","block");
     	
 }
+/**
+ * 隐藏图片验证码浮出层
+ * @returns
+ */
 function hiddeCode(){
 	//隐藏验证码浮出框
-	$(".item-getcode-wrap").css("display","none");
+	$(".item-getcode-wrap .slide-authCode-wraper").css("display","none");
 }
+/**
+ * 隐藏进行验证按钮
+ * @returns
+ */
 function hideCheckInput(){
-	$(".slide-authCode-wraper").css("display","none");
+	$(".item-getcode-wrap").css("display","none");
 }
 /**
  * 显示邮箱验证码文本框
@@ -156,32 +167,7 @@ var timer = function(){
 function resetSlidBar(){
 	$(".taoValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
 }
-/**
- * 发送验证码
- * @returns
- */
-function sendCode(email){
-	    //隐藏验证码浮出层和验证码按钮显示邮箱验证码框
-	  //  hideCodeAndInput();
-	      hiddeCode();
-	    //发送验证码
-   	    postData={"email":email};
-	 	postAjax("/msg/sendCodetoEmail",postData,function(data){
-	 		//隐藏图片验证码按钮
-	 		hideCheckInput();
-	 	  //重发验证码倒计时
-	 	  timer120();
-	 	  //显示验证码文本框
-	 	 showEmailCodeInput();
-	 	
-	   	}, {errorFunction:function(data){
-	        //调整拖动按钮位置
-	    	resetlocation();
-	    	//重置轨迹
-    	   resetSlidBar();
-	   		console.log(data.resultMessage);
-	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
-}
+
 /**
  * 校验email是否已经注册
  * @param email
@@ -215,4 +201,30 @@ function checkEmail(email){
    
    
 	    	
+}
+
+/**
+ * 发送验证码
+ * @returns
+ */
+function sendCode(email){
+	    //隐藏验证码浮出层	  
+	      hiddeCode();
+	    //发送验证码
+   	    postData={"email":email};
+	 	postAjax("/msg/sendCodetoEmail",postData,function(data){
+	 		//隐藏图片验证码按钮
+	 		hideCheckInput();
+	 	    //重发验证码倒计时
+	 	     timer120();
+	 	    //显示验证码文本框
+	 	   showEmailCodeInput();
+	 	
+	   	}, {errorFunction:function(data){
+	        //调整拖动按钮位置
+	    	resetlocation();
+	    	//重置轨迹样式
+    	   resetSlidBar();
+	   		console.log(data.resultMessage);
+	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
 }

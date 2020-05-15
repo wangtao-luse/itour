@@ -52,7 +52,7 @@ $("#form-email").keyup(function(){
 	}
 });
 /**
- * 点击按钮进行验证
+ * 点击按钮进行验证显示验证码
  */
 $(".checkCode").click(function(){
 	var email=$("#form-email").val();
@@ -101,7 +101,10 @@ $("#form-account").blur(function(){
 	var account = $(this).val();
 	if(test_nickName(account)){//校验通过
 		hideClose($(this));
-		showsucess($(this));
+		
+		//showsucess($(this));
+		//校验用户名是否被占用
+		checkRegName(account,$(this));
 	}else{
 		account?showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，3-18个字符"):"";
 	}
@@ -351,8 +354,8 @@ function hideClose($this){
  * @returns
  */
 function checkEmailCode(ecode){
-   	url="/msg/chckemailCode";
-   	postData={"code":code};
+   	url="/checkemailCode";
+   	postData={"code":ecode};
    	postAjax(url,postData,function(data){
    		$("#step1-wrap").css("display","none");
     	$("#step2-wrap").css("display","block");
@@ -361,4 +364,22 @@ function checkEmailCode(ecode){
     	$(".cur-step").removeClass("cur-step");    	
     	$(".person-pro-step2").addClass("cur-step");
    	},{cache: false, async: false,contentType:"application/x-www-form-urlencoded"});	
+}
+/**
+ * 
+ * @param account 用户名
+ * @param $this ele
+ * @returns
+ */
+function checkRegName(account,$this){
+	var url="/account/checkRegName";
+	var postData={"regName":account};
+	postAjax(url,postData,function(data){
+		//成功显示可用图标
+		showsucess($this);
+	},{errorFunction:function(data){
+		showError($this,"form-account-error",data.resultMessage);
+	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"
+		
+	});
 }

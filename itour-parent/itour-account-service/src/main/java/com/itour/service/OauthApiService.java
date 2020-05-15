@@ -13,12 +13,14 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantMessage;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
+import com.itour.util.Base64Util;
 
 /**
  * <p>
@@ -74,7 +76,7 @@ private LoginListMapper loginListMapper;
 	 * @param requestMessage
 	 * @return
 	 */
-	public ResponseMessage checkRegName(RequestMessage requestMessage) {
+	public ResponseMessage checkOauthId(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			 String regName = requestMessage.getBody().getContent().getString("regName");
@@ -92,13 +94,13 @@ private LoginListMapper loginListMapper;
 			queryWrapper.eq("OAUTH_ID", regName);			
 			List<Oauth> selectList = this.baseMapper.selectList(queryWrapper);			
 			if(null!=selectList&&selectList.size()>0) {
-				throw new BaseException(Constant.FAILED_MESSAGE);
+				throw new BaseException(ConstantMessage.REGNAME_ERROR);
 			}
 			responseMessage.setReturnResult(selectList);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
+			throw new BaseException(e.getMessage());
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -2,27 +2,22 @@ package com.itour.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.VerifyImage;
-import com.itour.connector.MessageConnector;
 import com.itour.constant.Constant;
-import com.itour.constant.ConstantMessage;
-import com.itour.model.msg.Messageinfo;
 import com.itour.util.DateUtil;
 import com.itour.util.VerifyImageUtil;
 
@@ -92,17 +87,19 @@ public class ImageCodeController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/chckemailCode", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "/checkemailCode", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ResponseMessage chckemailCode(@RequestParam(value = "code") Object code,HttpServletRequest request) {
+	public ResponseMessage checkemailCode(@RequestParam(value = "code") Object code,HttpServletRequest request) {
 		   Object ecode = request.getSession().getAttribute("code");
 		   Object time = request.getSession().getAttribute("limittime");
 		   if(!code.equals(ecode)) {//
 			   return ResponseMessage.getFailed("验证码错误");
 		   }else {
+			   //验证码有效期
 			   long valueOf = Long.valueOf(time.toString());
-			   long longDate = DateUtil.longDate(valueOf);
-			   if(valueOf>longDate) {
+			   //当前时间
+			   long longDate = DateUtil.currentLongDate();
+			   if(longDate>valueOf) {//当前日期大于验证码有效期
 				   return ResponseMessage.getFailed("验证码已失效");
 			   }else {
 				   return ResponseMessage.getSucess();
@@ -110,5 +107,11 @@ public class ImageCodeController {
 		   }
 		
 	}
-
+public static void main(String[] args) {
+	Date d1= new Date();
+	long t1 = d1.getTime();
+  System.out.println(t1);
+   Date addSecond = DateUtil.addSecond(d1, 120);
+   System.out.println(addSecond.getTime());
+}
 }

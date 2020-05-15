@@ -32,9 +32,9 @@ public ResponseMessage regSub(JSONObject jsonObject,HttpServletRequest request) 
  * @param request
  * @return
  */
-public ResponseMessage checkRegName(JSONObject jsonObject,HttpServletRequest request) {
+public ResponseMessage checkOauthId(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage responseMessage = accountApi.checkRegName(postData);
+	ResponseMessage responseMessage = accountApi.checkOauthId(postData);
 	return responseMessage;
 }
 

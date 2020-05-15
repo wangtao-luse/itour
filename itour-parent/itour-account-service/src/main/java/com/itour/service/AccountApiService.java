@@ -68,15 +68,14 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		oauth.setPwd(salt);
 		String credential = oauth.getCredential();
 		String result = SimpleHashUtil.SimpleHashMd5(credential, salt);		
-		String encodeToString = Base64Util.base64Str(oauth.getOauthId());
-		oauth.setOauthId(encodeToString);
+		oauth.setOauthId(oauth.getOauthId());
 		oauth.setuId(uid);
 		oauth.setOauthType("email");
 		oauth.setCredential(result);
 		oauth.setNickname(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		oauth.setOauthType("uname");
-		oauth.setOauthId(Base64Util.base64Str(oauth.getNickname()));
+		oauth.setOauthId(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		//3.插入用户组表
 		AccountGroup accountGroup = new AccountGroup();

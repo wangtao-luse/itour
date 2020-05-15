@@ -1,4 +1,4 @@
-package com.itour;
+package com.itour.log;
  
 import java.lang.reflect.Method;
 import java.util.Enumeration;

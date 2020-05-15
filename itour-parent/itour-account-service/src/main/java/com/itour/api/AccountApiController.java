@@ -30,10 +30,10 @@ public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
 	return oauthApiService.loginSub(requestMessage);
 }
 @Override
-@RequestMapping("/checkRegName")
-public ResponseMessage checkRegName(RequestMessage requestMessage) {
+@RequestMapping("/checkOauthId")
+public ResponseMessage checkOauthId(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
-	return oauthApiService.checkRegName(requestMessage);
+	return oauthApiService.checkOauthId(requestMessage);
 }
 
 }

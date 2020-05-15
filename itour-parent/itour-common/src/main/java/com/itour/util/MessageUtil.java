@@ -8,9 +8,13 @@ public class MessageUtil {
  * @return
  */
 public static String getCode() {
-	Random r = new Random();
-    int nextInt = r.nextInt(999999)+100000;    
-    String sendCode = String.valueOf(nextInt);
-    return sendCode;
+	StringBuffer sb = new StringBuffer();
+	   for (int i = 0; i < 6; i++) {
+		   Random r = new Random();
+		   int nextInt = r.nextInt(10); 
+		   sb.append(nextInt);
+	   }
+	   return sb.toString();
 }
+
 }

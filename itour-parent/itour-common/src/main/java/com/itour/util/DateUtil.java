@@ -16,9 +16,22 @@ public static long getlongDate(Date date) {
 	long time = date.getTime()/1000;
 	return time;
 }
-
+/**
+ * 展示时需要*1000在进行转换
+ * @param t
+ * @return
+ */
 public static long longDate(long t) {
 	Date date= new Date(t*1000);
+	long time = date.getTime();
+	return time;
+}
+/**
+ * 返回当前日期的的long形式日期
+ * @return
+ */
+public static long currentLongDate() {
+	Date date= new Date();
 	long time = date.getTime();
 	return time;
 }

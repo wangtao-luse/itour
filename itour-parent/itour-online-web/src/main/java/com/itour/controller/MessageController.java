@@ -40,14 +40,14 @@ public class MessageController {
 	    msg.setSubject("[wangtao]注册验证码");
 	    msg.setTo(email);
 	    msg.setText("[wangtao] 欢迎注册wangtao博客,验证码"+code+"请在注册页面填入验证码,完成注册!");	    
-	    msg.setAim(ConstantMessage.REGCODE);
 	    msg.setTo(email);	    
 	    jsonObject.put("vo", msg);	    
 	   ResponseMessage responseMessage = this.meesageConnector.sendEmailCode(jsonObject, request);
 	   if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 		   request.getSession().setAttribute("code", code);
-		   request.getSession().setAttribute("limittime", DateUtil.addSecond(new Date(), 120));
+		   Date addSecond = DateUtil.addSecond(new Date(), 120);
+		   request.getSession().setAttribute("limittime",addSecond.getTime());
 	   }
-	    return ResponseMessage.getSucess();
+	    return responseMessage;
 	}
 }
