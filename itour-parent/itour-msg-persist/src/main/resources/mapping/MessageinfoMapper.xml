@@ -9,14 +9,12 @@
         <result column="TEXT" property="text" />
         <result column="FROM" property="from" />
         <result column="TO" property="to" />
-        <result column="AIM" property="aim" />
         <result column="TYPE" property="type" />
-        <result column="LIMITTIME" property="limittime" />
         <result column="SENDTIME" property="sendtime" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, SUBJECT, TEXT, FROM, TO, AIM, TYPE, LIMITTIME, SENDTIME
+        ID, SUBJECT, TEXT, FROM, TO, TYPE,  SENDTIME
     </sql>
 
 </mapper>

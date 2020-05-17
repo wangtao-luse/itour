@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.itour.entity.ResponseEntity;
+import com.itour.util.JsonUtil;
+/***
+ * 全局异常捕获
+ * @author wwang
+ *
+ */
 
 @ControllerAdvice
 public class DefaultExceptionHandler {
@@ -26,7 +33,6 @@ public class DefaultExceptionHandler {
 	 */
 	@ExceptionHandler({ Throwable.class })
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	@ResponseBody
 	public ModelAndView processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
 			Throwable ex) {
 		logger.error("DefaultExceptionHandler:", ex);

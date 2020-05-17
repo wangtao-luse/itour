@@ -48,11 +48,7 @@ public class Messageinfo extends Model<Messageinfo> {
     @TableField("`TO`")
     private String to;
 
-    /**
-     * 消息目的
-     */
-    @TableField("AIM")
-    private String aim;
+  
 
     /**
      * 消息类型
@@ -60,11 +56,7 @@ public class Messageinfo extends Model<Messageinfo> {
     @TableField("TYPE")
     private String type;
 
-    /**
-     * 消息有效期
-     */
-    @TableField("LIMITTIME")
-    private Long limittime;
+ 
 
     /**
      * 消息发送时间
@@ -112,31 +104,18 @@ public class Messageinfo extends Model<Messageinfo> {
         this.to = to;
     }
 
-    public String getAim() {
-        return aim;
-    }
-
-    public void setAim(String aim) {
-        this.aim = aim;
-    }
+  
 
     public String getType() {
         return type;
     }
 
+
     public void setType(String type) {
-        this.type = type;
-    }
+		this.type = type;
+	}
 
-    public Long getLimittime() {
-        return limittime;
-    }
-
-    public void setLimittime(Long limittime) {
-        this.limittime = limittime;
-    }
-
-    public Long getSendtime() {
+	public Long getSendtime() {
         return sendtime;
     }
 
@@ -157,9 +136,7 @@ public class Messageinfo extends Model<Messageinfo> {
         ", text=" + text +
         ", from=" + from +
         ", to=" + to +
-        ", aim=" + aim +
         ", type=" + type +
-        ", limittime=" + limittime +
         ", sendtime=" + sendtime +
         "}";
     }

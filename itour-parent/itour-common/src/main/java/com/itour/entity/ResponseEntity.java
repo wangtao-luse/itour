@@ -5,7 +5,8 @@ import java.util.List;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.validation.FieldError;
 
-import com.csesteel.common.base.exception.BaseException;
+import com.itour.exception.BaseException;
+
 
 /**
  * 用于AJAX提交的返回结果
