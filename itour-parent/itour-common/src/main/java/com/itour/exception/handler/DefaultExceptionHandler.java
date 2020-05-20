@@ -1,28 +1,21 @@
 package com.itour.exception.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
-import com.itour.common.resp.ResponseMessage;
-import com.itour.exception.BaseException;
-
-@ControllerAdvice
-public class DefaultExceptionHandler {
-	public Object defaultExceptionHander(HttpServletRequest request,HttpServletResponse response,Throwable ex) {
-		if(isAjax(request)) {
-		  if(ex instanceof BaseException) {
-			  return ResponseMessage.getFailed(ex.getMessage());
-		  }else {
-			  
-		  }
-		}else {
-=======
 import com.itour.entity.ResponseEntity;
-import com.itour.util.JsonUtil;
+
+
+
 /***
  * 全局异常捕获
  * @author wwang
@@ -48,7 +41,6 @@ public class DefaultExceptionHandler {
 						&& request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
 			// 根据不同错误转向不同页面
 			ResponseEntity responseEntity = ResponseEntity.from(ex);
->>>>>>> d8956f37e71a3299af36ca81005704fc8c3909aa
 			ModelAndView mv = new ModelAndView();
 		}
 		
