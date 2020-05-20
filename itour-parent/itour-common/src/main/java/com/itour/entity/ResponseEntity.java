@@ -5,8 +5,14 @@ import java.util.List;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.validation.FieldError;
 
+<<<<<<< HEAD
 import com.itour.entity.*;
 import com.itour.exception.BaseException;
+=======
+import com.itour.exception.BaseException;
+
+
+>>>>>>> d8956f37e71a3299af36ca81005704fc8c3909aa
 /**
  * 用于AJAX提交的返回结果
  *

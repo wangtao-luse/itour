@@ -55,6 +55,9 @@ $("#form-email").keyup(function(){
  * 点击按钮进行验证显示验证码
  */
 $(".checkCode").click(function(){
+	 $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+	 $(".taoValidate-wrap .itour-slide").removeClass("itour-slide-err");
+	 $(".itour-slide-btn").css({"left": (0) + "px"});
 	var email=$("#form-email").val();
 	if(email){
 		var iserror=$(".item-email-wrap").find("span").hasClass("error");
