@@ -31,7 +31,7 @@ import com.itour.util.SimpleHashUtil;
 
 
 @Service
-public class AccountApiService extends ServiceImpl<AccountMapper, Account>{
+public class AccountService extends ServiceImpl<AccountMapper, Account>{
 	@Autowired
 private OauthMapper oauthMapper;
 	@Autowired
@@ -86,7 +86,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	   
 	return responseMessage;

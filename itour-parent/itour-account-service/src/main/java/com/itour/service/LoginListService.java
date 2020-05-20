@@ -25,7 +25,7 @@ import com.itour.persist.LoginListMapper;
  * @since 2020-05-05
  */
 @Service
-public class LoginListApiService extends ServiceImpl<LoginListMapper, LoginList>  {
+public class LoginListService extends ServiceImpl<LoginListMapper, LoginList>  {
 /**
  * 登录记录列表查询
  * @param requestMessage
@@ -60,7 +60,7 @@ public ResponseMessage queryLoginList(RequestMessage requestMessage) {
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;

@@ -1,15 +1,27 @@
 package com.itour.exception.handler;
 
+<<<<<<< HEAD
+=======
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+>>>>>>> caa494e9989534d1e21f2b6817dee0c5ae47df1e
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+<<<<<<< HEAD
+=======
+
+import com.itour.entity.ResponseEntity;
+
+
+
+>>>>>>> caa494e9989534d1e21f2b6817dee0c5ae47df1e
 /***
  * 全局异常捕获
  * @author wwang
@@ -34,6 +46,7 @@ public class DefaultExceptionHandler {
 		
 		return "error/404";
 
+<<<<<<< HEAD
 		/*
 		 * if (!(request.getHeader("accept").indexOf("application/json") > -1 ||
 		 * (request.getHeader("X-Requested-With") != null &&
@@ -49,5 +62,28 @@ public class DefaultExceptionHandler {
 		 * e) { ModelAndView mv = new ModelAndView(); mv.addObject("error", e);
 		 * mv.setViewName("cmdty/error/exception"); } return null; }
 		 */
+=======
+		if (!(request.getHeader("accept").indexOf("application/json") > -1
+				|| (request.getHeader("X-Requested-With") != null
+						&& request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+			// 根据不同错误转向不同页面
+			ResponseEntity responseEntity = ResponseEntity.from(ex);
+			ModelAndView mv = new ModelAndView();
+		}
+		
+		return null;
+		
+	}
+	/**
+	 * 判断请求是否是Ajax异步请求方式
+	 * @param request
+	 * @return
+	 */
+	public static boolean isAjax(HttpServletRequest request) {
+		String header = request.getHeader("X-Requested-With");
+		//request.getHeader("X-Requested-With")为 null，则为传统同步请求，
+	    //为 XMLHttpRequest，则为 Ajax 异步请求。		
+		return header!=null&&"X-Requested-With".equals(header);
+>>>>>>> caa494e9989534d1e21f2b6817dee0c5ae47df1e
 	}
 }
