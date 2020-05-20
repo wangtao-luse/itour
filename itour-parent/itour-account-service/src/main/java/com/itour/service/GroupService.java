@@ -56,7 +56,7 @@ public ResponseMessage queryGroupList(RequestMessage requestMessage) {
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}
 		
 		return responseMessage;

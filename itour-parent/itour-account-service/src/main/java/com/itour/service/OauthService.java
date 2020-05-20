@@ -31,7 +31,7 @@ import com.itour.util.Base64Util;
  * @since 2020-05-03
  */
 @Service
-public class OauthApiService extends ServiceImpl<OauthMapper, Oauth> {
+public class OauthService extends ServiceImpl<OauthMapper, Oauth> {
 	@Autowired
 private LoginListMapper loginListMapper;
 	/**
@@ -63,11 +63,11 @@ private LoginListMapper loginListMapper;
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
+			return ResponseMessage.getFailed(e.getMessage());
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
@@ -100,11 +100,11 @@ private LoginListMapper loginListMapper;
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			throw new BaseException(e.getMessage());
+			return ResponseMessage.getFailed(e.getMessage());
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
