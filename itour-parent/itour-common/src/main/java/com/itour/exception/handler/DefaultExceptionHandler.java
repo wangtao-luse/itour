@@ -31,14 +31,14 @@ public class DefaultExceptionHandler {
 	 * 后续根据不同的需求定制即可
 	 */
 	@ExceptionHandler({ Throwable.class })	
-	public String processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
+	public Object processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
 			Throwable ex) {
 		logger.error("DefaultExceptionHandler:", ex);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("exception",ex);
 		mv.setViewName("/error404");
 		
-		return "error/404";
+		return mv;
 
 		/*
 		 * if (!(request.getHeader("accept").indexOf("application/json") > -1 ||
