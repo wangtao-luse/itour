@@ -40,7 +40,7 @@ public ResponseMessage queryLoginList(RequestMessage requestMessage) {
 		
 		QueryWrapper<LoginList> queryWrapper = new QueryWrapper<LoginList>();
 		/**模糊查询**/
-		queryWrapper.likeRight(!StringUtils.isEmpty(loginList.getOauthId()), "OAUTH_ID", loginList.getOauthId());
+		queryWrapper.likeRight(!StringUtils.isEmpty(loginList.getOauthId()), "OAUTH_ID", loginList.getOauthId().trim());
 		/**精确查询**/
 		queryWrapper.eq(!StringUtils.isEmpty(loginList.getOauthType()), "OAUTH_TYPE", loginList.getOauthType());		
 		queryWrapper.eq(!StringUtils.isEmpty(loginList.getLoginIp()), "LOGIN_IP", loginList.getLoginIp());	
