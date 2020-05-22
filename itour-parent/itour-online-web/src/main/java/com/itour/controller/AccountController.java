@@ -71,7 +71,6 @@ public ResponseMessage checkEmail(@RequestParam(value = "email")String email,Htt
 	JSONObject jsonObject =new JSONObject();
 	jsonObject.put("type", "email");
 	jsonObject.put("regName", email);
-	System.out.println(1/0);
 	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
 	return checkRegName;
 }

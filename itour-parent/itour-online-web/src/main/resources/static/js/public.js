@@ -70,7 +70,7 @@ var postAjax = function(url,postData,successFunction,options){
 		}
 		
 		function showMessage(resultData) {
-		alert(resultData.description);
+		alert(resultData.resultMessage);
 		}
 		
 		

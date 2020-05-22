@@ -55,9 +55,6 @@ $("#form-email").keyup(function(){
  * 点击按钮进行验证显示验证码
  */
 $(".checkCode").click(function(){
-	 $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
-	 $(".taoValidate-wrap .itour-slide").removeClass("itour-slide-err");
-	 $(".itour-slide-btn").css({"left": (0) + "px"});
 	var email=$("#form-email").val();
 	if(email){
 		var iserror=$(".item-email-wrap").find("span").hasClass("error");
@@ -91,7 +88,12 @@ $("#step1-next").click(function(){
 	if(iserror){
 		return;
 	}else{	
-		
+		var mailcode=$("#mailCode").val();
+		if(null==mailcode||""==mailcode){
+			//显示错误信息	
+			showError($(".form-item-getcode .checkCode"),"form-account-error","请先进行验证！");
+			return;
+		}
 		checkEmailCode($("#mailCode").val());
 	}
 })
@@ -133,7 +135,7 @@ $("#form-account").keyup(function(){
 			//显示清除的图标
 			showClose($(this));
 			//显示错误信息	
-			showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，3-18个字符")
+			showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，3-18个字符");
 		}else{//校验成功
 			clearError($(this));
 			showsucess($(this));

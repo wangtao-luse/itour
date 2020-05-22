@@ -75,7 +75,7 @@ private LoginListMapper loginListMapper;
 	/**
 	 * 检查用户名、邮箱是否可用
 	 * @param requestMessage
-	 * @return
+	 * @return 返回认证表记录
 	 */
 	public ResponseMessage checkOauthId(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();

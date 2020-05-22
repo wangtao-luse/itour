@@ -16,7 +16,7 @@ import com.itour.common.resp.ResponseMessage;
  * @author wwang
  *
  */
-@Configuration
+//@Configuration
 public class ExceptionResolver implements HandlerExceptionResolver {
 
 	@Override

@@ -41,7 +41,10 @@ $(function(){
 			var code = data.resultCode;
 			var email = $("#form-email").val();
    		    if(code == '10'){//校验二维码成功
-   		    	
+   		    	$(".taoValidate-wrap .itour-slide-btn").css("display","none");
+   	   			$(".taoValidate-wrap .itour-slide-bar").css("width","360px");
+   	   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
+   	   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block");
 	   		 //校验email是否已经被注册
    		    	checkEmail(email);
    		    }else{
@@ -51,7 +54,7 @@ $(function(){
    		    	setTimeout(function () {
    		    	    //重置滑块图片和拖动按钮位置
    		    		resetlocation();
-   		    		//重置轨迹
+   		    		//重置蓝色(滑块滑动)轨迹
    			    	resetSlidBar();
    		    	}, 500);
    		    	//重新获取二维码
@@ -64,7 +67,7 @@ $(function(){
 		    	setTimeout(function () {
 		    	    // 这里就是处理的事件
 		    		resetlocation();
-		    		//重置轨迹
+		    		//重置蓝色(滑块滑动)轨迹
 			    	resetSlidBar();
 		    	}, 1000);
 		    	//重新获取二维码
@@ -161,7 +164,7 @@ var timer = function(){
 	
 }
 /**
- * 重置轨迹
+ * 重置蓝色(滑块滑动)轨迹
  * @returns
  */
 function resetSlidBar(){
@@ -177,11 +180,7 @@ function checkEmail(email){
 	//校验邮箱是否可用
    	url="/account/checkEmail";
    	postData={"email":email};
-   	postAjax(url,postData,function(data){
-   			$(".taoValidate-wrap .itour-slide-btn").css("display","none");
-   			$(".taoValidate-wrap .itour-slide-bar").css("width","360px");
-   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
-   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block");
+   	postAjax(url,postData,function(data){   			
    			setTimeout(function () {
    			//发送验证码
    	   			sendCode(email);
@@ -190,14 +189,39 @@ function checkEmail(email){
    	},{errorFunction:function(data){
    	 //隐藏验证码浮出框
 			hiddeCode();
+			//重置蓝色(滑块滑动)轨迹
+			resetSlidBar();
+			//显示滑块到初始位置
+			showSliderBtn();
+			//将错误信息显示到emial文本框下
 			var errormsg=data.resultMessage;
-			$(".item-email-wrap .input-tip").find("span").addClass("error").attr("id","form-account-error").html("<i class='i-error'></i>"+errormsg);
+			showtipErrorMsg($(".item-email-wrap .input-tip"),"form-account-error",errormsg);
+			$(".checkCode").trigger("click");
    	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"});
    
    
 	    	
 }
-
+/**
+ * 显示错误 信息
+ * @param $this 元素节点
+ * @param id    元素节点的id
+ * @param msg   错误信息
+ * @returns
+ */
+function showtipErrorMsg($this,id,msg){
+	$this.find("span").addClass("error").attr("id",id).html("<i class='i-error'></i>"+msg);
+}
+/**
+ * 显示滑块到初始位置
+ * @returns
+ */
+function showSliderBtn(){
+	$(".itour-slide-btn").css({"left": (0) + "px"});
+	$(".taoValidate-wrap .itour-slide-btn").css("display","block");
+	$(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+	$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("");
+}
 /**
  * 发送验证码
  * @returns
@@ -218,8 +242,10 @@ function sendCode(email){
 	   	}, {errorFunction:function(data){
 	        //调整拖动按钮位置
 	    	resetlocation();
-	    	//重置轨迹样式
+	    	//重置(蓝色)轨迹样式
     	   resetSlidBar();
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
 }
+
+

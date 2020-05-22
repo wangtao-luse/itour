@@ -35,20 +35,27 @@ public class ImageCodeController {
 
 	@RequestMapping(value = "/getVerifyImage", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ResponseMessage VerifyImage(HttpServletRequest request) throws IOException {
-	    Map<String, Object> resultMap = new HashMap<>();
-	    //读取本地路径下的图片,随机选一条
-	    String path = this.getClass().getResource("/static/img/code").getPath();
-	    File file = new File(path);
-	    File[] files = file.listFiles();
-	    int n = new Random().nextInt(files.length);
-	    File imageUrl = files[n];
-	    VerifyImage verifyImage = VerifyImageUtil.getVerifyImage(imageUrl);		
-	    resultMap.put("verifyImage", verifyImage);
-	    resultMap.put("errcode", "10");
-	    resultMap.put("errmsg", "success");
-	    //用于校验验证码
-	    request.getSession().setAttribute("xWidth", verifyImage.getxPosition());
+	public ResponseMessage VerifyImage(HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<>();
+		try {		
+		    //读取本地路径下的图片,随机选一条
+		    String path = this.getClass().getResource("/static/img/code").getPath();
+		    File file = new File(path);
+		    File[] files = file.listFiles();
+		    int n = new Random().nextInt(files.length);
+		    File imageUrl = files[n];
+			
+				VerifyImage verifyImage = VerifyImageUtil.getVerifyImage(imageUrl);
+				 resultMap.put("verifyImage", verifyImage);
+				 resultMap.put("errcode", "10");
+				 resultMap.put("errmsg", "success");
+			    //用于校验验证码
+			    request.getSession().setAttribute("xWidth", verifyImage.getxPosition());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	   
 	    return new ResponseMessage(resultMap);
 	}
 	

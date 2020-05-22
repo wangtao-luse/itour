@@ -1,5 +1,6 @@
 package com.itour.exception.handler;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ import com.itour.entity.ResponseEntity;
  *
  */
 
-@ControllerAdvice
+//@ControllerAdvice
 public class DefaultExceptionHandler {
 	protected Logger logger = LoggerFactory.getLogger(DefaultExceptionHandler.class);
 
@@ -31,45 +32,12 @@ public class DefaultExceptionHandler {
 	 * 后续根据不同的需求定制即可
 	 */
 	@ExceptionHandler({ Throwable.class })	
-	public Object processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
+	public ModelAndView processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
 			Throwable ex) {
-		logger.error("DefaultExceptionHandler:", ex);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("exception",ex);
-		mv.setViewName("/error404");
-		
-		return mv;
-
-<<<<<<< HEAD
-		if (isAjax(request)) {
-			// 根据不同错误转向不同页面
-			ResponseEntity responseEntity = ResponseEntity.from(ex);
-			ModelAndView mv = new ModelAndView();
-			mv.addObject("error", ex);
-			mv.setViewName("/error/404");
-			return mv;
-		}
-=======
-		/*
-		 * if (!(request.getHeader("accept").indexOf("application/json") > -1 ||
-		 * (request.getHeader("X-Requested-With") != null &&
-		 * request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) { //
-		 * 根据不同错误转向不同页面 ResponseEntity responseEntity = ResponseEntity.from(ex);
-		 * ModelAndView mv = new ModelAndView(); mv.addObject("error", responseEntity);
-		 * mv.setViewName(responseEntity.getCallbackUrl()); return mv; } else {
-		 * PrintWriter out = null; try { ResponseEntity responseEntity =
-		 * ResponseEntity.from(ex); String jsonStr =
-		 * JsonUtil.pojo2JsonStr(responseEntity);
-		 * response.setContentType("text/json;charset=UTF-8"); out =
-		 * response.getWriter(); out.print(jsonStr); out.flush(); } catch (IOException
-		 * e) { ModelAndView mv = new ModelAndView(); mv.addObject("error", e);
-		 * mv.setViewName("cmdty/error/exception"); } return null; }
-		 */
 		
 		
->>>>>>> a118f0f15c679aba2fc54415761c5a727ce57fdf
 		
-		
+		return null;
 	}
 	/**
 	 * 判断请求是否是Ajax异步请求方式
@@ -81,5 +49,9 @@ public class DefaultExceptionHandler {
 		//request.getHeader("X-Requested-With")为 null，则为传统同步请求，
 	    //为 XMLHttpRequest，则为 Ajax 异步请求。		
 		return header!=null&&"X-Requested-With".equals(header);
+	}
+	public static boolean isAcceptJson(HttpServletRequest request) {
+		String header = request.getHeader("accept");
+		return header.equals("application/json");
 	}
 }
