@@ -21,6 +21,7 @@ import com.itour.model.account.Oauth;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.Base64Util;
+import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 /**
  * <p>
@@ -81,7 +82,7 @@ private LoginListMapper loginListMapper;
 		try {
 			 String regName = requestMessage.getBody().getContent().getString("regName");
 			 String type = requestMessage.getBody().getContent().getString("type");
-			 if(StringUtils.isEmpty(regName)||StringUtils.isEmpty(type)) {
+			 if(StringUtils.isEmpty(regName)||StringUtils.isEmpty(type)) {				 
 				 throw new BaseException(ExceptionInfo.EXCEPTION_ISEMPTY);
 			 }
 			 
@@ -94,7 +95,12 @@ private LoginListMapper loginListMapper;
 			queryWrapper.eq("OAUTH_ID", regName);			
 			List<Oauth> selectList = this.baseMapper.selectList(queryWrapper);			
 			if(null!=selectList&&selectList.size()>0) {
-				throw new BaseException(ConstantMessage.REGNAME_ERROR);
+				if(ConstAccount.EMAIL.equals(type)) {
+					throw new BaseException(ConstantMessage.REGEMAIL_ERROR);
+				}else if(ConstAccount.UNAME.equals(type)) {
+					throw new BaseException(ConstantMessage.REGNAME_ERROR);
+				}
+				
 			}
 			responseMessage.setReturnResult(selectList);
 		}catch (BaseException e) {

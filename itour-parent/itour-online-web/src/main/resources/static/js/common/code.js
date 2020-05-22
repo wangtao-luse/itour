@@ -178,8 +178,6 @@ function checkEmail(email){
    	url="/account/checkEmail";
    	postData={"email":email};
    	postAjax(url,postData,function(data){
-   		var code = data.resultCode;
-   		if(code=='10'){//校验成功
    			$(".taoValidate-wrap .itour-slide-btn").css("display","none");
    			$(".taoValidate-wrap .itour-slide-bar").css("width","360px");
    			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
@@ -188,16 +186,13 @@ function checkEmail(email){
    			//发送验证码
    	   			sendCode(email);
 		    	}, 500);
-		    	
-   			
-   		}else{//校验失败
-   		   //隐藏验证码浮出框
-   			hiddeCode();
-   			var errormsg=data.resultMessage;
-   			$(".item-email-wrap .input-tip").find("span").addClass("error").attr("id","form-account-error").html("<i class='i-error'></i>"+errormsg);
-   			
-   		}
-   	},{cache: false, async: false,contentType:"application/x-www-form-urlencoded"});
+		
+   	},{errorFunction:function(data){
+   	 //隐藏验证码浮出框
+			hiddeCode();
+			var errormsg=data.resultMessage;
+			$(".item-email-wrap .input-tip").find("span").addClass("error").attr("id","form-account-error").html("<i class='i-error'></i>"+errormsg);
+   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"});
    
    
 	    	

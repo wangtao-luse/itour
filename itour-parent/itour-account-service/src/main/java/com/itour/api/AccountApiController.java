@@ -33,6 +33,7 @@ public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
 @RequestMapping("/checkOauthId")
 public ResponseMessage checkOauthId(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
+	System.out.println(1/0);
 	return oauthService.checkOauthId(requestMessage);
 }
 

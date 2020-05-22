@@ -36,12 +36,13 @@ public class DefaultExceptionHandler {
 			Throwable ex) {
 		logger.error("DefaultExceptionHandler:", ex);
 
-		if (!(request.getHeader("accept").indexOf("application/json") > -1
-				|| (request.getHeader("X-Requested-With") != null
-						&& request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+		if (isAjax(request)) {
 			// 根据不同错误转向不同页面
 			ResponseEntity responseEntity = ResponseEntity.from(ex);
 			ModelAndView mv = new ModelAndView();
+			mv.addObject("error", ex);
+			mv.setViewName("/error/404");
+			return mv;
 		}
 		
 		return null;
