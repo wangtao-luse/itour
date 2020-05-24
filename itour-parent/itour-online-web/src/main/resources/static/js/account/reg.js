@@ -74,6 +74,7 @@ $(".suggest-container.email-suggest li").click(function(){
 	var v = $(this).text();
 	$("#form-email").val(v);
 	$(".suggest-container.email-suggest").css("display","none");
+	$("#form-email").trigger("blur");
 });
 /**
  * 点击按钮进行验证显示验证码
