@@ -51,7 +51,7 @@ public class WebLogApplication {
                // 设置缓存过期时间为S
                .expireAfterWrite(3, TimeUnit.SECONDS)
                .build();
-    @Pointcut("execution(public * com.ibeer.online.controller..*.*(..))")
+    @Pointcut("execution(public * com.itour.controller..*.*(..))")
     public void webLog() {
     }
  

@@ -50,7 +50,8 @@
     <!--  reg-steps begin -->
     <div class="main ">
         <div class="reg-form">
-            <form action="" id="register-form" method="POST" novalidate="novalidate">               
+            <form action="" id="register-form" method="POST" novalidate="novalidate">
+                    <input type="hidden" name="uuid" id="uuid" value="${uuid}">       
                 <div id="step1-wrap">
                   <!--   <div class="item-phone-wrap" style="display: none;">
                         <div class="form-item form-item-phone">
@@ -66,12 +67,12 @@
                         </div>
                     </div> -->
                     <div class="item-email-wrap">
-                        <div class="form-item form-item-email">
+                        <div class="form-item form-item-email" style=" z-index: 12;">
                             <label>邮 箱 验 证</label>
                             <input type="text" name="email" id="form-email" class="field" autocomplete="off" maxlength="50" placeholder="请输入邮箱" default="&lt;i class='i-def'&gt;&lt;/i&gt;验证完成后，你可以使用该邮箱登录">
                             <i class="i-status"></i>
                             <i class="i-cancel"></i>                            
-	                        <ul class="suggest-container email-suggest">
+	                        <ul class="suggest-container email-suggest" style="display:none">
 		                        <li class=""><div class="value">\@qq.com</div></li>
 		                        <li class=""><div class="value">\@163.com</div></li>
 		                        <li class=""><div class="value">\@126.com</div></li>

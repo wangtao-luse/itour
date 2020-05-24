@@ -1101,7 +1101,7 @@ body {
 .item-email-wrap {
 	height: 86px;
 	position: relative;
-	z-index: 2
+	z-index: 1000
 }
 
 .item-email-wrap .orPhone {

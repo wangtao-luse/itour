@@ -1,19 +1,16 @@
 package com.itour.exception.handler;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.itour.entity.ResponseEntity;
 
 
 
@@ -23,7 +20,7 @@ import com.itour.entity.ResponseEntity;
  *
  */
 
-//@ControllerAdvice
+@ControllerAdvice
 public class DefaultExceptionHandler {
 	protected Logger logger = LoggerFactory.getLogger(DefaultExceptionHandler.class);
 
@@ -31,13 +28,22 @@ public class DefaultExceptionHandler {
 	 * <p/>
 	 * 后续根据不同的需求定制即可
 	 */
+	@ResponseBody
 	@ExceptionHandler({ Throwable.class })	
 	public ModelAndView processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
 			Throwable ex) {
+		String header = request.getHeader("X-Requested-With");
+		String accep = request.getHeader("accept");
+		if(this.isAjax(request)) {//ajax请求
+			return null;
+		}else {//普通请求
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("/exception");
+			
+			return mv;
+		}
 		
-		
-		
-		return null;
 	}
 	/**
 	 * 判断请求是否是Ajax异步请求方式

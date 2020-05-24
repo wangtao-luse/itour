@@ -40,38 +40,30 @@ $(function(){
 		postAjax(url,postData,function(data){
 			var code = data.resultCode;
 			var email = $("#form-email").val();
-   		    if(code == '10'){//校验二维码成功
+   		    //校验二维码成功
    		    	$(".taoValidate-wrap .itour-slide-btn").css("display","none");
    	   			$(".taoValidate-wrap .itour-slide-bar").css("width","360px");
    	   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
-   	   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block");
-	   		 //校验email是否已经被注册
-   		    	checkEmail(email);
-   		    }else{
-   		    	//失败样式
-   		    	$(".taoValidate-wrap .itour-slide").addClass("itour-slide-err");
-   		    	//调整拖动按钮位置
-   		    	setTimeout(function () {
-   		    	    //重置滑块图片和拖动按钮位置
-   		    		resetlocation();
-   		    		//重置蓝色(滑块滑动)轨迹
-   			    	resetSlidBar();
-   		    	}, 500);
-   		    	//重新获取二维码
-   		    	$(".checkCode").trigger("click");
-   		    	
-   		    }
+   	   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block"); 
+	   	   		setTimeout(function () {
+	   	   		 $(".slide-authCode-wraper").css("display","none");
+	   	   	//校验email是否已经被注册
+	   		     checkEmail(email);
+	   	   		}, 500);
+	   	   	 
+   		    
 	   	}, {errorFunction:function(data){
 	   		$(".taoValidate-wrap .itour-slide").addClass("itour-slide-err");
-		    	//调整拖动按钮位置
-		    	setTimeout(function () {
-		    	    // 这里就是处理的事件
+			    	//调整拖动按钮位置
+			    setTimeout(function () {
+		    	    // 重置滑块图片和拖动按钮位置
 		    		resetlocation();
 		    		//重置蓝色(滑块滑动)轨迹
 			    	resetSlidBar();
-		    	}, 1000);
-		    	//重新获取二维码
-   		    	$(".checkCode").trigger("click");
+			    	//重新获取二维码
+	   		    	$(".checkCode").trigger("click");
+		    	}, 500);
+		    	
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
 		
@@ -121,7 +113,7 @@ function hideCodeAndInput(){
     	
 }
 /**
- * 隐藏图片验证码浮出层
+ * 隐藏验证码浮出框
  * @returns
  */
 function hiddeCode(){
@@ -181,13 +173,11 @@ function checkEmail(email){
    	url="/account/checkEmail";
    	postData={"email":email};
    	postAjax(url,postData,function(data){   			
-   			setTimeout(function () {
    			//发送验证码
-   	   			sendCode(email);
-		    	}, 500);
+   	   		sendCode(email);
 		
    	},{errorFunction:function(data){
-   	 //隐藏验证码浮出框
+   	      //隐藏验证码浮出框
 			hiddeCode();
 			//重置蓝色(滑块滑动)轨迹
 			resetSlidBar();
@@ -197,7 +187,7 @@ function checkEmail(email){
 			var errormsg=data.resultMessage;
 			showtipErrorMsg($(".item-email-wrap .input-tip"),"form-account-error",errormsg);
 			$(".checkCode").trigger("click");
-   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"});
+   	},cache: false, async:true,contentType:"application/x-www-form-urlencoded"});
    
    
 	    	
@@ -245,7 +235,7 @@ function sendCode(email){
 	    	//重置(蓝色)轨迹样式
     	   resetSlidBar();
 	   		console.log(data.resultMessage);
-	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
+	   	},cache: false, async: true,contentType:"application/x-www-form-urlencoded"}); 
 }
 
 

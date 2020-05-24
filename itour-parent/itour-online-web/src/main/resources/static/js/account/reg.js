@@ -7,6 +7,8 @@ $(function(){
 $("#form-email").focus(function(){
 	showDefault($(this));
 	
+	
+	
 });
 /**
  * 校验email
@@ -14,7 +16,7 @@ $("#form-email").focus(function(){
  * 校验失败提示错误信息
  */
 $("#form-email").blur(function(){
-	var email=$(this).val();
+	var email=$(this).val();	
 	if(test_email(email)){//校验通过
 		hideClose($(this));
 		showsucess($(this));
@@ -31,6 +33,9 @@ $("#form-email").blur(function(){
 $("#form-email").keyup(function(){
 	var email = $(this).val();
 	if(email){//不为空
+		//显示email推荐
+		showEmailSuggest(email);
+			
 		if(!test_email(email)){//校验失败
 			//隐藏成功图标
 			hideSucess($(this));
@@ -44,6 +49,7 @@ $("#form-email").keyup(function(){
 			hideClose($(this));
 		}
 	}else{//为空
+		$(".suggest-container.email-suggest").css("display","none");
 		//隐藏清除的图标
 		hideClose($(this));
 		//显示默认的提示信息(需要先清楚错误信息)
@@ -51,10 +57,29 @@ $("#form-email").keyup(function(){
 		showDefault($(this));
 	}
 });
+
+function showEmailSuggest(email){
+	$(".suggest-container.email-suggest").css("display","block");
+	var arr = $(".suggest-container.email-suggest").find(".value");
+	for (var i = 0; i < arr.length; i++) {
+		var start =$(arr[i]).text().lastIndexOf("@");
+		 var  suffix =$(arr[i]).text().substring(start);
+		 $(arr[i]).text("");		 
+		 $(arr[i]).text(email.trim()+suffix);
+		
+	}
+	
+}
+$(".suggest-container.email-suggest li").click(function(){
+	var v = $(this).text();
+	$("#form-email").val(v);
+	$(".suggest-container.email-suggest").css("display","none");
+});
 /**
  * 点击按钮进行验证显示验证码
  */
 $(".checkCode").click(function(){
+	showSliderBtn();
 	var email=$("#form-email").val();
 	if(email){
 		var iserror=$(".item-email-wrap").find("span").hasClass("error");
@@ -73,6 +98,7 @@ $(".checkCode").click(function(){
         		 //滑动小图片的纵坐标
         		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
         		 //显示验证码浮出层
+        		 $(".form-item-getcode").css("z-index","1001")
         		 $(".slide-authCode-wraper").css("display","block");
         	}, {errorFunction:function(data){
         		alert(data.resultMessage);
@@ -80,6 +106,17 @@ $(".checkCode").click(function(){
 		}
 	}
 });
+/**
+ * 显示滑块到初始位置
+ * @returns
+ */
+function showSliderBtn(){
+	$(".itour-slide-btn").css({"left": (0) + "px"});
+	$(".taoValidate-wrap .itour-slide-btn").css("display","block");
+	$(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+	$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("");
+	$(".taoValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
+}
 /**
  * 注册下一步按钮
  */

@@ -1,10 +1,14 @@
 package com.itour.controller;
 
+import java.nio.channels.FileChannel.MapMode;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +29,11 @@ public class AccountController {
 	 * @return 注册页面
 	 */
 @RequestMapping("/reg")
-public String reg() {
+public String reg(HttpServletRequest request,ModelMap model) {
+	//生成UUID(相当于一个令牌)
+    String randomUUID = UUID.randomUUID().toString();
+    request.getSession().setAttribute("uuid", randomUUID);
+   model.addAttribute("uuid", randomUUID);
 	return "account/register-person";
 }
 /**
@@ -43,6 +51,11 @@ public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequ
 	       oauth.setCredential(jsonObject.getString("kl"));
 	       oauth.setNickname(jsonObject.getString("regName"));
 	       tmpJson.put("vo", oauth);
+	       Object oraginuid = request.getSession().getAttribute("uuid");
+	       String uuid = jsonObject.getString("uuid");
+	       if(uuid.equals(oraginuid.toString())) {
+	    	   return ResponseMessage.getFailed("请不要重复提交");
+	       }
 	ResponseMessage regSub = this.accountConnector.regSub(tmpJson,request);	
 	return regSub;
 }
