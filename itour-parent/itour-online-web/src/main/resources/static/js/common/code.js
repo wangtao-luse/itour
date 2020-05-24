@@ -172,7 +172,11 @@ function checkEmail(email){
 	//校验邮箱是否可用
    	url="/account/checkEmail";
    	postData={"email":email};
-   	postAjax(url,postData,function(data){   			
+   	postAjax(url,postData,function(data){  
+     	//隐藏图片验证码按钮
+ 		  hideCheckInput();
+   	      //显示验证码文本框
+	 	   showEmailCodeInput();
    			//发送验证码
    	   		sendCode(email);
 		
@@ -222,12 +226,12 @@ function sendCode(email){
 	    //发送验证码
    	    postData={"email":email};
 	 	postAjax("/msg/sendCodetoEmail",postData,function(data){
-	 		//隐藏图片验证码按钮
-	 		hideCheckInput();
+	 		
 	 	    //重发验证码倒计时
 	 	     timer120();
-	 	    //显示验证码文本框
-	 	   showEmailCodeInput();
+	 	   
+	 	   //清楚错误信息
+	 	 $(".item-getcode-wrap").find(".input-tip").html("<span></span>");
 	 	
 	   	}, {errorFunction:function(data){
 	        //调整拖动按钮位置
