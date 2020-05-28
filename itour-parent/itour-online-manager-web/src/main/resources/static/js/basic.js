@@ -132,3 +132,38 @@ function getInitDialogOptions(modelTitle,url,mainBtnId,newOptions){
 	return options;
 	
 }
+//清楚查询条件
+function clearFunction(node) {
+    var clearNode = $("#" + node);
+    clearNode.find('input').not("input[readonly]").not("input[type='checkbox']").not("input[type='radio']").val('');
+    clearNode.find('.combo-text').val('');
+    var selectNodes = clearNode.find('select');
+    $.each(selectNodes, function (index, value) {
+        $(this).find("option:eq(0)").attr("selected", true)
+    });
+    clearNode.find('input:checkbox').prop("checked", false);
+    clearNode.find('select[name="sort"]').attr('disabled', true);
+    var radioNode = clearNode.find('input:radio');
+    if (radioNode && radioNode.length > 1) {
+        var listFlagNode = clearNode.find("input:radio[name='listFlag']");
+        var dingXiangFlag = clearNode.find("input:radio[name='customerNameFlag']");
+        var paidStatusFlag = clearNode.find("input:radio[name='paidStatus']");
+        var roadPackageTypeFlag = clearNode.find("input:radio[name='roadPackageType']");
+        if (listFlagNode && listFlagNode.length > 1) {
+            $(listFlagNode.get(0)).prop("checked", true);
+            $(listFlagNode.get(0)).val("1")
+        }
+        if (roadPackageTypeFlag && roadPackageTypeFlag.length > 1) {
+            $(roadPackageTypeFlag.get(0)).prop("checked", true);
+            $(roadPackageTypeFlag.get(0)).val("0")
+        }
+        if (dingXiangFlag && dingXiangFlag.length > 1) {
+            $(dingXiangFlag.get(0)).prop("checked", true);
+            $(dingXiangFlag.get(0)).val("")
+        }
+        if (paidStatusFlag && paidStatusFlag.length > 1) {
+            $(paidStatusFlag.get(0)).prop("checked", true);
+            $(paidStatusFlag.get(0)).val("")
+        }
+    }
+}
