@@ -30,11 +30,7 @@
 		<artifactId>itour-common</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
-	<!--分页插件 pageHelper -->
-			<dependency>
-			    <groupId>com.github.pagehelper</groupId>
-			    <artifactId>pagehelper</artifactId>
-			</dependency>
+	
 	<dependency>
 			    <groupId>com.baomidou</groupId>
 			    <artifactId>mybatis-plus-boot-starter</artifactId>
