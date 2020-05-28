@@ -1,11 +1,13 @@
 package com.itour.controller;
 
-import java.nio.channels.FileChannel.MapMode;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AccountConnector;
+import com.itour.constant.Constant;
+import com.itour.constant.ExceptionInfo;
+import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
 
 @Controller
@@ -104,10 +109,38 @@ public String login() {
  * @param request
  * @return
  */
-	@ResponseBody
 	@RequestMapping("/loginSub")
+	@ResponseBody
 public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	ResponseMessage loginSub = this.accountConnector.loginSub(jsonObject, request);
-	return loginSub;
+		try {
+			String username = jsonObject.getString("username");
+			String password = jsonObject.getString("password");
+			
+			Subject currentUser = SecurityUtils.getSubject();
+			if(!currentUser.isAuthenticated()) {
+				UsernamePasswordToken upt = new UsernamePasswordToken(username, password);
+				upt.setRememberMe(true);
+				try {
+					currentUser.login(upt);
+				}catch (BaseException e) {
+					// TODO: handle exception
+					e.printStackTrace();
+					return ResponseMessage.getFailed(e.getMessage());
+				}
+				catch (AuthenticationException e) {
+					// TODO: handle exception
+					e.printStackTrace();
+					return ResponseMessage.getFailed(e.getMessage());
+					
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		
+	return ResponseMessage.getSucess();
 }
 }
