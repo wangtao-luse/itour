@@ -167,3 +167,16 @@ function clearFunction(node) {
         }
     }
 }
+
+
+function initWestTree(url,treeNode,newOptions){
+	var successOptions = {treeNode: treeNode, newOptions: newOptions};
+	postAjax(url,null,createWestTree,{successArguments: successOptions, type: 'get', async: false})
+}
+function createWestTree(data,successOptions){
+	var options ={data:data.returnResult, parentField: 'pid'};
+	 $.extend(options, successOptions.newOptions);
+	 //生成tree
+	 successOptions.treeNode.tree(options);
+	
+}

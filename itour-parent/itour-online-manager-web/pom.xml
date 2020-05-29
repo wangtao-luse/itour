@@ -35,6 +35,11 @@
 			    <groupId>com.baomidou</groupId>
 			    <artifactId>mybatis-plus-boot-starter</artifactId>
 			</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-model</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>itour-online-manager-web</finalName>

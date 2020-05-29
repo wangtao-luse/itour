@@ -43,11 +43,18 @@ var postAjax = function(url,postData,successFunction,options){
     	},
     	success:function(resultData){
     		parent.$.messager.progress('close');
+    		
     		if(resultData&&isSuccess(resultData)){
-    			successFunction(resultData);
-    			returnData=resultData;
-    		}else{
+    			if(currentOptions&&currentOptions.successArguments){
+    				successFunction(resultData,currentOptions.successArguments);
+        			returnData=resultData;
+    			}else{
+    				successFunction(resultData);
+        			returnData=resultData;
+    			}
     			
+    		}else{
+    			 parent.$.messager.progress('close');
     			defaultOptions.errorFunction(resultData);
     			
     		}

@@ -3,6 +3,8 @@ package com.itour.service;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.req.RequestMessage;
+import com.itour.common.resp.ResponseMessage;
 import com.itour.model.account.Role;
 import com.itour.persist.RoleMapper;
 
@@ -17,4 +19,9 @@ import com.itour.persist.RoleMapper;
 @Service
 public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
+public ResponseMessage getMenuList(RequestMessage requestMessage) {
+	return null;
+	
+}
+	
 }

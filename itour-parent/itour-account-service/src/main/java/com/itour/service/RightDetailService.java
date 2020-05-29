@@ -1,7 +1,8 @@
 package com.itour.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.model.account.RightDetail;
+import com.itour.persist.RightDetailMapper;
 
 /**
  * <p>
@@ -11,6 +12,6 @@ import com.itour.model.account.RightDetail;
  * @author wangtao
  * @since 2020-05-28
  */
-public interface RightDetailService extends IService<RightDetail> {
+public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDetail>{
 
 }

@@ -1,7 +1,8 @@
 package com.itour.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.model.account.RoleGroup;
+import com.itour.persist.RoleGroupMapper;
 
 /**
  * <p>
@@ -11,6 +12,6 @@ import com.itour.model.account.RoleGroup;
  * @author wangtao
  * @since 2020-05-28
  */
-public interface RoleGroupService extends IService<RoleGroup> {
+public class RoleGroupService extends ServiceImpl<RoleGroupMapper,RoleGroup> {
 
 }

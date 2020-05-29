@@ -1,7 +1,11 @@
 package com.itour.persist;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itour.model.account.Right;
+
+import feign.Param;
 
 /**
  * <p>
@@ -12,5 +16,5 @@ import com.itour.model.account.Right;
  * @since 2020-05-28
  */
 public interface RightMapper extends BaseMapper<Right> {
-
+	public List<Right> getMenuList(@Param("uid") String uid);
 }
