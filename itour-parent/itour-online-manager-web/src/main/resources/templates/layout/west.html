@@ -1,13 +1,15 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
 <script type="text/javascript">
 $(function(){
 	console.log("inittree");
 	var url="/getMenuList";
 	initWestTree(url,$("#layout_west_tree"),{});
+	
 });
 
 </script>
-<style>
+<!-- <style>
 	#layout_west_tree .tree-node{height:30px;}
 	#layout_west_tree .tree-title{padding:0 2px;height:30px;line-height:30px}
 	#layout_west_tree .tree-folder{display:none;}
@@ -30,32 +32,32 @@ $(function(){
         margin-top:7px;
 	}
 	#layout_west_tree .accordion .accordion-header-selected .panel-title{color:#A80D0D}
-</style>
+</style> -->
  <div>
  	<div class="menu-left">
-	  <ul class="easyui-tree" id="layout_west_tree">
-		<!-- <li>
+	  <ul class="layout_west_tree easyui-tree" id="layout_west_tree">
+		<!-- <li data-options="state:'closed'">
 		  <span>权限管理</span>
 		  <ul>
-			<li data-options="state:'closed'"><span>组管理</span></li>
-			<li data-options="state:'closed'"><span>角色管理</span></li>
-			<li data-options="state:'closed'"><span>权限管理</span></li>				
+			<li ><span>组管理</span></li>
+			<li ><span>角色管理</span></li>
+			<li ><span>权限管理</span></li>				
 	      </ul>
 		</li>
-		<li data-options="state:'closed'">
-		  <span>会员管理</span>
+		<li data-options="state:'closed'" >
+		  <span>用户管理</span>
 		  <ul>
-			<li data-options="state:'closed'"><span>会员查询</span></li>
-			<li data-options="state:'closed'"><span>登录记录</span></li>
+			<li ><span>用户查询</span></li>
+			<li ><span>登录记录</span></li>
 	      </ul>
 		</li>
-		<li data-options="state:'closed'">
+		<li data-options="state:'closed'" >
 		  <span>评论管理</span>
 		  <ul>
-			<li data-options="state:'closed'"><span>评论查询</span></li>
+			<li ><span>评论查询</span></li>
 	      </ul>
-		</li>
- -->	  </ul>
+		</li> -->
+ 	  </ul>
   </div>
  </div>
   

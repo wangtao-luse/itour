@@ -168,13 +168,13 @@ function clearFunction(node) {
     }
 }
 
-
+//生成左侧菜单
 function initWestTree(url,treeNode,newOptions){
 	var successOptions = {treeNode: treeNode, newOptions: newOptions};
 	postAjax(url,null,createWestTree,{successArguments: successOptions, type: 'get', async: false})
 }
 function createWestTree(data,successOptions){
-	var options ={data:data.returnResult, parentField: 'pid'};
+	var options ={data:data.returnResult.result};
 	 $.extend(options, successOptions.newOptions);
 	 //生成tree
 	 successOptions.treeNode.tree(options);

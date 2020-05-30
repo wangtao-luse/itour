@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.common.resp.ResponseMessage;
@@ -45,9 +46,54 @@ public ResponseMessage getMenuList(@RequestBody(required = false) JSONObject jso
 		      right2.setMenuType("1");
 		      right2.setParentId(1);
 		      list.add(right2);
-		      Page page = new Page<Right>();
-		      page.setRecords(list);
-		      responseMessage.setReturnResult(page);
+		      JSONArray jarr = new JSONArray();
+		      
+		      JSONObject json1 = new JSONObject();
+		      json1.put("id", "1");
+		      json1.put("text", "权限管理");
+		      
+		      JSONArray child = new JSONArray();
+		      JSONObject child1 = new JSONObject();
+		      child1.put("id", "2");		      
+		      child1.put("checked", true);
+		      child1.put("text", "组管理");
+		      child.add(child1);
+		      json1.put("children", child);
+		      jarr.add(json1);
+		      String str="[\r\n" + 
+		      		"  {\r\n" + 
+		      		"    \"children\": [\r\n" + 
+		      		"      {\r\n" + 
+		      		"        \"text\": \"组管理\"\r\n" + 
+		      		"      },\r\n" + 
+		      		"      {\r\n" + 
+		      		"        \"text\": \"角色管理\"\r\n" + 
+		      		"      },\r\n" + 
+		      		"      {\r\n" + 
+		      		"        \"text\": \"权限管理\"\r\n" + 
+		      		"      }\r\n" + 
+		      		"    ],\r\n" + 
+		      		"    \"text\": \"权限管理\",\r\n" + 
+		      		"    \"state\": \"closed\"\r\n" + 
+		      		"  },\r\n" + 
+		      		"  {\r\n" + 
+		      		"    \"children\": [\r\n" + 
+		      		"      {\r\n" + 
+		      		"        \"text\": \"会员查询\"\r\n" + 
+		      		"      },\r\n" + 
+		      		"      {\r\n" + 
+		      		"        \"text\": \"会员登录记录\"\r\n" + 
+		      		"      },\r\n" + 
+		      		"      {\r\n" + 
+		      		"        \"text\": \"会员审核\"\r\n" + 
+		      		"      }\r\n" + 
+		      		"    ],\r\n" + 
+		      		"    \"text\": \"会员管理\",\r\n" + 
+		      		"    \"state\": \"open\"\r\n" + 
+		      		"  }\r\n" + 
+		      		"]";
+		      JSONArray parseArray = JSONObject.parseArray(str);
+		      responseMessage.setReturnResult(parseArray);
 	return responseMessage;
 }
 }
