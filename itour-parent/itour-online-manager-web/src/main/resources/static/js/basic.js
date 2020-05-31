@@ -171,6 +171,11 @@ function clearFunction(node) {
 //生成左侧菜单
 function initWestTree(url,treeNode,newOptions){
 	var successOptions = {treeNode: treeNode, newOptions: newOptions};
+	var options={
+			onClick:function(node){
+				
+			}	
+	}
 	postAjax(url,null,createWestTree,{successArguments: successOptions, type: 'get', async: false})
 }
 function createWestTree(data,successOptions){
