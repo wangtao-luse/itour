@@ -25,6 +25,9 @@
     <module>itour-msg-api</module>
     <module>itour-msg-persist</module>
     <module>itour-msg-service</module>
+    <module>itour-member-persist</module>
+    <module>itour-member-api</module>
+    <module>itour-member-service</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
