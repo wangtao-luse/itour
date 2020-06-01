@@ -319,6 +319,7 @@
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
                 <server.msg.port>9097</server.msg.port>
+                <server.member.port>9098</server.member.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -357,6 +358,7 @@
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
                  <server.msg.port>9097</server.msg.port>
+                 <server.member.port>9098</server.member.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -394,7 +396,8 @@
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
-                 <server.msg.port>9097</server.msg.port>
+                <server.msg.port>9097</server.msg.port>
+                <server.member.port>9098</server.member.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -433,6 +436,7 @@
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
                  <server.msg.port>9097</server.msg.port>
+                 <server.member.port>9098</server.member.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
