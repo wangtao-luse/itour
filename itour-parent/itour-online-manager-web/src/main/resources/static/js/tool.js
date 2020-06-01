@@ -40,9 +40,10 @@ var postAjax = function(url,postData,successFunction,options){
         async: currentOptions.async,
     	beforeSend:function(){
     		$.messager.progress({title: '提示', text: '数据处理中，请稍候....'});
+    		
     	},
     	success:function(resultData){
-    		parent.$.messager.progress('close');
+    		$.messager.progress('close');
     		
     		if(resultData&&isSuccess(resultData)){
     			if(currentOptions&&currentOptions.successArguments){
@@ -54,7 +55,7 @@ var postAjax = function(url,postData,successFunction,options){
     			}
     			
     		}else{
-    			 parent.$.messager.progress('close');
+    			 $.messager.progress('close');
     			defaultOptions.errorFunction(resultData);
     			
     		}
@@ -63,7 +64,7 @@ var postAjax = function(url,postData,successFunction,options){
     		
     	},
     	error:function(resultData){
-    		parent.$.messager.progress('close');
+    		$.messager.progress('close');
     		defaultOptions.errorFunction(resultData);
     		return;
     	}

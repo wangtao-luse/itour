@@ -64,7 +64,10 @@ public ResponseMessage getMenuList(@RequestBody(required = false) JSONObject jso
 		      		"  {\r\n" + 
 		      		"    \"children\": [\r\n" + 
 		      		"      {\r\n" + 
-		      		"        \"text\": \"组管理\"\r\n" + 
+		      		"        \"text\": \"组管理\",\r\n" + 
+		      		"        \"attributes\": {\r\n" + 
+		      		"          \"url\": \"/account/groupPage\"\r\n" + 
+		      		"        }\r\n" + 
 		      		"      },\r\n" + 
 		      		"      {\r\n" + 
 		      		"        \"text\": \"角色管理\"\r\n" + 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+@include("/inc/inc.html"){}
+ <script type="text/javascript">
+	    $(function(){	    	
+			searchFun('/getUser', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'jsd'});
+	    })
+	    
+	           function getList(options) {
+	    	console.log("console");
+            var op = {
+                fitColumns:false,
+                fit:true,
+                singleSelect:false,
+                pageList:[10,40,80,200,500],
+                columns:[[
+					{field:'id',title:'编号',width:100},
+					{field:'name',title:'名字',width:100},
+					{field:'age',title:'年龄',width:100}
+				]],
+                toolbar: '#toolbar',
+                onSelect:function(rowIndex, rowData){
+                
+                }
+            };
+            return $.extend(op,options);
+        }
+	    </script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit:true,border:false" >
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
+	    	<form id="searchForm">
+	    	   <div class="mTop10 mLeft20">
+	    	   	  <div class="mTop10 line-handsome">
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>编号:</label>
+	    	   	        <input type="text" placeholder=""  name="id"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>姓名:</label>
+	    	   	        <input type="text" placeholder=""  name="name"/>
+	    	   	      </div>
+	    	   	  </div>
+	    	   	  <div class="mTop10 line-handsome">
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>爱好:</label>
+	    	   	        <input type="text" placeholder=""  name="hobby"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>公司:</label>
+	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	      </div>
+	    	   	       <div class="fLeft label-handsome ">
+	    	   	        <a onclick="searchFun('/getUser', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'jsd'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	     </div>
+	    	   </div>
+			</div>	
+				
+			</form>
+	    </div>
+	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
+	    	<table id="dataGrid"></table>
+	    </div>
+	    <div id="toolbar">
+	      <a href="#" onclick="editFun('查看详情','/detail?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1100})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+	    </div>
+	</div>
+</body>
+</html>

@@ -173,9 +173,29 @@ function initWestTree(url,treeNode,newOptions){
 	var successOptions = {treeNode: treeNode, newOptions: newOptions};
 	var options={
 			onClick:function(node){
+				var $this = $(this);
+				var target = node.target;
+				var len = $this.tree('getChildren', target).length;
+				 if ($this.tree('getChildren', target).length) {
+	                    $this.tree("toggle", target)
+	                }else{
+	                	if (node.attributes && node.attributes.url) {
+	                        var url;
+	                        if (node.attributes.url.indexOf('/') == 0) {
+	                            url = getContextPath() + node.attributes.url
+	                        }
+	                    } else {
+	                        url = node.attributes.url
+	                    }
+	                	addTab({url:url,title:node.text});
+	                }
+				
+				
 				
 			}	
 	}
+	$.extend(options,newOptions);
+	successOptions.newOptions=options;
 	postAjax(url,null,createWestTree,{successArguments: successOptions, type: 'get', async: false})
 }
 function createWestTree(data,successOptions){
@@ -184,4 +204,23 @@ function createWestTree(data,successOptions){
 	 //生成tree
 	 successOptions.treeNode.tree(options);
 	
+}
+function addTab(params){
+	 var iframe = '<iframe src="' + params.url + '" frameborder="0" style="border:0;width:100%;height:100%;"></iframe>';
+	    var t = $('#index-tabs');
+	    var opts = {
+	        title: params.title,
+	        closable: true,
+	        iconCls: params.iconCls,
+	        content: iframe,
+	        border: false,
+	        fit: true
+	    };
+	    if (t.tabs('exists', opts.title)) {
+	        t.tabs('close', opts.title);
+	        t.tabs('add', opts);
+	        parent.$.messager.progress('close')
+	    } else {
+	        t.tabs('add', opts)
+	    }
 }
