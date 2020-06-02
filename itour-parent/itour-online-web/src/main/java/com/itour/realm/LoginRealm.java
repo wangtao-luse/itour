@@ -57,6 +57,7 @@ public class LoginRealm extends AuthorizingRealm {
 			}else {
 				List<Oauth> oauth = (List<Oauth>)checkOauthId.getReturnResult();
 				salt = oauth.get(0).getPwd();
+				
 			}			
 		}
 		jsonObject.clear();

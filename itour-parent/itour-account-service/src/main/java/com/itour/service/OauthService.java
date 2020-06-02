@@ -16,12 +16,12 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantMessage;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
+import com.itour.model.account.Account;
 import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
+import com.itour.persist.AccountMapper;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
-import com.itour.util.Base64Util;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 /**
  * <p>
@@ -35,9 +35,12 @@ import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 public class OauthService extends ServiceImpl<OauthMapper, Oauth> {
 	@Autowired
 private LoginListMapper loginListMapper;
+	@Autowired
+private AccountMapper accountMapper;
 	/**
 	 * 登录
 	 * 1.校验用户名和密码(t_a_oauth)
+	 * 1.1 校验用户状态是否正常(t_a_account)
 	 * 2.插入登录记录(t_a_login_list)
 	 * @param requestMessage
 	 * @return
@@ -53,7 +56,13 @@ private LoginListMapper loginListMapper;
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
 	        if(null==selectOne) {
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-	        }        
+	        }
+	        QueryWrapper<Account> queryAccount = new QueryWrapper<Account>();
+	        queryAccount.eq("UID", selectOne.getuId());
+	        Account account = this.accountMapper.selectOne(queryAccount);
+	        if("0".equals(account.getStatus())) {
+	        	throw new BaseException(ExceptionInfo.EXCEPTION_STATUS);
+	        }
 	        responseMessage.setReturnResult(selectOne);
 	        LoginList loginList = new LoginList();
 	        loginList.setLoginTime(System.currentTimeMillis());
@@ -73,7 +82,7 @@ private LoginListMapper loginListMapper;
 		return responseMessage;
 	}
 	/**
-	 * 检查用户名、邮箱是否可用
+	   * 检查用户名、邮箱是否可用
 	 * @param requestMessage
 	 * @return 如果存在返回认证表记录
 	 */
