@@ -68,7 +68,7 @@ public class LoginRealm extends AuthorizingRealm {
 		Oauth oauth = new Oauth();
 		if(Constant.FAILED_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
 			 oauth = (Oauth)loginSub.getReturnResult();
-			oauth.getOauthId();
+			 oauth.getOauthId();
 		}
 		//以下信息是从数据库中获取的
 	    //认证的实体信息，可以是username，也可以是数据库表对应的用户的实体对

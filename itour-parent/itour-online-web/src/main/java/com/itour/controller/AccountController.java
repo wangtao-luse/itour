@@ -121,7 +121,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 				UsernamePasswordToken upt = new UsernamePasswordToken(username, password);
 				upt.setRememberMe(true);
 				try {
-					currentUser.login(upt);
+					currentUser.login(upt);					
 				}catch (BaseException e) {
 					// TODO: handle exception
 					e.printStackTrace();
