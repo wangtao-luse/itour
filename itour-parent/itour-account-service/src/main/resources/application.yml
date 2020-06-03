@@ -6,10 +6,10 @@ spring:  application:    name: itour-account-service  datasource: #mysql的�
     username: '@spring.datasource.username@'
     password: '@spring.datasource.password@'  redis:     #reids相关配置    host: '@spring.redis.host@'    port: '@spring.redis.port@'
     password: '@spring.redis.password@'
-    jedis:      pool:        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0    timeout: 30000
+    jedis:      pool:        max-active: '@spring.redis.pool.max-active@'
+        max-wait: '@spring.redis.pool.max-wait@'
+        max-idle: '@spring.redis.pool.max-idle@'
+        min-idle: '@spring.redis.pool.min-idle@'    timeout: '@spring.redis.timeout@'
   
 #eureka
 eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka

@@ -20,7 +20,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
-import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
 
