@@ -70,13 +70,7 @@ $(function(){
 	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
 		
 	});
-	//重置滑块图片和拖动按钮位置
-	function resetlocation(){
-		//调整拖动按钮位置
-		   $(".taoValidate-wrap .itour-slide").removeClass("itour-slide-err");
-	    	divMove.css({"left": (0) + "px"});
-		    $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
-	}
+	
 	//当鼠标指针在指定的元素中移动时，就会发生 mousemove 事件。
 	$(".itour-slide-btn").mousemove(function(e){
 		var event = e||event;
@@ -245,5 +239,11 @@ function sendCode(email){
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: true,contentType:"application/x-www-form-urlencoded"}); 
 }
-
+//重置滑块图片和拖动按钮位置
+function resetlocation(){
+	//调整拖动按钮位置
+	   $(".taoValidate-wrap .itour-slide").removeClass("itour-slide-err");
+	   $(".itour-slide-btn").css({"left": (0) + "px"});
+	    $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+}
 
