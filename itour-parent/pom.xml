@@ -58,7 +58,6 @@
   	<jackson-datatype-guava.version>1.9.2</jackson-datatype-guava.version>
   	<commons-lang3.version>3.10</commons-lang3.version>
   	<mail.version>1.4.7</mail.version>
-  	<jasypt-spring-boot-starter.version>1.8</jasypt-spring-boot-starter.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -203,12 +202,7 @@
 	    <artifactId>mail</artifactId>
 	    <version>${mail.version}</version>
 	</dependency>
-	 <dependency>
-     <groupId>com.github.ulisesbocchio</groupId>
-     <artifactId>jasypt-spring-boot-starter</artifactId>
-     <version>${jasypt-spring-boot-starter.version}</version>
- </dependency>
- 
+	
 </dependencies>
   <!-- springCloud -->
   	<dependencyManagement>

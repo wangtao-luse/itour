@@ -4,6 +4,7 @@ $(function(){
 	 */
 	$(".slide-authCode-wraper .close").click(function(){
 		$(".slide-authCode-wraper").css("display","none");
+		 $(".form-item-getcode").css("z-index","2");
 	});
 	
 	//鼠标的位置
@@ -46,6 +47,7 @@ $(function(){
    	   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
    	   			$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block"); 
 	   	   		setTimeout(function () {
+	   	   		 $(".form-item-getcode").css("z-index","2");
 	   	   		 $(".slide-authCode-wraper").css("display","none");
 	   	   	//校验email是否已经被注册
 	   		     checkEmail(email);
@@ -107,6 +109,7 @@ function hideCodeAndInput(){
 	//隐藏验证码浮出框
     	$(".item-getcode-wrap").css("display","none");
     	//隐藏验证验证码按钮
+    	 $(".form-item-getcode").css("z-index","2");
     	$(".slide-authCode-wraper").css("display","none");
     	//显示验证码文本框
     	$(".item-mailcode-wrap").css("display","block");
@@ -118,6 +121,7 @@ function hideCodeAndInput(){
  */
 function hiddeCode(){
 	//隐藏验证码浮出框
+	 $(".form-item-getcode").css("z-index","2");
 	$(".item-getcode-wrap .slide-authCode-wraper").css("display","none");
 }
 /**

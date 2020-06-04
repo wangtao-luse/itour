@@ -30,11 +30,11 @@ public class DefaultExceptionHandler {
 	 */
 	@ResponseBody
 	@ExceptionHandler({ Throwable.class })	
-	public ModelAndView processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
+	public static ModelAndView processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
 			Throwable ex) {
 		String header = request.getHeader("X-Requested-With");
 		String accep = request.getHeader("accept");
-		if(this.isAjax(request)) {//ajax请求
+		if(isAjax(request)) {//ajax请求
 			return null;
 		}else {//普通请求
 			

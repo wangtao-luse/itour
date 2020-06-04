@@ -69,8 +69,12 @@ public class VerifyImageUtil {
     public static VerifyImage getVerifyImage(File filePath) throws IOException {
        // BufferedImage srcImage = ImageIO.read(new File(filePath));
     	BufferedImage srcImage = ImageIO.read(filePath);
+    	int width = srcImage.getWidth();
+    	int height = srcImage.getHeight();
         int locationX = CUT_WIDTH + new Random().nextInt(srcImage.getWidth() - CUT_WIDTH * 3);
-        int locationY = CUT_HEIGHT + new Random().nextInt(srcImage.getHeight() - CUT_HEIGHT) / 2;
+        int locationY = CUT_HEIGHT-4 + new Random().nextInt(srcImage.getHeight() - CUT_HEIGHT) / 2;
+        System.out.println("_____________________________________________________________________________________________-");
+        System.out.println("locationX:"+locationX+","+"locationY:"+locationY);
         BufferedImage markImage = new BufferedImage(CUT_WIDTH,CUT_HEIGHT,BufferedImage.TYPE_4BYTE_ABGR);
         int[][] data = getBlockData();
         cutImgByTemplate(srcImage, markImage, data, locationX, locationY);

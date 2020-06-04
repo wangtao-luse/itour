@@ -20,6 +20,7 @@ $("#form-email").blur(function(){
 	if(test_email(email)){//校验通过
 		hideClose($(this));
 		showsucess($(this));
+		
 	}else{//校验失败
 		//显示错误信息		
 		email?showError($(this),"form-email-error","格式错误"):"";
@@ -47,6 +48,7 @@ $("#form-email").keyup(function(){
 			clearError($(this));
 			showsucess($(this));
 			hideClose($(this));
+			$(".suggest-container.email-suggest").css("display","none");
 		}
 	}else{//为空
 		$(".suggest-container.email-suggest").css("display","none");
@@ -59,13 +61,22 @@ $("#form-email").keyup(function(){
 });
 
 function showEmailSuggest(email){
+	//显示邮箱推荐邮箱
 	$(".suggest-container.email-suggest").css("display","block");
+	//获取后缀
 	var arr = $(".suggest-container.email-suggest").find(".value");
 	for (var i = 0; i < arr.length; i++) {
+		//获取最后一次出现@的下标
 		var start =$(arr[i]).text().lastIndexOf("@");
+		//得到后缀
 		 var  suffix =$(arr[i]).text().substring(start);
-		 $(arr[i]).text("");		 
-		 $(arr[i]).text(email.trim()+suffix);
+		 //清空推荐文本
+		 //$(arr[i]).text("");
+		 //添值
+		 if(email.indexOf("@")==-1){
+			 $(arr[i]).text(email.trim()+suffix); 
+		 }
+		
 		
 	}
 	
@@ -99,7 +110,7 @@ $(".checkCode").click(function(){
         		 //滑动小图片的纵坐标
         		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
         		 //显示验证码浮出层
-        		 $(".form-item-getcode").css("z-index","1001")
+        		 $(".form-item-getcode").css("z-index","1001");
         		 $(".slide-authCode-wraper").css("display","block");
         	}, {errorFunction:function(data){
         		alert(data.resultMessage);
@@ -289,6 +300,8 @@ $(".i-cancel").click(function(){
 	//显示默认的提示信息(需要先清楚错误信息)
 	clearError($(this));
 	showDefault($(this));
+	//隐藏邮箱提示信息
+	$(".suggest-container.email-suggest").css("display","none");
 });
 /**注册提交*/
 $("#form-register").click(function(){
