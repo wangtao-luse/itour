@@ -91,7 +91,7 @@ private AccountMapper accountMapper;
 		try {
 			 String regName = requestMessage.getBody().getContent().getString("regName");
 			 String type = requestMessage.getBody().getContent().getString("type");
-			 if(StringUtils.isEmpty(regName)||StringUtils.isEmpty(type)) {				 
+			 if(StringUtils.isEmpty(regName)) {				 
 				 throw new BaseException(ExceptionInfo.EXCEPTION_ISEMPTY);
 			 }
 			 

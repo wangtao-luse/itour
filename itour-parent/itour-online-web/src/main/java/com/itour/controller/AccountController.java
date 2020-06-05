@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
@@ -57,10 +57,13 @@ public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequ
 	       tmpJson.put("vo", oauth);
 	       Object oraginuid = request.getSession().getAttribute("uuid");
 	       String uuid = jsonObject.getString("uuid");
-	       if(uuid.equals(oraginuid.toString())) {
+	       if(!uuid.equals(oraginuid.toString())) {
 	    	   return ResponseMessage.getFailed("请不要重复提交");
 	       }
 	ResponseMessage regSub = this.accountConnector.regSub(tmpJson,request);	
+	if(Constant.SUCCESS_CODE.equals(regSub.getResultCode())) {
+		request.getSession().setAttribute("uuid", "");
+	}
 	return regSub;
 }
 /**
@@ -112,12 +115,12 @@ public String login() {
 	@ResponseBody
 public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		try {
-			String username = jsonObject.getString("username");
-			String password = jsonObject.getString("password");
+			String username = jsonObject.getString("loginname");
+			String password = jsonObject.getString("nloginpwd");
 			
 			Subject currentUser = SecurityUtils.getSubject();
 			if(!currentUser.isAuthenticated()) {
-				UsernamePasswordToken upt = new UsernamePasswordToken(username, password);
+				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, request);
 				upt.setRememberMe(true);
 				try {
 					currentUser.login(upt);					
@@ -142,4 +145,8 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		
 	return ResponseMessage.getSucess();
 }
+	@RequestMapping("/registerSucess")
+	public String registerSucess(String regName) {		
+		return "/account/register-success";
+	}
 }

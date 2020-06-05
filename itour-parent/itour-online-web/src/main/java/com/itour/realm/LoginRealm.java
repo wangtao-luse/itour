@@ -1,5 +1,7 @@
 package com.itour.realm;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -55,8 +57,13 @@ public class LoginRealm extends AuthorizingRealm {
 			if(null==checkOauthId) {
 				throw new UnknownAccountException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
 			}else {
-				List<Oauth> oauth = (List<Oauth>)checkOauthId.getReturnResult();
-				salt = oauth.get(0).getPwd();
+				HashMap<String, Object> map = (HashMap<String, Object>)checkOauthId.getReturnResult();
+				System.out.println(map.get("result"));
+				ArrayList<Oauth> list =(ArrayList<Oauth>)map.get("result");
+				for (Oauth oauth : list) {
+					System.out.println(oauth.getPwd());
+				}
+				salt = list.get(0).getPwd();
 				
 			}			
 		}
