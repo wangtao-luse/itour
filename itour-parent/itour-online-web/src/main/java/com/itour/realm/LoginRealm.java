@@ -23,6 +23,8 @@ import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.model.account.Oauth;
+import com.itour.util.FastJsonUtil;
+import com.itour.util.SimpleHashUtil;
 /**
  * 自定义的指定Shiro验证用户登录的类
  * @author wwang
@@ -58,23 +60,21 @@ public class LoginRealm extends AuthorizingRealm {
 				throw new UnknownAccountException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
 			}else {
 				HashMap<String, Object> map = (HashMap<String, Object>)checkOauthId.getReturnResult();
-				System.out.println(map.get("result"));
-				ArrayList<Oauth> list =(ArrayList<Oauth>)map.get("result");
-				for (Oauth oauth : list) {
-					System.out.println(oauth.getPwd());
-				}
+				List<Oauth> list = FastJsonUtil.mapToList(map, Oauth.class, Constant.COMMON_KEY);				
 				salt = list.get(0).getPwd();
 				
 			}			
 		}
 		jsonObject.clear();
-		AccountVo account = new AccountVo();
-		account.setOauthId(upt.getUsername());
-		jsonObject.put("vo", account);
-		ResponseMessage loginSub = accountConnector.loginSub(jsonObject,upt.getRequest());
 		Oauth oauth = new Oauth();
-		if(Constant.FAILED_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
-			 oauth = (Oauth)loginSub.getReturnResult();
+		oauth.setOauthId(upt.getUsername());
+		String simpleHashMd5 = SimpleHashUtil.SimpleHashMd5(upt.getPassword().toString(), salt);
+		oauth.setCredential(simpleHashMd5);
+		jsonObject.put("vo", oauth);
+		ResponseMessage loginSub = accountConnector.loginSub(jsonObject,upt.getRequest());
+		if(Constant.SUCCESS_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
+			HashMap<String, Object> map = (HashMap<String, Object>)loginSub.getReturnResult();
+			oauth = FastJsonUtil.mapToObject(map, Oauth.class, Constant.COMMON_KEY);
 			 oauth.getOauthId();
 		}
 		//以下信息是从数据库中获取的

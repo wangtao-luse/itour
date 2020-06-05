@@ -51,8 +51,8 @@ private AccountMapper accountMapper;
 		try {
 			Oauth oauth = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Oauth.class);
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
-			queryWrapper.eq("oauthId", oauth.getOauthId());
-			queryWrapper.eq("credential", oauth.getCredential());
+			queryWrapper.eq("OAUTH_ID", oauth.getOauthId());
+			queryWrapper.eq("CREDENTIAL", oauth.getCredential());
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
 	        if(null==selectOne) {
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
