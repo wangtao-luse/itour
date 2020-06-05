@@ -12,8 +12,12 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.CollectionType;
 import org.codehaus.jackson.map.type.TypeFactory;
-
-public class JsonUtil {
+/**
+ * jackson帮助类
+ * @author wwang
+ *
+ */
+public class JacksonUtil {
 	private static ObjectMapper objectMapper = new ObjectMapper();
 
 	public static Object readJson2Entity(String jsonStr, Class<?> clazz) {
