@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
+import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
 
@@ -117,19 +121,31 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		try {
 			String username = jsonObject.getString("loginname");
 			String password = jsonObject.getString("nloginpwd");
-			
+			//获取当前的 Subject
 			Subject currentUser = SecurityUtils.getSubject();
-			if(!currentUser.isAuthenticated()) {
+			if(!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
 				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, request);
 				upt.setRememberMe(true);
 				try {
+					//执行登录
 					currentUser.login(upt);					
-				}catch (BaseException e) {
+				}catch (UnknownAccountException e) {//用户不存在
+					// TODO: handle exception
+					e.printStackTrace();
+					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
+				}catch (IncorrectCredentialsException e) {//用户存在，但密码错误
+					// TODO: handle exception
+					e.printStackTrace();
+					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
+				}catch (LockedAccountException e) {//用户被锁定
+					// TODO: handle exception
+					e.printStackTrace();
+					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_STATUS);
+			   }catch (BaseException e) {
 					// TODO: handle exception
 					e.printStackTrace();
 					return ResponseMessage.getFailed(e.getMessage());
-				}
-				catch (AuthenticationException e) {
+			   }catch (AuthenticationException e) {
 					// TODO: handle exception
 					e.printStackTrace();
 					return ResponseMessage.getFailed(e.getMessage());
@@ -149,4 +165,10 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	public String registerSucess(String regName) {		
 		return "/account/register-success";
 	}
+@RequestMapping("/logout")
+public String logout() {
+	Subject currentUser = SecurityUtils.getSubject();
+	currentUser.logout();
+	return "/index";
+}
 }

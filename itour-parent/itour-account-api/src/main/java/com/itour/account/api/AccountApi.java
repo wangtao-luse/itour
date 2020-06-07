@@ -13,4 +13,6 @@ public ResponseMessage regSub(RequestMessage requestMessage);
 public ResponseMessage loginSub(RequestMessage requestMessage);
 @RequestMapping(value = "account/checkOauthId",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage checkOauthId(RequestMessage requestMessage);
+@RequestMapping(value = "account/queryAccountRight",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage queryAccountRight(RequestMessage requestMessage);
 }

@@ -16,5 +16,7 @@
     <sql id="Base_Column_List">
         ID, URL, RIGHT_NO, ISLOGIN, DESC, ISLOG
     </sql>
-
+     <select id="queryAccountRight" resultMap="BaseResultMap" parameterType="java.lang.String">
+     SELECT <include refid="Base_Column_List"></include> FROM t_a_right_detail d WHERE d.RIGHT_NO in(select c.RIGHT_ID from t_a_role_right c WHERE c.ROLE_ID in(select b.ROLE_ID from t_a_role_group b where b.GROUP_ID in(select a.GROUP_ID from t_a_account_group a WHERE a.U_ID=#{uid})))
+     </select>
 </mapper>

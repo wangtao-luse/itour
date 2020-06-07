@@ -3,6 +3,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.itour.model.vo.LongRange;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
@@ -21,7 +22,7 @@ public class LoginList extends Model<LoginList> {
     /**
      * 编号
      */
-    @TableId("ID")
+    @TableId(value = "ID",type = IdType.AUTO)
     private Integer id;
 
     /**

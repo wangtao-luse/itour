@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,24 +26,25 @@ public class ShiroConfig {
 public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");// 未授权界面;
+		shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");// 未授权界面(没有权限);
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/index");
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-		shiroFilterFactoryBean.setLoginUrl("/login");
+		shiroFilterFactoryBean.setLoginUrl("/account/login");
 		/* <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
 		Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
-		filterChainDefinitionMap.put("/login", "anon");
-		//filterChainDefinitionMap.put("/account/**", "authc");
+		filterChainDefinitionMap.put("/css/**","anon");
+		filterChainDefinitionMap.put("/js/**","anon");
+		filterChainDefinitionMap.put("/img/**","anon");	
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
-		filterChainDefinitionMap.put("/**", "anon");
+		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 }
 @Bean
-public SecurityManager securityManager() {
+public SecurityManager securityManager() {//可配置缓存和Realm
     DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
     defaultSecurityManager.setRealm(LoginRealm());
     return defaultSecurityManager;
@@ -64,6 +68,22 @@ public HashedCredentialsMatcher credentialsMatcher(){
     return credentialsMatcher;
 }
 
-	
+//配置LifecycleBeanPostProcessor,可以自动调用配置在Spring IOC容器中的shiro bean的生命周期的方法;
+@Bean	
+public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+	LifecycleBeanPostProcessor lifecycleBeanPostProcessor = new LifecycleBeanPostProcessor();
+	return lifecycleBeanPostProcessor;
+}
+@Bean //启用IOC 容器中使用shiro注解，但是必须在配置类LifecycleBeanPostProcessor之后才可以使用。
+public DefaultAdvisorAutoProxyCreator  defaultAdvisorAutoProxyCreator() {
+	DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+	return defaultAdvisorAutoProxyCreator;
+}
+@Bean
+public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+	AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+	authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+	return authorizationAttributeSourceAdvisor;
+}
 
 }

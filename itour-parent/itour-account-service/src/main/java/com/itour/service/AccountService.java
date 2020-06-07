@@ -63,7 +63,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		Oauth o = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
 		Oauth oauth = new Oauth();
 		BeanUtils.copyProperties(oauth, o);		
-		String salt = UUID.randomUUID().toString();
+		String salt = UUID.randomUUID().toString().replaceAll("-", "");
 		
 		oauth.setPwd(salt);
 		String credential = oauth.getCredential();
@@ -80,7 +80,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		//3.插入用户组表
 		AccountGroup accountGroup = new AccountGroup();
 		accountGroup.setGroupId(1);
-		accountGroup.setuId(uid);
+		accountGroup.setuId(uid);		
 		this.accountGroupMapper.insert(accountGroup);
 		
 	} catch (Exception e) {
@@ -93,5 +93,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 }
 public static void main(String[] args) {
 	System.out.println("414598c3a3f5f83061373e6b41b8663d".length());
+	String result = SimpleHashUtil.SimpleHashMd5("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
+	System.out.println(result);
 }
 }

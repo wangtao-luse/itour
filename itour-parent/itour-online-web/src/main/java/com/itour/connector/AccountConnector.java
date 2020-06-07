@@ -49,4 +49,15 @@ public ResponseMessage loginSub(JSONObject jsonObject,HttpServletRequest request
 	ResponseMessage responseMessage = accountApi.loginSub(postData);
 	return responseMessage;
 }
+/**
+ * 权限查询
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryAccountRight(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.queryAccountRight(postData);
+	return responseMessage;
+}
 }

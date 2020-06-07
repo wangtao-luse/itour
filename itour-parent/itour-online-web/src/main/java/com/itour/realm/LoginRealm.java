@@ -1,6 +1,5 @@
 package com.itour.realm;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.common.vo.AccountVo;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
@@ -40,6 +38,8 @@ public class LoginRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// TODO Auto-generated method stub
+		Object primaryPrincipal = principals.getPrimaryPrincipal();
+		System.out.println(primaryPrincipal);
 		return null;
 	}
     /**
@@ -57,6 +57,7 @@ public class LoginRealm extends AuthorizingRealm {
 		ResponseMessage checkOauthId = this.accountConnector.checkOauthId(jsonObject, upt.getRequest());
 		if(Constant.SUCCESS_CODE.equals(checkOauthId.getResultCode())) {
 			if(null==checkOauthId) {
+				//没有查询抛出异常
 				throw new UnknownAccountException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
 			}else {
 				HashMap<String, Object> map = (HashMap<String, Object>)checkOauthId.getReturnResult();
@@ -68,7 +69,8 @@ public class LoginRealm extends AuthorizingRealm {
 		jsonObject.clear();
 		Oauth oauth = new Oauth();
 		oauth.setOauthId(upt.getUsername());
-		String simpleHashMd5 = SimpleHashUtil.SimpleHashMd5(upt.getPassword().toString(), salt);
+		String pass = new String(upt.getPassword());
+		String simpleHashMd5 = SimpleHashUtil.SimpleHashMd5(pass, salt);
 		oauth.setCredential(simpleHashMd5);
 		jsonObject.put("vo", oauth);
 		ResponseMessage loginSub = accountConnector.loginSub(jsonObject,upt.getRequest());

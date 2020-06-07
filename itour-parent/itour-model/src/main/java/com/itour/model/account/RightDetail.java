@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-05-28
+ * @since 2020-06-06
  */
 @TableName("t_a_right_detail")
 public class RightDetail extends Model<RightDetail> {
