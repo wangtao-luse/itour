@@ -16,7 +16,10 @@ public class HttpDataUtil {
 public static RequestMessage postData(JSONObject content,HttpServletRequest request) {
 	RequestMessage requestMessage = new RequestMessage();
 	RequestHeader header = new RequestHeader();
-	header.setRemoteAddr(getRemoteHost(request));
+	if(null!=request) {
+		header.setRemoteAddr(HttpDataUtil.getRemoteHost(request));
+	}
+	
 	requestMessage.setRequestHeader(header);	
 	RequestBody body = new RequestBody();
 	AccountVo sessionUser = SessionUtil.getSessionUser();
