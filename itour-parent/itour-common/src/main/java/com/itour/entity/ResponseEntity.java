@@ -17,12 +17,12 @@ public  class ResponseEntity {
 	/**
 	 * 异常页面
 	 */
-	public static final String DEFAULT_EXCEPTION_PAGE = "/error/exception.html";
+	public static final String DEFAULT_EXCEPTION_PAGE = "/error/exception";
 	
 	/**
 	 * 没有权限提示页面
 	 */
-	public static final String DEFAULT_UNAUTH_PAGE = "/error/noAuth.html";
+	public static final String DEFAULT_UNAUTH_PAGE = "/error/noAuth";
 
 	/**
 	 * 是否成功

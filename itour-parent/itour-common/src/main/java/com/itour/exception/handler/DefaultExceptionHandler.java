@@ -1,15 +1,21 @@
 package com.itour.exception.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.AuthorizationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.itour.entity.ResponseEntity;
+import com.itour.util.JacksonUtil;
 
 
 
@@ -34,14 +40,29 @@ public class DefaultExceptionHandler {
 			Throwable ex) {
 		String header = request.getHeader("X-Requested-With");
 		String accep = request.getHeader("accept");
-		if(isAjax(request)) {//ajax请求
-			return null;
-		}else {//普通请求
-			
+		if(!(isAjax(request)||isAcceptJson(request))) {
+			ResponseEntity responseEntity = ResponseEntity.from(ex);
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("/exception");
-			
+			mv.addObject("error", responseEntity);
+			mv.setViewName(responseEntity.getCallbackUrl());
 			return mv;
+		}else {			
+			PrintWriter out = null;
+			try {
+				ResponseEntity responseEntity = ResponseEntity.from(ex);
+				
+				String jsonStr = JacksonUtil.pojo2JsonStr(responseEntity);
+				response.setContentType("text/json;charset=UTF-8");
+				out = response.getWriter();
+				out.print(jsonStr);
+				out.flush();
+			} catch (IOException e) {
+				ModelAndView mv = new ModelAndView();
+				mv.addObject("error", e);
+				mv.setViewName("cmdty/error/exception");
+			}
+			return null;
+			
 		}
 		
 	}
@@ -54,10 +75,11 @@ public class DefaultExceptionHandler {
 		String header = request.getHeader("X-Requested-With");
 		//request.getHeader("X-Requested-With")为 null，则为传统同步请求，
 	    //为 XMLHttpRequest，则为 Ajax 异步请求。		
-		return header!=null&&"X-Requested-With".equals(header);
+		return header!=null&&header.indexOf("X-Requested-With")>-1;
 	}
 	public static boolean isAcceptJson(HttpServletRequest request) {
-		String header = request.getHeader("accept");
-		return header.equals("application/json");
+		String header = request.getHeader("accept");//浏览器可接受的MIME类型；
+		return header.indexOf("application/json")>-1;
 	}
+	 
 }
