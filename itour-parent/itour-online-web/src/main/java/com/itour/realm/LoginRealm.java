@@ -2,6 +2,7 @@ package com.itour.realm;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -21,6 +22,7 @@ import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.model.account.Oauth;
+import com.itour.model.account.RightDetail;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.SimpleHashUtil;
 /**
@@ -39,7 +41,10 @@ public class LoginRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// TODO Auto-generated method stub
 		Object primaryPrincipal = principals.getPrimaryPrincipal();
-		System.out.println(primaryPrincipal);
+		ResponseMessage queryAccountRight = accountConnector.queryAccountRight(null, null);
+		Map<String, Object> map = queryAccountRight.getReturnResult();
+		List<RightDetail> rightList = FastJsonUtil.mapToList(map, RightDetail.class, Constant.COMMON_KEY);
+	
 		return null;
 	}
     /**

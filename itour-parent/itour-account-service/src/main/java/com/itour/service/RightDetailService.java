@@ -26,8 +26,7 @@ public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDeta
 	public ResponseMessage queryAccountRight(@RequestBody RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
-			JSONObject jsonObject = requestMessage.getBody().getContent();
-			String uid = jsonObject.getString("uid");
+			String uid = requestMessage.getBody().getuId();
 			List<RightDetail> queryAccountRight = this.baseMapper.queryAccountRight(uid);
 			responseMessage.setReturnResult(queryAccountRight);
 		} catch (Exception e) {
@@ -35,10 +34,6 @@ public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDeta
 			e.printStackTrace();
 			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}
-		
-		
-	
-		
 		return responseMessage;
 	}
 
