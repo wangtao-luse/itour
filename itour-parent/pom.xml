@@ -130,7 +130,6 @@
 	 <dependency>
 	    <groupId>com.google.code.gson</groupId>
 	    <artifactId>gson</artifactId>
-	    <version>${gson.version}</version>
 	</dependency>
 	<!-- -json -->
 	 <dependency>
@@ -189,7 +188,7 @@
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-redis</artifactId>
 	    <version>${spring-boot-starter-redis.version}</version>
-	</dependency>
+	</dependency>	
 	<!--分页插件 pageHelper -->
 	<dependency>
 	    <groupId>com.github.pagehelper</groupId>

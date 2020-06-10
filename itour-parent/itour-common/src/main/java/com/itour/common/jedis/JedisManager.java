@@ -26,7 +26,7 @@ public class JedisManager {
 			jedis.close();
 		}
 	}
-
+    
 	public static byte[] getValueByKey(int dbIndex, byte[] key) throws Exception {
 		Jedis jedis = null;
 		byte[] result = null;
