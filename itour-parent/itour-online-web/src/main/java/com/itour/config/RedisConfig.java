@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-@Configuration
+//@Configuration
 public class RedisConfig {
 /**
  * 连接池中的最大空闲连接 
