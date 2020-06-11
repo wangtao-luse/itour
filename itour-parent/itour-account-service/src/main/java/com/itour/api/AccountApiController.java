@@ -44,5 +44,11 @@ public ResponseMessage queryAccountRight(RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightDetailService.queryAccountRight(requestMessage);
 }
+@Override
+@RequestMapping("/updatePwd")
+public ResponseMessage updatePwd(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return oauthService.updateCredential(requestMessage);
+}
 
 }

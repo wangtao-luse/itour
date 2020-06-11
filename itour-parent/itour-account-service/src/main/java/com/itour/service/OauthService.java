@@ -1,12 +1,16 @@
+
 package com.itour.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
@@ -22,6 +26,7 @@ import com.itour.model.account.Oauth;
 import com.itour.persist.AccountMapper;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
+import com.itour.util.SimpleHashUtil;
 
 /**
  * <p>
@@ -123,4 +128,43 @@ private AccountMapper accountMapper;
 		}
 		return responseMessage;
 	}
+	/**
+	 * 找回(修改)密码
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage updateCredential(RequestMessage requestMessage) {
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			String regName = jsonObject.getString("regName");
+			String credential=jsonObject.getString("kl");
+			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
+			queryWrapper.eq("OAUTH_ID", regName);
+			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
+			String getuId = selectOne.getuId();
+			List<Oauth> selectList = this.baseMapper.selectList(new QueryWrapper<Oauth>().eq("U_ID", getuId));
+			String salt = UUID.randomUUID().toString().replaceAll("-", "");
+			String result = SimpleHashUtil.SimpleHashMd5(credential, salt);	
+			for (Oauth oauth : selectList) {
+				oauth.setPwd(salt);
+				oauth.setCredential(result);
+			}
+	        boolean updateBatchById = this.updateBatchById(selectList);
+		} catch (BaseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(e.getMessage());
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+
+		}
+		
+		
+		return ResponseMessage.getSucess();
+	}
+	
+	
 }
