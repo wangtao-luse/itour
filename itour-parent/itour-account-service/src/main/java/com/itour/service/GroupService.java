@@ -42,7 +42,7 @@ public ResponseMessage queryGroupList(RequestMessage requestMessage) {
 			
 			QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 			/**模糊查询**/
-			queryWrapper.likeRight(!StringUtils.isEmpty(group.getgName()), "G_NAME", group.getgName().trim());
+			queryWrapper.likeRight(!StringUtils.isEmpty(group.getgName()), "G_NAME", group.getgName());
 			
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);

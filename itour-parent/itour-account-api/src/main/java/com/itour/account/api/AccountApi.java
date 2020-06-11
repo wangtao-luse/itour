@@ -17,4 +17,7 @@ public ResponseMessage checkOauthId(RequestMessage requestMessage);
 public ResponseMessage queryAccountRight(RequestMessage requestMessage);
 @RequestMapping(value = "account/updatepwd",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage updatePwd(RequestMessage requestMessage);
+@RequestMapping(value = "account/getGroupList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getGroupList(RequestMessage requestMessage);
+
 }

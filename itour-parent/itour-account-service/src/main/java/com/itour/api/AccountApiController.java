@@ -9,6 +9,7 @@ import com.itour.account.api.AccountApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.AccountService;
+import com.itour.service.GroupService;
 import com.itour.service.OauthService;
 import com.itour.service.RightDetailService;
 
@@ -21,6 +22,8 @@ AccountService accountService;
 OauthService oauthService;
 @Autowired
 RightDetailService rightDetailService;
+@Autowired
+GroupService groupService;
 @Override
 @RequestMapping("/regSub")
 public ResponseMessage regSub(@RequestBody RequestMessage requestMessage) {
@@ -40,15 +43,21 @@ public ResponseMessage checkOauthId(@RequestBody RequestMessage requestMessage) 
 }
 @Override
 @RequestMapping("/queryAccountRight")
-public ResponseMessage queryAccountRight(RequestMessage requestMessage) {
+public ResponseMessage queryAccountRight(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightDetailService.queryAccountRight(requestMessage);
 }
 @Override
 @RequestMapping("/updatePwd")
-public ResponseMessage updatePwd(RequestMessage requestMessage) {
+public ResponseMessage updatePwd(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return oauthService.updateCredential(requestMessage);
+}
+@Override
+@RequestMapping("/getGroupList")
+public ResponseMessage getGroupList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return groupService.queryGroupList(requestMessage);
 }
 
 }
