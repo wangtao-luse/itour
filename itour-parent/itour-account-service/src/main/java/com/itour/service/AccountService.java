@@ -9,22 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.constant.ExceptionInfo;
-import com.itour.exception.BaseException;
 import com.itour.model.account.Account;
 import com.itour.model.account.AccountGroup;
-import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
 import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
-import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
-import com.itour.util.Base64Util;
 import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
 
