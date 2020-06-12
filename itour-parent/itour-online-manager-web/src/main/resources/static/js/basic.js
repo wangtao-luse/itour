@@ -26,7 +26,7 @@ function initDataGrid(url,dataGridNode,newOptions){
 		total:newOptions.data.total,
 		onSelectPage:function(pageNumber, pageSize){
 			//当用户选择新的页面时触发
-			alert("当用户选择新的页面时触发");
+			//alert("当用户选择新的页面时触发");
 			newOptions.postData.page.size = pageSize;
             newOptions.postData.page.current = pageNumber;
             newOptions.pageNumber = pageNumber;
@@ -35,7 +35,7 @@ function initDataGrid(url,dataGridNode,newOptions){
 		},
 		onChangePageSize:function(pageSize){
 			//当用户改变页面显示的条数时触发
-			alert("当用户改变页面尺寸时触发");
+			//alert("当用户改变页面尺寸时触发");
 			newOptions.postData.page.size = pageSize;
             newOptions.pageSize = pageSize;			
 		    initAjaxDataGrid(url, dataGridNode, newOptions)

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageInfo;
 import com.itour.common.resp.ResponseMessage;
 
 @Controller
@@ -25,8 +24,8 @@ public class TestController {
 		list.add(new Student("02", "amy", "18"));
 		list.add(new Student("03", "cindy", "20"));
 		stu.setRecords(list);
-		PageInfo page = new PageInfo<Student>(list);
-		responseMessage.setReturnResult(page);
+//		/PageInfo page = new PageInfo<Student>(list);
+		//responseMessage.setReturnResult(page);
 	
 		return responseMessage;
 	}

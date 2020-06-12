@@ -189,7 +189,7 @@
 	    <artifactId>spring-boot-starter-redis</artifactId>
 	    <version>${spring-boot-starter-redis.version}</version>
 	</dependency>	
-	<!--分页插件 pageHelper -->
+	<!--分页插件 pageHelper 使用了mybatispluse中的分页，引入多个分页插件导致分页失效-->
 	<dependency>
 	    <groupId>com.github.pagehelper</groupId>
 	    <artifactId>pagehelper</artifactId>
