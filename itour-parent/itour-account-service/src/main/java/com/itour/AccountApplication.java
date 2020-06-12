@@ -9,7 +9,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication /* (exclude = DataSourceAutoConfiguration.class) */
 @EnableEurekaClient
 @MapperScan("com.itour.persist")
-@EnableCaching//开启缓存
 public class AccountApplication {
  public static void main(String[] args) {
 	SpringApplication.run(AccountApplication.class, args);
