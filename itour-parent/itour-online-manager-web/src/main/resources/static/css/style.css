@@ -207,22 +207,22 @@ input[readonly]{background-color:#efefef}
     display:block;
 }
 
-#hyEditArea label{display:inline-block;width:110px}
-#hyEditArea input{padding:0 0 0 3px;line-height:22px;height:23px;width:125px;border-radius:2px;border:1px solid RGB(169,169,169)}
-#hyEditArea input[type=checkbox],#hyEditArea input[type=checkbox]{border:0}
-#hyEditArea select{padding:0 0 0 3px;line-height:22px;height:23px;width:130px;border-radius:2px;border:1px solid RGB(169,169,169)}
-#hyEditArea select{height:24px}
-#hyEditArea .label-handsome{width:260px}
-#hyEditArea .label-handsomeEnd{width:370px}
-#hyEditArea .label-handsomeTwo{width:520px}
-/*#hyEditArea {padding-left:10px}*/
-#hyEditArea .line-handsome{height:26px}
-#hyEditArea input.forthEnd{padding:0 0 0 3px;line-height:22px;height:22px;width:255px;border-radius:2px;border:1px solid RGB(169,169,169)}
-#hyEditArea input[type='file']{
+#container label{display:inline-block;width:110px}
+#container input{padding:0 0 0 3px;line-height:22px;height:23px;width:125px;border-radius:2px;border:1px solid RGB(169,169,169)}
+#container input[type=checkbox],#container input[type=checkbox]{border:0}
+#container select{padding:0 0 0 3px;line-height:22px;height:23px;width:130px;border-radius:2px;border:1px solid RGB(169,169,169)}
+#container select{height:24px}
+#container .label-handsome{width:260px}
+#container .label-handsomeEnd{width:370px}
+#container .label-handsomeTwo{width:520px}
+/*#container {padding-left:10px}*/
+#container .line-handsome{height:26px}
+#container input.forthEnd{padding:0 0 0 3px;line-height:22px;height:22px;width:255px;border-radius:2px;border:1px solid RGB(169,169,169)}
+#container input[type='file']{
     width: 70px;
     padding: 0px;
     border: 0px;}
-#hyEditArea legend {
+#container legend {
     display: block;
     width: 1160px;
     padding: 10px;
@@ -235,7 +235,7 @@ input[readonly]{background-color:#efefef}
     font-weight: bold;
     padding-left: 0;
 }
-#hyEditArea .legendLeft{
+#container .legendLeft{
     width:3px;
     border-radius: 1px;
     height:13px;
@@ -243,26 +243,26 @@ input[readonly]{background-color:#efefef}
     margin:-0px 8px -1px 0;
     display:inline-block;
 }
-#hyEditArea a[target="_blank"]{
+#container a[target="_blank"]{
     text-decoration: none;
     color:#1c3969;
     font-weight: bold;
 }
-#hyEditArea .aposition {
+#container .aposition {
     display: inline-block;
     width:29px;
     padding: 0 4px;
 }
-#hyEditArea .apositionsm {
+#container .apositionsm {
     display: inline-block;
     width:56px;
     padding: 0 0 0 1px;
 }
 
-#hyEditArea .mTop10{
+#container .mTop10{
     margin-top:5px;
 }
-#hyEditArea input[type='checkbox']{
+#container input[type='checkbox']{
     width: 20px;
     height: 18px;
     vertical-align: middle;

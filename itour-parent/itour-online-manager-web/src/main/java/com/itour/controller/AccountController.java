@@ -31,4 +31,8 @@ public class AccountController {
 		ResponseMessage groupList = this.accountConnector.getGroupList(jsonObject, request);
 		return groupList;
     }
+	@RequestMapping("/selectGroup")
+	public String selectGroup() {
+		return "/system/right/selectGroup";
+	}
 }

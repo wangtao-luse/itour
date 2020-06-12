@@ -125,7 +125,7 @@ function getInitDialogOptions(modelTitle,url,mainBtnId,newOptions){
 			width:newOptions&&newOptions.width?newOptions.width:500,
 			height:newOptions&&newOptions.height?newOptions.height:300,
 			title:modelTitle,
-			href: getContextPath() + url,
+			href: /*getContextPath() +*/ url,
 			buttons: [{id: mainBtnId, text: "保存"}]
 	};
 	newOptions?$.extend(options,newOptions):'';
@@ -223,4 +223,28 @@ function addTab(params){
 	    } else {
 	        t.tabs('add', opts)
 	    }
+}
+//自动填充表单函数
+function loadData(obj,pNode) {
+    var key, value, tagName, type, arr;
+    for (x in obj) {
+        key = x;
+        value = obj[x];
+        pNode.find("[name='" + key + "']").each(function () {
+            tagName = $(this)[0].tagName;
+            type = $(this).attr('type');
+            if (tagName == 'INPUT') {
+                if (type == 'radio') {
+                    $(this).attr('checked', $(this).val() == value)
+                } else if (type == 'checkbox') {
+                } else {
+                    $(this).val(value)
+                }
+            } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                $(this).val(value)
+            } else if (tagName == 'IMG') {
+                $(this).attr('src', value);
+            }
+        })
+    }
 }
