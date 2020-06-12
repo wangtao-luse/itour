@@ -182,7 +182,7 @@ function initWestTree(url,treeNode,newOptions){
 	                	if (node.attributes && node.attributes.url) {
 	                        var url;
 	                        if (node.attributes.url.indexOf('/') == 0) {
-	                            url = getContextPath() + node.attributes.url
+	                            url =/* getContextPath() +*/ node.attributes.url
 	                        }
 	                    } else {
 	                        url = node.attributes.url
@@ -248,3 +248,13 @@ function loadData(obj,pNode) {
         })
     }
 }
+function initSelect(selectNode, data, flag, title) {
+    var showTitle = title ? title : "请选择";
+    var str = flag ? "<option value=''>" + showTitle + "</option>" : "";
+    $.each(data, function (key, value) {
+        key.indexOf("#") != -1?
+        str += "<option value='" + key.substr(1,value.length) + "' >" + value + "</option>":
+            str += "<option value='" + key + "' >" + value + "</option>"
+    });
+    selectNode.html(str)
+};
