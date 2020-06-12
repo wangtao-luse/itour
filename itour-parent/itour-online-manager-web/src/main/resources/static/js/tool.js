@@ -77,6 +77,16 @@ function isSuccess(result){
 function errorFunction(resultData) {
     $.messager.alert('提示', resultData.resultMessage, 'info')
 }
+function showErrorMsg(errorMsg) {
+    $.messager.alert('提示', errorMsg, 'error')
+};
+function showInfoMsg(errorMsg) {
+    $.messager.alert('提示', errorMsg, 'info')
+};
+
+function showErrorThisMsg(errorMsg) {
+    $.messager.alert('提示', errorMsg, 'error')
+};
 function internalError() {
     showErrorMsg(500 + " " + "程序内部错误")
 }
