@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,8 +39,12 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/css/**","anon");
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");	
+		filterChainDefinitionMap.put("/account/**","anon");	
+		filterChainDefinitionMap.put("/index","anon");	
+		
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
+		
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
 		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -85,5 +92,13 @@ public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor()
 	authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
 	return authorizationAttributeSourceAdvisor;
 }
-
+@Bean
+public CookieRememberMeManager cookieRememberMeManager() {
+    CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+    SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+    simpleCookie.setMaxAge(259200000);
+    cookieRememberMeManager.setCookie(simpleCookie);
+    cookieRememberMeManager.setCipherKey(Base64.decode("6ZmI6I2j5Y+R5aSn5ZOlAA=="));
+    return cookieRememberMeManager;
+}
 }

@@ -1,7 +1,7 @@
 
 package com.itour.service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +26,7 @@ import com.itour.model.account.Oauth;
 import com.itour.persist.AccountMapper;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
+import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
 
 /**
@@ -70,9 +71,9 @@ private AccountMapper accountMapper;
 	        }
 	        responseMessage.setReturnResult(selectOne);
 	        LoginList loginList = new LoginList();
-	        loginList.setLoginTime(System.currentTimeMillis());
+	        loginList.setLoginTime(DateUtil.getlongDate(new Date()));
 	        loginList.setOauthId(oauth.getOauthId());
-	        loginList.setOauthType(oauth.getOauthType());
+	        loginList.setOauthType(selectOne.getOauthType());
 	        loginList.setuId(selectOne.getuId());
 	        this.loginListMapper.insert(loginList);
 		}catch (BaseException e) {
