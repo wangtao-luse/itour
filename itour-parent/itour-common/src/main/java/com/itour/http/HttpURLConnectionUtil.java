@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 
 
-@Service
 public class HttpURLConnectionUtil {
 	public static void main(String[] args) {
 		//http://api.qingyunke.com/

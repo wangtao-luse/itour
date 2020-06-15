@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.api.IpInfoApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.account.Account;
 import com.itour.model.account.AccountGroup;
 import com.itour.model.account.Oauth;
@@ -37,6 +39,7 @@ private AccountGroupMapper accountGroupMapper;
 	 * 1.插入用户表(t_a_account)
 	 * 2.插入用户认证表(t_a_oauth)
 	 * 3.插入用户-组表(t_a_account_group)
+	 * 4.插入IP信息到(T_A_IPADDR)
 	 * @param requestMesage
 	 * @return
 	 */
@@ -51,6 +54,16 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		String uid = baseService.getUid();
 		account.setUid(uid);
 		account.setUtype("0");
+		//IP
+		try {
+			String sohuIpInfo = IpInfoApi.sohuIpInfo();
+			JSONObject ipinfo = JSONObject.parseObject(sohuIpInfo);
+			account.setCreateip(ipinfo.getString("cip"));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		//注册日期		
 		account.setCreatedate(DateUtil.getlongDate(new Date()));
 		this.baseMapper.insert(account);
 		//2.插入用户认证表
