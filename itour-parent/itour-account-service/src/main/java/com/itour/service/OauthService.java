@@ -105,8 +105,7 @@ private AccountMapper accountMapper;
 			 String type = requestMessage.getBody().getContent().getString("type");
 			 if(StringUtils.isEmpty(regName)) {				 
 				 throw new BaseException(ExceptionInfo.EXCEPTION_ISEMPTY);
-			 }
-			 
+			 }			 
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			if(ConstAccount.EMAIL.equals(type)) {
 				queryWrapper.eq("OAUTH_TYPE", type);

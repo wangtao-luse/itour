@@ -41,6 +41,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/img/**","anon");	
 		filterChainDefinitionMap.put("/account/**","anon");	
 		filterChainDefinitionMap.put("/index","anon");	
+		filterChainDefinitionMap.put("/getVerifyImage","anon");	
 		
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
