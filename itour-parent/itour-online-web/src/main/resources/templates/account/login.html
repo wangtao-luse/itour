@@ -9,6 +9,15 @@
 	     <script src="../js/jquery-3.4.1.js.js"></script>
 	     <script src="../js/public.js"></script>
 	     <script type="text/javascript" src="../js/account/login.js"></script>
+	      <script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+	      <script type="text/javascript">    
+    $(function(){
+    	var cip = returnCitySN.cip;
+    	var cname = returnCitySN.cname;
+       	       $("#cname").val(cname); 
+       	       $("#ip").val(cip);
+    })
+    </script>
 	</head>
 	<body>
 		<div class="w">
@@ -51,6 +60,8 @@
 	        					<div class="form">
 	        						<form id="formlogin" method="post" onsubmit="return false;">
 	        							<input type="hidden" id="uuid" name="uuid" />
+	        							<input type="hidden" id="ip" name="ip">
+	        							<input type="hidden" id="cname" name="cname">
 	        							<div class="item item-fore1" style="visibility: visible;">
 		                                    <label for="loginname" class="login-label name-label"><span class="loginname-icon"></span></label>
 		                                    <input id="loginname" type="text" class="itxt" name="loginname" tabindex="1" autocomplete="off" placeholder="邮箱/用户名/登录手机">

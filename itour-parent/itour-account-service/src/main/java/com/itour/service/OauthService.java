@@ -55,7 +55,9 @@ private AccountMapper accountMapper;
 	public ResponseMessage loginSub(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
-			Oauth oauth = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Oauth.class);
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Oauth oauth = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
+			//1.校验用户名和密码(t_a_oauth)
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", oauth.getOauthId());
 			queryWrapper.eq("CREDENTIAL", oauth.getCredential());
@@ -63,6 +65,7 @@ private AccountMapper accountMapper;
 	        if(null==selectOne) {
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
 	        }
+	        //1.1校验用户状态是否正常
 	        QueryWrapper<Account> queryAccount = new QueryWrapper<Account>();
 	        queryAccount.eq("UID", selectOne.getuId());
 	        Account account = this.accountMapper.selectOne(queryAccount);
@@ -70,11 +73,14 @@ private AccountMapper accountMapper;
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_STATUS);
 	        }
 	        responseMessage.setReturnResult(selectOne);
+	        //插入登录记录
 	        LoginList loginList = new LoginList();
 	        loginList.setLoginTime(DateUtil.getlongDate(new Date()));
 	        loginList.setOauthId(oauth.getOauthId());
 	        loginList.setOauthType(selectOne.getOauthType());
 	        loginList.setuId(selectOne.getuId());
+	        loginList.setLoginIp(jsonObject.getString("ip"));
+	        loginList.setLoginIpLookup(jsonObject.getString("cname"));
 	        this.loginListMapper.insert(loginList);
 		}catch (BaseException e) {
 			// TODO: handle exception
@@ -90,7 +96,7 @@ private AccountMapper accountMapper;
 	/**
 	   * 检查用户名、邮箱是否可用
 	 * @param requestMessage
-	 * @return 如果存在返回认证表记录
+	 * @return 不可用：返回错误信息
 	 */
 	public ResponseMessage checkOauthId(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
@@ -117,7 +123,6 @@ private AccountMapper accountMapper;
 				}
 				
 			}
-			responseMessage.setReturnResult(selectList);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
