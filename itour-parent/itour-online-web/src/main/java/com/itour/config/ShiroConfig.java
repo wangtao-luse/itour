@@ -20,6 +20,33 @@ import com.itour.realm.LoginRealm;
 
 @Configuration
 public class ShiroConfig {
+/**
+ * 配置SecurityManager
+ * @return
+ */
+@Bean
+public SecurityManager securityManager() {//可配置缓存和Realm
+    DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
+    defaultSecurityManager.setRealm(LoginRealm());
+    return defaultSecurityManager;
+}
+@Bean
+public LoginRealm LoginRealm() {
+	LoginRealm customRealm = new LoginRealm();
+    customRealm.setCredentialsMatcher(credentialsMatcher());
+    return customRealm;
+}
+//配置LifecycleBeanPostProcessor,可以自动调用配置在Spring IOC容器中的shiro bean的生命周期的方法;
+@Bean	
+public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+	LifecycleBeanPostProcessor lifecycleBeanPostProcessor = new LifecycleBeanPostProcessor();
+	return lifecycleBeanPostProcessor;
+}
+@Bean //启用IOC 容器中使用shiro注解，但是必须在配置类LifecycleBeanPostProcessor之后才可以使用。
+public DefaultAdvisorAutoProxyCreator  defaultAdvisorAutoProxyCreator() {
+	DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+	return defaultAdvisorAutoProxyCreator;
+}
 	/**
 	 * shiro的过滤器
 	 * @param securityManager
@@ -51,19 +78,9 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 }
-@Bean
-public SecurityManager securityManager() {//可配置缓存和Realm
-    DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
-    defaultSecurityManager.setRealm(LoginRealm());
-    return defaultSecurityManager;
-}
 
-@Bean
-public LoginRealm LoginRealm() {
-	LoginRealm customRealm = new LoginRealm();
-    customRealm.setCredentialsMatcher(credentialsMatcher());
-    return customRealm;
-}
+
+
 @Bean
 public HashedCredentialsMatcher credentialsMatcher(){
     HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
@@ -76,17 +93,8 @@ public HashedCredentialsMatcher credentialsMatcher(){
     return credentialsMatcher;
 }
 
-//配置LifecycleBeanPostProcessor,可以自动调用配置在Spring IOC容器中的shiro bean的生命周期的方法;
-@Bean	
-public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-	LifecycleBeanPostProcessor lifecycleBeanPostProcessor = new LifecycleBeanPostProcessor();
-	return lifecycleBeanPostProcessor;
-}
-@Bean //启用IOC 容器中使用shiro注解，但是必须在配置类LifecycleBeanPostProcessor之后才可以使用。
-public DefaultAdvisorAutoProxyCreator  defaultAdvisorAutoProxyCreator() {
-	DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
-	return defaultAdvisorAutoProxyCreator;
-}
+
+
 @Bean
 public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
 	AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();

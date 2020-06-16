@@ -137,7 +137,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 					// TODO: handle exception
 					e.printStackTrace();
 					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-				}catch (IncorrectCredentialsException e) {//用户存在，但密码错误
+				}catch (IncorrectCredentialsException e) {//用户存在，但密码不匹配
 					// TODO: handle exception
 					e.printStackTrace();
 					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);

@@ -21,6 +21,7 @@ import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
+import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
 import com.itour.model.account.RightDetail;
 import com.itour.util.FastJsonUtil;
@@ -63,15 +64,11 @@ public class LoginRealm extends AuthorizingRealm {
 		//获取盐
 		ResponseMessage checkOauthId = this.accountConnector.checkOauthId(jsonObject, upt.getRequest());
 		if(Constant.SUCCESS_CODE.equals(checkOauthId.getResultCode())) {
-			if(null==checkOauthId) {
-				//没有查询抛出异常
-				throw new UnknownAccountException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-			}else {
-				HashMap<String, Object> map = (HashMap<String, Object>)checkOauthId.getReturnResult();
-				List<Oauth> list = FastJsonUtil.mapToList(map, Oauth.class, Constant.COMMON_KEY);				
-				salt = list.get(0).getPwd();
-				
-			}			
+			HashMap<String, Object> map = (HashMap<String, Object>)checkOauthId.getReturnResult();
+			List<Oauth> list = FastJsonUtil.mapToList(map, Oauth.class, Constant.COMMON_KEY);				
+			salt = list.get(0).getPwd();			
+		}else {
+			throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
 		}
 		jsonObject.clear();
 		Oauth oauth = new Oauth();

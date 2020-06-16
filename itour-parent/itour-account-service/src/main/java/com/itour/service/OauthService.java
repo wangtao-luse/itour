@@ -122,6 +122,7 @@ private AccountMapper accountMapper;
 				}
 				
 			}
+			responseMessage.setReturnResult(selectList);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
