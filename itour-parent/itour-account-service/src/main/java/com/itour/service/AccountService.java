@@ -53,16 +53,8 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		//生成uid
 		String uid = baseService.getUid();
 		account.setUid(uid);
-		account.setUtype("0");
-		//IP
-		try {
-			String sohuIpInfo = IpInfoApi.sohuIpInfo();
-			JSONObject ipinfo = JSONObject.parseObject(sohuIpInfo);
-			account.setCreateip(ipinfo.getString("cip"));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		account.setUtype("0");		
+		account.setCreateip(jsonObject.getString("ip"));
 		//注册日期		
 		account.setCreatedate(DateUtil.getlongDate(new Date()));
 		this.baseMapper.insert(account);

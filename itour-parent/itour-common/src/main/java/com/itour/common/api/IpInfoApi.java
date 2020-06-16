@@ -33,7 +33,7 @@ public static String showIpInfo(String lang,String ip) {
 }
 public static void main(String[] args) {
 	String taobaoIpInfo = sohuIpInfo();
-	String ip="118.182.201.41";
+	String ip="115.236.69.180";// //118.182.201.41
 	String showIpInfo = showIpInfo("zh-CN",ip);
  
 }
