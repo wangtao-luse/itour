@@ -30,6 +30,10 @@ public SecurityManager securityManager() {//可配置缓存和Realm
     defaultSecurityManager.setRealm(LoginRealm());
     return defaultSecurityManager;
 }
+/**
+ * 配置Realm
+ * @return
+ */
 @Bean
 public LoginRealm LoginRealm() {
 	LoginRealm customRealm = new LoginRealm();

@@ -56,8 +56,6 @@ public class LoginRealm extends AuthorizingRealm {
 		// TODO Auto-generated method stub
 		ExUsernamePasswordToken upt = (ExUsernamePasswordToken)token;
 		String username = upt.getUsername();
-		String ip = upt.getIp();
-		String cname=upt.getCname();
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("regName", username);
 		String salt="";
@@ -77,8 +75,9 @@ public class LoginRealm extends AuthorizingRealm {
 		String simpleHashMd5 = SimpleHashUtil.SimpleHashMd5(pass, salt);
 		oauth.setCredential(simpleHashMd5);
 		jsonObject.put("vo", oauth);
-		jsonObject.put("ip", ip);
-		jsonObject.put("cname", cname);
+		jsonObject.put("ipaddr", upt.getJsonObject());
+		jsonObject.put("cname",upt.getCname());
+		jsonObject.put("ip",upt.getIp());
 		ResponseMessage loginSub = accountConnector.loginSub(jsonObject,upt.getRequest());
 		if(Constant.SUCCESS_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
 			HashMap<String, Object> map = (HashMap<String, Object>)loginSub.getReturnResult();
