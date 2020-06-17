@@ -18,6 +18,42 @@
        	       $("#ip").val(cip);
     })
     </script>
+     <script type="text/javascript">    
+    $(function(){
+    	var cip = returnCitySN.cip;
+    	var cname = returnCitySN.cname;
+    	   if(cname){
+    		   $("#cname").val(cname); 
+    		   cname=cname.substr(cname.indexOf("市")+1)
+       	       $("#area").val(cname); 
+    	   }    	    
+    	var url="http://ip-api.com/json/?lang=zh-CN";    	
+    	 $.ajax({
+    	        type: "get",
+    	        dataType: "json",
+    	        url:  url,
+    	        async:true ,
+    	        beforeSend: function () {
+    	        },
+    	        success: function (resultData) {
+    	        	$("#city").val(resultData.city);
+    	        	$("#country").val(resultData.country);
+    	        	$("#countryCode").val(resultData.countryCode);
+    	        	$("#latitude").val(resultData.lat);
+    	        	$("#longitude").val(resultData.lon);
+    	        	$("#regionName").val(resultData.regionName);
+    	        	$("#region").val(resultData.region);
+    	        	$("#isp").val(resultData.isp);
+    	        	$("#ip").val(resultData.query);
+    	        },
+    	        error: function (result) {
+    	            
+    	        }
+    	    });
+    	
+    	
+    })
+    </script>
 	</head>
 	<body>
 		<div class="w">
@@ -62,6 +98,15 @@
 	        							<input type="hidden" id="uuid" name="uuid" />
 	        							<input type="hidden" id="ip" name="ip">
 	        							<input type="hidden" id="cname" name="cname">
+					                    <input type="hidden" name="country" id="country">  
+					                    <input type="hidden" name="countrycode" id="countryCode">  
+					                    <input type="hidden" name="city" id="city">  
+					                    <input type="hidden" name="latitude" id="latitude">  
+					                    <input type="hidden" name="longitude" id="longitude">  
+					                    <input type="hidden" name="isp" id="isp">  
+					                    <input type="hidden" name="region" id="region">  
+					                    <input type="hidden" name="regionname" id="regionName">  
+					                    <input type="hidden" name="area" id="area">  
 	        							<div class="item item-fore1" style="visibility: visible;">
 		                                    <label for="loginname" class="login-label name-label"><span class="loginname-icon"></span></label>
 		                                    <input id="loginname" type="text" class="itxt" name="loginname" tabindex="1" autocomplete="off" placeholder="邮箱/用户名/登录手机">

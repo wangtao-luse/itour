@@ -128,7 +128,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 			//获取当前的 Subject
 			Subject currentUser = SecurityUtils.getSubject();
 			if(!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
-				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, request,cname,ip);
+				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, request,cname,ip,jsonObject);
 				upt.setRememberMe(true);
 				try {
 					//执行登录

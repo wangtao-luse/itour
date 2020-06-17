@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.ConstAccount;
@@ -21,6 +22,7 @@ import com.itour.constant.ConstantMessage;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Account;
+import com.itour.model.account.Ipaddr;
 import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
 import com.itour.persist.AccountMapper;
@@ -43,11 +45,13 @@ public class OauthService extends ServiceImpl<OauthMapper, Oauth> {
 private LoginListMapper loginListMapper;
 	@Autowired
 private AccountMapper accountMapper;
+private IpaddrService ipaddrService;
 	/**
 	 * 登录
 	 * 1.校验用户名和密码(t_a_oauth)
 	 * 1.1 校验用户状态是否正常(t_a_account)
 	 * 2.插入登录记录(t_a_login_list)
+	 * 3.插入IP信息(t_a_ipaddr)
 	 * @param requestMessage
 	 * @return
 	 */
@@ -82,6 +86,9 @@ private AccountMapper accountMapper;
 	        loginList.setLoginIp(jsonObject.getString("ip"));
 	        loginList.setLoginIpLookup(jsonObject.getString("cname"));
 	        this.loginListMapper.insert(loginList);
+	      //4.插入IP信息
+			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
+			ipaddrService.insertIPAddr(postData);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();

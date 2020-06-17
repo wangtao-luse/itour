@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.HttpDataUtil;
 import com.itour.common.api.IpInfoApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
@@ -34,6 +35,8 @@ private OauthMapper oauthMapper;
 private BaseService baseService;
 	@Autowired
 private AccountGroupMapper accountGroupMapper;
+	@Autowired
+private IpaddrService ipaddrService;
 
 	/** 注册
 	 * 1.插入用户表(t_a_account)
@@ -81,6 +84,9 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		accountGroup.setGroupId(1);
 		accountGroup.setuId(uid);		
 		this.accountGroupMapper.insert(accountGroup);
+		//4.插入IP信息
+		RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
+		ipaddrService.insertIPAddr(postData);
 		
 	} catch (Exception e) {
 		// TODO: handle exception

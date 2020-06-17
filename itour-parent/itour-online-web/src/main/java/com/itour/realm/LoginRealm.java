@@ -58,9 +58,12 @@ public class LoginRealm extends AuthorizingRealm {
 		ExUsernamePasswordToken upt = (ExUsernamePasswordToken)token;
 		//2.从ExUsernamePasswordToken中获取Username
 		String username = upt.getUsername();
+<<<<<<< HEAD
 		//3.调用数据库方法从校验用户名和密码
 		String ip = upt.getIp();
 		String cname=upt.getCname();
+=======
+>>>>>>> e1520797794bb6353476c1420eaf811688f11b50
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("regName", username);
 		String salt="";
@@ -81,9 +84,15 @@ public class LoginRealm extends AuthorizingRealm {
 		String simpleHashMd5 = SimpleHashUtil.SimpleHashMd5(pass, salt);
 		oauth.setCredential(simpleHashMd5);
 		jsonObject.put("vo", oauth);
+<<<<<<< HEAD
 		jsonObject.put("ip", ip);
 		jsonObject.put("cname", cname);
 		Oauth oauthObj = new Oauth();
+=======
+		jsonObject.put("ipaddr", upt.getJsonObject());
+		jsonObject.put("cname",upt.getCname());
+		jsonObject.put("ip",upt.getIp());
+>>>>>>> e1520797794bb6353476c1420eaf811688f11b50
 		ResponseMessage loginSub = accountConnector.loginSub(jsonObject,upt.getRequest());
 		if(Constant.SUCCESS_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
 			HashMap<String, Object> map = (HashMap<String, Object>)loginSub.getReturnResult();
