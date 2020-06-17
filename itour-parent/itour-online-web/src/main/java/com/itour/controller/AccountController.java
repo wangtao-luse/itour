@@ -169,10 +169,5 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	public String registerSucess(String regName) {		
 		return "/account/register-success";
 	}
-@RequestMapping("/logout")
-public String logout() {
-	Subject currentUser = SecurityUtils.getSubject();
-	currentUser.logout();
-	return "/index";
-}
+
 }

@@ -54,21 +54,25 @@ public class LoginRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		// TODO Auto-generated method stub
+		//1.把AuthenticationToken转换为ExUsernamePasswordToken
 		ExUsernamePasswordToken upt = (ExUsernamePasswordToken)token;
+		//2.从ExUsernamePasswordToken中获取Username
 		String username = upt.getUsername();
+		//3.调用数据库方法从校验用户名和密码
 		String ip = upt.getIp();
 		String cname=upt.getCname();
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("regName", username);
 		String salt="";
 		//获取盐
+		//4.若用户不存在则可以抛出UnknownAccountException异常
 		ResponseMessage checkOauthId = this.accountConnector.checkOauthId(jsonObject, upt.getRequest());
-		if(Constant.SUCCESS_CODE.equals(checkOauthId.getResultCode())) {
+		if(Constant.SUCCESS_CODE.equals(checkOauthId.getResultCode())&&null!=checkOauthId.getReturnResult()) {
 			HashMap<String, Object> map = (HashMap<String, Object>)checkOauthId.getReturnResult();
 			List<Oauth> list = FastJsonUtil.mapToList(map, Oauth.class, Constant.COMMON_KEY);				
 			salt = list.get(0).getPwd();			
 		}else {
-			throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
+			throw new UnknownAccountException();
 		}
 		jsonObject.clear();
 		Oauth oauth = new Oauth();
@@ -79,19 +83,24 @@ public class LoginRealm extends AuthorizingRealm {
 		jsonObject.put("vo", oauth);
 		jsonObject.put("ip", ip);
 		jsonObject.put("cname", cname);
+		Oauth oauthObj = new Oauth();
 		ResponseMessage loginSub = accountConnector.loginSub(jsonObject,upt.getRequest());
 		if(Constant.SUCCESS_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
 			HashMap<String, Object> map = (HashMap<String, Object>)loginSub.getReturnResult();
-			oauth = FastJsonUtil.mapToObject(map, Oauth.class, Constant.COMMON_KEY);
-			 oauth.getOauthId();
+			oauthObj = FastJsonUtil.mapToObject(map, Oauth.class, Constant.COMMON_KEY);
 		}
+		//5.根据用户信息来构建AuthenticationInfo并返回，通常使用的是SimpleAuthenticationInfo
 		//以下信息是从数据库中获取的
 	    //认证的实体信息，可以是username，也可以是数据库表对应的用户的实体对
-		Object principal = oauth;
-		//加密后的密码
-		Object hashedCredentials = oauth.getCredential();
-		//ealm对象的name，调用父类的getName()方法即可
+		Object principal = oauthObj;
+		//加密后的密码（从数据库中取的密码）
+		Object hashedCredentials = oauthObj.getCredential();
+		//Realm对象的name，调用父类的getName()方法即可
 		String realmName= getName();
+		//盐值使用MD5盐值加密
+		//1.如何把一个字符串加密为MD5
+		//2.shiro通过AuthenticatingRealm的credentialsMatcher属性来进行的密码比对;
+		
 		ByteSource credentialsSalt = ByteSource.Util.bytes(salt);
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(principal, hashedCredentials, credentialsSalt, realmName);
 		return simpleAuthenticationInfo;
