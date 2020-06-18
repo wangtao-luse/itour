@@ -169,5 +169,8 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	public String registerSucess(String regName) {		
 		return "/account/register-success";
 	}
-
+	@RequestMapping("/setpwd")
+	public String setpwd() {		
+		return "/account/setpwd";
+	}
 }
