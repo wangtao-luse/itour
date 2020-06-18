@@ -37,12 +37,12 @@ $(function(){
 		
 	});
 	
-	var mouseupWrap=function(callback){
+	$.fn.mouseupWrap=function(callback){
 		var l = $(".itour-smallimg").offset().left;
 		var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
 		//修改鼠标拖拽标记
 		isMousedown=false;
-		callback();
+		callback(lastX);
 	};
 	//当鼠标指针在指定的元素中移动时，就会发生 mousemove 事件。
 	$(".itour-slide-btn").mousemove(function(e){

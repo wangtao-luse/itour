@@ -20,7 +20,7 @@ $(function(){
 		
 	});
 	
-	function checkImgCode(){
+	function checkImgCode(lastX){
 		//校图片验证验证码
 		var url="/checkImageCode";
 		var postData={"moveLength":lastX};
