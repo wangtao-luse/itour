@@ -36,7 +36,7 @@ $(function(){
 		console.log(dX+","+dY);	
 		
 	});
-	//当鼠标指针移动到元素上方，并松开鼠标左键时;
+	
 	var mouseupWrap=function(callback){
 		var l = $(".itour-smallimg").offset().left;
 		var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
