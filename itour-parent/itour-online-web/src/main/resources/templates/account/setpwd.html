@@ -283,7 +283,20 @@ $(function(){
 		}
 		
 		}
-
+	$("#form-findpwd").click(function(){
+		var hasError = $("#register-form").find(".input-tip span").hasClass("error");
+		if(hasError){
+			return;
+		}
+		var url="/account/findPwd";
+		var data=$.serializeObject($('#register-form'));	
+		postAjax(url,JSON.stringify(data),function(result){
+			alert(result.resultMessage);
+			location.href="/account/login";
+		},{errorFunction:function(data){
+			alert(data.resultMessage);
+		},cache: false, async: false})
+	});	
 	});
 	
 	/**

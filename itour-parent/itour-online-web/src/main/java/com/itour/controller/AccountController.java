@@ -173,4 +173,10 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	public String setpwd() {		
 		return "/account/setpwd";
 	}
+	@RequestMapping("/findPwd")
+	@ResponseBody
+	public ResponseMessage findPwd(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage findpwd = this.accountConnector.findpwd(jsonObject, request);
+		return findpwd;
+	}
 }
