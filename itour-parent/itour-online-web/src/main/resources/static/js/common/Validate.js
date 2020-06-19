@@ -348,7 +348,7 @@ function showClose($this){
 function hideClose($this){
 	$this.parent().find(".i-cancel").css("display","none");
 }
-}
+
 
 
 

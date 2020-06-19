@@ -142,9 +142,10 @@
                         </div>
                     </div>-->
                     <div class="item-email-wrap">
-                        <div class="form-item form-item-email form-item-valid">
+                        <div class="form-item form-item-email">
                             <input type="text" name="email" id="form-email" class="field" autocomplete="off" maxlength="50" placeholder="请输入用户名/邮箱" default="&lt;i class='i-def'&gt;&lt;/i&gt;验证完成后，你可以使用该邮箱登录">
-                            <!--<i class="i-status"></i>-->
+                            <i class="i-status"></i>
+                            <i class="i-cancel"></i>
 	                       
                         </div>
                         <div class="input-tip">                            
@@ -281,8 +282,7 @@ $(function(){
 			}
 			checkEmailCode($("#mailCode").val());
 		}
-		
-		}
+	});
 	$("#form-findpwd").click(function(){
 		var hasError = $("#register-form").find(".input-tip span").hasClass("error");
 		if(hasError){
@@ -297,6 +297,7 @@ $(function(){
 			alert(data.resultMessage);
 		},cache: false, async: false})
 	});	
+	
 	});
 	
 	/**
