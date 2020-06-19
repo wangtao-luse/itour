@@ -7,126 +7,348 @@
  *
  */
 
-    
-    
-    
-    
-    
-;(function ( $, window, document, undefined ){
+$(function(){
+/**
+ * 校验email
+ *  显示提示信息
+ */
+$("#form-email").focus(function(){
+	showDefault($(this));
 	
- //函数体内具体代码
-ImageCode = function(container,options){
-	 "use strict"	
-	 //默认参数
-	   var defaultOptions={
-//			   /**显示图片验证码的元素节点**/
-			   imagCodeWrapper:$(".checkCode"),
-			   /**滑块图片的元素节点**/
-			   slideBtn:$("(.itour-slide-btn"),
-			   /**更新图片二维码的元素节点**/
-			   refreshCode:$(".itour-img-refresh"),
-			   /**滑块滑动的范围的元素节点**/
-			   areaScop:$(".itour-slide-bg"),
-			   /**校验图片验证码的的函数**/
-			   checkCode:checkCode;
-	   };
-	   //获取当前参数
-	   var cuurentOptions = $.extend(defaultOptions, options);
-	   //鼠标的位置
-		var mX=0,mY=0;
-		//滑块区域左上位置
-		var dX=0,dY=0;
-		//拖动按钮对象
-		var divMove = cuurentOptions.validateBtn;
-		//鼠标可拖动的区域对象
-		var divWrap=cuurentOptions.areaScop;
-		//鼠标拖拽标志
-		var isMousedown= true;
-	   function init(){	
-		   imagCodeWrapper.click(function(){//显示图片验证码
-			  showImgCode(); 
-		   });
-			validateWrapper.mousedown(function(e){//
-				dfMousedown(e);
-			}).mouseup(function(e){//
-				checkCode(e);
-			});
-			validateBtn.mousemove(function(e){//移动图片验证码
-				slidBtn(e);
-			});
-			reSendCode.click(function(){//刷新图片验证码
-				sendCode();
-			});
-		}
-	   
-	   function showImgCode(){
-		   showSliderBtn();
-			var email=$("#form-email").val();
-			if(email){
-				var iserror=$(".item-email-wrap").find("span").hasClass("error");
-				if(iserror){
-					return;
-				}else{//显示验证码
-					//获取图片验证码
-					var url="/getVerifyImage";
-		        	var postData ={};
-		        	postAjax(url,JSON.stringify(postData),function(data){
-		        		 console.log(data);	
-		        		 //带阴影的图片
-		        		 $(".itour-bigimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.srcImage);
-		        		 //滑动的小图片
-		        		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.cutImage);
-		        		 //滑动小图片的纵坐标
-		        		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
-		        		 //显示验证码浮出层
-		        		 $(".form-item-getcode").css("z-index","1001");
-		        		 $(".slide-authCode-wraper").css("display","block");
-		        	}, {errorFunction:function(data){
-		        		alert(data.resultMessage);
-		        	},cache: false, async: false});
-				}
-			}
-	   }
-	   function dfMousedown(e){
-		   var event = e||window.event;
-			//鼠标的位置
-			mX = event.pageX;
-			//鼠标可拖动的区域的左上位置(坐标)
-			dX = divWrap.offset().left;
-			dY = divWrap.offset().top;
-			//鼠标拖拽标志
-			isMousedown= true;
-			console.log(dX+","+dY);	
-	   }
-	   
-	   
-	   function slidBtn(e){
-
-			var event = e||event;
-			//鼠标滑动的x的坐标
-			var x = event.pageX;
-			console.log("X:"+x);
-			
-			if(isMousedown){
-				//鼠标滑动的x的坐标大于滑块区域x的坐标+30且滑块区域x的坐标+整个盒子的宽度-20-----》   需要研究
-				if(x>(dX+30) && x<dX+$(".taoValidate-wrap").width()-20){				
-	                divMove.css({"left": (x - dX - 20) + "px"});//div动态位置赋值------》 需要研究
-	                $(".taoValidate-wrap .itour-slide-bar").css("display","block").css({"width": (x - dX+10) + "px"})
-	                $(".taoValidate-wrap").find(".itour-smallimg").css({"left": (x - dX-30) + "px"});//---->需要研究
-	            }
-
-			}
+	
+	
+});
+/**
+ * 校验email
+ * 校验通过显示成功图标
+ * 校验失败提示错误信息
+ */
+$("#form-email").blur(function(){
+	var email=$(this).val();	
+	if(test_email(email)){//校验通过
+		hideClose($(this));
+		showsucess($(this));
 		
-	   }
-	   /**
-		 * 更新图片验证码
-		 * @returns
-		 */		
-		function sendCode(){
-			$(".checkCode").trigger("click");	
+	}else{//校验失败
+		//显示错误信息		
+		email?showError($(this),"form-email-error","格式错误"):"";
+	}
+	//清楚默认的提示信息
+	clearTip($(this));
+});
+/**
+ * 鼠标释放时校验email
+ */
+$("#form-email").keyup(function(){
+	var email = $(this).val();
+	if(email){//不为空
+		//显示email推荐
+		showEmailSuggest(email);
+			
+		if(!test_email(email)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-email-error","格式错误")
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
+			$(".suggest-container.email-suggest").css("display","none");
 		}
+	}else{//为空
+		$(".suggest-container.email-suggest").css("display","none");
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
+
+function showEmailSuggest(email){
+	//显示邮箱推荐邮箱
+	$(".suggest-container.email-suggest").css("display","block");
+	//获取后缀
+	var arr = $(".suggest-container.email-suggest").find(".value");
+	for (var i = 0; i < arr.length; i++) {
+		//获取最后一次出现@的下标
+		var start =$(arr[i]).text().lastIndexOf("@");
+		//得到后缀
+		 var  suffix =$(arr[i]).text().substring(start);
+		 //清空推荐文本
+		 //$(arr[i]).text("");
+		 //添值
+		 if(email.indexOf("@")==-1){
+			 $(arr[i]).text(email.trim()+suffix); 
+		 }
+		
+		
 	}
 	
+}
+$(".suggest-container.email-suggest li").click(function(){
+	var v = $(this).text();
+	$("#form-email").val(v);
+	$(".suggest-container.email-suggest").css("display","none");
+	$("#form-email").trigger("blur");
+});
+
+/**
+ * 显示滑块到初始位置
+ * @returns
+ */
+function showSliderBtn(){
+	$(".itour-slide-btn").css({"left": (0) + "px"});
+	$(".taoValidate-wrap .itour-slide-btn").css("display","block");
+	$(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+	$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("");
+	$(".taoValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
+}
+
+/**
+ * 校验用户名
+ * 校验通过显示成功图标
+ * 校验失败提示错误信息
+ */
+$("#form-account").blur(function(){
+	var account = $(this).val();
+	if(test_nickName(account)){//校验通过
+		hideClose($(this));
+		
+		//showsucess($(this));
+		//校验用户名是否被占用
+		checkRegName(account,$(this));
+	}else{
+		account?showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，3-18个字符"):"";
+	}
+	//清楚默认的提示信息
+	clearTip($(this));
+});
+/**
+ *  校验用户名
+ *  显示提示信息
+ */
+$("#form-account").focus(function(){
+	showDefault($(this));
+});
+/**
+ * 鼠标释放时校验用户名
+ */
+$("#form-account").keyup(function(){
+	var account = $(this).val();
+	if(account){//不为空
+		if(!test_nickName(account)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-account-error","只支持英文、数字、“-”、“_”的组合，3-18个字符");
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
+		}
+	}else{//为空
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
+/**
+ * 鼠标失焦时校验密码
+ */
+$("#form-pwd").blur(function(){
+	var pwd = $(this).val();
+	if(test_pwd(pwd)){
+		//隐藏清除的图标
+		hideClose($(this));		
+		showsucess($(this));
+	}else{
+		pwd?showError($(this),"form-pwd-error","只支持6-20个字符"):"";
+	}
+	//清楚默认的提示信息
+	clearTip($(this));
+});
+/**
+ * 鼠标聚焦时校验密码
+ */
+$("#form-pwd").focus(function(){
+	showDefault($(this));
+});
+/**
+ * 键盘释放时校验密码
+ */
+$("#form-pwd").keyup(function(){
+	var pwd = $(this).val();
+	if(pwd){//不为空
+		if(!test_pwd(pwd)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-pwd-error","格式错误")
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
+		}
+	}else{//为空
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
+/**
+ * 失焦确认密码
+ */
+$("#form-equalTopwd").blur(function(){
+	var eqpwd = $(this).val();
+	if(test_pwd(eqpwd)&&equalTopwd($("#form-pwd").val(),eqpwd)){
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示状态图标
+		showsucess($(this));
+	}else{
+		eqpwd?showError($(this),"form-equalTopwd-error","两次密码不一致"):"";
+	}
+	//清楚默认的提示信息
+	clearTip($(this));
+});
+/**
+ * 鼠标聚焦时校验密码
+ */
+$("#form-equalTopwd").focus(function(){
+	showDefault($(this));
+});
+/**
+ * 键盘释放时处理
+ */
+$("#form-equalTopwd").keyup(function(){
+	var eqpwd = $(this).val();
+	if(eqpwd){//不为空
+		if(!test_pwd(eqpwd)&&equalTopwd($("#form-pwd").val(),eqpwd)){//校验失败
+			//隐藏成功图标
+			hideSucess($(this));
+			//显示清除的图标
+			showClose($(this));
+			//显示错误信息	
+			showError($(this),"form-equalTopwd-error","两次密码不一致");
+		}else{//校验成功
+			clearError($(this));
+			showsucess($(this));
+			hideClose($(this));
+		}
+	}else{//为空
+		//隐藏清除的图标
+		hideClose($(this));
+		//显示默认的提示信息(需要先清楚错误信息)
+		clearError($(this));
+		showDefault($(this));
+	}
+});
+//清除文本
+$(".i-cancel").click(function(){
+	$(this).parent().find("input").val("");
+	hideClose($(this));
+	//显示默认的提示信息(需要先清楚错误信息)
+	clearError($(this));
+	showDefault($(this));
+	//隐藏邮箱提示信息
+	$(".suggest-container.email-suggest").css("display","none");
+});
+
+
+
+});
+/**
+ * 用于文本框错误信息提示
+ * @param $this 元素节点
+ * @param id    错误信息父元素的id
+ * @param errormsg 错误信息
+ * @returns
+ */
+function showError($this,id,errormsg){
+$this.parent().next().find("span").addClass("error").attr("id",id).html("<i class='i-error'></i>"+errormsg);
+}
+/**
+ * 清除错误信息
+ * @param $this
+ * @returns
+ */
+function clearError($this){
+	$this.parent().next().find("span").removeClass("error").attr("id","");
+	$this.parent().next().find("span i").removeClass("i-error").addClass("i-def");
+}
+/**
+ * 校验成功后显示状态图标
+ * @param $this
+ * @returns
+ */
+function showsucess($this){
+	//1.添加成功的图标
+	$this.parent().addClass("form-item-valid");
+	//2.移除错误信息提示
+	$this.parent().next().find("span").html("").removeClass("error");
+}
+/**
+ * 隐藏状态图标
+ * @param $this
+ * @returns
+ */
+function hideSucess($this){
+	//1.添加成功的图标
+	$this.parent().removeClass("form-item-valid");
+}
+/**
+ * 显示默认的提示信息
+ * @param $this
+ * @returns
+ */
+function showDefault($this){
+	var df=$this.attr("default");
+	var hasError = $this.parent().next().find("span").hasClass("error");
+	if(!hasError){
+		$this.parent().next().find("span").html(df);
+	}
+}
+/**
+ * 清楚默认的提示信息
+ */
+function clearTip($this){
+	//清除默认的提示信息
+	var hasdef = $this.parent().next().find("span i").hasClass("i-def");
+	if(hasdef){
+		$this.parent().next().find("span").html("");
+	}
 	
-})(jQuery, window,document);
+
+}
+/**
+ * 显示清除图片
+ * @param $this
+ * @returns
+ */
+function showClose($this){
+	$this.parent().find(".i-cancel").css("display","block");
+}
+/**
+ * 隐藏清除图片
+ * @param $this
+ * @returns
+ */
+function hideClose($this){
+	$this.parent().find(".i-cancel").css("display","none");
+}
+}
+
+
 

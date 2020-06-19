@@ -13,8 +13,99 @@
     <link type="text/css" rel="stylesheet" href="../css/common/style6.0.0.min.css" />
     <script src="../js/jquery-3.4.1.js.js"></script>
     <script src="../js/public.js"></script>
-    <script type="text/javascript" src="../js/common/common.js"></script>
-    <script type="text/javascript" src="../js/common/test.js"></script>    
+    <script type="text/javascript" src="../js/common/Validate.js"></script>
+    <script type="text/javascript" src="../js/common/validateCode.js"></script>
+    <!-- 验证码相关 -->
+    <script type="text/javascript">
+    $(function(){
+    	/**
+    	 * 点击按钮进行验证显示验证码
+    	 */
+    	$(".checkCode").click(function(){
+    		//重置滑块位置
+    		showSliderBtn();
+    		//校验相关参数
+    		var email=$("#form-email").val();
+    		var iserror=$(".item-email-wrap").find("span").hasClass("error");
+    		if(!email){return;}			
+    		if(iserror){return;	}		
+    		//获取验证码
+    		getImgCode();		
+    	});
+    	
+    	//当鼠标指针移动到元素上方，并松开鼠标左键时;
+    	$(".taoValidate-wrap").on("mouseup",".itour-slide-btn",function(e){
+    		$().mouseupWrap(checkImgCode);	
+    		
+    	});
+    	
+    	function checkImgCode(lastX){
+    		//校图片验证验证码
+    		var url="/checkImageCode";
+    		var postData={"moveLength":lastX};
+    		postAjax(url,postData,function(data){
+    			var code = data.resultCode;
+    			var email = $("#form-email").val();
+    			validateCodeSucess();
+       	   		setTimeout(function () {
+       	   		 $(".form-item-getcode").css("z-index","2");
+       	   		 $(".slide-authCode-wraper").css("display","none");
+       	   		 //校验email是否已经被注册
+       	   		 checkEmail(email);
+       	   		}, 500);  	   	 
+       		    
+    	   	}, {errorFunction:function(data){
+    	   		$(".taoValidate-wrap .itour-slide").addClass("itour-slide-err");
+    			    	//调整拖动按钮位置
+    			    setTimeout(function () {
+    		    	    // 重置滑块图片和拖动按钮位置
+    		    		resetlocation();
+    		    		//重置蓝色(滑块滑动)轨迹
+    			    	resetSlidBar();
+    			    	//重新获取二维码
+    	   		    	$(".checkCode").trigger("click");
+    		    	}, 500);
+    		    	
+    	   		console.log(data.resultMessage);
+    	   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
+    	}
+    	
+    	
+    });
+    /**
+     * 校验email是否已经注册
+     *\@param email
+     * \@returns
+     */
+    function checkEmail(email){
+    	//校验邮箱是否可用
+       	url="/account/checkEmail";
+       	postData={"email":email};
+       	postAjax(url,postData,function(data){  
+         	//隐藏图片验证码按钮
+     		  hideCheckInput();
+       	      //显示验证码文本框
+    	 	   showEmailCodeInput();
+       			//发送验证码
+       	   		sendCode(email);
+    		
+       	},{errorFunction:function(data){
+       	      //隐藏验证码浮出框
+    			hiddeCode();
+    			//重置蓝色(滑块滑动)轨迹
+    			resetSlidBar();
+    			//显示滑块到初始位置
+    			showSliderBtn();
+    			//将错误信息显示到emial文本框下
+    			var errormsg=data.resultMessage;
+    			showtipErrorMsg($(".item-email-wrap .input-tip"),"form-account-error",errormsg);
+    			$(".checkCode").trigger("click");
+       	},cache: false, async:true,contentType:"application/x-www-form-urlencoded"});
+       
+       
+    	    	
+    }
+</script>   
 <body>
         <!-- widget header begin -->
     <div class="header">
@@ -31,30 +122,11 @@
     <!--  reg-steps begin -->
     <div class="main ">
         <div class="reg-form">
-            <form action="" id="register-form" method="POST" novalidate="novalidate">
+            <form action="" id="findpwd-form" method="POST" novalidate="novalidate">
                 <!--chrome autocomplete off bug hack-->
                 <input style="display:none" name="hack" value="test-001088">
                 <input type="password" style="display:none" name="hack1">
-                <!--hack end-->
-                <input type="hidden" name="uuid" id="uuid" value="4db15e69-8e9d-4643-8467-458287bdd122">
-                <input type="hidden" name="eid" id="eid" value="XBSCRFZHSLH3OCVODATBPERXZ4FUF44RBQAPMOPMNQ2BQFFQCSSODKWD664ATB4LPE2Y3JPPJTE2KZ7P2FI55WZXBE">
-                <input type="hidden" name="fp" id="sessionId" value="25c9652ce23b43025d83cfcf528dbda8">
-                <input type="hidden" id="token" name="SyoURjYiWn" value="pFAfq">
-                <input type="hidden" id="publicKey" name="publicKey" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCbGddyRSw4pUibfpPbekSXfpxHQa4e5p3bPF0dDuMhXq08M1/obrosi6EFo39MI6WuBGmFco8ELtQAQM8yUPnWtYPZgRptKPD2sYzvjjsePMyHx1aGThxqdwrHP8qyKXfiyYbsHoGdW/mWB8CWaG21wgM9LPXX6kVd9ec+GXBCWQIDAQAB">
-                <input type="hidden" id="source" name="source" value="main">
-                <input type="hidden" id="sourceDesc" value="">
-                <input type="hidden" id="tgId" value="">
-                <input type="hidden" id="closeEmailCheck" value="">
-                <input type="hidden" id="loginUrl" value="#">
-                <input type="hidden" id="backUrl" value="#">
-                <input type="hidden" id="authCodeStrategy" name="authCodeStrategy" value="1">
-                <input id="slideAppId" value="16dd32e1eb3" type="hidden">
-                <input id="slideScene" value="reg" type="hidden">
-                <input id="slideProduct" value="embed" type="hidden">
-                <input id="slideWidth" value="100%" type="hidden">
-                <input id="slidePlaceHolder" value="" type="hidden">
-                <input id="slideSuccessMsg" value="" type="hidden">
-                <input type="hidden" id="popupProtocol" value="1">
+                
                 <div id="step1-wrap">
                    <!-- <div class="item-phone-wrap" style="display: none;">
                         <div class="form-item form-item-phone">
@@ -76,9 +148,8 @@
 	                       
                         </div>
                         <div class="input-tip">                            
-                           <!--  <span id="form-email-error" class="error">
-                            	<i class="i-error"></i>格式错误
-                            </span> -->
+                            <span >
+                            </span>
                         </div>
                     </div>
                     <div class="item-getcode-wrap">
@@ -159,7 +230,7 @@
                         <span></span>
                     </div>
                    
-                    <div><button type="button" class="btn-register" id="form-register" clstag="#">提&nbsp;交</button></div>
+                    <div><button type="button" class="btn-register" id="form-findpwd" clstag="#">提&nbsp;交</button></div>
                     <div class="input-tip">
                         <span></span>
                     </div>
@@ -194,15 +265,44 @@
 
 
 <script>
+
+$(function(){
+	//下一步
+	$("#step1-next").click(function(){
+		var iserror = $(this).parent().find("span").hasClass("error");
+		if(iserror){
+			return;
+		}else{	
+			var mailcode=$("#mailCode").val();
+			if(null==mailcode||""==mailcode){
+				//显示错误信息	
+				showError($(".form-item-getcode .checkCode"),"form-account-error","请先进行验证！");
+				return;
+			}
+			checkEmailCode($("#mailCode").val());
+		}
+		
+		}
+
+	});
 	
-	  $("#step1-next").click(function(){
-    	$("#step1-wrap").css("display","none");
-    	$("#step2-wrap").css("display","block");
-    	$(".cur-step").addClass("done-step");
-    	$(".cur-step span").text("");
-    	$(".cur-step").removeClass("cur-step");    	
-    	$(".person-pro-step2").addClass("cur-step");
-   });
+	/**
+	 * 校验验证码
+	 * \@param ecode
+	 * \@returns
+	 */
+	function checkEmailCode(ecode){
+	   	url="/checkemailCode";
+	   	postData={"code":ecode};
+	   	postAjax(url,postData,function(data){
+	   		$("#step1-wrap").css("display","none");
+	    	$("#step2-wrap").css("display","block");
+	    	$(".cur-step").addClass("done-step");
+	    	$(".cur-step span").text("");
+	    	$(".cur-step").removeClass("cur-step");    	
+	    	$(".person-pro-step2").addClass("cur-step");
+	   	},{cache: false, async: false,contentType:"application/x-www-form-urlencoded"});	
+	}
 </script>
 
 

@@ -62,7 +62,15 @@ $(function(){
 		}
 	});
 	
-})
+	/**
+	 * 重新获取验证码
+	 */
+	$("#getMailCode").click(function(){
+		sendCode($("#form-email").val());
+	});
+
+	
+});
 
 
 //获取验证码
@@ -215,3 +223,8 @@ function hideCodeAndInput(){
     	$(".item-mailcode-wrap").css("display","block");
     	
 }
+
+
+
+
+
