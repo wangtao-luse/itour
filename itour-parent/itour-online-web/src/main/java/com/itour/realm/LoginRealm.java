@@ -81,11 +81,8 @@ public class LoginRealm extends AuthorizingRealm {
 		String simpleHashMd5 = SimpleHashUtil.SimpleHashMd5(pass, salt);
 		oauth.setCredential(simpleHashMd5);
 		jsonObject.put("vo", oauth);
-<<<<<<< HEAD
 		jsonObject.put("ip", ip);		
-=======
 		jsonObject.put("ip", ip);
->>>>>>> 245eec72811bb2f88be91bcfda97fa3ce004fb08
 		jsonObject.put("cname", cname);
 		Oauth oauthObj = new Oauth();
 		jsonObject.put("ipaddr", upt.getJsonObject());
