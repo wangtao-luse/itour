@@ -48,8 +48,8 @@ public ResponseMessage queryAccountRight(@RequestBody RequestMessage requestMess
 	return rightDetailService.queryAccountRight(requestMessage);
 }
 @Override
-@RequestMapping("/updatePwd")
-public ResponseMessage updatePwd(@RequestBody RequestMessage requestMessage) {
+@RequestMapping("/findPwd")
+public ResponseMessage findPwd(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return oauthService.updateCredential(requestMessage);
 }

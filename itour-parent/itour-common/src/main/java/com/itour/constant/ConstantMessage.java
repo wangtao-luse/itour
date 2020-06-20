@@ -9,4 +9,6 @@ public static final String SMS="SMS";
 public static final String REGNAME_ERROR="用户名已经被使用";
 
 public static final String REGEMAIL_ERROR="该邮箱已注册";
+
+public static final String UNKNOWUNAME="该用户不存在";
 }

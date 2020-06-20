@@ -68,7 +68,7 @@ public ResponseMessage queryAccountRight(JSONObject jsonObject,HttpServletReques
  */
 public ResponseMessage findpwd(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage responseMessage = accountApi.updatePwd(postData);
+	ResponseMessage responseMessage = accountApi.findPwd(postData);
 	return responseMessage;
 }
 

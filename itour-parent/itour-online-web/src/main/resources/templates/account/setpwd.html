@@ -51,7 +51,7 @@
        	   		 $(".form-item-getcode").css("z-index","2");
        	   		 $(".slide-authCode-wraper").css("display","none");
        	   		 //校验email是否已经被注册
-       	   		 checkEmail(email);
+       	   		 checkUserName(email);
        	   		}, 500);  	   	 
        		    
     	   	}, {errorFunction:function(data){
@@ -73,13 +73,13 @@
     	
     });
     /**
-     * 校验email是否已经注册
+     * 校验用户是否存在
      *\@param email
      * \@returns
      */
-    function checkEmail(email){
+    function checkUserName(email){
     	//校验邮箱是否可用
-       	url="/account/checkEmail";
+       	url="/account/checkUserName";
        	postData={"email":email};
        	postAjax(url,postData,function(data){  
          	//隐藏图片验证码按钮
@@ -146,7 +146,14 @@
                             <input type="text" name="email" id="form-email" class="field" autocomplete="off" maxlength="50" placeholder="请输入用户名/邮箱" default="&lt;i class='i-def'&gt;&lt;/i&gt;验证完成后，你可以使用该邮箱登录">
                             <i class="i-status"></i>
                             <i class="i-cancel"></i>
-	                       
+	                        <ul class="suggest-container email-suggest" style="display:none">
+		                        <li class=""><div class="value">\@qq.com</div></li>
+		                        <li class=""><div class="value">\@163.com</div></li>
+		                        <li class=""><div class="value">\@126.com</div></li>
+		                        <li class=""><div class="value">\@Gmail.com</div></li>
+		                        <li class=""><div class="value">\@Sohu.com</div></li>
+		                        <li class="suggest-li-last "><div class="value">\@Sina.com</div></li>
+	                        </ul>
                         </div>
                         <div class="input-tip">                            
                             <span >
@@ -289,7 +296,7 @@ $(function(){
 			return;
 		}
 		var url="/account/findPwd";
-		var data=$.serializeObject($('#register-form'));	
+		var data=$.serializeObject($('#findpwd-form'));	
 		postAjax(url,JSON.stringify(data),function(result){
 			alert(result.resultMessage);
 			location.href="/account/login";

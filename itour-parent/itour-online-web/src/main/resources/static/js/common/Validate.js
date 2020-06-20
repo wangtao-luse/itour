@@ -349,6 +349,32 @@ function hideClose($this){
 	$this.parent().find(".i-cancel").css("display","none");
 }
 
-
+function showEmailSuggest(email){
+	//显示邮箱推荐邮箱
+	$(".suggest-container.email-suggest").css("display","block");
+	//获取后缀
+	var arr = $(".suggest-container.email-suggest").find(".value");
+	for (var i = 0; i < arr.length; i++) {
+		//获取最后一次出现@的下标
+		var start =$(arr[i]).text().lastIndexOf("@");
+		//得到后缀
+		 var  suffix =$(arr[i]).text().substring(start);
+		 //清空推荐文本
+		 //$(arr[i]).text("");
+		 //添值
+		 if(email.indexOf("@")==-1){
+			 $(arr[i]).text(email.trim()+suffix); 
+		 }
+		
+		
+	}
+	
+}
+$(".suggest-container.email-suggest li").click(function(){
+	var v = $(this).text();
+	$("#form-email").val(v);
+	$(".suggest-container.email-suggest").css("display","none");
+	$("#form-email").trigger("blur");
+});
 
 

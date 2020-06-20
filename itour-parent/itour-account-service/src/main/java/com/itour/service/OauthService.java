@@ -45,6 +45,7 @@ public class OauthService extends ServiceImpl<OauthMapper, Oauth> {
 private LoginListMapper loginListMapper;
 	@Autowired
 private AccountMapper accountMapper;
+	@Autowired
 private IpaddrService ipaddrService;
 	/**
 	 * 登录
@@ -128,6 +129,11 @@ private IpaddrService ipaddrService;
 					throw new BaseException(ConstantMessage.REGNAME_ERROR);
 				}
 				
+			}else {
+				//找回密码时使用
+				if(ConstAccount.FINPWD.equals(type)) {
+					throw new BaseException(ConstantMessage.UNKNOWUNAME);
+				}
 			}
 			responseMessage.setReturnResult(selectList);
 		}catch (BaseException e) {
@@ -150,8 +156,8 @@ private IpaddrService ipaddrService;
 	public ResponseMessage updateCredential(RequestMessage requestMessage) {
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			String regName = jsonObject.getString("regName");
-			String credential=jsonObject.getString("kl");
+			String regName = jsonObject.getString("email");
+			String credential=jsonObject.getString("pwd");
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", regName);
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);

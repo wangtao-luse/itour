@@ -71,6 +71,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");	
 		filterChainDefinitionMap.put("/account/**","anon");	
+		filterChainDefinitionMap.put("/msg/**","anon");	
 		filterChainDefinitionMap.put("/index","anon");	
 		filterChainDefinitionMap.put("/getVerifyImage","anon");	
 		filterChainDefinitionMap.put("/checkImageCode","anon");	

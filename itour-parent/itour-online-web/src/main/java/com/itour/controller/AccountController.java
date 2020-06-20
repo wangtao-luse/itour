@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
@@ -128,7 +129,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 			//获取当前的 Subject
 			Subject currentUser = SecurityUtils.getSubject();
 			if(!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
-				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, request,cname,ip,jsonObject);
+				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, ip,cname,jsonObject,request);
 				upt.setRememberMe(true);
 				try {
 					//执行登录
@@ -178,5 +179,20 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	public ResponseMessage findPwd(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage findpwd = this.accountConnector.findpwd(jsonObject, request);
 		return findpwd;
+	}
+	/**
+	 * 检查用户名是否 存在
+	 * @param email
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/checkUserName")
+	public ResponseMessage checkUserName(@RequestParam(value = "email")String email,HttpServletRequest request) {
+		JSONObject jsonObject =new JSONObject();
+		jsonObject.put("type", ConstAccount.FINPWD);
+		jsonObject.put("regName", email);
+		ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
+		return checkRegName;
 	}
 }
