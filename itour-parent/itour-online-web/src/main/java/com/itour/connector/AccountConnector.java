@@ -60,4 +60,16 @@ public ResponseMessage queryAccountRight(JSONObject jsonObject,HttpServletReques
 	ResponseMessage responseMessage = accountApi.queryAccountRight(postData);
 	return responseMessage;
 }
+/**
+ * 忘记密码
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage findpwd(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.updatePwd(postData);
+	return responseMessage;
+}
+
 }
