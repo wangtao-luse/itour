@@ -65,7 +65,7 @@ private IpaddrService ipaddrService;
 			//1.校验用户名和密码(t_a_oauth)
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", oauth.getOauthId());
-			queryWrapper.eq("CREDENTIAL", oauth.getCredential());
+			//queryWrapper.eq("CREDENTIAL", oauth.getCredential());
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
 	        if(null==selectOne) {
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);

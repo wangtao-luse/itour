@@ -1,6 +1,7 @@
 package com.itour.config;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -102,19 +103,5 @@ public HashedCredentialsMatcher credentialsMatcher(){
 
 
 
-@Bean
-public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
-	AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-	authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
-	return authorizationAttributeSourceAdvisor;
-}
-@Bean
-public CookieRememberMeManager cookieRememberMeManager() {
-    CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
-    SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-    simpleCookie.setMaxAge(259200000);
-    cookieRememberMeManager.setCookie(simpleCookie);
-    cookieRememberMeManager.setCipherKey(Base64.decode("6ZmI6I2j5Y+R5aSn5ZOlAA=="));
-    return cookieRememberMeManager;
-}
+
 }

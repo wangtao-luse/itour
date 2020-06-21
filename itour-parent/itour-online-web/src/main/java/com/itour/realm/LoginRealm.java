@@ -1,8 +1,10 @@
 package com.itour.realm;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -10,6 +12,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -39,15 +42,29 @@ public class LoginRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// TODO Auto-generated method stub
+		//1.从PrincipalCollection获取登录用户的信息
+		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
+		//3.创建SimpleAuthorizationInfo并设置roles属性		 
 		Object primaryPrincipal = principals.getPrimaryPrincipal();
 		ResponseMessage queryAccountRight = accountConnector.queryAccountRight(null, null);
 		Map<String, Object> map = queryAccountRight.getReturnResult();
 		List<RightDetail> rightList = FastJsonUtil.mapToList(map, RightDetail.class, Constant.COMMON_KEY);
-	
-		return null;
+		Set<String> roles= new HashSet<String>();
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		info.setRoles(roles);
+		return info;
 	}
     /**
-          * 验证当前登录的Subject 认证回调函数, 登录时调用
+     * 基本步骤：
+          1.把AuthenticationToken转换为ExUsernamePasswordToken
+          2.从ExUsernamePasswordToken中获取Username
+          3.调用数据库方法从数据库中查询Username对应的记录
+          4.若用户不存在则可以抛出UnknownAccountException异常
+          5.根据用户情况,决定是否抛出其他的AuthenticationException异常
+          6.根据用户信息来构建AuthenticationInfo并返回，通常使用的是SimpleAuthenticationInfo
+                     盐值使用MD5盐值加密：
+            1.如何把一个字符串加密为MD5
+            2.shiro通过AuthenticatingRealm的credentialsMatcher属性来进行的密码比对         
      */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
