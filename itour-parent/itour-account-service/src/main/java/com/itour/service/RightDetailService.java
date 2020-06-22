@@ -27,6 +27,7 @@ public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDeta
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			String uid = requestMessage.getBody().getuId();
+			uid="10000";
 			List<RightDetail> queryAccountRight = this.baseMapper.queryAccountRight(uid);
 			responseMessage.setReturnResult(queryAccountRight);
 		} catch (Exception e) {
