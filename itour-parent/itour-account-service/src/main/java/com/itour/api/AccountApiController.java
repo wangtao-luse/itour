@@ -12,6 +12,7 @@ import com.itour.service.AccountService;
 import com.itour.service.GroupService;
 import com.itour.service.OauthService;
 import com.itour.service.RightDetailService;
+import com.itour.service.RoleService;
 
 @RestController
 @RequestMapping("/account")
@@ -24,6 +25,9 @@ OauthService oauthService;
 RightDetailService rightDetailService;
 @Autowired
 GroupService groupService;
+@Autowired
+RoleService roleService;
+
 @Override
 @RequestMapping("/regSub")
 public ResponseMessage regSub(@RequestBody RequestMessage requestMessage) {
@@ -58,6 +62,12 @@ public ResponseMessage findPwd(@RequestBody RequestMessage requestMessage) {
 public ResponseMessage getGroupList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return groupService.queryGroupList(requestMessage);
+}
+@Override
+@RequestMapping("/queryRoleList")
+public ResponseMessage queryRoleList(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return roleService.queryRoleList(requestMessage);
 }
 
 }

@@ -71,5 +71,27 @@ public ResponseMessage findpwd(JSONObject jsonObject,HttpServletRequest request)
 	ResponseMessage responseMessage = accountApi.findPwd(postData);
 	return responseMessage;
 }
+/**
+ * 组列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage groupList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getGroupList(postData);
+	return responseMessage;
+}
+/**
+ * 角色列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage roleList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.queryRoleList(postData);
+	return responseMessage;
+}
 
 }

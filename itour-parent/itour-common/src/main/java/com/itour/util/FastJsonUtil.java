@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.itour.constant.Constant;
 /**fastJson帮助类
  * map--->json-->list
  * @author wwang
@@ -52,5 +54,16 @@ public static String mapTosStirng(Map<String,Object>map,String key) {
 	JSONObject mapToJson = FastJsonUtil.mapToJson(map);
 	String string = mapToJson.getString(key);
 	return string;
+}
+/**
+ * Map 转为JSONArray
+ * @param map
+ * @param key
+ * @return
+ */
+public static JSONArray mapToJSONArray(Map<String,Object>map,String key) {
+	JSONObject json = new JSONObject(map);
+	JSONArray jsonArray = json.getJSONArray(key);
+	return jsonArray;
 }
 }

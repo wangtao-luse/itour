@@ -10,7 +10,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -23,10 +22,12 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
+import com.itour.model.account.Group;
 import com.itour.model.account.Oauth;
 import com.itour.model.account.RightDetail;
+import com.itour.model.account.Role;
 import com.itour.util.FastJsonUtil;
-import com.itour.util.SimpleHashUtil;
 /**
  * 自定义的指定Shiro验证用户登录的类
  * @author wwang
@@ -38,6 +39,9 @@ public class LoginRealm extends AuthorizingRealm {
 	private AccountConnector accountConnector;
    /**
         * 为当前登录的Subject授予角色和权限
+        //1.从PrincipalCollection获取登录用户的信息
+		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
+		//3.创建SimpleAuthorizationInfo并设置roles属性		 
     */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -46,12 +50,30 @@ public class LoginRealm extends AuthorizingRealm {
 		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
 		//3.创建SimpleAuthorizationInfo并设置roles属性		 
 		Object primaryPrincipal = principals.getPrimaryPrincipal();
+		Set<String> roles= new HashSet<String>();
+		Set<String> permissions = new HashSet<String>();
+		ResponseMessage groupMsg = accountConnector.groupList(null, null);
+		Map<String, Object> groupResult = groupMsg.getReturnResult();
+		List<Group> mapToList = FastJsonUtil.mapToList(groupResult, Group.class, Constant.COMMON_KEY);
+		for (Group group : mapToList) {
+				roles.add(group.getgName());
+		}
+		ResponseMessage roleMsg = accountConnector.roleList(null, null);
+		Map<String, Object> roleResult = roleMsg.getReturnResult();
+		List<Role> roleList = FastJsonUtil.mapToList(roleResult, Role.class, Constant.COMMON_KEY);
+		for (Role role : roleList) {
+			roles.add(role.getRoleName());
+		}
 		ResponseMessage queryAccountRight = accountConnector.queryAccountRight(null, null);
 		Map<String, Object> map = queryAccountRight.getReturnResult();
 		List<RightDetail> rightList = FastJsonUtil.mapToList(map, RightDetail.class, Constant.COMMON_KEY);
-		Set<String> roles= new HashSet<String>();
+		for (RightDetail rightDetail : rightList) {
+			permissions.add(rightDetail.getUrl());
+		}
+		
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setRoles(roles);
+		info.setStringPermissions(permissions);
 		return info;
 	}
     /**
@@ -68,39 +90,18 @@ public class LoginRealm extends AuthorizingRealm {
      */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		// TODO Auto-generated method stub
 		//1.把AuthenticationToken转换为ExUsernamePasswordToken
 		ExUsernamePasswordToken upt = (ExUsernamePasswordToken)token;
 		//2.从ExUsernamePasswordToken中获取Username
 		String username = upt.getUsername();
-		//3.调用数据库方法从校验用户名和密码
 		String ip = upt.getIp();
 		String cname=upt.getCname();
+		//3.调用数据库方法从校验用户名和密码，若用户不存在则可以抛出UnknownAccountException异常		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("regName", username);
 		String salt="";
-		//获取盐
-		//4.若用户不存在则可以抛出UnknownAccountException异常
-		ResponseMessage checkOauthId = this.accountConnector.checkOauthId(jsonObject, upt.getRequest());
-		if(Constant.SUCCESS_CODE.equals(checkOauthId.getResultCode())) {
-			HashMap<String, Object> map = (HashMap<String, Object>)checkOauthId.getReturnResult();
-			List<Oauth> list = FastJsonUtil.mapToList(map, Oauth.class, Constant.COMMON_KEY);
-			if(list!=null&&list.size()>0) {
-				salt = list.get(0).getPwd();
-			}else {
-				throw new UnknownAccountException();
-			}
-						
-		}
-		jsonObject.clear();
-		Oauth oauth = new Oauth();
-		oauth.setOauthId(upt.getUsername());
-		String pass = new String(upt.getPassword());
-		String simpleHashMd5 = SimpleHashUtil.SimpleHashMd5(pass, salt);
-		oauth.setCredential(simpleHashMd5);
-		jsonObject.put("vo", oauth);
+		//获取盐		
 		jsonObject.put("ip", ip);		
-		jsonObject.put("ip", ip);
 		jsonObject.put("cname", cname);
 		Oauth oauthObj = new Oauth();
 		jsonObject.put("ipaddr", upt.getJsonObject());
@@ -108,8 +109,11 @@ public class LoginRealm extends AuthorizingRealm {
 		if(Constant.SUCCESS_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
 			HashMap<String, Object> map = (HashMap<String, Object>)loginSub.getReturnResult();
 			oauthObj = FastJsonUtil.mapToObject(map, Oauth.class, Constant.COMMON_KEY);
+			salt = oauthObj.getPwd();
+		}else {
+			throw new BaseException(loginSub.getResultMessage());
 		}
-		//5.根据用户信息来构建AuthenticationInfo并返回，通常使用的是SimpleAuthenticationInfo
+		//4.根据用户信息来构建AuthenticationInfo并返回，通常使用的是SimpleAuthenticationInfo
 		//以下信息是从数据库中获取的
 	    //认证的实体信息，可以是username，也可以是数据库表对应的用户的实体对
 		Object principal = oauthObj;
@@ -117,10 +121,6 @@ public class LoginRealm extends AuthorizingRealm {
 		Object hashedCredentials = oauthObj.getCredential();
 		//Realm对象的name，调用父类的getName()方法即可
 		String realmName= getName();
-		//盐值使用MD5盐值加密
-		//1.如何把一个字符串加密为MD5
-		//2.shiro通过AuthenticatingRealm的credentialsMatcher属性来进行的密码比对;
-		
 		ByteSource credentialsSalt = ByteSource.Util.bytes(salt);
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(principal, hashedCredentials, credentialsSalt, realmName);
 		return simpleAuthenticationInfo;

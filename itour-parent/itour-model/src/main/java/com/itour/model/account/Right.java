@@ -40,7 +40,7 @@ public class Right extends Model<Right> {
      * 上级菜单编号(0:顶级菜单)
      */
     @TableField("PARENT_ID")
-    private Integer parentId;
+    private String parentId;
 
     /**
      * 菜单类型(1:菜单;2:按钮)
@@ -52,7 +52,27 @@ public class Right extends Model<Right> {
      */
     @TableField("URL")
     private String url;
-    public Integer getId() {
+    @TableField("M_ORDER")
+    private String mOrder;
+    @TableField("S_ORDER")
+    private String sOrder;
+    public String getmOrder() {
+		return mOrder;
+	}
+
+	public void setmOrder(String mOrder) {
+		this.mOrder = mOrder;
+	}
+
+	public String getsOrder() {
+		return sOrder;
+	}
+
+	public void setsOrder(String sOrder) {
+		this.sOrder = sOrder;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -84,15 +104,17 @@ public class Right extends Model<Right> {
         this.menu = menu;
     }
 
-    public Integer getParentId() {
-        return parentId;
-    }
+    
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
+    public String getParentId() {
+		return parentId;
+	}
 
-    public String getMenuType() {
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getMenuType() {
         return menuType;
     }
 

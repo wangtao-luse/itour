@@ -13,5 +13,5 @@
     <sql id="Base_Column_List">
         ID, ROLE_NAME, ROLE_DESC
     </sql>
-    
+   
 </mapper>
