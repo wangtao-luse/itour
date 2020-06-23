@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.connector.AccountConnector;
+import com.itour.connector.MemberConnector;
 
 @Controller
 @RequestMapping("/account")
-public class AccountController {
+public class MemberController {
 	@Autowired
-	AccountConnector accountConnector;
+	MemberConnector memberConnector;
 	/**
 	 * 组管理页面
 	 * @return
@@ -28,7 +28,7 @@ public class AccountController {
 	@RequestMapping("/getGroupList")
 	@ResponseBody
     public ResponseMessage getGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		ResponseMessage groupList = this.accountConnector.getGroupList(jsonObject, request);
+		ResponseMessage groupList = this.memberConnector.groupList(jsonObject, request);
 		return groupList;
     }
 	@RequestMapping("/selectGroup")

@@ -10,14 +10,15 @@ import com.itour.account.api.AccountApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.member.api.MemberApi;
 
 @Service
 public class MenuConnector {
 	@Autowired
-AccountApi accountApi;
+MemberApi memberApi;
 public ResponseMessage getMenuList(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage menuList = accountApi.getMenuList(postData);
+	ResponseMessage menuList = memberApi.getMenuList(postData);
 	return menuList;
 }
 }

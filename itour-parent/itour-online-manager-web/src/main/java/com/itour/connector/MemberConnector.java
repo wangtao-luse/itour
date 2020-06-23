@@ -6,18 +6,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.account.api.AccountApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.member.api.MemberApi;
 
 @Service
-public class AccountConnector {
+public class MemberConnector {
 	@Autowired
-	AccountApi accountApi;
-	public ResponseMessage getGroupList(JSONObject jsonObject,HttpServletRequest request) {
+	MemberApi memberApi;
+	public ResponseMessage groupList(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		return accountApi.getGroupList(requestMessage);
+		return memberApi.getGroupList(requestMessage);
+	}
+	public ResponseMessage roleList(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.queryRoleList(requestMessage);
+	}
+	public ResponseMessage queryAccountRight(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.queryRoleList(requestMessage);
+	}
+	public ResponseMessage loginSub(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.queryRoleList(requestMessage);
 	}
 
 }
