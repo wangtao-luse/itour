@@ -65,7 +65,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
             strategy.setTablePrefix(new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_"});// 此处可以修改为您的表前缀
             strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-            strategy.setInclude(new String[] {"t_a_ipaddr"}); // 需要生成的表
+            strategy.setInclude(new String[] {"t_m_account","t_m_oauth","t_m_login_list","t_m_group","t_m_role","t_m_right","t_m_right_detail","t_m_ipaddr"}); // 需要生成的表
             // strategy.setExclude(new String[]{"test"}); // 排除生成的表
            
             mpg.setStrategy(strategy);

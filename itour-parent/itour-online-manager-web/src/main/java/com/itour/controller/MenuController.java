@@ -30,8 +30,7 @@ private MenuConnector menuConnector;
 public ResponseMessage getMenuList(@RequestBody(required = false) JSONObject jsonObject ,HttpServletRequest request) {
 	    JSONObject tmpJson = new JSONObject();
 	    //AccountVo sessionUser = SessionUtil.getSessionUser();
-	   // Object uid=sessionUser.getuId();
-		tmpJson.put("uid", "10000");
+	   // Object uid=sessionUser.getuId();		
 		ResponseMessage responseMessage = menuConnector.getMenuList(jsonObject, request);
 		   Map<String, Object> returnResult = responseMessage.getReturnResult();
 			JSONArray mapToJSONArray = FastJsonUtil.mapToJSONArray(returnResult, Constant.COMMON_KEY);     
