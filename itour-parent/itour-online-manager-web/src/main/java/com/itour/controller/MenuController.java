@@ -13,18 +13,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.AccountVo;
 import com.itour.connector.MenuConnector;
 import com.itour.constant.Constant;
 import com.itour.util.FastJsonUtil;
+import com.itour.util.SessionUtil;
 
 
 @Controller
+@RequestMapping("/menu")
 public class MenuController {
 	@Autowired
 private MenuConnector menuConnector;
 @ResponseBody
 @RequestMapping(value = "/getMenuList")
 public ResponseMessage getMenuList(@RequestBody(required = false) JSONObject jsonObject ,HttpServletRequest request) {
+	    JSONObject tmpJson = new JSONObject();
+	    //AccountVo sessionUser = SessionUtil.getSessionUser();
+	   // Object uid=sessionUser.getuId();
+		tmpJson.put("uid", "10000");
 		ResponseMessage responseMessage = menuConnector.getMenuList(jsonObject, request);
 		   Map<String, Object> returnResult = responseMessage.getReturnResult();
 			JSONArray mapToJSONArray = FastJsonUtil.mapToJSONArray(returnResult, Constant.COMMON_KEY);     

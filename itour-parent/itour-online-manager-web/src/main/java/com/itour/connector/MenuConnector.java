@@ -17,7 +17,7 @@ public class MenuConnector {
 AccountApi accountApi;
 public ResponseMessage getMenuList(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage queryAccountRight = accountApi.queryAccountRight(postData);
-	return queryAccountRight;
+	ResponseMessage menuList = accountApi.getMenuList(postData);
+	return menuList;
 }
 }

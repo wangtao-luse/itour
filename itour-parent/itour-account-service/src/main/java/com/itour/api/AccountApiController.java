@@ -12,15 +12,17 @@ import com.itour.service.AccountService;
 import com.itour.service.GroupService;
 import com.itour.service.OauthService;
 import com.itour.service.RightDetailService;
+import com.itour.service.RightService;
 import com.itour.service.RoleService;
 
 @RestController
-@RequestMapping("/account")
 public class AccountApiController implements AccountApi {
 @Autowired
 AccountService accountService; 
 @Autowired
 OauthService oauthService;
+@Autowired
+RightService rightService;
 @Autowired
 RightDetailService rightDetailService;
 @Autowired
@@ -28,46 +30,73 @@ GroupService groupService;
 @Autowired
 RoleService roleService;
 
+/**
+ * 注册提交
+ */
 @Override
-@RequestMapping("/regSub")
+@RequestMapping("/account/regSub")
 public ResponseMessage regSub(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return accountService.regiesterSub(requestMessage);
 }
+/**
+ * 登录提交
+ */
 @Override
-@RequestMapping("/loginSub")
+@RequestMapping("/account/loginSub")
 public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
 	return oauthService.loginSub(requestMessage);
 }
+/**
+ * 检查账号信息
+ */
 @Override
-@RequestMapping("/checkOauthId")
+@RequestMapping("/account/checkOauthId")
 public ResponseMessage checkOauthId(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return oauthService.checkOauthId(requestMessage);
 }
+/**
+ * 获取用户权限
+ */
 @Override
-@RequestMapping("/queryAccountRight")
+@RequestMapping("/account/queryAccountRight")
 public ResponseMessage queryAccountRight(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightDetailService.queryAccountRight(requestMessage);
 }
 @Override
-@RequestMapping("/findPwd")
+@RequestMapping("/account/findPwd")
 public ResponseMessage findPwd(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return oauthService.updateCredential(requestMessage);
 }
+/**
+ * 获取用户组列表
+ */
 @Override
-@RequestMapping("/getGroupList")
+@RequestMapping("/account/getGroupList")
 public ResponseMessage getGroupList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return groupService.queryGroupList(requestMessage);
 }
+/**
+ * 获取用户角色列表
+ */
 @Override
-@RequestMapping("/queryRoleList")
-public ResponseMessage queryRoleList(RequestMessage requestMessage) {
+@RequestMapping("/account/queryRoleList")
+public ResponseMessage queryRoleList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService.queryRoleList(requestMessage);
+}
+/**
+ * 管理平台左侧菜单列表
+ */
+@Override
+@RequestMapping("/menu/getMenuList")
+public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return rightService.getMenuList(requestMessage);
 }
 
 }

@@ -56,5 +56,12 @@ public ResponseMessage getGroupList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "account/queryRoleList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage queryRoleList(RequestMessage requestMessage);
-
+/**
+ * 管理平台左侧菜单列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "menu/getMenuList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getMenuList(RequestMessage requestMessage);
 }
+
