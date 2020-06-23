@@ -17,6 +17,8 @@ eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@serv
 #mybatis plus
 mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.itour.model
+  configuration:
+    map-underscore-to-camel-case: true
 #log
 logging:
   level:

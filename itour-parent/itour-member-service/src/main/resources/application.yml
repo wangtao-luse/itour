@@ -16,7 +16,9 @@ spring:  application:    name: itour-member-service  datasource: #mysql的配
 eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
 #mybatis plus
 mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
-  type-aliases-package: com.itour.model
+  type-aliases-package: com.itour.model.member
+  configuration:
+    map-underscore-to-camel-case: true
 #log
 logging:
   level:

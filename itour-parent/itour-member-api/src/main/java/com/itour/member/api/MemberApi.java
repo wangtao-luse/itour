@@ -1,10 +1,11 @@
 package com.itour.member.api;
 
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
-
+@FeignClient(name = "itour-member-service")
 public interface MemberApi {
 	/**
 	 * 管理平台菜单列表

@@ -29,7 +29,7 @@ public class MemberConnector {
 	}
 	public ResponseMessage loginSub(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		return memberApi.queryRoleList(requestMessage);
+		return memberApi.loginSub(requestMessage);
 	}
 
 }
