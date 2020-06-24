@@ -68,7 +68,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/img/**","anon");	
 		filterChainDefinitionMap.put("/account/**","anon");	
 		filterChainDefinitionMap.put("/msg/**","anon");	
-		//filterChainDefinitionMap.put("/index","anon");	
+		filterChainDefinitionMap.put("/index","anon");	
 		filterChainDefinitionMap.put("/member/**","anon");	
 		filterChainDefinitionMap.put("/getVerifyImage","anon");	
 		filterChainDefinitionMap.put("/checkImageCode","anon");	
@@ -88,12 +88,10 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 @Bean
 public HashedCredentialsMatcher credentialsMatcher(){
     HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-    //加密算法的名字，也可以设置MD5等其他加密算法名字
-    credentialsMatcher.setHashAlgorithmName("MD5");
+    //加密算法的名字，也可以设置SHA-1等其他加密算法名字
+    credentialsMatcher.setHashAlgorithmName("SHA-1");
     //加密次数
     credentialsMatcher.setHashIterations(1024);
-    //加密为哈希
-   // credentialsMatcher.setStoredCredentialsHexEncoded(true);
     return credentialsMatcher;
 }
 

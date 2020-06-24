@@ -66,4 +66,17 @@ public static JSONArray mapToJSONArray(Map<String,Object>map,String key) {
 	JSONArray jsonArray = json.getJSONArray(key);
 	return jsonArray;
 }
+/***
+ * 将对象转为实体对象
+ * @param <T>
+ * @param text
+ * @param clazz
+ * @return
+ */
+public static <T> T toJavaBean(Object text,Class<T> clazz) {
+	String jsonString = JSONObject.toJSONString(text);
+	T parseObject = JSONObject.parseObject(jsonString, clazz);
+	return parseObject;
+	
+}
 }

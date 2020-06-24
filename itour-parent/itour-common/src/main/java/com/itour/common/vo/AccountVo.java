@@ -1,12 +1,16 @@
 package com.itour.common.vo;
 
+
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 
-public class AccountVo {
+public class AccountVo implements Serializable {
 	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * 编号
      */
     private Integer id;
@@ -31,13 +35,11 @@ public class AccountVo {
     /**
      * 昵称
      */
-    @TableField("NICKNAME")
     private String nickname;
 
     /**
      * 图像
      */
-    @TableField("AVATAR")
     private String avatar;
 
    

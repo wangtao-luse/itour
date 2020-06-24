@@ -7,6 +7,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
 import com.itour.common.vo.AccountVo;
 
 
@@ -34,8 +35,9 @@ public class SessionUtil {
 			if (null!=subject ) {
 				PrincipalCollection principalCollection = subject.getPrincipals();
 				if ( null!=principalCollection && !principalCollection.isEmpty()) {
-					currentUser = (AccountVo) principalCollection
-							.getPrimaryPrincipal();
+					 Object primaryPrincipal = principalCollection.getPrimaryPrincipal();
+					 String jsonString = JSONObject.toJSONString(primaryPrincipal);
+					 currentUser = JSONObject.parseObject(jsonString, AccountVo.class);
 				}
 			}
 		} catch (Exception e) {

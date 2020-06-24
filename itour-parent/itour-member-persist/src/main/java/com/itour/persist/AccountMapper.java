@@ -12,5 +12,5 @@ import com.itour.model.member.Account;
  * @since 2020-06-23
  */
 public interface AccountMapper extends BaseMapper<Account> {
-
+	public Integer getMaxId();
 }

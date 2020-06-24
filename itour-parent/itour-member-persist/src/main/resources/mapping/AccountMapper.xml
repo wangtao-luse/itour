@@ -18,5 +18,7 @@
     <sql id="Base_Column_List">
         ID, UID, SEX, CREATEDATE, CREATEIP, LASTTIME, STATUS, UTYPE
     </sql>
-
+<select id="getMaxId" resultType="Integer">
+      SELECT MAX(ID) FROM T_A_ACCOUNT
+    </select>
 </mapper>

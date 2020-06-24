@@ -164,7 +164,7 @@ private IpaddrService ipaddrService;
 			String getuId = selectOne.getuId();
 			List<Oauth> selectList = this.baseMapper.selectList(new QueryWrapper<Oauth>().eq("U_ID", getuId));
 			String salt = UUID.randomUUID().toString().replaceAll("-", "");
-			String result = SimpleHashUtil.SimpleHashMd5(credential, salt);	
+			String result = SimpleHashUtil.simpleHashMd5(credential, salt);	
 			for (Oauth oauth : selectList) {
 				oauth.setPwd(salt);
 				oauth.setCredential(result);

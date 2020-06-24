@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,10 +26,11 @@ public class MenuController {
 private MenuConnector menuConnector;
 @ResponseBody
 @RequestMapping(value = "/getMenuList")
-public ResponseMessage getMenuList(@RequestBody(required = false) JSONObject jsonObject ,HttpServletRequest request) {
-	    JSONObject tmpJson = new JSONObject();
-	    //AccountVo sessionUser = SessionUtil.getSessionUser();
-	   // Object uid=sessionUser.getuId();		
+public ResponseMessage getMenuList(HttpServletRequest request) {
+	   JSONObject jsonObject = new JSONObject();
+	    AccountVo sessionUser = SessionUtil.getSessionUser();
+	    String getuId = sessionUser.getuId();
+	    jsonObject.put("uid", getuId);
 		ResponseMessage responseMessage = menuConnector.getMenuList(jsonObject, request);
 		   Map<String, Object> returnResult = responseMessage.getReturnResult();
 			JSONArray mapToJSONArray = FastJsonUtil.mapToJSONArray(returnResult, Constant.COMMON_KEY);     

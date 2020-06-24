@@ -40,7 +40,7 @@ public class Account extends Model<Account> {
      * 注册时间
      */
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
 
     /**
      * 注册IP	
@@ -90,11 +90,11 @@ public class Account extends Model<Account> {
         this.sex = sex;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 

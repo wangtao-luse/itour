@@ -8,12 +8,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.member.api.MemberApi;
+import com.itour.service.GroupService;
+import com.itour.service.OauthService;
 import com.itour.service.RightService;
+import com.itour.service.RoleService;
 
 @RestController
 public class MemberApiController implements MemberApi {
 	@Autowired
 private	RightService rightService;
+	@Autowired
+private OauthService oauthService;
+	@Autowired
+private RoleService roleService;
+	@Autowired
+private GroupService groupService;
 	/**
 	 * 平台管理左侧菜单
 	 */
@@ -27,25 +36,26 @@ private	RightService rightService;
      * 组列表
      */
 	@Override
-	public ResponseMessage getGroupList(RequestMessage requestMessage) {
+	public ResponseMessage getGroupList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return groupService.queryGroupList(requestMessage);
 	}
 	/**
 	 * 角色列表
 	 */
 	@Override
-	public ResponseMessage queryRoleList(RequestMessage requestMessage) {
+	public ResponseMessage queryRoleList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return roleService.queryRoleList(requestMessage);
 	}
 	/**
 	 * 登录提交
 	 */
+	 @RequestMapping("/member/loginSub")
 	@Override
-	public ResponseMessage loginSub(RequestMessage requestMessage) {
+	public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return oauthService.loginSub(requestMessage);
 	}
 	
 

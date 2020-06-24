@@ -17,9 +17,6 @@ public String northPage() {
 public String westPage() {
 	return "/layout/west";
 }
-@RequestMapping("/account/login")
-public String login() {
-	return "account/login";
-}
+
 
 }

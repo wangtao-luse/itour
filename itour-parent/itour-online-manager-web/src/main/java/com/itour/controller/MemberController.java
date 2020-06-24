@@ -53,6 +53,14 @@ public class MemberController {
 		return groupList;
     }
 	/**
+	 * 登录页面
+	 * @return
+	 */
+	@RequestMapping("/login")
+	public String login() {
+		return "/system/account/login";
+	}
+	/**
 	 * 登陆提交
 	 * @param jsonObject
 	 * @param request

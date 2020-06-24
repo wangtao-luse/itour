@@ -69,7 +69,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		
 		oauth.setPwd(salt);
 		String credential = oauth.getCredential();
-		String result = SimpleHashUtil.SimpleHashMd5(credential, salt);		
+		String result = SimpleHashUtil.simpleHashMd5(credential, salt);		
 		oauth.setOauthId(oauth.getOauthId());
 		oauth.setuId(uid);
 		oauth.setOauthType("email");
@@ -98,7 +98,10 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 }
 public static void main(String[] args) {
 	System.out.println("414598c3a3f5f83061373e6b41b8663d".length());
-	String result = SimpleHashUtil.SimpleHashMd5("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
+	String result = SimpleHashUtil.simpleHashMd5("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
 	System.out.println(result);
+	String simpleHashSHA_1 = SimpleHashUtil.simpleHashSHA_1("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
+	System.out.println("sha-1:"+simpleHashSHA_1);
+	System.out.println(simpleHashSHA_1.length());
 }
 }

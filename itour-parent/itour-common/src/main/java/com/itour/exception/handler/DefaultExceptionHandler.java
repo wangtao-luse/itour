@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itour.entity.ResponseEntity;
-import com.itour.util.JacksonUtil;
+import com.itour.util.JsonUtil;
 
 
 
@@ -51,7 +50,7 @@ public class DefaultExceptionHandler {
 			try {
 				ResponseEntity responseEntity = ResponseEntity.from(ex);
 				
-				String jsonStr = JacksonUtil.pojo2JsonStr(responseEntity);
+				String jsonStr = JsonUtil.pojo2JsonStr(responseEntity);
 				response.setContentType("text/json;charset=UTF-8");
 				out = response.getWriter();
 				out.print(jsonStr);
