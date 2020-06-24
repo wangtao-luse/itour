@@ -41,9 +41,13 @@
 					    	</div>
 					    </div>
 					    <div class="header-button">
+					         @ if(isEmpty(user)){
 					    	<button type="button" class="button blue-btn"><a href="/account/login">登录</a></button>
-					    	<button type="button" class="button blue-btn" style="display: none"><a href="/account/reg">注册</a></button>
-					    	<button type="button" class="button blue-btn"><a href="/shiro/logout">退出</a></button>					    	
+					    	<button type="button" class="button blue-btn"><a href="/account/reg">注册</a></button>
+					    	@}else{
+					    	<button type="button" class="button blue-btn"><a href="/shiro/logout">退出</a></button>
+					    	@}
+					    						    	
 					    </div>
 					    <div class="header-userinfo">
 					    	<div class="header-notifications">
