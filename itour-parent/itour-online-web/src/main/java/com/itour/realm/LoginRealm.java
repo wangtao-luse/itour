@@ -104,6 +104,8 @@ public class LoginRealm extends AuthorizingRealm {
 		jsonObject.put("ip", ip);		
 		jsonObject.put("cname", cname);
 		Oauth oauthObj = new Oauth();
+		oauthObj.setOauthId(username);
+		jsonObject.put("vo", oauthObj);
 		jsonObject.put("ipaddr", upt.getJsonObject());
 		ResponseMessage loginSub = accountConnector.loginSub(jsonObject,upt.getRequest());
 		if(Constant.SUCCESS_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
