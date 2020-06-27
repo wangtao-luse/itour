@@ -17,7 +17,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		//addPathPatterns("/**")表示拦截所有的请求
 		//excludePathPatterns("/login")表示排除/login请求
 		String [] addpath= {"/**"};
-		String [] excludePath= {"/error","/index"};
+		String [] excludePath= {"/error","/css/**","/js/**","/img/**"};
 		interceptorRegistry.addInterceptor(springMVCInterceptor).excludePathPatterns(excludePath).addPathPatterns(addpath);
 	}
 
