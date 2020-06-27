@@ -26,7 +26,6 @@ import com.itour.util.SessionUtil;
 @Component
 public class SpringMVCInterceptor implements HandlerInterceptor{
 	
-
 	private Logger logger=LoggerFactory.getLogger(SpringMVCInterceptor.class);
   /**
    * 进入controller层之前拦截请求
@@ -65,10 +64,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 			long executeTime = endTime - startTime;
 			
 			String host=this.getRemoteHost(request, response);//IP
-			if(handler instanceof HandlerMethod){
-				HandlerMethod handlerMethod=(HandlerMethod)handler;
-				logger.info("controller : " + handlerMethod.getBeanType().getName() +";methodName : "+handlerMethod.getMethod().getName()+";SessionID : "+SessionUtil.getSession().getId()+";IP Addr : "+host+";Execute Time  : "+executeTime+"ms");
-			}
+			
 			
 			Object obj= request.getAttribute("controllerLog");
 			
