@@ -50,6 +50,13 @@ public ResponseMessage findPwd(RequestMessage requestMessage);
 @RequestMapping(value = "account/getGroupList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getGroupList(RequestMessage requestMessage);
 /**
+ * 用户组新增
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "account/insertGroup",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertGroup(RequestMessage requestMessage);
+/**
  * 角色列表
  * @param requestMessage
  * @return
@@ -63,5 +70,7 @@ public ResponseMessage queryRoleList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "menu/getMenuList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getMenuList(RequestMessage requestMessage);
+
+
 }
 

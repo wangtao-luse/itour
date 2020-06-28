@@ -63,7 +63,10 @@ function initAjaxDataGrid(url,dataGridNode,newOptions){
                   return;
               }
 	    	}
+	    	//https://www.cnblogs.com/polk6/p/js-var.html(JavaScript 变量作用域)
 	    	 options.data = formatData;	
+	    	 console.log("formatData------>");
+	    	 console.log(formatData);
 	    	 //待研究
 	    	 if ($.data(dataGridNode[0], "datagrid")) {
                  dataGridNode.datagrid('unselectAll').datagrid('uncheckAll')
@@ -91,7 +94,16 @@ function showErrorMsg(errorMsg) {
     $.messager.alert('提示', errorMsg, 'error')
 };
 
-
+function addFun(title,url,dataGridNode,newOptions){
+	var options = getInitDialogOptions(title, url, "addFunction");
+	options.buttons[0].handler = function(){
+		parent.$.modalDialog.openner_treeGrid = dataGridNode
+	}
+	 newOptions && newOptions.treeGridFlag ? "" : options.dataGridNode = dataGridNode;
+	    options.currentRefresh = true;
+	    $.extend(options, newOptions);
+	    parent.$.modalDialog(options);
+}
 
 //编辑单条只能传递一个参数
 function editFun(title,url,dataGridNode,newOptions){
@@ -117,6 +129,42 @@ function editFun(title,url,dataGridNode,newOptions){
 	options.dataGridNode = dataGridNode;
 	parent.$.modalDialog(options)
 	
+}
+/**
+ * 
+ * @param title
+ * @param url
+ * @param param
+ * @param dataGridNode
+ * @param newOptions
+ * @returns
+ */
+function editFuns(title, url, param, dataGridNode, newOptions) {
+	var strs= new Array();
+    var rows = dataGridNode.datagrid('getSelections');
+    if (rows.length < 1) {
+        showErrorMsg('请选择一条数据.');
+        return
+    }
+    var jsonStr=JSON.stringify(rows[0]);
+    var jsObject = JSON.parse(jsonStr);
+    if (rows && rows.length > 0) {
+        strs=param.split(",");
+    	for(var i=0;i<strs.length;i++){
+    		if(i==0){
+    		 url=url+"?" + strs[i] +"="+eval('jsObject.'+strs[i]);
+    		}else{
+    		 url=url+"&" + strs[i] +"="+eval('jsObject.'+strs[i]);
+    		}
+    	}
+    } else {
+        showErrorMsg('请选择一条数据.');
+        return;
+    }
+    var options = getInitDialogOptions(title, url, "editFunction", "编辑");
+    $.extend(options, newOptions);
+    options.dataGridNode = dataGridNode;
+    parent.$.modalDialog(options) 
 }
 
 //初始化对话框Option

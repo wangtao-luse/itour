@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Group;
 import com.itour.model.account.LoginList;
@@ -72,11 +74,21 @@ public ResponseMessage insertGroup(RequestMessage requestMessage) {
 	try {		
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		Group group = jsonObject.getJSONObject("vo").toJavaObject(Group.class);
+		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
+		queryWrapper.eq("G_NAME", group.getgName());
+		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
+		if(selectCount>0) {
+			throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);
+		}
 	    this.baseMapper.insert(group);	    
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;

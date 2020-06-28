@@ -21,37 +21,16 @@ import com.itour.connector.MemberConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
-
+/**
+ * 后台用户管理
+ * @author wwang
+ *
+ */
 @Controller
-@RequestMapping("/account")
+@RequestMapping("/member")
 public class MemberController {
 	@Autowired
-	MemberConnector memberConnector;
-	/**
-	 * 组管理页面
-	 * @return
-	 */
-	@RequestMapping("/groupPage")
-	public String groupPage() {
-		return "/system/right/groupManager";
-	}
-	
-	@RequestMapping("/selectGroup")
-	public String selectGroup() {
-		return "/system/right/selectGroup";
-	}
-	/**
-	 * 用户组列表
-	 * @param jsonObject
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/getGroupList")
-	@ResponseBody
-    public ResponseMessage getGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		ResponseMessage groupList = this.memberConnector.groupList(jsonObject, request);
-		return groupList;
-    }
+	MemberConnector memberConnector;	
 	/**
 	 * 登录页面
 	 * @return

@@ -16,9 +16,10 @@
                 singleSelect:false,
                 pageList:[10,40,80,200,500],
                 columns:[[
-					{field:'id',title:'编号',width:100},
-					{field:'gName',title:'名字',width:100},
-					{field:'gParent',title:'所属组',width:100}
+					{field:'id',title:'编号',width:100},					
+					{field:'gName',title:'组名称',width:100},
+					{field:'gDesc',title:'组描述',width:100},
+					{field:'gParent',title:'所属组编号',width:100}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -40,14 +41,14 @@
 	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>姓名:</label>
-	    	   	        <input type="text" placeholder=""  name="name"/>
+	    	   	        <label><span></span>组名称:</label>
+	    	   	        <input type="text" placeholder=""  name="gName"/>
 	    	   	      </div>
 	    	   	  </div>
 	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>爱好:</label>
-	    	   	        <input type="text" placeholder=""  name="hobby"/>
+	    	   	        <label><span></span>组描述:</label>
+	    	   	        <input type="text" placeholder=""  name="gDesc"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>公司:</label>
@@ -65,8 +66,10 @@
 	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
-	    <div id="toolbar">
+	    <div id="toolbar">	      
+	      <a href="#" onclick="addFun('新增', '/account/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">新增</a>
 	      <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+	      <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
 	    </div>
 	</div>
 </body>

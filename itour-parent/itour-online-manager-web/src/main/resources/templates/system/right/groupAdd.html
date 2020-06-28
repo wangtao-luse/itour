@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+        <form id="form" method="post">
+            <table class="table table-hover table-condensed" style="margin:20px auto 0 auto; ">
+                <tr>
+                    <td><span class="redSharp">* </span>组名称:</td>
+                    <td><input id="gName" name="gName" data-options="required:true" style="width:125px"/></td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>组描述：</td>
+                    <td><input id="positionIdFrom" type="hidden" name="hyqc" value="" style="display: none"/>
+                        <input name="gDesc" id="gDesc" type="text" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px"></td>
+                </tr>
+                 <tr>
+                    <td><span class="redSharp">* </span>所属组:</td>
+                    <td><select id="gParent" name="gParent" data-options="required:true" style="width:125px">
+                </select></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+var data = {"vo":{}};
+$.ajax({
+    type: "POST",
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    dataType: "json",
+    url: "/account/getGroupList",
+    success: function (resultData) {
+    	    var data = resultData.returnResult.result;
+    	    var str = "<option value='0'>请选择</option>" ;
+    	    for(var o in data){
+    	        str += "<option value='" + data[o].id + "' >" + data[o].gDesc + "</option>";
+    	    }
+    	    $("#gParent").html(str);
+    }
+});
+$("#addFunction").click(function(){
+	var url="/account/insertGroup";
+	var postData=$.serializeObject($("#form"));
+	var data= {"vo":postData};
+	postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
+});
+
+</script>

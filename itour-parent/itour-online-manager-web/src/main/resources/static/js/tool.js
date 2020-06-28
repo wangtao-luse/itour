@@ -90,7 +90,10 @@ function showErrorThisMsg(errorMsg) {
 function internalError() {
     showErrorMsg(500 + " " + "程序内部错误")
 }
-
+function closeDialogCallBack(data) {
+    $("div.panel-tool .panel-tool-close").click();
+    showSuccessMsg(data.resultMessage);
+}
 function getContextPath() {
     // alert(document.location.pathname);
     var pathName = document.location.pathname;

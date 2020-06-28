@@ -6,4 +6,6 @@ public class ExceptionInfo {
 	public static final String EXCEPTION_EMAIL="该邮箱已经被注册";
 	public static final String EXCEPTION_ISEMPTY="必填项不能为空";
 	public static final String EXCEPTION_STATUS="该用户已被锁定";
+	public static final String EXCEPTION_GROUP="该组已被使用";
+	
 }

@@ -80,6 +80,13 @@ public ResponseMessage getGroupList(@RequestBody RequestMessage requestMessage) 
 	// TODO Auto-generated method stub
 	return groupService.queryGroupList(requestMessage);
 }
+@Override
+@RequestMapping("/account/insertGroup")
+public ResponseMessage insertGroup(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return groupService.insertGroup(requestMessage);
+}
+
 /**
  * 获取用户角色列表
  */
