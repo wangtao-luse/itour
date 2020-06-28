@@ -132,4 +132,12 @@ public ResponseMessage deleteGroup(RequestMessage requestMessage) {
 	
 	return responseMessage;
 }
+public ResponseMessage authorizeRole(RequestMessage requestMessage) {
+	Long group_id = requestMessage.getBody().getContent().getLong("gid");
+	Group group = this.baseMapper.selectById(group_id);
+	QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
+	List<Group> selectList = this.baseMapper.selectList(queryWrapper);
+	return null;
+	
+}
 }
