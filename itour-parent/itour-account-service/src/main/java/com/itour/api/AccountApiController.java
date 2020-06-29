@@ -105,5 +105,11 @@ public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightService.getMenuList(requestMessage);
 }
+@Override
+@RequestMapping("/account/authorizeRole")
+public ResponseMessage authorizeRole(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return groupService.authorizeRole(requestMessage);
+}
 
 }

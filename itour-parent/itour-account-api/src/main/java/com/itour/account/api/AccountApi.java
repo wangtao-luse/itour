@@ -12,64 +12,71 @@ public interface AccountApi {
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/regSub",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/regSub",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage regSub(RequestMessage requestMessage);
 /**
  * 登录提交
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/loginSub",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/loginSub",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage loginSub(RequestMessage requestMessage);
 /**
  * 检验用户信息
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/checkOauthId",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/checkOauthId",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage checkOauthId(RequestMessage requestMessage);
 /**
  * 获取菜单
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/queryAccountRight",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/queryAccountRight",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage queryAccountRight(RequestMessage requestMessage);
 /**
  * 忘记密码
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/findPwd",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/findPwd",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage findPwd(RequestMessage requestMessage);
 /**
  * 用户组列表
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/getGroupList",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/getGroupList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getGroupList(RequestMessage requestMessage);
 /**
  * 用户组新增
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/insertGroup",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/insertGroup",produces = {"application/json;charset=UTF-8"})
 ResponseMessage insertGroup(RequestMessage requestMessage);
 /**
  * 角色列表
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/queryRoleList",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/account/queryRoleList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage queryRoleList(RequestMessage requestMessage);
 /**
  * 菜单列表
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "menu/getMenuList",produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/menu/getMenuList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getMenuList(RequestMessage requestMessage);
+/**
+ * 角色授权
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "account/authorizeRole",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage authorizeRole(RequestMessage requestMessage);
 
 
 }

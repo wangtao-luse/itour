@@ -246,6 +246,27 @@ function initWestTree(url,treeNode,newOptions){
 	successOptions.newOptions=options;
 	postAjax(url,null,createWestTree,{successArguments: successOptions, type: 'get', async: false})
 }
+//授权角色
+function initTree(url, treeNode, newOptions) {
+    var successOptions = {treeNode: treeNode, newOptions: newOptions};    
+        var options = {
+            onClick: function (node) {
+              /*  if (node.attributes && node.attributes.url) {
+                    var url;
+                    if (node.attributes.url.indexOf('/') == 0) {
+                        url = getContextPath() + node.attributes.url
+                    }
+                } else {
+                    url = node.attributes.url
+                }
+                addTab({url: url, title: node.text})*/
+            }
+        };
+        $.extend(options, newOptions);
+        successOptions.newOptions = options;
+        postAjax(url, null, createTree, {successArguments: successOptions, type: 'get', async: false})
+    
+}
 function createWestTree(data,successOptions){
 	var options ={data:data.returnResult.result};
 	 $.extend(options, successOptions.newOptions);
@@ -253,6 +274,9 @@ function createWestTree(data,successOptions){
 	 successOptions.treeNode.tree(options);
 	
 }
+
+
+
 function addTab(params){
 	 var iframe = '<iframe src="' + params.url + '" frameborder="0" style="border:0;width:100%;height:100%;"></iframe>';
 	    var t = $('#index-tabs');

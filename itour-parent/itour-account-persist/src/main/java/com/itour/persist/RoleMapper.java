@@ -1,11 +1,13 @@
 package com.itour.persist;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itour.model.account.Role;
 
-import feign.Param;
 
 /**
  * <p>
@@ -16,5 +18,5 @@ import feign.Param;
  * @since 2020-05-28
  */
 public interface RoleMapper extends BaseMapper<Role> {
-
+	List<Map<String, Object>> queryGroupRole(@Param("gid") Integer gid);
 }

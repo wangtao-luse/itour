@@ -69,10 +69,36 @@ public class AccountController {
 		ResponseMessage insertGroup = this.accountConnector.insertGroup(jsonObject, request);
 		return insertGroup;
 	}
+	/**
+	 * 角色列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/getRoleList")
 	@ResponseBody
     public ResponseMessage getRoleList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getRoleList = this.accountConnector.getRoleList(jsonObject, request);
 		return getRoleList;
     }
+	/**
+	   * 授权角色
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/authorizeRole")
+	@ResponseBody
+	public ResponseMessage authorizeRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getRoleList = this.accountConnector.authorizeRole(jsonObject, request);
+		return getRoleList;
+	}
+	/**
+	 * 授权角色
+	 * @return
+	 */
+	@RequestMapping("/groupRoleP")
+	public String groupRoleP() {
+		return "/system/right/groupRole";
+	}
 }
