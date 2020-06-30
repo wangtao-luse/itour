@@ -13,8 +13,8 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-05-28
  */
-@TableName("t_a_role_group")
-public class RoleGroup extends Model<RoleGroup> {
+@TableName("t_a_group_role")
+public class GroupRole extends Model<GroupRole> {
 
     private static final long serialVersionUID = 1L;
 

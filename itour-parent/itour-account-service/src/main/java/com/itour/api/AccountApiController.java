@@ -9,6 +9,7 @@ import com.itour.account.api.AccountApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.AccountService;
+import com.itour.service.GroupRoleService;
 import com.itour.service.GroupService;
 import com.itour.service.OauthService;
 import com.itour.service.RightDetailService;
@@ -29,6 +30,8 @@ RightDetailService rightDetailService;
 GroupService groupService;
 @Autowired
 RoleService roleService;
+@Autowired
+GroupRoleService groupRoleService;
 
 /**
  * 注册提交
@@ -96,20 +99,30 @@ public ResponseMessage queryRoleList(@RequestBody RequestMessage requestMessage)
 	// TODO Auto-generated method stub
 	return roleService.queryRoleList(requestMessage);
 }
-/**
- * 管理平台左侧菜单列表
- */
+
 @Override
 @RequestMapping("/menu/getMenuList")
 public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightService.getMenuList(requestMessage);
 }
+/**
+ * 用户组授权角色列表
+ */
 @Override
-@RequestMapping("/account/authorizeRole")
-public ResponseMessage authorizeRole(@RequestBody RequestMessage requestMessage) {
+@RequestMapping("/account/authorizeRoleList")
+public ResponseMessage authorizeRoleList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
-	return groupService.authorizeRole(requestMessage);
+	return groupService.authorizeRoleList(requestMessage);
+}
+/**
+ * 用户组授权角色
+ */
+@Override
+@RequestMapping("/account/powerRole")
+public ResponseMessage powerRole(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return groupRoleService.powerRole(requestMessage);
 }
 
 }

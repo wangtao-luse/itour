@@ -180,41 +180,6 @@ function getInitDialogOptions(modelTitle,url,mainBtnId,newOptions){
 	return options;
 	
 }
-//清楚查询条件
-function clearFunction(node) {
-    var clearNode = $("#" + node);
-    clearNode.find('input').not("input[readonly]").not("input[type='checkbox']").not("input[type='radio']").val('');
-    clearNode.find('.combo-text').val('');
-    var selectNodes = clearNode.find('select');
-    $.each(selectNodes, function (index, value) {
-        $(this).find("option:eq(0)").attr("selected", true)
-    });
-    clearNode.find('input:checkbox').prop("checked", false);
-    clearNode.find('select[name="sort"]').attr('disabled', true);
-    var radioNode = clearNode.find('input:radio');
-    if (radioNode && radioNode.length > 1) {
-        var listFlagNode = clearNode.find("input:radio[name='listFlag']");
-        var dingXiangFlag = clearNode.find("input:radio[name='customerNameFlag']");
-        var paidStatusFlag = clearNode.find("input:radio[name='paidStatus']");
-        var roadPackageTypeFlag = clearNode.find("input:radio[name='roadPackageType']");
-        if (listFlagNode && listFlagNode.length > 1) {
-            $(listFlagNode.get(0)).prop("checked", true);
-            $(listFlagNode.get(0)).val("1")
-        }
-        if (roadPackageTypeFlag && roadPackageTypeFlag.length > 1) {
-            $(roadPackageTypeFlag.get(0)).prop("checked", true);
-            $(roadPackageTypeFlag.get(0)).val("0")
-        }
-        if (dingXiangFlag && dingXiangFlag.length > 1) {
-            $(dingXiangFlag.get(0)).prop("checked", true);
-            $(dingXiangFlag.get(0)).val("")
-        }
-        if (paidStatusFlag && paidStatusFlag.length > 1) {
-            $(paidStatusFlag.get(0)).prop("checked", true);
-            $(paidStatusFlag.get(0)).val("")
-        }
-    }
-}
 
 //生成左侧菜单
 function initWestTree(url,treeNode,newOptions){
@@ -247,7 +212,7 @@ function initWestTree(url,treeNode,newOptions){
 	postAjax(url,null,createWestTree,{successArguments: successOptions, type: 'get', async: false})
 }
 //授权角色
-function initTree(url, treeNode, newOptions) {
+function initTree(url,postData, treeNode, newOptions) {
     var successOptions = {treeNode: treeNode, newOptions: newOptions};    
         var options = {
             onClick: function (node) {
@@ -264,7 +229,7 @@ function initTree(url, treeNode, newOptions) {
         };
         $.extend(options, newOptions);
         successOptions.newOptions = options;
-        postAjax(url, null, createTree, {successArguments: successOptions, type: 'get', async: false})
+        postAjax(url, postData, createTree, {successArguments: successOptions, async: false})
     
 }
 function createWestTree(data,successOptions){
@@ -274,7 +239,14 @@ function createWestTree(data,successOptions){
 	 successOptions.treeNode.tree(options);
 	
 }
-
+function createTree(data, successOptions) {
+	console.log("--------Tree-----");
+	console.log(data)
+	
+    var options = {data: data.returnResult.result, parentField: 'pid'};
+    $.extend(options, successOptions.newOptions);
+    successOptions.treeNode.tree(options)
+}
 
 
 function addTab(params){
@@ -330,3 +302,60 @@ function initSelect(selectNode, data, flag, title) {
     });
     selectNode.html(str)
 };
+//清楚查询条件
+function clearFunction(node) {
+    var clearNode = $("#" + node);
+    clearNode.find('input').not("input[readonly]").not("input[type='checkbox']").not("input[type='radio']").val('');
+    clearNode.find('.combo-text').val('');
+    var selectNodes = clearNode.find('select');
+    $.each(selectNodes, function (index, value) {
+        $(this).find("option:eq(0)").attr("selected", true)
+    });
+    clearNode.find('input:checkbox').prop("checked", false);
+    clearNode.find('select[name="sort"]').attr('disabled', true);
+    var radioNode = clearNode.find('input:radio');
+    if (radioNode && radioNode.length > 1) {
+        var listFlagNode = clearNode.find("input:radio[name='listFlag']");
+        var dingXiangFlag = clearNode.find("input:radio[name='customerNameFlag']");
+        var paidStatusFlag = clearNode.find("input:radio[name='paidStatus']");
+        var roadPackageTypeFlag = clearNode.find("input:radio[name='roadPackageType']");
+        if (listFlagNode && listFlagNode.length > 1) {
+            $(listFlagNode.get(0)).prop("checked", true);
+            $(listFlagNode.get(0)).val("1")
+        }
+        if (roadPackageTypeFlag && roadPackageTypeFlag.length > 1) {
+            $(roadPackageTypeFlag.get(0)).prop("checked", true);
+            $(roadPackageTypeFlag.get(0)).val("0")
+        }
+        if (dingXiangFlag && dingXiangFlag.length > 1) {
+            $(dingXiangFlag.get(0)).prop("checked", true);
+            $(dingXiangFlag.get(0)).val("")
+        }
+        if (paidStatusFlag && paidStatusFlag.length > 1) {
+            $(paidStatusFlag.get(0)).prop("checked", true);
+            $(paidStatusFlag.get(0)).val("")
+        }
+    }
+}
+//获取tree选中的组Ids和角色Ids（'getChecked', 'indeterminate'）
+function getTreeCheckedGidsAndRids(node) {
+    var nodes1 = node.tree('getChecked');
+    var nodes2 = node.tree('getChecked', 'indeterminate');
+    var checknodes = $.merge(nodes1, nodes2);
+    var arr = [];   
+    if (checknodes && checknodes.length > 0) {
+        for (var i = 0; i < checknodes.length; i++) {
+        	 var gr={};
+        	 if(checknodes[i].gid==undefined){
+        		 gr.groupId=checknodes[i].id;
+        	 }else{
+        		 gr.groupId=checknodes[i].gid;
+        		 gr.roleId=checknodes[i].id;
+        	 }        	
+        	
+            arr.push(gr);
+        }
+    }
+    return arr;
+}
+

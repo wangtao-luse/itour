@@ -33,9 +33,15 @@ public ResponseMessage getRoleList(JSONObject jsonObject,HttpServletRequest requ
 	return groupList;
 	
 }
-public ResponseMessage authorizeRole(JSONObject jsonObject,HttpServletRequest request) {
+public ResponseMessage authorizeRoleList(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage groupList = accountApi.authorizeRole(postData);
+	ResponseMessage groupList = accountApi.authorizeRoleList(postData);
+	return groupList;
+	
+}
+public ResponseMessage powerRole(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage groupList = accountApi.powerRole(postData);
 	return groupList;
 	
 }

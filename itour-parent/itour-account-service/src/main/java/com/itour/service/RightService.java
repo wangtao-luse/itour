@@ -24,7 +24,7 @@ import com.itour.persist.RightMapper;
 @Service
 public class RightService extends ServiceImpl<RightMapper,Right> {
 /**
- * 获取后台菜单
+ * 获取菜单
  * @param requestMessage
  * @return
  */

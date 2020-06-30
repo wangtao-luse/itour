@@ -1,7 +1,7 @@
 package com.itour.persist;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.account.RoleGroup;
+import com.itour.model.account.GroupRole;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.itour.model.account.RoleGroup;
  * @author wangtao
  * @since 2020-05-28
  */
-public interface RoleGroupMapper extends BaseMapper<RoleGroup> {
+public interface GroupRoleMapper extends BaseMapper<GroupRole> {
 
 }

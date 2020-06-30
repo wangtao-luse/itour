@@ -71,12 +71,19 @@ public ResponseMessage queryRoleList(RequestMessage requestMessage);
 @RequestMapping(value = "/menu/getMenuList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getMenuList(RequestMessage requestMessage);
 /**
+ * 角色授权列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "account/authorizeRoleList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage authorizeRoleList(RequestMessage requestMessage);
+/**
  * 角色授权
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "account/authorizeRole",produces = {"application/json;charset=UTF-8"})
-public ResponseMessage authorizeRole(RequestMessage requestMessage);
+@RequestMapping(value = "account/powerRole",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage powerRole(RequestMessage requestMessage);
 
 
 }
