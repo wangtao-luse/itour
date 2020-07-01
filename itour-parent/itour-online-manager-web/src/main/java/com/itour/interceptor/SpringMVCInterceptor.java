@@ -56,22 +56,6 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		
-		try {
-			long startTime=(long) request.getAttribute("startTime");
-			long endTime = System.currentTimeMillis();
-			long executeTime = endTime - startTime;
-			
-			String host=this.getRemoteHost(request, response);//IP
-			if(handler instanceof HandlerMethod){
-				HandlerMethod handlerMethod=(HandlerMethod)handler;
-				logger.info("controller : " + handlerMethod.getBeanType().getName() +";methodName : "+handlerMethod.getMethod().getName()+";SessionID : "+SessionUtil.getSession().getId()+";IP Addr : "+host+";Execute Time  : "+executeTime+"ms");
-			}
-			
-			Object obj= request.getAttribute("controllerLog");
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

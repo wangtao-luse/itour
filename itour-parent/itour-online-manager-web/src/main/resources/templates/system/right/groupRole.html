@@ -29,7 +29,7 @@ $(function(){
 		var arr = getTreeCheckedGidsAndRids($('#resourceTree'));
 		var url="/account/powerRole";
 		var data=JSON.stringify(arr)
-		postAjax(url,data,{});
+		postAjax(url,data,closeDialogCallBack,{});
 	});
 	
 });

@@ -81,6 +81,7 @@ public ResponseMessage insertGroup(RequestMessage requestMessage) {
 		Group group = jsonObject.getJSONObject("vo").toJavaObject(Group.class);
 		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 		queryWrapper.eq("G_NAME", group.getgName());
+		queryWrapper.or().eq("gDesc", group.getgDesc());
 		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 		if(selectCount>0) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);
@@ -109,7 +110,18 @@ public ResponseMessage updateGroup(RequestMessage requestMessage) {
 	try {		
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		Group group = jsonObject.getJSONObject("vo").toJavaObject(Group.class);
+		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
+		queryWrapper.eq("G_NAME", group.getgName());
+		queryWrapper.or().eq("gDesc", group.getgDesc());
+		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
+		if(selectCount>0) {
+			throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);
+		}
 	    this.baseMapper.updateById(group);   
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -129,6 +141,10 @@ public ResponseMessage deleteGroup(RequestMessage requestMessage) {
 	try {		
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		Group group = jsonObject.getJSONObject("vo").toJavaObject(Group.class);
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -161,7 +177,7 @@ public ResponseMessage authorizeRoleList(RequestMessage requestMessage) {
 			jsonObject.put("text",g.getgDesc());
 			jsonObject.put("state", "open");
 			jsonArray.add(jsonObject);
-			//3.1获取该组下拥有的角色
+			//3.1获取该组下拥有的角色及所有角色
 			List<Map<String, Object>> queryGroupRole = roleMapper.queryGroupRole(g.getId());
 			//3.2组装角色信息
 			JSONArray childArray = new JSONArray();			
@@ -172,6 +188,8 @@ public ResponseMessage authorizeRoleList(RequestMessage requestMessage) {
 				childJsonObject.put("state", "open");
 				//该角色的所属组(授权提交的时候使用)
 				childJsonObject.put("gid", g.getId());
+				//组-角色表的编号
+				childJsonObject.put("grNo", role.get("grNo"));
 				//GROUP_ID:0 改角色下没有该角色
 				String str =(String) role.get("GROUP_ID");
 				if("0".equals(str)) {//该组下没有对应的角色
@@ -212,5 +230,31 @@ public void getNextGroup(List<Group> list,Integer id){
 		getNextGroup(list, group.getId());
 	}
 	
+}
+/**
+ * 用户组查询单条
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage getGroup(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		Group group = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Group.class);
+		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
+		queryWrapper.eq("ID", group.getId());
+		Group selectOne = this.baseMapper.selectOne(queryWrapper);
+		responseMessage.setReturnResult(selectOne);
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	     return ResponseMessage.getFailed(e.getMessage());
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	
+	
+	return responseMessage;
 }
 }

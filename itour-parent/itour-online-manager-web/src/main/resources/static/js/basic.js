@@ -130,6 +130,22 @@ function editFun(title,url,dataGridNode,newOptions){
 	parent.$.modalDialog(options)
 	
 }
+function grantFunCommon(title, url, dataGridNode, newOptions) {
+    var rows = dataGridNode.datagrid('getSelections');
+    if (rows && rows.length > 0) {
+        var options = {
+            title: title,
+            width: newOptions&&newOptions.width?newOptions.width:500,
+            height: newOptions&&newOptions.height?newOptions.height:300,
+            href: /*getContextPath() + */url + rows[0].id,
+            data: {'id': rows[0].id}
+        }
+        $.extend(options, newOptions);
+        parent.$.modalDialog(options);
+    } else {
+        showErrorMsg('请选择一条数据.')
+    }
+}
 /**
  * 
  * @param title
@@ -339,23 +355,80 @@ function clearFunction(node) {
 }
 //获取tree选中的组Ids和角色Ids（'getChecked', 'indeterminate'）
 function getTreeCheckedGidsAndRids(node) {
-    var nodes1 = node.tree('getChecked');
-    var nodes2 = node.tree('getChecked', 'indeterminate');
+    var nodes1 = node.tree('getChecked',['checked','indeterminate']);
+    var nodes2 = node.tree('getChecked', 'unchecked');
     var checknodes = $.merge(nodes1, nodes2);
     var arr = [];   
     if (checknodes && checknodes.length > 0) {
         for (var i = 0; i < checknodes.length; i++) {
         	 var gr={};
-        	 if(checknodes[i].gid==undefined){
-        		 gr.groupId=checknodes[i].id;
-        	 }else{
+        	 if(checknodes[i].gid!=undefined){
         		 gr.groupId=checknodes[i].gid;
         		 gr.roleId=checknodes[i].id;
+        		 gr.checked=checknodes[i].checked;
+        		 gr.grNo=checknodes[i].grNo;
+        		 arr.push(gr);
         	 }        	
-        	
-            arr.push(gr);
+           
         }
     }
     return arr;
 }
-
+$.extend({
+    remind: function (options) {
+        var _msg = '';
+        if (options.icon != undefined) {
+            _msg += '<div class="messager-icon messager-' + options.icon + '"></div>'
+        }
+        if (options.msg != undefined) {
+            _msg += '<div style="word-break : break-all;">' + options.msg + '</div>'
+        }
+        _msg += '<div style="clear:both;"></div>';
+        _msg += '<div class="messager-button" style="padding-top:0"><a href="javascript:void(0)" onclick="hideSuccess(this)" class="l-btn" group="" id="" style="margin-left: 10px;"><span class="l-btn-left"><span class="l-btn-text">确定</span></span></a></div>';
+        options.msg = _msg;
+        $.messager.show(options)
+    }
+});
+function hideSuccess(that) {
+    var thatT = $(that);
+    thatT.parent().parent().siblings().find('.panel-tool-close').click()
+}
+function showSuccessMsg(title) {
+    $.remind({
+        title: "成功提示",
+        icon: "info",
+        msg: title,
+        width: 300,
+        height: 160,
+        timeout: 2000,
+        style: {right: '', bottom: ''}
+    })
+}
+function closeDialogCallBack(data) {
+    $("div.panel-tool .panel-tool-close").click();
+    showSuccessMsg(data.resultMessage);
+}
+//数据填充
+function loadContainerWrapperData(obj,pNode) {
+    var key, value, tagName, type, arr;
+    for (x in obj) {
+        key = x;
+        value = obj[x];
+        pNode.find("[name='" + key + "']").each(function () {
+            tagName = $(this)[0].tagName;
+            type = $(this).attr('type');
+            if (tagName == 'INPUT') {
+                if (type == 'radio') {
+                    $(this).attr('checked', $(this).val() == value)
+                } else if (type == 'checkbox') {
+                } else {
+                    $(this).val(value)
+                }
+            } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                $(this).val(value)
+            } else if (tagName == 'IMG') {
+                $(this).attr('src', value);
+            }
+        })
+    }
+}

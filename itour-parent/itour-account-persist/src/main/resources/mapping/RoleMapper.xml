@@ -14,6 +14,6 @@
         ID, ROLE_NAME, ROLE_DESC
     </sql>
     <select id="queryGroupRole" resultType="map" parameterType="java.lang.Integer">
-     SELECT c.ID,c.ROLE_DESC,c.ROLE_DESC,IFNULL(d.GROUP_ID,'0') GROUP_ID FROM t_a_role c LEFT JOIN t_a_group_role d on c.ID= d.ROLE_ID and d.GROUP_ID=#{gid};
+     SELECT c.ID,c.ROLE_DESC,c.ROLE_DESC,IFNULL(d.GROUP_ID,'0') GROUP_ID,d.ID grNo FROM t_a_role c LEFT JOIN t_a_group_role d on c.ID= d.ROLE_ID and d.GROUP_ID=#{gid};
    </select>
 </mapper>

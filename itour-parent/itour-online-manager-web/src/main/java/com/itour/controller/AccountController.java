@@ -39,7 +39,8 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/groupAddP")
-	public String groupAddP() {
+	public String groupAddP(String id,ModelMap model) {
+		model.addAttribute("id", id);
 		return "/system/right/groupAdd";
 	}
 	/**
@@ -110,10 +111,21 @@ public class AccountController {
 	@RequestMapping("/powerRole")
 	@ResponseBody
 	public ResponseMessage powerRole(@RequestBody JSONArray jsonArray,HttpServletRequest request) {
-		List<GroupRole> javaList = jsonArray.toJavaList(GroupRole.class);
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("vo", javaList);
-		ResponseMessage authorizeRole = this.accountConnector.powerRole(jsonObject, request);
-		return authorizeRole;
+		jsonObject.put("arr", jsonArray);
+		ResponseMessage powerRole = this.accountConnector.powerRole(jsonObject, request);
+		return powerRole;
+	}
+	@RequestMapping("/getGroup")
+	@ResponseBody
+	public ResponseMessage getGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getGroup = this.accountConnector.getGroup(jsonObject, request);
+		return getGroup;
+	}
+	@RequestMapping("/updateGroup")
+	@ResponseBody
+	public ResponseMessage updateGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage updateGroup = this.accountConnector.updateGroup(jsonObject, request);
+		return updateGroup;
 	}
 }

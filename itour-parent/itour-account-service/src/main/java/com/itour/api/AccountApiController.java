@@ -120,9 +120,27 @@ public ResponseMessage authorizeRoleList(@RequestBody RequestMessage requestMess
  */
 @Override
 @RequestMapping("/account/powerRole")
-public ResponseMessage powerRole(RequestMessage requestMessage) {
+public ResponseMessage powerRole(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return groupRoleService.powerRole(requestMessage);
+}
+/**
+ * 修改用户组信息
+ */
+@Override
+@RequestMapping("/account/updateGroup")
+public ResponseMessage updateGroup(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return groupService.updateGroup(requestMessage);
+}
+/**
+ * 用户组查询单条
+ */
+@Override
+@RequestMapping("/account/getGroup")
+public ResponseMessage getGroup(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return groupService.getGroup(requestMessage);
 }
 
 }

@@ -84,6 +84,20 @@ public ResponseMessage authorizeRoleList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "account/powerRole",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage powerRole(RequestMessage requestMessage);
+/**
+ * 修改用户组
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "account/updateGroup",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage updateGroup(RequestMessage requestMessage);
+/**
+ * 用户组查询单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "account/getGroup",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getGroup(RequestMessage requestMessage);
 
 
 }

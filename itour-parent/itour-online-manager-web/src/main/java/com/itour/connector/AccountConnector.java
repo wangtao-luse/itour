@@ -45,4 +45,16 @@ public ResponseMessage powerRole(JSONObject jsonObject,HttpServletRequest reques
 	return groupList;
 	
 }
+public ResponseMessage updateGroup(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage updateGroup = accountApi.updateGroup(postData);
+	return updateGroup;
+	
+}
+public ResponseMessage getGroup(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage updateGroup = accountApi.getGroup(postData);
+	return updateGroup;
+	
+}
 }

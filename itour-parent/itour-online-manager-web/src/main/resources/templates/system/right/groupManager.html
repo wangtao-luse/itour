@@ -13,12 +13,12 @@
             var op = {
                 fitColumns:false,
                 fit:true,
-                singleSelect:false,
+                singleSelect:true,
                 pageList:[10,40,80,200,500],
                 columns:[[
 					{field:'id',title:'编号',width:100},					
 					{field:'gName',title:'组名称',width:100},
-					{field:'gDesc',title:'组描述',width:100},
+					{field:'gDesc',title:'组描述',width:150},
 					{field:'gParent',title:'所属组编号',width:100}
 				]],
                 toolbar: '#toolbar',
@@ -67,9 +67,10 @@
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      
-	      <a href="#" onclick="addFun('新增', '/account/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">新增</a>
-	      <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
-	      <a href="#" onclick="editFun('角色授权','/account/groupRoleP?groupId=',$('#dataGrid'),{buttons: [{id:'groupRoleFun',text:'授权'}],'key':'id','height':700,'width':600})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
+	      <a href="#" onclick="addFun('新增', '/account/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">新增</a>	
+	      <a href="#" onclick="editFun('编辑','/account/groupAddP?id=',$('#dataGrid'),{buttons: [],'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
+	      <a href="#" onclick="grantFunCommon('角色授权','/account/groupRoleP?groupId=',$('#dataGrid'),{buttons: [{id:'groupRoleFun',text:'授权'}],'key':'id','height':400,'width':300})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
+	      <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
 	    </div>
 	</div>
 </body>
