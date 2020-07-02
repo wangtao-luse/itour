@@ -50,7 +50,8 @@ public ResponseMessage queryGroupList(RequestMessage requestMessage) {
 			QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 			/**模糊查询**/
 			queryWrapper.likeRight(!StringUtils.isEmpty(group.getgName()), "G_NAME", group.getgName());
-			
+			queryWrapper.likeRight(!StringUtils.isEmpty(group.getgDesc()), "G_DESC",group.getgDesc());
+			queryWrapper.eq(null!=group.getId(), "ID", group.getId());
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
 				Page selectPage = this.baseMapper.selectPage(page, queryWrapper);
@@ -112,7 +113,7 @@ public ResponseMessage updateGroup(RequestMessage requestMessage) {
 		Group group = jsonObject.getJSONObject("vo").toJavaObject(Group.class);
 		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 		queryWrapper.eq("G_NAME", group.getgName());
-		queryWrapper.or().eq("gDesc", group.getgDesc());
+		queryWrapper.ne("ID", group.getId());		
 		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 		if(selectCount>0) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);

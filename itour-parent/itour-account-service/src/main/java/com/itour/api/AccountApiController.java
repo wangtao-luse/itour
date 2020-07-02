@@ -68,6 +68,9 @@ public ResponseMessage queryAccountRight(@RequestBody RequestMessage requestMess
 	// TODO Auto-generated method stub
 	return rightDetailService.queryAccountRight(requestMessage);
 }
+/**
+ * 忘记密码
+ */
 @Override
 @RequestMapping("/account/findPwd")
 public ResponseMessage findPwd(@RequestBody RequestMessage requestMessage) {
@@ -83,6 +86,9 @@ public ResponseMessage getGroupList(@RequestBody RequestMessage requestMessage) 
 	// TODO Auto-generated method stub
 	return groupService.queryGroupList(requestMessage);
 }
+/**
+ * 用户组信息添加
+ */
 @Override
 @RequestMapping("/account/insertGroup")
 public ResponseMessage insertGroup(@RequestBody RequestMessage requestMessage) {
@@ -90,22 +96,6 @@ public ResponseMessage insertGroup(@RequestBody RequestMessage requestMessage) {
 	return groupService.insertGroup(requestMessage);
 }
 
-/**
- * 获取用户角色列表
- */
-@Override
-@RequestMapping("/account/queryRoleList")
-public ResponseMessage queryRoleList(@RequestBody RequestMessage requestMessage) {
-	// TODO Auto-generated method stub
-	return roleService.queryRoleList(requestMessage);
-}
-
-@Override
-@RequestMapping("/menu/getMenuList")
-public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
-	// TODO Auto-generated method stub
-	return rightService.getMenuList(requestMessage);
-}
 /**
  * 用户组授权角色列表
  */
@@ -129,7 +119,7 @@ public ResponseMessage powerRole(@RequestBody RequestMessage requestMessage) {
  */
 @Override
 @RequestMapping("/account/updateGroup")
-public ResponseMessage updateGroup(RequestMessage requestMessage) {
+public ResponseMessage updateGroup(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return groupService.updateGroup(requestMessage);
 }
@@ -138,9 +128,54 @@ public ResponseMessage updateGroup(RequestMessage requestMessage) {
  */
 @Override
 @RequestMapping("/account/getGroup")
-public ResponseMessage getGroup(RequestMessage requestMessage) {
+public ResponseMessage getGroup(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return groupService.getGroup(requestMessage);
 }
 
+/**
+ * 获取用户角色列表
+ */
+@Override
+@RequestMapping("/account/queryRoleList")
+public ResponseMessage queryRoleList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return roleService.queryRoleList(requestMessage);
+}
+/**
+ * 角色查询单条
+ */
+@Override
+@RequestMapping("/account/getRole")
+public ResponseMessage getRole(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return roleService.getRole(requestMessage);
+}
+/**
+ * 角色插入
+ */
+@Override
+@RequestMapping("/account/insertRole")
+public ResponseMessage insertRole(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return roleService.insertRole(requestMessage);
+}
+/**
+ * 角色修改
+ */
+@Override
+@RequestMapping("/account/updateRole")
+public ResponseMessage updateRole(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return roleService.updateRole(requestMessage);
+}
+/**
+ * 
+ */
+@Override
+@RequestMapping("/menu/getMenuList")
+public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return rightService.getMenuList(requestMessage);
+}
 }

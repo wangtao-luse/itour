@@ -57,13 +57,6 @@ public ResponseMessage getGroupList(RequestMessage requestMessage);
 @RequestMapping(value = "/account/insertGroup",produces = {"application/json;charset=UTF-8"})
 ResponseMessage insertGroup(RequestMessage requestMessage);
 /**
- * 角色列表
- * @param requestMessage
- * @return
- */
-@RequestMapping(value = "/account/queryRoleList",produces = {"application/json;charset=UTF-8"})
-public ResponseMessage queryRoleList(RequestMessage requestMessage);
-/**
  * 菜单列表
  * @param requestMessage
  * @return
@@ -71,14 +64,14 @@ public ResponseMessage queryRoleList(RequestMessage requestMessage);
 @RequestMapping(value = "/menu/getMenuList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getMenuList(RequestMessage requestMessage);
 /**
- * 角色授权列表
+ * 组授权列表
  * @param requestMessage
  * @return
  */
 @RequestMapping(value = "account/authorizeRoleList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage authorizeRoleList(RequestMessage requestMessage);
 /**
- * 角色授权
+ * 组授权
  * @param requestMessage
  * @return
  */
@@ -98,7 +91,33 @@ public ResponseMessage updateGroup(RequestMessage requestMessage);
  */
 @RequestMapping(value = "account/getGroup",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getGroup(RequestMessage requestMessage);
-
-
+/**
+ * 角色列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/queryRoleList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage queryRoleList(RequestMessage requestMessage);
+/**
+ * 角色单条查询
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getRole",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getRole(RequestMessage requestMessage);
+/**
+ * 角色插入
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/insertRole",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage insertRole(RequestMessage requestMessage);
+/**
+ * 角色修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/updateRole",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage updateRole(RequestMessage requestMessage);
 }
 

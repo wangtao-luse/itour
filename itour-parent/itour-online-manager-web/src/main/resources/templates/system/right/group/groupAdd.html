@@ -61,14 +61,13 @@ $(function(){
 		postAjax('/account/getGroup',JSON.stringify(postData),function(data){
 		    var dt=data.returnResult.result;      
 		       console.log(data);
-		    	/* loadDataHysh(dt,$("#hyEditArea")); */
+		    loadContainerWrapperData(dt,$(".container-wrapper"));
 		       
 		   });
 		$("#editFunction").click(function(){
-			var url="/account/updateGroup";
-			var postData=$.serializeObject($("#form"));
-			var data= {"vo":postData};
-		    var data = $("#form").serializeJson();
+			var url="/account/updateGroup";			
+		    var postData = $("#form").serializeJson();
+		    var data= {"vo":postData};
 			 $('#form').form('validate') &&
 			postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
 		});	

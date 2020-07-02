@@ -27,12 +27,7 @@ public ResponseMessage insertGroup(JSONObject jsonObject,HttpServletRequest requ
 	return groupList;
 	
 }
-public ResponseMessage getRoleList(JSONObject jsonObject,HttpServletRequest request) {
-	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage groupList = accountApi.queryRoleList(postData);
-	return groupList;
-	
-}
+
 public ResponseMessage authorizeRoleList(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
 	ResponseMessage groupList = accountApi.authorizeRoleList(postData);
@@ -57,4 +52,29 @@ public ResponseMessage getGroup(JSONObject jsonObject,HttpServletRequest request
 	return updateGroup;
 	
 }
+public ResponseMessage getRoleList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage groupList = accountApi.queryRoleList(postData);
+	return groupList;
+	
+}
+public ResponseMessage updateRole(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage updateRole = accountApi.updateRole(postData);
+	return updateRole;
+}
+public ResponseMessage getRole(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage getRole = accountApi.getRole(postData);
+	return getRole;
+}
+public ResponseMessage insertRole(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage getRole = accountApi.insertRole(postData);
+	return getRole;
+}
+
 }

@@ -1,6 +1,5 @@
 package com.itour.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +14,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AccountConnector;
-import com.itour.model.account.GroupRole;
 /**
  * 前台用户管理
  * @author wwang
@@ -32,7 +30,7 @@ public class AccountController {
 	 */
 	@RequestMapping("/groupPage")
 	public String groupPage() {
-		return "/system/right/groupManager";
+		return "/system/right/group/groupManager";
 	}
 	/**
 	 * 新增组页面
@@ -41,7 +39,7 @@ public class AccountController {
 	@RequestMapping("/groupAddP")
 	public String groupAddP(String id,ModelMap model) {
 		model.addAttribute("id", id);
-		return "/system/right/groupAdd";
+		return "/system/right/group/groupAdd";
 	}
 	/**
 	 * 查看组详情
@@ -75,18 +73,7 @@ public class AccountController {
 		ResponseMessage insertGroup = this.accountConnector.insertGroup(jsonObject, request);
 		return insertGroup;
 	}
-	/**
-	 * 角色列表
-	 * @param jsonObject
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/getRoleList")
-	@ResponseBody
-    public ResponseMessage getRoleList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		ResponseMessage getRoleList = this.accountConnector.getRoleList(jsonObject, request);
-		return getRoleList;
-    }
+	
 	/**
 	   * 授权角色列表
 	 * @param jsonObject
@@ -106,8 +93,14 @@ public class AccountController {
 	@RequestMapping("/groupRoleP")
 	public String groupRoleP(String groupId,ModelMap model) {
 		model.addAttribute("groupId", groupId);
-		return "/system/right/groupRole";
+		return "/system/right/group/groupRole";
 	}
+	/**
+	 * 对组进行角色授权
+	 * @param jsonArray
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/powerRole")
 	@ResponseBody
 	public ResponseMessage powerRole(@RequestBody JSONArray jsonArray,HttpServletRequest request) {
@@ -116,16 +109,94 @@ public class AccountController {
 		ResponseMessage powerRole = this.accountConnector.powerRole(jsonObject, request);
 		return powerRole;
 	}
+	/**
+	 * 组单条查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/getGroup")
 	@ResponseBody
 	public ResponseMessage getGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getGroup = this.accountConnector.getGroup(jsonObject, request);
 		return getGroup;
 	}
+	/**
+	 * 组修改
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/updateGroup")
 	@ResponseBody
 	public ResponseMessage updateGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage updateGroup = this.accountConnector.updateGroup(jsonObject, request);
 		return updateGroup;
+	}
+	/**
+	 * 角色管理页面
+	 * @return
+	 */
+	@RequestMapping("rolePage")
+	public String rolePage() {
+		return "/system/right/role/roleManager";
+	}
+	
+	/**
+	 * 角色列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getRoleList")
+	@ResponseBody
+    public ResponseMessage getRoleList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getRoleList = this.accountConnector.getRoleList(jsonObject, request);
+		return getRoleList;
+    }
+	/**
+	 * 角色新增编辑页面
+	 * @return
+	 */
+	@RequestMapping("/roleAddP")
+	public String roleAddP(String id,ModelMap model) {
+		model.addAttribute("id", id);
+		return "/system/right/role/roleAdd";
+	}
+	/**
+	 * 修改角色
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updateRole")
+	@ResponseBody
+    public ResponseMessage updateRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getRoleList = this.accountConnector.updateRole(jsonObject, request);
+		return getRoleList;
+    }
+	/**
+	 * 角色查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getRole")
+	@ResponseBody
+    public ResponseMessage getRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getRoleList = this.accountConnector.getRole(jsonObject, request);
+		return getRoleList;
+    }
+	/**
+	 * 新增角色
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/insertRole")
+	@ResponseBody
+	public ResponseMessage insertRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertRole = this.accountConnector.insertRole(jsonObject, request);
+		return insertRole;
 	}
 }

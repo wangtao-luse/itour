@@ -1,3 +1,23 @@
+(function ($) {
+    $.fn.serializeJson = function () {
+        var serializeObj = {};
+        var array = this.serializeArray();
+        var str = this.serialize();
+        $(array).each(function () {
+            if (serializeObj[this.name]) {
+                if ($.isArray(serializeObj[this.name])) {
+                    serializeObj[this.name].push(this.value.trim())
+                } else {
+                    serializeObj[this.name] = [serializeObj[this.name], this.value.trim()]
+                }
+            } else {
+                serializeObj[this.name] = this.value.trim()
+            }
+        });
+        return serializeObj
+    }
+})(jQuery);
+
 //对象数组转json
 //由于不支持传入‘'’,所以在转json的时候做过滤
 $.serializeObject = function (form) {

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+        <form id="form" method="post">
+         <div class="container-wrapper">
+            <table class="table table-hover table-condensed" style="margin:20px auto 0 auto; ">
+                <tr>
+                    <td><span class="redSharp">* </span>组名称:</td>
+                    <td><input id="gName" name="gName" data-options="required:true" style="width:125px"/></td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>组描述：</td>
+                    <td><input id="positionIdFrom" type="hidden" name="hyqc" value="" style="display: none"/>
+                        <input name="gDesc" id="gDesc" type="text" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px"></td>
+                </tr>
+                 <tr>
+                    <td><span class="redSharp">* </span>所属组:</td>
+                    <td><select id="gParent" name="gParent" data-options="required:true" style="width:125px">
+                </select></td>
+                </tr>
+            </table>
+            </div>
+        </form>
+    </div>
+</div>
+<var style="display:none" hidden="hidden" id="action">${id}</var>
+<script>
+
+
+
+$(function(){
+	var data = {"vo":{}};
+	$.ajax({
+	    type: "POST",
+	    data: JSON.stringify(data),
+	    contentType: "application/json",
+	    dataType: "json",
+	    url: "/account/getGroupList",
+	    success: function (resultData) {
+	    	    var data = resultData.returnResult.result;
+	    	    var str = "<option value='0'>请选择</option>" ;
+	    	    for(var o in data){
+	    	        str += "<option value='" + data[o].id + "' >" + data[o].gDesc + "</option>";
+	    	    }
+	    	    $("#gParent").html(str);
+	    }
+	});
+	var action = $("#action").text();
+	if(action==null){
+		$("#addFunction").click(function(){
+			var url="/account/insertGroup";
+			var postData=$.serializeObject($("#form"));
+			var data= {"vo":postData};
+			postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
+		});	
+	}else{
+		var postData={'vo':{"id":action}};
+		postAjax('/account/getGroup',JSON.stringify(postData),function(data){
+		    var dt=data.returnResult.result;      
+		       console.log(data);
+		    loadContainerWrapperData(dt,$(".container-wrapper"));
+		       
+		   });
+		$("#editFunction").click(function(){
+			var url="/account/updateGroup";			
+		    var postData = $("#form").serializeJson();
+		    var data= {"vo":postData};
+			 $('#form').form('validate') &&
+			postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
+		});	
+	}
+	
+});
+function loadDataHysh(obj,pNode) {
+    var key, value, tagName, type, arr;
+    for (x in obj) {
+        key = x;
+        value = obj[x];
+        pNode.find("[name='" + key + "']").each(function () {
+            tagName = $(this)[0].tagName;
+            type = $(this).attr('type');
+            if (tagName == 'INPUT') {
+                if (type == 'radio') {
+                    $(this).attr('checked', $(this).val() == value)
+                } else if (type == 'checkbox') {
+                } else {
+                    $(this).val(value)
+                }
+            } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                $(this).val(value)
+            } else if (tagName == 'IMG') {
+                $(this).attr('src', value);
+            }
+        })
+    }
+}
+</script>

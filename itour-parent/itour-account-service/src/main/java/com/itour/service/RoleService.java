@@ -28,7 +28,7 @@ import com.itour.persist.RoleMapper;
 @Service
 public class RoleService extends ServiceImpl<RoleMapper, Role> {
 /**
- * 角色查询
+ * 角色列表查询
  * @param requestMessage
  * @return
  */
@@ -59,6 +59,24 @@ public ResponseMessage queryRoleList(RequestMessage requestMessage) {
 	
 	return responseMessage;
 }
+public ResponseMessage getRole(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();	
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		Role selectById = this.baseMapper.selectById(jsonObject.getInteger("id"));
+		responseMessage.setReturnResult(selectById);
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(e.getMessage());
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}	
+	
+	return responseMessage;
+}
 /**
  * 修改角色
  * @param requestMessage
@@ -70,6 +88,13 @@ public ResponseMessage updateRole(RequestMessage requestMessage) {
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		Role role = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
+		QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
+		queryWrapper.eq("ROLE_NAME", role.getRoleName());
+		queryWrapper.ne("ID", role.getId());
+		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
+		if(selectCount>0) {
+			throw new BaseException(ExceptionInfo.EXCEPTION_ROLE);
+		}
 		int updateById = this.baseMapper.updateById(role);
 	} catch (BaseException e) {
 		// TODO: handle exception
@@ -113,8 +138,15 @@ public ResponseMessage insertRole(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
-		Role entity = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
-		int insert = this.baseMapper.insert(entity);
+		Role role = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
+		QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
+		queryWrapper.eq("ROLE_NAME", role.getRoleName());
+		queryWrapper.ne("ID", role.getId());
+		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
+		if(selectCount>0) {
+			throw new BaseException(ExceptionInfo.EXCEPTION_ROLE);
+		}
+		int insert = this.baseMapper.insert(role);
 	} catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
