@@ -49,7 +49,7 @@ $(function(){
 	    }
 	});
 	var action = $("#action").text();
-	if(action==null){
+	if(action==""){
 		$("#addFunction").click(function(){
 			var url="/account/insertGroup";
 			var postData=$.serializeObject($("#form"));
