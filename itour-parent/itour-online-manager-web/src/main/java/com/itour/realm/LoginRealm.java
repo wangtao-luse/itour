@@ -54,19 +54,19 @@ public class LoginRealm extends AuthorizingRealm {
 		Set<String> permissions = new HashSet<String>();
 		ResponseMessage groupMsg = memberConnector.groupList(null, null);
 		Map<String, Object> groupResult = groupMsg.getReturnResult();
-		List<Group> mapToList = FastJsonUtil.mapToList(groupResult, Group.class, Constant.COMMON_KEY);
+		List<Group> mapToList = FastJsonUtil.mapToList(groupResult, Group.class, Constant.COMMON_KEY_RESULT);
 		for (Group group : mapToList) {
 				roles.add(group.getgName());
 		}
 		ResponseMessage roleMsg = memberConnector.roleList(null, null);
 		Map<String, Object> roleResult = roleMsg.getReturnResult();
-		List<Role> roleList = FastJsonUtil.mapToList(roleResult, Role.class, Constant.COMMON_KEY);
+		List<Role> roleList = FastJsonUtil.mapToList(roleResult, Role.class, Constant.COMMON_KEY_RESULT);
 		for (Role role : roleList) {
 			roles.add(role.getRoleName());
 		}
 		ResponseMessage queryAccountRight = memberConnector.queryAccountRight(null, null);
 		Map<String, Object> map = queryAccountRight.getReturnResult();
-		List<RightDetail> rightList = FastJsonUtil.mapToList(map, RightDetail.class, Constant.COMMON_KEY);
+		List<RightDetail> rightList = FastJsonUtil.mapToList(map, RightDetail.class, Constant.COMMON_KEY_RESULT);
 		for (RightDetail rightDetail : rightList) {
 			permissions.add(rightDetail.getUrl());
 		}
@@ -110,7 +110,7 @@ public class LoginRealm extends AuthorizingRealm {
 		ResponseMessage loginSub = memberConnector.loginSub(jsonObject,upt.getRequest());
 		if(Constant.SUCCESS_CODE.equals(loginSub.getResultCode())&&null!=loginSub.getReturnResult()) {
 			HashMap<String, Object> map = (HashMap<String, Object>)loginSub.getReturnResult();
-			oauthObj = FastJsonUtil.mapToObject(map, Oauth.class, Constant.COMMON_KEY);
+			oauthObj = FastJsonUtil.mapToObject(map, Oauth.class, Constant.COMMON_KEY_RESULT);
 			salt = oauthObj.getPwd();
 		}else {
 			throw new BaseException(loginSub.getResultMessage());

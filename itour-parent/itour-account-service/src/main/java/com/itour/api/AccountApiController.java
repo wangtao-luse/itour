@@ -147,7 +147,7 @@ public ResponseMessage queryRoleList(@RequestBody RequestMessage requestMessage)
  */
 @Override
 @RequestMapping("/account/getRole")
-public ResponseMessage getRole(RequestMessage requestMessage) {
+public ResponseMessage getRole(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService.getRole(requestMessage);
 }
@@ -156,7 +156,7 @@ public ResponseMessage getRole(RequestMessage requestMessage) {
  */
 @Override
 @RequestMapping("/account/insertRole")
-public ResponseMessage insertRole(RequestMessage requestMessage) {
+public ResponseMessage insertRole(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService.insertRole(requestMessage);
 }
@@ -165,7 +165,7 @@ public ResponseMessage insertRole(RequestMessage requestMessage) {
  */
 @Override
 @RequestMapping("/account/updateRole")
-public ResponseMessage updateRole(RequestMessage requestMessage) {
+public ResponseMessage updateRole(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService.updateRole(requestMessage);
 }
@@ -177,5 +177,11 @@ public ResponseMessage updateRole(RequestMessage requestMessage) {
 public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightService.getMenuList(requestMessage);
+}
+@Override
+@RequestMapping("/account/authorizeRightList")
+public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return roleService.authorizeRightList(requestMessage);
 }
 }

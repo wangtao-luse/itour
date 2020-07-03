@@ -33,7 +33,7 @@ public ResponseMessage getMenuList(HttpServletRequest request) {
 	    jsonObject.put("uid", getuId);
 		ResponseMessage responseMessage = menuConnector.getMenuList(jsonObject, request);
 		   Map<String, Object> returnResult = responseMessage.getReturnResult();
-			JSONArray mapToJSONArray = FastJsonUtil.mapToJSONArray(returnResult, Constant.COMMON_KEY);     
+			JSONArray mapToJSONArray = FastJsonUtil.mapToJSONArray(returnResult, Constant.COMMON_KEY_RESULT);     
 		responseMessage.setReturnResult(mapToJSONArray);
 	return responseMessage;
 }

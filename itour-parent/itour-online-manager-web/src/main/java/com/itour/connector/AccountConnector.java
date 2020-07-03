@@ -76,5 +76,11 @@ public ResponseMessage insertRole(JSONObject jsonObject, HttpServletRequest requ
 	ResponseMessage getRole = accountApi.insertRole(postData);
 	return getRole;
 }
+public ResponseMessage authorizeRightList(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage authorizeRightList = accountApi.authorizeRightList(postData);
+	return authorizeRightList;
+}
 
 }

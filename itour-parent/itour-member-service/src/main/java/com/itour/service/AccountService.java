@@ -1,14 +1,20 @@
 package com.itour.service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
@@ -100,6 +106,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 	   
 	return responseMessage;
 }
+
 public static void main(String[] args) {
 	System.out.println("414598c3a3f5f83061373e6b41b8663d".length());
 	String result = SimpleHashUtil.simpleHashMd5("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
@@ -107,5 +114,34 @@ public static void main(String[] args) {
 	String simpleHashSHA_1 = SimpleHashUtil.simpleHashSHA_1("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
 	System.out.println("sha-1:"+simpleHashSHA_1);
 	System.out.println(simpleHashSHA_1.length());
+}
+public ResponseMessage selectAccountList(RequestMessage requestMessage) {
+	ResponseMessage resposeMessage = new ResponseMessage();
+	try {
+		JSONObject result = new JSONObject();
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		//1.需要合计 ;0:不需要合计
+		String needTotal = jsonObject.getString(Constant.COMMON_VO_NEEDTOTAL);
+		
+		Account accountVo = jsonObject.getJSONObject("vo").toJavaObject(Account.class);
+		Page pageVo = jsonObject.getJSONObject("page").toJavaObject(Page.class);
+		QueryWrapper queryWrapper = new QueryWrapper<Account>();
+		if(null!=pageVo) {			
+			Page selectPage = this.baseMapper.selectPage(pageVo, queryWrapper);
+			result.put(Constant.COMMON_KEY_PAGE, selectPage);
+		}else {
+			List selectList = this.baseMapper.selectList(queryWrapper);
+			result.put(Constant.COMMON_KEY_LIST, selectList);
+		}
+		if("1".equals(needTotal)) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> totalAccount = this.baseMapper.totalAccount(map);
+			jsonObject.put(Constant.COMMON_KEY_SUM, totalAccount);
+		}
+		resposeMessage.setReturnResult(result);
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+	return resposeMessage;
 }
 }

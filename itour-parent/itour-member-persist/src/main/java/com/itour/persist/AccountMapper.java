@@ -1,5 +1,7 @@
 package com.itour.persist;
 
+import java.util.Map;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itour.model.member.Account;
 
@@ -13,4 +15,5 @@ import com.itour.model.member.Account;
  */
 public interface AccountMapper extends BaseMapper<Account> {
 	public Integer getMaxId();
+	public Map<String, Object> totalAccount(Map<String,Object> map);
 }

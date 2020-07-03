@@ -155,7 +155,7 @@ public ResponseMessage deleteGroup(RequestMessage requestMessage) {
 	return responseMessage;
 }
 /**
- * 授权角色列表
+ * 组授权角色列表
  * @param requestMessage
  * @return
  */

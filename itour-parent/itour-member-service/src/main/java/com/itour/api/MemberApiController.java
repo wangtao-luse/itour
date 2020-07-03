@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.member.api.MemberApi;
+import com.itour.service.AccountService;
 import com.itour.service.GroupService;
 import com.itour.service.OauthService;
 import com.itour.service.RightService;
@@ -23,6 +24,8 @@ private OauthService oauthService;
 private RoleService roleService;
 	@Autowired
 private GroupService groupService;
+	@Autowired
+private AccountService accountService;
 	/**
 	 * 平台管理左侧菜单
 	 */
@@ -32,6 +35,59 @@ private GroupService groupService;
 		// TODO Auto-generated method stub
 		return rightService.getMenuList(requestMessage);
 	}
+    /**
+	 * 登录提交
+	 */
+	@RequestMapping("/member/loginSub")
+	@Override
+	public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return oauthService.loginSub(requestMessage);
+	}
+	/**
+	 * 后台管理员注册
+	 */
+	@RequestMapping("/member/adminSub")
+	@Override
+	public ResponseMessage adminSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountService.regiesterSub(requestMessage);
+	}
+	/**
+	 * 后台管理员注册
+	 */
+	@RequestMapping("/member/selectAccountList")
+	@Override
+	public ResponseMessage selectAccountList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountService.selectAccountList(requestMessage);
+	}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
     /**
      * 组列表
      */
@@ -48,15 +104,7 @@ private GroupService groupService;
 		// TODO Auto-generated method stub
 		return roleService.queryRoleList(requestMessage);
 	}
-	/**
-	 * 登录提交
-	 */
-	 @RequestMapping("/member/loginSub")
-	@Override
-	public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return oauthService.loginSub(requestMessage);
-	}
+	
 	
 
 }

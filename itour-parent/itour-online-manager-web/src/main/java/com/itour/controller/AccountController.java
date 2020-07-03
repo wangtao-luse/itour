@@ -199,4 +199,22 @@ public class AccountController {
 		ResponseMessage insertRole = this.accountConnector.insertRole(jsonObject, request);
 		return insertRole;
 	}
+	@RequestMapping("/roleRightP")
+	public String roleRightP(String roleId,ModelMap model) {
+		model.addAttribute("roleId", roleId);
+		return "/system/right/role/roleRight";
+	}
+	/**
+	 * 角色授权权限列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/authorizeRightList")
+	@ResponseBody
+	public ResponseMessage authorizeRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request){
+		ResponseMessage authorizeRightList = this.accountConnector.authorizeRightList(jsonObject,request);
+	return authorizeRightList;
+		
+	}
 }

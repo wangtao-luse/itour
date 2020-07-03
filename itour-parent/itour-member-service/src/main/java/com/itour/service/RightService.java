@@ -24,7 +24,7 @@ import com.itour.persist.RightMapper;
 @Service
 public class RightService extends ServiceImpl<RightMapper, Right> {
 	/**
-	 * 获取后台菜单
+	 * 获取后台左侧菜单
 	 * @param requestMessage
 	 * @return
 	 */
@@ -32,8 +32,7 @@ public class RightService extends ServiceImpl<RightMapper, Right> {
 	 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 		JSONArray jsonArray = new JSONArray();
 		try {
-			String uid = requestMessage.getBody().getOauthId();
-			uid="10000";
+			String uid = requestMessage.getBody().getuId();
 			List<Right> menuList = this.baseMapper.getMenuList(uid);	
 			for (Right right : menuList) {
 				JSONObject jsonObject = new JSONObject();

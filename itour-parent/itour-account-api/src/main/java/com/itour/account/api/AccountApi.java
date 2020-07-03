@@ -119,5 +119,12 @@ public ResponseMessage insertRole(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/updateRole",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage updateRole(RequestMessage requestMessage);
+/**
+ * 角色授权权限列表
+ * @param postData
+ * @return
+ */
+@RequestMapping(value = "/account/authorizeRightList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage authorizeRightList(RequestMessage postData);
 }
 
