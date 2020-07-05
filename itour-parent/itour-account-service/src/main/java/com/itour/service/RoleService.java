@@ -1,8 +1,11 @@
 package com.itour.service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,6 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
-import com.itour.model.account.Right;
 import com.itour.model.account.Role;
 import com.itour.persist.RightMapper;
 import com.itour.persist.RoleMapper;
@@ -178,46 +180,57 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
-		JSONArray jsonArray = new JSONArray();		
+		JSONArray jsonArray = new JSONArray();	
+		JSONObject jsonobjctoVo = requestMessage.getBody().getContent();
 		//获取根菜单
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rid", jsonobjctoVo.getInteger("roleId"));
 		List<Map<String, Object>> authorizeRightList = this.rightMapper.authorizeRightList(map);
 		for (Map<String, Object> right : authorizeRightList) {
-			
-		}
-		//一级菜单
-		List<Right> collect =null;
-		//子菜单
-		List<Right> collectSon =null;
-		for (Right right : collect) {
 			JSONObject jsonObject =new JSONObject();
 			//parentId:0:为顶级菜单;
-			String parentId = right.getParentId();
-			String menuNo = right.getMenuNo();
-			if("0".equals(parentId)) {//一级菜单				
-				jsonObject.put("text", right.getMenu());
-				jsonObject.put("id", right.getId());
+			Object  parentId = String.valueOf(right.get("PARENT_ID"));
+			Object menuNo = right.get("MENU_NO");
+			if("0".equals(parentId)){//一级菜单				
+				jsonObject.put("text", right.get("MENU"));
+				jsonObject.put("id", right.get("ID"));
 				jsonObject.put("state", "open");
+				jsonObject.put("pid",right.get("PARENT_ID") );
 				JSONArray childArr = new JSONArray();
-				for (Right right2 : collectSon) {
+				for (Map<String, Object> right2 : authorizeRightList) {
 					JSONObject childObj = new JSONObject();							
-					String pid = right2.getParentId();
-					String menuType = right2.getMenuType();
-					String sMenuNo =right2.getMenuNo();
-					if("1".equals(menuType)&&pid.equals(menuNo)) {//一级菜单下的二级菜单
-						childObj.put("text", right2.getMenu());
-						childObj.put("id", right2.getId());
+					String pid =String.valueOf(right2.get("PARENT_ID"));
+					Object menuType = right2.get("MENU_TYPE");
+					Object sMenuNo =right2.get("MENU_NO");
+					Object role_ID=String.valueOf(right2.get("ROLE_ID"));
+					if("1".equals(menuType)&&pid.equals(menuNo)&&!"0".equals(menuType)) {//一级菜单下的二级菜单
+						childObj.put("text", right2.get("MENU"));
+						childObj.put("id", right2.get("ID"));
+						if("0".equals(role_ID)) {
+							childObj.put("checked", false);
+						}else {
+							childObj.put("checked",true);
+						}
 						childObj.put("state", "open");
+						childObj.put("pid", pid);
 						childArr.add(childObj);
 						JSONArray grandsonArr = new JSONArray();
-						for (Right right3 : collectSon) {
-							String parentId2 = right3.getParentId();
-							String menuType2 = right3.getMenuType();
+						for (Map<String, Object> right3 : authorizeRightList) {
+							Object parentId2 = String.valueOf(right3.get("PARENT_ID"));
+							Object menuType2 = right3.get("MENU_TYPE");
+							Object roleID =String.valueOf(right3.get("ROLE_ID"));
 							if("2".equals(menuType2)&&parentId2.equals(sMenuNo)) {//二级菜单下的按钮
 								JSONObject grandsonObj = new JSONObject();
-								grandsonObj.put("text", right3.getMenu());
-								grandsonObj.put("id", right3.getId());
+								grandsonObj.put("text", right3.get("MENU"));
+								grandsonObj.put("id", right3.get("ID"));
 								grandsonObj.put("state", "open");
+								grandsonObj.put("PARENT_ID",parentId2);
+								
+								if("0".equals(roleID)) {
+									grandsonObj.put("checked", false);
+								}else {
+									grandsonObj.put("checked", true);
+								}
 								grandsonArr.add(grandsonObj);
 							}
 						}
@@ -228,8 +241,10 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 				}
 				jsonObject.put("children", childArr);
 			}
+			if(!jsonObject.isEmpty()) {
+				jsonArray.add(jsonObject);
+			}
 			
-			jsonArray.add(jsonObject);
 			
 		}
 		responseMessage.setReturnResult(jsonArray);

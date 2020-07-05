@@ -6,7 +6,8 @@ $(function(){
 	console.log("www");
 	var postData={"roleId":$("#roleIdText").text()};
 	var option={
-			checkbox: true,			 
+			checkbox: true,	
+			cascadeCheck:false,
             onClick:function(node){
                 var that = $(this);
                 if(node.checked){
@@ -37,7 +38,7 @@ $(function(){
 </script>
 <var id="roleIdText" style="display: none">${roleId}</var>
 <div id="roleGrantLayout" class="easyui-layout" data-options="fit:true,border:false">
-    <div data-options="region:'center'" title="角色授权" style="width: 300px; padding: 1px;">
+    <div data-options="region:'center'" title="系统资源" style="width: 300px; padding: 1px;">
         <div class="well well-small">
             <form id="form" method="post">
                 <input name="id" type="hidden" style="display: none" class="span2" value="${roleId}" readonly="readonly">
@@ -45,7 +46,7 @@ $(function(){
                 <input id="resourceIds" name="choiceId" type="hidden" style="display: none"/>
             </form>
             <form id="grantsExportForm" method="post" style="display: none" hidden>
-            <input name="id" type="hidden" style="display: none" class="span2" value="${groupId}" readonly="readonly">
+            <input name="id" type="hidden" style="display: none" class="span2" value="${roleId}" readonly="readonly">
             </form>
         </div>
     </div>

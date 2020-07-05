@@ -180,7 +180,7 @@ public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
 }
 @Override
 @RequestMapping("/account/authorizeRightList")
-public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
+public ResponseMessage authorizeRightList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService.authorizeRightList(requestMessage);
 }

@@ -62,6 +62,17 @@ public class Student {
 	}
 
 	public static void main(String[] args) {
+		// 初始化数据
+		List<Student> list = getData();
+		// 过滤List<JavaBean>，根据JavaBean某一个属性相同的记录
+		ArrayList<Student> collect = filterJavaBeanAttr(list);
+		
+		
+		 
+
+	}
+
+	private static List<Student> getData() {
 		List<Student> list = new ArrayList<Student>();
 		Student stu1 = new Student("1", "mike", "11");
 		Student stu2 = new Student("2", "mike", "16");
@@ -75,24 +86,14 @@ public class Student {
 		for (Student student : list) {
 			System.out.println(student);
 		}
-		// 过滤List<JavaBean>中JavaBean某一个属性相同的记录
-		ArrayList<Student> collect = filterJavaBeanAttr(list);
-		
-		Map<String, String> collect1 = collect.stream().collect(Collectors.toMap(p -> p.getName(), p -> p.getName()));
-		collect1.forEach(
-				(k,v)->System.out.println("k:"+k+" v:"+v)
-				);
-		
-		  
-		 
-
+		return list;
 	}
 
 
 	/**
-	 * 
+	 * 过滤List<JavaBean>:可以根据JavaBean中某一个属性来过滤;
 	 * @param list
-	 * @return
+	 * @return 过滤名字相同的对象
 	 */
 	public static ArrayList<Student> filterJavaBeanAttr(List<Student> list) {
 		// 过滤List<JavaBean>中JavaBean某一个属性相同的记录
