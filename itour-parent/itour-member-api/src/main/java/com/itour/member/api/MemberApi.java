@@ -69,5 +69,6 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/queryRoleList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage queryRoleList(RequestMessage requestMessage);
+
 	
 }

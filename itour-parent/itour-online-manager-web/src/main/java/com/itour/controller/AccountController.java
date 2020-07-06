@@ -230,4 +230,25 @@ public class AccountController {
 		return powerRight;
 		
 	}
+    /**
+            * 权限管理页面	
+     * @return
+     */
+	@RequestMapping("/rightPage")
+	public String rightPage() {
+		return "/system/right/right/rightManager";
+	}
+	/**
+	 * 权限列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/selectRightList")
+	@ResponseBody
+	public ResponseMessage selectRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request){
+		ResponseMessage powerRight = this.accountConnector.selectRightList(jsonObject,request);
+		return powerRight;
+		
+	}
 }

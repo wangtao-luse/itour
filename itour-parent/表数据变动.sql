@@ -11,10 +11,15 @@ VALUES
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '1002', '角色管理', '1000', '1', '/account/rolePage', '1','1' );
-
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
-	( '2000', '管理员管理', '0', '1', '0', '1', '0' );
+	( '1003', '权限管理', '1000', '1', '/account/rightPage', '1','2' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '2000', '管理员管理', '0', '1', '0', '2', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '2000', '管理员信息', '2000', '1', '/member/adminPage', '2', '0' );
 --------------后台菜单相关结束-------------------------------
 
 	

@@ -31,5 +31,10 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.loginSub(requestMessage);
 	}
+	public ResponseMessage selectAccountList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.selectAccountList(requestMessage);
+	}
 
 }

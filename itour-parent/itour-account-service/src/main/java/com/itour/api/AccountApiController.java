@@ -191,4 +191,9 @@ public ResponseMessage powerRight(@RequestBody RequestMessage postData) {
 	// TODO Auto-generated method stub
 	return roleRightService.powerRight(postData);
 }
+@Override
+public ResponseMessage selectRightList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return rightService.getRightList(requestMessage);
+}
 }

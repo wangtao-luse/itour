@@ -133,5 +133,7 @@ public ResponseMessage authorizeRightList(RequestMessage postData);
  */
 @RequestMapping(value = "/account/powerRight",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage powerRight(RequestMessage postData);
+@RequestMapping(value = "/account/selectRightList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage selectRightList(RequestMessage postData);
 }
 

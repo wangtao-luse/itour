@@ -116,7 +116,7 @@ public static void main(String[] args) {
 	System.out.println(simpleHashSHA_1.length());
 }
 public ResponseMessage selectAccountList(RequestMessage requestMessage) {
-	ResponseMessage resposeMessage = new ResponseMessage();
+	ResponseMessage resposeMessage = ResponseMessage.getSucess();
 	try {
 		JSONObject result = new JSONObject();
 		JSONObject jsonObject = requestMessage.getBody().getContent();
@@ -134,13 +134,14 @@ public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 			result.put(Constant.COMMON_KEY_LIST, selectList);
 		}
 		if("1".equals(needTotal)) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			Map<String, Object> totalAccount = this.baseMapper.totalAccount(map);
-			jsonObject.put(Constant.COMMON_KEY_SUM, totalAccount);
+			Map<String, Object> totalAccount = this.baseMapper.totalAccount(queryWrapper);
+			result.put(Constant.COMMON_KEY_SUM, totalAccount);
 		}
 		resposeMessage.setReturnResult(result);
 	} catch (Exception e) {
 		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return resposeMessage;
 }

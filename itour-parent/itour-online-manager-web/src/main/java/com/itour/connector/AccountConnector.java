@@ -88,5 +88,11 @@ public ResponseMessage powerRight(JSONObject jsonObject, HttpServletRequest requ
 	ResponseMessage powerRight = accountApi.powerRight(postData);
 	return powerRight;
 }
+public ResponseMessage selectRightList(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage powerRight = accountApi.selectRightList(postData);
+	return powerRight;
+}
 
 }

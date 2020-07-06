@@ -75,6 +75,82 @@ function initAjaxDataGrid(url,dataGridNode,newOptions){
 	    	 initDataGrid(url,dataGridNode, options);
 	    },{})
 }
+function initAjaxTotalDataGrid(url, dataGridNode, newOptions) {
+    var options = {postData: {}};
+    $.extend(options, newOptions);
+    postAjax(url, JSON.stringify(options.postData), function (data) {
+        if(data.returnResult){
+            if(data.returnResult.page.records){
+                var formatData = {};
+                formatData.total = data.returnResult.page.total;
+                formatData.rows = data.returnResult.page.records;
+                formatData.sum = data.returnResult.sum;
+                options.data = formatData;
+                if ($.data(dataGridNode[0], "datagrid")) {
+                    dataGridNode.datagrid('unselectAll').datagrid('uncheckAll')
+                }
+                if (options.successFunction) {
+                    options.successFunction(data)
+                }
+                initDataTotalGrid(url, dataGridNode, options)
+            }else{
+                internalError();
+            }
+        }else{
+            internalError();
+        }
+
+    }, {})
+}
+function initDataTotalGrid(url, dataGridNode, newOptions) {
+	console.log(newOptions);
+    var options = {
+        fit: true,
+        fitColumns: true,
+        border: false,
+        pagination: true,
+        width: 'auto',
+        height: 'auto',
+        idField: 'id',
+        sortName: 'id',
+        sortOrder: 'asc',
+        checkOnSelect: true,
+        singleSelect: true,
+        selectOnCheck: true,
+        nowrap: true,
+        pageNumber: 1,
+        pageSize: (newOptions.postData && newOptions.postData.page && newOptions.postData.page.size) ? newOptions.postData.page.size : "100",
+        pageList: [50, 100, 300, 500, 1000],
+        toolbar: '#toolbar',
+        onLoadSuccess: function () {
+            $('#searchForm table').show();
+            parent.$.messager.progress('close')
+        }
+    };
+    $.extend(options, newOptions);
+    dataGridNode.datagrid(options);
+    /*dataGridNode.datagrid('doCellTip', {
+        onlyShowInterrupt: true,
+        position: 'bottom',
+        maxWidth: '200px',
+        tipStyler: {'backgroundColor': '#fff000', borderColor: '#ff0000', boxShadow: '1px 1px 3px #292929'}
+    });*/
+    dataGridNode.datagrid('getPager').pagination({
+        onSelectPage: function (pageNumber, pageSize) {
+            newOptions.postData.page.size = pageSize;
+            newOptions.postData.page.current = pageNumber;
+            newOptions.pageNumber = pageNumber;
+            newOptions.pageSize = pageSize;
+            initAjaxTotalDataGrid(url, dataGridNode, newOptions)
+        }, onChangePageSize: function (pageSize) {
+            newOptions.postData.page.size = pageSize;
+            newOptions.pageSize = pageSize;
+            initAjaxTotalDataGrid(url, dataGridNode, newOptions)
+        }, onRefresh: function () {
+        }
+    });
+    return dataGridNode
+}
 //查询
 function searchFun(url,node,funcName,op){
    	//序列化表单
@@ -90,6 +166,20 @@ function searchFun(url,node,funcName,op){
     pageNode.length > 0 ? postData.page.size = pageNode.val() : "100";
     initAjaxDataGrid(url,node,options);
     }
+function searchFunTotal(url, node, funcName, ops) {
+    var formData = $.serializeObject($('#searchForm'));
+    ops&&ops.nodeNames && ops.nodeNames.length > 0?
+        $.each(ops.nodeNames, function (index, value) {
+            postData[value] = $("#" + ops.nodes[index]).val();
+        }):"";
+    var postData={"page":{}};
+    ops&&ops.k?postData[ops.k] = formData:"";
+    postData.page.current = ops&&ops.c?ops.c:"1";
+    postData.page.size = ops&&ops.s? ops.s:"100";
+    var pageNode = node.closest(".datagrid-wrap").find(".pagination-page-list");
+    pageNode.length > 0 ? postData.page.size = pageNode.val() : "100";
+    initAjaxTotalDataGrid(url, node, funcName({postData: postData}))
+}
 function showErrorMsg(errorMsg) {
     $.messager.alert('提示', errorMsg, 'error')
 };

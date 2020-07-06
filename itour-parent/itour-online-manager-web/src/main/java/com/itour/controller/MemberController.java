@@ -93,4 +93,15 @@ public class MemberController {
 			
 		return ResponseMessage.getSucess();
 	}
+	@RequestMapping("/adminPage")
+	public String adminPage() {
+		return "/system/admin/adminManager";
+	}
+	@RequestMapping("/selectAccountList")
+	@ResponseBody
+	public ResponseMessage selectAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
+		ResponseMessage list =this.memberConnector.selectAccountList(jsonObject,request);
+		return list;
+	}
 }

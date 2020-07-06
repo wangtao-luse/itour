@@ -2,10 +2,13 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
@@ -74,5 +77,32 @@ public ResponseMessage getMenuList(RequestMessage requestMessage) {
 	
 	return responseMessage;
 }
-
+public ResponseMessage getRightList(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		Right right = jsonObject.getJSONObject("right").toJavaObject(Right.class);
+		JSONObject pageVo = jsonObject.getJSONObject("page");
+		QueryWrapper<Right> queryWrapper = new QueryWrapper<Right>();
+		/**精确查询**/
+		queryWrapper.eq(null!=right.getId(), "ID", right.getId());
+		queryWrapper.eq(!StringUtils.isEmpty(right.getMenuNo()), "MENU_NO", right.getMenuNo());
+		queryWrapper.eq(!StringUtils.isEmpty(right.getParentId()), "PARENT_ID", right.getParentId());
+		queryWrapper.eq(!StringUtils.isEmpty(right.getMenuType()), "MENU_TYPE", right.getMenuType());
+		/**模糊查询**/
+		queryWrapper.likeRight(!StringUtils.isEmpty(right.getMenu()), "MENU", right.getMenu());
+		queryWrapper.like(!StringUtils.isEmpty(right.getUrl()), "url", right.getUrl());
+		if(null!=pageVo) {
+			Page page = pageVo.toJavaObject(Page.class);			
+			Page selectPage = this.baseMapper.selectPage(page, queryWrapper);
+			responseMessage.setReturnResult(selectPage);
+		}else {
+			List<Right> selectList = this.baseMapper.selectList(queryWrapper);
+			responseMessage.setReturnResult(selectList);
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+return responseMessage;	
+}
 }

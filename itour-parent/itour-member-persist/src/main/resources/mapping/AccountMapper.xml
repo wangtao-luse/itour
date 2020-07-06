@@ -21,7 +21,5 @@
 <select id="getMaxId" resultType="Integer">
       SELECT MAX(ID) FROM T_A_ACCOUNT
     </select>
-<select id="totalAccount" parameterType="java.util.Map" resultType="List">	
-	SELECT count(ID) totalAccount  FROM t_m_account c
-</select>
+
 </mapper>
