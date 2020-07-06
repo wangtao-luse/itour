@@ -213,8 +213,6 @@ function initWestTree(url,treeNode,newOptions){
 	                        if (node.attributes.url.indexOf('/') == 0) {
 	                            url =/* getContextPath() +*/ node.attributes.url
 	                        }
-	                    } else {
-	                        url = node.attributes.url
 	                    }
 	                	addTab({url:url,title:node.text});
 	                }

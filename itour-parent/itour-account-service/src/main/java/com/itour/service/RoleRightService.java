@@ -33,7 +33,7 @@ public class RoleRightService extends ServiceImpl<RoleRightMapper, RoleRight>  {
         	JSONObject jsonObject = requestMessage.getBody().getContent();
     		JSONArray jsonArray = jsonObject.getJSONArray("arr");
     		List<RoleRight> insert =new ArrayList<RoleRight>();
-    		List<RoleRight> delete =new ArrayList<RoleRight>();
+    		List<Integer> delete =new ArrayList<Integer>();
     		for (Object arrVo : jsonArray) {
     			JSONObject object = JSONObject.parseObject(JSONObject.toJSONString(arrVo));	
     			Integer id = object.getInteger("rrid");
@@ -47,11 +47,8 @@ public class RoleRightService extends ServiceImpl<RoleRightMapper, RoleRight>  {
     				roleRight.setRightId(rightId);
     				insert.add(roleRight);
     			}else {
-    				RoleRight roleRight = new RoleRight();
-    				roleRight.setId(id);
-    				roleRight.setRoleId(roleId);
-    				roleRight.setRightId(rightId);
-    				delete.add(roleRight);
+    				
+    				delete.add(id);
     			}
     		}
     		if(insert.size()>0) {
