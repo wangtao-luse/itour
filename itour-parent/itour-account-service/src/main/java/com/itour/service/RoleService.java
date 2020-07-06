@@ -191,28 +191,34 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 			//parentId:0:为顶级菜单;
 			Object  parentId = String.valueOf(right.get("PARENT_ID"));
 			Object menuNo = right.get("MENU_NO");
-			if("0".equals(parentId)){//一级菜单				
-				jsonObject.put("text", right.get("MENU"));
-				jsonObject.put("id", right.get("ID"));
+			Object rid = right.get("ROLE_ID");
+			if("0".equals(parentId)){//一级菜单
+				jsonObject.put("id", right.get("ID"));//权限编号-->insert
+				jsonObject.put("text", right.get("MENU"));//菜单名称--->显示					
+				jsonObject.put("rrid", right.get("RRID"));//中间表编号-->insert
 				jsonObject.put("state", "open");
-				jsonObject.put("pid",right.get("PARENT_ID") );
+				if("0".equals(rid)) {
+					jsonObject.put("checked", false);
+				}else {
+					jsonObject.put("checked",true);
+				}	
 				JSONArray childArr = new JSONArray();
 				for (Map<String, Object> right2 : authorizeRightList) {
 					JSONObject childObj = new JSONObject();							
 					String pid =String.valueOf(right2.get("PARENT_ID"));
 					Object menuType = right2.get("MENU_TYPE");
 					Object sMenuNo =right2.get("MENU_NO");
-					Object role_ID=String.valueOf(right2.get("ROLE_ID"));
-					if("1".equals(menuType)&&pid.equals(menuNo)&&!"0".equals(menuType)) {//一级菜单下的二级菜单
-						childObj.put("text", right2.get("MENU"));
-						childObj.put("id", right2.get("ID"));
+					Object role_ID=String.valueOf(right2.get("ROLE_ID"));					
+					if("1".equals(menuType)&&pid.equals(menuNo)) {//一级菜单下的二级菜单
+						childObj.put("id", right2.get("ID"));//权限编号
+						childObj.put("text", right2.get("MENU"));//菜单名称
+						childObj.put("rrid", right.get("RRID"));//中间表的编号---》insert
+						childObj.put("state", "open");						
 						if("0".equals(role_ID)) {
 							childObj.put("checked", false);
 						}else {
 							childObj.put("checked",true);
-						}
-						childObj.put("state", "open");
-						childObj.put("pid", pid);
+						}						
 						childArr.add(childObj);
 						JSONArray grandsonArr = new JSONArray();
 						for (Map<String, Object> right3 : authorizeRightList) {
@@ -221,11 +227,10 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 							Object roleID =String.valueOf(right3.get("ROLE_ID"));
 							if("2".equals(menuType2)&&parentId2.equals(sMenuNo)) {//二级菜单下的按钮
 								JSONObject grandsonObj = new JSONObject();
-								grandsonObj.put("text", right3.get("MENU"));
 								grandsonObj.put("id", right3.get("ID"));
+								grandsonObj.put("text", right3.get("MENU"));
+								grandsonObj.put("rrid", right.get("RRID"));
 								grandsonObj.put("state", "open");
-								grandsonObj.put("PARENT_ID",parentId2);
-								
 								if("0".equals(roleID)) {
 									grandsonObj.put("checked", false);
 								}else {
@@ -255,4 +260,5 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 	
 	return responseMessage;
 }
+
 }

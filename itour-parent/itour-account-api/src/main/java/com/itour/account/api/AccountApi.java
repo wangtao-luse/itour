@@ -126,5 +126,12 @@ public ResponseMessage updateRole(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/authorizeRightList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage authorizeRightList(RequestMessage postData);
+/**
+ * 角色授权权限
+ * @param postData
+ * @return
+ */
+@RequestMapping(value = "/account/powerRight",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage powerRight(RequestMessage postData);
 }
 

@@ -14,6 +14,7 @@ import com.itour.service.GroupService;
 import com.itour.service.OauthService;
 import com.itour.service.RightDetailService;
 import com.itour.service.RightService;
+import com.itour.service.RoleRightService;
 import com.itour.service.RoleService;
 
 @RestController
@@ -32,7 +33,8 @@ GroupService groupService;
 RoleService roleService;
 @Autowired
 GroupRoleService groupRoleService;
-
+@Autowired
+RoleRightService roleRightService;
 /**
  * 注册提交
  */
@@ -183,5 +185,10 @@ public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
 public ResponseMessage authorizeRightList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService.authorizeRightList(requestMessage);
+}
+@Override
+public ResponseMessage powerRight(@RequestBody RequestMessage postData) {
+	// TODO Auto-generated method stub
+	return roleRightService.powerRight(postData);
 }
 }

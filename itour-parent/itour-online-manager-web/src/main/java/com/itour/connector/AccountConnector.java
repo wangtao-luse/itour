@@ -82,5 +82,11 @@ public ResponseMessage authorizeRightList(JSONObject jsonObject, HttpServletRequ
 	ResponseMessage authorizeRightList = accountApi.authorizeRightList(postData);
 	return authorizeRightList;
 }
+public ResponseMessage powerRight(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage powerRight = accountApi.powerRight(postData);
+	return powerRight;
+}
 
 }

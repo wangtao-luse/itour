@@ -22,6 +22,6 @@
 		SELECT * FROM t_a_right e WHERE e.MENU_NO in(SELECT d.RIGHT_ID FROM t_a_role_right d WHERE d.ROLE_ID in(SELECT c.ROLE_ID FROM t_a_group_role c WHERE c.GROUP_ID in(SELECT b.ID FROM t_a_group b WHERE b.id in(SELECT a.GROUP_ID FROM t_a_account_group a WHERE a.U_ID=#{uid}) OR b.G_PARENT IN(SELECT a.GROUP_ID FROM t_a_account_group a WHERE a.U_ID=#{uid}))))
    </select>
      <select id="authorizeRightList" parameterType="java.util.Map" resultType="Map">
-    SELECT a.*,IFNULL(b.ID,'0') RRID ,IFNULL(ROLE_ID,'0') ROLE_ID, IFNULL(Right_ID,'0') Right_ID FROM t_a_right a LEFT JOIN t_a_role_right b on a.MENU_NO=b.RIGHT_ID and b.ROLE_ID=#{rid}
+    SELECT a.*,IFNULL(b.ID,'0') RRID ,IFNULL(ROLE_ID,'0') ROLE_ID, IFNULL(Right_ID,'0') Right_ID FROM t_a_right a LEFT JOIN t_a_role_right b on a.ID=b.RIGHT_ID and b.ROLE_ID=#{rid}
      </select>
 </mapper>

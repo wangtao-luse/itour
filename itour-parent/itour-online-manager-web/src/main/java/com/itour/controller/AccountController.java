@@ -217,4 +217,17 @@ public class AccountController {
 	return authorizeRightList;
 		
 	}
+	/**
+	 * 角色授权 权限
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/powerRight")
+	@ResponseBody
+	public ResponseMessage powerRight(@RequestBody JSONObject jsonObject,HttpServletRequest request){
+		ResponseMessage powerRight = this.accountConnector.powerRight(jsonObject,request);
+		return powerRight;
+		
+	}
 }

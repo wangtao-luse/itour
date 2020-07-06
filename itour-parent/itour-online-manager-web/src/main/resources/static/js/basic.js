@@ -374,6 +374,35 @@ function getTreeCheckedGidsAndRids(node) {
     }
     return arr;
 }
+function getTreeCheckedIds(node) {
+    var nodes1 = node.tree('getChecked');
+    var nodes2 = node.tree('getChecked', 'indeterminate');
+    var checknodes = $.merge(nodes1, nodes2);
+    var ids = [];
+    if (checknodes && checknodes.length > 0) {
+        for (var i = 0; i < checknodes.length; i++) {
+            ids.push(checknodes[i].id)
+        }
+    }
+    return ids;
+}
+function getTreeRoleidsAndRightids(node) {
+    var nodes1 = node.tree('getChecked',['checked','indeterminate']);
+    var nodes2 = node.tree('getChecked', 'unchecked');
+    var checknodes = $.merge(nodes1, nodes2);
+    var arr = [];   
+    if (checknodes && checknodes.length > 0) {
+        for (var i = 0; i < checknodes.length; i++) {
+        	 var rr={};
+        		 rr.rightId=checknodes[i].id;
+        		 rr.checked=checknodes[i].checked;
+        		 rr.rrid=checknodes[i].rrid;
+        		 arr.push(rr);
+           
+        }
+    }
+    return arr;
+}
 $.extend({
     remind: function (options) {
         var _msg = '';
