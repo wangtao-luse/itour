@@ -110,11 +110,16 @@ public class GroupService extends ServiceImpl<GroupMapper, Group> {
 			queryWrapper.eq("G_NAME", group.getgName());
 			queryWrapper.ne("ID", group.getId());
 			queryWrapper.or().eq("G_DESC", group.getgDesc());
+			queryWrapper.ne("ID", group.getId());
 			Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 			if(selectCount>0) {
 				throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);
 			}
-		    this.baseMapper.updateById(group);   
+		    int updateById = this.baseMapper.updateById(group);   
+		}catch (BaseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(e.getMessage());
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -219,5 +224,31 @@ public class GroupService extends ServiceImpl<GroupMapper, Group> {
 			getNextGroup(list, group.getId());
 		}
 		
+	}
+	/**
+	 * 用户组查询单条
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage getGroup(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			Group group = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Group.class);
+			QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
+			queryWrapper.eq("ID", group.getId());
+			Group selectOne = this.baseMapper.selectOne(queryWrapper);
+			responseMessage.setReturnResult(selectOne);
+		}catch (BaseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		     return ResponseMessage.getFailed(e.getMessage());
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		
+		
+		return responseMessage;
 	}
 }

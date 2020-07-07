@@ -91,6 +91,22 @@ private AccountService accountService;
 		// TODO Auto-generated method stub
 		return groupService.authorizeRoleList(requestMessage);
 	}
+	@Override
+	public ResponseMessage insertGroup(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return groupService.insertGroup(requestMessage);
+	}
+	@Override
+	public ResponseMessage updateGroup(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return groupService.updateGroup(requestMessage);
+	}
+	
+	@Override
+	public ResponseMessage getGroup(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return groupService.getGroup(requestMessage);
+	}
 	
 	
 	

@@ -167,6 +167,51 @@ public class MemberController {
 		return powerRole;
 	}
 	/**
+	 * 组新增编辑页面
+	 * @return
+	 */
+	@RequestMapping("/groupAddP")
+	public String groupAddP(String id,ModelMap model) {
+		model.addAttribute("id", id);
+		return "/system/member/group/groupAdd";
+	}
+	/**
+	 * 用户组新增
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/insertGroup")
+	@ResponseBody
+	public ResponseMessage insertGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertGroup = this.memberConnector.insertGroup(jsonObject, request);
+		return insertGroup;
+	}
+	/**
+	 * 组修改
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updateGroup")
+	@ResponseBody
+	public ResponseMessage updateGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage updateGroup = this.memberConnector.updateGroup(jsonObject, request);
+		return updateGroup;
+	}
+	/**
+	 * 组查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getGroup")
+	@ResponseBody
+	public ResponseMessage getGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getGroup = this.memberConnector.getGroup(jsonObject, request);
+		return getGroup;
+	}
+	/**
 	 * 角色管理页面
 	 * @return
 	 */

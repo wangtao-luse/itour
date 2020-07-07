@@ -56,8 +56,34 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/getRightList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage getRightList(RequestMessage requestMessage);
+	/**
+	 * 组授权角色
+	 * @param requestMessage
+	 * @return
+	 */
 	@RequestMapping(value = "member/authorizeRoleList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage authorizeRoleList(RequestMessage requestMessage);
+	/**
+	 * 组插入
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/insertGroup",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage insertGroup(RequestMessage requestMessage);
+	/**
+	 * 修改组
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/updateGroup",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage updateGroup(RequestMessage requestMessage);
+	/**
+	 * 组查询单条
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getGroup",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getGroup(RequestMessage requestMessage);
 
 	
 }
