@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+        <form id="form" method="post">
+         <div class="container-wrapper">
+            <table class="table table-hover table-condensed" style="margin:20px auto 0 auto; ">
+                <tr>
+                    <td><span class="redSharp">* </span>角色名称:</td>
+                    <td><input id="roleName" name=roleName data-options="required:true" style="width:125px"/></td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>角色描述：</td>
+                    <td>
+                        <input name="roleDesc" id="roleDesc" type="text" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px"></td>
+                </tr>
+                 
+            </table>
+            </div>
+        </form>
+    </div>
+</div>
+<var style="display:none" hidden="hidden" id="action">${id}</var>
+<script>
+
+
+
+$(function(){
+	console.log("console");
+	var action = $("#action").text();
+	if(action==""){
+		$("#addFunction").click(function(){
+			var url="/account/insertRole";
+			var postData=$.serializeObject($("#form"));
+			var data= {"vo":postData};
+			postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
+		});	
+	}else{
+		var postData={"id":action};
+		postAjax('/account/getRole',JSON.stringify(postData),function(data){
+		    var dt=data.returnResult.result;      
+		       console.log(data);
+		    loadContainerWrapperData(dt,$(".container-wrapper"));
+		       
+		   });
+		$("#editFunction").click(function(){
+			var url="/account/updateRole";			
+		    var postData = $("#form").serializeJson();
+		    var data= {"vo":postData};
+			 $('#form').form('validate') &&
+			postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
+		});	
+	}
+	
+});
+</script>

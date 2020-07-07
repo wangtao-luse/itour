@@ -161,7 +161,7 @@ function searchFun(url,node,funcName,op){
     postData.page.current=op&&op.current?op.current:"1";
     postData.page.size=op&&op.size?op.size:"100";
     var options = funcName({postData: postData});
-    //待研究
+    //为了在搜索的时候保证size的正确性：获取分页中的size
     var pageNode = node.closest(".datagrid-wrap").find(".pagination-page-list");
     pageNode.length > 0 ? postData.page.size = pageNode.val() : "100";
     initAjaxDataGrid(url,node,options);
@@ -548,4 +548,23 @@ function loadContainerWrapperData(obj,pNode) {
             }
         })
     }
+}
+/**
+ * 格式化日期 EasyUI使用
+ * https://www.ynicp.com/news/content/441.html
+ */
+Date.prototype.Format = function (fmt) { //author: meizz 	
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
 }

@@ -35,33 +35,13 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/selectAccountList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage selectAccountList(RequestMessage requestMessage);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 用户组列表
 	 * @param requestMessage
 	 * @return
 	 */
 	@RequestMapping(value = "member/getGroupList",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage getGroupList(RequestMessage requestMessage);
+	public ResponseMessage getGroupList(RequestMessage requestMessage);	
 	/**
 	 * 角色列表
 	 * @param requestMessage
@@ -69,6 +49,15 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/queryRoleList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage queryRoleList(RequestMessage requestMessage);
+	/**
+	 * 权限列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getRightList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getRightList(RequestMessage requestMessage);
+	@RequestMapping(value = "member/authorizeRoleList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage authorizeRoleList(RequestMessage requestMessage);
 
 	
 }

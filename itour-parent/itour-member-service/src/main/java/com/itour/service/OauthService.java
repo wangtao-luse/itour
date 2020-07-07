@@ -49,6 +49,7 @@ private IpaddrService ipaddrService;
 	 * 登录
 	 * 1.校验用户名和密码(t_m_oauth)
 	 * 1.1 校验用户状态是否正常(t_m_account)
+	 * 1.2修改最近登录时间
 	 * 2.插入登录记录(t_m_login_list)
 	 * 3.插入IP信息(t_m_ipaddr)
 	 * @param requestMessage
@@ -75,6 +76,9 @@ private IpaddrService ipaddrService;
 	        if("0".equals(account.getStatus())) {
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_STATUS);
 	        }
+	        //1.2修改最近登录时间
+	        account.setLasttime(DateUtil.getlongDate(new Date()));
+	        this.accountMapper.updateById(account);
 	        responseMessage.setReturnResult(selectOne);
 	        //插入登录记录
 	        LoginList loginList = new LoginList();

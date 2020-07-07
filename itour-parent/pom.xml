@@ -28,6 +28,9 @@
     <module>itour-member-persist</module>
     <module>itour-member-api</module>
     <module>itour-member-service</module>
+    <module>itour-dictionary-persist</module>
+    <module>itour-dictionary-service</module>
+    <module>itour-dictionary-api</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>

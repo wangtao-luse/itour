@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.member.Role;
 import com.itour.persist.RoleMapper;
@@ -69,6 +70,14 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			Role role = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
+			QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
+			queryWrapper.eq("ROLE_NAME", role.getRoleName());
+			queryWrapper.ne("ID", role.getId());
+			queryWrapper.or().eq("ROLE_DESC", role.getRoleDesc()).ne("ID", role.getId());
+			Integer selectCount = this.baseMapper.selectCount(queryWrapper);
+			if(selectCount>0) {
+				throw new BaseException(ExceptionInfo.EXCEPTION_ROLE);
+			}
 			int updateById = this.baseMapper.updateById(role);
 		} catch (BaseException e) {
 			// TODO: handle exception
@@ -112,8 +121,15 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Role entity = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
-			int insert = this.baseMapper.insert(entity);
+			Role role = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
+			QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
+			queryWrapper.eq("ROLE_NAME", role.getRoleName());
+			queryWrapper.or().eq("ROLE_DESC", role.getRoleDesc());		
+			Integer selectCount = this.baseMapper.selectCount(queryWrapper);
+			if(selectCount>0) {
+				throw new BaseException(ExceptionInfo.EXCEPTION_ROLE);
+			}
+			int insert = this.baseMapper.insert(role);
 		} catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -82,7 +82,7 @@ public ResponseMessage insertGroup(RequestMessage requestMessage) {
 		Group group = jsonObject.getJSONObject("vo").toJavaObject(Group.class);
 		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 		queryWrapper.eq("G_NAME", group.getgName());
-		queryWrapper.or().eq("gDesc", group.getgDesc());
+		queryWrapper.or().eq("G_DESC", group.getgDesc());
 		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 		if(selectCount>0) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);
@@ -113,7 +113,8 @@ public ResponseMessage updateGroup(RequestMessage requestMessage) {
 		Group group = jsonObject.getJSONObject("vo").toJavaObject(Group.class);
 		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 		queryWrapper.eq("G_NAME", group.getgName());
-		queryWrapper.ne("ID", group.getId());		
+		queryWrapper.ne("ID", group.getId());
+		queryWrapper.or().eq("G_DESC", group.getgDesc());
 		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 		if(selectCount>0) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);

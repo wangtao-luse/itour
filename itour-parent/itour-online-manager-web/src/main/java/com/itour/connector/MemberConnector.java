@@ -14,15 +14,7 @@ import com.itour.member.api.MemberApi;
 @Service
 public class MemberConnector {
 	@Autowired
-	MemberApi memberApi;
-	public ResponseMessage groupList(JSONObject jsonObject,HttpServletRequest request) {
-		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		return memberApi.getGroupList(requestMessage);
-	}
-	public ResponseMessage roleList(JSONObject jsonObject,HttpServletRequest request) {
-		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		return memberApi.queryRoleList(requestMessage);
-	}
+	MemberApi memberApi;	
 	public ResponseMessage queryAccountRight(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.queryRoleList(requestMessage);
@@ -36,5 +28,21 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.selectAccountList(requestMessage);
 	}
-
+	public ResponseMessage groupList(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getGroupList(requestMessage);
+	}
+	public ResponseMessage roleList(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.queryRoleList(requestMessage);
+	}
+	public ResponseMessage rightList(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getRightList(requestMessage);
+	}
+	public ResponseMessage authorizeRoleList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.authorizeRoleList(requestMessage);
+	}
 }

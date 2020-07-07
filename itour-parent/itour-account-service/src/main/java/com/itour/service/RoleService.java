@@ -102,6 +102,7 @@ public ResponseMessage updateRole(RequestMessage requestMessage) {
 		QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
 		queryWrapper.eq("ROLE_NAME", role.getRoleName());
 		queryWrapper.ne("ID", role.getId());
+		queryWrapper.or().eq("ROLE_DESC", role.getRoleDesc()).ne("ID", role.getId());
 		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 		if(selectCount>0) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_ROLE);
@@ -152,8 +153,7 @@ public ResponseMessage insertRole(RequestMessage requestMessage) {
 		Role role = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
 		QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
 		queryWrapper.eq("ROLE_NAME", role.getRoleName());
-		
-		queryWrapper.ne(null!=role.getId(),"ID", role.getId());
+		queryWrapper.or().eq("ROLE_DESC", role.getRoleDesc());		
 		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 		if(selectCount>0) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_ROLE);

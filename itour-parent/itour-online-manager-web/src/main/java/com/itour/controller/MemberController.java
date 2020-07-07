@@ -10,10 +10,12 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.ExUsernamePasswordToken;
@@ -93,15 +95,114 @@ public class MemberController {
 			
 		return ResponseMessage.getSucess();
 	}
+	/**
+	 * 管理员管理页面
+	 * @return
+	 */
 	@RequestMapping("/adminPage")
 	public String adminPage() {
 		return "/system/admin/adminManager";
 	}
+	/**
+	 * 管理员列表查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/selectAccountList")
 	@ResponseBody
 	public ResponseMessage selectAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
 		ResponseMessage list =this.memberConnector.selectAccountList(jsonObject,request);
 		return list;
+	}
+	/**
+	 * 组管理页面
+	 * @return
+	 */
+	@RequestMapping("/groupPage")
+	public String groupPage() {
+		return "/system/member/group/groupManager";
+	}
+	/**
+	 * 组管理页面
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getGroupList")
+	@ResponseBody
+	public ResponseMessage getGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage groupList = this.memberConnector.groupList(jsonObject, request);
+		return groupList;
+	}
+	/**
+	 * 组授权角色页面
+	 * @return
+	 */
+	@RequestMapping("/groupRoleP")
+	public String groupRoleP(String groupId,ModelMap model) {
+		model.addAttribute("groupId", groupId);
+		return "/system/member/group/groupRole";
+	}
+	
+	@RequestMapping("/authorizeRoleList")
+	@ResponseBody
+	public ResponseMessage authorizeRoleList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage authorizeRoleList = this.memberConnector.authorizeRoleList(jsonObject, request);
+		return authorizeRoleList;
+	}
+	/**
+	 * 对组进行角色授权
+	 * @param jsonArray
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/powerRole")
+	@ResponseBody
+	public ResponseMessage powerRole(@RequestBody JSONArray jsonArray,HttpServletRequest request) {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("arr", jsonArray);
+		ResponseMessage powerRole = this.memberConnector.authorizeRoleList(jsonObject, request);
+		return powerRole;
+	}
+	/**
+	 * 角色管理页面
+	 * @return
+	 */
+	@RequestMapping("/rolePage")
+	public String rolePage() {
+		return "/system/member/role/roleManager";
+	}
+	/**
+	 * 角色列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getRoleList")
+	@ResponseBody
+	public ResponseMessage getRoleList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage roleList = this.memberConnector.roleList(jsonObject, request);
+		return roleList;
+	}
+	/**
+	 * 权限管理页面
+	 * @return
+	 */
+	@RequestMapping("/rightPage")
+	public String rightPage() {
+		return "/system/member/right/rightManager";
+	}
+	/**
+	 * 权限列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getRightList")
+	@ResponseBody
+	public ResponseMessage getRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return this.memberConnector.rightList(jsonObject, request);
 	}
 }

@@ -68,10 +68,12 @@ var postAjax = function(url,postData,successFunction,options){
     		if(resultData&&isSuccess(resultData)){
     			if(currentOptions&&currentOptions.successArguments){
     				successFunction(resultData,currentOptions.successArguments);
-        			returnData=resultData;
+        			returnData=resultData.returnResult;
+        			return returnData;
     			}else{
     				successFunction(resultData);
-        			returnData=resultData;
+        			returnData=resultData.returnResult;
+        			return returnData;
     			}
     			
     		}else{

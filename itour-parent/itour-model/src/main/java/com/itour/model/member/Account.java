@@ -52,7 +52,7 @@ public class Account extends Model<Account> {
      * 上次登录时间
      */
     @TableField("LASTTIME")
-    private Integer lasttime;
+    private Long lasttime;
 
     /**
      * 状态	0：禁用；1：正常
@@ -106,11 +106,11 @@ public class Account extends Model<Account> {
         this.createip = createip;
     }
 
-    public Integer getLasttime() {
+    public Long getLasttime() {
         return lasttime;
     }
 
-    public void setLasttime(Integer lasttime) {
+    public void setLasttime(Long lasttime) {
         this.lasttime = lasttime;
     }
 

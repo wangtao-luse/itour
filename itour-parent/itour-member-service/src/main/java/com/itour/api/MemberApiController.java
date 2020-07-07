@@ -61,33 +61,7 @@ private AccountService accountService;
 	public ResponseMessage selectAccountList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return accountService.selectAccountList(requestMessage);
-	}
-	
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+	}	 
     /**
      * 组列表
      */
@@ -103,6 +77,19 @@ private AccountService accountService;
 	public ResponseMessage queryRoleList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return roleService.queryRoleList(requestMessage);
+	}
+	/**
+	 * 权限列表
+	 */
+	@Override
+	public ResponseMessage getRightList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return rightService.getRightList(requestMessage);
+	}
+	@Override
+	public ResponseMessage authorizeRoleList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return groupService.authorizeRoleList(requestMessage);
 	}
 	
 	

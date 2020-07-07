@@ -5,7 +5,7 @@
 @include("/inc/inc.html"){}
  <script type="text/javascript">
 	    $(function(){	    	
-	    	searchFunTotal('/member/selectAccountList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});
+	    	searchFunTotal('/member/selectAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});
 	    })
 	    
 	           function getList(options) {
@@ -19,9 +19,9 @@
 					{field:'id',title:'编号',width:100},					
 					{field:'uid',title:'用户唯一号',width:100},
 					{field:'sex',title:'性别',width:150},
-					{field:'createdate',title:'注册日期',width:150},
+					{field:'createdate',title:'注册日期',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
 					{field:'createip',title:'注册IP地址',width:150},
-					{field:'lasttime',title:'上次登录时间',width:150},
+					{field:'lasttime',title:'上次登录时间',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
 					{field:'status',title:'状态',width:150},
 					{field:'utype',title:'类型',width:150}
 				]],
@@ -45,29 +45,52 @@
 	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单唯一号:</label>
+	    	   	        <label><span></span>用户唯一号:</label>
 	    	   	        <input type="text" placeholder=""  name="gName"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单名称:</label>
+	    	   	        <label><span></span>性别:</label>
 	    	   	        <input type="text" placeholder=""  name="gDesc"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>上级菜单编号:</label>
+	    	   	        <label><span></span>注册日期:</label>
 	    	   	        <input type="text" placeholder=""  name="company"/>
 	    	   	      </div>
 	    	   	  </div>	    	   	  
 	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单类型:</label>
+	    	   	        <label><span></span>注册IP地址:</label>
 	    	   	        <input type="text" placeholder=""  name="gDesc"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单链接:</label>
+	    	   	        <label><span></span>上次登录时间:</label>
+	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	      </div>
+	    	   	        <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>状态:</label>
 	    	   	        <input type="text" placeholder=""  name="company"/>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFunTotal('/member/selectAccountList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <label><span></span>类型:</label>
+	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	      </div>
+	    	   	       
+	    	   </div>
+	    	    <div class="mTop10 line-handsome">
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	        <!-- <input type="text" placeholder=""  name="gDesc"/> -->
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	        <!-- <input type="text" placeholder=""  name="company"/> -->
+	    	   	      </div>
+	    	   	        <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	      <!--   <input type="text" placeholder=""  name="company"/> -->
+	    	   	      </div>
+	    	   	       <div class="fLeft label-handsome ">
+	    	   	        <a onclick="searchFunTotal('/member/selectAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
