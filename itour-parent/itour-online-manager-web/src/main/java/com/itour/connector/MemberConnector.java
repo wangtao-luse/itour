@@ -28,6 +28,11 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.selectAccountList(requestMessage);
 	}
+	public ResponseMessage selectViewAccountList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.selectViewAccountList(requestMessage);
+	}
 	public ResponseMessage groupList(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.getGroupList(requestMessage);
@@ -60,4 +65,20 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.getGroup(requestMessage);
 	}
+	public ResponseMessage powerRole(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.powerRole(requestMessage);
+	}
+	public ResponseMessage authorizeRightList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.authorizeRightList(requestMessage);
+	}
+	public ResponseMessage powerRight(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.powerRight(requestMessage);
+	}
+	
 }

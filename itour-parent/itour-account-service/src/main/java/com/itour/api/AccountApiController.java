@@ -16,6 +16,7 @@ import com.itour.service.RightDetailService;
 import com.itour.service.RightService;
 import com.itour.service.RoleRightService;
 import com.itour.service.RoleService;
+import com.itour.service.ViewAAccountService;
 
 @RestController
 public class AccountApiController implements AccountApi {
@@ -35,6 +36,8 @@ RoleService roleService;
 GroupRoleService groupRoleService;
 @Autowired
 RoleRightService roleRightService;
+@Autowired
+ViewAAccountService viewAAccountService;
 /**
  * 注册提交
  */
@@ -172,7 +175,7 @@ public ResponseMessage updateRole(@RequestBody RequestMessage requestMessage) {
 	return roleService.updateRole(requestMessage);
 }
 /**
- * 
+ * 获取前台菜单
  */
 @Override
 @RequestMapping("/menu/getMenuList")
@@ -180,20 +183,39 @@ public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightService.getMenuList(requestMessage);
 }
+/**
+ * 角色授权权限列表
+ */
 @Override
 @RequestMapping("/account/authorizeRightList")
 public ResponseMessage authorizeRightList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService.authorizeRightList(requestMessage);
 }
+/**
+ * 角色授权
+ */
 @Override
 public ResponseMessage powerRight(@RequestBody RequestMessage postData) {
 	// TODO Auto-generated method stub
 	return roleRightService.powerRight(postData);
 }
+/**
+ *前台 权限列表
+ * @param postData
+ * @return
+ */
 @Override
 public ResponseMessage selectRightList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightService.getRightList(requestMessage);
+}
+/**
+ * 前台会员列表
+ */
+@Override
+public ResponseMessage selectViewAccountList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return viewAAccountService.selectViewAccountList(requestMessage);
 }
 }

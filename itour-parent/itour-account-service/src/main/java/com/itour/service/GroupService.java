@@ -115,6 +115,7 @@ public ResponseMessage updateGroup(RequestMessage requestMessage) {
 		queryWrapper.eq("G_NAME", group.getgName());
 		queryWrapper.ne("ID", group.getId());
 		queryWrapper.or().eq("G_DESC", group.getgDesc());
+		queryWrapper.ne("ID", group.getId());
 		Integer selectCount = this.baseMapper.selectCount(queryWrapper);
 		if(selectCount>0) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_GROUP);
@@ -185,14 +186,14 @@ public ResponseMessage authorizeRoleList(RequestMessage requestMessage) {
 			JSONArray childArray = new JSONArray();			
 			for (Map<String, Object> role : queryGroupRole) {
 				JSONObject childJsonObject = new JSONObject();	
-				childJsonObject.put("id", role.get("ID"));
-				childJsonObject.put("text", role.get("ROLE_DESC"));
+				childJsonObject.put("id", role.get("ID"));//角色编号
+				childJsonObject.put("text", role.get("ROLE_DESC"));//角色描述
 				childJsonObject.put("state", "open");
 				//该角色的所属组(授权提交的时候使用)
 				childJsonObject.put("gid", g.getId());
-				//组-角色表的编号
+				//组-角色表的编号(提交的时候做saveOrupdate)
 				childJsonObject.put("grNo", role.get("grNo"));
-				//GROUP_ID:0 改角色下没有该角色
+				//GROUP_ID:0 改角色下没有该角色（中间表中没有对应的记录）
 				String str =(String) role.get("GROUP_ID");
 				if("0".equals(str)) {//该组下没有对应的角色
 					childJsonObject.put("checked",false );

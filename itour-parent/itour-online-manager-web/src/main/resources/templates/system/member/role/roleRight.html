@@ -25,11 +25,11 @@ $(function(){
                 }
             }
 	}
-	initTree('/account/authorizeRightList',JSON.stringify(postData),$('#resourceTree'), option);
+	initTree('/member/authorizeRightList',JSON.stringify(postData),$('#resourceTree'), option);
 	//为角色授权权限
 	$("#roleRightFun").click(function(){
 		var arr = getTreeRoleidsAndRightids($('#resourceTree'));
-		var url="/account/powerRight";
+		var url="/member/powerRight";
 		
 		var data={"roleId":$("#roleIdText").text(),"arr":arr};
 		postAjax(url,JSON.stringify(data),closeDialogCallBack,{});

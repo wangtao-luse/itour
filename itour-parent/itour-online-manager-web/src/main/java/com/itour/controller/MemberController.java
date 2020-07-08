@@ -117,6 +117,19 @@ public class MemberController {
 		return list;
 	}
 	/**
+	 * 管理员列表查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/selectViewAccountList")
+	@ResponseBody
+	public ResponseMessage selectViewAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
+		ResponseMessage list =this.memberConnector.selectViewAccountList(jsonObject,request);
+		return list;
+	}
+	/**
 	 * 组管理页面
 	 * @return
 	 */
@@ -163,7 +176,7 @@ public class MemberController {
 	public ResponseMessage powerRole(@RequestBody JSONArray jsonArray,HttpServletRequest request) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("arr", jsonArray);
-		ResponseMessage powerRole = this.memberConnector.authorizeRoleList(jsonObject, request);
+		ResponseMessage powerRole = this.memberConnector.powerRole(jsonObject, request);
 		return powerRole;
 	}
 	/**
@@ -231,6 +244,40 @@ public class MemberController {
 		ResponseMessage roleList = this.memberConnector.roleList(jsonObject, request);
 		return roleList;
 	}
+	/**
+	 * 角色授权权限页面
+	 * @param roleId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/roleRightP")
+	public String roleRightP(String roleId,ModelMap model) {
+		model.addAttribute("roleId", roleId);
+		return "/system/member/role/roleRight";
+	}
+	/**
+	 * 角色授权权限列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/authorizeRightList")
+	@ResponseBody
+	public ResponseMessage authorizeRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return this.memberConnector.authorizeRightList(jsonObject,request);
+	}
+	/**
+	 * 角色授权权限
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/powerRight")
+	@ResponseBody
+	public ResponseMessage powerRight(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return this.memberConnector.powerRight(jsonObject, request);
+	}
+	
 	/**
 	 * 权限管理页面
 	 * @return

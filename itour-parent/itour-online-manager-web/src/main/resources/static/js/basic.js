@@ -482,7 +482,7 @@ function getTreeRoleidsAndRightids(node) {
     if (checknodes && checknodes.length > 0) {
         for (var i = 0; i < checknodes.length; i++) {
         	 var rr={};
-        		 rr.rightId=checknodes[i].id;
+        		 rr.rightId=checknodes[i].menuNo;
         		 rr.checked=checknodes[i].checked;
         		 rr.rrid=checknodes[i].rrid;
         		 arr.push(rr);

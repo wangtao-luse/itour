@@ -133,7 +133,19 @@ public ResponseMessage authorizeRightList(RequestMessage postData);
  */
 @RequestMapping(value = "/account/powerRight",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage powerRight(RequestMessage postData);
+/**
+ *前台 权限列表
+ * @param postData
+ * @return
+ */
 @RequestMapping(value = "/account/selectRightList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage selectRightList(RequestMessage postData);
+/**
+ * 前台会员列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/selectViewAccountList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage selectViewAccountList(RequestMessage requestMessage);
 }
 

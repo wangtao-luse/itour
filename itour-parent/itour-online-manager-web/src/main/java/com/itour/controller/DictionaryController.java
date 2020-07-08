@@ -1,0 +1,35 @@
+package com.itour.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.alibaba.fastjson.JSONObject;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.connector.DictionaryConnetor;
+
+@Controller
+@RequestMapping("/dictionary")
+public class DictionaryController {
+	private DictionaryConnetor dictionaryConnetor;
+	/**
+	 * 字典列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getDictionaryList")
+	public ResponseMessage getDictionaryList(JSONObject jsonObject,HttpServletRequest request) {
+		return dictionaryConnetor.getDictionaryList(jsonObject, request);
+	}
+	/**
+	 * 字典列表页面
+	 * @return
+	 */
+	@RequestMapping("/dictPage")
+	public String dictionaryPage() {
+		return "/system/dictionary/dictionaryManager";
+	}
+	
+}

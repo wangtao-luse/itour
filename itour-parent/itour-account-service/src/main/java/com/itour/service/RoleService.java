@@ -196,6 +196,7 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 				jsonObject.put("id", right.get("ID"));//权限编号-->insert
 				jsonObject.put("text", right.get("MENU"));//菜单名称--->显示					
 				jsonObject.put("rrid", right.get("RRID"));//中间表编号-->insert
+				jsonObject.put("menuNo", menuNo);
 				jsonObject.put("state", "open");
 				if("0".equals(rid)) {
 					jsonObject.put("checked", false);
@@ -213,6 +214,7 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 						childObj.put("id", right2.get("ID"));//权限编号
 						childObj.put("text", right2.get("MENU"));//菜单名称
 						childObj.put("rrid", right2.get("RRID"));//中间表的编号---》insert
+						childObj.put("menuNo", sMenuNo);
 						childObj.put("state", "open");						
 						if("0".equals(role_ID)) {
 							childObj.put("checked", false);
@@ -230,6 +232,7 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 								grandsonObj.put("id", right3.get("ID"));
 								grandsonObj.put("text", right3.get("MENU"));
 								grandsonObj.put("rrid", right3.get("RRID"));
+								grandsonObj.put("menuNo", right3.get("MENU_NO"));
 								grandsonObj.put("state", "open");
 								if("0".equals(roleID)) {
 									grandsonObj.put("checked", false);

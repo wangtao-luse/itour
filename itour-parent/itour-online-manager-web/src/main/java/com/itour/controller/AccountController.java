@@ -251,4 +251,13 @@ public class AccountController {
 		return powerRight;
 		
 	}
+	/**
+	* 前台会员管理页面
+	* @return
+	*/
+	@RequestMapping("/accountPage")
+	public String accountPage() {
+		return "/system/member/memberManager.html";
+	}
+	
 }
