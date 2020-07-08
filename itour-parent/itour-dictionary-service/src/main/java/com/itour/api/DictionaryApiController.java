@@ -2,6 +2,7 @@ package com.itour.api;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itour.common.req.RequestMessage;
@@ -13,7 +14,7 @@ public class DictionaryApiController implements DictionaryApi {
 	@Autowired
 DictionaryService dictionaryService;
 	@Override
-	public ResponseMessage getDictionaryList(RequestMessage requestMessage) {
+	public ResponseMessage getDictionaryList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return dictionaryService.getDictionaryList(requestMessage);
 	}
