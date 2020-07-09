@@ -67,7 +67,7 @@
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      
-	      <a href="#" onclick="addFun('新增', '/member/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">新增</a>	
+	      <a href="#" onclick="addFun('新增', '/member/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/member/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	      <a href="#" onclick="grantFunCommon('组授权','/member/groupRoleP?groupId=',$('#dataGrid'),{buttons: [{id:'groupRoleFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
 	      <a href="#" onclick="grantFunCommon('分配会员','/member/groupRoleP?groupId=',$('#dataGrid'),{buttons: [{id:'groupRoleFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">分配会员</a>

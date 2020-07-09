@@ -6,6 +6,26 @@
    
 </head>
 <body>
+<div class="nav-bar">
+   <div id="sessionInfoDiv" class="top-loginInfo">
+        <span class="login-man">&nbsp;</span>
+        <span>[wangtao]</span>
+    </div>
+<div id="operateArea" style="position: absolute; right: 5px; top: 10px;">
+       
+        <a href="javascript:void(0);" class="easyui-menubutton"
+           data-options="menu:'#layout_north_kzmbMenu',iconCls:'icon-set'">控制面板</a>
+        <a href="javascript:void(0);" class="easyui-menubutton"
+           data-options="menu:'#layout_north_zxMenu',iconCls:'icon-dropOut'">注销</a>
+    </div>
+    <div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
+        <div onclick="editCurrentUserPwd();">修改密码</div>
+        <div onclick="editCurrentUserHead();">修改头像</div>
+    </div>
+     <div id="layout_north_zxMenu" style="width: 100px; display: none;">
+        <div><a href="/shiro/logout">退出系统</a></div>
+    </div>
+</div>
 <!--   <div class="nav-bar">
             <div class="nav-left webname">
                 <span class="fa fa-envira" style="font-size:26px; padding-right:4px;"></span>旅行管理系统

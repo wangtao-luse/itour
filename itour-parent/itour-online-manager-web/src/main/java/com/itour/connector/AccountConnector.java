@@ -94,5 +94,11 @@ public ResponseMessage selectRightList(JSONObject jsonObject, HttpServletRequest
 	ResponseMessage powerRight = accountApi.selectRightList(postData);
 	return powerRight;
 }
+public ResponseMessage selectViewAccountList(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage selectViewAccountList = accountApi.selectViewAccountList(postData);
+	return selectViewAccountList;
+}
 
 }

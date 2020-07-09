@@ -60,7 +60,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/index");
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-		shiroFilterFactoryBean.setLoginUrl("/account/login");
+		shiroFilterFactoryBean.setLoginUrl("/member/login");
 		/* <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
 		Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
 		filterChainDefinitionMap.put("/css/**","anon");

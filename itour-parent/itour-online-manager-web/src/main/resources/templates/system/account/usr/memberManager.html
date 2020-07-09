@@ -5,7 +5,7 @@
 @include("/inc/inc.html"){}
  <script type="text/javascript">
 	    $(function(){	    	
-			searchFun('/member/getGroupList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});
+	    	searchFunTotal('/account/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});
 	    })
 	    
 	           function getList(options) {
@@ -16,10 +16,14 @@
                 singleSelect:true,
                 pageList:[10,40,80,200,500],
                 columns:[[
-					{field:'id',title:'编号',width:100},					
-					{field:'gName',title:'组名称',width:100},
-					{field:'gDesc',title:'组描述',width:150},
-					{field:'gParent',title:'所属组编号',width:100}
+                	{field:'id',title:'编号',width:100},					
+					{field:'uid',title:'用户唯一号',width:100},
+					{field:'sexStr',title:'性别',width:150},
+					{field:'createdate',title:'注册日期',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
+					{field:'createip',title:'注册IP地址',width:150},
+					{field:'lasttime',title:'上次登录时间',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
+					{field:'statusStr',title:'状态',width:150},
+					{field:'utypeStr',title:'类型',width:150}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -55,7 +59,7 @@
 	    	   	        <input type="text" placeholder=""  name="company"/>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/account/getGroupList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFunTotal('/account/getGroupList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>

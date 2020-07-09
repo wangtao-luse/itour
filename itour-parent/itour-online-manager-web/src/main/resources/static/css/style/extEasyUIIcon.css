@@ -1,0 +1,33 @@
+.tooltip{opacity:1;filter:alpha(opacity=100)}
+img{cursor:pointer}
+.logo{background:url(images/logo.jpg) no-repeat}
+.pencil{background:url(images/icon/pencil.png) no-repeat center center}
+.pencil_add{background:url(images/icon/pencil_add.png) no-repeat center center}
+.pencil_delete{background:url(images/icon/pencil_delete.png) no-repeat center center}
+.style{background:url(images/icon/style.png) no-repeat center center}
+.style_add{background:url(images/icon/style_add.png) no-repeat center center}
+.style_delete{background:url(images/icon/style_delete.png) no-repeat center center}
+.style_edit{background:url(images/icon/style_edit.png) no-repeat center center}
+.style_go{background:url(images/icon/style_go.png) no-repeat center center}
+.database_refresh{background:url(../../img/extjs_icons/database_refresh.png) no-repeat center center}
+.delete{background:url(../../img/extjs_icons/delete.png) no-repeat center center}
+.resultset_first{background:url(images/extjs_icons/resultset_first.png) no-repeat center center}
+.resultset_last{background:url(images/extjs_icons/resultset_last.png) no-repeat center center}
+.resultset_next{background:url(images/extjs_icons/resultset_next.png) no-repeat center center}
+.resultset_previous{background:url(images/extjs_icons/resultset_previous.png) no-repeat center center}
+.tick{background:url(images/extjs_icons/tick.png) no-repeat center center}
+.cog{background:url(images/extjs_icons/cog.png) no-repeat center center}
+.brick_delete{background:url(images/extjs_icons/brick_delete.png) no-repeat center center}
+.printer{background:url(images/extjs_icons/printer.png) no-repeat center center}
+.style_edit{background:url(images/extjs_icons/style_edit.png) no-repeat center center}
+.table_refresh{background:url(../../img/extjs_icons/table_refresh.png) no-repeat center center}
+.cog_add{background:url(images/extjs_icons/cog_add.png) no-repeat center center}
+.cog_edit{background:url(images/extjs_icons/cog_edit.png) no-repeat center center}
+.cog_go{background:url(images/extjs_icons/cog_go.png) no-repeat center center}
+.award_star_gold_1{background:url(images/extjs_icons/award_star_gold_1.png) no-repeat center center}
+.award_star_silver_1{background:url(images/extjs_icons/award_star_silver_1.png) no-repeat center center}
+.icon-refresh{background:url(images/extjs_icons/icon-refresh1.png) no-repeat center center}
+.icon-set{background:url(images/extjs_icons/icon-set1.png) no-repeat center center}
+.icon-dropOut{background:url(images/extjs_icons/icon-dropOut1.png) no-repeat center center}
+.icon-doorOut{background:url(images/extjs_icons/door_out.png) no-repeat center center}
+.icon-upload{background:url(images/extjs_icons/icon-upload.png) no-repeat center center}

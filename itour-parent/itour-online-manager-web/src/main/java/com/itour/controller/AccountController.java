@@ -257,7 +257,18 @@ public class AccountController {
 	*/
 	@RequestMapping("/accountPage")
 	public String accountPage() {
-		return "/system/member/memberManager.html";
+		return "/system/account/usr/memberManager";
 	}
-	
+	/**
+	   * 前台会员列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/selectViewAccountList")
+	@ResponseBody
+	public ResponseMessage selectViewAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage selectViewAccountList = this.accountConnector.selectViewAccountList(jsonObject, request);
+		return selectViewAccountList;
+	}
 }
