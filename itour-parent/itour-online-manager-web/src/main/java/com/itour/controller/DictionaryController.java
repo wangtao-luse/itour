@@ -2,7 +2,9 @@ package com.itour.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +15,7 @@ import com.itour.connector.DictionaryConnetor;
 @Controller
 @RequestMapping("/dictionary")
 public class DictionaryController {
+	@Autowired
 	private DictionaryConnetor dictionaryConnetor;
 	/**
 	 * 字典列表
@@ -22,7 +25,7 @@ public class DictionaryController {
 	 */
 	@RequestMapping("/getDictionaryList")
 	@ResponseBody
-	public ResponseMessage getDictionaryList(JSONObject jsonObject,HttpServletRequest request) {
+	public ResponseMessage getDictionaryList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage dictionaryList = dictionaryConnetor.getDictionaryList(jsonObject, request);
 		return dictionaryList;
 	}
@@ -33,7 +36,8 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping("/getViewDictionaryList")
-	public ResponseMessage getViewDictionaryList(JSONObject jsonObject,HttpServletRequest request) {
+	@ResponseBody
+	public ResponseMessage getViewDictionaryList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return dictionaryConnetor.getViewDictionaryList(jsonObject, request);
 	}
 	/**

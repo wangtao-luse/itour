@@ -22,7 +22,7 @@ public class DictionaryApiController implements DictionaryApi {
 		return dictionaryService.getDictionaryList(requestMessage);
 	}
 	@Override
-	public ResponseMessage getViewDictionaryList(RequestMessage requestMessage) {
+	public ResponseMessage getViewDictionaryList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return viewDDictionaryService.getViewDictionaryList(requestMessage);
 	}
