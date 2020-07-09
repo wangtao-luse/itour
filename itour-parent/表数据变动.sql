@@ -34,7 +34,7 @@ VALUES
 	( '3000', '数据字典管理', '0', '1', '0', '3', '0' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
-	( '3001', '数据字典信息', '3000', '1', '/member/dictPage', '2', '0' );
+	( '3001', '数据字典信息', '3000', '1', '/dictionary/dictPage', '2', '0' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '4000', '会员管理', '0', '1', '0', '3', '0' );

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
@@ -20,8 +21,10 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping("/getDictionaryList")
+	@ResponseBody
 	public ResponseMessage getDictionaryList(JSONObject jsonObject,HttpServletRequest request) {
-		return dictionaryConnetor.getDictionaryList(jsonObject, request);
+		ResponseMessage dictionaryList = dictionaryConnetor.getDictionaryList(jsonObject, request);
+		return dictionaryList;
 	}
 	/**
 	 * 字典列表 视图
