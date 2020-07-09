@@ -16,14 +16,14 @@
                 singleSelect:true,
                 pageList:[10,40,80,200,500],
                 columns:[[
-					{field:'id',title:'编号',width:100},					
+					{field:'id',title:'编号',width:60},					
 					{field:'uid',title:'用户唯一号',width:100},
-					{field:'sexStr',title:'性别',width:150},
+					{field:'sexStr',title:'性别',width:60},
 					{field:'createdate',title:'注册日期',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
 					{field:'createip',title:'注册IP地址',width:150},
 					{field:'lasttime',title:'上次登录时间',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
-					{field:'statusStr',title:'状态',width:150},
-					{field:'utypeStr',title:'类型',width:150}
+					{field:'statusStr',title:'状态',width:100},
+					{field:'utypeStr',title:'类型',width:100}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){

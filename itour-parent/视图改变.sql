@@ -35,3 +35,13 @@ CREATE OR REPLACE VIEW view_d_dictionary AS
 SELECT c.*,dstatus.STATUS_STR FROM `t_d_dictionary` c ,
 (SELECT d.CODE,d.CODE_SET, d.`STATUS`,d.CNAME STATUS_STR FROM t_d_dictionary d WHERE d.CODE_SET='dictionary_status') dstatus
 WHERE c.STATUS=dstatus.`CODE`;
+--后台管理员权限表视图
+CREATE OR REPLACE VIEW view_m_right AS
+SELECT  a.*, type.CNAME MENU_TYPE_STR FROM t_m_right a,
+(SELECT c.`CODE`,c.CNAME  FROM t_d_dictionary c where c.CODE_SET='right_type') type
+where a.MENU_TYPE=type.`CODE`;
+---前台会员权限表视图
+CREATE OR REPLACE VIEW view_a_right AS
+SELECT  a.*, type.CNAME MENU_TYPE_STR FROM t_a_right a,
+(SELECT c.`CODE`,c.CNAME  FROM t_d_dictionary c where c.CODE_SET='right_type') type
+where a.MENU_TYPE=type.`CODE`;
