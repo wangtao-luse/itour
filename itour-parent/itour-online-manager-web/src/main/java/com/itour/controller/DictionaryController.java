@@ -24,6 +24,16 @@ public class DictionaryController {
 		return dictionaryConnetor.getDictionaryList(jsonObject, request);
 	}
 	/**
+	 * 字典列表 视图
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getViewDictionaryList")
+	public ResponseMessage getViewDictionaryList(JSONObject jsonObject,HttpServletRequest request) {
+		return dictionaryConnetor.getViewDictionaryList(jsonObject, request);
+	}
+	/**
 	 * 字典列表页面
 	 * @return
 	 */

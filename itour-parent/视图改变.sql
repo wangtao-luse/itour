@@ -30,3 +30,8 @@ CREATE OR  REPLACE VIEW view_m_account AS
 		a.SEX = sex.CODE 
 	AND a.UTYPE = utype.CODE 
 	AND a.`STATUS`=accountStatus.CODE;
+-- 字典表视图
+CREATE OR REPLACE VIEW view_d_dictionary AS
+SELECT c.*,dstatus.STATUS_STR FROM `t_d_dictionary` c,
+(SELECT d.CNAME STATUS_STR,d.`STATUS` FROM t_d_dictionary d WHERE d.CODE_SET='dictionary_status' and `STATUS`='1') dstatus
+where c.`STATUS`=dstatus.`STATUS`;
