@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-@Configuration
+//@Configuration
 public class MybatisPlusConfig {
 	@Bean//分页
 public PaginationInterceptor  paginationInterceptor() {
