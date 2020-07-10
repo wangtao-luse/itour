@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,12 +44,17 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();	
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Page page = jsonObject.getJSONObject("page").toJavaObject(Page.class);
-			
-			
+			Role roleVo = jsonObject.getJSONObject("vo").toJavaObject(Role.class);
+			Page pageVo = jsonObject.getJSONObject("page").toJavaObject(Page.class);			
 			QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
-			if(page!=null) {
-				Page selectPage = this.baseMapper.selectPage(page, queryWrapper );	
+			/**精确查询**/
+			queryWrapper.eq(null != roleVo.getId(), "ID", roleVo.getId());
+			/**模糊查询**/
+			queryWrapper.like(!StringUtils.isEmpty(roleVo.getRoleName()),"ROLE_NAME", roleVo.getRoleName());
+			queryWrapper.like(!StringUtils.isEmpty(roleVo.getRoleDesc()),"ROLE_DESC", roleVo.getRoleDesc());
+			
+			if(pageVo!=null) {
+				Page selectPage = this.baseMapper.selectPage(pageVo, queryWrapper );	
 				responseMessage.setReturnResult(selectPage);
 			}else {
 				List<Role> selectList = this.baseMapper.selectList(queryWrapper);

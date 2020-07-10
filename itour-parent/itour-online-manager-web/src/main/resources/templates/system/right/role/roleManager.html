@@ -40,24 +40,19 @@
 	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>组名称:</label>
-	    	   	        <input type="text" placeholder=""  name="gName"/>
-	    	   	      </div>
-	    	   	  </div>
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>组描述:</label>
-	    	   	        <input type="text" placeholder=""  name="gDesc"/>
+	    	   	        <label><span></span>角色名称:</label>
+	    	   	        <input type="text" placeholder=""  name="roleName"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>公司:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	        <label><span></span>角色描述:</label>
+	    	   	        <input type="text" placeholder=""  name="roleDesc"/>
 	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
+	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <a onclick="searchFun('/account/getRoleList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
-	    	   </div>
+	    	   	  </div>
+	    	   	
 			</div>	
 				
 			</form>
@@ -69,7 +64,6 @@
 	      <a href="#" onclick="addFun('新增', '/account/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/account/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	      <a href="#" onclick="grantFunCommon('角色授权','/account/roleRightP?roleId=',$('#dataGrid'),{buttons: [{id:'roleRightFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
-	      <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
 	    </div>
 	</div>
 </body>

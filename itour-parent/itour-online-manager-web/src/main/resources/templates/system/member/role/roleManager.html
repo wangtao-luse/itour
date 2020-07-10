@@ -43,33 +43,27 @@
 	    	   	        <label><span></span>组名称:</label>
 	    	   	        <input type="text" placeholder=""  name="gName"/>
 	    	   	      </div>
-	    	   	  </div>
-	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>组描述:</label>
 	    	   	        <input type="text" placeholder=""  name="gDesc"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>公司:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
-	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
 	    	   	        <a onclick="searchFun('/member/getRoleList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
-	    	   </div>
+	    	   	  </div>
+	    	   	
 			</div>	
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'角色管理',border:false,split:true">
+	    <div data-options="region:'center',title:'管理员角色管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      
 	      <a href="#" onclick="addFun('新增', '/member/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/member/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	      <a href="#" onclick="grantFunCommon('角色授权','/member/roleRightP?roleId=',$('#dataGrid'),{buttons: [{id:'roleRightFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
-	      <a href="#" onclick="editFun('查看详情','/member/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
 	    </div>
 	</div>
 </body>

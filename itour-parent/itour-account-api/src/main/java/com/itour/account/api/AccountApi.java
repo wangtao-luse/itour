@@ -147,5 +147,26 @@ public ResponseMessage selectRightList(RequestMessage postData);
  */
 @RequestMapping(value = "/account/selectViewAccountList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage selectViewAccountList(RequestMessage requestMessage);
+/**
+ * 前台权限列表查询（视图）
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/selectViewRightList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage selectViewRightList(RequestMessage requestMessage);
+/**
+ * 前台会员查看详情(改用户下的账号)
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getOauthList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getOauthList(RequestMessage requestMessage);
+/**
+ * 前台会员查看详情(改用户下的账号)(视图)
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getViewOauthList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getViewOauthList(RequestMessage requestMessage);
 }
 

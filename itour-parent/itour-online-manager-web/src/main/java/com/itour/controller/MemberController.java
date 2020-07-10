@@ -297,4 +297,15 @@ public class MemberController {
 	public ResponseMessage getRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return this.memberConnector.rightList(jsonObject, request);
 	}
+	/**
+	 * 权限列表（视图）
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getViewRightList")
+	@ResponseBody
+	public ResponseMessage getViewRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return this.memberConnector.getViewRightList(jsonObject, request);
+	}
 }

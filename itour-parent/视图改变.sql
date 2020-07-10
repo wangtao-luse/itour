@@ -45,3 +45,11 @@ CREATE OR REPLACE VIEW view_a_right AS
 SELECT  a.*, type.CNAME MENU_TYPE_STR FROM t_a_right a,
 (SELECT c.`CODE`,c.CNAME  FROM t_d_dictionary c where c.CODE_SET='right_type') type
 where a.MENU_TYPE=type.`CODE`;
+---前台会员账号查询详情
+CREATE OR REPLACE VIEW view_a_oauth AS
+SELECT c.ID,c.U_ID,c.OAUTH_ID,c.OAUTH_TYPE,c.NICKNAME,c.AVATAR,type.CNAME OAUTH_TYPE_STR FROM t_a_oauth c,(
+SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='OAUTH_TYPE') type WHERE c.OAUTH_TYPE=type.`CODE`;
+---后台管理员账号查询详情
+CREATE OR REPLACE VIEW view_m_oauth AS
+SELECT c.ID,c.U_ID,c.OAUTH_ID,c.OAUTH_TYPE,c.NICKNAME,c.AVATAR,type.CNAME OAUTH_TYPE_STR FROM t_m_oauth c,(
+SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='OAUTH_TYPE') type WHERE c.OAUTH_TYPE=type.`CODE`;

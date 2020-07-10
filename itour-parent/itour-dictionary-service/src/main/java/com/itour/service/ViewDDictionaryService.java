@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -31,6 +32,10 @@ public class ViewDDictionaryService extends ServiceImpl<ViewDDictionaryMapper, V
 			ViewDDictionary dictionaryVo = jsonObject.getJSONObject("vo").toJavaObject(ViewDDictionary.class);
 			JSONObject pageVo = jsonObject.getJSONObject("page");
 			QueryWrapper<ViewDDictionary> queryWrapper = new QueryWrapper<ViewDDictionary>();
+			queryWrapper.eq(null!=dictionaryVo.getId(), "ID", dictionaryVo.getId());
+			queryWrapper.eq(!StringUtils.isEmpty(dictionaryVo.getCodeSet()), "CODE_SET", dictionaryVo.getCodeSet());
+			queryWrapper.eq(!StringUtils.isEmpty(dictionaryVo.getCode()), "CODE", dictionaryVo.getCode());
+			queryWrapper.eq(!StringUtils.isEmpty(dictionaryVo.getCname()), "CNAME", dictionaryVo.getCname());
 			if(null!=pageVo) {
 				Page page = pageVo.toJavaObject(Page.class);			
 				Page selectPage = this.baseMapper.selectPage(page, queryWrapper );

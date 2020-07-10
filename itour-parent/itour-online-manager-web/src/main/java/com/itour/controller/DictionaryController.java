@@ -48,5 +48,16 @@ public class DictionaryController {
 	public String dictionaryPage() {
 		return "/system/dictionary/dictionaryManager";
 	}
+	/**
+	 * 字典表查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getDictData")
+	@ResponseBody
+	public ResponseMessage getDictData(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return dictionaryConnetor.getDictData(jsonObject, request);
+	}
 	
 }

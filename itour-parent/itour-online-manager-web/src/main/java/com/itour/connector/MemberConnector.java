@@ -80,5 +80,10 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.powerRight(requestMessage);
 	}
+	public ResponseMessage getViewRightList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getViewRightList(requestMessage);
+	}
 	
 }

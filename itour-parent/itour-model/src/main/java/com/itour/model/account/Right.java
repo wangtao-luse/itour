@@ -52,8 +52,14 @@ public class Right extends Model<Right> {
      */
     @TableField("URL")
     private String url;
+    /**
+     * 一级菜单顺序
+     */
     @TableField("M_ORDER")
     private String mOrder;
+    /**
+     * 二级菜单顺序
+     */
     @TableField("S_ORDER")
     private String sOrder;
     public String getmOrder() {

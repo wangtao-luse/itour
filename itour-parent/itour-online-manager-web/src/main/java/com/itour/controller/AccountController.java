@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AccountConnector;
+import com.itour.constant.Constant;
 /**
  * 前台用户管理
  * @author wwang
@@ -268,7 +269,20 @@ public class AccountController {
 	@RequestMapping("/selectViewAccountList")
 	@ResponseBody
 	public ResponseMessage selectViewAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
 		ResponseMessage selectViewAccountList = this.accountConnector.selectViewAccountList(jsonObject, request);
 		return selectViewAccountList;
+	}
+	/**
+	 * 前台会员列表（视图）
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/selectViewRightList")
+	@ResponseBody
+	public ResponseMessage selectViewRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage selectViewRightList = this.accountConnector.selectViewRightList(jsonObject, request);
+		return selectViewRightList;
 	}
 }

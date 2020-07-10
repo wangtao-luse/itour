@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 @include("/inc/inc.html"){}
  <script type="text/javascript">
-	    $(function(){	    	
+	    $(function(){
+	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
+	    	 initSelect($("#utype"), "UTYPE",true,"全部");
+	    	 initSelect($("#sex"), "SEX",true,"全部");
 	    	searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});
 	    })
 	    
@@ -36,7 +39,7 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px; overflow: hidden">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
 	    	   	  <div class="mTop10 line-handsome">
@@ -46,11 +49,11 @@
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>用户唯一号:</label>
-	    	   	        <input type="text" placeholder=""  name="gName"/>
+	    	   	        <input type="text" placeholder=""  name="uid"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>性别:</label>
-	    	   	        <input type="text" placeholder=""  name="gDesc"/>
+	    	   	        <label><span></span>性&nbsp;别:</label>
+	    	   	        <select id="sex" name="sex"></select>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>注册日期:</label>
@@ -60,19 +63,19 @@
 	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>注册IP地址:</label>
-	    	   	        <input type="text" placeholder=""  name="gDesc"/>
+	    	   	        <input type="text" placeholder=""  name="createip"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>上次登录时间:</label>
 	    	   	        <input type="text" placeholder=""  name="company"/>
 	    	   	      </div>
 	    	   	        <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>状态:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	        <label><span></span>状&nbsp;态:</label>
+	    	   	        <select id="status" name="status"></select>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>类型:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	        <select id="utype" name="utype"></select>
 	    	   	      </div>
 	    	   	       
 	    	   </div>
@@ -98,7 +101,7 @@
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'角色管理',border:false,split:true">
+	    <div data-options="region:'center',title:'管理员信息',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      

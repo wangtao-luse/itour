@@ -18,6 +18,8 @@ import com.itour.service.RightService;
 import com.itour.service.RoleRightService;
 import com.itour.service.RoleService;
 import com.itour.service.ViewMAccountService;
+import com.itour.service.ViewMOauthService;
+import com.itour.service.ViewMRightService;
 
 @RestController
 public class MemberApiController implements MemberApi {
@@ -37,6 +39,10 @@ private GroupRoleService groupRoleService;
 private RoleRightService roleRightService;
 	@Autowired
 private	ViewMAccountService viewMAccountService;
+	@Autowired
+private	ViewMRightService viewMRightService;
+	@Autowired
+private ViewMOauthService viewMOauthService;
 	/**
 	 * 平台管理左侧菜单
 	 */
@@ -162,6 +168,30 @@ private	ViewMAccountService viewMAccountService;
 	public ResponseMessage powerRight(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return roleRightService.powerRight(requestMessage);
+	}
+	/**
+	 * 管理员权限列表(视图)
+	 */
+	@Override
+	public ResponseMessage getViewRightList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewMRightService.selectViewRightList(requestMessage);
+	}
+	/**
+	 * 后台管理员账号详情
+	 */
+	@Override
+	public ResponseMessage getOAuthList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return oauthService.getOAuthList(requestMessage);
+	}
+	/**
+	 * 后台管理员账号详情(视图)
+	 */
+	@Override
+	public ResponseMessage getViewOauthList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewMOauthService.getViewOAuthList(requestMessage);
 	}
 	
 	

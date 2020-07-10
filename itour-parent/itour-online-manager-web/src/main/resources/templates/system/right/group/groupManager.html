@@ -38,23 +38,33 @@
 	    	   <div class="mTop10 mLeft20">
 	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>编号:</label>
+	    	   	        <label><span></span>组编号:</label>
 	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>组名称:</label>
 	    	   	        <input type="text" placeholder=""  name="gName"/>
 	    	   	      </div>
-	    	   	  </div>
-	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
 	    	   	        <label><span></span>组描述:</label>
 	    	   	        <input type="text" placeholder=""  name="gDesc"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>公司:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	        <label><span></span>所属组:</label>
+	    	   	        <input type="text" placeholder=""  name="gParent"/>
 	    	   	      </div>
+	    	   	  </div>
+	    	   	  <div class="mTop10 line-handsome">
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	      </div>
+	    	   	     
 	    	   	       <div class="fLeft label-handsome ">
 	    	   	        <a onclick="searchFun('/account/getGroupList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
@@ -71,7 +81,7 @@
 	      <a href="#" onclick="addFun('新增', '/account/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/account/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	      <a href="#" onclick="grantFunCommon('组授权','/account/groupRoleP?groupId=',$('#dataGrid'),{buttons: [{id:'groupRoleFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
-	      <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
+	     <!--  <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a> -->
 	    </div>
 	</div>
 </body>

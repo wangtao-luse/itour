@@ -52,6 +52,10 @@ public ResponseMessage queryGroupList(RequestMessage requestMessage) {
 			queryWrapper.likeRight(!StringUtils.isEmpty(group.getgName()), "G_NAME", group.getgName());
 			queryWrapper.likeRight(!StringUtils.isEmpty(group.getgDesc()), "G_DESC",group.getgDesc());
 			queryWrapper.eq(null!=group.getId(), "ID", group.getId());
+			if(null!=group.getgParent()) {
+				queryWrapper.eq( "ID", group.getgParent());	
+				queryWrapper.or().eq("G_PARENT", group.getgParent());
+			}
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
 				Page selectPage = this.baseMapper.selectPage(page, queryWrapper);

@@ -23,4 +23,8 @@ public ResponseMessage getViewDictionaryList(JSONObject jsonObject,HttpServletRe
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return dictionaryApi.getViewDictionaryList(requestMessage);
 }
+public ResponseMessage getDictData(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return dictionaryApi.getDictData(requestMessage);
+}
 }

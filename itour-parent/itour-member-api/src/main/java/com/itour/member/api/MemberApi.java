@@ -36,7 +36,7 @@ public interface MemberApi {
 	@RequestMapping(value = "member/selectAccountList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage selectAccountList(RequestMessage requestMessage);
 	/**
-	 * 后台管理员列表查询
+	 * 后台管理员列表查询（视图）
 	 * @param requestMessage
 	 * @return
 	 */
@@ -63,6 +63,14 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/getRightList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage getRightList(RequestMessage requestMessage);
+	/**
+	/**
+	 * 权限列表（视图）
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getViewRightList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getViewRightList(RequestMessage requestMessage);
 	/**
 	 * 组授权角色
 	 * @param requestMessage
@@ -112,6 +120,21 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/powerRight",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage powerRight(RequestMessage requestMessage);
+	
+	/**
+	 * 后台管理员账号详情（视图）
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getViewOauthList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getViewOauthList(RequestMessage requestMessage);
+	/**
+	 * 后台管理员账号详情
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getOAuthList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getOAuthList(RequestMessage requestMessage);
 	
 
 	

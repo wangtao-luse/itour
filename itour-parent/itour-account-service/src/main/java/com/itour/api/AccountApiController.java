@@ -17,6 +17,8 @@ import com.itour.service.RightService;
 import com.itour.service.RoleRightService;
 import com.itour.service.RoleService;
 import com.itour.service.ViewAAccountService;
+import com.itour.service.ViewAOauthService;
+import com.itour.service.ViewARightService;
 
 @RestController
 public class AccountApiController implements AccountApi {
@@ -38,6 +40,10 @@ GroupRoleService groupRoleService;
 RoleRightService roleRightService;
 @Autowired
 ViewAAccountService viewAAccountService;
+@Autowired
+ViewARightService viewARightService;
+@Autowired
+ViewAOauthService viewAOauthService;
 /**
  * 注册提交
  */
@@ -217,5 +223,26 @@ public ResponseMessage selectRightList(@RequestBody RequestMessage requestMessag
 public ResponseMessage selectViewAccountList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return viewAAccountService.selectViewAccountList(requestMessage);
+}
+/**
+ * 前台用户权限列表（视图）
+ */
+@Override
+public ResponseMessage selectViewRightList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return viewARightService.selectViewRightList(requestMessage);
+}
+/**
+ * 前台用户查看详情
+ */
+@Override
+public ResponseMessage getOauthList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return oauthService.getOAuthList(requestMessage);
+}
+@Override
+public ResponseMessage getViewOauthList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return viewAOauthService.getViewOAuthList(requestMessage);
 }
 }

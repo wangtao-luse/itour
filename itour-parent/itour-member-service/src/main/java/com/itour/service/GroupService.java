@@ -50,7 +50,11 @@ public class GroupService extends ServiceImpl<GroupMapper, Group> {
 				QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 				/**模糊查询**/
 				queryWrapper.likeRight(!StringUtils.isEmpty(group.getgName()), "G_NAME", group.getgName());
-				
+				queryWrapper.likeRight(!StringUtils.isEmpty(group.getgDesc()), "G_DESC",group.getgDesc());
+				if(null!=group.getgParent()) {
+					queryWrapper.eq( "ID", group.getgParent());	
+					queryWrapper.or().eq("G_PARENT", group.getgParent());
+				}
 				if(pageJson!=null) {
 					Page page = pageJson.toJavaObject(Page.class);
 					Page selectPage = this.baseMapper.selectPage(page, queryWrapper);

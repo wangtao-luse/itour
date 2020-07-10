@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.ViewAOauthMapper">
+
+    <!-- 开启二级缓存 -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.account.dto.ViewAOauth">
+        <result column="ID" property="id" />
+        <result column="U_ID" property="uId" />
+        <result column="OAUTH_ID" property="oauthId" />
+        <result column="OAUTH_TYPE" property="oauthType" />
+        <result column="NICKNAME" property="nickname" />
+        <result column="AVATAR" property="avatar" />
+        <result column="OAUTH_TYPE_STR" property="oauthTypeStr" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, U_ID, OAUTH_ID, OAUTH_TYPE, NICKNAME, AVATAR, OAUTH_TYPE_STR
+    </sql>
+
+</mapper>

@@ -100,5 +100,11 @@ public ResponseMessage selectViewAccountList(JSONObject jsonObject, HttpServletR
 	ResponseMessage selectViewAccountList = accountApi.selectViewAccountList(postData);
 	return selectViewAccountList;
 }
+public ResponseMessage selectViewRightList(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage selectViewRightList = accountApi.selectViewRightList(postData);
+	return selectViewRightList;
+}
 
 }

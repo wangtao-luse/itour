@@ -54,4 +54,10 @@ INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('dictionary_status','1',
 INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('dictionary_status','2','不可用');
 INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('right_type','1','菜单');
 INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('right_type','2','按钮');
+INSERT INTO t_d_dictionary(CODE_SET,CODE,CNAME)VALUES('OAUTH_TYPE','email','邮箱');
+INSERT INTO t_d_dictionary(CODE_SET,CODE,CNAME)VALUES('OAUTH_TYPE','uname','用户名');
+INSERT INTO t_d_dictionary(CODE_SET,CODE,CNAME)VALUES('OAUTH_TYPE','phone','手机');
+INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('OAUTH_TYPE','wechat','微信');
+INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('OAUTH_TYPE','weibo','微博');
+INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('OAUTH_TYPE','qq','QQ');
 	

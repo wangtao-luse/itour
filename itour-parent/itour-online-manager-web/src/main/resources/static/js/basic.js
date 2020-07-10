@@ -406,6 +406,28 @@ function initSelect(selectNode, data, flag, title) {
     });
     selectNode.html(str)
 };
+function initSelect(selectNode, key, flag, title) {
+	var data = {"setCode":key};
+	$.ajax({
+	    type: "POST",
+	    data: JSON.stringify(data),
+	    contentType: "application/json",
+	    dataType: "json",
+	    url: "/dictionary/getDictData",
+	    success: function (resultData) {
+	    	var showTitle = title ? title : "请选择";
+	    	var str = flag ? "<option value=''>" + showTitle + "</option>" : "";
+	    	 var data = resultData.returnResult.result;
+	    	$.each(data, function (key, item) {
+	    		item.CNAME.indexOf("#") != -1?
+	    				str += "<option value='" + item.CNAME.substr(1,item.NAME.length) + "' >" + item.CNAME + "</option>":
+	    					str += "<option value='" + item.CODE + "' >" + item.CNAME + "</option>"
+	    	});
+	    	selectNode.html(str)  
+	    }
+	});
+	
+};
 //清楚查询条件
 function clearFunction(node) {
     var clearNode = $("#" + node);

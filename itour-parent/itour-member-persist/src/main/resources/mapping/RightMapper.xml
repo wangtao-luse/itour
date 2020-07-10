@@ -12,10 +12,12 @@
         <result column="PARENT_ID" property="parentId" />
         <result column="MENU_TYPE" property="menuType" />
         <result column="URL" property="url" />
+         <result column="M_ORDER" property="mOrder" />
+        <result column="S_ORDER" property="sOrder" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL
+        ID, MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL,M_ORDER,S_ORDER
     </sql>
     <select id="getMenuList" parameterType="java.lang.String" resultMap="BaseResultMap">
        SELECT <include refid="Base_Column_List"></include> FROM t_m_right e WHERE e.MENU_NO in(SELECT d.RIGHT_ID FROM t_m_role_right d WHERE d.ROLE_ID in(SELECT c.ROLE_ID FROM t_m_group_role c WHERE c.GROUP_ID in(SELECT b.ID FROM t_m_group b WHERE b.id in(SELECT a.GROUP_ID FROM t_m_account_group a WHERE a.U_ID=#{uid}) OR b.G_PARENT IN(SELECT a.GROUP_ID FROM t_m_account_group a WHERE a.U_ID=#{uid}))))

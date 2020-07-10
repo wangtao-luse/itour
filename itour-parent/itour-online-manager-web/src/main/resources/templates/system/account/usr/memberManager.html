@@ -3,8 +3,21 @@
 <head>
 <meta charset="UTF-8">
 @include("/inc/inc.html"){}
+<style>
+.combo .combo-text {
+    font-size: 13px;
+    border: 0;
+    line-height: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0 2px;
+    vertical-align: baseline
+}</style>
  <script type="text/javascript">
-	    $(function(){	    	
+	    $(function(){
+	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
+	    	 initSelect($("#utype"), "UTYPE",true,"全部");
+	    	 initSelect($("#sex"), "SEX",true,"全部");
 	    	searchFunTotal('/account/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});
 	    })
 	    
@@ -36,7 +49,7 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px;">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
 	    	   	  <div class="mTop10 line-handsome">
@@ -45,18 +58,49 @@
 	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>组名称:</label>
+	    	   	        <label><span></span>用户唯一号:</label>
 	    	   	        <input type="text" placeholder=""  name="gName"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>性别:</label>
+	    	   	        <select id="sex" name="sex"></select>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>注册日期:</label>
+	    	   	        <input class="easyui-datebox"  name="" style="width:100px" data-options="editable:false" />
+	    	   	        -
+                        <input class="easyui-datebox" name="" style="width:100px" data-options="editable:false"/>
 	    	   	      </div>
 	    	   	  </div>
 	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>组描述:</label>
+	    	   	        <label><span></span>注册IP地址:</label>
 	    	   	        <input type="text" placeholder=""  name="gDesc"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>公司:</label>
+	    	   	        <label><span></span>上次登录时间:</label>
 	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>状态:</label>
+	    	   	       <select id="status" name="status"></select>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>类型:</label>
+	    	   	       <select id="utype" name="utype"></select>
+	    	   	      </div>
+	    	   	       
+	    	   </div>
+	    	   <div class="mTop10 line-handsome">
+	    	   	     
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
 	    	   	        <a onclick="searchFunTotal('/account/getGroupList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
@@ -67,7 +111,7 @@
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
+	    <div data-options="region:'center',title:'会员信息查询',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      

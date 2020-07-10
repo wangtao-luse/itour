@@ -1,10 +1,12 @@
 package com.itour.model.account;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.LongRange;
 /**
  * <p>
  * 用户表
@@ -65,7 +67,12 @@ public class Account extends Model<Account> {
      */
     @TableField("UTYPE")
     private String utype;
-
+    /**注册日期***/
+    @TableField(exist = false)
+    private LongRange createdateRange;
+    /**最近一次登录日期***/
+    @TableField(exist = false)
+    private LongRange lasttimeRange;
     public Integer getId() {
         return id;
     }
@@ -135,7 +142,23 @@ public class Account extends Model<Account> {
         return null;
     }
 
-    @Override
+    public LongRange getCreatedateRange() {
+		return createdateRange;
+	}
+
+	public void setCreatedateRange(LongRange createdateRange) {
+		this.createdateRange = createdateRange;
+	}
+
+	public LongRange getLasttimeRange() {
+		return lasttimeRange;
+	}
+
+	public void setLasttimeRange(LongRange lasttimeRange) {
+		this.lasttimeRange = lasttimeRange;
+	}
+
+	@Override
     public String toString() {
         return "Account{" +
         ", id=" + id +

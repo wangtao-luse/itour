@@ -11,11 +11,14 @@
         <result column="MENU" property="menu" />
         <result column="PARENT_ID" property="parentId" />
         <result column="MENU_TYPE" property="menuType" />
+         <result column="URL" property="url" />
+        <result column="M_ORDER" property="mOrder" />
+        <result column="S_ORDER" property="sOrder" />
         <result column="MENU_TYPE_STR" property="menuTypeStr" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, MENU_NO, MENU, PARENT_ID, MENU_TYPE, MENU_TYPE_STR
+        ID, MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL,M_ORDER,S_ORDER ,MENU_TYPE_STR
     </sql>
 
 </mapper>

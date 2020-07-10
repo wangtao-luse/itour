@@ -1,5 +1,6 @@
 package com.itour.model.member.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.LongRange;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
@@ -79,7 +80,12 @@ public class ViewMAccount extends Model<ViewMAccount> {
      */
     @TableField("STATUS_STR")
     private String statusStr;
-
+    /**注册日期***/
+    @TableField(exist = false)
+    private LongRange createdateRange;
+    /**最近一次登录日期***/
+    @TableField(exist = false)
+    private LongRange lasttimeRange;
     public Integer getId() {
         return id;
     }
@@ -173,7 +179,23 @@ public class ViewMAccount extends Model<ViewMAccount> {
         return null;
     }
 
-    @Override
+    public LongRange getCreatedateRange() {
+		return createdateRange;
+	}
+
+	public void setCreatedateRange(LongRange createdateRange) {
+		this.createdateRange = createdateRange;
+	}
+
+	public LongRange getLasttimeRange() {
+		return lasttimeRange;
+	}
+
+	public void setLasttimeRange(LongRange lasttimeRange) {
+		this.lasttimeRange = lasttimeRange;
+	}
+
+	@Override
     public String toString() {
         return "ViewMAccount{" +
         ", id=" + id +

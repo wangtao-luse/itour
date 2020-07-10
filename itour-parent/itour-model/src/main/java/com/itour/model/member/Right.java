@@ -53,7 +53,18 @@ public class Right extends Model<Right> {
      */
     @TableField("URL")
     private String url;
-    
+    /**
+     * 一级菜单的顺序
+     */
+    @TableField("M_ORDER")
+    private String mOrder;
+
+    /**
+     * 二级菜单的顺序
+     */
+    @TableField("S_ORDER")
+    private String sOrder;
+
 
     public Integer getId() {
         return id;
@@ -103,7 +114,23 @@ public class Right extends Model<Right> {
         this.url = url;
     }
 
-    @Override
+    public String getmOrder() {
+		return mOrder;
+	}
+
+	public void setmOrder(String mOrder) {
+		this.mOrder = mOrder;
+	}
+
+	public String getsOrder() {
+		return sOrder;
+	}
+
+	public void setsOrder(String sOrder) {
+		this.sOrder = sOrder;
+	}
+
+	@Override
     protected Serializable pkVal() {
         return null;
     }
@@ -117,6 +144,8 @@ public class Right extends Model<Right> {
         ", parentId=" + parentId +
         ", menuType=" + menuType +
         ", url=" + url +
+        ", mOrder=" + mOrder +
+        ", sOrder=" + sOrder +
         "}";
     }
 }
