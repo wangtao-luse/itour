@@ -135,6 +135,21 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/getOAuthList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage getOAuthList(RequestMessage requestMessage);
+	/**
+	 * 后台管理员授权组列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/grantGroupList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage grantGroupList(RequestMessage requestMessage);
+	
+	/**
+	 * 后台管理员授权组
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/powerGroup",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage powerGroup(RequestMessage requestMessage);
 	
 
 	

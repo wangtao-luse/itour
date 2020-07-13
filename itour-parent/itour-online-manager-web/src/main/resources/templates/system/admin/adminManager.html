@@ -13,18 +13,19 @@
 	    
 	           function getList(options) {
 	    	console.log("console");
-            var op = {
+            var op = {            	
                 fitColumns:false,
                 fit:true,
-                singleSelect:true,
+                singleSelect:false,
                 pageList:[10,40,80,200,500],
                 columns:[[
+                	{field:'',checkbox:true,width:10},
 					{field:'id',title:'编号',width:60},					
 					{field:'uid',title:'用户唯一号',width:100},
 					{field:'sexStr',title:'性别',width:60},
-					{field:'createdate',title:'注册日期',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
+					{field:'createdate',title:'注册日期',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
 					{field:'createip',title:'注册IP地址',width:150},
-					{field:'lasttime',title:'上次登录时间',width:150,formatter: function (value, row, index){return new Date(value*1000).Format("yyyy-MM-dd");}},
+					{field:'lasttime',title:'上次登录时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
 					{field:'statusStr',title:'状态',width:100},
 					{field:'utypeStr',title:'类型',width:100}
 				]],
@@ -35,6 +36,7 @@
             };
             return $.extend(op,options);
         }
+	   
 	    </script>
 </head>
 <body>
@@ -105,10 +107,10 @@
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      
-	      <a href="#" onclick="addFun('新增', '/account/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
-	      <a href="#" onclick="editFun('编辑','/account/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
-	      <a href="#" onclick="grantFunCommon('角色授权','/account/roleRightP?roleId=',$('#dataGrid'),{buttons: [{id:'roleRightFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
-	      <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
+	      <a href="#" onclick="addFun('新增', '/member/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
+	      <a href="#" onclick="editFun('编辑','/member/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
+	      <a href="#" onclick="editfunArr('管理员授权','/member/accountGroupP?uids=',$('#dataGrid'),{buttons: [{id:'roleRightFun',text:'授权'}],'key':'uid','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
+	      <a href="#" onclick="editFun('查看详情','/member/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
 	    </div>
 	</div>
 </body>

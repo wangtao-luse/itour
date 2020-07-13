@@ -159,7 +159,7 @@ public class AccountController {
 	 * 角色新增编辑页面
 	 * @return
 	 */
-	@RequestMapping("/roleAddP")
+	@RequestMapping("/age")
 	public String roleAddP(String id,ModelMap model) {
 		model.addAttribute("id", id);
 		return "/system/right/role/roleAdd";
@@ -285,4 +285,5 @@ public class AccountController {
 		ResponseMessage selectViewRightList = this.accountConnector.selectViewRightList(jsonObject, request);
 		return selectViewRightList;
 	}
+	
 }

@@ -1,7 +1,9 @@
 //创建datagrid
 function initDataGrid(url,dataGridNode,newOptions){
 	//http://www.jeasyui.net/plugins/183.html
-	var options ={		
+	var options ={
+		width:'auto',
+		height:'auto',
 		fitColumns:true,//自动扩大或缩小列的尺寸以适应网格的宽度并且防止水平滚动
 		pagination:true,//在数据网格（datagrid）底部显示分页工具栏
 		idField:'id',//标识字段
@@ -219,6 +221,24 @@ function editFun(title,url,dataGridNode,newOptions){
 	options.dataGridNode = dataGridNode;
 	parent.$.modalDialog(options)
 	
+}
+function editfunArr(title, url, dataGridNode, newOptions) {
+	var key = newOptions.key?newOptions.key:"id";
+	var arr= new Array();
+    var rows = dataGridNode.datagrid('getSelections');
+    if (rows && rows.length > 0) {
+    	for(var i=0;i<rows.length;i++){
+    		arr.push(rows[i][key]);
+    	}
+    	url+=arr;
+    } else {
+        showErrorMsg('请选择一条数据.');
+        return;
+    }
+    var options = getInitDialogOptions(title, url, "editFunction", "编辑");
+    $.extend(options, newOptions);
+    options.dataGridNode = dataGridNode;
+    parent.$.modalDialog(options) 
 }
 function grantFunCommon(title, url, dataGridNode, newOptions) {
     var rows = dataGridNode.datagrid('getSelections');

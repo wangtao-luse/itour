@@ -85,5 +85,15 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.getViewRightList(requestMessage);
 	}
+	public ResponseMessage grantGroupList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.grantGroupList(requestMessage);
+	}
+	public ResponseMessage powerGroup(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.powerGroup(requestMessage);
+	}
 	
 }

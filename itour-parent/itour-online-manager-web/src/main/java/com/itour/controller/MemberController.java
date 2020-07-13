@@ -308,4 +308,35 @@ public class MemberController {
 	public ResponseMessage getViewRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return this.memberConnector.getViewRightList(jsonObject, request);
 	}
+	/**
+	 * 管理员授权组页面
+	 * @return
+	 */
+	@RequestMapping("/accountGroupP")
+	public String accountGroupPage(String [] uids,ModelMap model) {
+		model.addAttribute("uids", uids);
+		return "/system/admin/adminGroup";
+	}	
+	/**
+	 * 管理员授权组列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/grantGroupList")
+	@ResponseBody
+	public ResponseMessage grantGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return this.memberConnector.grantGroupList(jsonObject, request);
+	}
+	/**
+	 * 管理员授权组
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/powerGroup")
+	@ResponseBody
+	public ResponseMessage powerGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return this.memberConnector.powerGroup(jsonObject, request);
+	}
 }

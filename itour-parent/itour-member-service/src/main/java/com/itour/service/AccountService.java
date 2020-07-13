@@ -1,18 +1,20 @@
 package com.itour.service;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -22,9 +24,11 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.model.member.Account;
 import com.itour.model.member.AccountGroup;
+import com.itour.model.member.Group;
 import com.itour.model.member.Oauth;
 import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
+import com.itour.persist.GroupMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
@@ -47,6 +51,8 @@ private IpaddrService ipaddrService;
 private BaseService baseService;
 	@Autowired
 private AccountGroupMapper accountGroupMapper;
+	@Autowired
+private GroupMapper groupMapper;
 
 	/** 注册
 	 * 1.插入用户表(t_a_account)
@@ -115,6 +121,11 @@ public static void main(String[] args) {
 	System.out.println("sha-1:"+simpleHashSHA_1);
 	System.out.println(simpleHashSHA_1.length());
 }
+/**
+ * 获取管理员用户列表
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 	ResponseMessage resposeMessage = ResponseMessage.getSucess();
 	try {
@@ -145,4 +156,32 @@ public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 	}
 	return resposeMessage;
 }
+/**
+ * 用户组授权列表
+ * @return
+ */
+public ResponseMessage grantGroupList(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	JSONArray jsonArray = new JSONArray();	
+	try {
+		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
+		List<Group> selectList = groupMapper.selectList(queryWrapper );
+		
+		for (Group group : selectList) {
+		   JSONObject jsonObject = new JSONObject();
+		   jsonObject.put("id", group.getId());
+		   jsonObject.put("text",group.getgDesc());
+		   jsonObject.put("state", "open");		  
+		   jsonArray.add(jsonObject);
+		}
+		responseMessage.setReturnResult(jsonArray);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+	return responseMessage;
+}
+
+
+
 }

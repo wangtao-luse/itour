@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Lambda {
 	/**
 	 * .语法
@@ -22,39 +23,31 @@ public class Lambda {
 	 *   4.不可以在foreach中修改foreach外面的值。
 	 */
 	public static void main(String[] args) {
-		List<String> list = new ArrayList<String>();	
-	 getFiles("D:\\mysql",list);
-	System.out.println("size:  "+list.size());
-	}
-	public static void getFiles(String path,List<String> list) {
 		
- 	   File file=new File(path);
- 	   File[] files = file.listFiles();
- 	   for (int i = 0; i < files.length; i++) {
- 		  if(files[i].isFile()) {
- 			  System.out.println(files[i].getName());
- 			  list.add(files[i].getName());
- 		  }else {
- 			  String absolutePath = files[i].getAbsolutePath();
- 			  getFiles(absolutePath,list);
- 		  }
- 	   }
 	}
-    private static List<Student> getData(){
-    	List<Student> list = new ArrayList<Student>();
-    	Student stu1 = new Student(1, "mike", 18);
-    	list.add(stu1);
-    	Student stu2 = new Student(2, "amy", 18);
-    	list.add(stu2);
-    	Student stu3 = new Student(3, "cook", 18);
-    	list.add(stu3);
-    	Student stu4 = new Student(4, "avatar", 18);
-    	list.add(stu4);
-    	Student stu5 = new Student(5, "tom", 18);
-    	list.add(stu5);
-    	Student stu6 = new Student(6, "juila", 18);
-    	list.add(stu6);
+	/**
+	 * 初始化数据
+	 * @return
+	 */
+	private static List<Student> getData() {
+		List<Student> list = new ArrayList<Student>();
+		Student stu1 = new Student(1, "mike", 11);
+		Student stu2 = new Student(2, "mike", 16);
+		Student stu3 = new Student(3, "amy", 13);
+		Student stu4 = new Student(4, "tom", 12);
+		list.add(stu1);
+		list.add(stu2);
+		list.add(stu3);
+		list.add(stu4);
+		System.out.println("原始数据：");
+		for (Student student : list) {
+			System.out.println(student);
+		}
 		return list;
-    	
-    }
+	}
+	public static void filterAttr() {
+		List<Student> list = getData();
+		
+		
+	}
 }

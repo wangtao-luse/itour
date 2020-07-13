@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.member.api.MemberApi;
-import com.itour.model.member.RoleRight;
-import com.itour.persist.RightMapper;
+import com.itour.service.AccountGroupService;
 import com.itour.service.AccountService;
 import com.itour.service.GroupRoleService;
 import com.itour.service.GroupService;
@@ -43,6 +42,9 @@ private	ViewMAccountService viewMAccountService;
 private	ViewMRightService viewMRightService;
 	@Autowired
 private ViewMOauthService viewMOauthService;
+	@Autowired
+private AccountGroupService accountGroupService;
+
 	/**
 	 * 平台管理左侧菜单
 	 */
@@ -192,6 +194,22 @@ private ViewMOauthService viewMOauthService;
 	public ResponseMessage getViewOauthList(RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return viewMOauthService.getViewOAuthList(requestMessage);
+	}
+	/**
+	 * 后台管理员组授权列表
+	 */
+	@Override
+	public ResponseMessage grantGroupList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountService.grantGroupList(requestMessage);
+	}
+	/**
+	 * 后台管理员组授权
+	 */
+	@Override
+	public ResponseMessage powerGroup(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountGroupService.grantGroup(requestMessage);
 	}
 	
 	
