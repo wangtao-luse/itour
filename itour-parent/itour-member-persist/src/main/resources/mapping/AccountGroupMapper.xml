@@ -14,5 +14,7 @@
     <sql id="Base_Column_List">
         ID, U_ID, GROUP_ID
     </sql>
-
+    <select id="getPowerGroupList" resultType="Map" parameterType="String">
+      SELECT a.*,IFNULL(b.ID ,'0')AGID,IFNULL(b.U_ID,'0') U_ID,IFNULL(b.GROUP_ID,'0')GROUP_ID FROM t_m_group a LEFT JOIN (SELECT * FROM t_m_account_group b WHERE b.U_ID=#{uid}) b  ON a.ID=b.GROUP_ID 
+    </select>
 </mapper>

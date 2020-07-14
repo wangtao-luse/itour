@@ -1,5 +1,10 @@
 package com.itour.persist;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itour.model.member.AccountGroup;
 
@@ -12,5 +17,6 @@ import com.itour.model.member.AccountGroup;
  * @since 2020-06-24
  */
 public interface AccountGroupMapper extends BaseMapper<AccountGroup> {
+	public List<Map<String,Object>> getPowerGroupList(@Param("uid") String uid);
 
 }

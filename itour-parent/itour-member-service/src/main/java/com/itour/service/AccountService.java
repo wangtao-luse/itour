@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -164,16 +165,35 @@ public ResponseMessage grantGroupList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	JSONArray jsonArray = new JSONArray();	
 	try {
-		QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
-		List<Group> selectList = groupMapper.selectList(queryWrapper );
-		
-		for (Group group : selectList) {
-		   JSONObject jsonObject = new JSONObject();
-		   jsonObject.put("id", group.getId());
-		   jsonObject.put("text",group.getgDesc());
-		   jsonObject.put("state", "open");		  
-		   jsonArray.add(jsonObject);
+		JSONObject jsonObjtctVo = requestMessage.getBody().getContent();
+		String uid = jsonObjtctVo.getString("uid");
+		if(StringUtils.isEmpty(uid)) {
+			QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
+			List<Group> selectList = groupMapper.selectList(queryWrapper );			
+			for (Group group : selectList) {
+			   JSONObject jsonObject = new JSONObject();
+			   jsonObject.put("id", group.getId());
+			   jsonObject.put("text",group.getgDesc());
+			   jsonObject.put("state", "open");		  
+			   jsonArray.add(jsonObject);
+			}
+			
+		}else {
+			List<Map<String, Object>> powerGroupList = accountGroupMapper.getPowerGroupList(uid);
+			for (Map<String, Object> map : powerGroupList) {
+				 JSONObject jsonObject = new JSONObject();
+				   jsonObject.put("id", map.get("ID"));
+				   jsonObject.put("text",map.get("G_DESC"));
+				   jsonObject.put("state", "open");	
+				   if("0".equals(map.get("AGID"))) {
+					   jsonObject.put("checked", false);	
+				   }else {
+					   jsonObject.put("checked", true);	
+				   }
+				   jsonArray.add(jsonObject);
+			}
 		}
+		
 		responseMessage.setReturnResult(jsonArray);
 	} catch (Exception e) {
 		// TODO: handle exception

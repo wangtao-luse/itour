@@ -220,6 +220,14 @@ public ResponseMessage selectRightList(@RequestBody RequestMessage requestMessag
  * 前台会员列表
  */
 @Override
+public ResponseMessage selectAccountList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return accountService.selectAccountList(requestMessage);
+}
+/**
+ * 前台会员列表(视图)
+ */
+@Override
 public ResponseMessage selectViewAccountList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return viewAAccountService.selectViewAccountList(requestMessage);

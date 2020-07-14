@@ -3,8 +3,7 @@
 <title>Insert title here</title>
 <script>
 $(function(){
-	console.log("wangtao");
-	var postData={"uids":$("#groupIdText").text()};
+	
 	var option={
 			checkbox: true,			 
             onClick:function(node){
@@ -24,12 +23,23 @@ $(function(){
                 }
             }
 	}
+	console.log("wangtao");
+	var uids='${uids}';
+	var uidArr = JSON.parse(uids);
+	var uid="";
+	if(uidArr.length==1){
+		uid=uidArr[0];
+	}
+	var postData={"uid":uid};
 	initTree('/member/grantGroupList',JSON.stringify(postData),$('#resourceTree'), option);
-	$("#groupRoleFun").click(function(){
-		var arr = getTreeCheckedGidsAndRids($('#resourceTree'));
+	$("#accountGroupFun").click(function(){
+		console.log("wwwangtao");
+		var arr = getTreeGroupIds($('#resourceTree'));
 		var url="/member/powerGroup";
-		var data=JSON.stringify(arr)
-		postAjax(url,data,closeDialogCallBack,{});
+		var uids='${uids}';
+		var uidArr = JSON.parse(uids)
+		var data={"uids":uidArr,"arr":arr}
+		postAjax(url,JSON.stringify(data),closeDialogCallBack,{});
 	});
 	
 });

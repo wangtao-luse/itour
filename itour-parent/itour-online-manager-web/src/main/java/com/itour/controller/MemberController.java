@@ -314,7 +314,8 @@ public class MemberController {
 	 */
 	@RequestMapping("/accountGroupP")
 	public String accountGroupPage(String [] uids,ModelMap model) {
-		model.addAttribute("uids", uids);
+		String jsonString = JSONObject.toJSONString(uids);
+		model.addAttribute("uids", jsonString);
 		return "/system/admin/adminGroup";
 	}	
 	/**

@@ -504,6 +504,25 @@ function getTreeCheckedGidsAndRids(node) {
     }
     return arr;
 }
+function getTreeGroupIds(node) {
+    var nodes1 = node.tree('getChecked',['checked','indeterminate']);
+    var nodes2 = node.tree('getChecked', 'unchecked');
+    var checknodes = $.merge(nodes1, nodes2);
+    var arr = [];   
+    if (checknodes && checknodes.length > 0) {
+        for (var i = 0; i < checknodes.length; i++) {
+        	 var group={};
+        	 group.groupId=checknodes[i].id;
+        	 if(checknodes[i].checked!=undefined){
+        		 group.checked=checknodes[i].checked;
+        	 }else{
+        		 group.checked=false;
+        	 }        	
+        	 arr.push(group);
+        }
+    }
+    return arr;
+}
 function getTreeCheckedIds(node) {
     var nodes1 = node.tree('getChecked');
     var nodes2 = node.tree('getChecked', 'indeterminate');

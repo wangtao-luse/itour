@@ -159,7 +159,7 @@ public class AccountController {
 	 * 角色新增编辑页面
 	 * @return
 	 */
-	@RequestMapping("/age")
+	@RequestMapping("/roleAddP")
 	public String roleAddP(String id,ModelMap model) {
 		model.addAttribute("id", id);
 		return "/system/right/role/roleAdd";
@@ -266,6 +266,19 @@ public class AccountController {
 	 * @param request
 	 * @return
 	 */
+	@RequestMapping("/selectAccountList")
+	@ResponseBody
+	public ResponseMessage selectAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
+		ResponseMessage selectAccountList = this.accountConnector.selectViewAccountList(jsonObject, request);
+		return selectAccountList;
+	}
+	/**
+	 * 前台会员列表(视图)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/selectViewAccountList")
 	@ResponseBody
 	public ResponseMessage selectViewAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
@@ -285,5 +298,15 @@ public class AccountController {
 		ResponseMessage selectViewRightList = this.accountConnector.selectViewRightList(jsonObject, request);
 		return selectViewRightList;
 	}
-	
+	/**
+	 * 前台分配会员
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/accountGroupP")
+	public String accountGroupP(String id,ModelMap model) {
+		model.addAttribute("groupId", id);
+		return "/system/right/group/accountGroup";
+	}
 }

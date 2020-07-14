@@ -183,7 +183,7 @@ private AccountGroupService accountGroupService;
 	 * 后台管理员账号详情
 	 */
 	@Override
-	public ResponseMessage getOAuthList(RequestMessage requestMessage) {
+	public ResponseMessage getOAuthList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return oauthService.getOAuthList(requestMessage);
 	}
@@ -191,7 +191,7 @@ private AccountGroupService accountGroupService;
 	 * 后台管理员账号详情(视图)
 	 */
 	@Override
-	public ResponseMessage getViewOauthList(RequestMessage requestMessage) {
+	public ResponseMessage getViewOauthList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return viewMOauthService.getViewOAuthList(requestMessage);
 	}
@@ -199,7 +199,7 @@ private AccountGroupService accountGroupService;
 	 * 后台管理员组授权列表
 	 */
 	@Override
-	public ResponseMessage grantGroupList(RequestMessage requestMessage) {
+	public ResponseMessage grantGroupList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return accountService.grantGroupList(requestMessage);
 	}
@@ -207,7 +207,7 @@ private AccountGroupService accountGroupService;
 	 * 后台管理员组授权
 	 */
 	@Override
-	public ResponseMessage powerGroup(RequestMessage requestMessage) {
+	public ResponseMessage powerGroup(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return accountGroupService.grantGroup(requestMessage);
 	}
