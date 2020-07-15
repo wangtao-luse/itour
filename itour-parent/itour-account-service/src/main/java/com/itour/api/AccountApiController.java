@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.account.api.AccountApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.service.AccountGroupService;
 import com.itour.service.AccountService;
 import com.itour.service.GroupRoleService;
 import com.itour.service.GroupService;
@@ -16,6 +17,7 @@ import com.itour.service.RightDetailService;
 import com.itour.service.RightService;
 import com.itour.service.RoleRightService;
 import com.itour.service.RoleService;
+import com.itour.service.ViewAAccountGroupService;
 import com.itour.service.ViewAAccountService;
 import com.itour.service.ViewAOauthService;
 import com.itour.service.ViewARightService;
@@ -23,27 +25,31 @@ import com.itour.service.ViewARightService;
 @RestController
 public class AccountApiController implements AccountApi {
 @Autowired
-AccountService accountService; 
+private AccountService accountService; 
 @Autowired
-OauthService oauthService;
+private OauthService oauthService;
 @Autowired
-RightService rightService;
+private RightService rightService;
 @Autowired
-RightDetailService rightDetailService;
+private RightDetailService rightDetailService;
 @Autowired
-GroupService groupService;
+private GroupService groupService;
 @Autowired
-RoleService roleService;
+private RoleService roleService;
 @Autowired
-GroupRoleService groupRoleService;
+private GroupRoleService groupRoleService;
 @Autowired
-RoleRightService roleRightService;
+private RoleRightService roleRightService;
 @Autowired
-ViewAAccountService viewAAccountService;
+private ViewAAccountService viewAAccountService;
 @Autowired
-ViewARightService viewARightService;
+private ViewARightService viewARightService;
 @Autowired
-ViewAOauthService viewAOauthService;
+private ViewAOauthService viewAOauthService;
+@Autowired
+private ViewAAccountGroupService viewAAccountGroupService;
+@Autowired
+private AccountGroupService accountGroupService;
 /**
  * 注册提交
  */
@@ -248,9 +254,38 @@ public ResponseMessage getOauthList(@RequestBody RequestMessage requestMessage) 
 	// TODO Auto-generated method stub
 	return oauthService.getOAuthList(requestMessage);
 }
+/**
+ * 前台用户查看详情(视图)
+ */
 @Override
 public ResponseMessage getViewOauthList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return viewAOauthService.getViewOAuthList(requestMessage);
 }
+
+/**
+ * 获取指定的组下的会员
+ */
+@Override
+public ResponseMessage getViewAAccountGroupList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return viewAAccountGroupService.getViewAAccountGroupList(requestMessage);
+}
+/**
+ * 分配会员
+ */
+@Override
+public ResponseMessage grantAccount(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return accountGroupService.grantAccount(requestMessage);
+}
+/**
+ * 删除已分配会员的所属组
+ */
+@Override
+public ResponseMessage deleteAccountGroup(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return accountGroupService.deleteAccountGroup(requestMessage);
+}
+
 }

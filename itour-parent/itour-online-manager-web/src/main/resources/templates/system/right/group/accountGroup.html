@@ -4,77 +4,80 @@
 <script type="text/javascript">
         function getHyDetailListOptions(options) {
             var op = {
-                fitColumns:false,fit:true,singleSelect:false,idField: 'hydm',
-                columns: [[{width:20,checkbox:true},
-                    {field: 'hydm', title: '会员代码', width: 90},
-                    {field: 'hyqc', title: '会员名称', width: 210},
+                fitColumns:false,fit:true,singleSelect:false,
+                columns: [[{field:'',width:20,checkbox:true},
+                    {field: 'uid', title: '用户唯一号', width: 90},
+                    {field: 'createdate', title: '注册日期', width: 90,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
+                    {field: 'utypeStr', title: '类型', width: 120},
+                    {field: 'statusStr', title: '状态', width: 120}
+                    
                 ]],
                 toolbar: '#toolbar1'
             };
             return $.extend(op,options);
         }
         function searchFunSp(url, node, funcName, ops) {
-             var formData = $.serializeObject($('#searchFunSp'));
+            var formData = $.serializeObject($('#searchFunSp'));
             var postData={"page":{}};
             ops&&ops.k?postData[ops.k]=formData:'';            
             postData.page.current = ops.c?ops.c:"1";
             postData.page.size = ops.s? ops.s:"100";
             var pageNode = node.closest(".datagrid-wrap").find(".pagination-page-list");
             pageNode.length > 0 ? postData.page.size = pageNode.val() : "100";
-            initAjaxTotalDataGrid(url, node, funcName({postData: postData}))
+            initAjaxDataGrid(url, node, funcName({postData: postData}))
         }
-      /*   function addHyFun(){
-            addSubFun('新增','/member/hyroleHy?id=' + $('#searchFunSp').find("input[name='roleId']").val(),
+      function addHyFun(){
+            addSubFun('新增','/account/accountGroupGrantP?id=' + $('#searchFunSp').find("input[name='groupId']").val(),
                 $('#dataGridHyDa'),{buttons: [{id: 'addHy', text: '新增'},{id: 'fanhuisub', text: '返回', handler: function () {
                             parent.$.modalSubDialog.handler.dialog('close');
                         }}],'height':500,'width':900})
-        } */
+        } 
 
-/*         function delHyroleSubIterm(){
+         function delHyroleSubIterm(){
             var rows=$('#dataGridHyDa').datagrid('getChecked');
             var cunzaiIds=[];
             if(rows.length>0){
                 $.each(rows,function(index,value){
-                    value.hydm?cunzaiIds.push(value.hydm):"";});
+                    value.uid?cunzaiIds.push(value.uid):"";});
                 if(cunzaiIds.length>0){
                     $.messager.confirm('请确认','您要在当前角色下移除会员吗？',function(r){
-                        if(r){var postData={'roleId':$('#searchFunSp').find("input[name='roleId']").val(),'hydm':cunzaiIds.join(",")};
-                            postAjax("/member/deleteRoledxList",JSON.stringify(postData),function(data){
-                                showInfoMsg(data.description);
-                                searchFunSp('/member/getRoledxList', $('#dataGridHyDa'), getHyDetailListOptions,
-                                    {'c': 1, 's': 100});
+                        if(r){var postData={'groupId':$('#searchFunSp').find("input[name='groupId']").val(),'uidArr':cunzaiIds/* .join(",") */};
+                            postAjax("/account/deleteAccountGroup",JSON.stringify(postData),function(data){
+                                showInfoMsg(data.resultMessage);
+                                searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
+                                    {'c': 1, 's': 100,'k':'view'});
                             });}})
                 }else{showErrorMsg('请选择要删除的记录！')}
             }else{
                 showErrorMsg('请选择要删除的记录！');
             }
-        } */
+        } 
         $(function () {
+        	 initSelect($("#utype"), "UTYPE",true,"全部");   
             parent.$.messager.progress('close');
-            console.log("333");
-            searchFunSp('/account/selectViewAccountList', $('#dataGridHyDa'), getHyDetailListOptions,
-                {'c': 1, 's': 100,'k':'vo'});
+            searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
+                {'c': 1, 's': 100,'k':'view'});
         });
     </script>
 <div class="easyui-layout" data-options="fit:true,border:false">
     <div data-options="region:'north',title:'查询条件',border:false" style="height: 85px; overflow: hidden;">
         <form id="searchFunSp" class="searchForm">
+            <input type="hidden" name="groupId" value="${groupId}">
             <div class="mTop10 mLeft20">
                 <div class="mTop10 line-handsome">
                     <div class="fLeft label-handsome ">
-                        <label>会员代码：</label>
-                        <input  name="hydm" class="textbox" autocomplete="off"/>
-                        <input  name="roleId" class="textbox" autocomplete="off" style="display:none" hidden value="${groupId}"/>
+                        <label>用户唯一号：</label>
+                        <input  name="uid" class="textbox" autocomplete="off"/>
                     </div>
                     <div class="fLeft label-handsome ">
-                        <label>会员名称：</label>
-                        <input  name="hyqc" class="textbox" autocomplete="off"/>
+                        <label>类型：</label>
+                       <select id="utype" name="utype"></select>
                     </div>
 
                     <div class="pRightSearch">
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
-                           onclick="searchFunSp('/member/selectViewAccountList', $('#dataGridHyDa'), getHyDetailListOptions,
-                           {'current': 1, 'size': 100,'k':'vo'});">搜索</a>
+                           onclick="searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
+                           {'current': 1, 'size': 100,'k':'view'});">搜索</a>
                         <a href="javascript:void(0);" class="easyui-linkbutton"
                            data-options="iconCls:'brick_delete'"
                            onclick="clearFunction('searchForm');">清空搜索条件</a>

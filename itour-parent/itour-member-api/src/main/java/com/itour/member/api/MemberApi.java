@@ -150,6 +150,13 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/powerGroup",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage powerGroup(RequestMessage requestMessage);
+	/**
+	 * 后台查询指定组下的所有用户列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getViewAccountGroupList",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage getViewAccountGroupList(RequestMessage requestMessage);
 	
 
 	

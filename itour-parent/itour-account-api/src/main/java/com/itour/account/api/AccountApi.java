@@ -175,6 +175,27 @@ public ResponseMessage getOauthList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/getViewOauthList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getViewOauthList(RequestMessage requestMessage);
+/**
+ * 获取指定组下的用户列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getViewAAccountGroupList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getViewAAccountGroupList(RequestMessage requestMessage);
+/**
+ * 分配会员
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/grantAccount",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage grantAccount(RequestMessage requestMessage);
+/**
+ *  删除已分配会员的所属组
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/deleteAccountGroup",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage deleteAccountGroup(RequestMessage requestMessage);
 
 }
 

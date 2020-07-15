@@ -309,4 +309,54 @@ public class AccountController {
 		model.addAttribute("groupId", id);
 		return "/system/right/group/accountGroup";
 	}
+	/**
+	 * 前台获取指定组下的用户
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getViewAAccountGroupList")
+	@ResponseBody
+	public ResponseMessage getViewAAccountGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getGroupAccountList = this.accountConnector.getViewAAccountGroupList(jsonObject, request);
+		return getGroupAccountList;
+	}
+	/**
+	 * 前台分配会员页面
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/accountGroupGrantP")
+	public String accountGroupGrantP(String id,ModelMap model) {
+		model.addAttribute("groupId", id);
+		return "/system/right/group/accountGroupGrant";
+	}
+	/**
+	 *  分配会员
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/grantAccount")
+	@ResponseBody
+	public ResponseMessage grantAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage grantAccount = this.accountConnector.grantAccount(jsonObject, request);
+		return grantAccount;
+	}
+	/**
+	 *  删除已分配会员的所属组
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/deleteAccountGroup")
+	@ResponseBody
+	public ResponseMessage deleteAccountGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage deleteAccountGroup = this.accountConnector.deleteAccountGroup(jsonObject, request);
+		return deleteAccountGroup;
+	}
+	
+	
+	
 }

@@ -186,6 +186,11 @@ function showErrorMsg(errorMsg) {
     $.messager.alert('提示', errorMsg, 'error')
 };
 
+function addSubFun(title, url, dataGridNode, newOptions) {
+    var options = getInitDialogOptions(title, url, "addFunction", title);
+    $.extend(options, newOptions);
+    parent.$.modalSubDialog(options)
+}
 function addFun(title,url,dataGridNode,newOptions){
 	var options = getInitDialogOptions(title, url, "addFunction");
 	options.buttons[0].handler = function(){

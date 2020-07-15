@@ -113,5 +113,39 @@ public ResponseMessage selectViewRightList(JSONObject jsonObject, HttpServletReq
 	ResponseMessage selectViewRightList = accountApi.selectViewRightList(postData);
 	return selectViewRightList;
 }
+/**
+ * 获取指定组下的用户列表
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage getViewAAccountGroupList(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage selectViewRightList = accountApi.getViewAAccountGroupList(postData);
+	return selectViewRightList;
+}
+/**
+ * 分配会员
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage grantAccount(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage selectViewRightList = accountApi.grantAccount(postData);
+	return selectViewRightList;
+}
+/**
+ *  删除已分配会员的所属组
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage deleteAccountGroup(JSONObject jsonObject, HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage selectViewRightList = accountApi.deleteAccountGroup(postData);
+	return selectViewRightList;
+}
 
 }

@@ -41,6 +41,8 @@ private BaseService baseService;
 private AccountGroupMapper accountGroupMapper;
 	@Autowired
 private IpaddrService ipaddrService;
+	@Autowired
+private AccountMapper accountMapper;
 
 	/** 注册
 	 * 1.插入用户表(t_a_account)
@@ -108,6 +110,11 @@ public static void main(String[] args) {
 	System.out.println("sha-1:"+simpleHashSHA_1);
 	System.out.println(simpleHashSHA_1.length());
 }
+/***
+ * 前台会员列表
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 	ResponseMessage resposeMessage = ResponseMessage.getSucess();
 	try {
@@ -149,4 +156,5 @@ public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 	}
 	return resposeMessage;
 }
+
 }

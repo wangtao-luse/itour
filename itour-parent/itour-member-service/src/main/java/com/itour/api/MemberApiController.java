@@ -16,6 +16,7 @@ import com.itour.service.OauthService;
 import com.itour.service.RightService;
 import com.itour.service.RoleRightService;
 import com.itour.service.RoleService;
+import com.itour.service.ViewMAccountGroupService;
 import com.itour.service.ViewMAccountService;
 import com.itour.service.ViewMOauthService;
 import com.itour.service.ViewMRightService;
@@ -44,6 +45,8 @@ private	ViewMRightService viewMRightService;
 private ViewMOauthService viewMOauthService;
 	@Autowired
 private AccountGroupService accountGroupService;
+	@Autowired
+private ViewMAccountGroupService viewMAccountGroupService;
 
 	/**
 	 * 平台管理左侧菜单
@@ -210,6 +213,14 @@ private AccountGroupService accountGroupService;
 	public ResponseMessage powerGroup(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return accountGroupService.grantGroup(requestMessage);
+	}
+	/**
+	 *后台查询指定组下的会员列表
+	 */
+	@Override
+	public ResponseMessage getViewAccountGroupList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewMAccountGroupService.getViewAccountGroupList(requestMessage);
 	}
 	
 	

@@ -53,3 +53,17 @@ SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='OAUTH_TYPE') typ
 CREATE OR REPLACE VIEW view_m_oauth AS
 SELECT c.ID,c.U_ID,c.OAUTH_ID,c.OAUTH_TYPE,c.NICKNAME,c.AVATAR,type.CNAME OAUTH_TYPE_STR FROM t_m_oauth c,(
 SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='OAUTH_TYPE') type WHERE c.OAUTH_TYPE=type.`CODE`;
+---前台查询指定组下的会员信息
+CREATE OR REPLACE VIEW view_a_account_group AS
+SELECT a.*,b.GROUP_ID,zt.CNAME `STATUS_STR`,utype.CNAME UTYPE_STR FROM t_a_account a ,
+(SELECT d.U_ID,d.GROUP_ID FROM t_a_account_group d) b,
+(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='ACCOUNT_STATUS' ) zt,
+(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='UTYPE' ) utype
+WHERE a.UID=b.U_ID and zt.`CODE`=a.`STATUS` and utype.`CODE`=a.UTYPE;
+---后台查询指定组下的会员信息
+CREATE OR REPLACE VIEW view_m_account_group AS
+SELECT a.*,b.GROUP_ID,zt.CNAME `STATUS_STR`,utype.CNAME UTYPE_STR FROM t_m_account a ,
+(SELECT d.U_ID,d.GROUP_ID FROM t_a_account_group d) b,
+(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='ACCOUNT_STATUS' ) zt,
+(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='UTYPE' ) utype
+WHERE a.UID=b.U_ID and zt.`CODE`=a.`STATUS` and utype.`CODE`=a.UTYPE;
