@@ -318,26 +318,87 @@ public class MemberController {
 		model.addAttribute("uids", jsonString);
 		return "/system/admin/adminGroup";
 	}	
+
+	
 	/**
-	 * 管理员授权组列表
+	 * 获取指定组下的管理员
 	 * @param jsonObject
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/grantGroupList")
+	@RequestMapping("/getViewMAccountGroupList")
 	@ResponseBody
-	public ResponseMessage grantGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		return this.memberConnector.grantGroupList(jsonObject, request);
+	public ResponseMessage getViewMAccountGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getGroupAccountList = this.memberConnector.getViewMAccountGroupList(jsonObject, request);
+		return getGroupAccountList;
 	}
 	/**
-	 * 管理员授权组
+	 * 管理员分配会员页面
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/groupcAcountP")
+	public String groupcAcountP(String id,ModelMap model) {
+		model.addAttribute("groupId", id);
+		return "/system/member/group/accountGroup";
+	}
+	/**
+	 * 管理员分配新增管理员
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/accountGroupGrantP")
+	public String accountGroupGrantP(String id,ModelMap model) {
+		model.addAttribute("groupId", id);
+		return "/system/member/group/accountGroupGrant";
+	}
+	/**
+	 *  分配会员
 	 * @param jsonObject
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/powerGroup")
+	@RequestMapping("/grantAccount")
 	@ResponseBody
-	public ResponseMessage powerGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		return this.memberConnector.powerGroup(jsonObject, request);
+	public ResponseMessage grantAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage grantAccount = this.memberConnector.grantAccount(jsonObject, request);
+		return grantAccount;
+	}
+	/**
+	 *  删除已分配会员的所属组
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/deleteAccountGroup")
+	@ResponseBody
+	public ResponseMessage deleteAccountGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage deleteAccountGroup = this.memberConnector.deleteAccountGroup(jsonObject, request);
+		return deleteAccountGroup;
+	}
+	/**
+	 * 后台查看账号详情
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminDetailP")
+	public String memberDetailP(String uid,ModelMap model) {
+		model.addAttribute("uid", uid);
+		return "/system/account/usr/memberDetail";
+	}
+	/**
+	 *  后台会员查看账号详情
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getViewOauthList")
+	@ResponseBody
+	public ResponseMessage getViewOauthList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertMember = this.memberConnector.getViewOauthList(jsonObject, request);
+		return insertMember;
 	}
 }

@@ -55,7 +55,11 @@ public class ViewAOauth extends Model<ViewAOauth> {
      */
     @TableField("OAUTH_TYPE_STR")
     private String oauthTypeStr;
-
+    /**
+     * 注册日期
+     */
+    @TableField("CREATEDATE")
+    private Long createdate;
     public Integer getId() {
         return id;
     }
@@ -117,7 +121,15 @@ public class ViewAOauth extends Model<ViewAOauth> {
         return null;
     }
 
-    @Override
+    public Long getCreatedate() {
+		return createdate;
+	}
+
+	public void setCreatedate(Long createdate) {
+		this.createdate = createdate;
+	}
+
+	@Override
     public String toString() {
         return "ViewAOauth{" +
         ", id=" + id +
@@ -127,6 +139,7 @@ public class ViewAOauth extends Model<ViewAOauth> {
         ", nickname=" + nickname +
         ", avatar=" + avatar +
         ", oauthTypeStr=" + oauthTypeStr +
+        ", createdate=" + createdate +
         "}";
     }
 }

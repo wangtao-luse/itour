@@ -1,0 +1,77 @@
+<script type="text/javascript">
+        function getOauthList(options) {
+            var op = {
+                fitColumns:false,fit:true,
+                pageList:[10,40,80,200,500],
+                columns: [[
+                    {field: 'uId', title: '用户唯一号', width: 120},
+                    {field: 'oauthId', title: '账号', width: 210},
+                    {field: 'oauthTypeStr', title: '账号类型', width: 150},
+                    {field: 'nickname', title: '昵称', width: 100},
+                    {field: 'avatar', title: '图像', width: 100},
+                    {field: 'createdate', title: '绑定日期', width: 100,formatter: function (value, row, index){return value?new Date(value*1000).Format("yyyy-MM-dd"):"";}},
+                ]],
+                toolbar: ''
+            };
+            return $.extend(op,options);
+        }
+
+        function mysearchFun(url, node, funcName, ops) {
+         	 var uid=$("#actionText").text();
+         	 var oauthId=$("#oauthId").val();
+         	 var oauthType=$("#oauthType").val();
+       		 console.log(uid);
+                var formData = {"uId":uid,"oauthId":oauthId,"oauthType":oauthType};
+                ops&&ops.nodeNames && ops.nodeNames.length > 0?
+                    $.each(ops.nodeNames, function (index, value) {
+                        postData[value] = $("#" + ops.nodes[index]).val();
+                    }):"";
+                var postData={"page":{}};
+                ops&&ops.k?postData[ops.k] = formData:"";
+                postData.page.current = ops&&ops.c?ops.c:"1";
+                postData.page.size = ops&&ops.s? ops.s:"100";
+                var pageNode = node.closest(".datagrid-wrap").find(".pagination-page-list");
+                pageNode.length > 0 ? postData.page.size = pageNode.val() : "100";
+                initAjaxTotalDataGrid(url, node, funcName({postData: postData}))
+            }    
+     
+        $(function () {
+           $.messager.progress('close');
+           initSelect($("#oauthType"), "OAUTH_TYPE",true,"全部");
+           mysearchFun('/account/getViewOauthList', $('#dataGridmn'), getOauthList,
+               {'c': 1, 's': 10,'k':'view'});
+       });
+     	 
+    </script>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'north',title:'查询条件',border:false" style="height: 75px; overflow: hidden;">
+        <form id="searchForm">
+            <div class="mTop10 mLeft20">
+                <div class="mTop10 line-handsome">
+
+                    <div class="fLeft label-handsome ">
+                        <label>账号：</label>
+                        <input id="oauthId" name="oauthId" class="textbox" autocomplete="off"/>
+                    </div>
+                    <div class="fLeft label-handsome ">
+                        <label>账号类型：</label>
+                        <select id="oauthType" name="oauthType"></select>
+                    </div>
+                    <div class="pRightSearch">
+                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                           onclick="mysearchFun('/account/getViewOauthList', $('#dataGridmn'), getOauthList,
+                           {'c': 1, 's': 10,'k':'view'});">搜索</a>
+                        <a href="javascript:void(0);" class="easyui-linkbutton"
+                           data-options="iconCls:'brick_delete'"
+                           onclick="clearFunction('searchForm');">清空搜索条件</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div data-options="region:'center',split:true,border:false,title:'账号列表'">
+        <table id="dataGridmn"></table>
+    </div>
+    
+</div>
+<var style="display:none" hidden="hidden" id="actionText">${uid}</var>

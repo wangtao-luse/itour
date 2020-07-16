@@ -198,30 +198,33 @@ private ViewMAccountGroupService viewMAccountGroupService;
 		// TODO Auto-generated method stub
 		return viewMOauthService.getViewOAuthList(requestMessage);
 	}
-	/**
-	 * 后台管理员组授权列表
-	 */
-	@Override
-	public ResponseMessage grantGroupList(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return accountService.grantGroupList(requestMessage);
-	}
-	/**
-	 * 后台管理员组授权
-	 */
-	@Override
-	public ResponseMessage powerGroup(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return accountGroupService.grantGroup(requestMessage);
-	}
+
 	/**
 	 *后台查询指定组下的会员列表
 	 */
 	@Override
-	public ResponseMessage getViewAccountGroupList(@RequestBody RequestMessage requestMessage) {
+	public ResponseMessage getViewMAccountGroupList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return viewMAccountGroupService.getViewAccountGroupList(requestMessage);
+		return viewMAccountGroupService.getViewMAccountGroupList(requestMessage);
 	}
+	
+	/**
+	 * 后台管理员分配管理员
+	 */
+	@Override
+	public ResponseMessage grantAccount(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountGroupService.grantAccount(requestMessage);
+	}
+	/**
+	 * 删除该用户所属组
+	 */
+	@Override
+	public ResponseMessage deleteAccountGroup(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountGroupService.deleteAccountGroup(requestMessage);
+	}
+	
 	
 	
 	

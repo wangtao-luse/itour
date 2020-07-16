@@ -55,6 +55,11 @@ public class ViewMOauth extends Model<ViewMOauth> {
      */
     @TableField("OAUTH_TYPE_STR")
     private String oauthTypeStr;
+    /**
+     * 注册时间
+     */
+    @TableField("CREATEDATE")
+    private Long createdate;
 
     public Integer getId() {
         return id;
@@ -127,6 +132,7 @@ public class ViewMOauth extends Model<ViewMOauth> {
         ", nickname=" + nickname +
         ", avatar=" + avatar +
         ", oauthTypeStr=" + oauthTypeStr +
+        ", createdate=" + createdate +
         "}";
     }
 }

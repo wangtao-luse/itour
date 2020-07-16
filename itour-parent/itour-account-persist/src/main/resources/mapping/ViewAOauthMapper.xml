@@ -13,10 +13,11 @@
         <result column="NICKNAME" property="nickname" />
         <result column="AVATAR" property="avatar" />
         <result column="OAUTH_TYPE_STR" property="oauthTypeStr" />
+        <result column="CREATEDATE" property="createdate" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, U_ID, OAUTH_ID, OAUTH_TYPE, NICKNAME, AVATAR, OAUTH_TYPE_STR
+        ID, U_ID, OAUTH_ID, OAUTH_TYPE, NICKNAME, AVATAR, OAUTH_TYPE_STR,CREATEDATE
     </sql>
 
 </mapper>

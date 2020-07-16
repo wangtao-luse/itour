@@ -27,6 +27,20 @@ public interface DictionaryApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/dictionary/getDictData",produces = {"application/json;charset=UTF-8"})
-	
 	public ResponseMessage getDictData(RequestMessage requestMessage);
+	/**
+	 * 字典修改
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/updateDictionary",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage updateDictionary(RequestMessage requestMessage);
+	/**
+	 * 字典查询单条
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/getDictionary",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getDictionary(RequestMessage requestMessage);
+	
 }

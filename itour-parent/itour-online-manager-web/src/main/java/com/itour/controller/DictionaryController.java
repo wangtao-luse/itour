@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +50,15 @@ public class DictionaryController {
 		return "/system/dictionary/dictionaryManager";
 	}
 	/**
+	 * 字典列表页面
+	 * @return
+	 */
+	@RequestMapping("/dictUpdatePage")
+	public String dictUpdatePage(String id,ModelMap model) {
+		model.addAttribute("id", id);
+		return "/system/dictionary/dictUpdate";
+	}
+	/**
 	 * 字典表查询
 	 * @param jsonObject
 	 * @param request
@@ -58,6 +68,28 @@ public class DictionaryController {
 	@ResponseBody
 	public ResponseMessage getDictData(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return dictionaryConnetor.getDictData(jsonObject, request);
+	}
+	/**
+	 * 字典表查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updateDictionary")
+	@ResponseBody
+	public ResponseMessage updateDictionary(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return dictionaryConnetor.updateDictionary(jsonObject, request);
+	}
+	/**
+	 * 字典表查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getDictionary")
+	@ResponseBody
+	public ResponseMessage getDictionary(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return dictionaryConnetor.getDictionary(jsonObject, request);
 	}
 	
 }

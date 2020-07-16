@@ -47,23 +47,65 @@ SELECT  a.*, type.CNAME MENU_TYPE_STR FROM t_a_right a,
 where a.MENU_TYPE=type.`CODE`;
 ---前台会员账号查询详情
 CREATE OR REPLACE VIEW view_a_oauth AS
-SELECT c.ID,c.U_ID,c.OAUTH_ID,c.OAUTH_TYPE,c.NICKNAME,c.AVATAR,type.CNAME OAUTH_TYPE_STR FROM t_a_oauth c,(
-SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='OAUTH_TYPE') type WHERE c.OAUTH_TYPE=type.`CODE`;
+SELECT
+	c.ID,
+	c.U_ID,
+	c.OAUTH_ID,
+	c.OAUTH_TYPE,
+	c.NICKNAME,
+	c.AVATAR,
+	type.CNAME OAUTH_TYPE_STR ,
+	d.CREATEDATE
+FROM
+	t_a_oauth c,
+	( SELECT d.`CODE`, d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET = 'OAUTH_TYPE' ) type,
+t_a_account	 d
+WHERE
+	c.OAUTH_TYPE = type.`CODE` AND c.U_ID=d.UID;
 ---后台管理员账号查询详情
 CREATE OR REPLACE VIEW view_m_oauth AS
-SELECT c.ID,c.U_ID,c.OAUTH_ID,c.OAUTH_TYPE,c.NICKNAME,c.AVATAR,type.CNAME OAUTH_TYPE_STR FROM t_m_oauth c,(
-SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='OAUTH_TYPE') type WHERE c.OAUTH_TYPE=type.`CODE`;
+SELECT
+	c.ID,
+	c.U_ID,
+	c.OAUTH_ID,
+	c.OAUTH_TYPE,
+	c.NICKNAME,
+	c.AVATAR,
+	type.CNAME OAUTH_TYPE_STR ,
+	d.CREATEDATE
+FROM
+	t_m_oauth c,
+	( SELECT d.`CODE`, d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET = 'OAUTH_TYPE' ) type,
+t_m_account	 d
+WHERE
+	c.OAUTH_TYPE = type.`CODE` AND c.U_ID=d.UID;
 ---前台查询指定组下的会员信息
 CREATE OR REPLACE VIEW view_a_account_group AS
-SELECT a.*,b.GROUP_ID,zt.CNAME `STATUS_STR`,utype.CNAME UTYPE_STR FROM t_a_account a ,
-(SELECT d.U_ID,d.GROUP_ID FROM t_a_account_group d) b,
-(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='ACCOUNT_STATUS' ) zt,
-(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='UTYPE' ) utype
-WHERE a.UID=b.U_ID and zt.`CODE`=a.`STATUS` and utype.`CODE`=a.UTYPE;
+SELECT
+	b.*,
+	c.GROUP_ID,
+	s.CNAME STATUS_STR,
+	u.CNAME UTYPE_STR 
+FROM
+	`t_a_account` b
+	LEFT JOIN ( SELECT * FROM t_a_account_group ) c ON b.UID = c.U_ID,
+	( SELECT d.`CODE`, d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET = 'ACCOUNT_STATUS' AND d.`STATUS` = '1' ) s,
+	( SELECT d.`CODE`, d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET = 'UTYPE' AND d.`STATUS` = '1' ) u 
+WHERE
+	s.CODE = b.STATUS 
+	AND u.`CODE` = b.UTYPE;
 ---后台查询指定组下的会员信息
 CREATE OR REPLACE VIEW view_m_account_group AS
-SELECT a.*,b.GROUP_ID,zt.CNAME `STATUS_STR`,utype.CNAME UTYPE_STR FROM t_m_account a ,
-(SELECT d.U_ID,d.GROUP_ID FROM t_a_account_group d) b,
-(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='ACCOUNT_STATUS' ) zt,
-(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE CODE_SET='UTYPE' ) utype
-WHERE a.UID=b.U_ID and zt.`CODE`=a.`STATUS` and utype.`CODE`=a.UTYPE;
+SELECT
+	b.*,
+	c.GROUP_ID,
+	s.CNAME STATUS_STR,
+	u.CNAME UTYPE_STR 
+FROM
+	`t_m_account` b
+	LEFT JOIN ( SELECT * FROM t_m_account_group ) c ON b.UID = c.U_ID,
+	( SELECT d.`CODE`, d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET = 'ACCOUNT_STATUS' AND d.`STATUS` = '1' ) s,
+	( SELECT d.`CODE`, d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET = 'UTYPE' AND d.`STATUS` = '1' ) u 
+WHERE
+	s.CODE = b.STATUS 
+	AND u.`CODE` = b.UTYPE;

@@ -162,14 +162,14 @@ public ResponseMessage selectViewAccountList(RequestMessage requestMessage);
 @RequestMapping(value = "/account/selectViewRightList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage selectViewRightList(RequestMessage requestMessage);
 /**
- * 前台会员查看详情(修改用户下的账号)
+ * 前台会员查看详情
  * @param requestMessage
  * @return
  */
 @RequestMapping(value = "/account/getOauthList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getOauthList(RequestMessage requestMessage);
 /**
- * 前台会员查看详情(修改用户下的账号)(视图)
+ * 前台会员查看详情(视图)
  * @param requestMessage
  * @return
  */

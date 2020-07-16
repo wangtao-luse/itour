@@ -157,50 +157,7 @@ public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 	}
 	return resposeMessage;
 }
-/**
- * 用户组授权列表
- * @return
- */
-public ResponseMessage grantGroupList(RequestMessage requestMessage) {
-	ResponseMessage responseMessage = ResponseMessage.getSucess();
-	JSONArray jsonArray = new JSONArray();	
-	try {
-		JSONObject jsonObjtctVo = requestMessage.getBody().getContent();
-		String uid = jsonObjtctVo.getString("uid");
-		if(StringUtils.isEmpty(uid)) {
-			QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
-			List<Group> selectList = groupMapper.selectList(queryWrapper );			
-			for (Group group : selectList) {
-			   JSONObject jsonObject = new JSONObject();
-			   jsonObject.put("id", group.getId());
-			   jsonObject.put("text",group.getgDesc());
-			   jsonObject.put("state", "open");		  
-			   jsonArray.add(jsonObject);
-			}
-			
-		}else {
-			List<Map<String, Object>> powerGroupList = accountGroupMapper.getPowerGroupList(uid);
-			for (Map<String, Object> map : powerGroupList) {
-				 JSONObject jsonObject = new JSONObject();
-				   jsonObject.put("id", map.get("ID"));
-				   jsonObject.put("text",map.get("G_DESC"));
-				   jsonObject.put("state", "open");	
-				   if("0".equals(map.get("AGID"))) {
-					   jsonObject.put("checked", false);	
-				   }else {
-					   jsonObject.put("checked", true);	
-				   }
-				   jsonArray.add(jsonObject);
-			}
-		}
-		
-		responseMessage.setReturnResult(jsonArray);
-	} catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-	}
-	return responseMessage;
-}
+
 
 
 

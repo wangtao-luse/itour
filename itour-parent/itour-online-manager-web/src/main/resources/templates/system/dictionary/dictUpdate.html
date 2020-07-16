@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+        <form id="form" method="post">
+        <input type="hidden" name="id" value="${id}">
+         <div class="container-wrapper">
+            <table class="table table-hover table-condensed" style="margin:20px auto 0 auto; ">
+                <tr>
+                    <td><span class="redSharp">* </span>字典目录:</td>
+                    <td><input name="codeSet" data-options="required:true" style="width:125px" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>字典代码：</td>
+                    <td>
+                        <input name="code"  type="text" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px" readonly="readonly"></td>
+                </tr>
+                 <tr>
+                    <td><span class="redSharp">* </span>字典值:</td>
+                    <td> <input name="cname"  type="text" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px">
+                               </td>
+                </tr>
+                 <tr>
+                    <td><span class="redSharp">* </span>状态:</td>
+                    <td><select id="status" name="status" data-options="required:true" style="width:125px">
+                </select></td>
+                </tr>
+            </table>
+            </div>
+        </form>
+    </div>
+</div>
+<var style="display:none" hidden="hidden" id="action">${id}</var>
+<script>
+$(function(){
+	 initSelect($("#status"), "dictionary_status",false,"全部");
+	var action = $("#action").text();
+		var postData={"id":action};
+		postAjax('/dictionary/getDictionary',JSON.stringify(postData),function(data){
+		    var dt=data.returnResult.result;      
+		       console.log(data);
+		       loadData(dt,$(".container-wrapper"));
+		       
+		   });
+		$("#editFunction").click(function(){
+			var url="/dictionary/updateDictionary";			
+		    var postData = $("#form").serializeJson();
+		    var data= {"dict":postData};
+			 $('#form').form('validate') &&
+			postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
+		});	
+	
+});
+
+</script>

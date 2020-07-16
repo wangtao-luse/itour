@@ -135,28 +135,29 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/getOAuthList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage getOAuthList(RequestMessage requestMessage);
+
 	/**
-	 * 后台管理员授权组列表
+	 * 后台管理员查询指定组下的所有用户列表
 	 * @param requestMessage
 	 * @return
 	 */
-	@RequestMapping(value = "member/grantGroupList",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage grantGroupList(RequestMessage requestMessage);
+	@RequestMapping(value = "member/getViewMAccountGroupList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getViewMAccountGroupList(RequestMessage requestMessage);
+	/**
+	 * 后台管理员分配管理员
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/grantAccount",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage grantAccount(RequestMessage requestMessage);
+	/**
+	 * 删除该用户所属组
+	 * @param requestMessage
+	 * @return
+	 */	
+	@RequestMapping(value = "member/deleteAccountGroup",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage deleteAccountGroup(RequestMessage requestMessage);
 	
-	/**
-	 * 后台管理员授权组
-	 * @param requestMessage
-	 * @return
-	 */
-	@RequestMapping(value = "member/powerGroup",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage powerGroup(RequestMessage requestMessage);
-	/**
-	 * 后台查询指定组下的所有用户列表
-	 * @param requestMessage
-	 * @return
-	 */
-	@RequestMapping(value = "member/getViewAccountGroupList",produces = {"application/json;charset=UTF-8"})
-	ResponseMessage getViewAccountGroupList(RequestMessage requestMessage);
 	
 
 	

@@ -27,7 +27,7 @@
             initAjaxDataGrid(url, node, funcName({postData: postData}))
         }
       function addHyFun(){
-            addSubFun('新增','/account/accountGroupGrantP?id=' + $('#searchFunSp').find("input[name='groupId']").val(),
+            addSubFun('新增','/member/accountGroupGrantP?id=' + $('#searchFunSp').find("input[name='groupId']").val(),
                 $('#dataGridHyDa'),{buttons: [{id: 'addHy', text: '新增'},{id: 'fanhuisub', text: '返回', handler: function () {
                             parent.$.modalSubDialog.handler.dialog('close');
                         }}],'height':500,'width':900})
@@ -42,7 +42,7 @@
                 if(cunzaiIds.length>0){
                     $.messager.confirm('请确认','您要在当前角色下移除会员吗？',function(r){
                         if(r){var postData={'groupId':$('#searchFunSp').find("input[name='groupId']").val(),'uidArr':cunzaiIds/* .join(",") */};
-                            postAjax("/account/deleteAccountGroup",JSON.stringify(postData),function(data){
+                            postAjax("/member/deleteAccountGroup",JSON.stringify(postData),function(data){
                                 showInfoMsg(data.resultMessage);
                                 searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
                                     {'c': 1, 's': 100,'k':'view'});
@@ -55,7 +55,7 @@
         $(function () {
         	 initSelect($("#utype"), "UTYPE",true,"全部");   
             parent.$.messager.progress('close');
-            searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
+            searchFunSp('/member/getViewMAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
                 {'c': 1, 's': 100,'k':'view'});
         });
     </script>
@@ -76,7 +76,7 @@
 
                     <div class="pRightSearch">
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
-                           onclick="searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
+                           onclick="searchFunSp('/member/getViewMAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
                            {'current': 1, 'size': 100,'k':'view'});">搜索</a>
                         <a href="javascript:void(0);" class="easyui-linkbutton"
                            data-options="iconCls:'brick_delete'"

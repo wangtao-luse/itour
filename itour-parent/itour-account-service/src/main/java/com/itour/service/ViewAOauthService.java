@@ -26,29 +26,37 @@ import com.itour.persist.ViewAOauthMapper;
  */
 @Service
 public class ViewAOauthService extends ServiceImpl<ViewAOauthMapper, ViewAOauth>   {
+	/**
+	 * 账号列表
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage getViewOAuthList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		JSONObject result = new JSONObject();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
+		    ViewAOauth oauthVo = jsonObject.getJSONObject("view").toJavaObject(ViewAOauth.class);
 			String needTotal = jsonObject.getString(Constant.COMMON_VO_NEEDTOTAL);
-			ViewAOauth oauthVo = jsonObject.toJavaObject(ViewAOauth.class);
-			Page pageVo = jsonObject.toJavaObject(Page.class);
-			QueryWrapper<ViewAOauth> queryWrapper = new QueryWrapper<ViewAOauth>();
-			queryWrapper.select("U_ID","OAUTH_ID","OAUTH_TYPE","NICKNAME","AVATAR");
+			JSONObject pageVo = jsonObject.getJSONObject("page");
+			QueryWrapper<ViewAOauth> queryWrapper = new QueryWrapper<ViewAOauth>();			
 			queryWrapper.eq(!StringUtils.isEmpty(oauthVo.getuId()),"U_ID", oauthVo.getuId());
+			queryWrapper.likeRight(!StringUtils.isEmpty(oauthVo.getOauthId()), "OAUTH_ID", oauthVo.getOauthId());
+			queryWrapper.eq(!StringUtils.isEmpty(oauthVo.getOauthType()), "OAUTH_TYPE", oauthVo.getOauthType());
 			if(null!=pageVo) {
-				Page selectMapsPage = this.baseMapper.selectMapsPage(pageVo, queryWrapper );
+				Page page = pageVo.toJavaObject(Page.class);
+				Page selectMapsPage = this.baseMapper.selectPage(page, queryWrapper);
 				result.put(Constant.COMMON_KEY_PAGE, selectMapsPage);
+				
 			}else {
-				List<Map<String,Object>> selectMaps = this.baseMapper.selectMaps(queryWrapper);
+				List selectMaps = this.baseMapper.selectList(queryWrapper);
 				result.put(Constant.COMMON_KEY_LIST, selectMaps);
 			}
 			if("1".equals(needTotal)) {
 				Map<String, Object> totalOauth = this.baseMapper.totalOauth(queryWrapper);
 				result.put(Constant.COMMON_KEY_SUM, totalOauth);
 			}
-			
+			responseMessage.setReturnResult(result);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

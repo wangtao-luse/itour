@@ -158,6 +158,10 @@ function searchFun(url,node,funcName,op){
    	//序列化表单
    	// {'current': 1, 'size': 40,'k':'hyhmd'}
     var formData = $.serializeObject($('#searchForm'));
+    op&&op.nodeNames && op.nodeNames.length > 0?
+            $.each(op.nodeNames, function (index, value) {
+                postData[value] = $("#" + op.nodes[index]).val();
+            }):"";
     var postData ={"page":{}};
     op&&op.k?postData[op.k]=formData:'';
     postData.page.current=op&&op.current?op.current:"1";

@@ -357,6 +357,51 @@ public class AccountController {
 		return deleteAccountGroup;
 	}
 	
-	
+	/**
+	 * 后台注册前台会员页面
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/memberAddP")
+	public String memberAddP(String id,ModelMap model) {
+		model.addAttribute("id", id);
+		return "/system/account/usr/memberAdd";
+	}
+	/**
+	 *  新增前台会员
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/insertMember")
+	@ResponseBody
+	public ResponseMessage insertMember(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertMember = this.accountConnector.insertMember(jsonObject, request);
+		return insertMember;
+	}
+	/**
+	 * 后台查看前台用户详情
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/memberDetailP")
+	public String memberDetailP(String uid,ModelMap model) {
+		model.addAttribute("uid", uid);
+		return "/system/account/usr/memberDetail";
+	}
+	/**
+	 *  前台会员查看账号详情
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getViewOauthList")
+	@ResponseBody
+	public ResponseMessage getViewOauthList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertMember = this.accountConnector.getViewOauthList(jsonObject, request);
+		return insertMember;
+	}
 	
 }

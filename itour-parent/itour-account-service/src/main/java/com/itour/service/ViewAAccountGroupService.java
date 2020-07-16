@@ -1,10 +1,8 @@
 package com.itour.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -14,7 +12,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.model.account.dto.ViewAAccountGroup;
-import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.ViewAAccountGroupMapper;
 
 
@@ -28,8 +25,6 @@ import com.itour.persist.ViewAAccountGroupMapper;
  */
 @Service
 public class ViewAAccountGroupService extends ServiceImpl<ViewAAccountGroupMapper, ViewAAccountGroup> {
-	@Autowired
-	AccountGroupMapper accountGroupMapper;
 	/**
 	 * 获取指定组下的所有用户
 	 * @param requestMessage

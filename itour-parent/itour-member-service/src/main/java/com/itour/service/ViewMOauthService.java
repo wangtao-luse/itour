@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.model.member.Oauth;
 import com.itour.model.member.dto.ViewMOauth;
 import com.itour.persist.ViewMOauthMapper;
 
@@ -32,24 +31,27 @@ public class ViewMOauthService extends ServiceImpl<ViewMOauthMapper, ViewMOauth>
 		JSONObject result = new JSONObject();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
+			ViewMOauth oauthVo = jsonObject.getJSONObject("view").toJavaObject(ViewMOauth.class);
 			String needTotal = jsonObject.getString(Constant.COMMON_VO_NEEDTOTAL);
-			ViewMOauth oauthVo = jsonObject.toJavaObject(ViewMOauth.class);
-			Page pageVo = jsonObject.toJavaObject(Page.class);
-			QueryWrapper<ViewMOauth> queryWrapper = new QueryWrapper<ViewMOauth>();
-			queryWrapper.select("U_ID","OAUTH_ID","OAUTH_TYPE","NICKNAME","AVATAR");
+			JSONObject pageVo = jsonObject.getJSONObject("page");
+			QueryWrapper<ViewMOauth> queryWrapper = new QueryWrapper<ViewMOauth>();			
 			queryWrapper.eq(!StringUtils.isEmpty(oauthVo.getuId()),"U_ID", oauthVo.getuId());
+			queryWrapper.likeRight(!StringUtils.isEmpty(oauthVo.getOauthId()), "OAUTH_ID", oauthVo.getOauthId());
+			queryWrapper.eq(!StringUtils.isEmpty(oauthVo.getOauthType()), "OAUTH_TYPE", oauthVo.getOauthType());
 			if(null!=pageVo) {
-				Page selectMapsPage = this.baseMapper.selectMapsPage(pageVo, queryWrapper );
+				Page page = pageVo.toJavaObject(Page.class);
+				Page selectMapsPage = this.baseMapper.selectPage(page, queryWrapper);
 				result.put(Constant.COMMON_KEY_PAGE, selectMapsPage);
+				
 			}else {
-				List<Map<String,Object>> selectMaps = this.baseMapper.selectMaps(queryWrapper);
-				result.put(Constant.COMMON_KEY_LIST, selectMaps);
+				 List<ViewMOauth> selectList = this.baseMapper.selectList(queryWrapper);
+				result.put(Constant.COMMON_KEY_LIST, selectList);
 			}
 			if("1".equals(needTotal)) {
 				Map<String, Object> totalOauth = this.baseMapper.totalOauth(queryWrapper);
 				result.put(Constant.COMMON_KEY_SUM, totalOauth);
 			}
-			
+			responseMessage.setReturnResult(result);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

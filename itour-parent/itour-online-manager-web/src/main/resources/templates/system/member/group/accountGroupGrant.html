@@ -37,15 +37,15 @@
                 groupId: $('#searchFormSub').find("input[name='groupId']").val(),
                 uidArr: idArray//idArray.join(",")
             }
-            postAjax("/account/grantAccount", JSON.stringify(postData),
+            postAjax("/member/grantAccount", JSON.stringify(postData),
                 function(data){$("#fanhuisub").click();
                 showInfoMsg(data.resultMessage);
-                    searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
+                    searchFunSp('/member/getViewMAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
                         {'c': 1, 's': 100,'k':'view'});
 
                 }, {});
         }) 
-        searchFunSpSub('/account/getViewAAccountGroupList', $('#dataGridHyDaSub'), getHySubDetailListOptions,
+        searchFunSpSub('/member/getViewMAccountGroupList', $('#dataGridHyDaSub'), getHySubDetailListOptions,
             {'c': 1, 's': 100,'k':'view'});
 
     });
@@ -54,7 +54,7 @@
     <div data-options="region:'north',title:'查询条件',border:false" style="height: 110px; overflow: hidden;">
         <form id="searchFormSub" class="searchForm">
          <input type="hidden" name="groupId" value="${groupId}">
-         <input type="hidden" name="type" value="1">
+         <input type="hidden" name="type" value="2">
             <div class="mTop10 mLeft20">
                 <div class="mTop10 line-handsome">
                     <div class="fLeft label-handsome ">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="pRightSearch">
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
-                           onclick="searchFunSpSub('/account/getViewAAccountGroupList', $('#dataGridHyDaSub'), getHySubDetailListOptions,
+                           onclick="searchFunSpSub('/member/getViewMAccountGroupList', $('#dataGridHyDaSub'), getHySubDetailListOptions,
                            {'current': 1, 'size': 100,'k':'view'});">搜索</a>
                         <a href="javascript:void(0);" class="easyui-linkbutton"
                            data-options="iconCls:'brick_delete'"
