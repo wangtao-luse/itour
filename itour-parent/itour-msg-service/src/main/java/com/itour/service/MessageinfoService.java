@@ -1,6 +1,7 @@
 package com.itour.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -12,10 +13,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
@@ -25,14 +29,13 @@ import com.itour.exception.BaseException;
 import com.itour.model.msg.Messageinfo;
 import com.itour.persist.MessageinfoMapper;
 import com.itour.util.DateUtil;
-import com.sun.mail.smtp.SMTPSendFailedException;
 @Service
-public class EmailService  extends ServiceImpl<MessageinfoMapper, Messageinfo> {
+public class MessageinfoService  extends ServiceImpl<MessageinfoMapper, Messageinfo> {
 	/**
 	 * 发送email
 	 * @param email
 	 * @return	 */
-
+@Transactional
 public ResponseMessage sendEmail(RequestMessage requestMessage){
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -105,5 +108,27 @@ public static void main(String[] args) throws MessagingException {
 		           
 		           System.out.println("邮件发送成功...");
 		           transport.close();
+}
+public ResponseMessage queryMessageList(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		Messageinfo msgVo = jsonObject.getJSONObject("msg").toJavaObject(Messageinfo.class);
+		JSONObject pageVo = jsonObject.getJSONObject("page");
+		QueryWrapper<Messageinfo> queryWrapper = new QueryWrapper<Messageinfo>();
+		queryWrapper.eq(!StringUtils.isEmpty(msgVo.getType()),"TYPE", msgVo.getType());
+		if(null!=pageVo) {	
+			Page page = pageVo.toJavaObject(Page.class);
+			Page selectPage = this.baseMapper.selectPage(page, queryWrapper );
+			responseMessage.setReturnResult(selectPage);
+		}else {
+			List selectList = this.baseMapper.selectList(queryWrapper);
+			responseMessage.setReturnResult(selectList);
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+	return responseMessage;
 }
 }

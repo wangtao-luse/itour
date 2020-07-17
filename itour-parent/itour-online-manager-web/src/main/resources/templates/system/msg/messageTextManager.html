@@ -8,7 +8,7 @@
 	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
 	    	 initSelect($("#utype"), "UTYPE",true,"全部");
 	    	 initSelect($("#sex"), "SEX",true,"全部");
-	    	searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});
+	    	searchFun('/msg/queryViewMessageList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'msg'});
 	    })
 	    
 	           function getList(options) {
@@ -19,14 +19,16 @@
                 singleSelect:false,
                 pageList:[10,40,80,200,500],
                 columns:[[
+                	{field:'',checkbox:true,width:10},
 					{field:'id',title:'编号',width:60},					
-					{field:'uid',title:'用户唯一号',width:100},
-					{field:'sexStr',title:'性别',width:60},
-					{field:'createdate',title:'注册日期',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
-					{field:'createip',title:'注册IP地址',width:150},
-					{field:'lasttime',title:'上次登录时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
-					{field:'statusStr',title:'状态',width:100},
-					{field:'utypeStr',title:'类型',width:100}
+					{field:'subject',title:'主题',width:120},
+					{field:'text',title:'内容',width:150},
+					{field:'from',title:'发送者',width:150},
+					{field:'to',title:'接收者',width:150},
+					{field:'type',title:'消息类型',width:150},
+					{field:'sendtime',title:'发送时间',width:100,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
+					{field:'aimStr',title:'用途',width:100},
+					{field:'originStr',title:'来源',width:100},
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -94,7 +96,7 @@
 	    	   	      <!--   <input type="text" placeholder=""  name="company"/> -->
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFun('/msg/queryViewMessageList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'msg'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
@@ -106,9 +108,9 @@
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      
-	      <a href="#" onclick="addFun('新增', '/member/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
+	     <!--  <a href="#" onclick="addFun('新增', '/member/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/member/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
-	      <a href="#" onclick="editFun('查看详情','/member/adminDetailP?uid=',$('#dataGrid'),{buttons: [],'key':'uid','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
+	      <a href="#" onclick="editFun('查看详情','/member/adminDetailP?uid=',$('#dataGrid'),{buttons: [],'key':'uid','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a> -->
 	    </div>
 	</div>
 </body>

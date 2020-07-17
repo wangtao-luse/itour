@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +43,7 @@ public class MessageController {
 	    msg.setText("[wangtao] 欢迎注册wangtao博客,验证码"+code+"请在注册页面填入验证码,完成注册!");	    
 	    msg.setTo(email);
 	    msg.setAim(ConstantMessage.MSG_AIM_REGISTER);
-	    msg.setOrigin(ConstantMessage.MSG_ORIGIN_ONLINE);
+	    msg.setOrigin(ConstantMessage.MSG_ORIGIN_MANAGER);
 	    jsonObject.put("vo", msg);	    
 	   ResponseMessage responseMessage = this.meesageConnector.sendEmailCode(jsonObject, request);
 	   if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
@@ -51,5 +52,15 @@ public class MessageController {
 		   request.getSession().setAttribute("limittime",addSecond.getTime());
 	   }
 	    return responseMessage;
+	}
+	@RequestMapping("/msgPage")
+	public String msgPage() {
+		return "/system/msg/messageTextManager";
+	}
+	@RequestMapping(value = "/queryViewMessageList", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public ResponseMessage queryViewMessageList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage responseMessage = this.meesageConnector.queryViewMessageList(jsonObject, request);
+		return responseMessage;
 	}
 }

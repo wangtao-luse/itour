@@ -14,7 +14,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AccountConnector;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
+import com.itour.model.account.Oauth;
 /**
  * 前台用户管理
  * @author wwang
@@ -404,4 +406,24 @@ public class AccountController {
 		return insertMember;
 	}
 	
+	public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		Oauth oaauthVo = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
+		//检查邮箱是否可用
+		JSONObject tmpJson = new JSONObject();
+		tmpJson.put("type", ConstAccount.EMAIL);
+		tmpJson.put("regName", oaauthVo.getOauthId());
+		ResponseMessage checkOauthId = this.accountConnector.checkOauthId(tmpJson, request);
+		if(Constant.FAILED_CODE.equals(checkOauthId.getResultCode())) {
+			return ResponseMessage.getFailed(checkOauthId.getResultMessage());
+		}
+		//检查用户名是否可以
+		tmpJson.clear();
+		tmpJson.put("type", ConstAccount.UNAME);
+		tmpJson.put("regName", oaauthVo.getNickname());
+		ResponseMessage checkUanme = this.accountConnector.checkOauthId(tmpJson, request);
+		if(Constant.FAILED_CODE.equals(checkUanme.getResultCode())) {
+			return ResponseMessage.getFailed(checkUanme.getResultMessage());
+		}
+		return null;
+	}
 }

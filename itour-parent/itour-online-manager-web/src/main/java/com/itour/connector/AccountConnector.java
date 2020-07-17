@@ -264,5 +264,15 @@ public ResponseMessage getViewOauthList(JSONObject jsonObject, HttpServletReques
 	ResponseMessage insertMember = accountApi.getViewOauthList(requestMessage);
 	return insertMember;
 }
-
+/**
+ * 检查email或用户名是否已经存在
+* @param jsonObject
+* @param request
+* @return
+*/
+public ResponseMessage checkOauthId(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.checkOauthId(postData);
+	return responseMessage;
+}
 }

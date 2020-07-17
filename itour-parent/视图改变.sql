@@ -109,3 +109,9 @@ FROM
 WHERE
 	s.CODE = b.STATUS 
 	AND u.`CODE` = b.UTYPE;
+---消息列表
+CREATE OR REPLACE VIEW view_m_messageinfo AS
+	SELECT c.*,aim.CNAME AIM_STR ,origin.CNAME ORIGIN_STR FROM t_a_messageinfo c,
+	(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='MSG_AIM' AND d.`STATUS`='1') aim,
+	(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='MSG_ORIGIN' AND d.`STATUS`='1') origin
+	WHERE c.AIM=aim.`CODE` and c.ORIGIN=origin.`CODE`;

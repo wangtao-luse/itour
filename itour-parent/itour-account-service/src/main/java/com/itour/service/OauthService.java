@@ -141,7 +141,6 @@ private IpaddrService ipaddrService;
 					throw new BaseException(ConstantMessage.UNKNOWUNAME);
 				}
 			}
-			responseMessage.setReturnResult(selectList);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
