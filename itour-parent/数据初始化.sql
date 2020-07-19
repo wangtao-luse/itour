@@ -39,3 +39,6 @@ VALUES('RSAdmin','超级管理员');
 
 INSERT INTO t_m_role (ROLE_NAME, ROLE_DESC)
 VALUES('RNAdmin','普通管理员');
+
+
+
