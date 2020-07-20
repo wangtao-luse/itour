@@ -6,7 +6,7 @@
  <script type="text/javascript">
 	    $(function(){
 	    	 initSelect($("#status"), "dictionary_status",true,"全部");
-			searchFun('/dictionary/getViewDictionaryList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});
+			searchFun('/dictionary/getViewDictionaryList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});
 	    })
 	    
 	     function getList(options) {
@@ -17,7 +17,7 @@
                 singleSelect:true,
                 pageList:[10,40,80,200,500],
                 columns:[[
-					{field:'id',title:'编号',width:80},					
+					{field:'id',title:'编号',width:60},					
 					{field:'codeSet',title:'字典目录',width:150},
 					{field:'code',title:'字典代码',width:100},
 					{field:'cname',title:'字典值',width:100},
@@ -63,7 +63,7 @@
 	    	   	        <label><span></span></label>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/dictionary/getViewDictionaryList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFun('/dictionary/getViewDictionaryList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
