@@ -157,6 +157,27 @@ public interface MemberApi {
 	 */	
 	@RequestMapping(value = "member/deleteAccountGroup",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage deleteAccountGroup(RequestMessage requestMessage);
+	/**
+	 * 获取当前用户下的组名称
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getAccountGroupName",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getAccountGroupName(RequestMessage requestMessage);
+	/**
+	 * 获取当前用户下的组名称
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getAccountRoleName",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getAccountRoleName(RequestMessage requestMessage);
+	/**
+	 * 获取当前用户下的权限
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getAccountRightDetial",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage getAccountRightDetial(RequestMessage requestMessage);
 	
 	
 

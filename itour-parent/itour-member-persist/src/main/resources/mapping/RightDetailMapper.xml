@@ -17,5 +17,15 @@
     <sql id="Base_Column_List">
         ID, URL, RIGHT_NO, ISLOGIN, DESC, ISLOG
     </sql>
+<select id="getAccountRightDetial" parameterType="String" resultType="Map">
+SELECT c.URL FROM t_m_right_detail  c WHERE c.RIGHT_NO in(
+			SELECT r.RIGHT_ID FROM t_m_role_right r WHERE r.ROLE_ID in(
+				SELECT r.ID  FROM t_m_role r WHERE r.ID in(
+					SELECT ROLE_ID FROM t_m_group_role c WHERE c.GROUP_ID in(
+						SELECT d.GROUP_ID FROM t_m_account_group d WHERE d.U_ID=#{uid})
+						)
+					)
+			)or c.RIGHT_NO='-1'
 
+</select>
 </mapper>

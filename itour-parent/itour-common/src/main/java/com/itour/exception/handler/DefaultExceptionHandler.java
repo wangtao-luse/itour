@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
 import com.itour.entity.ResponseEntity;
+import com.itour.exception.BaseException;
 import com.itour.util.JsonUtil;
 
 
@@ -35,16 +39,22 @@ public class DefaultExceptionHandler {
 	 */
 	@ResponseBody
 	@ExceptionHandler({ Throwable.class })	
-	public static ModelAndView processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
+	public static Object processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
 			Throwable ex) {
 		String header = request.getHeader("X-Requested-With");
 		String accep = request.getHeader("accept");
-		if(!(isAjax(request)||isAcceptJson(request))) {
-			ResponseEntity responseEntity = ResponseEntity.from(ex);
-			ModelAndView mv = new ModelAndView();
-			mv.addObject("error", responseEntity);
-			mv.setViewName(responseEntity.getCallbackUrl());
-			return mv;
+		String contextPath = request.getContextPath();
+		if((isAjax(request)||!isAcceptJson(request))) {			
+			if (ex instanceof BaseException) {
+				ex.printStackTrace();
+				return ResponseMessage.getFailed(ex.getMessage());
+			} else if (ex instanceof AuthorizationException){
+				ex.printStackTrace();
+				return ResponseMessage.getFailed(Constant.FAILED_NOAUTHOR);
+			}else{
+				ex.printStackTrace();
+				return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			}
 		}else {			
 			PrintWriter out = null;
 			try {
@@ -74,7 +84,7 @@ public class DefaultExceptionHandler {
 		String header = request.getHeader("X-Requested-With");
 		//request.getHeader("X-Requested-With")为 null，则为传统同步请求，
 	    //为 XMLHttpRequest，则为 Ajax 异步请求。		
-		return header!=null&&header.indexOf("X-Requested-With")>-1;
+		return header!=null&&header.indexOf("XMLHttpRequest")>-1;
 	}
 	public static boolean isAcceptJson(HttpServletRequest request) {
 		String header = request.getHeader("accept");//浏览器可接受的MIME类型；

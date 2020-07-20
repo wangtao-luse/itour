@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -37,6 +38,16 @@ public class ViewMRightService extends ServiceImpl<ViewMRightMapper, ViewMRight>
 			ViewMRight rightVo = jsonObject.getJSONObject("view").toJavaObject(ViewMRight.class);
 			Page pageVo = jsonObject.getJSONObject("page").toJavaObject(Page.class);
 			QueryWrapper<ViewMRight> queryWrapper = new QueryWrapper<ViewMRight>();
+			queryWrapper.eq(null!=rightVo.getId(), "ID", rightVo.getId());
+			queryWrapper.eq(!StringUtils.isEmpty(rightVo.getMenuNo()), "MENU_NO", rightVo.getMenuNo());
+			queryWrapper.eq(!StringUtils.isEmpty(rightVo.getMenuType()), "MENU_TYPE", rightVo.getMenuType());
+			
+			queryWrapper.like(!StringUtils.isEmpty(rightVo.getMenu()), "MENU", rightVo.getMenu());
+			queryWrapper.like(!StringUtils.isEmpty(rightVo.getUrl()), "URL", rightVo.getUrl());
+			if(null!=rightVo.getParentId()) {
+				queryWrapper.eq( "PARENT_ID", rightVo.getParentId());
+				queryWrapper.or().eq("MENU_NO", rightVo.getParentId());
+			}
 			if(null!=pageVo) {			
 				Page selectPage = this.baseMapper.selectPage(pageVo, queryWrapper);
 				resposeMessage.setReturnResult(selectPage);

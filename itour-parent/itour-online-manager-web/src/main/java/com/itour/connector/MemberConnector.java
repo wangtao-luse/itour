@@ -220,5 +220,38 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.getViewOauthList(requestMessage);
 	}
+	/**
+	 * 获取当前用户下的组名称
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getAccountGroupName(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getAccountGroupName(requestMessage);
+	}	
+	/**
+	 * 获取当前用户下的角色
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getAccountRoleName(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getAccountRoleName(requestMessage);
+	}	
+	/**
+	 * 获取当前用户下的权限
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getAccountRightDetial(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getAccountRightDetial(requestMessage);
+	}
 	
 }

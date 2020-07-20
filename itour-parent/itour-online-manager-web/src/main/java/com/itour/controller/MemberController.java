@@ -7,6 +7,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -110,6 +111,7 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/selectAccountList")
+	@RequiresPermissions("/member/selectAccountList")
 	@ResponseBody
 	public ResponseMessage selectAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");

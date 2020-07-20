@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.member.api.MemberApi;
+import com.itour.model.account.Right;
 import com.itour.service.AccountGroupService;
 import com.itour.service.AccountService;
 import com.itour.service.GroupRoleService;
 import com.itour.service.GroupService;
 import com.itour.service.OauthService;
+import com.itour.service.RightDetailService;
 import com.itour.service.RightService;
 import com.itour.service.RoleRightService;
 import com.itour.service.RoleService;
@@ -25,6 +27,8 @@ import com.itour.service.ViewMRightService;
 public class MemberApiController implements MemberApi {
 	@Autowired
 private	RightService rightService;
+	@Autowired
+private RightDetailService rightDetailService;
 	@Autowired
 private OauthService oauthService;
 	@Autowired
@@ -223,6 +227,30 @@ private ViewMAccountGroupService viewMAccountGroupService;
 	public ResponseMessage deleteAccountGroup(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return accountGroupService.deleteAccountGroup(requestMessage);
+	}
+	/**
+	 * 获取当前用户下的所有组名称
+	 */
+	@Override
+	public ResponseMessage getAccountGroupName(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return groupService.getAccountGroupName(requestMessage);
+	}
+	/**
+	 * 获取当前用户下的所有组名称
+	 */
+	@Override
+	public ResponseMessage getAccountRoleName(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return roleService.getAccountRoleName(requestMessage);
+	}
+	/**
+	 * 获取当前用户下的权限
+	 */
+	@Override
+	public ResponseMessage getAccountRightDetial(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return rightDetailService.getAccountRightDetial(requestMessage);
 	}
 	
 	

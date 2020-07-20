@@ -43,34 +43,43 @@ public class LoginRealm extends AuthorizingRealm {
 		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
 		//3.创建SimpleAuthorizationInfo并设置roles属性		 
     */
+	//用户访问的目标资源或者方法需要权限的时候才会调用doGetAuthorizationInfo进行授权
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// TODO Auto-generated method stub
 		//1.从PrincipalCollection获取登录用户的信息
 		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
-		//3.创建SimpleAuthorizationInfo并设置roles属性		 
-		Object primaryPrincipal = principals.getPrimaryPrincipal();
+		//3.创建SimpleAuthorizationInfo并设置roles属性
+		//1.1获取登录用户信息
+		Oauth primaryPrincipal = (Oauth)principals.getPrimaryPrincipal();
 		Set<String> roles= new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
-		ResponseMessage groupMsg = memberConnector.groupList(null, null);
-		Map<String, Object> groupResult = groupMsg.getReturnResult();
-		List<Group> mapToList = FastJsonUtil.mapToList(groupResult, Group.class, Constant.COMMON_KEY_RESULT);
-		for (Group group : mapToList) {
-				roles.add(group.getgName());
-		}
-		ResponseMessage roleMsg = memberConnector.roleList(null, null);
-		Map<String, Object> roleResult = roleMsg.getReturnResult();
-		List<Role> roleList = FastJsonUtil.mapToList(roleResult, Role.class, Constant.COMMON_KEY_RESULT);
-		for (Role role : roleList) {
-			roles.add(role.getRoleName());
-		}
-		ResponseMessage queryAccountRight = memberConnector.queryAccountRight(null, null);
-		Map<String, Object> map = queryAccountRight.getReturnResult();
-		List<RightDetail> rightList = FastJsonUtil.mapToList(map, RightDetail.class, Constant.COMMON_KEY_RESULT);
-		for (RightDetail rightDetail : rightList) {
-			permissions.add(rightDetail.getUrl());
-		}
+		//2.1查询该用户下的组
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("uid", primaryPrincipal.getuId());
+		ResponseMessage groupMsg = memberConnector.getAccountGroupName(jsonObject, null);
+		Map<String, Object> groupResult =(Map<String, Object>) groupMsg.getReturnResult();
+		List<Map<String,Object>>  groupResultList =(List<Map<String,Object>>) groupResult.get(Constant.COMMON_KEY_RESULT);
+		  for (Map<String, Object> map : groupResultList) {
+		  roles.add(String.valueOf(map.get("G_NAME"))); 
+		  }
+		 
+		//2.2查询该用户下的角色
 		
+		ResponseMessage roleMsg = memberConnector.getAccountRoleName(jsonObject, null);
+		Map<String, Object> roleResult=(Map<String, Object>)roleMsg.getReturnResult();
+		List<Map<String,Object>> roleResultList=(List<Map<String,Object>>)roleResult.get(Constant.COMMON_KEY_RESULT);
+		for (Map<String, Object> map : roleResultList) {
+			roles.add(String.valueOf(map.get("ROLE_NAME")));
+		}
+		//2.3查询该用户下的权限
+		ResponseMessage queryAccountRight = memberConnector.getAccountRightDetial(jsonObject, null);
+		Map<String, Object> rightResult =(Map<String, Object>)queryAccountRight.getReturnResult();
+		List<Map<String,Object>> rightResultList =(List<Map<String,Object>>) rightResult.get(Constant.COMMON_KEY_RESULT);
+		for (Map<String, Object> map : rightResultList) {
+			permissions.add(String.valueOf(map.get("URL")));
+		}
+		//3.1创建SimpleAuthorizationInfo对象
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setRoles(roles);
 		info.setStringPermissions(permissions);
@@ -88,6 +97,7 @@ public class LoginRealm extends AuthorizingRealm {
             1.如何把一个字符串加密为MD5
             2.shiro通过AuthenticatingRealm的credentialsMatcher属性来进行的密码比对         
      */
+	//登录认证的时候调用
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		//1.把AuthenticationToken转换为ExUsernamePasswordToken

@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 @include("/inc/inc.html"){}
+<style>
+ .heJID{
+    width: 20%;
+    float:left;
+    padding:3px;
+   }
+</style>
  <script type="text/javascript">
 	    $(function(){
 	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
@@ -29,6 +36,16 @@
 					{field:'utypeStr',title:'类型',width:100}
 				]],
                 toolbar: '#toolbar',
+                onLoadSuccess:function(data){
+                    setTimeout(function(){
+                        var totalReport = $("#totalReport .heJID label");
+                        var footerT = data.sum;
+                        $.each(totalReport, function (index, value) {
+                            var that = $(this);
+                            footerT[that.attr("id")] ? that.text(footerT[that.attr("id")]) : that.text("0");
+                        }); 
+                    }, 100)
+                },                
                 onSelect:function(rowIndex, rowData){
                 
                 }
@@ -105,6 +122,11 @@
 	    <div data-options="region:'center',title:'管理员信息',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
+	    <div data-options="region:'south',title:'',border:false" style="height:55px; overflow: hidden;">
+           <div id="totalReport" style="padding: 3px;padding-left: 30px">
+             <div class="heJID">总用户量:&nbsp;<label id="totalAccount" class="redSharp bolder"></label></div>
+          </div>
+      </div>
 	    <div id="toolbar">	      
 	      <a href="#" onclick="addFun('新增', '/member/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/member/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      

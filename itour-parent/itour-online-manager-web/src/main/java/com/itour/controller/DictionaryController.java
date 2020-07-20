@@ -2,6 +2,7 @@ package com.itour.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,6 +39,7 @@ public class DictionaryController {
 	 */
 	@RequestMapping("/getViewDictionaryList")
 	@ResponseBody
+	@RequiresPermissions("/dictionary/getViewDictionaryList")
 	public ResponseMessage getViewDictionaryList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return dictionaryConnetor.getViewDictionaryList(jsonObject, request);
 	}

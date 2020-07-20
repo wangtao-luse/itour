@@ -6,7 +6,7 @@
  <script type="text/javascript">
 	    $(function(){	
 	    	 initSelect($("#menuType"), "right_type",true,"全部");
-			searchFun('/member/getViewRightList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'view'});
+			searchFun('/member/getViewRightList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'view'});
 	    })
 	    
 	           function getList(options) {
@@ -68,7 +68,7 @@
 	    	   	        <input type="text" placeholder=""  name="url"/>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/member/getViewRightList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'view'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFun('/member/getViewRightList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'view'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>

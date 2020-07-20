@@ -3,6 +3,7 @@ package com.itour.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -283,6 +284,7 @@ public class AccountController {
 	 */
 	@RequestMapping("/selectViewAccountList")
 	@ResponseBody
+	@RequiresPermissions("/account/selectViewAccountList")
 	public ResponseMessage selectViewAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
 		ResponseMessage selectViewAccountList = this.accountConnector.selectViewAccountList(jsonObject, request);
@@ -399,7 +401,7 @@ public class AccountController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getViewOauthList")
+	@RequestMapping("/account/getViewOauthList")
 	@ResponseBody
 	public ResponseMessage getViewOauthList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage insertMember = this.accountConnector.getViewOauthList(jsonObject, request);

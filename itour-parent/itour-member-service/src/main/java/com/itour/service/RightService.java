@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -83,7 +84,15 @@ public class RightService extends ServiceImpl<RightMapper, Right> {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			Right rightVo = jsonObject.getJSONObject("right").toJavaObject(Right.class);
 			JSONObject pageVo = jsonObject.getJSONObject("page");
-			QueryWrapper queryWrapper = new QueryWrapper<Right>();
+			QueryWrapper<Right> queryWrapper = new QueryWrapper<Right>();
+			queryWrapper.eq(null!=rightVo.getId(), "ID", rightVo.getId());
+			queryWrapper.eq(!StringUtils.isEmpty(rightVo.getMenuNo()), "MENU_NO", rightVo.getMenuNo());
+			queryWrapper.eq(null!=rightVo.getParentId(), "PARENT_ID", rightVo.getParentId());
+			queryWrapper.eq(!StringUtils.isEmpty(rightVo.getMenuType()), "MENU_TYPE", rightVo.getMenuType());
+			
+			queryWrapper.like(!StringUtils.isEmpty(rightVo.getMenu()), "MENU", rightVo.getMenu());
+			queryWrapper.like(!StringUtils.isEmpty(rightVo.getUrl()), "URL", rightVo.getUrl());
+			
 			if(null!=pageVo) {	
 				Page page = pageVo.toJavaObject(Page.class);
 				Page selectPage = this.baseMapper.selectPage(page, queryWrapper );

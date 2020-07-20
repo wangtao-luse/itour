@@ -155,6 +155,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 		
 		return responseMessage;	
 	}
+
 	/***
 	 * 角色授权权限列表
 	 * @param requestMessage
@@ -247,5 +248,29 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 		
 		return responseMessage;
 	}
-
+	/**
+	 * 获取当前用户拥有的角色
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage getAccountRoleName(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			String uid = jsonObject.getString("uid");
+			List<Map<String, Object>> accountRoleName = this.baseMapper.getAccountRoleName(uid);
+			responseMessage.setReturnResult(accountRoleName);
+		} catch (BaseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(e.getMessage());
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		
+		return responseMessage;	
+	}
 }

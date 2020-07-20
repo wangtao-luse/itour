@@ -1,17 +1,22 @@
 package com.itour.config;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.servlet.Filter;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.itour.interceptor.ShiroFormAuthenticationFilter;
 import com.itour.realm.LoginRealm;
 
 @Configuration
@@ -45,7 +50,14 @@ public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
 @Bean //启用IOC 容器中使用shiro注解，但是必须在配置类LifecycleBeanPostProcessor之后才可以使用。
 public DefaultAdvisorAutoProxyCreator  defaultAdvisorAutoProxyCreator() {
 	DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+	defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
 	return defaultAdvisorAutoProxyCreator;
+}
+@Bean //使其支持注解
+public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+    AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+    authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+    return authorizationAttributeSourceAdvisor;
 }
 	/**
 	 * shiro的过滤器
@@ -66,19 +78,15 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/css/**","anon");
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");	
-		filterChainDefinitionMap.put("/account/**","anon");	
-		filterChainDefinitionMap.put("/msg/**","anon");	
-		filterChainDefinitionMap.put("/index","anon");	
-		filterChainDefinitionMap.put("/member/**","anon");	
-		filterChainDefinitionMap.put("/getVerifyImage","anon");	
-		filterChainDefinitionMap.put("/checkImageCode","anon");	
-		filterChainDefinitionMap.put("/checkemailCode","anon");	
-		
+		filterChainDefinitionMap.put("/member/login", "anon");
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-		filterChainDefinitionMap.put("/shiro/logout", "logout");
-		
+		filterChainDefinitionMap.put("/shiro/logout", "logout");		
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
 		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
+		 LinkedHashMap<String, Filter> filtsMap=new LinkedHashMap<String, Filter>();
+	        filtsMap.put("authc",new ShiroFormAuthenticationFilter() );
+	        shiroFilterFactoryBean.setFilters(filtsMap);
+
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 }
