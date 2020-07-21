@@ -26,7 +26,7 @@ import com.itour.persist.ViewAAccountGroupMapper;
 @Service
 public class ViewAAccountGroupService extends ServiceImpl<ViewAAccountGroupMapper, ViewAAccountGroup> {
 	/**
-	 * 获取指定组下的所有用户
+	 * 获取指定组下的所有用户（分配会员）
 	 * @param requestMessage
 	 * @return
 	 */

@@ -48,29 +48,35 @@ public class LoginRealm extends AuthorizingRealm {
 		// TODO Auto-generated method stub
 		//1.从PrincipalCollection获取登录用户的信息
 		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
-		//3.创建SimpleAuthorizationInfo并设置roles属性		 
-		Object primaryPrincipal = principals.getPrimaryPrincipal();
+		//3.创建SimpleAuthorizationInfo并设置roles属性	
+		//1.1获取登录用户的信息
+		Oauth primaryPrincipal =(Oauth) principals.getPrimaryPrincipal();
 		Set<String> roles= new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
-		ResponseMessage groupMsg = accountConnector.groupList(null, null);
+		//2.1获取当前用户下的组
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("uid", primaryPrincipal.getuId());
+		ResponseMessage groupMsg = accountConnector.getAccountGroupName(jsonObject, null);
 		Map<String, Object> groupResult = groupMsg.getReturnResult();
-		List<Group> mapToList = FastJsonUtil.mapToList(groupResult, Group.class, Constant.COMMON_KEY_RESULT);
-		for (Group group : mapToList) {
-				roles.add(group.getgName());
+		List<Map<String, Object>> groupList=(List<Map<String, Object>>) groupResult.get(Constant.COMMON_KEY_RESULT);
+		for (Map<String, Object> map : groupList) {
+			roles.add(String.valueOf(map.get("G_NAME")));
 		}
-		ResponseMessage roleMsg = accountConnector.roleList(null, null);
+		//2.2获取当前用户下的角色
+		ResponseMessage roleMsg = accountConnector.getAccountRoleName(jsonObject, null);
 		Map<String, Object> roleResult = roleMsg.getReturnResult();
-		List<Role> roleList = FastJsonUtil.mapToList(roleResult, Role.class, Constant.COMMON_KEY_RESULT);
-		for (Role role : roleList) {
-			roles.add(role.getRoleName());
+		List<Map<String, Object>> roleList =(List<Map<String, Object>>)roleResult.get(Constant.COMMON_KEY_RESULT);
+		for (Map<String, Object> role : roleList) {
+			roles.add(String.valueOf(role.get("ROLE_NAME")));
 		}
-		ResponseMessage queryAccountRight = accountConnector.queryAccountRight(null, null);
+		//2.3.获取当前用户下的权限
+		ResponseMessage queryAccountRight = accountConnector.getAccountRightDetial(jsonObject, null);
 		Map<String, Object> map = queryAccountRight.getReturnResult();
-		List<RightDetail> rightList = FastJsonUtil.mapToList(map, RightDetail.class, Constant.COMMON_KEY_RESULT);
-		for (RightDetail rightDetail : rightList) {
-			permissions.add(rightDetail.getUrl());
+		List<Map<String, Object>> rightDetailList =(List<Map<String, Object>>) map.get(Constant.COMMON_KEY_RESULT);
+		for (Map<String, Object> rightDetail : rightDetailList) {
+			permissions.add(String.valueOf(rightDetail.get("URL")));
 		}
-		
+		//3.创建SimpleAuthorizationInfo
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setRoles(roles);
 		info.setStringPermissions(permissions);

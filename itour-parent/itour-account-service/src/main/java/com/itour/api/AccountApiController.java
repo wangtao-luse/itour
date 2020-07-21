@@ -76,15 +76,7 @@ public ResponseMessage checkOauthId(@RequestBody RequestMessage requestMessage) 
 	// TODO Auto-generated method stub
 	return oauthService.checkOauthId(requestMessage);
 }
-/**
- * 获取用户权限
- */
-@Override
-@RequestMapping("/account/queryAccountRight")
-public ResponseMessage queryAccountRight(@RequestBody RequestMessage requestMessage) {
-	// TODO Auto-generated method stub
-	return rightDetailService.queryAccountRight(requestMessage);
-}
+
 /**
  * 忘记密码
  */
@@ -286,6 +278,30 @@ public ResponseMessage grantAccount(@RequestBody RequestMessage requestMessage) 
 public ResponseMessage deleteAccountGroup(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return accountGroupService.deleteAccountGroup(requestMessage);
+}
+/**
+ * 获取当前用户下的组名称
+ */
+@Override
+public ResponseMessage getAccountGroupName(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return groupService.getAccountGroupName(requestMessage);
+}
+/**
+ * 获取当前用户下的角色名称
+ */
+@Override
+public ResponseMessage getAccountRoleName(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return roleService .getAccountRoleName(requestMessage);
+}
+/**
+ * 获取当前用户下的权限
+ */
+@Override
+public ResponseMessage getAccountRightDetial(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return rightDetailService .getAccountRightDetial(requestMessage);
 }
 
 }

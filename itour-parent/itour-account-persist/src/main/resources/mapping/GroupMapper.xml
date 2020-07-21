@@ -14,5 +14,8 @@
     <sql id="Base_Column_List">
         ID, G_NAME, G_PARENT, G_DESC
     </sql>
-  
+   <!-- 得到该用户下的所有组名称 -->
+     <select id="getAccountGroupName" parameterType="String" resultType="Map">
+     SELECT e.G_NAME FROM t_a_group  e WHERE e.ID in(SELECT d.GROUP_ID FROM t_a_account_group d WHERE d.U_ID=#{uid})
+     </select>
 </mapper>

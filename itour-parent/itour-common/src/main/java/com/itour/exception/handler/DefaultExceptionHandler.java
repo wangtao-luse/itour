@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,7 +44,6 @@ public class DefaultExceptionHandler {
 			Throwable ex) {
 		String header = request.getHeader("X-Requested-With");
 		String accep = request.getHeader("accept");
-		String contextPath = request.getContextPath();
 		if((isAjax(request)||!isAcceptJson(request))) {			
 			if (ex instanceof BaseException) {
 				ex.printStackTrace();

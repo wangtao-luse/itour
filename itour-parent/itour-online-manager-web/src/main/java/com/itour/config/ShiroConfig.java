@@ -1,7 +1,6 @@
 package com.itour.config;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -16,7 +15,6 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.itour.interceptor.ShiroFormAuthenticationFilter;
 import com.itour.realm.LoginRealm;
 
 @Configuration
@@ -67,7 +65,7 @@ public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(S
 @Bean("shiroFilter")
 public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-		shiroFilterFactoryBean.setSecurityManager(securityManager);
+	shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");// 未授权界面(没有权限);
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/index");
@@ -78,15 +76,14 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/css/**","anon");
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");	
+		filterChainDefinitionMap.put("/easyui/**","anon");	
 		filterChainDefinitionMap.put("/member/login", "anon");
+		filterChainDefinitionMap.put("/member/loginSub", "anon");
+		
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/shiro/logout", "logout");		
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
 		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
-		 LinkedHashMap<String, Filter> filtsMap=new LinkedHashMap<String, Filter>();
-	        filtsMap.put("authc",new ShiroFormAuthenticationFilter() );
-	        shiroFilterFactoryBean.setFilters(filtsMap);
-
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 }

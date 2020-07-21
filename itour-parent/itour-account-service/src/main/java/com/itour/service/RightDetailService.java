@@ -1,6 +1,7 @@
 package com.itour.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,13 +24,19 @@ import com.itour.persist.RightDetailMapper;
  */
 @Service
 public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDetail>{
-	public ResponseMessage queryAccountRight(@RequestBody RequestMessage requestMessage) {
+	
+	/**
+	 * 获取该用户下的所有权限
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage getAccountRightDetial(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
-			String uid = requestMessage.getBody().getuId();
-			uid="10000";
-			List<RightDetail> queryAccountRight = this.baseMapper.queryAccountRight(uid);
-			responseMessage.setReturnResult(queryAccountRight);
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			String uid = jsonObject.getString("uid");
+			List<Map<String, Object>> accountRightDetial = this.baseMapper.getAccountRightDetial(uid);
+			responseMessage.setReturnResult(accountRightDetial);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -37,5 +44,4 @@ public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDeta
 		}
 		return responseMessage;
 	}
-
 }

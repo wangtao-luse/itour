@@ -275,4 +275,23 @@ public ResponseMessage checkOauthId(JSONObject jsonObject,HttpServletRequest req
 	ResponseMessage responseMessage = accountApi.checkOauthId(postData);
 	return responseMessage;
 }
+/**
+ * 获取当前用户下的组
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage getAccountGroupName(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getAccountGroupName(postData);
+	return responseMessage;
+}
+/**
+ * 获取当前用户下的角色
+ */
+public ResponseMessage getAccountRoleName(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getAccountRoleName(postData);
+	return responseMessage;
+}
 }

@@ -1,6 +1,7 @@
 package com.itour.persist;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -16,6 +17,11 @@ import com.itour.model.account.RightDetail;
  * @since 2020-06-06
  */
 public interface RightDetailMapper extends BaseMapper<RightDetail> {
-	public List<RightDetail> queryAccountRight(@Param(value = "uid") String uid);
+    /**
+     * 获取当前用户下的所有权限
+     * @param uid
+     * @return
+     */
+	List<Map<String,Object>>getAccountRightDetial(@Param("uid")String uid);
 
 }

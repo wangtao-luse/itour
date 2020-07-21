@@ -28,13 +28,7 @@ public ResponseMessage loginSub(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/checkOauthId",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage checkOauthId(RequestMessage requestMessage);
-/**
- * 获取菜单
- * @param requestMessage
- * @return
- */
-@RequestMapping(value = "/account/queryAccountRight",produces = {"application/json;charset=UTF-8"})
-public ResponseMessage queryAccountRight(RequestMessage requestMessage);
+
 /**
  * 忘记密码
  * @param requestMessage
@@ -196,6 +190,27 @@ public ResponseMessage grantAccount(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/deleteAccountGroup",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage deleteAccountGroup(RequestMessage requestMessage);
+/**
+ *  获取当前用户下的所有组名称
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getAccountGroupName",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getAccountGroupName(RequestMessage requestMessage);
+/**
+ * 获取当前用户下的角色
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getAccountRoleName",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getAccountRoleName(RequestMessage requestMessage);
+/**
+ * 获取当前用户下的权限
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getAccountRightDetial",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getAccountRightDetial(RequestMessage requestMessage);
 
 }
 

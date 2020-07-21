@@ -19,4 +19,11 @@ import com.itour.model.account.Role;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 	List<Map<String, Object>> queryGroupRole(@Param("gid") Integer gid);
+	
+	/**
+	 * 获取当前用户下的所有拥有的角色名称
+	 * @param uid
+	 * @return
+	 */
+	List<Map<String, Object>> getAccountRoleName(@Param("uid") String uid);
 }

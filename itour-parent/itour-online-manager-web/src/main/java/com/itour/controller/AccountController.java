@@ -1,6 +1,8 @@
 package com.itour.controller;
 
 
+import java.io.Reader;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -33,6 +35,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/groupPage")
+	@RequiresPermissions("/account/groupPage")
 	public String groupPage() {
 		return "/system/right/group/groupManager";
 	}
@@ -41,6 +44,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/groupAddP")
+	@RequiresPermissions("/account/groupAddP")
 	public String groupAddP(String id,ModelMap model) {
 		model.addAttribute("id", id);
 		return "/system/right/group/groupAdd";
@@ -50,6 +54,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/selectGroup")
+	@RequiresPermissions("/account/selectGroup")
 	public String selectGroup() {
 		return "/system/right/selectGroup";
 	}
@@ -60,6 +65,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/getGroupList")
+	@RequiresPermissions("/account/getGroupList")
 	@ResponseBody
     public ResponseMessage getGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage groupList = this.accountConnector.getGroupList(jsonObject, request);
@@ -72,12 +78,24 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/insertGroup")
+	@RequiresPermissions("/account/insertGroup")
 	@ResponseBody
 	public ResponseMessage insertGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage insertGroup = this.accountConnector.insertGroup(jsonObject, request);
 		return insertGroup;
 	}
 	
+	
+	/**
+	 * 授权角色页面
+	 * @return
+	 */
+	@RequestMapping("/groupRoleP")
+	@RequiresPermissions("/account/groupRoleP")
+	public String groupRoleP(String groupId,ModelMap model) {
+		model.addAttribute("groupId", groupId);
+		return "/system/right/group/groupRole";
+	}
 	/**
 	   * 授权角色列表
 	 * @param jsonObject
@@ -86,18 +104,10 @@ public class AccountController {
 	 */
 	@RequestMapping("/authorizeRoleList")
 	@ResponseBody
+	@RequiresPermissions("/account/authorizeRoleList")
 	public ResponseMessage authorizeRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage authorizeRole = this.accountConnector.authorizeRoleList(jsonObject, request);
 		return authorizeRole;
-	}
-	/**
-	 * 授权角色页面
-	 * @return
-	 */
-	@RequestMapping("/groupRoleP")
-	public String groupRoleP(String groupId,ModelMap model) {
-		model.addAttribute("groupId", groupId);
-		return "/system/right/group/groupRole";
 	}
 	/**
 	 * 对组进行角色授权
@@ -107,6 +117,7 @@ public class AccountController {
 	 */
 	@RequestMapping("/powerRole")
 	@ResponseBody
+	@RequiresPermissions("/account/powerRole")
 	public ResponseMessage powerRole(@RequestBody JSONArray jsonArray,HttpServletRequest request) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("arr", jsonArray);
@@ -120,6 +131,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/getGroup")
+	@RequiresPermissions("/account/getGroup")
 	@ResponseBody
 	public ResponseMessage getGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getGroup = this.accountConnector.getGroup(jsonObject, request);
@@ -132,6 +144,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/updateGroup")
+	@RequiresPermissions("/account/updateGroup")
 	@ResponseBody
 	public ResponseMessage updateGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage updateGroup = this.accountConnector.updateGroup(jsonObject, request);
@@ -239,6 +252,7 @@ public class AccountController {
      * @return
      */
 	@RequestMapping("/rightPage")
+	@RequiresPermissions("/account/rightPage")
 	public String rightPage() {
 		return "/system/right/right/rightManager";
 	}
@@ -249,11 +263,24 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/selectRightList")
+	@RequiresPermissions("/account/selectRightList")
 	@ResponseBody
 	public ResponseMessage selectRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request){
 		ResponseMessage powerRight = this.accountConnector.selectRightList(jsonObject,request);
 		return powerRight;
 		
+	}
+	/**
+	 * 权限列表（视图）
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/selectViewRightList")
+	@ResponseBody
+	public ResponseMessage selectViewRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage selectViewRightList = this.accountConnector.selectViewRightList(jsonObject, request);
+		return selectViewRightList;
 	}
 	/**
 	* 前台会员管理页面
@@ -290,36 +317,27 @@ public class AccountController {
 		ResponseMessage selectViewAccountList = this.accountConnector.selectViewAccountList(jsonObject, request);
 		return selectViewAccountList;
 	}
+
 	/**
-	 * 前台会员列表（视图）
-	 * @param jsonObject
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/selectViewRightList")
-	@ResponseBody
-	public ResponseMessage selectViewRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		ResponseMessage selectViewRightList = this.accountConnector.selectViewRightList(jsonObject, request);
-		return selectViewRightList;
-	}
-	/**
-	 * 前台分配会员
+	 * 分配会员
 	 * @param id
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/accountGroupP")
-	public String accountGroupP(String id,ModelMap model) {
+	@RequestMapping("/groupAccountP")
+	@RequiresPermissions("/account/groupAccountP")
+	public String groupAccountP(String id,ModelMap model) {
 		model.addAttribute("groupId", id);
-		return "/system/right/group/accountGroup";
+		return "/system/right/group/groupAccount";
 	}
 	/**
-	 * 前台获取指定组下的用户
+	 * 获取指定组下的用户
 	 * @param jsonObject
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/getViewAAccountGroupList")
+	@RequiresPermissions("/account/getViewAAccountGroupList")
 	@ResponseBody
 	public ResponseMessage getViewAAccountGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getGroupAccountList = this.accountConnector.getViewAAccountGroupList(jsonObject, request);
@@ -385,7 +403,7 @@ public class AccountController {
 		return insertMember;
 	}
 	/**
-	 * 后台查看前台用户详情
+	 * 查看前台用户详情
 	 * @param id
 	 * @param model
 	 * @return

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +54,9 @@ public class MessageController {
 	   }
 	    return responseMessage;
 	}
+	
 	@RequestMapping("/msgPage")
+	@RequiresPermissions("/msg/msgPage")
 	public String msgPage() {
 		return "/system/msg/messageTextManager";
 	}

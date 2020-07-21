@@ -16,4 +16,8 @@
     <select id="queryGroupRole" resultType="map" parameterType="java.lang.Integer">
      SELECT c.ID,c.ROLE_DESC,c.ROLE_DESC,IFNULL(d.GROUP_ID,'0') GROUP_ID,d.ID grNo FROM t_a_role c LEFT JOIN t_a_group_role d on c.ID= d.ROLE_ID and d.GROUP_ID=#{gid};
    </select>
+    <!-- 获取当前用户下的角色 -->
+   <select id="getAccountRoleName" parameterType="String" resultType="Map">
+SELECT r.ROLE_NAME  FROM t_a_role r WHERE r.ID in(SELECT ROLE_ID FROM t_a_group_role c WHERE c.GROUP_ID in(SELECT d.GROUP_ID FROM t_a_account_group d WHERE d.U_ID=#{uid}))
+   </select>
 </mapper>

@@ -49,17 +49,7 @@ public ResponseMessage loginSub(JSONObject jsonObject,HttpServletRequest request
 	ResponseMessage responseMessage = accountApi.loginSub(postData);
 	return responseMessage;
 }
-/**
- * 权限查询
- * @param jsonObject
- * @param request
- * @return
- */
-public ResponseMessage queryAccountRight(JSONObject jsonObject,HttpServletRequest request) {
-	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage responseMessage = accountApi.queryAccountRight(postData);
-	return responseMessage;
-}
+
 /**
  * 忘记密码
  * @param jsonObject
@@ -91,6 +81,39 @@ public ResponseMessage groupList(JSONObject jsonObject,HttpServletRequest reques
 public ResponseMessage roleList(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
 	ResponseMessage responseMessage = accountApi.queryRoleList(postData);
+	return responseMessage;
+}
+/**
+ * 获取当前用户下的组
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage getAccountGroupName(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getAccountGroupName(postData);
+	return responseMessage;
+}
+/**
+ * 获取当前用户下的角色
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage getAccountRoleName(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getAccountRoleName(postData);
+	return responseMessage;
+}
+/**
+ * 获取当前用户下的权限
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage getAccountRightDetial(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getAccountRightDetial(postData);
 	return responseMessage;
 }
 
