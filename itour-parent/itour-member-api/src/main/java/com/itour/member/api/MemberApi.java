@@ -177,7 +177,21 @@ public interface MemberApi {
 	 * @return
 	 */
 	@RequestMapping(value = "member/getAccountRightDetial",produces = {"application/json;charset=UTF-8"})
-	ResponseMessage getAccountRightDetial(RequestMessage requestMessage);
+	public ResponseMessage getAccountRightDetial(RequestMessage requestMessage);
+	/**
+	 * 角色查询单条
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getRole",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getRole(RequestMessage requestMessage);
+	/**
+	 * 角色新增
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/insertRole",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage insertRole(RequestMessage requestMessage);
 	
 	
 

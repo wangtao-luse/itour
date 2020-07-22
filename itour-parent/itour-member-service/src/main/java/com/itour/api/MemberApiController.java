@@ -252,6 +252,22 @@ private ViewMAccountGroupService viewMAccountGroupService;
 		// TODO Auto-generated method stub
 		return rightDetailService.getAccountRightDetial(requestMessage);
 	}
+	/**
+	 * 角色查询单条
+	 */
+	@Override
+	public ResponseMessage getRole(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return roleService.getRole(requestMessage);
+	}
+	/**
+	 * 角色新增
+	 */
+	@Override
+	public ResponseMessage insertRole(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return roleService.insertRole(requestMessage);
+	}
 	
 	
 	

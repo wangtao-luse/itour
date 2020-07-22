@@ -36,6 +36,7 @@
             }    
      
         $(function () {
+        	console.log("wangtao");
            $.messager.progress('close');
            initSelect($("#oauthType"), "OAUTH_TYPE",true,"全部");
            mysearchFun('/member/getViewOauthList', $('#dataGridmn'), getOauthList,

@@ -25,6 +25,15 @@ VALUES
 	( '1002', '会员角色管理', '1000', '1', '/account/rolePage', '1','1' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
+	( '1011', '新增', '1002', '2', '0', '1','1-1' );	
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '1012', '编辑', '1002', '2', '0', '1','1-2' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '1013', '授权', '1002', '2', '0', '1','1-3' );	
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
 	( '1003', '会员权限管理', '1000', '1', '/account/rightPage', '1','2' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
@@ -42,6 +51,15 @@ VALUES
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '2001', '管理员信息', '2000', '1', '/member/adminPage', '2', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '2013', '新增', '2001', '2', '0', '2', '0-1' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '2014', '编辑', '2001', '2', '0', '2', '0-2' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '2015', '查看详情', '2001', '2', '0', '2', '0-3' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '2002', '管理员组管理', '2000', '1', '/member/groupPage', '2', '1' );
@@ -107,9 +125,9 @@ VALUES
 	( '5001', '消息管理', '5000', '1', '/msg/msgPage', '4', '0' );
 
 --------------后台菜单明细相关开始------------------------------------
----1.需要及记录日志且需要单独权限的方法需要添加距离
+---1.需要及记录日志且需要单独权限的方法需要添加权限明细(新增,修改，需要权限的按钮)
 ---2.新增,修改操作需要记录日志
----3.查询和页面跳转的方法不需要插入
+---3.查询和页面跳转的方法不需要插入权限明细
 
 INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
 ('/member/insertGroup','2007','authc','管理员组管理-新增','1');
@@ -128,6 +146,9 @@ INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
 ('/member/powerRight','2006','authc','管理员角色管理-授权','1');
 
 INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
+('/member/adminDetailP','2015','authc','管理员信息-查看详情','0');
+
+INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
 ('/account/insertGroup','1004','authc','会员组管理-新增','1');
 INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
 ('/account/updateGroup','1005','authc','会员组管理-修改','1');
@@ -137,12 +158,15 @@ INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
 ('/account/grantAccount','1007','authc','会员组管理-分配会员','1');
 
 INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
-('/account/updateRole','3002','authc','会员角色管理-修改','1');
+('/account/insertRole','1011','authc','会员角色管理-新增','1');
 INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
-('/account/updateRole','3002','authc','会员角色管理-修改','1');
+('/account/updateRole','1012','authc','会员角色管理-修改','1');
+INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
+('/account/powerRight','1013','authc','会员角色管理-授权','1');
 
 INSERT INTO t_m_right_detail(URL,RIGHT_NO,ISLOGIN,`DESC`,ISLOG)VALUES
 ('/dictionary/updateDictionary','3002','authc','数据字典表-修改','1');
+
 --------------字典表初始化-------------------------------------------------------------------
 --2020-7-9 wangtao
 INSERT INTO t_d_dictionary(CODE_SET,CODE,CNAME)VALUES('SEX','1','男');

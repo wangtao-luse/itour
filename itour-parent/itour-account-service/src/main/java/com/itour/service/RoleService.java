@@ -75,6 +75,11 @@ public ResponseMessage queryRoleList(RequestMessage requestMessage) {
 	
 	return responseMessage;
 }
+/**
+ * 角色查询单条
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage getRole(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();	
 	try {

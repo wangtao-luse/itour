@@ -278,7 +278,7 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/powerRight")
-	//@RequiresPermissions("/member/powerRight")
+	@RequiresPermissions("/member/powerRight")
 	@ResponseBody
 	public ResponseMessage powerRight(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return this.memberConnector.powerRight(jsonObject, request);
@@ -302,8 +302,8 @@ public class MemberController {
 	@RequiresPermissions("/member/insertRole")
 	@ResponseBody
 	public ResponseMessage insertRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		//ResponseMessage insertRole = this.memberConnector.insertRole(jsonObject, request);
-		return null;
+		ResponseMessage insertRole = this.memberConnector.insertRole(jsonObject, request);
+		return insertRole;
 	}
 	/**
 	 * 角色查询单条
@@ -314,8 +314,8 @@ public class MemberController {
 	@RequestMapping("/getRole")
 	@ResponseBody
     public ResponseMessage getRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		//ResponseMessage getRoleList = this.accountConnector.getRole(jsonObject, request);
-		return null;
+		ResponseMessage getRoleList = this.memberConnector.getRole(jsonObject, request);
+		return getRoleList;
     }
 	/**
 	 * 修改角色
@@ -428,7 +428,7 @@ public class MemberController {
 	@RequestMapping("/adminDetailP")
 	public String memberDetailP(String uid,ModelMap model) {
 		model.addAttribute("uid", uid);
-		return "/system/account/usr/memberDetail";
+		return "/system/admin/adminDetail";
 	}
 	/**
 	 *  管理员账号详情

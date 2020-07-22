@@ -73,6 +73,29 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 		return responseMessage;
 	}
 	/**
+	 * 角色查询单条
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage getRole(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();	
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Role selectById = this.baseMapper.selectById(jsonObject.getInteger("id"));
+			responseMessage.setReturnResult(selectById);
+		}catch (BaseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(e.getMessage());
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}	
+		
+		return responseMessage;
+	}
+	/**
 	 * 修改角色
 	 * @param requestMessage
 	 * @return

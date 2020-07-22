@@ -253,5 +253,27 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.getAccountRightDetial(requestMessage);
 	}
+	/**
+	 * 角色查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getRole(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getRole(requestMessage);
+	}
+	/**
+	 * 角色新增
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage insertRole(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.insertRole(requestMessage);
+	}
 	
 }
