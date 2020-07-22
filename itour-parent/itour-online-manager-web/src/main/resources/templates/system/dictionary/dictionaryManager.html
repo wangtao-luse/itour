@@ -74,8 +74,10 @@
 	    <div data-options="region:'center',title:'数据字典信息',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
-	    <div id="toolbar">	      
+	    <div id="toolbar">	
+	      @if(shiro.hasPermission("/dictionary/updateDictionary")){      
 	      <a href="#" onclick="editFun('编辑','/dictionary/dictUpdatePage?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
+	    @}
 	    </div>
 	</div>
 </body>

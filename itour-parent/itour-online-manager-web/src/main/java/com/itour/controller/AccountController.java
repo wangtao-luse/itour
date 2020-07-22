@@ -9,6 +9,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +36,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/groupPage")
-	@RequiresPermissions("/account/groupPage")
 	public String groupPage() {
 		return "/system/right/group/groupManager";
 	}
@@ -44,7 +44,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/groupAddP")
-	@RequiresPermissions("/account/groupAddP")
 	public String groupAddP(String id,ModelMap model) {
 		model.addAttribute("id", id);
 		return "/system/right/group/groupAdd";
@@ -54,7 +53,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/selectGroup")
-	@RequiresPermissions("/account/selectGroup")
 	public String selectGroup() {
 		return "/system/right/selectGroup";
 	}
@@ -65,7 +63,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/getGroupList")
-	@RequiresPermissions("/account/getGroupList")
 	@ResponseBody
     public ResponseMessage getGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage groupList = this.accountConnector.getGroupList(jsonObject, request);
@@ -91,7 +88,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/groupRoleP")
-	@RequiresPermissions("/account/groupRoleP")
 	public String groupRoleP(String groupId,ModelMap model) {
 		model.addAttribute("groupId", groupId);
 		return "/system/right/group/groupRole";
@@ -104,7 +100,6 @@ public class AccountController {
 	 */
 	@RequestMapping("/authorizeRoleList")
 	@ResponseBody
-	@RequiresPermissions("/account/authorizeRoleList")
 	public ResponseMessage authorizeRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage authorizeRole = this.accountConnector.authorizeRoleList(jsonObject, request);
 		return authorizeRole;
@@ -131,7 +126,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/getGroup")
-	@RequiresPermissions("/account/getGroup")
 	@ResponseBody
 	public ResponseMessage getGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getGroup = this.accountConnector.getGroup(jsonObject, request);
@@ -181,12 +175,26 @@ public class AccountController {
 		return "/system/right/role/roleAdd";
 	}
 	/**
+	 * 新增角色
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/insertRole")
+	@RequiresPermissions("/account/insertRole")
+	@ResponseBody
+	public ResponseMessage insertRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertRole = this.accountConnector.insertRole(jsonObject, request);
+		return insertRole;
+	}
+	/**
 	 * 修改角色
 	 * @param jsonObject
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/updateRole")
+	@RequiresPermissions("/account/updateRole")
 	@ResponseBody
     public ResponseMessage updateRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getRoleList = this.accountConnector.updateRole(jsonObject, request);
@@ -204,18 +212,7 @@ public class AccountController {
 		ResponseMessage getRoleList = this.accountConnector.getRole(jsonObject, request);
 		return getRoleList;
     }
-	/**
-	 * 新增角色
-	 * @param jsonObject
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/insertRole")
-	@ResponseBody
-	public ResponseMessage insertRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		ResponseMessage insertRole = this.accountConnector.insertRole(jsonObject, request);
-		return insertRole;
-	}
+	
 	@RequestMapping("/roleRightP")
 	public String roleRightP(String roleId,ModelMap model) {
 		model.addAttribute("roleId", roleId);
@@ -241,6 +238,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/powerRight")
+	@RequiresPermissions("/account/powerRight")
 	@ResponseBody
 	public ResponseMessage powerRight(@RequestBody JSONObject jsonObject,HttpServletRequest request){
 		ResponseMessage powerRight = this.accountConnector.powerRight(jsonObject,request);
@@ -252,7 +250,6 @@ public class AccountController {
      * @return
      */
 	@RequestMapping("/rightPage")
-	@RequiresPermissions("/account/rightPage")
 	public String rightPage() {
 		return "/system/right/right/rightManager";
 	}
@@ -263,7 +260,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/selectRightList")
-	@RequiresPermissions("/account/selectRightList")
 	@ResponseBody
 	public ResponseMessage selectRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request){
 		ResponseMessage powerRight = this.accountConnector.selectRightList(jsonObject,request);
@@ -311,7 +307,6 @@ public class AccountController {
 	 */
 	@RequestMapping("/selectViewAccountList")
 	@ResponseBody
-	@RequiresPermissions("/account/selectViewAccountList")
 	public ResponseMessage selectViewAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
 		ResponseMessage selectViewAccountList = this.accountConnector.selectViewAccountList(jsonObject, request);
@@ -319,13 +314,12 @@ public class AccountController {
 	}
 
 	/**
-	 * 分配会员
+	 * 分配会员页面
 	 * @param id
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/groupAccountP")
-	@RequiresPermissions("/account/groupAccountP")
 	public String groupAccountP(String id,ModelMap model) {
 		model.addAttribute("groupId", id);
 		return "/system/right/group/groupAccount";
@@ -337,7 +331,6 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/getViewAAccountGroupList")
-	@RequiresPermissions("/account/getViewAAccountGroupList")
 	@ResponseBody
 	public ResponseMessage getViewAAccountGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getGroupAccountList = this.accountConnector.getViewAAccountGroupList(jsonObject, request);
@@ -361,6 +354,7 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping("/grantAccount")
+	@RequiresPermissions("/account/grantAccount")
 	@ResponseBody
 	public ResponseMessage grantAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage grantAccount = this.accountConnector.grantAccount(jsonObject, request);

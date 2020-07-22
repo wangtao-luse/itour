@@ -65,7 +65,7 @@ public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(S
 @Bean("shiroFilter")
 public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-	shiroFilterFactoryBean.setSecurityManager(securityManager);
+	    shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");// 未授权界面(没有权限);
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/index");

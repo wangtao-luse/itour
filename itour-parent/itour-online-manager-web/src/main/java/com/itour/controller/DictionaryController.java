@@ -26,7 +26,6 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping("/getDictionaryList")
-	@RequiresPermissions("/dictionary/getDictionaryList")
 	@ResponseBody
 	public ResponseMessage getDictionaryList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage dictionaryList = dictionaryConnetor.getDictionaryList(jsonObject, request);
@@ -40,7 +39,6 @@ public class DictionaryController {
 	 */
 	@RequestMapping("/getViewDictionaryList")
 	@ResponseBody
-	@RequiresPermissions("/dictionary/getViewDictionaryList")
 	public ResponseMessage getViewDictionaryList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return dictionaryConnetor.getViewDictionaryList(jsonObject, request);
 	}
@@ -49,7 +47,6 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping("/dictPage")
-	@RequiresPermissions("/dictionary/dictPage")
 	public String dictPage() {
 		return "/system/dictionary/dictionaryManager";
 	}
@@ -80,6 +77,7 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping("/updateDictionary")
+	@RequiresPermissions("/dictionary/updateDictionary")
 	@ResponseBody
 	public ResponseMessage updateDictionary(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return dictionaryConnetor.updateDictionary(jsonObject, request);

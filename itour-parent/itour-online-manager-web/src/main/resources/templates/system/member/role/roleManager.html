@@ -60,10 +60,16 @@
 	    <div data-options="region:'center',title:'管理员角色管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
-	    <div id="toolbar">	      
-	      <a href="#" onclick="addFun('新增', '/member/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">新增</a>	
-	      <a href="#" onclick="editFun('编辑','/member/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
-	      <a href="#" onclick="grantFunCommon('角色授权','/member/roleRightP?roleId=',$('#dataGrid'),{buttons: [{id:'roleRightFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
+	    <div id="toolbar">	
+	      @if(shiro.hasPermission("/member/insertRole")){    	            
+	      	<a href="#" onclick="addFun('新增', '/member/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">新增</a>	
+	      @}
+	      @if(shiro.hasPermission("/member/updateRole")){    	      
+	      	<a href="#" onclick="editFun('编辑','/member/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
+	      @}
+	      @if(shiro.hasPermission("/member/powerRight")){    	      
+	      	<a href="#" onclick="grantFunCommon('角色授权','/member/roleRightP?roleId=',$('#dataGrid'),{buttons: [{id:'roleRightFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
+	      @}
 	    </div>
 	</div>
 </body>

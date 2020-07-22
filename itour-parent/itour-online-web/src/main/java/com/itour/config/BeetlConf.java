@@ -1,18 +1,15 @@
 package com.itour.config;
 
-import java.io.IOException;
-
+import org.beetl.core.GroupTemplate;
 import org.beetl.core.resource.ClasspathResourceLoader;
-import org.beetl.core.resource.WebAppResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternUtils;
+
+import com.itour.entity.ShiroExt;
 //https://www.cnblogs.com/upuptop/p/11154572.html
 @Configuration
 public class BeetlConf {
@@ -21,16 +18,20 @@ public class BeetlConf {
         @Bean(name = "beetlConfig")
         public BeetlGroupUtilConfiguration getBeetlGroupUtilConfiguration() {
                 BeetlGroupUtilConfiguration beetlGroupUtilConfiguration = new BeetlGroupUtilConfiguration();
-               //获取Spring Boot 的ClassLoader
+          //获取Spring Boot 的ClassLoader
            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if(loader==null){
-            loader = BeetlConf.class.getClassLoader();
-        }
-        //beetlGroupUtilConfiguration.setConfigProperties(extProperties);//额外的配置，可以覆盖默认配置，一般不需要
-        ClasspathResourceLoader cploder = new ClasspathResourceLoader(loader,
+	        if(loader==null){
+	            loader = BeetlConf.class.getClassLoader();
+	        }
+        //设置SpringBoot模板路径路径
+	        ClasspathResourceLoader cploder = new ClasspathResourceLoader(loader,
                 templatesPath);
         beetlGroupUtilConfiguration.setResourceLoader(cploder);
         beetlGroupUtilConfiguration.init();
+        //设置Springboot的shiro标签
+        GroupTemplate groupTemplate = beetlGroupUtilConfiguration.getGroupTemplate();
+        groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
+        groupTemplate.setClassLoader(loader);
         //如果使用了优化编译器，涉及到字节码操作，需要添加ClassLoader
         beetlGroupUtilConfiguration.getGroupTemplate().setClassLoader(loader);
         return beetlGroupUtilConfiguration;

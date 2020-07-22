@@ -97,11 +97,10 @@ public class MemberController {
 		return ResponseMessage.getSucess();
 	}
 	/**
-	 * 管理员管理页面
+	 * 管理员信息页面
 	 * @return
 	 */
 	@RequestMapping("/adminPage")
-	@RequiresPermissions("/member/adminPage")
 	public String adminPage() {
 		return "/system/admin/adminManager";
 	}
@@ -112,7 +111,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/selectAccountList")
-	@RequiresPermissions("/member/selectAccountList")
 	@ResponseBody
 	public ResponseMessage selectAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
@@ -126,7 +124,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/selectViewAccountList")
-	@RequiresPermissions("/member/selectViewAccountList")
 	@ResponseBody
 	public ResponseMessage selectViewAccountList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		jsonObject.put(Constant.COMMON_VO_NEEDTOTAL, "1");
@@ -138,7 +135,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/groupPage")
-	@RequiresPermissions("/member/groupPage")
 	public String groupPage() {
 		return "/system/member/group/groupManager";
 	}
@@ -149,7 +145,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/getGroupList")
-	@RequiresPermissions("/member/getGroupList")
 	@ResponseBody
 	public ResponseMessage getGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage groupList = this.memberConnector.groupList(jsonObject, request);
@@ -160,14 +155,12 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/groupRoleP")
-	@RequiresPermissions("/member/groupRoleP")
 	public String groupRoleP(String groupId,ModelMap model) {
 		model.addAttribute("groupId", groupId);
 		return "/system/member/group/groupRole";
 	}
 	
 	@RequestMapping("/authorizeRoleList")
-	@RequiresPermissions("/member/authorizeRoleList")
 	@ResponseBody
 	public ResponseMessage authorizeRoleList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage authorizeRoleList = this.memberConnector.authorizeRoleList(jsonObject, request);
@@ -194,7 +187,6 @@ public class MemberController {
 	 */
 	
 	@RequestMapping("/groupAddP")
-	@RequiresPermissions("/member/groupAddP")
 	public String groupAddP(String id,ModelMap model) {
 		model.addAttribute("id", id);
 		return "/system/member/group/groupAdd";
@@ -232,7 +224,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/getGroup")
-	@RequiresPermissions("/member/getGroup")
 	@ResponseBody
 	public ResponseMessage getGroup(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage getGroup = this.memberConnector.getGroup(jsonObject, request);
@@ -243,7 +234,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/rolePage")
-	@RequiresPermissions("/member/rolePage")
 	public String rolePage() {
 		return "/system/member/role/roleManager";
 	}
@@ -254,7 +244,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/getRoleList")
-	@RequiresPermissions("/member/getRoleList")
 	@ResponseBody
 	public ResponseMessage getRoleList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage roleList = this.memberConnector.roleList(jsonObject, request);
@@ -267,7 +256,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/roleRightP")
-	@RequiresPermissions("/member/roleRightP")
 	public String roleRightP(String roleId,ModelMap model) {
 		model.addAttribute("roleId", roleId);
 		return "/system/member/role/roleRight";
@@ -279,7 +267,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/authorizeRightList")
-	@RequiresPermissions("/member/authorizeRightList")
 	@ResponseBody
 	public ResponseMessage authorizeRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return this.memberConnector.authorizeRightList(jsonObject,request);
@@ -291,7 +278,7 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/powerRight")
-	@RequiresPermissions("/member/powerRight")
+	//@RequiresPermissions("/member/powerRight")
 	@ResponseBody
 	public ResponseMessage powerRight(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return this.memberConnector.powerRight(jsonObject, request);
@@ -301,7 +288,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/roleAddP")
-	@RequiresPermissions("/member/roleAddP")
 	public String roleAddP(String id,ModelMap model) {
 		model.addAttribute("id", id);
 		return "/system/member/role/roleAdd";
@@ -326,7 +312,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/getRole")
-	@RequiresPermissions("/member/getRole")
 	@ResponseBody
     public ResponseMessage getRole(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		//ResponseMessage getRoleList = this.accountConnector.getRole(jsonObject, request);
@@ -350,7 +335,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/rightPage")
-	@RequiresPermissions("/member/rightPage")
 	public String rightPage() {
 		return "/system/member/right/rightManager";
 	}
@@ -361,7 +345,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/getRightList")
-	@RequiresPermissions("/member/getRightList")
 	@ResponseBody
 	public ResponseMessage getRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return this.memberConnector.rightList(jsonObject, request);
@@ -373,7 +356,6 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("/getViewRightList")
-	@RequiresPermissions("/member/getViewRightList")
 	@ResponseBody
 	public ResponseMessage getViewRightList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return this.memberConnector.getViewRightList(jsonObject, request);
@@ -396,21 +378,21 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/groupcAcountP")
-	public String groupcAcountP(String id,ModelMap model) {
+	@RequestMapping("/groupAccountP")
+	public String groupAccountP(String id,ModelMap model) {
 		model.addAttribute("groupId", id);
-		return "/system/member/group/accountGroup";
+		return "/system/member/group/groupAccount";
 	}
 	/**
-	 * 管理员分配新增管理员
+	 * 管理员分配新增管理员页面
 	 * @param id
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/accountGroupGrantP")
+	@RequestMapping("/groupAccountGrantP")
 	public String accountGroupGrantP(String id,ModelMap model) {
 		model.addAttribute("groupId", id);
-		return "/system/member/group/accountGroupGrant";
+		return "/system/member/group/groupAccountGrant";
 	}
 	/**
 	 *  分配会员
@@ -420,6 +402,7 @@ public class MemberController {
 	 */
 	@RequestMapping("/grantAccount")
 	@ResponseBody
+    @RequiresPermissions("/member/grantAccount")
 	public ResponseMessage grantAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage grantAccount = this.memberConnector.grantAccount(jsonObject, request);
 		return grantAccount;
@@ -437,7 +420,7 @@ public class MemberController {
 		return deleteAccountGroup;
 	}
 	/**
-	 * 后台查看账号详情
+	 * 管理员查看账号详情页面
 	 * @param id
 	 * @param model
 	 * @return
@@ -448,7 +431,7 @@ public class MemberController {
 		return "/system/account/usr/memberDetail";
 	}
 	/**
-	 *  后台会员查看账号详情
+	 *  管理员账号详情
 	 * @param jsonObject
 	 * @param request
 	 * @return

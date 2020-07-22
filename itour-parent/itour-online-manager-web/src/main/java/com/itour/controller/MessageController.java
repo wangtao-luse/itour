@@ -56,7 +56,6 @@ public class MessageController {
 	}
 	
 	@RequestMapping("/msgPage")
-	@RequiresPermissions("/msg/msgPage")
 	public String msgPage() {
 		return "/system/msg/messageTextManager";
 	}
