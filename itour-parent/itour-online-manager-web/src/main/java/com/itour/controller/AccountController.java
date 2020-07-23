@@ -284,7 +284,7 @@ public class AccountController {
 	*/
 	@RequestMapping("/accountPage")
 	public String accountPage() {
-		return "/system/account/usr/memberManager";
+		return "/system/account/usr/accountManager";
 	}
 	/**
 	   * 前台会员列表
@@ -379,10 +379,20 @@ public class AccountController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/memberAddP")
-	public String memberAddP(String id,ModelMap model) {
+	@RequestMapping("/accountAddP")
+	public String memberAddP() {
+		return "/system/account/usr/accountAdd";
+	}
+	/**
+	 * 后台注册前台会员页面
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/accountUpdateP")
+	public String accountUpdateP(String id,ModelMap model) {
 		model.addAttribute("id", id);
-		return "/system/account/usr/memberAdd";
+		return "/system/account/usr/accountUpdate";
 	}
 	/**
 	 *  新增前台会员
@@ -402,10 +412,10 @@ public class AccountController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/memberDetailP")
+	@RequestMapping("/accountDetailP")
 	public String memberDetailP(String uid,ModelMap model) {
 		model.addAttribute("uid", uid);
-		return "/system/account/usr/memberDetail";
+		return "/system/account/usr/accountDetail";
 	}
 	/**
 	 *  前台会员查看账号详情
@@ -413,19 +423,26 @@ public class AccountController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/account/getViewOauthList")
+	@RequestMapping("/getViewOauthList")
 	@ResponseBody
 	public ResponseMessage getViewOauthList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage insertMember = this.accountConnector.getViewOauthList(jsonObject, request);
 		return insertMember;
 	}
-	
+	/**
+	 * 注册（后台）
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/regSub")
+	@ResponseBody
 	public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		Oauth oaauthVo = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
 		//检查邮箱是否可用
 		JSONObject tmpJson = new JSONObject();
 		tmpJson.put("type", ConstAccount.EMAIL);
-		tmpJson.put("regName", oaauthVo.getOauthId());
+		tmpJson.put("regName",oaauthVo.getOauthId());
 		ResponseMessage checkOauthId = this.accountConnector.checkOauthId(tmpJson, request);
 		if(Constant.FAILED_CODE.equals(checkOauthId.getResultCode())) {
 			return ResponseMessage.getFailed(checkOauthId.getResultMessage());
@@ -438,6 +455,31 @@ public class AccountController {
 		if(Constant.FAILED_CODE.equals(checkUanme.getResultCode())) {
 			return ResponseMessage.getFailed(checkUanme.getResultMessage());
 		}
-		return null;
+		ResponseMessage regSub = this.accountConnector.regSub(jsonObject, request);
+		return regSub;
+	}
+	/**
+	 * 用户查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getAccount")
+	@ResponseBody
+	public ResponseMessage getAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage getAccount = this.accountConnector.getAccount(jsonObject, request);
+		return getAccount;
+	}
+	/**
+	 * 用户修改
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updateAccount")
+	@ResponseBody
+	public ResponseMessage updateAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage updateAccount = this.accountConnector.updateAccount(jsonObject, request);
+		return updateAccount;
 	}
 }

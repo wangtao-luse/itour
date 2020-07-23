@@ -283,7 +283,7 @@ public ResponseMessage deleteAccountGroup(@RequestBody RequestMessage requestMes
  * 获取当前用户下的组名称
  */
 @Override
-public ResponseMessage getAccountGroupName(RequestMessage requestMessage) {
+public ResponseMessage getAccountGroupName(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return groupService.getAccountGroupName(requestMessage);
 }
@@ -291,7 +291,7 @@ public ResponseMessage getAccountGroupName(RequestMessage requestMessage) {
  * 获取当前用户下的角色名称
  */
 @Override
-public ResponseMessage getAccountRoleName(RequestMessage requestMessage) {
+public ResponseMessage getAccountRoleName(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return roleService .getAccountRoleName(requestMessage);
 }
@@ -299,9 +299,25 @@ public ResponseMessage getAccountRoleName(RequestMessage requestMessage) {
  * 获取当前用户下的权限
  */
 @Override
-public ResponseMessage getAccountRightDetial(RequestMessage requestMessage) {
+public ResponseMessage getAccountRightDetial(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightDetailService .getAccountRightDetial(requestMessage);
+}
+/**
+ * 用户单条
+ */
+@Override
+public ResponseMessage getAccount(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return accountService.getAccount(requestMessage);
+}
+/**
+ * 用户修改
+ */
+@Override
+public ResponseMessage updateAccount(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return accountService.updateAccount(requestMessage);
 }
 
 }

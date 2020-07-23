@@ -79,7 +79,8 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/easyui/**","anon");	
 		filterChainDefinitionMap.put("/member/login", "anon");
 		filterChainDefinitionMap.put("/member/loginSub", "anon");
-		
+		filterChainDefinitionMap.put("http://pv.sohu.com/**", "anon");
+		filterChainDefinitionMap.put("http://ip-api.com/**", "anon");
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/shiro/logout", "logout");		
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */

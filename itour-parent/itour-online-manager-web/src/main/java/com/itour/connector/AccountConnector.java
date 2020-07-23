@@ -294,4 +294,28 @@ public ResponseMessage getAccountRoleName(JSONObject jsonObject,HttpServletReque
 	ResponseMessage responseMessage = accountApi.getAccountRoleName(postData);
 	return responseMessage;
 }
+/**
+ * 注册前台会员（后台注册前台会员）
+ */
+public ResponseMessage regSub(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.regSub(requestMessage);
+	return responseMessage;
+}
+/**
+ *用户查询单条
+ */
+public ResponseMessage getAccount(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getAccount(requestMessage);
+	return responseMessage;
+}
+/**
+ *用户修改
+ */
+public ResponseMessage updateAccount(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.updateAccount(requestMessage);
+	return responseMessage;
+}
 }

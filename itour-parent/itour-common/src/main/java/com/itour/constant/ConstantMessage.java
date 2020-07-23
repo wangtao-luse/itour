@@ -16,4 +16,6 @@ public static final String MSG_AIM_REGISTER="1";
 
 public static final String MSG_ORIGIN_ONLINE="1";
 public static final String MSG_ORIGIN_MANAGER="2";
+
+
 }

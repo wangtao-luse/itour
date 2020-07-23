@@ -47,7 +47,7 @@ public class ViewAAccountService extends ServiceImpl<ViewAAccountMapper, ViewAAc
 			
 			queryWrapper.ge(null!=accountVo.getLasttimeRange().getLowerLimit(), "LASTTIME", accountVo.getCreatedateRange().getLowerLimit());
 			queryWrapper.le(null!=accountVo.getLasttimeRange().getUpperLimit(), "LASTTIME", accountVo.getCreatedateRange().getUpperLimit());
-			
+			queryWrapper.orderByDesc("CREATEDATE");
 			if(null!=pageVo) {			
 				Page selectPage = this.baseMapper.selectPage(pageVo, queryWrapper);
 				result.put(Constant.COMMON_KEY_PAGE, selectPage);

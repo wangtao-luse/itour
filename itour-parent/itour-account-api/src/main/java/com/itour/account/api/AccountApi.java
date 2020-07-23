@@ -211,6 +211,20 @@ public ResponseMessage getAccountRoleName(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/getAccountRightDetial",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getAccountRightDetial(RequestMessage requestMessage);
+/**
+ * 用户查询单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getAccount",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getAccount(RequestMessage requestMessage);
+/**
+ * 用户修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/updateAccount",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage updateAccount(RequestMessage requestMessage);
 
 }
 

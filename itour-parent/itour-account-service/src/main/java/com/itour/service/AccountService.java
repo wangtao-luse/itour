@@ -19,12 +19,15 @@ import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantMessage;
+import com.itour.exception.BaseException;
 import com.itour.model.account.Account;
 import com.itour.model.account.AccountGroup;
+import com.itour.model.account.Group;
 import com.itour.model.account.Oauth;
-import com.itour.model.member.dto.ViewMAccount;
 import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
+import com.itour.persist.GroupMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
@@ -43,6 +46,8 @@ private AccountGroupMapper accountGroupMapper;
 private IpaddrService ipaddrService;
 	@Autowired
 private AccountMapper accountMapper;
+	@Autowired
+private GroupMapper groupMapper;
 
 	/** 注册
 	 * 1.插入用户表(t_a_account)
@@ -62,7 +67,8 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		//生成uid
 		String uid = baseService.getUid();
 		account.setUid(uid);
-		account.setUtype("0");		
+		account.setUtype(StringUtils.isEmpty(account.getUtype())?"0":account.getUtype());
+		account.setStatus("1");
 		account.setCreateip(jsonObject.getString("ip"));
 		//注册日期		
 		account.setCreatedate(DateUtil.getlongDate(new Date()));
@@ -86,14 +92,17 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		oauth.setOauthId(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		//3.插入用户组表
+		Group selectOne = groupMapper.selectOne(new QueryWrapper<Group>().eq("G_NAME", "Gnormal"));
+		if(null==selectOne) {
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
 		AccountGroup accountGroup = new AccountGroup();
-		accountGroup.setGroupId(1);
+		accountGroup.setGroupId(selectOne.getId());
 		accountGroup.setuId(uid);		
 		this.accountGroupMapper.insert(accountGroup);
 		//4.插入IP信息
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
 		ipaddrService.insertIPAddr(postData);
-		
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -156,5 +165,54 @@ public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 	}
 	return resposeMessage;
 }
-
+/**
+ * 用户查询单条
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage getAccount(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		Account account = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Account.class);
+		QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>();
+		if(null==account.getId()&&StringUtils.isEmpty(account.getUid())) {
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		queryWrapper.eq(null!=account.getId(),"ID", account.getId());
+		queryWrapper.eq(!StringUtils.isEmpty(account.getUid()),"UID", account.getUid());
+		Account selectOne = this.baseMapper.selectOne(queryWrapper);
+		responseMessage.setReturnResult(selectOne);
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	     return ResponseMessage.getFailed(e.getMessage());
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+/**
+ * 用户修改
+ * @param requestMessage
+ * @return
+ */
+@Transactional
+public ResponseMessage updateAccount(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		Account account = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Account.class);
+	    this.accountMapper.updateById(account);
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(e.getMessage());
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
 }
