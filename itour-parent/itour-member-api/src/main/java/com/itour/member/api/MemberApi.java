@@ -192,6 +192,34 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/insertRole",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage insertRole(RequestMessage requestMessage);
+	/**
+	 * 用户查询单条
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/getAccount",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getAccount(RequestMessage requestMessage);
+	/**
+	 * 用户修改
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/updateAccount",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage updateAccount(RequestMessage requestMessage);
+	/**
+	 * 检查邮箱,用户名是否可用
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/checkOauthId",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage checkOauthId(RequestMessage requestMessage);
+	/**
+	 * 注册提交
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/regSub",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage regSub(RequestMessage requestMessage);
 	
 	
 

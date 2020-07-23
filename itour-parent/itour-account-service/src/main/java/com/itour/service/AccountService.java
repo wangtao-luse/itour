@@ -45,8 +45,6 @@ private AccountGroupMapper accountGroupMapper;
 	@Autowired
 private IpaddrService ipaddrService;
 	@Autowired
-private AccountMapper accountMapper;
-	@Autowired
 private GroupMapper groupMapper;
 
 	/** 注册
@@ -203,7 +201,7 @@ public ResponseMessage updateAccount(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
 		Account account = requestMessage.getBody().getContent().getJSONObject("vo").toJavaObject(Account.class);
-	    this.accountMapper.updateById(account);
+	    this.baseMapper.updateById(account);
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();

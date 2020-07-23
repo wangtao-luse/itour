@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+        <form id="form" method="post">
+         <input type="hidden" name="id" value="${id}">
+         <div class="container-wrapper">
+            <table class="table table-hover table-condensed" style="margin:20px auto 0 auto; ">
+                <!-- <tr>
+                    <td><span class="redSharp">* </span>邮箱:</td>
+                    <td><input  name="oauthId" readonly="readonly" data-options="required:true" style="width:125px"/></td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>用户名：</td>
+                    <td>
+                        <input name="nickname"  readonly="readonly" type="text" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px"></td>
+                </tr> -->
+                <tr>
+                 <td ><span class="redSharp">* </span>类型：</td>
+                 <td>
+                    <select id="utype" name="utype"></select>
+                 </td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>状态：</td>
+                 <td>
+                    <select id="status" name="status"></select>
+                 </td>
+                </tr>
+                 <tr>
+                 <td ><span class="redSharp">* </span>性别：</td>
+                 <td>
+                    <select id="sex" name="sex"></select>
+                 </td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>图像：</td>
+                    <td>
+                        <input name="avatar"  type="file" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px"></td>
+                </tr>
+            </table>
+            </div>
+        </form>
+    </div>
+</div>
+<var style="display:none" hidden="hidden" id="action">${id}</var>
+
+<script>
+$(function(){
+	 initSelect($("#sex"), "SEX",false,"全部");
+	 initSelect($("#utype"), "UTYPE",false,"全部");
+	 initSelect($("#status"), "ACCOUNT_STATUS",false,"全部");
+	   var action=$("#action").text();
+		var postData={'vo':{"id":action}};
+		postAjax('/member/getAccount',JSON.stringify(postData),function(data){
+		    var dt=data.returnResult.result;      
+		       console.log(data);
+		    loadContainerWrapperData(dt,$(".container-wrapper"));
+		       
+		   });
+		$("#editFunction").click(function(){
+			var url="/member/updateAccount";			
+		    var postData = $("#form").serializeJson();
+		    var data= {"vo":postData};
+			 $('#form').form('validate') &&
+			postAjax(url,JSON.stringify(data),closeDialogCallBack,{async: false});
+		});	
+	
+});
+function loadDataHysh(obj,pNode) {
+    var key, value, tagName, type, arr;
+    for (x in obj) {
+        key = x;
+        value = obj[x];
+        pNode.find("[name='" + key + "']").each(function () {
+            tagName = $(this)[0].tagName;
+            type = $(this).attr('type');
+            if (tagName == 'INPUT') {
+                if (type == 'radio') {
+                    $(this).attr('checked', $(this).val() == value)
+                } else if (type == 'checkbox') {
+                } else {
+                    $(this).val(value)
+                }
+            } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                $(this).val(value)
+            } else if (tagName == 'IMG') {
+                $(this).attr('src', value);
+            }
+        })
+    }
+}
+</script>

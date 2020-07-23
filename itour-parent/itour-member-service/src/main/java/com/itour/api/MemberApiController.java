@@ -264,9 +264,43 @@ private ViewMAccountGroupService viewMAccountGroupService;
 	 * 角色新增
 	 */
 	@Override
-	public ResponseMessage insertRole(RequestMessage requestMessage) {
+	public ResponseMessage insertRole(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return roleService.insertRole(requestMessage);
+	}
+	/**
+	 * 管理员查询单条
+	 */
+	@Override
+	public ResponseMessage getAccount(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountService.getAccount(requestMessage);
+	}
+	
+	/**
+	 * 用户修改
+	 */
+	@Override
+	public ResponseMessage updateAccount(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountService.updateAccount(requestMessage);
+	}
+	
+	/**
+	 * 检查用户名、邮箱是否可用
+	 */
+	@Override
+	public ResponseMessage checkOauthId(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return oauthService.checkOauthId(requestMessage);
+	}
+	/**
+	 * 注册提交
+	 */
+	@Override
+	public ResponseMessage regSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return accountService.regiesterSub(requestMessage);
 	}
 	
 	

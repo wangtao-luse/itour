@@ -430,7 +430,7 @@ public class AccountController {
 		return insertMember;
 	}
 	/**
-	 * 注册（后台）
+	 * 注册
 	 * @param jsonObject
 	 * @param request
 	 * @return

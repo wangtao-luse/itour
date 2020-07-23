@@ -21,9 +21,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.MemberConnector;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
+import com.itour.model.account.Oauth;
 /**
  * 后台用户管理
  * @author wwang
@@ -441,5 +443,79 @@ public class MemberController {
 	public ResponseMessage getViewOauthList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		ResponseMessage insertMember = this.memberConnector.getViewOauthList(jsonObject, request);
 		return insertMember;
+	}
+	/**
+	 * 管理员新增
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminAddP")
+	public String adminAddP() {
+		return "/system/admin/adminAdd";
+	}
+	/**
+	 * 管理员修改
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminUpdateP")
+	public String adminUpdateP(String id,ModelMap model) {
+		model.addAttribute("id", id);
+		return "/system/admin/adminUpdate";
+	}
+	/**
+	 *  管理员查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getAccount")
+	@ResponseBody
+	public ResponseMessage getAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertMember = this.memberConnector.getViewOauthList(jsonObject, request);
+		return insertMember;
+	}
+	/**
+	 *  管理员修改
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updateAccount")
+	@ResponseBody
+	public ResponseMessage updateAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage insertMember = this.memberConnector.getViewOauthList(jsonObject, request);
+		return insertMember;
+	}
+	/**
+	 * 注册
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/regSub")
+	@ResponseBody
+	public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		Oauth oaauthVo = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
+		//检查邮箱是否可用
+		JSONObject tmpJson = new JSONObject();
+		tmpJson.put("type", ConstAccount.EMAIL);
+		tmpJson.put("regName",oaauthVo.getOauthId());
+		ResponseMessage checkOauthId = this.memberConnector.checkOauthId(tmpJson, request);
+		if(Constant.FAILED_CODE.equals(checkOauthId.getResultCode())) {
+			return ResponseMessage.getFailed(checkOauthId.getResultMessage());
+		}
+		//检查用户名是否可以
+		tmpJson.clear();
+		tmpJson.put("type", ConstAccount.UNAME);
+		tmpJson.put("regName", oaauthVo.getNickname());
+		ResponseMessage checkUanme = this.memberConnector.checkOauthId(tmpJson, request);
+		if(Constant.FAILED_CODE.equals(checkUanme.getResultCode())) {
+			return ResponseMessage.getFailed(checkUanme.getResultMessage());
+		}
+		ResponseMessage regSub = this.memberConnector.regSub(jsonObject, request);
+		return regSub;
 	}
 }

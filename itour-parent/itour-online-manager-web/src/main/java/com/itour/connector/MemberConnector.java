@@ -275,5 +275,49 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.insertRole(requestMessage);
 	}
+	/**
+	 * 用户查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getAccount(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.getAccount(requestMessage);
+	}
+	/**
+	 * 用户修改
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage updateAccount(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.updateAccount(requestMessage);
+	}
+	/**
+	 * 检查用户名，邮箱是否可用
+	 * @param tmpJson
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage checkOauthId(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.checkOauthId(requestMessage);
+	}
+	/**
+	 * 注册提交
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage regSub(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.regSub(requestMessage);
+	}
 	
 }

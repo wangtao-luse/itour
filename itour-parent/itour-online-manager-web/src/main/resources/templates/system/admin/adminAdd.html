@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">    
+    $(function(){
+    	var url="http://pv.sohu.com/cityjson?ie=utf-8";    	
+    	 $.ajax({
+    	        type: "get",
+    	        dataType: "script",
+    	        url:  url,
+    	        async:true 
+    	    }).done(function(){
+    	    	console.log("cname:"+returnCitySN.cname);
+    	    	var cname=returnCitySN.cname;
+    	    	if(cname){
+    	       	       $("#area").val(cname.substr(cname.indexOf("市")+1)); 
+    	    	} 
+    	    });
+    	var url="http://ip-api.com/json/?lang=zh-CN";    	
+    	 $.ajax({
+    	        type: "get",
+    	        dataType: "json",
+    	        url:  url,
+    	        async:true ,
+    	        beforeSend: function () {
+    	        },
+    	        success: function (resultData) {
+    	        	$("#city").val(resultData.city);
+    	        	$("#country").val(resultData.country);
+    	        	$("#countryCode").val(resultData.countryCode);
+    	        	$("#latitude").val(resultData.lat);
+    	        	$("#longitude").val(resultData.lon);
+    	        	$("#regionName").val(resultData.regionName);
+    	        	$("#region").val(resultData.region);
+    	        	$("#isp").val(resultData.isp);
+    	        	$("#ip").val(resultData.query);
+    	        },
+    	        error: function (result) {
+    	            
+    	        }
+    	    });
+    	
+    	
+    })
+</script>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+        <form id="form" method="post">
+         <input type="hidden" id="city" name="city" value="">
+         <input type="hidden" id="country"name="country" value="">
+         <input type="hidden" id="countryCode"name="countryCode" value="">
+         <input type="hidden" id="latitude" name="latitude" >
+         <input type="hidden" id="longitude" name="longitude" >
+         <input type="hidden" id="regionName" name="regionName" >
+         <input type="hidden" id="region" name="region" >
+         <input type="hidden" id="isp" name="isp" >
+         <input type="hidden" id="ip" name="ip" >
+         <input type="hidden" id="area" name="area" >
+         <div class="container-wrapper">
+            <table class="table table-hover table-condensed" style="margin:20px auto 0 auto; ">
+                <tr>
+                    <td><span class="redSharp">* </span>邮箱:</td>
+                    <td><input  name="oauthId" data-options="required:true" style="width:125px"/></td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>用户名：</td>
+                    <td>
+                        <input name="nickname"  type="text" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px"></td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>类型：</td>
+                 <td>
+                    <select id="utype" name="utype"></select>
+                 </td>
+                </tr>
+                 <tr>
+                    <td><span class="redSharp">* </span>密码:</td>
+                    <td>
+                    <input name="credential"  type="password" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px">
+                    <td>
+                </td>
+                </tr>
+                 <tr>
+                    <td><span class="redSharp">* </span>确认密码:</td>
+                    <td> <input name="password"  type="password" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px">
+                    </td>
+                </tr>
+                 <tr>
+                 <td ><span class="redSharp">* </span>性别：</td>
+                 <td>
+                    <select id="sex" name="sex"></select>
+                 </td>
+                </tr>
+                <tr>
+                 <td ><span class="redSharp">* </span>图像：</td>
+                    <td>
+                        <input name="avatar"  type="file" class="span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px"></td>
+                </tr>
+            </table>
+            </div>
+        </form>
+    </div>
+</div>
+<var style="display:none" hidden="hidden" id="action"></var>
+
+<script>
+$(function(){
+	 initSelect($("#sex"), "SEX",false,"全部");
+	 initSelect($("#utype"), "UTYPE",false,"全部");
+	$("#addFunction").click(function(){
+		var url="/member/regSub";
+		var postData=$.serializeObject($("#form"));
+		postAjax(url,JSON.stringify({"vo":postData}),closeDialogCallBack,{async: false});
+	});	
+	
+});
+function loadDataHysh(obj,pNode) {
+    var key, value, tagName, type, arr;
+    for (x in obj) {
+        key = x;
+        value = obj[x];
+        pNode.find("[name='" + key + "']").each(function () {
+            tagName = $(this)[0].tagName;
+            type = $(this).attr('type');
+            if (tagName == 'INPUT') {
+                if (type == 'radio') {
+                    $(this).attr('checked', $(this).val() == value)
+                } else if (type == 'checkbox') {
+                } else {
+                    $(this).val(value)
+                }
+            } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                $(this).val(value)
+            } else if (tagName == 'IMG') {
+                $(this).attr('src', value);
+            }
+        })
+    }
+}
+</script>
