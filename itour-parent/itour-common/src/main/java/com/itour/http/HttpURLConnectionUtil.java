@@ -19,18 +19,16 @@ import org.springframework.stereotype.Service;
 
 public class HttpURLConnectionUtil {
 	public static void main(String[] args) {
-		//http://api.qingyunke.com/
-		String serverurl="http://api.qingyunke.com/";
 		String msg="上海天气";
-		String requesturl="api.php?key=free&appid=0&msg="+msg;
-		serverurl="https://api.ai.qq.com/fcgi-bin/nlp/nlp_textchat";
+		String serverurl="http://xoap.weather.com/weather/local/CHXX0138?cc=*&unit=m&dayf=2&link=xoap&prod=xoap&par=1220552427&key=c168fcf83120f8ed";
+		//serverurl="https://api.ai.qq.com/fcgi-bin/nlp/nlp_textchat";
 		//1.获取访问的地址
 		//2.得到网络访问对象
 		//3.设置请求参数
 		//4.得到响应状态码的返回值 
 		//5.如果返回值正常，数据在网络中是以流的形式得到服务端返回的数
 		//6.断开连接，释放资源
-		//visitGet(serverurl, null);
+		visitGet(serverurl, "");
 	}
     /**
      * HttpURLConnection接口调用

@@ -71,6 +71,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");	
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
+		filterChainDefinitionMap.put("/index", "anon");
 		filterChainDefinitionMap.put("/shiro/logout", "logout");
 		
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
