@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="src.mapper.BtypeMapper">
+<mapper namespace="com.itour.persist.TravelTypeMapper">
 
-    <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!-- 开启二级缓存 
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="src.entity.Btype">
-        <result column="ID" property="id" />
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.TravelType">
+        <id column="ID" property="id" />
         <result column="TNAME" property="tname" />
         <result column="CREATEDATE" property="createdate" />
     </resultMap>

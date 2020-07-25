@@ -1,7 +1,8 @@
 package com.itour.persist;
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.travel.Btype;
+import com.itour.model.travel.TravelType;
 
 /**
  * <p>
@@ -9,8 +10,8 @@ import com.itour.model.travel.Btype;
  * </p>
  *
  * @author wangtao
- * @since 2020-05-06
+ * @since 2020-07-25
  */
-public interface BtypeMapper extends BaseMapper<Btype> {
+public interface TravelTypeMapper extends BaseMapper<TravelType> {
 
 }

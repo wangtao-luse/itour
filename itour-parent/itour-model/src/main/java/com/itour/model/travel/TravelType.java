@@ -1,6 +1,8 @@
 package com.itour.model.travel;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
@@ -9,21 +11,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-05-06
+ * @since 2020-07-25
  */
-@TableName("t_b_btype")
-public class Btype extends Model<Btype> {
+@TableName("t_t_travel_type")
+public class TravelType extends Model<TravelType> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 编号
+     * 编号(主键)
      */
-    @TableField("ID")
+    @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 类型名称
+     * 类型名称(	攻略、景点)
      */
     @TableField("TNAME")
     private String tname;
@@ -65,7 +67,7 @@ public class Btype extends Model<Btype> {
 
     @Override
     public String toString() {
-        return "Btype{" +
+        return "TravelType{" +
         ", id=" + id +
         ", tname=" + tname +
         ", createdate=" + createdate +

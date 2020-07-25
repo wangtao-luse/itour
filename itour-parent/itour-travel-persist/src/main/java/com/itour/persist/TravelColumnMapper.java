@@ -1,7 +1,8 @@
 package com.itour.persist;
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.travel.Bcolumn;
+import com.itour.model.travel.TravelColumn;
 
 /**
  * <p>
@@ -9,8 +10,8 @@ import com.itour.model.travel.Bcolumn;
  * </p>
  *
  * @author wangtao
- * @since 2020-05-06
+ * @since 2020-07-25
  */
-public interface BcolumnMapper extends BaseMapper<Bcolumn> {
+public interface TravelColumnMapper extends BaseMapper<TravelColumn> {
 
 }

@@ -1,38 +1,40 @@
 package com.itour.model.travel;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 旅行博客专栏表
+ * 景点类型表
  * </p>
  *
  * @author wangtao
- * @since 2020-05-06
+ * @since 2020-07-25
  */
-@TableName("t_b_bcolumn")
-public class Bcolumn extends Model<Bcolumn> {
+@TableName("t_t_stype")
+public class Stype extends Model<Stype> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 编号
      */
-    @TableField("ID")
+    @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 专栏名称
+     * Key
      */
-    @TableField("BCOLUMN")
-    private String bcolumn;
+    @TableField("TCODE")
+    private Integer tcode;
 
     /**
-     * 用户ID
+     * 景点类型
      */
-    @TableField("UID")
-    private Integer uid;
+    @TableField("Type")
+    private String Type;
 
     public Integer getId() {
         return id;
@@ -42,20 +44,20 @@ public class Bcolumn extends Model<Bcolumn> {
         this.id = id;
     }
 
-    public String getBcolumn() {
-        return bcolumn;
+    public Integer getTcode() {
+        return tcode;
     }
 
-    public void setBcolumn(String bcolumn) {
-        this.bcolumn = bcolumn;
+    public void setTcode(Integer tcode) {
+        this.tcode = tcode;
     }
 
-    public Integer getUid() {
-        return uid;
+    public String getType() {
+        return Type;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setType(String Type) {
+        this.Type = Type;
     }
 
     @Override
@@ -65,10 +67,10 @@ public class Bcolumn extends Model<Bcolumn> {
 
     @Override
     public String toString() {
-        return "Bcolumn{" +
+        return "Stype{" +
         ", id=" + id +
-        ", bcolumn=" + bcolumn +
-        ", uid=" + uid +
+        ", tcode=" + tcode +
+        ", Type=" + Type +
         "}";
     }
 }
