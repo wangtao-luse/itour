@@ -1,10 +1,8 @@
 package com.itour.config;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-
-import javax.servlet.Filter;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -12,14 +10,19 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.itour.interceptor.ShiroFormAuthenticationFilter;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.connector.AccountConnector;
+import com.itour.constant.Constant;
 import com.itour.realm.LoginRealm;
 
 @Configuration
 public class ShiroConfig {
+	@Autowired
+	AccountConnector accountConnector;
 /**
  * 配置SecurityManager
  * @return
@@ -71,14 +74,17 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");	
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-		filterChainDefinitionMap.put("/index", "anon");
 		filterChainDefinitionMap.put("/shiro/logout", "logout");
-		
+		ResponseMessage accountRightAnon = accountConnector.getAccountRightAnon(null, null);
+		Map<String, Object> returnResult = accountRightAnon.getReturnResult();
+		List<Map<String,Object>> object =(List<Map<String,Object>>) returnResult.get(Constant.COMMON_KEY_RESULT);
+		for (Map<String, Object> map : object) {
+			Object islogin = map.get("ISLOGIN");
+			Object url= map.get("URL");
+			filterChainDefinitionMap.put(url.toString(),islogin.toString());
+		}
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
 		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
-		 LinkedHashMap<String, Filter> filtsMap=new LinkedHashMap<String, Filter>();
-	        filtsMap.put("authc",new ShiroFormAuthenticationFilter() );
-	        shiroFilterFactoryBean.setFilters(filtsMap);
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 }

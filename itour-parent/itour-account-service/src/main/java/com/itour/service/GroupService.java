@@ -61,6 +61,7 @@ public ResponseMessage queryGroupList(RequestMessage requestMessage) {
 				Page selectPage = this.baseMapper.selectPage(page, queryWrapper);
 				responseMessage.setReturnResult(selectPage);
 				
+				
 			}else {
 				List<Group> selectList = this.baseMapper.selectList(queryWrapper);
 				responseMessage.setReturnResult(selectList);

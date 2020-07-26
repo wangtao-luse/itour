@@ -190,6 +190,10 @@ button{
 .blue-btn:hover{
 	background-color:#1890FF;
 }
+.header_btn{
+	padding:0 10px;
+	line-height:22px;
+}
 .header-userinfo{
 	float: right;
 }
@@ -539,7 +543,7 @@ button{
 
 
 /**
- * left  创作者中心
+ * left  鍒涗綔鑰呬腑蹇�
  */
 .globalSideBar{
 	margin-left: 659px;
@@ -628,7 +632,7 @@ button{
 }
 
 /**
- * left 关注微信公众号
+ * left 鍏虫敞寰俊鍏紬鍙�
  */
 .wechat-follow-wrap{
 	padding: 20px;
@@ -655,7 +659,7 @@ button{
 	float: left;
 }
 /**
- * left 为你推荐
+ * left 涓轰綘鎺ㄨ崘
  */
 .god-recommend{
 	margin-top:10px ;
@@ -731,7 +735,7 @@ button{
 
 
 /**
- * 详情 右侧导航
+ * 璇︽儏 鍙充晶瀵艰埅
  */
 .elevator{
 	left: 50%;
@@ -795,7 +799,7 @@ button{
 }
 
 /**
- * detail.html left 点赞分享评论
+ * detail.html left 鐐硅禐鍒嗕韩璇勮
  */
 .functional-area-left{
 	width: 48px;
@@ -868,7 +872,7 @@ button{
 	/*box-shadow: 0 2px 8px #0084ff;*/
 }
 /**
- * detail.html 左侧内容
+ * detail.html 宸︿晶鍐呭
  */
 .article-show{
 	padding: 20px;
@@ -948,7 +952,7 @@ button{
 }
 
 /**
- * 评论区
+ * 璇勮鍖�
  */
 .comment-container{
 	height: 100%;

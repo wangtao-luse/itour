@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
@@ -37,6 +39,26 @@ public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDeta
 			String uid = jsonObject.getString("uid");
 			List<Map<String, Object>> accountRightDetial = this.baseMapper.getAccountRightDetial(uid);
 			responseMessage.setReturnResult(accountRightDetial);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 获取无需认证的资源
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage getAccountRightAnon(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			QueryWrapper<RightDetail> queryWrapper = new QueryWrapper<RightDetail>();
+			queryWrapper.eq("ISLOGIN", "anon");
+			queryWrapper.select("URL","ISLOGIN");
+			List<Map<String, Object>> selectMaps = this.baseMapper.selectMaps(queryWrapper );
+			responseMessage.setReturnResult(selectMaps);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -225,6 +225,13 @@ public ResponseMessage getAccount(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/updateAccount",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage updateAccount(RequestMessage requestMessage);
+/**
+ * 获取无需登录的资源
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/getAccountRightAnon",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage getAccountRightAnon(RequestMessage requestMessage);
 
 }
 

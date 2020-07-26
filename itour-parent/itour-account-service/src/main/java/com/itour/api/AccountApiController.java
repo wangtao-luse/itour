@@ -319,5 +319,15 @@ public ResponseMessage updateAccount(@RequestBody RequestMessage requestMessage)
 	// TODO Auto-generated method stub
 	return accountService.updateAccount(requestMessage);
 }
+/**
+ * 获取无需登录的资源
+ * @param requestMessage
+ * @return
+ */
+@Override
+public ResponseMessage getAccountRightAnon(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return rightDetailService.getAccountRightAnon(requestMessage);
+}
 
 }

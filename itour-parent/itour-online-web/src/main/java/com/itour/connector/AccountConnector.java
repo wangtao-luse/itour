@@ -116,5 +116,16 @@ public ResponseMessage getAccountRightDetial(JSONObject jsonObject,HttpServletRe
 	ResponseMessage responseMessage = accountApi.getAccountRightDetial(postData);
 	return responseMessage;
 }
+/**
+ * 获取不用认证的资源
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage getAccountRightAnon(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.getAccountRightAnon(postData);
+	return responseMessage;
+}
 
 }
