@@ -166,14 +166,29 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		
 	return ResponseMessage.getSucess();
 }
+	/**
+	 * 注册成功跳转页面
+	 * @param regName
+	 * @return
+	 */
 	@RequestMapping("/registerSucess")
 	public String registerSucess(String regName) {		
 		return "/account/register-success";
 	}
+	/**
+	 * 忘记密码页面
+	 * @return
+	 */
 	@RequestMapping("/setpwd")
 	public String setpwd() {		
 		return "/account/setpwd";
 	}
+	/**
+	 * 修改密码
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/findPwd")
 	@ResponseBody
 	public ResponseMessage findPwd(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
@@ -181,7 +196,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		return findpwd;
 	}
 	/**
-	 * 检查用户名是否 存在
+	 * 检查用户是否 存在
 	 * @param email
 	 * @param request
 	 * @return

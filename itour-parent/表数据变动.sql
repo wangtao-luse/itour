@@ -194,5 +194,28 @@ INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/index','-1','anon','首页','0');
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/account/loginSub','-1','anon','登录提交','1');
-
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/reg','-1','anon','注册页面','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/regSub','-1','anon','注册提交','1');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/checkRegName','-1','anon','检查用户名是否可用','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/checkEmail','-1','anon','检查邮箱是否可用','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/registerSucess','-1','anon','注册成功页面','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/setpwd','-1','anon','忘记密码页面','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/findPwd','-1','anon','修改密码','1');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/checkUserName','-1','anon','检查用户是否 存在','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/getVerifyImage','-1','anon','生成滑块拼图验证码','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/checkImageCode','-1','anon','校验滑块拼图验证码','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/checkemailCode','-1','anon','校验邮箱验证码','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/msg/sendCodetoEmail','-1','anon','发送验证码','0');
 	

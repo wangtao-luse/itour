@@ -29,7 +29,7 @@ public class BeetlConf {
             ClasspathResourceLoader cploder = new ClasspathResourceLoader(loader,templatesPath);
 		    beetlGroupUtilConfiguration.setResourceLoader(cploder);
 		    beetlGroupUtilConfiguration.init();
-		    //设置Springboot的shiro标签
+		    //设置Springboot的shiro标签(beetl集成shiro)
 		    GroupTemplate groupTemplate = beetlGroupUtilConfiguration.getGroupTemplate();
 		    groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
 		    groupTemplate.setClassLoader(loader);

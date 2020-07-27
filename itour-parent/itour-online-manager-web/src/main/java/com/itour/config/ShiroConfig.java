@@ -1,6 +1,7 @@
 package com.itour.config;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -72,7 +73,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setLoginUrl("/member/login");
 		/* <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
-		Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
+		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 		filterChainDefinitionMap.put("/css/**","anon");
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");	

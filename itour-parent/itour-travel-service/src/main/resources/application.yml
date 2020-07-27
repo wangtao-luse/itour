@@ -1,7 +1,7 @@
 #端口
 server:  port: '@server.msg.port@'
 #项目名称
-spring:  application:    name: itour-msg-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
+spring:  application:    name: itour-travel-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
     driver-class-name: '@spring.datasource.driverClassName@'
     username: '@spring.datasource.username@'
     password: '@spring.datasource.password@'  redis:     #reids相关配置    host: '@spring.redis.host@'    port: '@spring.redis.port@'

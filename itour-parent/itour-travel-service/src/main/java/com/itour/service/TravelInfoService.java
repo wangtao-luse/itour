@@ -3,6 +3,7 @@ package com.itour.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -29,7 +30,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 	 * @param requestMessage
 	 * @return
 	 */
-	public ResponseMessage queryGroupList(RequestMessage requestMessage) {
+	public ResponseMessage queryTravelInfoList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {		
 			JSONObject jsonObject = requestMessage.getBody().getContent();
@@ -54,4 +55,61 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		
 		return responseMessage;
 }
+	 /**
+	 * 根据编号获取旅行信息
+	 * @param requestMessage
+	 * @return
+	 */
+	public  ResponseMessage selectTravelInfoById(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Integer id = jsonObject.getInteger("id");
+			TravelInfo selectById = this.baseMapper.selectById(id);
+			responseMessage.setReturnResult(selectById);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 修改旅行信息
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage updateTravelInfo(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfo travelInfo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfo.class);
+			this.updateById(travelInfo);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 删除旅行信息
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage delTravelInfo(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfo travelInfo = jsonObject.toJavaObject(TravelInfo.class);
+			this.updateById(travelInfo);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	
 }

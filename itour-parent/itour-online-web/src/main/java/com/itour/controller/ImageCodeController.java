@@ -89,7 +89,7 @@ public class ImageCodeController {
 	}
 	
 	/**
-	 * 校验验证码
+	 * 校验邮箱验证码
 	 * @param code
 	 * @param request
 	 * @return
