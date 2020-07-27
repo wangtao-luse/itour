@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-07-27
  */
 @Service
-public class TravelCommentService extends ServiceImpl<TravelCommentMapper, TravelComment>  {
+public class TravelCommentService extends ServiceImpl<TravelCommentMapper, TravelComment> {
 
 }
