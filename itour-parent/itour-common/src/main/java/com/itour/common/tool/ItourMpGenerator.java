@@ -1,4 +1,4 @@
-package com.itour.tool;
+package com.itour.common.tool;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,33 +16,52 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 
 /**
- * @Auther ShuPF
+ * @Auther wangtao
  * @Create 2017/7/5 0005
  */
 
-    public class MpGenerator{
+    public class ItourMpGenerator{
         public static void main(String[] args) throws InterruptedException, IOException {
-        	  String parent_dir = System.getProperty("user.dir");
-        	  System.out.println(parent_dir);
-        	  //模块名
-        	  String [] arr= {"itour-travel-service"};
-        	  //D:\Debug\gitStore\itour\itour-parent\
-        	  String absolutePath = System.getProperty("user.dir");
-  			 File file = new File(absolutePath);
-  			 String mod="itour-travel";
-  			String path = file.getParent()+"\\"+mod;
-  			System.out.println(path);
-  			GenneratorCode("itour-travel");
+        	/***
+        	 * 1.待解决问题
+        	 * 1.生成Service的时候implement xxxxxService 不知道怎么去掉
+        	 */
+        	/**
+        	 * 模块名称
+        	 */
+  			 String model="itour-travel-service";
+  			 /**
+  			  * 是否为视图
+  			  */
+  			 boolean isView =false;//视图
+  			 /**
+  			  * 需要生成的表名
+  			  */
+  			 String [] include= new String[] {"t_t_travel_comment"};
+  			 /**
+  			  * 需要忽略的表前缀
+  			  */
+  			 String [] tableprefix = new String [] {};
+  			 
+		     GenneratorCode(model, isView, include, tableprefix);
+		 
         	 
         }
 
-		public static void GenneratorCode(String model) {			//获取项目目录
+		public static void GenneratorCode(String model,boolean isView,String [] include,String []tableprefix) {
+			String mod = model.substring(0, model.lastIndexOf("-"));
+			//获取项目目录
 			String absolutePath = System.getProperty("user.dir");
 			String location= new File(absolutePath).getParent();
-			String service_path=location+"/"+model+"-service"+"/src/main/java/com/itour/service";
-			String mapper_path=location+"/"+model+"-persist"+"/src/main/java/com/itour/persist";
-			String xml_path=location+"/"+model+"-persist"+"/src/main/resources/mapping";
-			String model_path=location+"/itour-model/src/main/java/com/itour/"+model.substring(model.indexOf("-"));
+			
+			String service_path=location+"/"+mod+"-service"+"/src/main/java/com/itour/service";
+			String mapper_path=location+"/"+mod+"-persist"+"/src/main/java/com/itour/persist";
+			String xml_path=location+"/"+mod+"-persist"+"/src/main/resources/mapping";
+			String subStr = mod.substring(mod.indexOf("-")+1);
+			String sub=subStr.contains("-")==true?subStr.substring(0, subStr.indexOf("-")):subStr;
+			String v =isView==true?"/dto":"";
+			String model_path=location+"/itour-model/src/main/java/com/itour/model/"+sub+v;
+		
 			AutoGenerator mpg = new AutoGenerator();
             mpg.setTemplateEngine(new BeetlTemplateEngine());
             // 全局配置
@@ -85,13 +104,13 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 
             // 策略配置
             StrategyConfig strategy = new StrategyConfig();
-            strategy.setTablePrefix(new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_","t_d_","t_t_"});// 此处可以修改为您的表前缀
+            String [] tablePrefix = new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_","t_d_","t_t_"};
+            tablePrefix =tableprefix.length<=0?tablePrefix:tableprefix;
+            strategy.setTablePrefix(tablePrefix);// 此处可以修改为您的表前缀
             strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
             strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库列映射到实体类的命名策略
             strategy.setInclude(new String[] {"t_t_travel_comment"}); // 需要生成的表
             // strategy.setExclude(new String[]{"test"}); // 排除生成的表
-            //自定义 service 实现类父类
-            strategy.setSuperServiceImplClass(null);
             mpg.setStrategy(strategy);
 
             // 包配置
@@ -112,7 +131,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 			pathInfo.put(ConstVal.ENTITY_PATH, pojodir);
 			pathInfo.put(ConstVal.MAPPER_PATH, mapperdir);
 			pathInfo.put(ConstVal.XML_PATH, mapper_xml_dir);
-			//pathInfo.put(ConstVal.SERVICE_PATH, servicedir);
+			pathInfo.put(ConstVal.SERVICE_PATH, "");
             pathInfo.put(ConstVal.SERVICE_IMPL_PATH, serviceImpldir);
             pc.setPathInfo(pathInfo);
 
