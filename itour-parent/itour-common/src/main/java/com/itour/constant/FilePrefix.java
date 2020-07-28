@@ -3,12 +3,6 @@ package com.itour.constant;
 import java.io.File;
 
 public class FilePrefix {
-/**
- * 会员注册
- */
-public static final String MEMBER_REGISTER="member"+File.separator+"avatar";
-
-
 public static final String FUNCTION_IMG="img";
 public static final String FUNCTION_PDF="pdf";
 public static final String FUNCTION_DOC="doc";

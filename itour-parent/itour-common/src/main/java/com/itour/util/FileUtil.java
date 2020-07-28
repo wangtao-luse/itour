@@ -4,10 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.UUID;
 
 import com.alibaba.fastjson.JSONObject;
@@ -15,9 +15,6 @@ import com.itour.constant.FilePrefix;
 import com.itour.exception.BaseException;
 
 public class FileUtil {
-
-private static boolean matches;
-
 /**
  * 保存文件
  * @param inputStream
@@ -25,43 +22,49 @@ private static boolean matches;
  * @param savePath
  * @return
  */
-public static boolean saveFile(InputStream inputStream, String fileName,String savePath) {
-	boolean b=true;
-	FileOutputStream fos = null;
-	  try {
-		  //1.写入文件的地址
-		  File file = new File(savePath+File.separator+fileName);
-		  if(!file.getParentFile().exists()) {
-			  file.getParentFile().mkdirs();
-		  }
-		  fos =  new FileOutputStream(file);
-		//2.读取数据(通过字节数组来读取数据)
-		 byte [] buf=new byte[1024];//准备一个容器来装数据
-		int len =0;//表示每次接收读取的字节数据
-		//3.循环读取数据输出
-		while((len= inputStream.read(buf))!=-1) {
-			fos.write(buf, 0, len);
-		}
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		b=false;
-	}finally {
-		if(fos!=null) {
+	public static boolean saveFile(InputStream inputStream, String fileName, String savePath) {
+		boolean b = true;
+		FileOutputStream fos = null;
+		try {
+			// 1.写入文件的地址
+			File file = new File(savePath + File.separator + fileName);
+			//1.1如果目录不存在创建该目录
+			if (!file.getParentFile().exists()) {
+				file.getParentFile().mkdirs();
+			}
+			fos = new FileOutputStream(file);
+			// 2.读取数据(通过字节数组来读取数据)
+			byte[] buf = new byte[1024];// 准备一个容器来装数据
+			int len = 0;// 表示每次接收读取的字节数据
+			// 3.循环读取数据输出
+			while ((len = inputStream.read(buf)) != -1) {
+				fos.write(buf);
+				
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			b = false;
+		} finally {
 			try {
-				fos.close();
-				inputStream.close();
+				if (fos != null) {
+					fos.close();
+				}
+				if (inputStream != null) {
+					inputStream.close();
+				}
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				b=false;
+				b = false;
 			}
-			
+
 		}
+		return b;
+
 	}
-	return b;
-	
-}
 public static boolean uploadPhoto(InputStream inputStream,JSONObject jsonObject) {
 	//文件名称
 	String fileName = jsonObject.getString("fileName");
@@ -107,8 +110,13 @@ public static String getUUIDFileName(String fileName){
  * @return
  */
 public static String getSaveFileDictionary(String savepath,String prefix){
-	String path=savepath+File.separator+prefix;
-	return path;
+	
+	String[] split = prefix.split(",");
+	StringBuffer path = new StringBuffer(savepath);
+	for (String p : split) {
+		path.append(File.separator+p);
+	}
+	return path.toString();
 }
 /**
  * 校验文件后缀
@@ -223,7 +231,7 @@ public static boolean uploadPdfAndDoc(InputStream inputStream,JSONObject jsonObj
 	boolean saveFile = saveFile(inputStream, fileName, savePath);
 	return saveFile;
 }
-public static void main(String[] args) throws FileNotFoundException {
+public static void main(String[] args) throws IOException {
 	//保存文件
 	File file = new File("D:\\temp\\test\\上海影视城.docx");
 	InputStream inputStream =  new FileInputStream(file);
@@ -234,14 +242,14 @@ public static void main(String[] args) throws FileNotFoundException {
 	
 	//保存图片
 	File file1 = new File("D:\\temp\\test\\icon-xh.png");
-	InputStream inputStream1 =  new FileInputStream(file);
+	FileInputStream inputStream1 =  new FileInputStream(file);
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("savePath", "D:\\temp\\test\\vo");
 	jsonObject.put("fileName", "icon-xh.png");
-	jsonObject.put("dict_prefix", "img");
+	jsonObject.put("dict_prefix", "member,img");
+	jsonObject.put("compress", false);
 	//uploadPhoto(inputStream1, jsonObject);
-	boolean checkedSuffix = checkedSuffix("png.wwwangtao.png444",FilePrefix.FUNCTION_IMG);
-	System.out.println(checkedSuffix);
-
+	
+	
 }
 }
