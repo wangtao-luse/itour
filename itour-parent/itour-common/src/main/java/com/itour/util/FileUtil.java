@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.UUID;
 
 import com.alibaba.fastjson.JSONObject;
@@ -38,7 +37,7 @@ public class FileUtil {
 			int len = 0;// 表示每次接收读取的字节数据
 			// 3.循环读取数据输出
 			while ((len = inputStream.read(buf)) != -1) {
-				fos.write(buf);
+				fos.write(buf,0,len);
 				
 			}
 			
@@ -233,22 +232,21 @@ public static boolean uploadPdfAndDoc(InputStream inputStream,JSONObject jsonObj
 }
 public static void main(String[] args) throws IOException {
 	//保存文件
-	File file = new File("D:\\temp\\test\\上海影视城.docx");
+	File file = new File("D:\\temp\\test\\vo\\sun.png");
 	InputStream inputStream =  new FileInputStream(file);
-	String fileName = "上海影视城.docx";
+	String fileName = "sun-c11.png";
 	String savePath = "D:\\temp\\test\\vo";
 	//saveFile(inputStream, fileName, savePath);
-	System.out.println(getUUIDFileName("wangtao.jpg"));
 	
 	//保存图片
-	File file1 = new File("D:\\temp\\test\\icon-xh.png");
+	File file1 = new File("D:\\temp\\test\\vo\\sun.png");
 	FileInputStream inputStream1 =  new FileInputStream(file);
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("savePath", "D:\\temp\\test\\vo");
-	jsonObject.put("fileName", "icon-xh.png");
+	jsonObject.put("fileName", "sun-xh.png");
 	jsonObject.put("dict_prefix", "member,img");
 	jsonObject.put("compress", false);
-	//uploadPhoto(inputStream1, jsonObject);
+	uploadPhoto(inputStream1, jsonObject);
 	
 	
 }
