@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 旅行信息表
+ * 
  * </p>
  *
  * @author wangtao
- * @since 2020-07-25
+ * @since 2020-07-29
  */
 @TableName("t_t_travel_info")
 public class TravelInfo extends Model<TravelInfo> {
@@ -37,16 +37,22 @@ public class TravelInfo extends Model<TravelInfo> {
     private String brief;
 
     /**
-     * 类型(1:旅行攻略；2.周末攻略3.景点介绍;(来源于博客类型表)
+     * 简介图片
+     */
+    @TableField("IMG")
+    private String img;
+
+    /**
+     * 类型(1:旅行攻略;2.周末攻略;3.景点介绍;4.vlog;5.广告)
      */
     @TableField("TYPE")
     private String type;
 
     /**
-     * 所属专栏	来源旅行博客专栏表的ID
+     * 所属专栏编号
      */
-    @TableField("COLUMN")
-    private Integer column;
+    @TableField("COLUMN_ID")
+    private Integer columnId;
 
     /**
      * 城市代码
@@ -90,6 +96,14 @@ public class TravelInfo extends Model<TravelInfo> {
         this.brief = brief;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getType() {
         return type;
     }
@@ -98,12 +112,12 @@ public class TravelInfo extends Model<TravelInfo> {
         this.type = type;
     }
 
-    public Integer getColumn() {
-        return column;
+    public Integer getColumnId() {
+        return columnId;
     }
 
-    public void setColumn(Integer column) {
-        this.column = column;
+    public void setColumnId(Integer columnId) {
+        this.columnId = columnId;
     }
 
     public String getCode() {
@@ -141,8 +155,9 @@ public class TravelInfo extends Model<TravelInfo> {
         ", id=" + id +
         ", title=" + title +
         ", brief=" + brief +
+        ", img=" + img +
         ", type=" + type +
-        ", column=" + column +
+        ", columnId=" + columnId +
         ", code=" + code +
         ", publishtime=" + publishtime +
         ", updatetime=" + updatetime +

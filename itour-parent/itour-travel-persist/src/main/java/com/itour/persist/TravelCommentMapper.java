@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author wangtao
- * @since 2020-07-28
+ * @since 2020-07-29
  */
 public interface TravelCommentMapper extends BaseMapper<TravelComment> {
 

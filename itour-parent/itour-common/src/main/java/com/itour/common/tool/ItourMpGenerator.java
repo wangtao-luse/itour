@@ -37,18 +37,21 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_t_travel_comment"};
+  			 String [] include= new String[] {"t_t_travel_info"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
   			 String [] tableprefix = new String [] {};
-  			 
-		     GenneratorCode(model, isView, include, tableprefix);
+  			 /**
+  			  * 是否需要覆盖Service  
+  			  */
+		     boolean isOverflowService=false;
+			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 
         }
 
-		public static void GenneratorCode(String model,boolean isView,String [] include,String []tableprefix) {
+		public static void GenneratorCode(String model,boolean isView,String [] include,String []tableprefix,boolean isOverflowService ) {
 			String mod = model.substring(0, model.lastIndexOf("-"));
 			//获取项目目录
 			String absolutePath = System.getProperty("user.dir");
@@ -109,7 +112,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             strategy.setTablePrefix(tablePrefix);// 此处可以修改为您的表前缀
             strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
             strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库列映射到实体类的命名策略
-            strategy.setInclude(new String[] {"t_t_travel_comment"}); // 需要生成的表
+            strategy.setInclude(include); // 需要生成的表
             // strategy.setExclude(new String[]{"test"}); // 排除生成的表
             mpg.setStrategy(strategy);
 
@@ -125,8 +128,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             Map<String, String> pathInfo = new HashMap<>();
             String pojodir = model_path;
             String mapperdir = mapper_path;
-            String servicedir = null;
-            String serviceImpldir = service_path;
+            String serviceImpldir =isOverflowService==true? service_path:"";
             String mapper_xml_dir=xml_path;
 			pathInfo.put(ConstVal.ENTITY_PATH, pojodir);
 			pathInfo.put(ConstVal.MAPPER_PATH, mapperdir);
