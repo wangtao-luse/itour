@@ -75,7 +75,9 @@ public class ImageIOHelper {
     
     public static OutputStream resize(InputStream is, int resizeWidth) {
 		try {
+			//1.将图片加载到内存中
 			Image src = ImageIO.read(is);
+			//1.1获取该图片的高和宽
 			int srcHeight = src.getHeight(null);
 			int srcWidth = src.getWidth(null);
 			int deskHeight = 0;// 缩略图高
@@ -106,6 +108,7 @@ public class ImageIOHelper {
 				deskHeight = srcHeight;
 				deskWidth = srcWidth;
 			}
+			//构建BufferedImage对象
 			BufferedImage tag = new BufferedImage(deskWidth, deskHeight, BufferedImage.TYPE_3BYTE_BGR);
 			tag.getGraphics().drawImage(src, 0, 0, deskWidth, deskHeight, null); //绘制缩小后的图
 			
