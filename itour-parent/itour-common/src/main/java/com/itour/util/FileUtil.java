@@ -232,20 +232,21 @@ public static boolean uploadPdfAndDoc(InputStream inputStream,JSONObject jsonObj
 }
 public static void main(String[] args) throws IOException {
 	//保存文件
-	File file = new File("D:\\temp\\test\\vo\\sun.png");
+	File file = new File("D:\\temp\\test\\icon-cn.png");
 	InputStream inputStream =  new FileInputStream(file);
 	String fileName = "sun-c11.png";
 	String savePath = "D:\\temp\\test\\vo";
 	//saveFile(inputStream, fileName, savePath);
 	
 	//保存图片
-	File file1 = new File("D:\\temp\\test\\vo\\sun.png");
+	File file1 = new File("D:\\temp\\test\\icon-cn.png");
 	FileInputStream inputStream1 =  new FileInputStream(file);
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("savePath", "D:\\temp\\test\\vo");
-	jsonObject.put("fileName", "sun-xh.png");
+	jsonObject.put("resizeWidth", 1080);
 	jsonObject.put("dict_prefix", "member,img");
-	jsonObject.put("compress", false);
+	jsonObject.put("compress", true);
+	jsonObject.put("fileName", "a.png");
 	uploadPhoto(inputStream1, jsonObject);
 	
 	

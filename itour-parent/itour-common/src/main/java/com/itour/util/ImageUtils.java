@@ -27,7 +27,11 @@ import javax.imageio.stream.ImageInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/***
+ * ImageIO 方式处理图片
+ * @author wwang
+ *
+ */
 public final class ImageUtils {
 
 	private ImageUtils() {
