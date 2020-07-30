@@ -45,6 +45,11 @@
 		<artifactId>itour-msg-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-travel-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>itour-online-web</finalName>

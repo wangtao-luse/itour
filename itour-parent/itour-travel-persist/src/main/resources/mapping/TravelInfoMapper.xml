@@ -10,13 +10,18 @@
         <result column="IMG" property="img" />
         <result column="TYPE" property="type" />
         <result column="COLUMN_ID" property="columnId" />
+        <result column="UID" property="uid" />
         <result column="CODE" property="code" />
+        <result column="READ_COUNT" property="readCount" />
+        <result column="COMMENT_COUNT" property="commentCount" />
+        <result column="NICE_COUNT" property="niceCount" />
+        <result column="PV" property="pv" />
         <result column="PUBLISHTIME" property="publishtime" />
         <result column="UPDATETIME" property="updatetime" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TITLE, BRIEF, IMG, TYPE, COLUMN_ID, CODE, PUBLISHTIME, UPDATETIME
+        ID, TITLE, BRIEF, IMG, TYPE, COLUMN_ID, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME
     </sql>
 
 </mapper>

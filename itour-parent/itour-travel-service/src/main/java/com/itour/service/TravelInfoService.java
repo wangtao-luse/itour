@@ -111,5 +111,23 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		}
 		return responseMessage;
 	}
+	/**
+	 * 新增旅行信息
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage insertTravelInfo(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfo travelInfo = jsonObject.toJavaObject(TravelInfo.class);
+			this.baseMapper.insert(travelInfo);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
 	
 }

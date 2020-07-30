@@ -192,6 +192,7 @@ INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('MSG_ORIGIN','2','后台
 ------前台菜单明细表------------------------------------------------------------------
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/index','-1','anon','首页','0');
+----用户模块
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/account/loginSub','-1','anon','登录提交','1');
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
@@ -218,4 +219,20 @@ INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/checkemailCode','-1','anon','校验邮箱验证码','0');
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/msg/sendCodetoEmail','-1','anon','发送验证码','0');
+----旅行模块-----------------------------------------------------------------
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/queryTravelInfoList','-1','anon','旅行信息列表查询','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/selectTravelInfoById','-1','authc','旅行信息查询单条','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/updateTravelInfo','1000','authc','旅行信息修改','1');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/delTravelInfo','1001','authc','旅行信息删除','1');
+
+---前台权限表-------------------------------------------------------
+INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)
+VALUES('1000','旅行信息修改','0','2','','0','0');
+INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)
+VALUES('1001','旅行信息删除','0','2','','0','1');
+
 	

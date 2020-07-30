@@ -35,4 +35,11 @@ public ResponseMessage updateTravelInfo(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/delTravelInfo",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage delTravelInfo(RequestMessage requestMessage);
+/**
+ * 旅行信息新增
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertTravelInfo",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage insertTravelInfo(RequestMessage requestMessage);
 }
