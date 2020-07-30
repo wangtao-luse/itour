@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,7 @@ import com.itour.persist.LocationMapper;
 @Service
 public class LocationService extends ServiceImpl<LocationMapper, Location>  {
 	/**
-	 * 旅行信息列表
+	 * 城市列表
 	 * @param requestMessage
 	 * @return
 	 */
@@ -38,6 +39,8 @@ public class LocationService extends ServiceImpl<LocationMapper, Location>  {
 			Location locationVo = jsonObject.getJSONObject("vo").toJavaObject(Location.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<Location> queryWrapper = new QueryWrapper<Location>();
+			queryWrapper.eq(!StringUtils.isEmpty(locationVo.getCode()), "CODE", locationVo.getCode());
+			queryWrapper.like(!StringUtils.isEmpty(locationVo.getCity()), "CITY", locationVo.getCity());
 			queryWrapper.orderByDesc("PUBLISHTIME");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
@@ -57,17 +60,20 @@ public class LocationService extends ServiceImpl<LocationMapper, Location>  {
 		return responseMessage;
 }
 	 /**
-	 * 根据编号获取旅行信息
+	 * 城市信息单条
 	 * @param requestMessage
 	 * @return
 	 */
-	public  ResponseMessage selectLocationById(RequestMessage requestMessage) {
+	public  ResponseMessage getLocation(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Integer id = jsonObject.getInteger("id");
-			Location selectById = this.baseMapper.selectById(id);
-			responseMessage.setReturnResult(selectById);
+			Location locationVo = jsonObject.toJavaObject(Location.class);
+			QueryWrapper<Location> queryWrapper = new QueryWrapper<Location>();
+			queryWrapper.eq(null!=locationVo.getId(), "ID", locationVo.getId());
+			queryWrapper.eq(!StringUtils.isEmpty(locationVo.getCode()), "CODE", locationVo.getCode());
+			Location selectOne = this.baseMapper.selectOne(queryWrapper);
+			responseMessage.setReturnResult(selectOne);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -76,7 +82,7 @@ public class LocationService extends ServiceImpl<LocationMapper, Location>  {
 		return responseMessage;
 	}
 	/**
-	 * 修改旅行信息
+	 * 修改城市信息
 	 * @param requestMessage
 	 * @return
 	 */
@@ -95,16 +101,16 @@ public class LocationService extends ServiceImpl<LocationMapper, Location>  {
 		return responseMessage;
 	}
 	/**
-	 * 删除旅行信息
+	 * 删除旅位置信息
 	 * @param requestMessage
 	 * @return
 	 */
-	public ResponseMessage delLocation(RequestMessage requestMessage) {
+	public ResponseMessage delelteLocation(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Location location = jsonObject.toJavaObject(Location.class);
-			this.updateById(location);
+			Integer id = jsonObject.getInteger("id");
+			this.baseMapper.deleteById(id);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

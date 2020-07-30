@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 旅行信息评论表
+ * 
  * </p>
  *
  * @author wangtao
- * @since 2020-07-29
+ * @since 2020-07-30
  */
 @TableName("t_t_travel_comment")
 public class TravelComment extends Model<TravelComment> {

@@ -70,5 +70,28 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.insertTravelInfo(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 城市信息查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getLocation(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.getLocation(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 交通信息列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryTransportationInfoList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryTransportationInfoList(requestMessage);
+		return responseMessage;
+	}
 	
 }

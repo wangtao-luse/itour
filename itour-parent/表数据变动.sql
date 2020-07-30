@@ -228,6 +228,10 @@ INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/updateTravelInfo','1000','authc','旅行信息修改','1');
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/delTravelInfo','1001','authc','旅行信息删除','1');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/getLocation','-1','authc','城市信息单条查询','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel//queryTransportationInfoList','-1','authc','交通信息列表查询','0');
 
 ---前台权限表-------------------------------------------------------
 INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)

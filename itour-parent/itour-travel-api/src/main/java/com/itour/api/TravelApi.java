@@ -42,4 +42,60 @@ public ResponseMessage delTravelInfo(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/insertTravelInfo",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage insertTravelInfo(RequestMessage requestMessage);
+/**
+ * 城市信息列表信息列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryLocationList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryLocationList(RequestMessage requestMessage);
+/**
+ * 城市信息查询单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getLocation",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getLocation(RequestMessage requestMessage);
+/**
+ * 城市信息修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateLocation",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateLocation(RequestMessage requestMessage);
+/**
+ * 城市信息修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/deleteLocation",produces = {"application/json;charset=UTF-8"})
+ResponseMessage deleteLocation(RequestMessage requestMessage);
+/**
+ * 交通信息列表查询
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryTransportationInfoList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryTransportationInfoList(RequestMessage requestMessage);
+/**
+ * 交通信息单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getTransportationInfoList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getTransportationInfoList(RequestMessage requestMessage);
+/**
+ * 交通信息修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateTransportationInfoList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateTransportationInfoList(RequestMessage requestMessage);
+/**
+ * 交通信息删除
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/deleteTransportationInfoList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage deleteTransportationInfoList(RequestMessage requestMessage);
 }

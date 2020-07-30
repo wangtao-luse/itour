@@ -69,4 +69,31 @@ public ResponseMessage delTravelInfo(@RequestBody JSONObject jsonObject,HttpServ
 	return delTravelInfo;
 	
 }
+/**
+ * 城市信息查询单条
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/getLocation")
+@ResponseBody
+public ResponseMessage getLocation(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage delTravelInfo = travelConnector.getLocation(jsonObject, request);
+	return delTravelInfo;
+	
+}
+/**
+ * 交通信息列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/queryTransportationInfoList")
+@ResponseBody
+public ResponseMessage queryTransportationInfoList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage delTravelInfo = travelConnector.queryTransportationInfoList(jsonObject, request);
+	return delTravelInfo;
+	
+}
+
 }
