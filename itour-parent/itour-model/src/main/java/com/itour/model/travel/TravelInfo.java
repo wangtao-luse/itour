@@ -37,10 +37,10 @@ public class TravelInfo extends Model<TravelInfo> {
     private String summary;
 
     /**
-     * 简介图片
+     * 简介图片视频地址
      */
-    @TableField("IMG")
-    private String img;
+    @TableField("URL")
+    private String url;
 
     /**
      * 类型(1:旅行攻略;2.周末攻略;3.景点介绍;4.vlog;5.广告)
@@ -126,12 +126,12 @@ public class TravelInfo extends Model<TravelInfo> {
         this.summary = summary;
     }
 
-    public String getImg() {
-        return img;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getType() {
@@ -225,7 +225,7 @@ public class TravelInfo extends Model<TravelInfo> {
         ", id=" + id +
         ", title=" + title +
         ", summary=" + summary +
-        ", img=" + img +
+        ", url=" + url +
         ", type=" + type +
         ", columnId=" + columnId +
         ", uid=" + uid +

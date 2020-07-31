@@ -7,7 +7,7 @@
         <id column="ID" property="id" />
         <result column="TITLE" property="title" />
         <result column="SUMMARY" property="summary" />
-        <result column="IMG" property="img" />
+        <result column="URL" property="url" />
         <result column="TYPE" property="type" />
         <result column="COLUMN_ID" property="columnId" />
         <result column="UID" property="uid" />
@@ -21,7 +21,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TITLE, SUMMARY, IMG, TYPE, COLUMN_ID, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME
+        ID, TITLE, SUMMARY, URL, TYPE, COLUMN_ID, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME
     </sql>
 
 </mapper>
