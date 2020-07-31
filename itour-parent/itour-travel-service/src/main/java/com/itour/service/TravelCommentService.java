@@ -31,7 +31,7 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 	 * @param requestMessage
 	 * @return
 	 */
-	public ResponseMessage queryLocationList(RequestMessage requestMessage) {
+	public ResponseMessage queryTravelCommentList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {		
 			JSONObject jsonObject = requestMessage.getBody().getContent();
@@ -60,7 +60,7 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 	 * @param requestMessage
 	 * @return
 	 */
-	public  ResponseMessage getLocation(RequestMessage requestMessage) {
+	public  ResponseMessage getTravelComment(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
@@ -82,12 +82,12 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 	 * @return
 	 */
 	@Transactional
-	public ResponseMessage updateLocation(RequestMessage requestMessage) {
+	public ResponseMessage updateTravelComment(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			TravelComment location = jsonObject.getJSONObject("vo").toJavaObject(TravelComment.class);
-			this.updateById(location);
+			TravelComment comment = jsonObject.getJSONObject("vo").toJavaObject(TravelComment.class);
+			this.updateById(comment);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -100,7 +100,7 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 	 * @param requestMessage
 	 * @return
 	 */
-	public ResponseMessage delelteLocation(RequestMessage requestMessage) {
+	public ResponseMessage delelteTravelComment(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();

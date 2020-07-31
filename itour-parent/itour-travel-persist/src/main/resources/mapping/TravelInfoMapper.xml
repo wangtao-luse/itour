@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.itour.model.travel.TravelInfo">
         <id column="ID" property="id" />
         <result column="TITLE" property="title" />
-        <result column="BRIEF" property="brief" />
+        <result column="SUMMARY" property="summary" />
         <result column="IMG" property="img" />
         <result column="TYPE" property="type" />
         <result column="COLUMN_ID" property="columnId" />
@@ -21,7 +21,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TITLE, BRIEF, IMG, TYPE, COLUMN_ID, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME
+        ID, TITLE, SUMMARY, IMG, TYPE, COLUMN_ID, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME
     </sql>
 
 </mapper>

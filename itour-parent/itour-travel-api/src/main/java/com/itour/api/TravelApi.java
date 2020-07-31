@@ -98,4 +98,119 @@ ResponseMessage updateTransportationInfoList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/deleteTransportationInfoList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage deleteTransportationInfoList(RequestMessage requestMessage);
+/**
+ * 旅行信息类型列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryTravelTypeList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryTravelTypeList(RequestMessage requestMessage);
+/**
+ * 旅行信息类型单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getTravelType",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getTravelType(RequestMessage requestMessage);
+/**
+ * 旅行信息类型新增
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertTravelType",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertTravelType(RequestMessage requestMessage);
+/**
+ * 旅行信息类型删除
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/delTravelType",produces = {"application/json;charset=UTF-8"})
+ResponseMessage delTravelType(RequestMessage requestMessage);
+
+/**
+ * 旅行信息类型修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateTravelType",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateTravelType(RequestMessage requestMessage);
+/**
+ * 旅行信息评论列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryTravelCommentList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryTravelCommentList(RequestMessage requestMessage);
+/**
+ * 旅行信息评论单条查询
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getTravelComment",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getTravelComment(RequestMessage requestMessage);
+/**
+ * 旅行信息评论修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateTravelComment",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateTravelComment(RequestMessage requestMessage);
+/**
+ * 旅行信息评论删除
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/deleteTravelComment",produces = {"application/json;charset=UTF-8"})
+ResponseMessage deleteTravelComment(RequestMessage requestMessage);
+/**
+ * 旅行信息专栏列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryTravelColumnList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryTravelColumnList(RequestMessage requestMessage);
+/**
+ * 旅行信息专栏单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getTravelColumn",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getTravelColumn(RequestMessage requestMessage);
+/**
+ * 旅行信息专栏修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateTravelColumn",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateTravelColumn(RequestMessage requestMessage);
+/**
+ * 旅行信息专栏删除
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/deleteTravelColumn",produces = {"application/json;charset=UTF-8"})
+ResponseMessage deleteTravelColumn(RequestMessage requestMessage);
+/**
+ * 旅行信息专栏新增
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertTravelColumn",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertTravelColumn(RequestMessage requestMessage);
+/**
+ * 交通类型列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryTransportationTypeList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryTransportationTypeList(RequestMessage requestMessage);
+/**
+ * 交通类型单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getTransportationType",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getTransportationType(RequestMessage requestMessage);
+
+
 }

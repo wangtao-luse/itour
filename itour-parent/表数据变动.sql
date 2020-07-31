@@ -123,7 +123,18 @@ VALUES
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '5001', '消息管理', '5000', '1', '/msg/msgPage', '4', '0' );
-
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '6000', '旅行信息管理', '0', '1', '0', '1', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '6001', '旅行信息查询', '6000', '1', '/travle/travelPage', '5', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '6002', '旅行信息类型管理', '6000', '1', '/travel/travelTypePage', '5', '1' );	
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '6003', '旅行信息评论管理', '6000', '1', '/travel/travelCommntPage', '5', '2' );	
 --------------后台菜单明细相关开始------------------------------------
 ---1.需要及记录日志且需要单独权限的方法需要添加权限明细(新增,修改，需要权限的按钮)
 ---2.新增,修改操作需要记录日志

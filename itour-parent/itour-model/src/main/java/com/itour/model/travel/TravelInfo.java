@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-07-30
+ * @since 2020-07-31
  */
 @TableName("t_t_travel_info")
 public class TravelInfo extends Model<TravelInfo> {
@@ -33,8 +33,8 @@ public class TravelInfo extends Model<TravelInfo> {
     /**
      * 简介
      */
-    @TableField("BRIEF")
-    private String brief;
+    @TableField("SUMMARY")
+    private String summary;
 
     /**
      * 简介图片
@@ -118,12 +118,12 @@ public class TravelInfo extends Model<TravelInfo> {
         this.title = title;
     }
 
-    public String getBrief() {
-        return brief;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setBrief(String brief) {
-        this.brief = brief;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getImg() {
@@ -224,7 +224,7 @@ public class TravelInfo extends Model<TravelInfo> {
         return "TravelInfo{" +
         ", id=" + id +
         ", title=" + title +
-        ", brief=" + brief +
+        ", summary=" + summary +
         ", img=" + img +
         ", type=" + type +
         ", columnId=" + columnId +
