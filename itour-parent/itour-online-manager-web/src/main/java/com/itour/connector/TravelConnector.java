@@ -70,4 +70,48 @@ public ResponseMessage insertTravelType(JSONObject jsonObject,HttpServletRequest
 	ResponseMessage responseMessage =travelApi.insertTravelType(requestMessage);
 	return responseMessage;
 }
+/**
+ * 旅行信息列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryTravelInfoList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage =travelApi.queryTravelInfoList(requestMessage);
+	return responseMessage;
+}
+/**
+ * 旅行信息新增
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage insertTravelInfo(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage =travelApi.insertTravelInfo(requestMessage);
+	return responseMessage;
+}
+/**
+ * 旅行信息查询单条
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage selectTravelInfoById(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage =travelApi.selectTravelInfoById(requestMessage);
+	return responseMessage;
+}
+/**
+ * 旅行信息修改
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage updateTravelInfo(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage =travelApi.updateTravelInfo(requestMessage);
+	return responseMessage;
+}
 }

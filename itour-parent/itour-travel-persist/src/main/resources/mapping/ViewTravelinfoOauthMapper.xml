@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.ViewTravelinfoOauthMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.dto.ViewTravelinfoOauth">
+        <result column="ID" property="id" />
+        <result column="TITLE" property="title" />
+        <result column="SUMMARY" property="summary" />
+        <result column="URL" property="url" />
+        <result column="TYPE" property="type" />
+        <result column="COLUMN_ID" property="columnId" />
+        <result column="UID" property="uid" />
+        <result column="CODE" property="code" />
+        <result column="READ_COUNT" property="readCount" />
+        <result column="COMMENT_COUNT" property="commentCount" />
+        <result column="NICE_COUNT" property="niceCount" />
+        <result column="PV" property="pv" />
+        <result column="PUBLISHTIME" property="publishtime" />
+        <result column="UPDATETIME" property="updatetime" />
+        <result column="NICKNAME" property="nickname" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, TITLE, SUMMARY, URL, TYPE, COLUMN_ID, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME, NICKNAME
+    </sql>
+
+</mapper>

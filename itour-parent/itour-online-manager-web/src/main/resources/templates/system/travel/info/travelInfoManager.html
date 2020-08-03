@@ -6,7 +6,7 @@
  <script type="text/javascript">
 	    $(function(){	 
 	    	$.messager.progress('close');
-			searchFun('/account/getGroupList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});
+			searchFun('/travel/queryTravelInfoList', $('#dataGrid'), getList,{'current': 1, 'size': 200,'k':'vo'});
 	    })
 	    
 	           function getList(options) {
@@ -17,10 +17,23 @@
                 singleSelect:true,
                 pageList:[10,40,80,200,500],
                 columns:[[
-					{field:'id',title:'编号',width:100},					
-					{field:'gName',title:'组名称',width:100},
-					{field:'gDesc',title:'组描述',width:150},
-					{field:'gParent',title:'所属组编号',width:100}
+					{field:'index',title:'编号',width:60, formatter: function(val,rec,index){  
+                        var op = $('#dataGrid').datagrid('options');  
+                        return op.pageSize * (op.pageNumber - 1) + (index + 1);  
+                     } },					
+					{field:'title',title:'标题',width:300},
+					{field:'summary',title:'简介',width:150},
+					{field:'url',title:'图片/视频',width:100},
+					{field:'type',title:'类型',width:100},
+					{field:'columnId',title:'所属专栏',width:100},
+					{field:'uid',title:'用户唯一号',width:100},
+					{field:'code',title:'城市代码',width:100},
+					{field:'readCount',title:'阅读数',width:100},
+					{field:'commentCount',title:'评论数',width:100},
+					{field:'niceCount',title:'点赞数',width:100},
+					{field:'pv',title:'浏览量',width:100},
+					{field:'publishtime',title:'发布时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd HH:mm"):"";}},
+					{field:'updatetime',title:'最后发布时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd HH:mm"):"";}}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -66,7 +79,7 @@
 	    	   	      </div>
 	    	   	     
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/account/getGroupList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFun('/travel/queryTravelInfoList', $('#dataGrid'), getList,{'current': 1, 'size': 200,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
@@ -74,23 +87,18 @@
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
+	    <div data-options="region:'center',title:'旅行信息管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">
-	      @if(shiro.hasPermission("/account/insertGroup")){  	      
+	      @if(shiro.hasPermission("/travel/insertGroup")){  	      
 	      	<a href="#" onclick="addFun('新增', '/account/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      @}
-	      @if(shiro.hasPermission("/account/updateGroup")){  
+	      @if(shiro.hasPermission("/travel/updateGroup")){  
 	      	<a href="#" onclick="editFun('编辑','/account/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	      @}
-	      @if(shiro.hasPermission("/account/powerRole")){  
-	      	<a href="#" onclick="grantFunCommon('组授权','/account/groupRoleP?groupId=',$('#dataGrid'),{buttons: [{id:'groupRoleFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
-	      @}
-	      @if(shiro.hasPermission("/account/grantAccount")){  
-	      	<a href="#" onclick="editFun('分配会员', '/account/groupAccountP?id=', $('#dataGrid'), {buttons: [],'height':560,'width':960});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">分配会员</a>
-	      @}
-	     <!--  <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a> -->
+	     
+	     
 	    </div>
 	</div>
 </body>

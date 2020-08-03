@@ -211,6 +211,33 @@ ResponseMessage queryTransportationTypeList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/getTransportationType",produces = {"application/json;charset=UTF-8"})
 ResponseMessage getTransportationType(RequestMessage requestMessage);
+/**
+ * 旅行信息列表（视图）
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryViewTravelinfoOauthList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryViewTravelinfoOauthList(RequestMessage requestMessage);
 
-
+/**
+ * 旅行信息单条（视图）
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectViewTravelinfoOauthById",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selectViewTravelinfoOauthById(RequestMessage requestMessage);
+/**
+ * 旅行信息点赞列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryNiceList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryNiceList(RequestMessage requestMessage);
+/**
+ * 旅行信息点赞列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertNice(RequestMessage requestMessage);
 }

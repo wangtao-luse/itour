@@ -1,17 +1,20 @@
 package com.itour.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.LocationService;
+import com.itour.service.NiceService;
 import com.itour.service.TransportationInfoService;
 import com.itour.service.TransportationTypeService;
 import com.itour.service.TravelColumnService;
 import com.itour.service.TravelCommentService;
 import com.itour.service.TravelInfoService;
 import com.itour.service.TravelTypeService;
+import com.itour.service.ViewTravelinfoOauthService;
 
 @RestController
 public class TravelApiController implements TravelApi {
@@ -29,11 +32,15 @@ public class TravelApiController implements TravelApi {
 	TravelColumnService travelColumnService;
 	@Autowired
 	TransportationTypeService transportationTypeService;
+	@Autowired
+	ViewTravelinfoOauthService viewTravelinfoOauthService;
+	@Autowired
+	NiceService niceService;
 	 /**
      * 旅游信息列表
      */
 	@Override
-	public ResponseMessage queryTravelInfoList(RequestMessage requestMessage) {
+	public ResponseMessage queryTravelInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelInfoService.queryTravelInfoList(requestMessage);
 	}
@@ -137,7 +144,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息类型列表
 	 */
 	@Override
-	public ResponseMessage queryTravelTypeList(RequestMessage requestMessage) {
+	public ResponseMessage queryTravelTypeList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelTypeService.queryTravelTypeList(requestMessage);
 	}
@@ -261,6 +268,40 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return transportationTypeService.getTransportationType(requestMessage);
 	}
+	
+	/**
+	 * 旅行交通信息列表视图
+	 */
+	@Override
+	public ResponseMessage queryViewTravelinfoOauthList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewTravelinfoOauthService.queryViewTravelinfoOauthList(requestMessage);
+	}
+	/**
+	 * 旅行交通信息单条视图
+	 */
+	@Override
+	public ResponseMessage selectViewTravelinfoOauthById(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewTravelinfoOauthService.selectViewTravelinfoOauthById(requestMessage);
+	}
+	/**
+	 * 旅行信息点赞列表
+	 */
+	@Override
+	public ResponseMessage queryNiceList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return niceService.queryNiceList(requestMessage);
+	}
+	/**
+	 * 旅行信息点赞信息新增
+	 */
+	@Override
+	public ResponseMessage insertNice(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return niceService.insertNice(requestMessage);
+	}
+	
 	
 	
 }

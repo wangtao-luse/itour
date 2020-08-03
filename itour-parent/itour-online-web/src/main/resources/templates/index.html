@@ -102,6 +102,55 @@
 			   	    <div id="storyContent" class="story-content">
 			   	    	<div class="listShortcut">
 			   	    		<div class="story-recommend">
+			   	    		@for(t in viewTravelList.returnResult.result){
+			   	    			<div class="card storyItem storyItem-isRecommend">
+			   	    				<h2 class="contentItem_title">
+			   	    					<a href="#">${t.title}</a>
+			   	    				</h2>
+			   	    				<div id="richContent" class="rich-content is-collapsed">
+			   	    					<div class="richContent-cover">
+			   	    						<div class="richContent-cover-inner">
+			   	    							<img src="${t.url}" align="cover" />
+			   	    						</div>
+			   	    					</div>
+			   	    					<div class="richContent-inner">
+			   	    						<span class="richText ztext copyrightRichText-richText">
+			   	    							${t.nickname}：${t.summary}
+			   	    					
+			   	    						</span>
+			   	    						<button  type="button" class="button contentItem-more button--plain">
+			   	    						   阅读全文<span class="all-icon"></span>
+			   	    						</button>
+			   	    					</div>
+			   	    					<div class="contentItem-actions">
+			   	    						<div class="item_action">
+			   	    							<button class="button voteButton voteButton--up">赞同${t.niceCount}</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="comment-icon icon"></span>${t.commentCount}条评论
+			   	    							</button>
+			   	    							<div class="popover shareMenu contentItem-action">
+			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="share-icon icon"></span>分享
+			   	    							</button>
+			   	    							</div>
+			   	    							
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="collect-icon icon"></span>收藏
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="eye-icon icon" title="浏览量"></span>${t.pv}
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="more-icon icon"></span>...
+			   	    							</button>
+			   	    							<div class="Popover ContentItem-action">
+			   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
+			   	    							</div>
+			   	    						</div>
+			   	    					</div>
+			   	    				</div>
+			   	    			</div>
+			   	    			@}
 			   	    			<div class="card storyItem storyItem-isRecommend">
 			   	    				<h2 class="contentItem_title">
 			   	    					<a href="#">去上海旅行怎么玩？您想要的攻略都在这了！去上海就这么玩？</a>
@@ -216,13 +265,13 @@
 			   	    		    			    	 </div>
 			   	    		    			    </div>
 			   	    		    			    <a href="#">
-			   	    		    			    	<h2 class="pc-feedAd-card-title">与奥迪一同突破，做更强大的自己</h2>
+			   	    		    			    	<h2 class="pc-feedAd-card-title">快速生成 3D 城市地图！</h2>
 			   	    		    			    	<div class="pc-feedAd-card-content">
 			   	    		    			    		<div class="advertImg advertImg--isLoaded pc-feedAd-card-content-cover">
-			   	    		    			    			<img src="https://pic1.zhimg.com/70/v2-0a9a0a7c46cfb5b623237c2d446cf26c.jpg" alt="图片">
+			   	    		    			    			<img src="https://pic3.zhimg.com/v2-afd83165c883de51c243d0d3ff391d7e_400x224.jpeg" alt="图片">
 			   	    		    			    		</div>
 			   	    		    			    		<div class="pc-feedAd-card-content-detail">
-			   	    		    			    			<span> 一汽-大众奥迪首次以台网联动+主题演讲的创新模式，为用户打造了一场别具一格的超级发布会。</span>	
+			   	    		    			    			<span>快速生成3D城市！无需3D模型师！炫酷智慧城市即刻呈现！ThingJS 平台 CityBuilder 系统可辅助使用者快速生成地图指定范围内建筑的三维建筑模型！大幅缩短三维项目交付时间！。</span>	
 			   	    		    			    			<span class="pc-feedAd-card-content-detail-cta">查看详情</span>
 			   	    		    			    			<span class="arrow-right"></span>
 			   	    		    			    		</div>

@@ -6,7 +6,7 @@
  <script type="text/javascript">
 	    $(function(){	 
 	    	$.messager.progress('close');
-			searchFun('/travel/queryTravelTypeList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});
+			searchFun('/account/getGroupList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});
 	    })
 	    
 	           function getList(options) {
@@ -18,8 +18,9 @@
                 pageList:[10,40,80,200,500],
                 columns:[[
 					{field:'id',title:'编号',width:100},					
-					{field:'tname',title:'组名称',width:100},
-					{field:'createdate',title:'创建日期',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}}
+					{field:'gName',title:'组名称',width:100},
+					{field:'gDesc',title:'组描述',width:150},
+					{field:'gParent',title:'所属组编号',width:100}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -65,7 +66,7 @@
 	    	   	      </div>
 	    	   	     
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/travel/queryTravelTypeList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFun('/account/getGroupList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
@@ -73,7 +74,7 @@
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'旅行信息类型管理',border:false,split:true">
+	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">

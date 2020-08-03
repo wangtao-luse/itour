@@ -38,7 +38,7 @@ public class TravelTypeService extends ServiceImpl<TravelTypeMapper, TravelType>
 			TravelType travelTypeVo = jsonObject.getJSONObject("vo").toJavaObject(TravelType.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<TravelType> queryWrapper = new QueryWrapper<TravelType>();
-			queryWrapper.orderByDesc("ID");
+			queryWrapper.orderByAsc("ID");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
 				Page selectPage = this.baseMapper.selectPage(page, queryWrapper);

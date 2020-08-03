@@ -115,3 +115,6 @@ CREATE OR REPLACE VIEW view_m_messageinfo AS
 	(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='MSG_AIM' AND d.`STATUS`='1') aim,
 	(SELECT d.`CODE`,d.CNAME FROM t_d_dictionary d WHERE d.CODE_SET='MSG_ORIGIN' AND d.`STATUS`='1') origin
 	WHERE c.AIM=aim.`CODE` and c.ORIGIN=origin.`CODE`;
+--博客列表视图
+CREATE OR REPLACE VIEW view_travelInfo_oauth AS
+SELECT c.*,a.NICKNAME FROM t_t_travel_info c, t_a_oauth a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID;

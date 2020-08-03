@@ -95,5 +95,31 @@ public ResponseMessage queryTransportationInfoList(@RequestBody JSONObject jsonO
 	return delTravelInfo;
 	
 }
+/**
+ * 旅行信息列表(视图)
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/queryViewTravelinfoOauthList")
+@ResponseBody
+public ResponseMessage queryViewTravelinfoOauthList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage queryViewTravelinfoOauthList = travelConnector.queryViewTravelinfoOauthList(jsonObject, request);
+	return queryViewTravelinfoOauthList;
+	
+}
+/**
+ * 旅行信息单条(视图)
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/selectViewTravelinfoOauthById")
+@ResponseBody
+public ResponseMessage selectViewTravelinfoOauthById(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage selectViewTravelinfoOauthById = travelConnector.selectViewTravelinfoOauthById(jsonObject, request);
+	return selectViewTravelinfoOauthById;
+	
+}
 
 }

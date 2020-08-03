@@ -74,7 +74,7 @@
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
+	    <div data-options="region:'center',title:'旅行信息评论管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">
@@ -84,13 +84,6 @@
 	      @if(shiro.hasPermission("/account/updateGroup")){  
 	      	<a href="#" onclick="editFun('编辑','/account/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	      @}
-	      @if(shiro.hasPermission("/account/powerRole")){  
-	      	<a href="#" onclick="grantFunCommon('组授权','/account/groupRoleP?groupId=',$('#dataGrid'),{buttons: [{id:'groupRoleFun',text:'授权'}],'key':'id','height':600,'width':500})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">授权</a>
-	      @}
-	      @if(shiro.hasPermission("/account/grantAccount")){  
-	      	<a href="#" onclick="editFun('分配会员', '/account/groupAccountP?id=', $('#dataGrid'), {buttons: [],'height':560,'width':960});" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">分配会员</a>
-	      @}
-	     <!--  <a href="#" onclick="editFun('查看详情','/account/selectGroup?id=',$('#dataGrid'),{buttons: [],'key':'id','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a> -->
 	    </div>
 	</div>
 </body>

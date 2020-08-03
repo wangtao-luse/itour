@@ -37,7 +37,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_t_travel_info"};
+  			 String [] include= new String[] {"t_t_nice"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -45,7 +45,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  
   			  */
-		     boolean isOverflowService=false;
+		     boolean isOverflowService=true;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 
@@ -120,7 +120,11 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             PackageConfig pc = new PackageConfig();
             pc.setParent("com.itour");
             //model的包名
-            pc.setEntity("model.travel");
+            if(isView) {
+            	   pc.setEntity("model.travel.dto");
+            }else {
+            	   pc.setEntity("model.travel");	
+            }
             pc.setMapper("persist");
             pc.setServiceImpl("service");
             mpg.setPackageInfo(pc);
