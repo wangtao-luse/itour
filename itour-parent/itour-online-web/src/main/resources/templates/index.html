@@ -102,7 +102,7 @@
 			   	    <div id="storyContent" class="story-content">
 			   	    	<div class="listShortcut">
 			   	    		<div class="story-recommend">
-			   	    		@for(t in viewTravelList.returnResult.result){
+			   	    		@for(t in viewTravelList.returnResult.result!){
 			   	    			<div class="card storyItem storyItem-isRecommend">
 			   	    				<h2 class="contentItem_title">
 			   	    					<a href="/travel/planPage">${t.title}</a>
