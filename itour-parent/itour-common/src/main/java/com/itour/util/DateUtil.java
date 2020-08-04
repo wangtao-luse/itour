@@ -279,7 +279,13 @@ public static void main(String[] args) {
 	long getlongDate = DateUtil.getlongDate(new Date());
 	System.out.println(getlongDate);//1589436700
 									//1589438064
+	
 	long longDate = DateUtil.longDate(getlongDate);
 	System.out.println(longDate);
+	
+	Date d = new Date(longDate);
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String format = sdf.format(d);
+	System.out.println(format);
 }
 }

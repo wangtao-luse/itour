@@ -121,5 +121,9 @@ public ResponseMessage selectViewTravelinfoOauthById(@RequestBody JSONObject jso
 	return selectViewTravelinfoOauthById;
 	
 }
+@RequestMapping("/planPage")
+public String planPage() {
+	return "/travel/plan/detail";
+}
 
 }

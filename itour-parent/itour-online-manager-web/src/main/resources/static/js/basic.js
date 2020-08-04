@@ -23,6 +23,12 @@ function initDataGrid(url,dataGridNode,newOptions){
 	};
 	$.extend(options, newOptions);
 	dataGridNode.datagrid(options);
+	dataGridNode.datagrid('doCellTip', {
+        onlyShowInterrupt: true,
+        position: 'bottom',
+        maxWidth: '200px',
+        tipStyler: {'backgroundColor': '#fff000', borderColor: '#ff0000', boxShadow: '1px 1px 3px #292929'}
+    });
 	//获取当前datagrid的分页（pager）对象且使用 javascript 创建分页（pagination）
 	dataGridNode.datagrid('getPager').pagination({
 		total:newOptions.data.total,

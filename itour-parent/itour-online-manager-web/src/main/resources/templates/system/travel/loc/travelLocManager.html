@@ -6,7 +6,7 @@
  <script type="text/javascript">
 	    $(function(){	 
 	    	$.messager.progress('close');
-			searchFun('/travel/queryTravelInfoList', $('#dataGrid'), getList,{'current': 1, 'size': 200,'k':'vo'});
+			searchFun('/travel/queryLocationList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});
 	    })
 	    
 	           function getList(options) {
@@ -17,23 +17,20 @@
                 singleSelect:true,
                 pageList:[10,40,80,200,500],
                 columns:[[
-					{field:'index',title:'编号',width:60, formatter: function(val,rec,index){  
-                        var op = $('#dataGrid').datagrid('options');  
-                        return op.pageSize * (op.pageNumber - 1) + (index + 1);  
-                     } },					
-					{field:'title',title:'标题',width:300},
-					{field:'summary',title:'简介',width:150},
-					{field:'url',title:'图片/视频',width:100},
-					{field:'type',title:'类型',width:100},
-					{field:'columnId',title:'所属专栏',width:100},
-					{field:'uid',title:'用户唯一号',width:100},
+					{field:'id',title:'编号',width:100},					
+					{field:'countryCode',title:'国家代码',width:100},
+					{field:'country',title:'国家名称',width:150},
+					{field:'countryEn',title:'英文名称',width:100},
 					{field:'code',title:'城市代码',width:100},
-					{field:'readCount',title:'阅读数',width:100},
-					{field:'commentCount',title:'评论数',width:100},
-					{field:'niceCount',title:'点赞数',width:100},
-					{field:'pv',title:'浏览量',width:100},
-					{field:'publishtime',title:'发布时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}},
-					{field:'updatetime',title:'最后发布时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}}
+					{field:'city',title:'城市名称',width:100},
+					{field:'cityEn',title:'英文名称',width:100},
+					{field:'signimg',title:'城市标志图片',width:100},
+					{field:'locimg',title:'位置图片',width:100},
+					{field:'districtimg',title:'行政区域图',width:100},
+					{field:'districtesc',title:'行政区域图介绍',width:100},
+					{field:'location',title:'地理位置',width:100},
+					{field:'introuduce',title:'简单介绍',width:100},
+					{field:'weather',title:'天气',width:100}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -79,7 +76,7 @@
 	    	   	      </div>
 	    	   	     
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/travel/queryTravelInfoList', $('#dataGrid'), getList,{'current': 1, 'size': 200,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFun('/travel/queryLocationList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
@@ -87,14 +84,13 @@
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'旅行信息管理',border:false,split:true">
+	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">
 	      	<a href="#" onclick="addFun('新增', '/account/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      	<a href="#" onclick="editFun('编辑','/account/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
-	     
-	     
+	      	<a href="#" onclick="editFun('删除','/account/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	    </div>
 	</div>
 </body>

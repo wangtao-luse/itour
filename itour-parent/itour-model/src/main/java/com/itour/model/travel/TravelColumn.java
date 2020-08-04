@@ -2,16 +2,17 @@ package com.itour.model.travel;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.LongRange;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 旅行博客专栏表
+ * 
  * </p>
  *
  * @author wangtao
- * @since 2020-07-25
+ * @since 2020-08-04
  */
 @TableName("t_t_travel_column")
 public class TravelColumn extends Model<TravelColumn> {
@@ -27,8 +28,8 @@ public class TravelColumn extends Model<TravelColumn> {
     /**
      * 专栏名称
      */
-    @TableField("BCOLUMN")
-    private String bcolumn;
+    @TableField("`COLUMN`")
+    private String column;
 
     /**
      * 用户ID
@@ -36,7 +37,24 @@ public class TravelColumn extends Model<TravelColumn> {
     @TableField("UID")
     private Integer uid;
 
-    public Integer getId() {
+    /**
+     * 创建日期
+     */
+    @TableField("CREATEDATE")
+    private Integer createdate;
+    /**创建日期***/
+    @TableField(exist = false)
+    private LongRange createdateRange;
+
+    public LongRange getCreatedateRange() {
+		return createdateRange;
+	}
+
+	public void setCreatedateRange(LongRange createdateRange) {
+		this.createdateRange = createdateRange;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -44,12 +62,12 @@ public class TravelColumn extends Model<TravelColumn> {
         this.id = id;
     }
 
-    public String getBcolumn() {
-        return bcolumn;
+    public String getColumn() {
+        return column;
     }
 
-    public void setBcolumn(String bcolumn) {
-        this.bcolumn = bcolumn;
+    public void setColumn(String column) {
+        this.column = column;
     }
 
     public Integer getUid() {
@@ -58,6 +76,14 @@ public class TravelColumn extends Model<TravelColumn> {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public Integer getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(Integer createdate) {
+        this.createdate = createdate;
     }
 
     @Override
@@ -69,8 +95,9 @@ public class TravelColumn extends Model<TravelColumn> {
     public String toString() {
         return "TravelColumn{" +
         ", id=" + id +
-        ", bcolumn=" + bcolumn +
+        ", column=" + column +
         ", uid=" + uid +
+        ", createdate=" + createdate +
         "}";
     }
 }

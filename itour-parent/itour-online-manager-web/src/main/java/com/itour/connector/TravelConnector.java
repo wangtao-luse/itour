@@ -114,4 +114,37 @@ public ResponseMessage updateTravelInfo(JSONObject jsonObject,HttpServletRequest
 	ResponseMessage responseMessage =travelApi.updateTravelInfo(requestMessage);
 	return responseMessage;
 }
+/**
+ * 旅行信息专栏列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryTravelColumnList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage =travelApi.queryTravelColumnList(requestMessage);
+	return responseMessage;
+}
+/**
+ * 旅行信息专栏列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryTravelCommentList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage =travelApi.queryTravelCommentList(requestMessage);
+	return responseMessage;
+}
+/**
+ * 旅行信息位置列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryLocationList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage =travelApi.queryLocationList(requestMessage);
+	return responseMessage;
+}
 }

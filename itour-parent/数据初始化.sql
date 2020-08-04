@@ -39,6 +39,8 @@ VALUES('RSAdmin','超级管理员');
 
 INSERT INTO t_m_role (ROLE_NAME, ROLE_DESC)
 VALUES('RNAdmin','普通管理员');
-
-
+---前台旅行信息专栏表
+INSERT INTO t_t_travel_column(`COLUMN`,UID,CREATEDATE)VALUES('旅行攻略','10000','1596506073');
+INSERT INTO t_t_travel_column(`COLUMN`,UID,CREATEDATE)VALUES('周末攻略','10000','1596506073');
+INSERT INTO t_t_travel_column(`COLUMN`,UID,CREATEDATE)VALUES('vlog','10000','1596506073');
 

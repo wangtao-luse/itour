@@ -48,7 +48,7 @@ public class TravelApiController implements TravelApi {
      * 旅游信息查询单条
      */
 	@Override
-	public ResponseMessage selectTravelInfoById(RequestMessage requestMessage) {
+	public ResponseMessage selectTravelInfoById(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelInfoService.selectTravelInfoById(requestMessage);
 	}
@@ -56,7 +56,7 @@ public class TravelApiController implements TravelApi {
      * 旅游信息修改
      */
 	@Override
-	public ResponseMessage updateTravelInfo(RequestMessage requestMessage) {
+	public ResponseMessage updateTravelInfo(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelInfoService.updateTravelInfo(requestMessage);
 	}
@@ -64,7 +64,7 @@ public class TravelApiController implements TravelApi {
      * 旅游信息删除
      */
 	@Override
-	public ResponseMessage delTravelInfo(RequestMessage requestMessage) {
+	public ResponseMessage delTravelInfo(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelInfoService.delTravelInfo(requestMessage);
 	}
@@ -72,7 +72,7 @@ public class TravelApiController implements TravelApi {
      * 旅游信息新增
      */
 	@Override
-	public ResponseMessage insertTravelInfo(RequestMessage requestMessage) {
+	public ResponseMessage insertTravelInfo(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelInfoService.insertTravelInfo(requestMessage);
 	}
@@ -80,7 +80,7 @@ public class TravelApiController implements TravelApi {
 	 * 城市列表查询
 	 */
 	@Override
-	public ResponseMessage queryLocationList(RequestMessage requestMessage) {
+	public ResponseMessage queryLocationList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return locationService.queryLocationList(requestMessage);
 	}
@@ -88,7 +88,7 @@ public class TravelApiController implements TravelApi {
 	 * 城市信息单条查询
 	 */
 	@Override
-	public ResponseMessage getLocation(RequestMessage requestMessage) {
+	public ResponseMessage getLocation(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return locationService.getLocation(requestMessage);
 	}
@@ -96,7 +96,7 @@ public class TravelApiController implements TravelApi {
 	 * 城市信息修改
 	 */
 	@Override
-	public ResponseMessage updateLocation(RequestMessage requestMessage) {
+	public ResponseMessage updateLocation(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return locationService.updateLocation(requestMessage);
 	}
@@ -104,7 +104,7 @@ public class TravelApiController implements TravelApi {
 	 * 城市信息删除
 	 */
 	@Override
-	public ResponseMessage deleteLocation(RequestMessage requestMessage) {
+	public ResponseMessage deleteLocation(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return locationService.delelteLocation(requestMessage);
 	}
@@ -112,7 +112,7 @@ public class TravelApiController implements TravelApi {
 	 * 交通信息列表查询
 	 */
 	@Override
-	public ResponseMessage queryTransportationInfoList(RequestMessage requestMessage) {
+	public ResponseMessage queryTransportationInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return transportationInfoService.queryTransportationInfoList(requestMessage);
 	}
@@ -120,7 +120,7 @@ public class TravelApiController implements TravelApi {
 	 * 交通信息单条
 	 */
 	@Override
-	public ResponseMessage getTransportationInfoList(RequestMessage requestMessage) {
+	public ResponseMessage getTransportationInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return transportationInfoService.getTransportationInfo(requestMessage);
 	}
@@ -128,7 +128,7 @@ public class TravelApiController implements TravelApi {
 	 * 修改交通信息
 	 */
 	@Override
-	public ResponseMessage updateTransportationInfoList(RequestMessage requestMessage) {
+	public ResponseMessage updateTransportationInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return transportationInfoService.updateTransportationInfo(requestMessage);
 	}
@@ -136,7 +136,7 @@ public class TravelApiController implements TravelApi {
 	 * 删除交通信息
 	 */
 	@Override
-	public ResponseMessage deleteTransportationInfoList(RequestMessage requestMessage) {
+	public ResponseMessage deleteTransportationInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return transportationInfoService.delelteTransportationInfo(requestMessage);
 	}
@@ -160,7 +160,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息类型修改
 	 */
 	@Override
-	public ResponseMessage updateTravelType(RequestMessage requestMessage) {
+	public ResponseMessage updateTravelType(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelTypeService.updateTravelType(requestMessage);
 	}
@@ -168,7 +168,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息类型单条查询
 	 */
 	@Override
-	public ResponseMessage getTravelType(RequestMessage requestMessage) {
+	public ResponseMessage getTravelType(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelTypeService.getTravelType(requestMessage);
 	}
@@ -176,7 +176,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息类型删除
 	 */
 	@Override
-	public ResponseMessage delTravelType(RequestMessage requestMessage) {
+	public ResponseMessage delTravelType(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelTypeService.delTravelType(requestMessage);
 	}
@@ -184,7 +184,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息评论列表
 	 */
 	@Override
-	public ResponseMessage queryTravelCommentList(RequestMessage requestMessage) {
+	public ResponseMessage queryTravelCommentList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.queryTravelCommentList(requestMessage);
 	}
@@ -192,7 +192,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息评论单条
 	 */
 	@Override
-	public ResponseMessage getTravelComment(RequestMessage requestMessage) {
+	public ResponseMessage getTravelComment(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.getTravelComment(requestMessage);
 	}
@@ -200,7 +200,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息评论修改
 	 */
 	@Override
-	public ResponseMessage updateTravelComment(RequestMessage requestMessage) {
+	public ResponseMessage updateTravelComment(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.updateTravelComment(requestMessage);
 	}
@@ -208,7 +208,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息评论修改
 	 */
 	@Override
-	public ResponseMessage deleteTravelComment(RequestMessage requestMessage) {
+	public ResponseMessage deleteTravelComment(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.delelteTravelComment(requestMessage);
 	}
@@ -216,7 +216,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息专栏列表
 	 */
 	@Override
-	public ResponseMessage queryTravelColumnList(RequestMessage requestMessage) {
+	public ResponseMessage queryTravelColumnList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelColumnService.queryTravelColumnList(requestMessage);
 	}
@@ -224,7 +224,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息专栏单条
 	 */
 	@Override
-	public ResponseMessage getTravelColumn(RequestMessage requestMessage) {
+	public ResponseMessage getTravelColumn(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelColumnService.getTravelColumn(requestMessage);
 	}
@@ -232,7 +232,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息专栏修改
 	 */
 	@Override
-	public ResponseMessage updateTravelColumn(RequestMessage requestMessage) {
+	public ResponseMessage updateTravelColumn(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelColumnService.updateTravelColumn(requestMessage);
 	}
@@ -240,7 +240,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息专栏新增
 	 */
 	@Override
-	public ResponseMessage insertTravelColumn(RequestMessage requestMessage) {
+	public ResponseMessage insertTravelColumn(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelColumnService.insertTravelColumn(requestMessage);
 	}
@@ -248,7 +248,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行信息专栏删除
 	 */
 	@Override
-	public ResponseMessage deleteTravelColumn(RequestMessage requestMessage) {
+	public ResponseMessage deleteTravelColumn(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelColumnService.delTravelColumn(requestMessage);
 	}
@@ -256,7 +256,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行交通信息类型列表
 	 */
 	@Override
-	public ResponseMessage queryTransportationTypeList(RequestMessage requestMessage) {
+	public ResponseMessage queryTransportationTypeList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return transportationTypeService.queryTransportationTypeList(requestMessage);
 	}
@@ -264,7 +264,7 @@ public class TravelApiController implements TravelApi {
 	 * 旅行交通信息类型单条
 	 */
 	@Override
-	public ResponseMessage getTransportationType(RequestMessage requestMessage) {
+	public ResponseMessage getTransportationType(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return transportationTypeService.getTransportationType(requestMessage);
 	}

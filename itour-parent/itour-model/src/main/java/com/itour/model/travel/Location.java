@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 城市信息表
+ * 
  * </p>
  *
  * @author wangtao
- * @since 2020-07-25
+ * @since 2020-08-04
  */
 @TableName("t_t_location")
 public class Location extends Model<Location> {
@@ -81,8 +81,8 @@ public class Location extends Model<Location> {
     /**
      * 行政区域划分介绍
      */
-    @TableField("DISTRICTESC")
-    private String districtesc;
+    @TableField("DISTRICTDESC")
+    private String districtdesc;
 
     /**
      * 地理位置
@@ -182,12 +182,12 @@ public class Location extends Model<Location> {
         this.districtimg = districtimg;
     }
 
-    public String getDistrictesc() {
-        return districtesc;
+    public String getDistrictdesc() {
+        return districtdesc;
     }
 
-    public void setDistrictesc(String districtesc) {
-        this.districtesc = districtesc;
+    public void setDistrictdesc(String districtdesc) {
+        this.districtdesc = districtdesc;
     }
 
     public String getLocation() {
@@ -232,7 +232,7 @@ public class Location extends Model<Location> {
         ", signimg=" + signimg +
         ", locimg=" + locimg +
         ", districtimg=" + districtimg +
-        ", districtesc=" + districtesc +
+        ", districtdesc=" + districtdesc +
         ", location=" + location +
         ", introuduce=" + introuduce +
         ", weather=" + weather +

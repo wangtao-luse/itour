@@ -10,7 +10,6 @@
 	    })
 	    
 	           function getList(options) {
-	    	console.log("console");
             var op = {
                 fitColumns:false,
                 fit:true,
@@ -18,8 +17,8 @@
                 pageList:[10,40,80,200,500],
                 columns:[[
 					{field:'id',title:'编号',width:100},					
-					{field:'tname',title:'组名称',width:100},
-					{field:'createdate',title:'创建日期',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}}
+					{field:'tname',title:'类型名称',width:100},
+					{field:'createdate',title:'创建日期',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -32,7 +31,7 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
+	<!--     <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
 	    	   	  <div class="mTop10 line-handsome">
@@ -72,18 +71,13 @@
 			</div>	
 				
 			</form>
-	    </div>
+	    </div> -->
 	    <div data-options="region:'center',title:'旅行信息类型管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">
-	      @if(shiro.hasPermission("/account/insertGroup")){  	      
-	      	<a href="#" onclick="addFun('新增', '/account/groupAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
-	      @}
-	      @if(shiro.hasPermission("/account/updateGroup")){  
-	      	<a href="#" onclick="editFun('编辑','/account/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
-	      @}
-	    </div>
+	      	<!-- <a href="#" onclick="editFun('编辑','/account/groupAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
+	    --> </div>
 	</div>
 </body>
 </html>

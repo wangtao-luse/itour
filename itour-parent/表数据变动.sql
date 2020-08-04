@@ -138,6 +138,9 @@ VALUES
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '6004', '旅行信息专栏管理', '6000', '1', '/travel/travelColPage', '5', '3' );	
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '6005', '旅行位置信息管理', '6000', '1', '/travel/travelLocPage', '5', '4' );
 --------------后台菜单明细相关开始------------------------------------
 ---1.需要及记录日志且需要单独权限的方法需要添加权限明细(新增,修改，需要权限的按钮)
 ---2.新增,修改操作需要记录日志
@@ -250,6 +253,8 @@ INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/queryViewTravelinfoOauthList','-1','anon','旅行信息列表（视图）','0');
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/selectViewTravelinfoOauthById','-1','anon','旅行信息单条（视图）','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/planPage','-1','authc','旅行信息详情','0');
 ---前台权限表-------------------------------------------------------
 INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)
 VALUES('1000','旅行信息修改','0','2','','0','0');

@@ -98,7 +98,19 @@ public String travelColPage() {
 	return "/system/travel/col/travelColManager";
 }
 /**
- * 旅行信息新增
+ * 旅行信息专栏列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/queryTravelColList")
+@ResponseBody
+public ResponseMessage queryTravelColList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage queryTravelInfoList = travelConnector.queryTravelColumnList(jsonObject, request);
+	return queryTravelInfoList;
+}
+/**
+ * 旅行信息类型列表
  * @param jsonObject
  * @param request
  * @return
@@ -109,4 +121,37 @@ public ResponseMessage queryTravelTypeList(@RequestBody JSONObject jsonObject,Ht
 	ResponseMessage queryTravelInfoList = travelConnector.queryTravelTypeList(jsonObject, request);
 	return queryTravelInfoList;
 }
+/**
+ * 旅行信息评论列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/queryTravelCommentList")
+@ResponseBody
+public ResponseMessage queryTravelCommentList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage queryTravelInfoList = travelConnector.queryTravelCommentList(jsonObject, request);
+	return queryTravelInfoList;
+}
+/**
+ * 旅行信息位置管理页面
+ * @return
+ */
+@RequestMapping("/travelLocPage")
+public String travellocPage() {
+	return "/system/travel/loc/travelLocManager";
+}
+/**
+ * 旅行信息位置列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/queryLocationList")
+@ResponseBody
+public ResponseMessage queryLocationList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage queryTravelInfoList = travelConnector.queryLocationList(jsonObject, request);
+	return queryTravelInfoList;
+}
+
 }

@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,11 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 			TravelColumn travelColumnVo = jsonObject.getJSONObject("vo").toJavaObject(TravelColumn.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<TravelColumn> queryWrapper = new QueryWrapper<TravelColumn>();
+			queryWrapper.likeRight(!StringUtils.isEmpty(travelColumnVo.getColumn()), "COLUMN", travelColumnVo.getColumn());
+			queryWrapper.eq(null!=travelColumnVo.getUid(), "UID", travelColumnVo.getUid());
+			//日期
+			queryWrapper.ge(null!=travelColumnVo.getCreatedateRange().getLowerLimit(), "CREATEDATE", travelColumnVo.getCreatedateRange().getLowerLimit());
+			queryWrapper.le(null!=travelColumnVo.getCreatedateRange().getUpperLimit(), "CREATEDATE", travelColumnVo.getCreatedateRange().getUpperLimit());
 			queryWrapper.orderByDesc("ID");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
