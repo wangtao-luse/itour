@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.WebsiteRecommendMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.dictionary.WebsiteRecommend">
+        <id column="ID" property="id" />
+        <result column="NAME" property="name" />
+        <result column="URL" property="url" />
+        <result column="NICE" property="nice" />
+        <result column="ADVANTAGE" property="advantage" />
+        <result column="SHORTCOMING" property="shortcoming" />
+        <result column="TYPE" property="type" />
+        <result column="FEE" property="fee" />
+        <result column="PROFESSION" property="profession" />
+        <result column="JOB" property="job" />
+        <result column="INDEX" property="index" />
+        <result column="CREATEDATE" property="createdate" />
+        <result column="UID" property="uid" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, NAME, URL, NICE, ADVANTAGE, SHORTCOMING, TYPE, FEE, PROFESSION, JOB, INDEX, CREATEDATE, UID
+    </sql>
+
+</mapper>

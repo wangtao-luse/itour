@@ -1,4 +1,4 @@
-package com.itour.dictionary.persist;
+package com.itour.persist;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itour.model.dictionary.dto.ViewDDictionary;

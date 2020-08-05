@@ -15,8 +15,8 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantV;
-import com.itour.dictionary.persist.DictionaryMapper;
 import com.itour.model.dictionary.Dictionary;
+import com.itour.persist.DictionaryMapper;
 
 /**
  * <p>

@@ -65,4 +65,14 @@ public ResponseMessage getDictionary(JSONObject jsonObject,HttpServletRequest re
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return dictionaryApi.getDictionary(requestMessage);
 }
+/**
+ * 网站列表查询
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryWebsiteList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return dictionaryApi.queryWebsiteList(requestMessage);
+}
 }

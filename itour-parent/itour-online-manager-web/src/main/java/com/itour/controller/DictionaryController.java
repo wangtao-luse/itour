@@ -93,5 +93,23 @@ public class DictionaryController {
 	public ResponseMessage getDictionary(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		return dictionaryConnetor.getDictionary(jsonObject, request);
 	}
-	
+	/**
+	 * 网站推荐管理
+	 * @return
+	 */
+	@RequestMapping("/websitePage")
+	public String websitePage() {
+		return "/system/dictionary/website/websiteManager";
+	}
+	/**
+	 * 字典表查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/queryWebsiteList")
+	@ResponseBody
+	public ResponseMessage queryWebsiteList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		return dictionaryConnetor.queryWebsiteList(jsonObject, request);
+	}
 }

@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>wangtao-首页</title>
-		<link rel="icon" href="img/favicon.ico" />
-		<link rel="stylesheet" href="css/main.app.css" />
-	</head>
-	<body>
-		<div class="mod-container">
-			<div class="header">
+@layout("/layout/travel_template.html",{title:'首页'}){
+			<!-- <div class="header">
 				<div class="wrapper header-wrapper">
 					<div class="header-inner">
 						<a href="#" class="logo-wrap">
@@ -88,7 +79,7 @@
 					    </div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="app-main">
 			   <div class="wrapper story-wrapper">
 			   	 <div class="story-mainColumn">
@@ -198,6 +189,104 @@
 			   	    					</div>
 			   	    				</div>
 			   	    			</div>
+			   	    			<div class="story-plan">
+			   	    			<div class="card storyItem storyItem-isPlan">
+			   	    				<h2 class="contentItem_title">
+			   	    					<a href="#">1秒钟做出水面倒影成像的PS黑科技：免费送你制作水面倒影PS插件</a>
+			   	    				</h2>
+			   	    				<div class="rich-content is-collapsed">
+			   	    					<div class="richContent-cover">
+			   	    						<div class="richContent-cover-inner">
+			   	    							<img src="https://pic2.zhimg.com/v2-34fb4bbdbe6c4b162736e101a96f9af0_400x224.jpg?source=3af55fa1" align="cover" />
+			   	    						</div>
+			   	    					</div>
+			   	    					<div class="richContent-inner">
+			   	    						<span class="richText ztext copyrightRichText-richText">
+			   	    							俗话说的好，仁者乐山，智者乐水。我们外出游玩拍照，就喜欢拍一些山水为背景依托的照片。 因为只有这样，才能拍出来画面的美感，有山有水的照片拍出来的效果更会让人有那么一种与众不同气质。 甚至有些小姐姐拍个人写…
+			   	    					
+			   	    						</span>
+			   	    						<button  type="button" class="button contentItem-more button--plain">
+			   	    						   阅读全文<span class="all-icon"></span>
+			   	    						</button>
+			   	    					</div>
+			   	    					<div class="contentItem-actions">
+			   	    						<div class="item_action">
+			   	    							<button class="button voteButton voteButton--up">赞同6707</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="comment-icon icon"></span>2,267条评论
+			   	    							</button>
+			   	    							<div class="popover shareMenu contentItem-action">
+			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="share-icon icon"></span>分享
+			   	    							</button>
+			   	    							</div>
+			   	    							
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="collect-icon icon"></span>收藏
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="eye-icon icon" title="浏览量"></span>6000
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="more-icon icon"></span>...
+			   	    							</button>
+			   	    							<div class="Popover ContentItem-action">
+			   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
+			   	    							</div>
+			   	    						</div>
+			   	    					</div>
+			   	    				</div>			   	    				
+			   	    			</div>
+			   	    		</div>
+			   	    		<div class="story-vlog">
+			   	    	    	<div class="card storyItem storyItem-isVlog">
+			   	    				<h2 class="contentItem_title">
+			   	    					<a href="#">1秒钟做出水面倒影成像的PS黑科技：免费送你制作水面倒影PS插件</a>
+			   	    				</h2>
+			   	    				<div class="rich-content is-collapsed">
+			   	    					<div class="richContent-cover">
+			   	    						<div class="richContent-cover-inner">
+			   	    							<img src="https://pic2.zhimg.com/v2-34fb4bbdbe6c4b162736e101a96f9af0_400x224.jpg?source=3af55fa1" align="cover" />
+			   	    						</div>
+			   	    					</div>
+			   	    					<div class="richContent-inner">
+			   	    						<span class="richText ztext copyrightRichText-richText">
+			   	    							俗话说的好，仁者乐山，智者乐水。我们外出游玩拍照，就喜欢拍一些山水为背景依托的照片。 因为只有这样，才能拍出来画面的美感，有山有水的照片拍出来的效果更会让人有那么一种与众不同气质。 甚至有些小姐姐拍个人写…
+			   	    					
+			   	    						</span>
+			   	    						<button  type="button" class="button contentItem-more button--plain">
+			   	    						   阅读全文<span class="all-icon"></span>
+			   	    						</button>
+			   	    					</div>
+			   	    					<div class="contentItem-actions">
+			   	    						<div class="item_action">
+			   	    							<button class="button voteButton voteButton--up">赞同6707</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="comment-icon icon"></span>2,267条评论
+			   	    							</button>
+			   	    							<div class="popover shareMenu contentItem-action">
+			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="share-icon icon"></span>分享
+			   	    							</button>
+			   	    							</div>
+			   	    							
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="collect-icon icon"></span>收藏
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="eye-icon icon" title="浏览量"></span>6000
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="more-icon icon"></span>...
+			   	    							</button>
+			   	    							<div class="Popover ContentItem-action">
+			   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
+			   	    							</div>
+			   	    						</div>
+			   	    					</div>
+			   	    				</div>			   	    				
+			   	    			</div>
+			   	    	    </div>
 			   	    			<div class="card storyItem storyItem-isRecommend">
 			   	    				<h2 class="contentItem_title">
 			   	    					<a href="#">微信又改版了，公众号时间线打乱，会带来什么影响？</a>
@@ -440,7 +529,5 @@
 			   	 </div>
 			   </div>
 			</div>
-		</div>
 		
-	</body>
-</html>
+@}

@@ -30,6 +30,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	 * 模块名称
         	 */
   			 String model="itour-travel-service";
+  			        model="itour-dictionary-service";
   			 /**
   			  * 是否为视图
   			  */
@@ -37,7 +38,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_t_location"};
+  			 String [] include= new String[] {"t_r_website_recommend"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -45,7 +46,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  
   			  */
-		     boolean isOverflowService=false;
+		     boolean isOverflowService=true;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 
@@ -121,9 +122,9 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             pc.setParent("com.itour");
             //model的包名
             if(isView) {
-            	   pc.setEntity("model.travel.dto");
+            	   pc.setEntity("model."+subStr+".dto");
             }else {
-            	   pc.setEntity("model.travel");	
+            	   pc.setEntity("model."+subStr);	
             }
             pc.setMapper("persist");
             pc.setServiceImpl("service");

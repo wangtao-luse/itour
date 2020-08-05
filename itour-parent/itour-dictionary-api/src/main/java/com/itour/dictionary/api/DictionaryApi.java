@@ -42,5 +42,26 @@ public interface DictionaryApi {
 	 */
 	@RequestMapping(value = "/dictionary/getDictionary",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage getDictionary(RequestMessage requestMessage);
+	/**
+	 * 网站列表查询
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/queryWebsiteList",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage queryWebsiteList(RequestMessage requestMessage);
+	/**
+	 * 网站单条查询
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/getWebsite",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage getWebsite(RequestMessage requestMessage);
+	/**
+	 * 网站信息修改
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/updateWebsite",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage updateWebsite(RequestMessage requestMessage);
 	
 }

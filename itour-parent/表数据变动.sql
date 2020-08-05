@@ -101,7 +101,10 @@ VALUES
 	( '3001', '数据字典信息', '3000', '1', '/dictionary/dictPage', '2', '0' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
-	( '3002', '编辑', '3001', '2', '0', '2', '0-1' );
+	( '3002', '编辑', '3001', '2', '0', '1', '0-1' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '3003', '网站信息', '3000', '1', '/dictionary/websitePage', '2', '2' );	
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '4000', '会员管理', '0', '1', '0', '3', '0' );
@@ -205,6 +208,8 @@ INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('OAUTH_TYPE','qq','QQ');
 INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('MSG_AIM','1','注册验证码');
 INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('MSG_ORIGIN','1','前台');
 INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('MSG_ORIGIN','2','后台');
+INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('WEBSITE_FEE','1','收费');
+INSERT INTO t_d_dictionary(CODE_SET,`CODE`,CNAME)VALUES('WEBSITE_FEE','0','免费费');
 
 ------前台菜单明细表------------------------------------------------------------------
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)

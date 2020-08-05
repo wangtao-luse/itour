@@ -192,7 +192,7 @@ button{
 }
 .header_btn{
 	padding:0 10px;
-	line-height:22px;
+	line-height:25px;
 }
 .header-userinfo{
 	float: right;
@@ -448,7 +448,7 @@ button{
 .story-recommend{}
 .storyItem{}
 
-.storyItem-isRecommend{
+.storyItem-isRecommend,.storyItem-isPlan,.storyItem-isVlog{
 	padding: 20px;
 }
 .contentItem_title{
@@ -476,7 +476,8 @@ button{
 	border-radius: 4px;
 }
 .richContent-cover-inner{
-	
+	width:inherit;
+	height:inherit;
 }
 .richContent-cover-inner img{
 	width: 100%;

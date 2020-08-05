@@ -10,12 +10,15 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.dictionary.api.DictionaryApi;
 import com.itour.service.DictionaryService;
 import com.itour.service.ViewDDictionaryService;
+import com.itour.service.WebsiteRecommendService;
 @RestController
 public class DictionaryApiController implements DictionaryApi {
 	@Autowired
     DictionaryService dictionaryService;
 	@Autowired
 	ViewDDictionaryService viewDDictionaryService;
+	@Autowired
+	WebsiteRecommendService websiteRecommendService;
 	/**
 	 * 字典列表
 	 */
@@ -55,6 +58,30 @@ public class DictionaryApiController implements DictionaryApi {
 	public ResponseMessage getDictionary(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return dictionaryService.getDictionary(requestMessage);
+	}
+	/**
+	 * 网址列表查询
+	 */
+	@Override
+	public ResponseMessage queryWebsiteList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return websiteRecommendService.queryWebsiteList(requestMessage);
+	}
+	/**
+	 * 网址查询单条
+	 */
+	@Override
+	public ResponseMessage getWebsite(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return websiteRecommendService.getWebsite(requestMessage);
+	}
+	/**
+	 * 网址查询单条
+	 */
+	@Override
+	public ResponseMessage updateWebsite(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return websiteRecommendService.updateWebsite(requestMessage);
 	}
 
 
