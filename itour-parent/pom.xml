@@ -31,6 +31,9 @@
     <module>itour-dictionary-persist</module>
     <module>itour-dictionary-service</module>
     <module>itour-dictionary-api</module>
+    <module>itour-advert-api</module>
+    <module>itour-advert-service</module>
+    <module>itour-advert-persist</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
@@ -356,6 +359,8 @@
                 <server.demo.port>9096</server.demo.port>
                 <server.msg.port>9097</server.msg.port>
                 <server.member.port>9098</server.member.port>
+                <server.dictionary.port>9099</server.dictionary.port>
+                <server.advert.port>9080</server.advert.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -398,9 +403,10 @@
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
-                 <server.msg.port>9097</server.msg.port>
-                 <server.member.port>9098</server.member.port>
-                 <server.dictionary.port>9099</server.dictionary.port>
+                <server.msg.port>9097</server.msg.port>
+                <server.member.port>9098</server.member.port>
+                <server.dictionary.port>9099</server.dictionary.port>
+                <server.advert.port>9080</server.advert.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -446,6 +452,7 @@
                 <server.msg.port>9097</server.msg.port>
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>
+                <server.advert.port>9080</server.advert.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -491,6 +498,7 @@
                 <server.msg.port>9097</server.msg.port>
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>
+                <server.advert.port>9080</server.advert.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>

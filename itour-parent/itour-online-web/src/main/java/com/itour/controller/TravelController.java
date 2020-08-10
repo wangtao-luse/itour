@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.connector.AdvertConnector;
 import com.itour.connector.TravelConnector;
 
 @Controller
@@ -17,6 +18,7 @@ import com.itour.connector.TravelConnector;
 public class TravelController {
 	@Autowired
 private  TravelConnector travelConnector;
+
 	/**
 	 * 旅行信息列表查询
 	 * @param jsonObject

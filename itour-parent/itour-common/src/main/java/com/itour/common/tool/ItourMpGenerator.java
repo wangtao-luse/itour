@@ -2,7 +2,6 @@ package com.itour.common.tool;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -21,6 +20,10 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
  */
 
     public class ItourMpGenerator{
+    	public static final String MODEL_TRAVEL="itour-travel-service";
+    	public static final String MODEL_DICTIONARY="itour-dictionary-service";
+    	public static final String MODEL_ADVERT="itour-advert-service";
+    	public static final String MODEL_ACCOUNT="itour-account-service";
         public static void main(String[] args) throws InterruptedException, IOException {
         	/***
         	 * 1.待解决问题
@@ -29,8 +32,9 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model="itour-travel-service";
-  			        model="itour-dictionary-service";
+  			 String model=ItourMpGenerator.MODEL_ADVERT;
+  			        
+  			        
   			 /**
   			  * 是否为视图
   			  */
@@ -38,7 +42,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_r_website_recommend"};
+  			 String [] include= new String[] {"T_A_ADVERT"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -46,7 +50,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  
   			  */
-		     boolean isOverflowService=true;
+		     boolean isOverflowService=false;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 
