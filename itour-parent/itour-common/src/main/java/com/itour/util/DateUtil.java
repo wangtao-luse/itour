@@ -275,10 +275,11 @@ public static final int daysBetween(Date early, Date late) {
     return days;   
 }   
 
-public static void main(String[] args) {
+public static void main(String[] args) throws ParseException {
 	long getlongDate = DateUtil.getlongDate(new Date());
 	System.out.println(getlongDate);//1589436700
 									//1589438064
+									//1691766000
 	
 	long longDate = DateUtil.longDate(getlongDate);
 	System.out.println(longDate);
@@ -287,5 +288,10 @@ public static void main(String[] args) {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String format = sdf.format(d);
 	System.out.println(format);
+	Date parse = sdf.parse("2023-08-11 23:00");
+	long time = DateUtil.getlongDate(parse);
+	System.out.println("指定日期的long格式"+time);
+	
+	
 }
 }

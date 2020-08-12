@@ -34,7 +34,7 @@ public class AdvertService extends ServiceImpl<AdvertMapper, Advert> {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {		
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Advert advertVo = jsonObject.getJSONObject("vo").toJavaObject(Advert.class);
+			Advert advertVo = jsonObject.toJavaObject(Advert.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<Advert> queryWrapper = new QueryWrapper<Advert>();
 			if(pageJson!=null) {
