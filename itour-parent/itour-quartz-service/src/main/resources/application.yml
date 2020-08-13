@@ -1,0 +1,27 @@
+#端口
+server:  port: '@server.quartz.port@'
+#项目名称
+spring:  application:    name: itour-quartz-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
+    driver-class-name: '@spring.datasource.driverClassName@'
+    username: '@spring.datasource.username@'
+    password: '@spring.datasource.password@'  redis:     #reids相关配置    host: '@spring.redis.host@'    port: '@spring.redis.port@'
+    password: '@spring.redis.password@'
+    jedis:      max-active: '@spring.redis.pool.max-active@'
+      max-wait: '@spring.redis.pool.max-wait@'
+      max-idle: '@spring.redis.pool.max-idle@'
+      min-idle: '@spring.redis.pool.min-idle@'
+    timeout: '@spring.redis.timeout@'
+  
+#eureka
+eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
+#mybatis plus
+mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
+  type-aliases-package: com.itour.model.quartz
+  configuration:
+    map-underscore-to-camel-case: true
+#log
+logging:
+  level:
+    com: 
+      itour:
+        persist: debug
