@@ -37,6 +37,15 @@
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-spring</artifactId>
 	</dependency>
+	<!-- httpClient -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpmime</artifactId>
+	</dependency>
 	<!-- 图像处理 -->
 	<dependency>
 	    <groupId>org.im4java</groupId>

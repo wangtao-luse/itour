@@ -69,6 +69,7 @@
   	<opencv.version>4.0.1-1.4.4</opencv.version>
   	<thumbnailator.version>0.4.11</thumbnailator.version>
   	<hutool.version>5.3.10</hutool.version>
+  	<httpclient.version>4.5.12</httpclient.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -298,6 +299,19 @@
 			    <artifactId>xstream</artifactId>
 			    <version>${xstream.version}</version>
 			</dependency>
+			<!-- httpClient -->
+			<dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpclient</artifactId>
+			    <version>${httpclient.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpmime</artifactId>
+			    <version>${httpclient.version}</version>
+			</dependency>
+			
+			
 			<!-- 图片处理 -->
 			<dependency>
 			    <groupId>org.im4java</groupId>

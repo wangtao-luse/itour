@@ -9,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableFeignClients
 @PropertySource(value={"classpath:beetl.properties"})
-
 public class OnlienApplication {
 public static void main(String[] args) {
 	SpringApplication.run(OnlienApplication.class, args);
