@@ -21,7 +21,7 @@ public class SchedulerTask {
 	//设置没6秒执行一次
     @Scheduled(cron = "*/6 * * * * ?")
     private void proces(){
-    	System.out.println("this is scheduler task running " + dateFormat.format(new Date())+"----"+Thread.currentThread().getName());
-       // System.out.println(dateFormat.format(new Date())+"this is scheduler task running "+count+++"----"+Thread.currentThread().getName());
+    	System.out.println("now time is " + dateFormat.format(new Date())+"----"+Thread.currentThread().getName());
+        System.out.println(dateFormat.format(new Date())+"this is scheduler task running "+count+++"----"+Thread.currentThread().getName());
     }
 }
