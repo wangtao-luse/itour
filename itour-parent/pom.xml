@@ -73,6 +73,7 @@
   	<thumbnailator.version>0.4.11</thumbnailator.version>
   	<hutool.version>5.3.10</hutool.version>
   	<httpclient.version>4.5.12</httpclient.version>
+  	<commonmark.version>0.15.0</commonmark.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -335,7 +336,25 @@
 			    <artifactId>thumbnailator</artifactId>
 			    <version>${thumbnailator.version}</version>
 			</dependency>
-			
+			<!-- markdown相关 -->
+			<!--引入atlassian（将markdown形式转成html格式的）-->
+				<dependency>
+				    <groupId>com.atlassian.commonmark</groupId>
+				    <artifactId>commonmark</artifactId>
+				    <version>${commonmark.version}</version>
+				</dependency>
+				
+				<dependency>
+				    <groupId>com.atlassian.commonmark</groupId>
+				    <artifactId>commonmark-ext-gfm-tables</artifactId>
+				    <version>${commonmark.version}</version>
+				</dependency>
+				
+				<dependency>
+				    <groupId>com.atlassian.commonmark</groupId>
+				    <artifactId>commonmark-ext-heading-anchor</artifactId>
+				    <version>${commonmark.version}</version>
+				</dependency>
 		</dependencies>
 		
 		
