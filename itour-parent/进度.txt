@@ -45,6 +45,10 @@
 3.评论
 4.分享
 5.写博客
+1.1下载： https://pandao.github.io/editor.md/
+1.引入markdown
+3.打开example中full.html 复制到需要markdown编辑器的地方
+4.修改引入css和js的路径
 6.修改博客
 8.搜索页
 9.浏览量

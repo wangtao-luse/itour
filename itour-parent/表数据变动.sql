@@ -260,10 +260,14 @@ INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/selectViewTravelinfoOauthById','-1','anon','旅行信息单条（视图）','0');
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/planPage','-1','authc','旅行信息详情','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel//infoAddPage','1002','authc','旅行信息新增','0');
 ---前台权限表-------------------------------------------------------
 INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)
 VALUES('1000','旅行信息修改','0','2','','0','0');
 INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)
-VALUES('1000','旅行信息删除','0','2','','0','1');
+VALUES('1001','旅行信息删除','0','2','','0','1');
+INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)
+VALUES('1002','旅行信息新增','0','2','','0','2');
 
 	
