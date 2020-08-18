@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,9 +32,23 @@ private	TravelConnector travelConnector;
 	@Autowired
 private AdvertConnector advertConnector;
 @RequestMapping("/index")
-public String index(ViewTravelinfoOauth viewTravelinfo,HttpServletRequest request,ModelMap model) {
+public String index(ViewTravelinfoOauth viewTravelinfo,HttpServletRequest request,ModelMap model,String ajaxCmd) {
 	JSONObject jsonObject = new JSONObject();
+	//获取博客列表
 	ResponseMessage travelMsg = travelConnector.queryViewTravelinfoOauthList(jsonObject, request);
+	//植入广告
+	JSONArray result = advert(request, jsonObject, travelMsg);
+	model.addAttribute("viewTravelList", result);
+	return "index"+(StringUtils.isEmpty(ajaxCmd)?"":"#"+ajaxCmd);
+}
+/**
+ * 植入广告
+ * @param request
+ * @param jsonObject
+ * @param travelMsg
+ * @return
+ */
+public JSONArray advert(HttpServletRequest request, JSONObject jsonObject, ResponseMessage travelMsg) {
 	Map<String, Object> travelMsgMap = travelMsg.getReturnResult();
 	List<TravelInfo> traveInfoList = (List<TravelInfo>)travelMsgMap.get(Constant.COMMON_KEY_RESULT);
 	JSONArray travelInfoArr = JSONArray.parseArray(JSON.toJSONString(traveInfoList));
@@ -60,9 +75,7 @@ public String index(ViewTravelinfoOauth viewTravelinfo,HttpServletRequest reques
 		result.add(travelInfo);
 		}
 	}
-	model.addAttribute("viewTravelList", result);
-	
-	return "index";
+	return result;
 }
 
 }

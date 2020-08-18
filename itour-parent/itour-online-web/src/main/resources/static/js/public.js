@@ -48,7 +48,48 @@ var postAjax = function(url,postData,successFunction,options){
 			return returnFlag;
 		}
 
-
+var postForm = function (url, postData, successFunction, options) {
+    var returnFlag= false;;
+    var defaultOptions = {
+        errorFunction: errorFunction,
+        successArguments: "",
+        errorArguments: "",
+        successMessage: "",
+        type: "post",
+        async: true,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        cache:false
+    };
+    var currentOptions = $.extend(defaultOptions, options);
+    $.ajax({
+        type: currentOptions.type,
+        data: postData,
+        contentType: currentOptions.contentType,
+        dataType: currentOptions.dataType,
+        url: url,
+        async: currentOptions.async,
+        beforeSend: function () {
+           
+        },
+        success: function (resultData) {
+        	console.log(typeof resultData);
+            if(typeof resultData =="string"){
+                successFunction(resultData);
+            }else{
+                if(typeof resultData =="object") {
+                    alert(resultData.description);
+                }
+            }
+        },
+        complete:function(){
+            deleteLoading();
+		},
+        error: function (result) {
+            returnFlag = false;
+        }
+    });
+    return returnFlag;
+};
 
 
 

@@ -1,85 +1,9 @@
 @layout("/layout/travel_template.html",{title:'首页'}){
-			<!-- <div class="header">
-				<div class="wrapper header-wrapper">
-					<div class="header-inner">
-						<a href="#" class="logo-wrap">
-							<img src="img/logo.png" class="logo" />
-						</a>
-						<ul class="tabs header-tabs">
-							<li class="tabs-item header-tab">
-								<a href="#" class="tabs-link header-tabsLink is--active">首页</a>
-							</li>
-							<li class="tabs-item header-tab">
-								<a href="#" class="tabs-link header-tabsLink">问答</a>
-							</li>
-							<li class="tabs-item header-tab">
-								<a href="#" class="tabs-link header-tabsLink">专栏</a>
-							</li>
-					    </ul>
-					    <div class="searchBar">
-					    	<div class="searchBar-toolWrapper">
-					    		<form class="searchBar-tool">
-					    		   <div class="popover">
-					    		   	  <label class="searchBar-input input-wrapper input-wrapper--grey">
-		  				   				<input type="text" maxlength="100" autocomplete="off" id="popover1-toggle"placeholder="大家都在搜" class="input"/>
-		  				   				<button type="button" class="button searchBar-searchButton">
-		  				   					<span class="search-icon"></span>
-		  				   				</button>
-		  				   			</label>
-					    		   </div>
-					    			
-					    		</form>
-					    	</div>
-					    </div>
-					    <div class="header-button">
-					    
-					         @ if(isEmpty(user)){
-					    	<button type="button" class="button blue-btn header_btn"><a href="/account/login">登录</a></button>
-					    	<button type="button" class="button blue-btn header_btn"><a href="/account/reg">注册</a></button>
-					    	@}else{
-					    	<button type="button" class="button blue-btn header_btn"><a href="/shiro/logout">退出</a></button>
-					    	@}
-					    						    	
-					    </div>
-					    <div class="header-userinfo">
-					    	<div class="header-notifications">
-					    	    <div class="popover header-menu">
-					    	    	<button type="button" id="popover3-toggle" class="button pushNotifications_btn button--plain"/>
-					  		    		<span class="message-icon"></span>
-					  		    		<span class="pushNotifications-count">3</span>
-					  		    	</button>
-					    	    </div>
-					    		
-					    	</div>
-					    	<div class="header-profile">
-					    		<div class="popover header-menu">
-					    			<button type="button" id="popover2-toggle" class="button avatar_btn button--plain">
-		  		    			     <img class="avatar" src="https://avatar.csdnimg.cn/B/4/6/2_qq_29393273.jpg" width="30" height="30"/>
-		  		    			   </button>		  		    			    
-					    		</div>
-					    		<div class="popover-content popover-content--bottom">
-		  		    			    	<span class="popover-arrow popover-arrow--bottom"></span>
-		  		    			    	<div class="menu headerprofileMenu">
-		  		    			    		<a href="#" class="menu_item headerprofileMenu_item button button--plain is--active">
-		  		    			    			<span class="user-icon icon"></span>我的主页
-		  		    			    		</a>
-		  		    			    		<a href="#" class="menu_item headerprofileMenu_item button button--plain">
-		  		    			    			<span class="writing-icon icon"></span>创作者中心
-		  		    			    		</a>
-		  		    			    		<a href="#" class="menu_item headerprofileMenu_item button button--plain">
-		  		    			    			<span class="setting-icon icon"></span>设置
-		  		    			    		</a>
-		  		    			    		<a href="#" class="menu_item headerprofileMenu_item button button--plain">
-		  		    			    			<span class="power-icon icon"></span>退出
-		  		    			    		</a>
-		  		    			    	</div>
-		  		    			    </div>
-					    	</div>
-					    	
-					    </div>
-					</div>
-				</div>
-			</div> -->
+<script>
+$(function(){
+	
+});
+</script>
 			<div class="app-main">
 			   <div class="wrapper story-wrapper">
 			   	 <div class="story-mainColumn">
@@ -90,6 +14,7 @@
 			   	 			<a href="#" class="story_notes stroytabs_link story_tabslink">vlog</a>
 			   	 		</div>
 			   	 	</div>
+			   	 	@#ajax content{
 			   	    <div id="storyContent" class="story-content">
 			   	    	<div class="listShortcut">
 			   	    		<div class="story-recommend">
@@ -380,6 +305,7 @@
 			   	    		</div>
 			   	    	</div>
 			   	    </div>
+			   	    @}
 			   	 </div>
 			   	 <div class="globalSideBar">
 			   	 	<div class="wra">
