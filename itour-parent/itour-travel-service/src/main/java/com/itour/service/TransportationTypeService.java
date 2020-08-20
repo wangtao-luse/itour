@@ -74,6 +74,7 @@ public class TransportationTypeService extends ServiceImpl<TransportationTypeMap
 		}
 		return responseMessage;
 	}
+	
 
 	
 }

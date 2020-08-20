@@ -1,11 +1,14 @@
 package com.itour.model.travel;
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.Orderby;
 /**
  * <p>
  * 景点信息表
@@ -90,8 +93,18 @@ public class ScenicSpot extends Model<ScenicSpot> {
      */
     @TableField("RECOMMEND")
     private BigDecimal recommend;
+    
+    
+    private List<Orderby> orderby;
+    public List<Orderby> getOrderby() {
+		return orderby;
+	}
 
-    public Integer getId() {
+	public void setOrderby(List<Orderby> orderby) {
+		this.orderby = orderby;
+	}
+
+	public Integer getId() {
         return id;
     }
 
