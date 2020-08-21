@@ -122,6 +122,9 @@ VALUES
 	( '4004', '查询详情', '4000', '2', '0', '0', '0-3' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
+	( '4005', '会员登录日志查询', '4000', '1', '/account/loginListPage', '1', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
 	( '5000', '消息管理', '0', '1', '0', '4', '0' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
@@ -144,6 +147,18 @@ VALUES
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
 	( '6005', '旅行位置信息管理', '6000', '1', '/travel/travelLocPage', '5', '4' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '7000', '广告管理', '0', '1', '0', '1', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '7001', '广告信息管理', '7000', '1', '/ad/advertPage', '6', '1' );	
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '8000', '工作日志管理', '0', '1', '0', '1', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '8001', '工作日志信息管理', '8000', '1', '/work/logPage', '7', '1' );	
 --------------后台菜单明细相关开始------------------------------------
 ---1.需要及记录日志且需要单独权限的方法需要添加权限明细(新增,修改，需要权限的按钮)
 ---2.新增,修改操作需要记录日志

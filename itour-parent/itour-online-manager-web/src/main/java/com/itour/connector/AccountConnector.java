@@ -2,8 +2,10 @@ package com.itour.connector;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.account.api.AccountApi;
@@ -288,6 +290,9 @@ public ResponseMessage getAccountGroupName(JSONObject jsonObject,HttpServletRequ
 }
 /**
  * 获取当前用户下的角色
+ * @param jsonObject
+ * @param request
+ * @return
  */
 public ResponseMessage getAccountRoleName(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
@@ -296,6 +301,9 @@ public ResponseMessage getAccountRoleName(JSONObject jsonObject,HttpServletReque
 }
 /**
  * 注册前台会员（后台注册前台会员）
+ * @param jsonObject
+ * @param request
+ * @return
  */
 public ResponseMessage regSub(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
@@ -303,19 +311,38 @@ public ResponseMessage regSub(JSONObject jsonObject,HttpServletRequest request) 
 	return responseMessage;
 }
 /**
- *用户查询单条
+ * 用户查询单条
+ * @param jsonObject
+ * @param request
+ * @return
  */
 public ResponseMessage getAccount(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	ResponseMessage responseMessage = accountApi.getAccount(requestMessage);
 	return responseMessage;
 }
+
 /**
- *用户修改
+ * 用户修改
+ * @param jsonObject
+ * @param request
+ * @return
  */
 public ResponseMessage updateAccount(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	ResponseMessage responseMessage = accountApi.updateAccount(requestMessage);
 	return responseMessage;
 }
+/**
+ * 前台登录日志查询
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryLoginList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.queryLoginList(requestMessage);
+	return responseMessage;
+}
+
 }

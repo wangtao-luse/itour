@@ -87,7 +87,7 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
     /**
      * 推荐指数
      */
-    @TableField("INDEX")
+    @TableField("`INDEX`")
     private Float index;
 
     /**

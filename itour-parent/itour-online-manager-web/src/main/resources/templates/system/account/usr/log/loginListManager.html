@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+@include("/inc/inc.html"){}
+<style>
+.combo .combo-text {
+    font-size: 13px;
+    border: 0;
+    line-height: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0 2px;
+    vertical-align: baseline
+}</style>
+ <script type="text/javascript">
+	    $(function(){
+	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
+	    	 initSelect($("#utype"), "UTYPE",true,"全部");
+	    	 initSelect($("#sex"), "SEX",true,"全部");
+	    	searchFun('/account/queryLoginList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});
+	    })
+	    
+	           function getList(options) {
+	    	console.log("console");
+            var op = {
+                fitColumns:false,
+                fit:true,
+                singleSelect:true,
+                pageList:[10,40,80,200,500],
+                columns:[[
+                	{field:'id',title:'编号',width:60},					
+					{field:'uId',title:'用户唯一号',width:100},
+					{field:'oauthId',title:'账号',width:180},
+					{field:'oauthType',title:'账号类型' ,width:100},
+					{field:'loginIp',title:'登录IP地址',width:150},
+					{field:'loginTime',title:'上次登录时间',width:150,formatter: function (value, row, index){return value?new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}},
+					{field:'loginIpLookup',title:'地址',width:120}
+				]],
+                toolbar: '#toolbar',
+                onLoadSuccess:function(data){
+                  
+                },   
+                onSelect:function(rowIndex, rowData){
+                
+                }
+            };
+            return $.extend(op,options);
+        }
+	    </script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit:true,border:false" >
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px;">
+	    	<form id="searchForm">
+	    	   <div class="mTop10 mLeft20">
+	    	   	  <div class="mTop10 line-handsome">
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>用户唯一号:</label>
+	    	   	        <input type="text" placeholder=""  name="uId"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>账号:</label>
+	    	   	        <input type="text" placeholder=""  name="oauthId"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>账号类型:</label>
+	    	   	        <select id="sex" name="oauthType"></select>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>登录日期:</label>
+	    	   	        <input class="easyui-datebox"  name="" style="width:100px" data-options="editable:false" />
+	    	   	        -
+                        <input class="easyui-datebox" name="" style="width:100px" data-options="editable:false"/>
+	    	   	      </div>
+	    	   	  </div>
+	    	   	  <div class="mTop10 line-handsome">
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>登录IP地址:</label>
+	    	   	        <input type="text" placeholder=""  name="loginIp"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span>登录地址:</label>
+	    	   	        <input type="text" placeholder=""  name="loginIpLookup"/>
+	    	   	      </div>
+	    	   	      <div class="fLeft label-handsome ">
+	    	   	        <label><span></span></label>
+	    	   	      </div>
+	    	   	       <div class="fLeft label-handsome ">
+	    	   	        <a onclick="searchFun('/account/queryLoginList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	     </div>
+	    	   	       
+	    	   </div>
+	    	
+			</div>	
+				
+			</form>
+	    </div>
+	    <div data-options="region:'center',title:'会员信息查询',border:false,split:true">
+	    	<table id="dataGrid"></table>
+	    </div>
+	    <div id="toolbar">	      
+	    </div>
+	</div>
+</body>
+</html>

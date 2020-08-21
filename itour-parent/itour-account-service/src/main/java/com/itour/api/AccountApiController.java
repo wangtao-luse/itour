@@ -12,6 +12,7 @@ import com.itour.service.AccountGroupService;
 import com.itour.service.AccountService;
 import com.itour.service.GroupRoleService;
 import com.itour.service.GroupService;
+import com.itour.service.LoginListService;
 import com.itour.service.OauthService;
 import com.itour.service.RightDetailService;
 import com.itour.service.RightService;
@@ -50,6 +51,8 @@ private ViewAOauthService viewAOauthService;
 private ViewAAccountGroupService viewAAccountGroupService;
 @Autowired
 private AccountGroupService accountGroupService;
+@Autowired
+private LoginListService loginListService;
 /**
  * 注册提交
  */
@@ -328,6 +331,12 @@ public ResponseMessage updateAccount(@RequestBody RequestMessage requestMessage)
 public ResponseMessage getAccountRightAnon(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return rightDetailService.getAccountRightAnon(requestMessage);
+}
+//前台登录日志查询
+@Override
+public ResponseMessage queryLoginList(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return loginListService.queryLoginList(requestMessage);
 }
 
 }

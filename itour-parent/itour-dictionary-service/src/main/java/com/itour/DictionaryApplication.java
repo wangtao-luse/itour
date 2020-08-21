@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan("com.itour.dictionary.persist")
+@MapperScan("com.itour.persist")
 @EnableTransactionManagement//开启springboot事务支持
 public class DictionaryApplication {
 public static void main(String[] args) {

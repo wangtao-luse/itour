@@ -482,4 +482,19 @@ public class AccountController {
 		ResponseMessage updateAccount = this.accountConnector.updateAccount(jsonObject, request);
 		return updateAccount;
 	}
+	/**
+	 * 前台登录列表页面
+	 * @return
+	 */
+	@RequestMapping("/loginListPage")
+	public String loginListPage() {
+		return "/system/account/usr/log/loginListManager";
+	}
+	 
+	@RequestMapping("/queryLoginList")
+	@ResponseBody
+	public ResponseMessage queryLoginList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage queryLoginList = this.accountConnector.queryLoginList(jsonObject, request);
+		return queryLoginList;
+	}
 }

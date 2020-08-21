@@ -40,13 +40,13 @@ public ResponseMessage queryLoginList(RequestMessage requestMessage) {
 		
 		QueryWrapper<LoginList> queryWrapper = new QueryWrapper<LoginList>();
 		/**模糊查询**/
-		queryWrapper.likeRight(!StringUtils.isEmpty(loginList.getOauthId()), "OAUTH_ID", loginList.getOauthId().trim());
+		queryWrapper.likeRight(!StringUtils.isEmpty(loginList.getOauthId()), "OAUTH_ID", loginList.getOauthId());
 		/**精确查询**/
 		queryWrapper.eq(!StringUtils.isEmpty(loginList.getOauthType()), "OAUTH_TYPE", loginList.getOauthType());		
 		queryWrapper.eq(!StringUtils.isEmpty(loginList.getLoginIp()), "LOGIN_IP", loginList.getLoginIp());	
 		/**区间段查询**/
-		queryWrapper.ge(null!=loginList.getLoginDate()&&null!=loginList.getLoginDate().getLowerLimit(), "LOGIN_TIME", loginList.getLoginDate().getLowerLimit());
-		queryWrapper.le(null!=loginList.getLoginDate()&&null!=loginList.getLoginDate().getUpperLimit(), "LOGIN_TIME", loginList.getLoginDate().getUpperLimit());
+	//	queryWrapper.ge(null!=loginList.getLoginDate()&&null!=loginList.getLoginDate().getLowerLimit(), "LOGIN_TIME", loginList.getLoginDate().getLowerLimit());
+	//	queryWrapper.le(null!=loginList.getLoginDate()&&null!=loginList.getLoginDate().getUpperLimit(), "LOGIN_TIME", loginList.getLoginDate().getUpperLimit());
 		
 		if(pageJson!=null) {
 			Page page = pageJson.toJavaObject(Page.class);

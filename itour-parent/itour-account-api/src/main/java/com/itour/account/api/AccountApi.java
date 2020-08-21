@@ -232,6 +232,12 @@ public ResponseMessage updateAccount(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/getAccountRightAnon",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage getAccountRightAnon(RequestMessage requestMessage);
-
+/**
+ * 前台登录日志查询
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/queryLoginList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage queryLoginList(RequestMessage requestMessage);
 }
 
