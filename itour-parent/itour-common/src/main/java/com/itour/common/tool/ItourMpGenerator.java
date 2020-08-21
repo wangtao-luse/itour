@@ -32,7 +32,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_ADVERT;
+  			 String model=ItourMpGenerator.MODEL_DICTIONARY;
   			        
   			        
   			 /**
@@ -42,7 +42,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"T_A_ADVERT"};
+  			 String [] include= new String[] {"t_r_website_recommend"};
   			 /**
   			  * 需要忽略的表前缀
   			  */

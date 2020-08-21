@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author wangtao
- * @since 2020-08-10
+ * @since 2020-08-21
  */
 public interface AdvertMapper extends BaseMapper<Advert> {
 

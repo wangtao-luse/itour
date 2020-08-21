@@ -25,6 +25,7 @@ import com.itour.persist.ViewDDictionaryMapper;
  */
 @Service
 public class ViewDDictionaryService extends ServiceImpl<ViewDDictionaryMapper, ViewDDictionary>   {
+	
 	public ResponseMessage getViewDictionaryList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {

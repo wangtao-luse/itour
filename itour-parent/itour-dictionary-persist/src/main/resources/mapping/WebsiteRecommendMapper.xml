@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.itour.model.dictionary.WebsiteRecommend">
         <id column="ID" property="id" />
         <result column="NAME" property="name" />
+        <result column="NAME_EN" property="nameEn" />
         <result column="URL" property="url" />
         <result column="NICE" property="nice" />
         <result column="ADVANTAGE" property="advantage" />
@@ -17,10 +18,11 @@
         <result column="INDEX" property="index" />
         <result column="CREATEDATE" property="createdate" />
         <result column="UID" property="uid" />
+        <result column="STATUS" property="status" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, NAME, URL, NICE, ADVANTAGE, SHORTCOMING, TYPE, FEE, PROFESSION, JOB, INDEX, CREATEDATE, UID
+        ID, NAME, NAME_EN, URL, NICE, ADVANTAGE, SHORTCOMING, TYPE, FEE, PROFESSION, JOB, INDEX, CREATEDATE, UID, STATUS
     </sql>
 
 </mapper>

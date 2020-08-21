@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 网站推荐表 Mapper 接口
  * </p>
  *
  * @author wangtao
- * @since 2020-08-05
+ * @since 2020-08-21
  */
 public interface WebsiteRecommendMapper extends BaseMapper<WebsiteRecommend> {
 

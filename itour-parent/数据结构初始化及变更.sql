@@ -7,7 +7,15 @@ CREATE DATABASE IF NOT EXISTS ITOUR;
 --DROP DATABASE 数据库名称;
 --切换数据库
 USE ITOUR;
-
+---新增字段语法
+ 	---ALTER TABLE 表名  ADD COLUMN 字段名 数据类型 DEFAULT '默认值' COMMENT '注释';
+---删除字段
+	---alter table user DROP COLUMN 列名;
+---修改字段
+   --1.修改字段的数据类型
+      ---alter table 表名 MODIFY 字段名 数据类型;
+   --2.修改字段名称
+      ---alter table 表名 CHANGE 字段名称 新的字段名称 数据类型;
 ---------------用户模块------------------------
 
 --1.用户表（T_A_ACCOUNT）
@@ -444,7 +452,8 @@ PROFESSION	VARCHAR(40)	COMMENT '所属行业',
 JOB	VARCHAR(40)	COMMENT '所属工作',
 `INDEX`	FLOAT	COMMENT '推荐指数',
 CREATEDATE	INT	COMMENT '录入时间',
-UID	INT	COMMENT '录入人'
+UID	INT	COMMENT '录入人',
+STATUS INT DEFAULT '1' COMMENT'状态(0:已删除,1:正常)'
 );
 ALTER TABLE T_R_WEBSITE_RECOMMEND COMMENT '网站推荐表';
 --广告信息(T_A_ADVERT)

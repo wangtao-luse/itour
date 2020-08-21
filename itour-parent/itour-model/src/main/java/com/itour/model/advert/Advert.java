@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-08-10
+ * @since 2020-08-21
  */
 @TableName("t_a_advert")
 public class Advert extends Model<Advert> {
@@ -93,7 +93,7 @@ public class Advert extends Model<Advert> {
     public void setLogo(String logo) {
         this.logo = logo;
     }
-
+    
     public String getBrand() {
         return brand;
     }

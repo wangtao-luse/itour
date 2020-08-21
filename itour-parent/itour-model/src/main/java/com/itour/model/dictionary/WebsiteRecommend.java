@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 
+ * 网站推荐表
  * </p>
  *
  * @author wangtao
- * @since 2020-08-05
+ * @since 2020-08-21
  */
 @TableName("t_r_website_recommend")
 public class WebsiteRecommend extends Model<WebsiteRecommend> {
@@ -29,6 +29,12 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
      */
     @TableField("NAME")
     private String name;
+
+    /**
+     * 网站中文名称
+     */
+    @TableField("NAME_EN")
+    private String nameEn;
 
     /**
      * 网址
@@ -96,6 +102,12 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
     @TableField("UID")
     private Integer uid;
 
+    /**
+     * 状态(0:已删除,1:正常)
+     */
+    @TableField("STATUS")
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -110,6 +122,14 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
     public String getUrl() {
@@ -200,6 +220,14 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
         this.uid = uid;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     protected Serializable pkVal() {
         return null;
@@ -210,6 +238,7 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
         return "WebsiteRecommend{" +
         ", id=" + id +
         ", name=" + name +
+        ", nameEn=" + nameEn +
         ", url=" + url +
         ", nice=" + nice +
         ", advantage=" + advantage +
@@ -221,6 +250,7 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
         ", index=" + index +
         ", createdate=" + createdate +
         ", uid=" + uid +
+        ", status=" + status +
         "}";
     }
 }

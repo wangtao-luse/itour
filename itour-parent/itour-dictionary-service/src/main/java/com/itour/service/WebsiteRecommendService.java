@@ -88,7 +88,7 @@ public ResponseMessage updateWebsite(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
-		WebsiteRecommend enity = jsonObject.getJSONObject("dict").toJavaObject(WebsiteRecommend.class);
+		WebsiteRecommend enity = jsonObject.getJSONObject("website").toJavaObject(WebsiteRecommend.class);
 		this.baseMapper.updateById(enity);
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -96,5 +96,19 @@ public ResponseMessage updateWebsite(RequestMessage requestMessage) {
 		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
+}
+//删除
+public ResponseMessage delWebSite(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		WebsiteRecommend entity = jsonObject.getJSONObject("website").toJavaObject(WebsiteRecommend.class);
+		
+		this.baseMapper.updateById(entity);
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+	return responseMessage;
+	
 }
 }
