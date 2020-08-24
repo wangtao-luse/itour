@@ -7,4 +7,10 @@
  2.数据备份
   https://www.cnblogs.com/SQL888/p/5751631.html
   https://www.jb51.net/article/160791.htm
-  
+ 3.评论
+    1.查看该文章的所有评论
+    2.查看该评论的回复
+4.分享
+   QQ,Wechat,复制链接
+5.文章浏览量
+  1.
