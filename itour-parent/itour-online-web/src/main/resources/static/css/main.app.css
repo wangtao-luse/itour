@@ -316,7 +316,9 @@ button{
 .pc-feedAd{
 	font-size: 15px;
 }
-.pc-feedAd-card{}
+.pc-feedAd-card{
+	position: relative;
+}
 .pc-feedAd-card-brand{
 	display: inline-block;
 	margin-bottom: 11px;
@@ -364,12 +366,46 @@ button{
 	background-size: contain;
 	margin-left: 3px;
 }
-.advert-signpc-popup{}
+.advert-signpc-popup{
+	position: relative;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    background: #fff;
+    -webkit-box-shadow: 0 5px 20px rgba(26,26,26,.1);
+    box-shadow: 0 5px 20px rgba(26,26,26,.1);
+    z-index: 999;
+}
 .advert-signpc-popup--isHidden{
 	display: none;
 }
-.advert-signpc-popup-arrow{}
-.advert-signpc-popup-menu{}
+.advert-signpc-popup--isShowed{
+	display: block;
+}
+.advert-signpc-popup-arrow{
+	position: absolute;
+    left: 60px;
+    width: 32px;
+    height: 16px;
+    overflow: hidden;
+    -webkit-transform: translate(-50%,-100%);
+    transform: translate(-50%,-100%);
+}
+.advert-signpc-popup-menu{
+	min-width: 124px;
+	padding:6px 0;
+}
+.advert-signpc-popup-menu>button, 
+.advert-signpc-popup-menu a{
+	display: block;
+	background-color:transparent;
+	color:#8590a6;
+	padding:0 20px;
+	font-size: 14px;
+	line-height: 36px;
+	text-align: left;
+	cursor:pointer;
+	
+}
 .pc-feedAd-card-title{
 	color: #1a1a1a;
     font-weight: 600;
@@ -448,7 +484,7 @@ button{
 .story-recommend{}
 .storyItem{}
 
-.storyItem-isRecommend,.storyItem-isPlan,.storyItem-isVlog{
+.storyItem-isRecommend,.storyItem-isPlan,.storyItem-isVlog,.storyItem-isAdvert{
 	padding: 20px;
 }
 .contentItem_title{

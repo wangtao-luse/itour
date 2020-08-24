@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AdvertConnector;
 import com.itour.connector.TravelConnector;
@@ -130,6 +131,12 @@ public String planPage() {
 @RequestMapping("/infoAddPage")
 public String infoAddPage() {
 	return "/travel/info/infoAdd";
+}
+@RequestMapping("/thumbUp")
+public ResponseMessage thumbUp() {
+//1.将点赞数据插入redis中
+	//key =uid::pid;用户唯一号+文章编号;
+return null;	
 }
 
 }

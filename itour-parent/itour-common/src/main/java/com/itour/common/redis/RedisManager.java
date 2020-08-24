@@ -6,12 +6,12 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-
+import org.springframework.stereotype.Component;
 public class RedisManager {
 	@Autowired
-private  RedisTemplate<Object, Object> redisTemplate;
+private  static RedisTemplate<Object, Object> redisTemplate;
 	@Autowired
-private StringRedisTemplate  StringRedisTemplate;
+private static StringRedisTemplate  StringRedisTemplate;
 
 	/**
 	 * 1.Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
@@ -60,7 +60,7 @@ private StringRedisTemplate  StringRedisTemplate;
 	 * @param m map
 	 * @return true: 成功;false：失败;
 	 */
-	public boolean hmset(String key,Map<?, ?> m) {
+	public static boolean hmset(String key,Map<?, ?> m) {
 		try {
 			redisTemplate.opsForHash().putAll(key, m);
 			return true;

@@ -1,8 +1,29 @@
 @layout("/layout/travel_template.html",{title:'首页'}){
 <script>
 $(function(){
-	
+	queryInfo({});
+	//推荐
+	$(".story-tabCard .story_scenic_spot").click(function(){
+		$(".story-tabCard .story_tabs a").removeClass("is--active");
+		$(this).addClass("is--active");
+		var postData={};
+		queryInfo(postData);
+	});
+	//攻略
+	$(".story-tabCard .story-recomend").click(function(){
+		$(".story-tabCard .story_tabs a").removeClass("is--active");
+		$(this).addClass("is--active");
+		var postData={};
+		queryInfo(postData);
+	});
 });
+
+function queryInfo(postData){
+	var url="/index?ajaxCmd=content";
+	postForm(url, postData, function(result){
+		$("#storyContent").html(result);
+	},{});
+}
 </script>
 			<div class="app-main">
 			   <div class="wrapper story-wrapper">
@@ -11,11 +32,11 @@ $(function(){
 			   	 		<div class="nav storytabs story_tabs">
 			   	 			<a href="#" class="story-recomend stroytabs_link story_tabslink is--active">推荐</a>
 			   	 			<a href="#" class="story_scenic_spot stroytabs_link story_tabslink">攻略</a>
-			   	 			<a href="#" class="story_notes stroytabs_link story_tabslink">vlog</a>
+			   	 			<!-- <a href="#" class="story_notes stroytabs_link story_tabslink">vlog</a> -->
 			   	 		</div>
 			   	 	</div>
-			   	 	@#ajax content:{
 			   	    <div id="storyContent" class="story-content">
+			   	    	@#ajax content:{
 			   	    	<div class="listShortcut">
 			   	    		<div class="story-recommend">
 			   	    		@for(t in viewTravelList){
@@ -61,15 +82,13 @@ $(function(){
 			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
 			   	    								<span class="more-icon icon"></span>...
 			   	    							</button>
-			   	    							<div class="Popover ContentItem-action">
-			   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
-			   	    							</div>
+			   	    							
 			   	    						</div>
 			   	    					</div>
 			   	    				</div>
 			   	    			</div>
 			   	    			@if(tLP.index==3||tLP.index%9==0){
-			   	    			<div class="card storyItem storyItem-isRecommend storyItem-isAdvert">
+			   	    			<div class="card storyItem storyItem-isAdvert">
 			   	    				<div class="pc-feedAd-container">
 			   	    		    		<div class="pc-feedAd">
 			   	    		    			<div class="pc-feedAd-card ">
@@ -84,7 +103,7 @@ $(function(){
 			   	    		    				</a>
 			   	    		    			    <div class="advert-signpc">
 			   	    		    			    	<div class="advert-signpc-label">广告<span class="down-icon"></span></div>
-			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--isHidden">
+			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show">
 			   	    		    			    	 	<span class="advert-signpc-popup-arrow"></span>
 			   	    		    			    	 	<div class="advert-signpc-popup-menu">
 			   	    		    			    	 		<button type="button">不感兴趣</button>
@@ -304,12 +323,12 @@ $(function(){
 			   	    		    </div>
 			   	    		</div>
 			   	    	</div>
+			   	    	@}
 			   	    </div>
-			   	    @}
 			   	 </div>
 			   	 <div class="globalSideBar">
 			   	 	<div class="wra">
-			   	 		<div class="card creatorEntrance">
+			   	 		<div class="card creatorEntrance" style="display: none">
 			   	 			<a  href="#" class="creatorEntrance-link creatorEntrance-Link--smallIcon">
 			   	 				<div class="creatorEntrance-hint profileSideCreator-creatorEntranceHint creatorEntrancePage-hint--smallIcon">
 			   	 					<div class="creatorEntrance-text">
