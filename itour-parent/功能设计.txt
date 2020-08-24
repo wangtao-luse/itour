@@ -4,3 +4,7 @@
   b.将记录插入redis中
     key:uid(用户唯一号)+::+pid(文章编号)
   c.定时同步到数据库中
+ 2.数据备份
+  https://www.cnblogs.com/SQL888/p/5751631.html
+  https://www.jb51.net/article/160791.htm
+  
