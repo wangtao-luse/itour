@@ -1,9 +1,10 @@
 package com.itour.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student {
+public class Student implements Serializable {
 private String id;
 private String name;
 private String age;
@@ -40,6 +41,10 @@ public List<Student> getRecords() {
 }
 public void setRecords(List<Student> records) {
 	this.records = records;
+}
+@Override
+public String toString() {
+	return "Student [id=" + id + ", name=" + name + ", age=" + age + ", records=" + records + "]";
 }
 
 }
