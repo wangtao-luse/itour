@@ -4,7 +4,8 @@ server:  port: '@server.advert.port@'
 spring:  application:    name: itour-advert-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
     driver-class-name: '@spring.datasource.driverClassName@'
     username: '@spring.datasource.username@'
-    password: '@spring.datasource.password@'  redis:     #reids相关配置    host: '@spring.redis.host@'    port: '@spring.redis.port@'
+    password: '@spring.datasource.password@'  redis:     #reids相关配置
+    database: '@spring.redis.database@'    host: '@spring.redis.host@'    port: '@spring.redis.port@'
     password: '@spring.redis.password@'
     jedis:      pool:        max-active: '@spring.redis.pool.max-active@'
         max-wait: '@spring.redis.pool.max-wait@'
@@ -20,4 +21,4 @@ mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
 #log
 logging:  level:    com: 
       itour:
-        persist: debug
+        persist: '@logging.level@'

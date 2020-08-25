@@ -409,6 +409,7 @@
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
                 <!-- redis相关 -->
+                <spring.redis.database>0</spring.redis.database>
                 <spring.redis.host>127.0.0.1</spring.redis.host>
                 <spring.redis.port>6379</spring.redis.port>
                 <spring.redis.password>123</spring.redis.password>
@@ -417,6 +418,8 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
+                <logging.level>debug</logging.level>
                 <!-- 图片滑动验证码 图片路径 -->
                 <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                  <!-- wechat第三方接口相关参数配置 -->
@@ -456,6 +459,7 @@
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
                  <!-- redis相关 -->
+                <spring.redis.database>1</spring.redis.database>
                 <spring.redis.host>127.0.0.1</spring.redis.host>
                 <spring.redis.port>6379</spring.redis.port>
                 <spring.redis.password>123</spring.redis.password>
@@ -464,6 +468,8 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
+                <logging.level>debug</logging.level>
                 <!-- 图片滑动验证码 图片路径-->
                <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
@@ -503,6 +509,7 @@
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
                  <!-- redis相关 -->
+                <spring.redis.database>2</spring.redis.database>
                 <spring.redis.host>127.0.0.1</spring.redis.host>
                 <spring.redis.port>6379</spring.redis.port>
                 <spring.redis.password>123</spring.redis.password>
@@ -511,6 +518,8 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
+                <logging.level>debug</logging.level>
                 <!-- 图片滑动验证码 图片路径-->
                <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
@@ -550,6 +559,7 @@
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
                  <!-- redis相关 -->
+                <spring.redis.database>3</spring.redis.database>
                 <spring.redis.host>127.0.0.1</spring.redis.host>
                 <spring.redis.port>6379</spring.redis.port>
                 <spring.redis.password>123</spring.redis.password>
@@ -558,6 +568,8 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
+                <logging.level>error</logging.level>
                 <!-- 图片滑动验证码 图片路径-->
                <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
