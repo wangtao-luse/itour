@@ -74,6 +74,7 @@
   	<hutool.version>5.3.10</hutool.version>
   	<httpclient.version>4.5.12</httpclient.version>
   	<commonmark.version>0.15.0</commonmark.version>
+  	<druid.version>1.1.23</druid.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -236,26 +237,19 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- oracle 驱动包 -->
-			<dependency>
-				<groupId>com.oracle</groupId>
-		  		<artifactId>ojdbc14</artifactId>	  
-				<version>${oracle.version}</version>
-				<scope>compile</scope>
-			</dependency>
-		  	 <dependency>
-				<groupId>oracle</groupId>
-		  		<artifactId>ojdbc8</artifactId>	  
-				<version>${oracle.version}</version>
-				<scope>compile</scope>
-			</dependency> 
+	 
 			<!-- mysql驱动包 -->
 			<dependency>
 			    <groupId>mysql</groupId>
 			    <artifactId>mysql-connector-java</artifactId>
 			    <version>${mysql.version}</version>
 			</dependency>
-			
+			<!-- 数据源相关 -->
+			<dependency>
+			  <groupId>com.alibaba</groupId>
+			  <artifactId>druid</artifactId>
+			  <version>${druid.version}</version>
+			</dependency>
 			 <!-- mybatis plus -->
 		    <dependency>
 			    <groupId>com.baomidou</groupId>
@@ -583,4 +577,5 @@
             </properties>
         </profile>
     </profiles>
+    <name>HikariCP</name>
 </project>
