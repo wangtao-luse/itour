@@ -119,11 +119,7 @@
 	    <groupId>org.springframework.cloud</groupId>
 	    <artifactId>spring-cloud-starter-openfeign</artifactId>
 	</dependency>
-	<!-- quartz 定时任务 -->
-    <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-quartz</artifactId>
-</dependency>
+
         <!-- fastjson  -->
 	<dependency>
 	    <groupId>com.alibaba</groupId>
@@ -237,7 +233,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-	 
 			<!-- mysql驱动包 -->
 			<dependency>
 			    <groupId>mysql</groupId>
@@ -380,7 +375,7 @@
             <id>dev</id>
             <activation>
                 <!--默认激活：如果在不指定profile时默认是开发环境-->
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
@@ -430,7 +425,7 @@
         <profile>
             <id>test</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>test</profiles.active>

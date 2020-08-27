@@ -19,9 +19,3 @@ VALUES('https://pic4.zhimg.com/v2-7801050046a14548d5ede82d7e398973_250x250.jpeg'
 '材料费、人工费、设计费……各种隐形价格总怕被坑？试试尚品宅配，10s免费拿报价，费用透明，一目了然','https://www.baidu.com/','1589438064','1691766000','3');
 
 
-select  c.TRIGGER_NAME,c.TRIGGER_GROUP,c.JOB_NAME,c.DESCRIPTION, c.TRIGGER_STATE,c.START_TIME,c.END_TIME,c.NEXT_FIRE_TIME,c.PREV_FIRE_TIME,c.* from QRTZ_TRIGGERS c;
-select c.CRON_EXPRESSION, c. * from QRTZ_CRON_TRIGGERS c;
-select c.JOB_CLASS_NAME,c.*from QRTZ_JOB_DETAILS c;
-
-
-select c.TRIGGER_NAME,d.TRIGGER_NAME from qrtz_triggers c INNER JOIN qrtz_cron_triggers d ON c.TRIGGER_NAME=d.TRIGGER_NAME AND c.TRIGGER_GROUP=d.TRIGGER_GROUP INNER JOIN qrtz_job_details e on e.TRIGGER_NAME=c.TRIGGER_NAME and e.TRIGGER_GROUP=c.TRIGGER_GROUP;

@@ -158,7 +158,14 @@ VALUES
 	( '8000', '工作日志管理', '0', '1', '0', '1', '0' );
 INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES
-	( '8001', '工作日志信息管理', '8000', '1', '/work/logPage', '7', '1' );	
+	( '8001', '工作日志信息管理', '8000', '1', '/work/logPage', '7', '1' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '9000', '系统管理', '0', '1', '0', '9', '0' );
+INSERT INTO t_m_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES
+	( '9001', '定时任务管理', '9000', '1', '/quartz/quartzManagerPage', '8', '1' );
+
 --------------后台菜单明细相关开始------------------------------------
 ---1.需要及记录日志且需要单独权限的方法需要添加权限明细(新增,修改，需要权限的按钮)
 ---2.新增,修改操作需要记录日志

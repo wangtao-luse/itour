@@ -24,6 +24,8 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
     	public static final String MODEL_DICTIONARY="itour-dictionary-service";
     	public static final String MODEL_ADVERT="itour-advert-service";
     	public static final String MODEL_ACCOUNT="itour-account-service";
+    	public static final String MODEL_QUARTZ="itour-quartz-service";
+    	
         public static void main(String[] args) throws InterruptedException, IOException {
         	/***
         	 * 1.待解决问题
@@ -32,7 +34,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_DICTIONARY;
+  			 String model=ItourMpGenerator.MODEL_QUARTZ;
   			        
   			        
   			 /**
@@ -42,7 +44,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_r_website_recommend"};
+  			 String [] include= new String[] {"qrtz_triggers"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -50,7 +52,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  
   			  */
-		     boolean isOverflowService=false;
+		     boolean isOverflowService=true;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 

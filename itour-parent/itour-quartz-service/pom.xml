@@ -40,8 +40,17 @@
 	  <artifactId>druid</artifactId>
 	</dependency>
 	<dependency>
-   <groupId>org.springframework</groupId>
-   <artifactId>spring-jdbc</artifactId>
-</dependency>
+	   <groupId>org.springframework</groupId>
+	   <artifactId>spring-jdbc</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-quartz</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-quartz-persist</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
 </project>
