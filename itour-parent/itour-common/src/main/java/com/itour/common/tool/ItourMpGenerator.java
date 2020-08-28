@@ -44,7 +44,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"qrtz_triggers"};
+  			 String [] include= new String[] {"qrtz_job_details"};
   			 /**
   			  * 需要忽略的表前缀
   			  */

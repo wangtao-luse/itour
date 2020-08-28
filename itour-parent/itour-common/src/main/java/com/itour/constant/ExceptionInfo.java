@@ -9,4 +9,6 @@ public class ExceptionInfo {
 	public static final String EXCEPTION_GROUP="该组已被使用";
 	public static final String EXCEPTION_ROLE="该角色已被使用";
 	
+	public static final String CLASSNOTFOUNDEXCEPTION="没有找到";
+	
 }

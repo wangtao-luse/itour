@@ -137,12 +137,12 @@ function initDataTotalGrid(url, dataGridNode, newOptions) {
     };
     $.extend(options, newOptions);
     dataGridNode.datagrid(options);
-    /*dataGridNode.datagrid('doCellTip', {
+    dataGridNode.datagrid('doCellTip', {
         onlyShowInterrupt: true,
         position: 'bottom',
         maxWidth: '200px',
         tipStyler: {'backgroundColor': '#fff000', borderColor: '#ff0000', boxShadow: '1px 1px 3px #292929'}
-    });*/
+    });
     dataGridNode.datagrid('getPager').pagination({
         onSelectPage: function (pageNumber, pageSize) {
             newOptions.postData.page.size = pageSize;

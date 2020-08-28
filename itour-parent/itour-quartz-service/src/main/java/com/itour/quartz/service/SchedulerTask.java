@@ -5,10 +5,10 @@ import java.util.Date;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-//https://www.cnblogs.com/wadmwz/p/10315481.html
+
 @Component
 /**
- * 1.springboot简单定时任务
+ * 1.springboot简单定时任务https://www.cnblogs.com/wadmwz/p/10315481.html
  *   1.启动项使用@EnableScheduling注解
  *   2.创建定时任务类,使用@Scheduled标记方法
  *    缺点：实际开发中定时任务比较多,管理困难;

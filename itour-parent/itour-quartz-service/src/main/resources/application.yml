@@ -1,4 +1,4 @@
-#端口
+#端口 https://blog.csdn.net/HXNLYW/article/details/95055601
 server:  port: '@server.quartz.port@'
 #项目名称
 spring:  application:    name: itour-quartz-service

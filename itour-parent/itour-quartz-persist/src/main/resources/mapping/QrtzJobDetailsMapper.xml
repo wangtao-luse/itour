@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.QrtzJobDetailsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.quartz.QrtzJobDetails">
+        <id column="SCHED_NAME" property="schedName" />
+        <result column="JOB_NAME" property="jobName" />
+        <result column="JOB_GROUP" property="jobGroup" />
+        <result column="DESCRIPTION" property="description" />
+        <result column="JOB_CLASS_NAME" property="jobClassName" />
+        <result column="IS_DURABLE" property="isDurable" />
+        <result column="IS_NONCONCURRENT" property="isNonconcurrent" />
+        <result column="IS_UPDATE_DATA" property="isUpdateData" />
+        <result column="REQUESTS_RECOVERY" property="requestsRecovery" />
+        <result column="JOB_DATA" property="jobData" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        SCHED_NAME, JOB_NAME, JOB_GROUP, DESCRIPTION, JOB_CLASS_NAME, IS_DURABLE, IS_NONCONCURRENT, IS_UPDATE_DATA, REQUESTS_RECOVERY, JOB_DATA
+    </sql>
+   <select id="queryTriggersList" resultType="java.util.HashMap" parameterType="Map">
+   SELECT
+	c.TRIGGER_NAME  triggerName,
+	c.TRIGGER_GROUP triggerGroup,
+	c.JOB_NAME jobName,
+	c.JOB_GROUP jobGroup,
+	c.DESCRIPTION triggerDescription,
+	c.TRIGGER_STATE triggerState,
+	c.START_TIME startTime,
+	c.END_TIME endTime,
+	c.NEXT_FIRE_TIME nextFirtTime,
+	c.PREV_FIRE_TIME prevFirtTime,
+	e.JOB_CLASS_NAME jobClassName,
+	e.DESCRIPTION    jobDescription,
+	d.CRON_EXPRESSION cronExpression
+FROM
+	qrtz_triggers c
+	INNER JOIN qrtz_cron_triggers d ON c.TRIGGER_NAME = d.TRIGGER_NAME 
+	AND c.TRIGGER_GROUP = d.TRIGGER_GROUP
+	INNER JOIN qrtz_job_details e ON e.JOB_NAME = c.JOB_NAME 
+	AND e.JOB_GROUP = c.JOB_GROUP
+   </select>
+</mapper>

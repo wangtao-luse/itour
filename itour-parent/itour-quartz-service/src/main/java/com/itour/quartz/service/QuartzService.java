@@ -109,7 +109,9 @@ import org.springframework.stereotype.Service;
 	            // 创建jobDetail实例，绑定Job实现类
 	            // 指明job的名称，所在组的名称，以及绑定job类
 	            // 任务名称和组构成任务key
-	            JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroupName)
+	            JobDetail jobDetail = JobBuilder
+	            		.newJob(jobClass)
+	            		.withIdentity(jobName, jobGroupName)
 	                    .build();
 	            // 设置job参数
 	            if(jobData!= null && jobData.size()>0){
@@ -118,9 +120,12 @@ import org.springframework.stereotype.Service;
 	            // 定义调度触发规则
 	            // 使用cornTrigger规则
 	            // 触发器key
-	            Trigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName, jobGroupName)
+	            Trigger trigger = TriggerBuilder.newTrigger()
+	            		.withIdentity(jobName, jobGroupName)
 	                    .startAt(DateBuilder.futureDate(1, IntervalUnit.SECOND))
-	                    .withSchedule(CronScheduleBuilder.cronSchedule(jobTime)).startNow().build();
+	                    .withSchedule(CronScheduleBuilder.cronSchedule(jobTime))
+	                    .startNow()
+	                    .build();
 	            // 把作业和触发器注册到任务调度中
 	            scheduler.scheduleJob(jobDetail, trigger);
 	        } catch (Exception e) {

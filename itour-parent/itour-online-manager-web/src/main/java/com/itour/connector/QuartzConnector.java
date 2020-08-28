@@ -14,9 +14,26 @@ import com.itour.quartz.api.QuartzApi;
 public class QuartzConnector {
 	@Autowired
 private QuartzApi quartzApi;
+	/**
+	 * 定时任务列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	public ResponseMessage queryTriggersList(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage =quartzApi.queryTriggersList(requestMessage);
+		ResponseMessage responseMessage =quartzApi.queryJobList(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 新增定时任务
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage insertJob(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage =quartzApi.insertJob(requestMessage);
 		return responseMessage;
 	}
 	

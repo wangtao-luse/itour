@@ -8,7 +8,7 @@
 	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
 	    	 initSelect($("#utype"), "UTYPE",true,"全部");
 	    	 initSelect($("#sex"), "SEX",true,"全部");
-	    	searchFun('/quartz/queryTriggersList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'msg'});
+	    	searchFun('/quartz/queryJobList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});
 	    })
 	    
 	           function getList(options) {
@@ -19,15 +19,23 @@
                 singleSelect:false,
                 pageList:[10,40,80,200,500],
                 columns:[[
-					{field:'id',title:'编号',width:60},					
-					{field:'subject',title:'主题',width:120},
-					{field:'text',title:'内容',width:150},
-					{field:'from',title:'发送者',width:180},
-					{field:'to',title:'接收者',width:180},
-					{field:'type',title:'消息类型',width:150},
-					{field:'sendtime',title:'发送时间',width:100,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}},
-					{field:'aimStr',title:'用途',width:100},
-					{field:'originStr',title:'来源',width:100},
+                	{field:'index',title:'编号',width:60, formatter: function(val,rec,index){  
+                        var op = $('#dataGrid').datagrid('options');  
+                        return op.pageSize * (op.pageNumber - 1) + (index + 1);  
+                     } },					
+					/* {field:'triggerName',title:'triggerName',width:220},
+					{field:'triggerGroup',title:'triggerGroup',width:150}, 
+					{field:'jobName',title:'jobName',width:220},
+					{field:'jobGroup',title:'jobGroup',width:150},*/
+					{field:'jobClassName',title:'jobClassName',width:250},
+					{field:'jobDescription',title:'jobDescription',width:150},
+					{field:'triggerDescription',title:'triggerDescription',width:150},
+					{field:'cronExpression',title:'Cron表达式 ',width:180},
+					{field:'triggerState',title:'triggerState',width:180},
+					{field:'nextFirtTime',title:'trigger下次触发时间',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},
+					{field:'prevFirtTime',title:'trigger上次触发时间',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},
+					{field:'startTime',title:'triggerStartTime',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},
+					/* {field:'endTime',title:'triggerEndTime',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},	 */			
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -96,7 +104,7 @@
 	    	   	      <!--   <input type="text" placeholder=""  name="company"/> -->
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/quartz/queryTriggersList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'msg'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+	    	   	        <a onclick="searchFun('/quartz/queryJobList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
@@ -108,7 +116,7 @@
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      
-	       <a href="#" onclick="addFun('新增', '/quartz/roleAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
+	       <a href="#" onclick="addFun('新增', '/quartz/jobAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/quartz/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
 	      <a href="#" onclick="editFun('查看详情','/quartz/adminDetailP?uid=',$('#dataGrid'),{buttons: [],'key':'uid','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
 	    </div>
