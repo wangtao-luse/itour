@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 @include("/inc/inc.html"){}
+<style>
+#searchForm label {
+    display: inline-block;
+    width: 110px;
+}
+</style>
  <script type="text/javascript">
 	    $(function(){
 	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
@@ -49,65 +55,29 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px; overflow: hidden">
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:80px; overflow: hidden">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
 	    	   	  <div class="mTop10 line-handsome">
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>编号:</label>
+	    	   	        <label><span></span>jobClassName:</label>
 	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>主题 :</label>
+	    	   	        <label><span></span>jobDescription:</label>
 	    	   	        <input type="text" placeholder=""  name="uid"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>类&nbsp;型:</label>
+	    	   	        <label><span></span>triggerDescription</label>
 	    	   	        <select id="sex" name="sex"></select>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>发送时间:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
-	    	   	      </div>
-	    	   	  </div>	    	   	  
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>用途:</label>
-	    	   	        <input type="text" placeholder=""  name="createip"/>
-	    	   	      </div>
-	    	   	     
-	    	   	        <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>状&nbsp;态:</label>
-	    	   	        <select id="status" name="status"></select>
-	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>来源:</label>
-	    	   	        <select id="utype" name="utype"></select>
-	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
-	    	   	       
-	    	   	      </div>
-	    	   	       
-	    	   </div>
-	    	    <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
-	    	   	        <!-- <input type="text" placeholder=""  name="gDesc"/> -->
-	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
-	    	   	        <!-- <input type="text" placeholder=""  name="company"/> -->
-	    	   	      </div>
-	    	   	        <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
-	    	   	      <!--   <input type="text" placeholder=""  name="company"/> -->
-	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
 	    	   	        <a onclick="searchFun('/quartz/queryJobList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
-	    	   </div>
+	    	   	  </div>	    	   	  
+	    	   	 
+	    	   
 			</div>	
 				
 			</form>
