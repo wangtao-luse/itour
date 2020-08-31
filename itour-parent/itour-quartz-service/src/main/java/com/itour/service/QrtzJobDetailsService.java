@@ -159,12 +159,8 @@ public ResponseMessage updateJob(RequestMessage requestMessage) {
 		String cron = jsonObject.getString("cronExpression");
 		String triggerDescription = jsonObject.getString("triggerDescription");
 		String jobDescription = jsonObject.getString("jobDescription");
-		//修改Cron表达式
-		modifyTrigger(triggerName,triggerGroup, cron);
-		//修改trigger描述
-		modifyTriggerDesc(triggerName, triggerGroup, triggerDescription);
-		//修改job描述
-		modifyJobDesc(jobName,jobGroup,triggerName,triggerGroup,jobDescription);
+		Class jobClass = Class.forName(jsonObject.getString("jobClassName"));
+		modifyJob(jobClass, jobName, jobGroup, jobDescription, cron, triggerName, triggerGroup, triggerDescription);
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -282,6 +278,64 @@ private void addJob(Class <? extends Job> jobClass,String name,String group,Stri
 				.build();
 	//3.添加JOb到调度程序
 	scheduler.scheduleJob(jobDetail, trigger);
+}
+/**
+ * 修改定时任务
+ * @param jobClass
+ * @param name
+ * @param group
+ * @param jobDescription
+ * @param cronExpression
+ * @param triggerName
+ * @param triggerGroup
+ * @param triggerDescription
+ * @throws SchedulerException
+ */
+private void modifyJob(Class <? extends Job> jobClass,String name,String group,String jobDescription,String cronExpression,String triggerName,String triggerGroup,String triggerDescription) throws SchedulerException {
+	//1.构建JobDetail关联工作任务的Job
+	JobDetail jobDetail = JobBuilder.newJob(jobClass)
+			.storeDurably()
+			.withIdentity(name, group)
+			.withDescription(jobDescription)
+			.build();
+	//2.定义触发器Trigger,将Trigger注册到Scheduler;
+	CronScheduleBuilder cronSchedule = CronScheduleBuilder.cronSchedule(cronExpression);
+	CronTrigger trigger = TriggerBuilder.newTrigger()
+				.forJob(jobDetail)
+				.withSchedule(cronSchedule)
+				.withIdentity(triggerName, triggerGroup)
+				.withDescription(triggerDescription)
+				.build();
+	//3.添加JOb到调度程序
+	TriggerKey triggerKey = new TriggerKey(triggerName, triggerGroup);
+	scheduler.addJob(jobDetail, true);
+	scheduler.rescheduleJob(triggerKey, trigger);
+}
+private void insertOrupdateJOb(Class <? extends Job> jobClass,String name,String group,String jobDescription,String cronExpression,String triggerName,String triggerGroup,String triggerDescription) throws SchedulerException {
+	//1.构建JobDetail关联工作任务的Job
+		JobDetail jobDetail = JobBuilder.newJob(jobClass)
+				.storeDurably()
+				.withIdentity(name, group)
+				.withDescription(jobDescription)
+				.build();
+		//2.定义触发器Trigger,将Trigger注册到Scheduler;
+		CronScheduleBuilder cronSchedule = CronScheduleBuilder.cronSchedule(cronExpression);
+		CronTrigger trigger = TriggerBuilder.newTrigger()
+					.forJob(jobDetail)
+					.withSchedule(cronSchedule)
+					.withIdentity(triggerName, triggerGroup)
+					.withDescription(triggerDescription)
+					.build();
+		TriggerKey triggerKey = new TriggerKey(triggerName, triggerGroup);
+		boolean checkExists = scheduler.checkExists(triggerKey );
+		if(checkExists) {
+			//3.重新添加到调度程序
+			scheduler.rescheduleJob(triggerKey, trigger);
+		}else {
+			//3.添加JOb到调度程序
+			scheduler.scheduleJob(jobDetail, trigger);
+		}
+		
 }
 /**
  * 修改cron表达式
