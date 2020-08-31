@@ -5,6 +5,7 @@ import com.itour.model.quartz.QrtzJobDetails;
 import java.util.List;
 import java.util.Map;
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
@@ -18,4 +19,5 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  */
 public interface QrtzJobDetailsMapper extends BaseMapper<QrtzJobDetails> {
 	<T> List<Map<String,Object>> queryTriggersList(IPage<T> page,Map map);
+	<T> Map<String,Object> getTrigger(Map map);
 }

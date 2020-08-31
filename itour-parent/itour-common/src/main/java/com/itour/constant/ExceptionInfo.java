@@ -10,5 +10,6 @@ public class ExceptionInfo {
 	public static final String EXCEPTION_ROLE="该角色已被使用";
 	
 	public static final String CLASSNOTFOUNDEXCEPTION="没有找到";
+	public static final String EXCEPTION_QUARTZ="该定时任务已经存在";
 	
 }

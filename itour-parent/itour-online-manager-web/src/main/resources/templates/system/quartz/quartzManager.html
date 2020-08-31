@@ -11,6 +11,7 @@
 </style>
  <script type="text/javascript">
 	    $(function(){
+	    	  $.messager.progress('close');
 	    	 initSelect($("#status"), "ACCOUNT_STATUS",true,"全部");
 	    	 initSelect($("#utype"), "UTYPE",true,"全部");
 	    	 initSelect($("#sex"), "SEX",true,"全部");
@@ -22,7 +23,7 @@
             var op = {            	
                 fitColumns:false,
                 fit:true,
-                singleSelect:false,
+                singleSelect:true,
                 pageList:[10,40,80,200,500],
                 columns:[[
                 	{field:'index',title:'编号',width:60, formatter: function(val,rec,index){  
@@ -38,19 +39,60 @@
 					{field:'triggerDescription',title:'triggerDescription',width:150},
 					{field:'cronExpression',title:'Cron表达式 ',width:180},
 					{field:'triggerState',title:'triggerState',width:180},
-					{field:'nextFirtTime',title:'trigger下次触发时间',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},
 					{field:'prevFirtTime',title:'trigger上次触发时间',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},
+					{field:'nextFirtTime',title:'trigger下次触发时间',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},
 					{field:'startTime',title:'triggerStartTime',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},
 					/* {field:'endTime',title:'triggerEndTime',width:170,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm:ss"):"";}},	 */			
-				]],
+				]], onLoadSuccess: function () {
+		            $('#searchForm table').show();
+		            parent.$.messager.progress('close');
+		        },
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
-                
+                	
+                	setLinkButtonStatus([$("#pauseJob")], [0]);
+                	if(rowData.triggerState!="PAUSED"){
+                		setLinkButtonStatus([$("#pauseJob")], [1]);	
+                	}
+                	setLinkButtonStatus([$("#resumeJob")], [0]);
+                	if(rowData.triggerState=="PAUSED"){
+                		setLinkButtonStatus([$("#resumeJob")], [1]);	
+                	}
+                	
                 }
             };
             return $.extend(op,options);
         }
-	   
+	    function doFunction(url, node, title) {
+            var row = node.datagrid('getSelections');
+            if (row.length > 0) {
+                parent.$.messager.confirm('询问', title, function (b) {
+                    if (b) {
+                        parent.$.messager.progress({title: '提示', text: '数据处理中，请稍候....'});
+                        postAjax(url,JSON.stringify({jobName: row[0].jobName, jobGroup: row[0].jobGroup}),function (result) {
+                        	searchFun('/quartz/queryJobList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});
+                        });
+                    }
+                })
+            } else {
+                showErrorMsg('请选择一条数据.')
+            }
+        }
+	    function myeditFun(title, url, dataGridNode) {
+	    	console.log("wt");
+        	var rows = dataGridNode.datagrid('getSelections');
+            	if (rows.length < 1) {
+                    showErrorMsg('请选择一条数据.');
+                    return
+                } else {
+                    url = url + "?jobName="+rows[0].jobName
+                    		+"&&jobGroup="+rows[0].jobGroup;
+                }
+        
+            var options = getInitDialogOptions(title, url, "editFunction", "编辑");
+            options.dataGridNode = dataGridNode;
+            parent.$.modalDialog(options)
+        }
 	    </script>
 </head>
 <body>
@@ -86,9 +128,12 @@
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">	      
-	       <a href="#" onclick="addFun('新增', '/quartz/jobAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
-	      <a href="#" onclick="editFun('编辑','/quartz/roleAddP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
-	      <a href="#" onclick="editFun('查看详情','/quartz/adminDetailP?uid=',$('#dataGrid'),{buttons: [],'key':'uid','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>
+	      <a href="#" id="jobAdd" onclick="addFun('新增', '/quartz/jobAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
+	      <a href="#" id="jobUpdate" onclick="myeditFun('编辑','/quartz/jobUpdateP',$('#dataGrid'))" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>      
+	      <a href="#" id="pauseJob" onclick="doFunction('/quartz/pauseJob',$('#dataGrid'),'你确定要暂停该定时任务吗？')" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">暂停</a>
+	      <a href="#" id="resumeJob" onclick="doFunction('/quartz/resumeJob',$('#dataGrid'),'你确定要恢复此定时任务吗？')" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">恢复</a>
+	      <a href="#" id="deleteJob" onclick="doFunction('/quartz/deleteJob',$('#dataGrid'),'你确定要删除此定时任务吗？')" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">删除</a>
+	      <a href="#" id="startNowJob"onclick="doFunction('/quartz/startNowJob',$('#dataGrid'),'你确定要立即执行改定时任务吗？')" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">执行</a>
 	    </div>
 	</div>
 </body>

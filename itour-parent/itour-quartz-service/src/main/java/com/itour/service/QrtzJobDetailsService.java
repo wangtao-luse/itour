@@ -11,6 +11,7 @@ import org.quartz.CronTrigger;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
+import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
@@ -29,9 +30,11 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
+import com.itour.exception.BaseException;
 import com.itour.model.quartz.QrtzJobDetails;
 import com.itour.persist.QrtzJobDetailsMapper;
 import com.itour.quartz.service.QuartzService;
+import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 /**
  * <p>
@@ -77,6 +80,23 @@ public class QrtzJobDetailsService extends ServiceImpl<QrtzJobDetailsMapper, Qrt
 		
 		return responseMessage;
 	}
+	/**
+	 * 定时任务单条查询
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage getTrigger(RequestMessage requestMessage) {
+		ResponseMessage responseMessage =ResponseMessage.getSucess();
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		String jsonString = jsonObject.toJSONString();
+		Map map =null;
+		if(!StringUtils.isEmpty(jsonString)) {
+			 map = (Map)JSON.parse(jsonString);
+		}
+		Map<String, Object> trigger = this.baseMapper.getTrigger(map);
+		responseMessage.setReturnResult(trigger);
+		return responseMessage;
+	}
 /**
  * 新增定时任务
  * @param requestMessage
@@ -86,7 +106,15 @@ public class QrtzJobDetailsService extends ServiceImpl<QrtzJobDetailsMapper, Qrt
 public ResponseMessage insertJob(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
+		
 		JSONObject jsonObject = requestMessage.getBody().getContent();
+		Map map = (Map)JSON.parse(jsonObject.toJSONString());
+		Map<String, Object> trigger = this.baseMapper.getTrigger(map);
+		if(trigger!=null) {
+			Object object = trigger.get("jobClassName");
+			throw new BaseException(ExceptionInfo.EXCEPTION_QUARTZ);
+		}
+		
 		Class jobClass = Class.forName(jsonObject.getString("jobClassName"));
 		String name = UUID.randomUUID().toString();
 		String group = jsonObject.getString("jobGroup");
@@ -96,6 +124,10 @@ public ResponseMessage insertJob(RequestMessage requestMessage) {
 		String triggerGroup = jsonObject.getString("triggerGroup");
 		String triggerDescription = jsonObject.getString("triggerDescription");
 		this.addJob(jobClass, name,  group, jobDescription, cronExpression, triggerName, triggerGroup,triggerDescription);
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_QUARTZ);
 	}catch (ClassNotFoundException e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -106,16 +138,118 @@ public ResponseMessage insertJob(RequestMessage requestMessage) {
 		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}catch (Exception e) {
 		// TODO: handle exception
+		e.printStackTrace();
 		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }
+/**
+ * 修改定时任务
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage updateJob(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		String jobName = jsonObject.getString("jobName");
+		String jobGroup = jsonObject.getString("jobGroup");
+		String triggerName = jsonObject.getString("triggerName");
+		String triggerGroup = jsonObject.getString("triggerGroup");
+		String cron = jsonObject.getString("cronExpression");
+		String triggerDescription = jsonObject.getString("triggerDescription");
+		String jobDescription = jsonObject.getString("jobDescription");
+		//修改Cron表达式
+		modifyTrigger(triggerName,triggerGroup, cron);
+		//修改trigger描述
+		modifyTriggerDesc(triggerName, triggerGroup, triggerDescription);
+		//修改job描述
+		modifyJobDesc(jobName,jobGroup,triggerName,triggerGroup,jobDescription);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+
+/**
+ * 删除定时任务
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage delJob(RequestMessage requestMessage) {
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		String jobName = jsonObject.getString("jobName");
+		String jobgroup = jsonObject.getString("jobGroup");
+		boolean delJob = this.delJob(jobName, jobgroup);
+		if(delJob) {
+			return ResponseMessage.getSucess();
+		}else {
+			return ResponseMessage.getFailed();
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	
+}
+/**
+ * 暂停定时任务
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage pauseJob(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		String jobName = jsonObject.getString("jobName");
+		String jobGroupName = jsonObject.getString("jobGroup");
+		this.pauseJob(jobName, jobGroupName);
 		
 	} catch (Exception e) {
 		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+/**
+ * 恢复定时任务
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage resumeJob(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		String jobName = jsonObject.getString("jobName");
+		String jobGroupName = jsonObject.getString("jobGroup");
+		this.resumeJob(jobName, jobGroupName);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+/**
+ * 执行定时任务
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage startNowJob(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		String jobName = jsonObject.getString("jobName");
+		String jobGroupName = jsonObject.getString("jobGroup");
+		this.startNowJob(jobName, jobGroupName);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }
@@ -149,17 +283,116 @@ private void addJob(Class <? extends Job> jobClass,String name,String group,Stri
 	//3.添加JOb到调度程序
 	scheduler.scheduleJob(jobDetail, trigger);
 }
-//修改cron表达式
-private void modifyJob(String name,String group,String cron) throws SchedulerException {
-	TriggerKey key = TriggerKey.triggerKey(name, group);
+/**
+ * 修改cron表达式
+ * @param triggerName
+ * @param triggerGroup
+ * @param cron
+ * @throws SchedulerException
+ */
+private void modifyTrigger(String triggerName,String triggerGroup,String cron) throws SchedulerException {
+	TriggerKey key = TriggerKey.triggerKey(triggerName, triggerGroup);
 	CronTrigger trigger = (CronTrigger)scheduler.getTrigger(key);
 	trigger = trigger.getTriggerBuilder()
 			.withIdentity(key)
             .withSchedule(CronScheduleBuilder.cronSchedule(cron))
             .build();
 	scheduler.rescheduleJob(key, trigger);
-}
-private void stopJob() {
 	
 }
+/**
+ * 修改trigger描述
+ * @param triggerName
+ * @param triggerGroup
+ * @param cron
+ * @throws SchedulerException
+ */
+private void modifyTriggerDesc(String triggerName,String triggerGroup,String triggerDescription) throws SchedulerException {
+	TriggerKey key = TriggerKey.triggerKey(triggerName, triggerGroup);
+	CronTrigger trigger = (CronTrigger)scheduler.getTrigger(key);
+	trigger = trigger.getTriggerBuilder()
+			.withIdentity(key).withDescription(triggerDescription)			
+			.build();
+	scheduler.rescheduleJob(key, trigger);
+	
+}
+/**
+ * 修改job描述
+ * @param jobName
+ * @param jobGroup
+ * @param jobDescription
+ * @throws SchedulerException 
+ */
+
+private void modifyJobDesc(String jobName, String jobGroup, String triggerName,String triggerGroup,String jobDescription) throws SchedulerException {
+	// TODO Auto-generated method stub
+	JobKey jobKey = new JobKey(jobName, jobGroup);
+    JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+    jobDetail.getJobDataMap().put("desciption", jobDescription);
+    TriggerKey key = TriggerKey.triggerKey(triggerName, triggerGroup);
+    Trigger trigger = scheduler.getTrigger(key);
+	scheduler.scheduleJob(jobDetail, trigger);
+}
+/**
+ * 删除定时任务
+ * @param name
+ * @param group
+ * @return
+ */
+private boolean delJob(String name, String group){
+	boolean bl=true;
+	try {
+		 bl = scheduler.deleteJob(new JobKey(name,group));
+	} catch (SchedulerException e) {
+		e.printStackTrace();
+		bl=false;
+	}
+	return bl;
+}
+/**
+ * 暂停一个job
+ * 
+ * @param jobName
+ * @param jobGroupName
+ */
+private void pauseJob(String jobName, String jobGroupName) {
+    try {
+        JobKey jobKey = JobKey.jobKey(jobName, jobGroupName);
+        scheduler.pauseJob(jobKey);
+    } catch (SchedulerException e) {
+        e.printStackTrace();
+    }
+}
+/**
+ * 恢复一个job
+ * 
+ * @param jobName
+ * @param jobGroupName
+ */
+public void resumeJob(String jobName, String jobGroupName) {
+    try {
+        JobKey jobKey = JobKey.jobKey(jobName, jobGroupName);
+        scheduler.resumeJob(jobKey);
+    } catch (SchedulerException e) {
+        e.printStackTrace();
+    }
+}
+/**
+ * 立马执行一次任务
+ * @param name
+ * @param group
+ */
+	private void startNowJob(String name, String group){
+		try {
+			JobKey key = new JobKey(name, group);
+			JobDetail job = JobBuilder.newJob(
+						scheduler.getJobDetail(key).getJobClass())
+					.storeDurably()
+					.build();
+			scheduler.addJob(job, false);
+			scheduler.triggerJob(job.getKey());
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
 }

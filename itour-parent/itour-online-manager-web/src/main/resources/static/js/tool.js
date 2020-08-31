@@ -114,6 +114,14 @@ function internalError() {
     showErrorMsg(500 + " " + "程序内部错误")
 }
 
+//设置按钮disable状态
+//nodeArray和statusArray长度相同
+//statusArray 为0,1 0为disable,1为enable
+function setLinkButtonStatus(nodeArray, statusArray) {
+  $.each(nodeArray, function (index, value) {
+      nodeArray[index].linkbutton(statusArray[index] ? 'enable' : 'disable')
+  })
+}
 
 function getContextPath() {
     // alert(document.location.pathname);

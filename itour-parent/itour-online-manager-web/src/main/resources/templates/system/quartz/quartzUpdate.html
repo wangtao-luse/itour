@@ -1,0 +1,117 @@
+<script type="text/javascript">
+    $(function () {
+    	var jobName=$("#jobNameText").text();
+    	var jobGroup=$("#jobGroupText").text();
+    	 postAjax("/quartz/getTrigger", JSON.stringify({'jobName': jobName,'jobGroup':jobGroup}),
+                 function (data) {
+                     var quartz = data.returnResult;
+                     loadData(quartz);
+                    
+                 });
+    	
+    	
+            $("#editFunction").click(function () {
+                var data = $("#form").serializeJson();
+                $('#form').form('validate') &&
+                postAjax("/quartz/updateJob", JSON.stringify(data),
+                        function(data){
+                            closeDialogCallBack(data);
+                        }, {async: false});
+            });
+            //自动填充表单函数
+            function loadData(obj) {
+                var key, value, tagName, type, arr;
+                for (x in obj) {
+                    key = x;
+                    value = obj[x];
+                    $("#form [name='" + key + "']").each(function () {
+                        tagName = $(this)[0].tagName;
+                        type = $(this).attr('type');
+                        if (tagName == 'INPUT') {
+                            if (type == 'radio') {
+                                $(this).attr('checked', $(this).val() == value)
+                            } else if (type == 'checkbox') {
+                                if (value == 1) {
+                                    $(this).attr('checked', true);
+                                }
+                            } else {
+                                $(this).val(value)
+                            }
+                        } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                            $(this).val(value)
+                        } else if (tagName == 'IMG') {
+                            $(this).attr('src', value);
+                        } else if (tagName == 'LABEL') {
+                            $(this).attr('title', value);
+                            $(this).text(value == null ? "" : value);
+                        } else if (tagName == 'A') {
+                            if (value) {
+                                $(this).text('查看图片');
+                                $(this).attr('href', value);
+                            } else {
+                                $(this).text('无图');
+                            }
+                        }
+                    })
+                }
+            }
+
+   
+    });
+</script>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+        <form id="form" method="post">
+        	<input type="hidden" name="triggerName" id="triggerName" value="" />
+			<input type="hidden" name="triggerGroup" id="triggerGroup" value="" />
+			<input type="hidden" name="jobName" id="jobName" value="" />
+			<input type="hidden" name="jobGroup" id="jobGroup" value="" />
+            <table class="table table-hover table-condensed" align="center">
+                <tr>
+                    <td class=""><span style="color:red;">*</span>job描述</td>
+                    <td>
+                    	<input name="jobDescription" id="jobDescription" type="text" class="span2" autocomplete="off" data-options="required:true" >
+					</td>
+                </tr>
+                <tr>
+                	<td class=""><span style="color:red;">*</span>trigger描述</td>
+                    <td>
+                    	<input name="triggerDescription" id="triggerDescription" type="text" class=" span2" autocomplete="off" data-options="required:true" >
+					</td>
+                </tr>
+                <tr>
+                	<td class=""><span style="color:red;">*</span>Cron表达式</td>
+                    <td>
+                    	<input name="cronExpression" id="cronExpression" type="text" class=" span2" autocomplete="off" data-options="required:true" >
+					</td>
+                </tr>
+               <!--  <tr>
+                	<td class="">&nbsp;&nbsp;开始时间</td>
+                    <td>
+                    	<input name="startTime" id="startTime" type="text" class="easyui-validatebox span2" autocomplete="off" >
+					</td>
+                </tr>
+                <tr>
+                	<td class="">&nbsp;&nbsp;结束时间</td>
+                    <td>
+                    	<input name="endTime" id="endTime" type="text" class=" span2" autocomplete="off" >
+					</td>
+                </tr> -->
+                <tr>
+                	<td class=""><span style="color:red;">*</span>JobClass全路径名</td>
+                    <td>
+                    	<input name="jobClassName" id="jobClassName" type="text" class=" span2" autocomplete="off" data-options="required:true" style="width:300px;">
+					</td>
+                </tr>
+               <!--  <tr>
+                	<td class="">&nbsp;&nbsp;job描述</td>
+                    <td>
+                    	<input name="jobDescription" id="jobDescription" type="text" class=" span2" autocomplete="off"  style="width:300px;">
+					</td>
+                </tr> -->
+            </table>
+        </form>
+    </div>
+</div>
+<var style="display:none" hidden="hidden" id="jobNameText">${jobName}</var>
+<var style="display:none" hidden="hidden" id="jobGroupText">${jobGroup}</var>

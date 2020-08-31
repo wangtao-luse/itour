@@ -34,40 +34,48 @@ public ResponseMessage queryJobList(@RequestBody RequestMessage requestMessage) 
 	 * 修改定时任务
 	 */
 	@Override
-	public ResponseMessage updateJob(RequestMessage requestMessage) {
+	public ResponseMessage updateJob(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.qrtzJobDetailsService.updateJob(requestMessage);
 	}
 	/**
-	 * 停止定时任务
+	 * 暂停定时任务
 	 */
 	@Override
-	public ResponseMessage stopJob(RequestMessage requestMessage) {
+	public ResponseMessage pauseJob(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.qrtzJobDetailsService.pauseJob(requestMessage);
 	}
 	/**
-	 * 启动定时任务
+	 * 恢复定时任务
 	 */
 	@Override
-	public ResponseMessage startJob(RequestMessage requestMessage) {
+	public ResponseMessage resumeJob(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.qrtzJobDetailsService.resumeJob(requestMessage);
 	}
 	/**
 	 * 删除定时任务
 	 */
 	@Override
-	public ResponseMessage deleteJob(RequestMessage requestMessage) {
+	public ResponseMessage deleteJob(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.qrtzJobDetailsService.delJob(requestMessage);
 	}
 	/**
 	 * 执行定时任务
 	 */
 	@Override
-	public ResponseMessage nowStartJob(RequestMessage requestMessage) {
+	public ResponseMessage startNowJob(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.qrtzJobDetailsService.startNowJob(requestMessage);
+	}
+	/**
+	 * 定时任务查询单条
+	 */
+	@Override
+	public ResponseMessage getTrigger(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.qrtzJobDetailsService.getTrigger(requestMessage);
 	}
 }

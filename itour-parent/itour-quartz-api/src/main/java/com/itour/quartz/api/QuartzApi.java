@@ -16,6 +16,13 @@ public interface QuartzApi {
 	@RequestMapping(value = "/quartz/queryJobList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage queryJobList(RequestMessage requestMessage);
 	/**
+	 * 定时任务查询单条
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/quartz/getTrigger",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getTrigger(RequestMessage requestMessage);
+	/**
 	 * 添加定时任务
 	 * @param requestMessage
 	 * @return
@@ -34,15 +41,15 @@ public interface QuartzApi {
 	 * @param requestMessage
 	 * @return
 	 */
-	@RequestMapping(value = "/quartz/stopJob",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage stopJob(RequestMessage requestMessage);
+	@RequestMapping(value = "/quartz/pauseJob",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage pauseJob(RequestMessage requestMessage);
 	/**
 	 * 启用定时任务
 	 * @param requestMessage
 	 * @return
 	 */
-	@RequestMapping(value = "/quartz/startJob",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage startJob(RequestMessage requestMessage);
+	@RequestMapping(value = "/quartz/resumeJob",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage resumeJob(RequestMessage requestMessage);
 	/**
 	 * 删除定时任务
 	 * @param requestMessage
@@ -55,6 +62,6 @@ public interface QuartzApi {
 	 * @param requestMessage
 	 * @return
 	 */
-	@RequestMapping(value = "/quartz/nowStartJob",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage nowStartJob(RequestMessage requestMessage);
+	@RequestMapping(value = "/quartz/startNowJob",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage startNowJob(RequestMessage requestMessage);
 }
