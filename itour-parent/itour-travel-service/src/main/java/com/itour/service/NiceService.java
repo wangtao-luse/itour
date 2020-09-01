@@ -6,14 +6,14 @@ import com.itour.constant.Constant;
 import com.itour.model.travel.Nice;
 import com.itour.persist.NiceMapper;
 import com.itour.service.NiceService;
-
-
+import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -101,5 +101,44 @@ public ResponseMessage updateNice(RequestMessage requestMessage) {
 	}
 	return response;
 	
+}
+/**
+ * 批量修改或保存点赞信息
+ * @param requestMessage
+ * @return
+ */
+@Transactional
+public ResponseMessage saveOrUpdateBatchNice(RequestMessage requestMessage) {
+	ResponseMessage response = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		List<Nice> javaList = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(Nice.class);
+		this.saveOrUpdateBatch(javaList, javaList.size());
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return response;
+	
+}
+/**
+ * 统计指定文章点赞量
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage countNice(RequestMessage requestMessage) {
+	ResponseMessage response = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		String tids = jsonObject.getString("tids");
+		List<Map<String, String>> countNice = this.baseMapper.countNice(tids);
+		response.setReturnResult(countNice);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return response;
 }
 }

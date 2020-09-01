@@ -317,6 +317,22 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return niceService.updateNice(requestMessage);
 	}
+	/**
+	 * 统计点赞数
+	 */
+	@Override
+	public ResponseMessage countNice(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return niceService.countNice(requestMessage);
+	}
+	/**
+	 * 批量保存或修改点赞信息
+	 */
+	@Override
+	public ResponseMessage saveOrUpdateBatchNice(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return niceService.saveOrUpdateBatchNice(requestMessage);
+	}
 	
 	
 	

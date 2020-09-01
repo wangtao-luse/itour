@@ -12,6 +12,8 @@ public static final String COMMON_KEY_RESULT="result";
 public static final String COMMON_KEY_PAGE="page";
 public static final String COMMON_KEY_LIST="list";
 public static final String COMMON_KEY_SUM="sum";
+public static final String COMMON_KEY_COUNT="count";
+public static final String COMMON_KEY_ARR="arr";
 
 public static final String COMMON_VO_NEEDTOTAL="needTotal";
 

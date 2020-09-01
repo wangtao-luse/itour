@@ -254,4 +254,18 @@ ResponseMessage getNice(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/updateNice",produces = {"application/json;charset=UTF-8"})
 ResponseMessage updateNice(RequestMessage requestMessage);
+/**
+ * 统计点赞数
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/countNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage countNice(RequestMessage requestMessage);
+/**
+ * 批量修改或保存点赞信息
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/saveOrUpdateBatchNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage saveOrUpdateBatchNice(RequestMessage requestMessage);
 }

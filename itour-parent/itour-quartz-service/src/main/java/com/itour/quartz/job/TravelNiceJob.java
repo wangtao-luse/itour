@@ -1,6 +1,8 @@
 package com.itour.quartz.job;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.quartz.JobExecutionContext;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.api.TravelApi;
 import com.itour.common.HttpDataUtil;
@@ -38,14 +41,11 @@ public class TravelNiceJob extends QuartzJobBean {
 private void insertNice() {
 	//1.从Redis缓存中取出点赞的数据;
 	Map<Object, Object> map = redisManager.hget(TravelRedisKey.KEY_NICE);
+	List<Nice> saveOrupdateList = new ArrayList<Nice>();
+	List<Integer> tidList = new ArrayList<Integer>();
 	//2.查看该用户是否已经点赞
 	  map.forEach((k,v)->{
-		  String[] split = k.toString().split("::");
-		  String uid=split[0];
-		  String tid=split[0];
-		  Nice nice = new Nice();
-		  nice.setTid(Integer.valueOf(tid));
-		  nice.setUid(uid);
+		  Nice nice =(Nice)v;
 		  JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(nice));
 		  RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
 		  ResponseMessage responseMessage = travelApi.getNice(requestMessage);
@@ -54,19 +54,28 @@ private void insertNice() {
 			  Map<String, Object> returnResult = responseMessage.getReturnResult();
 			  if(null!=returnResult.get(Constant.COMMON_KEY_RESULT)) {//点赞或取消点赞过
 				 // 修改点赞状态
-				 Nice great =(Nice)v;
-				 great.setStatus(nice.getStatus());
-				 jsonObject.clear();
-				 jsonObject = JSONObject.parseObject(JSONObject.toJSONString(great));
-				  RequestMessage request = HttpDataUtil.postData(jsonObject, null);
-				  ResponseMessage updateNice = this.travelApi.updateNice(request); 
+				Nice like = (Nice)returnResult.get(Constant.COMMON_KEY_RESULT);
+				nice.setId(like.getId());
+				saveOrupdateList.add(like);
 			  }else {//插入点赞表
-				  RequestMessage request = HttpDataUtil.postData(jsonObject, null);
-				  this.travelApi.insertNice(requestMessage);
+				  saveOrupdateList.add(nice);
 			  }
+			  
 		  }
-		  
+		  tidList.add(nice.getTid());
 	  });
+	  //批量同步数据
+	  if(saveOrupdateList.size()>0) {
+		  JSONObject tmpJSon = new JSONObject();
+		  tmpJSon.put(Constant.COMMON_KEY_ARR, saveOrupdateList);
+		  RequestMessage postData = HttpDataUtil.postData(tmpJSon, null);
+		  ResponseMessage saveOrUpdateBatchNice = travelApi.saveOrUpdateBatchNice(postData);
+	  }
+	  //4.更新点赞数
+	  JSONObject jsonObject = new JSONObject();
+	  jsonObject.put("tids", tidList);
+	  RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
+	  ResponseMessage countNice = travelApi.countNice(postData);
 	  
 	
 }
