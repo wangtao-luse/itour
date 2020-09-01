@@ -34,7 +34,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_QUARTZ;
+  			 String model=ItourMpGenerator.MODEL_TRAVEL;
   			        
   			        
   			 /**
@@ -44,7 +44,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"qrtz_job_details"};
+  			 String [] include= new String[] {"t_t_nice"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -52,7 +52,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  
   			  */
-		     boolean isOverflowService=true;
+		     boolean isOverflowService=false;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 

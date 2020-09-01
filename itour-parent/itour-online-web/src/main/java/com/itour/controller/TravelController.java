@@ -1,5 +1,10 @@
 package com.itour.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +16,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.AccountVo;
 import com.itour.connector.AdvertConnector;
 import com.itour.connector.TravelConnector;
+import com.itour.constant.Constant;
+import com.itour.constant.TravelRedisKey;
+import com.itour.model.travel.Nice;
+import com.itour.util.DateUtil;
+import com.itour.util.SessionUtil;
 
 @Controller
 @RequestMapping("/travel")
 public class TravelController {
 	@Autowired
 private  TravelConnector travelConnector;
+	@Autowired
+private RedisManager redisManager;
 
 	/**
 	 * 旅行信息列表查询
@@ -133,10 +146,28 @@ public String infoAddPage() {
 	return "/travel/info/infoAdd";
 }
 @RequestMapping("/thumbUp")
-public ResponseMessage thumbUp() {
-//1.将点赞数据插入redis中
-	//key =uid::pid;用户唯一号+文章编号;
-return null;	
+public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		//1.将点赞数据插入redis中,定时同步数据库
+		//key =uid::pid;用户唯一号+文章编号;
+		String status = jsonObject.getString("status");
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		Nice nice= new Nice();
+		nice.setCreatedate(DateUtil.getlongDate(new Date()));
+		nice.setStatus(status);
+	    nice.setTid(jsonObject.getInteger("tid"));
+	    AccountVo sessionUser = SessionUtil.getSessionUser();
+	    nice.setUid(sessionUser.getuId());
+	    String key = nice.getUid()+"::"+nice.getTid();
+	    map.put(key, nice);
+	    this.redisManager.hmset(TravelRedisKey.KEY_NICE, map);
+	} catch (Exception e) {
+		// TODO: handle exception
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	
+return responseMessage;	
 }
 
 }

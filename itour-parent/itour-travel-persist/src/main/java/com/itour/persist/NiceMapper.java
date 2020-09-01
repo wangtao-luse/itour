@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author wangtao
- * @since 2020-08-03
+ * @since 2020-09-01
  */
 public interface NiceMapper extends BaseMapper<Nice> {
 

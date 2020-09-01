@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-08-03
+ * @since 2020-09-01
  */
 @TableName("t_t_nice")
 public class Nice extends Model<Nice> {
@@ -31,12 +31,6 @@ public class Nice extends Model<Nice> {
     private Integer tid;
 
     /**
-     * 点赞数
-     */
-    @TableField("NICE")
-    private Integer nice;
-
-    /**
      * 用户编号
      */
     @TableField("UID")
@@ -45,8 +39,14 @@ public class Nice extends Model<Nice> {
     /**
      * 点赞时间
      */
-    @TableField("TIME")
-    private Integer time;
+    @TableField("CREATEDATE")
+    private Long createdate;
+
+    /**
+     * 状态（0:取消;1:有效）
+     */
+    @TableField("STATUS")
+    private String status;
 
     public Integer getId() {
         return id;
@@ -64,14 +64,6 @@ public class Nice extends Model<Nice> {
         this.tid = tid;
     }
 
-    public Integer getNice() {
-        return nice;
-    }
-
-    public void setNice(Integer nice) {
-        this.nice = nice;
-    }
-
     public String getUid() {
         return uid;
     }
@@ -80,12 +72,20 @@ public class Nice extends Model<Nice> {
         this.uid = uid;
     }
 
-    public Integer getTime() {
-        return time;
+    public Long getCreatedate() {
+        return createdate;
     }
 
-    public void setTime(Integer time) {
-        this.time = time;
+    public void setCreatedate(Long createdate) {
+        this.createdate = createdate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -98,9 +98,9 @@ public class Nice extends Model<Nice> {
         return "Nice{" +
         ", id=" + id +
         ", tid=" + tid +
-        ", nice=" + nice +
         ", uid=" + uid +
-        ", time=" + time +
+        ", createdate=" + createdate +
+        ", status=" + status +
         "}";
     }
 }

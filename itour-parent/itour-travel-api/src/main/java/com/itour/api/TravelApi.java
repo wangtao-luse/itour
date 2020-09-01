@@ -240,4 +240,18 @@ ResponseMessage queryNiceList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/insertNice",produces = {"application/json;charset=UTF-8"})
 ResponseMessage insertNice(RequestMessage requestMessage);
+/**
+ * 旅行信息点赞单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getNice(RequestMessage requestMessage);
+/**
+ * 旅行信息点赞修改(取消点赞)
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateNice(RequestMessage requestMessage);
 }

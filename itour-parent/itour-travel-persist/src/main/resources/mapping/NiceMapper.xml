@@ -6,13 +6,13 @@
     <resultMap id="BaseResultMap" type="com.itour.model.travel.Nice">
         <id column="ID" property="id" />
         <result column="TID" property="tid" />
-        <result column="NICE" property="nice" />
         <result column="UID" property="uid" />
-        <result column="TIME" property="time" />
+        <result column="CREATEDATE" property="createdate" />
+        <result column="STATUS" property="status" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TID, NICE, UID, TIME
+        ID, TID, UID, CREATEDATE, STATUS
     </sql>
 
 </mapper>

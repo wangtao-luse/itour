@@ -294,12 +294,28 @@ public class TravelApiController implements TravelApi {
 		return niceService.queryNiceList(requestMessage);
 	}
 	/**
+	 * 旅行信息点赞单条
+	 */
+	@Override
+	public ResponseMessage getNice(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return niceService.getNice(requestMessage);
+	}
+	/**
 	 * 旅行信息点赞信息新增
 	 */
 	@Override
 	public ResponseMessage insertNice(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return niceService.insertNice(requestMessage);
+	}
+	/**
+	 * 修改旅行点赞信息（取消点赞)
+	 */
+	@Override
+	public ResponseMessage updateNice(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return niceService.updateNice(requestMessage);
 	}
 	
 	

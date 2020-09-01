@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +54,24 @@ public ResponseMessage queryNiceList(RequestMessage requestMessage) {
 	return responseMessage;
 	
 }
+public ResponseMessage getNice(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		Nice niceVo = jsonObject.toJavaObject(Nice.class);
+		QueryWrapper<Nice> queryWrapper = new QueryWrapper<Nice>();
+		queryWrapper.eq(null!=niceVo.getTid(), "TID", niceVo.getTid());
+		queryWrapper.eq(null!=niceVo.getId(), "ID", niceVo.getId());
+		queryWrapper.eq(!StringUtils.isEmpty(niceVo.getUid()), "UID", niceVo.getUid());
+		Nice selectOne = this.baseMapper.selectOne(queryWrapper);
+		responseMessage.setReturnResult(selectOne);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
 @Transactional
 public ResponseMessage insertNice(RequestMessage requestMessage) {
 	ResponseMessage response = ResponseMessage.getSucess();
@@ -60,6 +79,21 @@ public ResponseMessage insertNice(RequestMessage requestMessage) {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		Nice niceVo = jsonObject.toJavaObject(Nice.class);
 		this.baseMapper.insert(niceVo);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return response;
+	
+}
+@Transactional
+public ResponseMessage updateNice(RequestMessage requestMessage) {
+	ResponseMessage response = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		Nice niceVo = jsonObject.toJavaObject(Nice.class);
+		this.baseMapper.updateById(niceVo);
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();

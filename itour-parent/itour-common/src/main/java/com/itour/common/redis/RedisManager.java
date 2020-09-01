@@ -148,6 +148,14 @@ private StringRedisTemplate  StringRedisTemplate;
 	        return redisTemplate.opsForHash().get(key, item);
 	}
 	/**
+	 * 获取Hash 获取变量中的键值对
+	 * @param key 不能为null
+	 * @return
+	 */
+	public Map<Object,Object> hget(String key) {
+		return this.redisTemplate.opsForHash().entries(key);
+	}
+	/**
 	 * 删除hash表中的值
 	 * @param key 不能为null
 	 * @param hashKeys 可以有多个,不能为null
@@ -181,7 +189,7 @@ private StringRedisTemplate  StringRedisTemplate;
 		}
 		return b;
 	}
-	
+	//-------------------------------list-----------------------------------------------------
 	/**
 	 * 将list放入缓存
 	 * @param key
@@ -276,6 +284,7 @@ private StringRedisTemplate  StringRedisTemplate;
             return 0;
         }
     }
+    //---------------------------------------set---------------------------------------
 	/**
 	 * set 放入缓存
 	 * @param key
