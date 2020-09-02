@@ -60,6 +60,14 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return travelInfoService.updateTravelInfo(requestMessage);
 	}
+	/**
+	 * 旅游信息批量修改
+	 */
+	@Override
+	public ResponseMessage updateTravelInfoBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelInfoService.updateTravelInfo(requestMessage);
+	}
 	 /**
      * 旅游信息删除
      */
@@ -321,9 +329,9 @@ public class TravelApiController implements TravelApi {
 	 * 统计点赞数
 	 */
 	@Override
-	public ResponseMessage countNice(RequestMessage requestMessage) {
+	public ResponseMessage countNiceList(RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return niceService.countNice(requestMessage);
+		return niceService.countNiceList(requestMessage);
 	}
 	/**
 	 * 批量保存或修改点赞信息

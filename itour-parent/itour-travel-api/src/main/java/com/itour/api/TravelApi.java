@@ -29,6 +29,13 @@ public ResponseMessage selectTravelInfoById(RequestMessage requestMessage);
 @RequestMapping(value = "/travel/updateTravelInfo",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage updateTravelInfo(RequestMessage requestMessage);
 /**
+ * 旅行信息批量修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateTravelInfoBatch",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage updateTravelInfoBatch(RequestMessage requestMessage);
+/**
  * 旅行信息删除
  * @param requestMessage
  * @return
@@ -259,8 +266,8 @@ ResponseMessage updateNice(RequestMessage requestMessage);
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "/travel/countNice",produces = {"application/json;charset=UTF-8"})
-ResponseMessage countNice(RequestMessage requestMessage);
+@RequestMapping(value = "/travel/countNiceList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage countNiceList(RequestMessage requestMessage);
 /**
  * 批量修改或保存点赞信息
  * @param requestMessage

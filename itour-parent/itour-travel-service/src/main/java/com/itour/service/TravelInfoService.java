@@ -94,6 +94,25 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		return responseMessage;
 	}
 	/**
+	 * 批量修改旅行信息
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage updateTravelInfoBatch(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			List<TravelInfo> travelInfoVo = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(TravelInfo.class);
+			this.updateBatchById(travelInfoVo, travelInfoVo.size());
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
 	 * 删除旅行信息
 	 * @param requestMessage
 	 * @return

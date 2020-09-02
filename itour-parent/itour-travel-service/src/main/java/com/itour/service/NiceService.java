@@ -127,12 +127,12 @@ public ResponseMessage saveOrUpdateBatchNice(RequestMessage requestMessage) {
  * @param requestMessage
  * @return
  */
-public ResponseMessage countNice(RequestMessage requestMessage) {
+public ResponseMessage countNiceList(RequestMessage requestMessage) {
 	ResponseMessage response = ResponseMessage.getSucess();
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		String tids = jsonObject.getString("tids");
-		List<Map<String, String>> countNice = this.baseMapper.countNice(tids);
+		List<Map<String, Object>> countNice = this.baseMapper.countNice(tids);
 		response.setReturnResult(countNice);
 	} catch (Exception e) {
 		// TODO: handle exception
