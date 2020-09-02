@@ -146,6 +146,7 @@ public String infoAddPage() {
 	return "/travel/info/infoAdd";
 }
 @RequestMapping("/thumbUp")
+@ResponseBody
 public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -161,7 +162,7 @@ public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 	    nice.setUid(sessionUser.getuId());
 	    String key = nice.getUid()+"::"+nice.getTid();
 	    map.put(key, nice);
-	    this.redisManager.hmset(TravelRedisKey.KEY_NICE, map);
+	    this.redisManager.hmset(TravelRedisKey.KEY_NICE, map,8*60);
 	} catch (Exception e) {
 		// TODO: handle exception
 		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
