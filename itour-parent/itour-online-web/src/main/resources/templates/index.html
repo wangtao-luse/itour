@@ -20,10 +20,19 @@ $(function(){
 	$(".listShortcut .voteButton--up").click(function(){
 		var c = $(this).hasClass("is-active");
 		if(c){
+			var alias = $(this).attr("alias");
+		    var alia = parseInt(alias)-1;
+		    $(this).attr("alias",alia);
+		    $(this).text("赞同 "+alia);
 			$(this).removeClass("is-active");
 		}else{
+			var alias = $(this).attr("alias");
+		    var alia = parseInt(alias)+1;
+		    $(this).attr("alias",alia);
+		    $(this).text("已赞同 "+alia);
 			$(this).addClass("is-active");
 		}
+		
         var data= {"url":urlstr};
         postAjax("/travel/thumbUp", JSON.stringify(data), function (result) {
         }, {errorFunction:function(result){},cache: false, async: false,"contentType": "application/json; charset=utf-8"});
@@ -76,7 +85,7 @@ function queryInfo(postData){
 			   	    					</div>
 			   	    					<div class="contentItem-actions">
 			   	    						<div class="item_action">
-			   	    							<button class="button voteButton voteButton--up">赞同&nbsp;${t.niceCount}</button>
+			   	    							<button class="button voteButton voteButton--up" alias="${t.niceCount}">赞同&nbsp;${t.niceCount}</button>
 			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
 			   	    								<span class="comment-icon icon"></span>${t.commentCount}条评论
 			   	    							</button>

@@ -1,6 +1,7 @@
 package com.itour.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ArrayUtils {
@@ -12,6 +13,15 @@ public class ArrayUtils {
 public static String arrstrToStr(String [] arr) {
 	
 	return String.join(",", arr);
+}
+/**
+ * 将List<String>的集合按逗号(,)分隔转为字符串
+ * @param strList
+ * @return
+ */
+public static String arrstrToStr(List<String> strList) {
+	
+	return String.join(",", strList);
 }
 /**
  * 将String[]数组按指定方式分隔转为字符串
@@ -75,5 +85,14 @@ public static List<String> toStrList(List<Integer> list) {
 		strList.add(String.valueOf(integer));
 	}
 	return strList;
+}
+/**
+ *  将数组转为List
+ * @param <T>
+ * @param a 数组
+ * @return
+ */
+public static <T> List<T> arrToList(T... a) {
+return 	Arrays.asList(a);
 }
 }
