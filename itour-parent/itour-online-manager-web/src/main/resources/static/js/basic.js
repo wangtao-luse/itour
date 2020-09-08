@@ -272,7 +272,7 @@ function grantFunCommon(title, url, dataGridNode, newOptions) {
     }
 }
 /**
- * 
+ * 编辑
  * @param title
  * @param url
  * @param param
@@ -387,7 +387,11 @@ function createTree(data, successOptions) {
     successOptions.treeNode.tree(options)
 }
 
-
+/**
+ * 添加Tab
+ * @param params
+ * @returns
+ */
 function addTab(params){
 	 var iframe = '<iframe src="' + params.url + '" frameborder="0" style="border:0;width:100%;height:100%;"></iframe>';
 	    var t = $('#index-tabs');
@@ -431,6 +435,14 @@ function loadData(obj,pNode) {
         })
     }
 }
+/**
+ * 初始化select数据
+ * @param selectNode 元素节点
+ * @param data  json数据
+ * @param flag 是否显示 提示信息
+ * @param title 设置提示信息
+ * @returns
+ */
 function initSelect(selectNode, data, flag, title) {
     var showTitle = title ? title : "请选择";
     var str = flag ? "<option value=''>" + showTitle + "</option>" : "";
@@ -441,6 +453,14 @@ function initSelect(selectNode, data, flag, title) {
     });
     selectNode.html(str)
 };
+/**
+ * 初始化select字典表数据
+ * @param selectNode select元素节点
+ * @param key 键
+ * @param flag 是否显示 提示信息
+ * @param title 设置提示信息
+ * @returns
+ */
 function initSelect(selectNode, key, flag, title) {
 	var data = {"setCode":key};
 	$.ajax({
@@ -463,7 +483,11 @@ function initSelect(selectNode, key, flag, title) {
 	});
 	
 };
-//清楚查询条件
+/**
+ * 清楚查询条件
+ * @param node 元素节点;
+ * @returns
+ */
 function clearFunction(node) {
     var clearNode = $("#" + node);
     clearNode.find('input').not("input[readonly]").not("input[type='checkbox']").not("input[type='radio']").val('');
@@ -601,7 +625,12 @@ function closeDialogCallBack(data) {
     $("div.panel-tool .panel-tool-close").click();
     showSuccessMsg(data.resultMessage);
 }
-//数据填充
+/**
+ * 数据填充
+ * @param obj json数据
+ * @param pNode 元素节点
+ * @returns
+ */
 function loadContainerWrapperData(obj,pNode) {
     var key, value, tagName, type, arr;
     for (x in obj) {
