@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.service.CollectService;
+import com.itour.service.FavoritesService;
 import com.itour.service.LocationService;
 import com.itour.service.NiceService;
 import com.itour.service.TransportationInfoService;
@@ -36,6 +38,10 @@ public class TravelApiController implements TravelApi {
 	ViewTravelinfoOauthService viewTravelinfoOauthService;
 	@Autowired
 	NiceService niceService;
+	@Autowired
+	CollectService collectService;
+	@Autowired
+	FavoritesService favoritesService;
 	 /**
      * 旅游信息列表
      */
@@ -321,7 +327,7 @@ public class TravelApiController implements TravelApi {
 	 * 修改旅行点赞信息（取消点赞)
 	 */
 	@Override
-	public ResponseMessage updateNice(RequestMessage requestMessage) {
+	public ResponseMessage updateNice(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return niceService.updateNice(requestMessage);
 	}
@@ -329,7 +335,7 @@ public class TravelApiController implements TravelApi {
 	 * 统计点赞数
 	 */
 	@Override
-	public ResponseMessage countNiceList(RequestMessage requestMessage) {
+	public ResponseMessage countNiceList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return niceService.countNiceList(requestMessage);
 	}
@@ -337,9 +343,49 @@ public class TravelApiController implements TravelApi {
 	 * 批量保存或修改点赞信息
 	 */
 	@Override
-	public ResponseMessage saveOrUpdateBatchNice(RequestMessage requestMessage) {
+	public ResponseMessage saveOrUpdateBatchNice(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return niceService.saveOrUpdateBatchNice(requestMessage);
+	}
+	/**
+	 * 收藏记录列表
+	 */
+	@Override
+	public ResponseMessage queryCollectList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return collectService.queryCollectList(requestMessage);
+	}
+	/**
+	 * 旅行收藏夹列表
+	 */
+	@Override
+	public ResponseMessage queryFavoriteList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return favoritesService.queryFavoriteList(requestMessage);
+	}
+	/**
+	 * 旅行收藏夹新增
+	 */
+	@Override
+	public ResponseMessage insertFavorite(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return favoritesService.insertFavorite(requestMessage);
+	}
+	/**
+	 * 旅行收藏夹修改|删除
+	 */
+	@Override
+	public ResponseMessage updateFavorite(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return favoritesService.updateFavorite(requestMessage);
+	}
+	/**
+	 * 旅行收藏夹物理删除
+	 */
+	@Override
+	public ResponseMessage delFavorite(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return favoritesService.delFavorite(requestMessage);
 	}
 	
 	

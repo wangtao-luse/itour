@@ -275,4 +275,41 @@ ResponseMessage countNiceList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/saveOrUpdateBatchNice",produces = {"application/json;charset=UTF-8"})
 ResponseMessage saveOrUpdateBatchNice(RequestMessage requestMessage);
+/**
+ * 旅行文字收藏记录列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryCollectList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryCollectList(RequestMessage requestMessage);
+/**
+ * 旅行收藏夹列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryFavoriteList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryFavoriteList(RequestMessage requestMessage);
+/**
+ * 旅行收藏夹新增
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertFavorite",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertFavorite(RequestMessage requestMessage);
+/**
+ * 旅行收藏夹修改|删除
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateFavorite",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateFavorite(RequestMessage requestMessage);
+/**
+ * 旅行收藏夹物理删除
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/delFavorite",produces = {"application/json;charset=UTF-8"})
+ResponseMessage delFavorite(RequestMessage requestMessage);
+
+
 }

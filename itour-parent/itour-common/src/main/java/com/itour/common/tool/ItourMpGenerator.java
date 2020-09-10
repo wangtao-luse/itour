@@ -44,7 +44,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_t_nice"};
+  			 String [] include= new String[] {"t_b_favorites","t_b_collect"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
