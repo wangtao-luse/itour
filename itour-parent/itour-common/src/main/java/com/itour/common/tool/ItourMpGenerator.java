@@ -44,7 +44,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_b_favorites","t_b_collect"};
+  			 String [] include= new String[] {"t_t_pageview"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -52,7 +52,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  
   			  */
-		     boolean isOverflowService=false;
+		     boolean isOverflowService=true;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 

@@ -16,9 +16,9 @@
 	    	 initSelect($("#utype"), "UTYPE",true,"全部");
 	    	 initSelect($("#sex"), "SEX",true,"全部");
 	    	searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});
-	    })
+	    });
 	    
-	           function getList(options) {
+	    function getList(options) {
 	    	console.log("console");
             var op = {            	
                 fitColumns:false,

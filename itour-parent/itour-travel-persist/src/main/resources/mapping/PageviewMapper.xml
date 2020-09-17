@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.PageviewMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.Pageview">
+        <result column="ID" property="id" />
+        <result column="TID" property="tid" />
+        <result column="UID" property="uid" />
+        <result column="PAGE_VEW" property="pageVew" />
+        <result column="UNIQUE_ISITOR" property="uniqueIsitor" />
+        <result column="IP" property="ip" />
+        <result column="VISIT_IEW" property="visitIew" />
+        <result column="VIDEO_VIEW" property="videoView" />
+        <result column="CREATEDATE" property="createdate" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, TID, UID, PAGE_VEW, UNIQUE_ISITOR, IP, VISIT_IEW, VIDEO_VIEW, CREATEDATE
+    </sql>
+
+</mapper>

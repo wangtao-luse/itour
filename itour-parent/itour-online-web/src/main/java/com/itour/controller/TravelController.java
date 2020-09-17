@@ -22,6 +22,7 @@ import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.TravelRedisKey;
 import com.itour.model.travel.Nice;
+import com.itour.model.travel.Pageview;
 import com.itour.util.DateUtil;
 import com.itour.util.SessionUtil;
 
@@ -165,10 +166,39 @@ public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 	    this.redisManager.hmset(TravelRedisKey.KEY_NICE, map,8*60);
 	} catch (Exception e) {
 		// TODO: handle exception
+		e.printStackTrace();
 		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 return responseMessage;	
+}
+@RequestMapping("/pageview")
+@ResponseBody
+public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		//1.将浏览量数据插入redis中,定时同步数据库
+		String tid = jsonObject.getString("tid");
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		Pageview pageview= new Pageview();
+		pageview.setTid(Integer.valueOf(tid));
+		pageview.setCreatedate(DateUtil.getlongDate(new Date()));
+		boolean hHasKey = redisManager.hHasKey(TravelRedisKey.KEY_PAGEVIEW, tid);
+		if(hHasKey) {//有浏览量
+			Pageview view = (Pageview)redisManager.hget(TravelRedisKey.KEY_PAGEVIEW, tid);
+			Integer pageVew = view.getPageVew();
+			view.setPageVew(pageVew+1);
+		}
+		map.put(tid, pageview);
+		//插入redis  key:TravelRedisKey.KEY_PAGEVIEW;时效:5天
+		this.redisManager.hmset(TravelRedisKey.KEY_PAGEVIEW, map, 5*24*60*60);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	
+	return responseMessage;	
 }
 
 }

@@ -10,6 +10,7 @@ import com.itour.service.CollectService;
 import com.itour.service.FavoritesService;
 import com.itour.service.LocationService;
 import com.itour.service.NiceService;
+import com.itour.service.PageviewService;
 import com.itour.service.TransportationInfoService;
 import com.itour.service.TransportationTypeService;
 import com.itour.service.TravelColumnService;
@@ -42,6 +43,8 @@ public class TravelApiController implements TravelApi {
 	CollectService collectService;
 	@Autowired
 	FavoritesService favoritesService;
+	@Autowired
+	PageviewService pageviewService;
 	 /**
      * 旅游信息列表
      */
@@ -386,6 +389,22 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage delFavorite(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return favoritesService.delFavorite(requestMessage);
+	}
+	/**
+	 * 浏览量列表
+	 */
+	@Override
+	public ResponseMessage queryPageviewList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return pageviewService.queryPageviewList(requestMessage);
+	}
+	/**
+	 * 浏览量批量新增或修改
+	 */
+	@Override
+	public ResponseMessage saveOrUpdateBatchPageview(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return pageviewService.saveOrUpdateBatchPageview(requestMessage);
 	}
 	
 	

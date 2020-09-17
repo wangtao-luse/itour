@@ -310,6 +310,19 @@ ResponseMessage updateFavorite(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/delFavorite",produces = {"application/json;charset=UTF-8"})
 ResponseMessage delFavorite(RequestMessage requestMessage);
+/**
+ * 旅行浏览记录列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryPageviewList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryPageviewList(RequestMessage requestMessage);
 
-
+/**
+ * 旅行浏览批量新增或修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/saveOrUpdateBatchPageview",produces = {"application/json;charset=UTF-8"})
+ResponseMessage saveOrUpdateBatchPageview(RequestMessage requestMessage);
 }
