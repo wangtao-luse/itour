@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ViewTravelinfoOauthService extends ServiceImpl<ViewTravelinfoOauthMapper, ViewTravelinfoOauth>  {
+	
 	/**
 	 * 旅行信息列表视图
 	 * @param requestMessage

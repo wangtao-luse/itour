@@ -541,6 +541,10 @@ button{
     border-color: transparent;
     
 }
+.voteButton.is-active {
+    color: #fff;
+    background: #0084ff;
+}
 .contentItem-action{
 	margin-left: 24px;
 	font-size: 14px;
@@ -1164,4 +1168,8 @@ button{
 }
 .commentButton:hover{
 	 background: #0099FF;
+}
+.load-more{
+	display: block;
+	visibility: hidden;
 }

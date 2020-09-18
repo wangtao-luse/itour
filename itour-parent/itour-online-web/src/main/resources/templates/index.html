@@ -1,52 +1,5 @@
 @layout("/layout/travel_template.html",{title:'首页'}){
-<script>
-$(function(){
-	queryInfo({});
-	//推荐
-	$(".story-tabCard .story_scenic_spot").click(function(){
-		$(".story-tabCard .story_tabs a").removeClass("is--active");
-		$(this).addClass("is--active");
-		var postData={};
-		queryInfo(postData);
-	});
-	//攻略
-	$(".story-tabCard .story-recomend").click(function(){
-		$(".story-tabCard .story_tabs a").removeClass("is--active");
-		$(this).addClass("is--active");
-		var postData={};
-		queryInfo(postData);
-	});
-	//点赞
-	$(".listShortcut .voteButton--up").click(function(){
-		var c = $(this).hasClass("is-active");
-		if(c){
-			var alias = $(this).attr("alias");
-		    var alia = parseInt(alias)-1;
-		    $(this).attr("alias",alia);
-		    $(this).text("赞同 "+alia);
-			$(this).removeClass("is-active");
-		}else{
-			var alias = $(this).attr("alias");
-		    var alia = parseInt(alias)+1;
-		    $(this).attr("alias",alia);
-		    $(this).text("已赞同 "+alia);
-			$(this).addClass("is-active");
-		}
-		
-        var data= {"url":urlstr};
-        postAjax("/travel/thumbUp", JSON.stringify(data), function (result) {
-        }, {errorFunction:function(result){},cache: false, async: false,"contentType": "application/json; charset=utf-8"});
-	});
-});
-
-function queryInfo(postData){
-	var url="/index?ajaxCmd=content";
-	postForm(url, postData, function(result){
-		$("#storyContent").html(result);
-	},{});
-}
-
-</script>
+<script type="text/javascript" src="js/travel/index.js"></script>
 			<div class="app-main">
 			   <div class="wrapper story-wrapper">
 			   	 <div class="story-mainColumn">
@@ -152,6 +105,7 @@ function queryInfo(postData){
 			   	    			</div>
 			   	    			@}
 			   	    		@}
+			   	    		 <span class="load-more">加载更多</span>
 			   	    			<div class="card storyItem storyItem-isRecommend" style="display: none">
 			   	    				<h2 class="contentItem_title">
 			   	    					<a href="#">去上海旅行怎么玩？您想要的攻略都在这了！去上海就这么玩？</a>
