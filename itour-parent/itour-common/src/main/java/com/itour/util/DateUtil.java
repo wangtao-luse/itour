@@ -17,6 +17,15 @@ public static long getlongDate(Date date) {
 	return time;
 }
 /**
+ * 将日期存储转换为long类型用于存储到mysql数据库中Int的字段中
+ * @param long
+ * @return
+ */
+public static long getlongDate(long date) {
+	long time = date/1000;
+	return time;
+}
+/**
  * 展示时需要*1000在进行转换
  * @param t
  * @return
@@ -273,9 +282,28 @@ public static final int daysBetween(Date early, Date late) {
             .getTime().getTime() / 1000)) / 3600 / 24;   
      
     return days;   
-}   
+} 
+/**
+ * 获取当天的开始时间 如2020-9-22 00:00
+ * @return
+ * @throws ParseException
+ */
+public static long getMidnight() throws ParseException {
+    //1.得到long类型的当前时间
+	long getlongDate = DateUtil.getlongDate(new Date());
+	//2.将当前日期格式化为yyyy-MM-dd
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String format = sdf.format(new Date(DateUtil.longDate(getlongDate)));
+	//3.将日格式化的日期字符串转为long类型日期
+	Date parse = sdf.parse(format);
+	long time = parse.getTime();
+	return time;
+	
+	
+}
 
 public static void main(String[] args) throws ParseException {
+	//得到long类型的当前时间
 	long getlongDate = DateUtil.getlongDate(new Date());
 	System.out.println(getlongDate);//1589436700
 									//1589438064
@@ -292,6 +320,6 @@ public static void main(String[] args) throws ParseException {
 	long time = DateUtil.getlongDate(parse);
 	System.out.println("指定日期的long格式"+time);
 	
-	
 }
+
 }

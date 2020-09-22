@@ -8,6 +8,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.CollectService;
 import com.itour.service.FavoritesService;
+import com.itour.service.HistoryService;
 import com.itour.service.LocationService;
 import com.itour.service.NiceService;
 import com.itour.service.PageviewService;
@@ -45,6 +46,8 @@ public class TravelApiController implements TravelApi {
 	FavoritesService favoritesService;
 	@Autowired
 	PageviewService pageviewService;
+	@Autowired
+	HistoryService historyService;
 	 /**
      * 旅游信息列表
      */
@@ -405,6 +408,30 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage saveOrUpdateBatchPageview(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return pageviewService.saveOrUpdateBatchPageview(requestMessage);
+	}
+	/**
+	 * 浏览记录列表
+	 */
+	@Override
+	public ResponseMessage queryHistoryList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return historyService.queryHistoryList(requestMessage);
+	}
+	/**
+	 * 浏览记录列表新增
+	 */
+	@Override
+	public ResponseMessage insertHistory(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return historyService.insertHistory(requestMessage);
+	}
+	/**
+	 * 浏览记录清除
+	 */
+	@Override
+	public ResponseMessage clearHistory(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return historyService.clearHistory(requestMessage);
 	}
 	
 	

@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -36,7 +35,7 @@ public class ViewTravelinfoOauthService extends ServiceImpl<ViewTravelinfoOauthM
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {		
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			ViewTravelinfoOauth viewTravelinfoOauthVo = jsonObject.toJavaObject(ViewTravelinfoOauth.class);
+			ViewTravelinfoOauth viewTravelinfoOauthVo = jsonObject.getJSONObject("vo").toJavaObject(ViewTravelinfoOauth.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<ViewTravelinfoOauth> queryWrapper = new QueryWrapper<ViewTravelinfoOauth>();
 			queryWrapper.orderByDesc("PUBLISHTIME");

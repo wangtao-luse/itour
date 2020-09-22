@@ -118,5 +118,30 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.selectViewTravelinfoOauthById(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 旅行信息浏览记录列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryHistoryList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryHistoryList(requestMessage);
+		return responseMessage;
+	}
+	
+	/**
+	 * 旅行信息浏览记录新增
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage insertHistory(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.insertHistory(requestMessage);
+		return responseMessage;
+	}
 	
 }

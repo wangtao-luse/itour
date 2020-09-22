@@ -84,7 +84,9 @@ public class Lambda {
 		//3.List<JavaBean>中的某属性---->List<基本类型|包装类>
 		List<Integer> toList = ToList(list);
 		
-	}
+		/*
+		 * 跟多方式 https://www.it1352.com/999007.html
+		 */	}
 	/**
 	 * Stream转为Map
 	 */

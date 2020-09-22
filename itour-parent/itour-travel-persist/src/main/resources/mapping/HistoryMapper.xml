@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.HistoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.History">
+        <id column="ID" property="id" />
+        <result column="U_ID" property="uId" />
+        <result column="CREATEDATE" property="createdate" />
+        <result column="TID" property="tid" />
+        <result column="TITLE" property="title" />
+        <result column="LOC" property="loc" />
+        <result column="STATUS" property="status" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, U_ID, CREATEDATE, TID, TITLE, LOC, STATUS
+    </sql>
+
+</mapper>

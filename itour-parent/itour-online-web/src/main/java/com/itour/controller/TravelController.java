@@ -20,7 +20,9 @@ import com.itour.common.vo.AccountVo;
 import com.itour.connector.AdvertConnector;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantV;
 import com.itour.constant.TravelRedisKey;
+import com.itour.model.travel.History;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.Pageview;
 import com.itour.util.DateUtil;
@@ -139,7 +141,19 @@ public ResponseMessage selectViewTravelinfoOauthById(@RequestBody JSONObject jso
 	
 }
 @RequestMapping("/planPage")
-public String planPage() {
+public String planPage(Integer id,String title,HttpServletRequest request) {
+	JSONObject jsonObject = new JSONObject();
+	History history = new History();
+	history.setId(id);
+	history.setTitle(title);
+	history.setStatus(ConstantV.HISTORY_NORMAL);
+	history.setCreatedate(DateUtil.getlongDate(new Date()));
+	String loc="";
+	history.setLoc(loc);
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	String uId=sessionUser.getuId();
+	history.setuId(uId);
+	this.travelConnector.insertHistory(jsonObject, request);
 	return "/travel/plan/detail";
 }
 @RequestMapping("/infoAddPage")

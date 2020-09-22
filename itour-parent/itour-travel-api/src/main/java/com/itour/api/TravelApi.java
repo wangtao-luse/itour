@@ -325,4 +325,26 @@ ResponseMessage queryPageviewList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/saveOrUpdateBatchPageview",produces = {"application/json;charset=UTF-8"})
 ResponseMessage saveOrUpdateBatchPageview(RequestMessage requestMessage);
+/**
+ * 旅行信息浏览记录
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryHistoryList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryHistoryList(RequestMessage requestMessage);
+/**
+ * 旅行信息浏览记录新增
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertHistory",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertHistory(RequestMessage requestMessage);
+/**
+ * 旅行信息浏览记录清楚
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/clearHistory",produces = {"application/json;charset=UTF-8"})
+ResponseMessage clearHistory(RequestMessage requestMessage);
+
 }

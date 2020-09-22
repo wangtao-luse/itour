@@ -2,21 +2,23 @@ var postAjax = function(url,postData,successFunction,options){
 			var returnFlag=false;
 			var defaultOptions={
 				type:"post",
-				async:true,//异步方式
+				async:true,//请求是否异步处理,默认是 true
+				cache:true,//浏览器是否缓存被请求页面,默认是 true
 				errorFunction:errorFunction,
 				successArguments: "",
 				errorArguments: "",
 				contentType:"application/json; charset=utf-8",/*传入数据类型*/
-				dataType:"json"/* 返回的数据类型*/
-			};			
+				dataType:"json"/* 返回的数据类型*///https://www.cnblogs.com/likui-bookHouse/p/8399827.html
+			};
+			//合并属性
 			var currentOptions = $.extend(defaultOptions, options);//https://www.runoob.com/jquery/misc-extend.html
 			$.ajax({
-				type:currentOptions.type,
-				url:url,
-				data:postData,
+				type:currentOptions.type,//规定请求的类型（GET 或 POST）
+				url:url,//发送请求的 URL。默认是当前页面
+				data:postData,//发送到服务器的数据
 				async:currentOptions.async,
-				contentType:currentOptions.contentType,
-				dataTyp:currentOptions.dataType,
+				contentType:currentOptions.contentType,//发送数据到服务器时所使用的内容类型。默认是："application/x-www-form-urlencoded"
+				dataTyp:currentOptions.dataType,//预期的服务器响应的数据类型
 				beforeSend:function(){
 					//loading();
 				},

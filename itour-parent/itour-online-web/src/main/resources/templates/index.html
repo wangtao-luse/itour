@@ -1,5 +1,98 @@
 @layout("/layout/travel_template.html",{title:'首页'}){
 <script type="text/javascript" src="js/travel/index.js"></script>
+           @#ajax norender content:{
+           	@for(t in viewTravelList){
+			   	    			<div class="card storyItem storyItem-isRecommend">
+			   	    				<h2 class="contentItem_title">
+			   	    					<a href="/travel/planPage">${t.title}</a>
+			   	    				</h2>
+			   	    				<div id="richContent" class="rich-content is-collapsed">
+			   	    					@if(t.url!=null && t.url!=''){
+			   	    					<div class="richContent-cover">
+			   	    						<div class="richContent-cover-inner">
+			   	    							<img src="${t.url}" align="cover" />
+			   	    						</div>
+			   	    					</div>
+			   	    					@}
+			   	    					<div class="richContent-inner">
+			   	    						<span class="richText ztext copyrightRichText-richText">
+			   	    							${t.nickname}：${t.summary}
+			   	    					
+			   	    						</span>
+			   	    						<button  type="button" class="button contentItem-more button--plain">
+			   	    						   阅读全文<span class="all-icon"></span>
+			   	    						</button>
+			   	    					</div>
+			   	    					<div class="contentItem-actions">
+			   	    						<div class="item_action">
+			   	    							<button class="button voteButton voteButton--up" alias="${t.niceCount}">赞同&nbsp;${t.niceCount}</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="comment-icon icon"></span>${t.commentCount}条评论
+			   	    							</button>
+			   	    							<div class="popover shareMenu contentItem-action">
+			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="share-icon icon"></span>分享
+			   	    							</button>
+			   	    							</div>
+			   	    							
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="collect-icon icon"></span>收藏
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="eye-icon icon" title="浏览量"></span>${t.pv}
+			   	    							</button>
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<span class="more-icon icon"></span>...
+			   	    							</button>
+			   	    							
+			   	    						</div>
+			   	    					</div>
+			   	    				</div>
+			   	    			</div>
+			   	    			@if(tLP.index%6==0){
+			   	    			<div class="card storyItem storyItem-isAdvert">
+			   	    				<div class="pc-feedAd-container">
+			   	    		    		<div class="pc-feedAd">
+			   	    		    			<div class="pc-feedAd-card ">
+			   	    		    				<a href="${t.ad.url!}">
+			   	    		    					<div class="pc-feedAd-card-brand">
+			   	    		    						<div class="pc-feedAd-card-brand-wrapper ">
+			   	    		    							<img src="${t.ad.logo!}" />
+			   	    		    							<span class="pc-feedAd-card-brand--bold">${t.ad.brand!}</span>
+			   	    		    							<div class="pc-feedAd-card-brand-metaText"></div>
+			   	    		    						</div>
+			   	    		    					</div>
+			   	    		    				</a>
+			   	    		    			    <div class="advert-signpc">
+			   	    		    			    	<div class="advert-signpc-label">广告<span class="down-icon"></span></div>
+			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show">
+			   	    		    			    	 	<span class="advert-signpc-popup-arrow"></span>
+			   	    		    			    	 	<div class="advert-signpc-popup-menu">
+			   	    		    			    	 		<button type="button">不感兴趣</button>
+			   	    		    			    	 		<a href="#">网站广告介绍</a>
+			   	    		    			    	 	</div>
+			   	    		    			    	 </div>
+			   	    		    			    </div>
+			   	    		    			    <a href="${t.ad.url!}">
+			   	    		    			    	<h2 class="pc-feedAd-card-title">${t.ad.title!}</h2>
+			   	    		    			    	<div class="pc-feedAd-card-content">
+			   	    		    			    		<div class="advertImg advertImg--isLoaded pc-feedAd-card-content-cover">
+			   	    		    			    			<img src="${t.ad.adverimg!}" alt="图片">
+			   	    		    			    		</div>
+			   	    		    			    		<div class="pc-feedAd-card-content-detail">
+			   	    		    			    			<span>${t.ad.summary!}</span>	
+			   	    		    			    			<span class="pc-feedAd-card-content-detail-cta">查看详情</span>
+			   	    		    			    			<span class="arrow-right"></span>
+			   	    		    			    		</div>
+			   	    		    			    	</div>
+			   	    		    			    </a>
+			   	    		    			</div>
+			   	    		    		</div>
+			   	    		    	</div>
+			   	    			</div>
+			   	    			@}
+			   	    		@}
+           @}
 			<div class="app-main">
 			   <div class="wrapper story-wrapper">
 			   	 <div class="story-mainColumn">
@@ -11,7 +104,7 @@
 			   	 		</div>
 			   	 	</div>
 			   	    <div id="storyContent" class="story-content">
-			   	    	@#ajax content:{
+			   	    	
 			   	    	<div class="listShortcut">
 			   	    		<div class="story-recommend">
 			   	    		@for(t in viewTravelList){
@@ -62,7 +155,7 @@
 			   	    					</div>
 			   	    				</div>
 			   	    			</div>
-			   	    			@if(tLP.index==3||tLP.index%9==0){
+			   	    			@if(tLP.index%6==0){
 			   	    			<div class="card storyItem storyItem-isAdvert">
 			   	    				<div class="pc-feedAd-container">
 			   	    		    		<div class="pc-feedAd">
@@ -105,7 +198,7 @@
 			   	    			</div>
 			   	    			@}
 			   	    		@}
-			   	    		 <span class="load-more">加载更多</span>
+			   	    		    <span class="load-more">加载更多</span>
 			   	    			<div class="card storyItem storyItem-isRecommend" style="display: none">
 			   	    				<h2 class="contentItem_title">
 			   	    					<a href="#">去上海旅行怎么玩？您想要的攻略都在这了！去上海就这么玩？</a>
@@ -299,7 +392,7 @@
 			   	    		    </div>
 			   	    		</div>
 			   	    	</div>
-			   	    	@}
+			   	    	
 			   	    </div>
 			   	 </div>
 			   	 <div class="globalSideBar">
@@ -457,5 +550,7 @@
 			   	 </div>
 			   </div>
 			</div>
+
+
 		
 @}
