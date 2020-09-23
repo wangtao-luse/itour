@@ -142,6 +142,7 @@ public ResponseMessage selectViewTravelinfoOauthById(@RequestBody JSONObject jso
 }
 @RequestMapping("/planPage")
 public String planPage(Integer id,String title,HttpServletRequest request) {
+	//1.添加浏览记录
 	JSONObject jsonObject = new JSONObject();
 	History history = new History();
 	history.setId(id);
@@ -154,6 +155,7 @@ public String planPage(Integer id,String title,HttpServletRequest request) {
 	String uId=sessionUser.getuId();
 	history.setuId(uId);
 	this.travelConnector.insertHistory(jsonObject, request);
+	//2.跳转页面
 	return "/travel/plan/detail";
 }
 @RequestMapping("/infoAddPage")

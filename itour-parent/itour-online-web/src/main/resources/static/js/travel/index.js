@@ -57,6 +57,7 @@ $(function(){
 	  }
 		
 	}
+	//滚动监听事件
 	$(window).scroll(function () {
 	//滚动条在Y轴上的滚动距离
     var scrollTop = $(this).scrollTop();
@@ -111,4 +112,29 @@ $(function(){
 	        postAjax("/travel/thumbUp", JSON.stringify(data), function (result) {
 	        }, {errorFunction:function(result){},cache: false, async: false,"contentType": "application/json; charset=utf-8"});
 	});
+	//分享
+	$("#storyContent").on("click",".shareBtn",function(){
+		$(".shareBtn").parent().find(".menu").hide();
+		$(this).parent().find(".menu").show();
+	});
+	//关闭浮出层
+	$(document).on("click",".Modal-closeButton",function(){
+		$(".Modal-wrapper").hide();
+	});
+	//收藏弹出框
+	$(document).on("click",".favoriteButton,.ModalButtonGroup .button-box",function(){
+		 var dxUrl = "/favoriteModal";
+		    $("#favoriteBox").load(dxUrl, function () {
+		        $(".Modal-wrapper").show();
+		    });
+	});
+	//创建收藏夹弹出框
+	$(document).on("click",".Favlists-addButton",function(){
+		 var dxUrl = "/favoriteAddModal";
+		    $("#favoriteBox").load(dxUrl, function () {
+		        $(".Modal-wrapper").show();
+		    });
+	});
+	
 });
+

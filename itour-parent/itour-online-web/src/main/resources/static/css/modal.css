@@ -1,0 +1,210 @@
+h1, h2, h3 {
+			    margin: 0;
+			    font: inherit;
+			}
+			.Modal-wrapper{
+				position: fixed;
+				right: 0;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				z-index: 100;
+			}
+			.Modal-backdrop{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				background-color: rgba(26,26,26,0.65);
+				z-index: 0;
+			}
+		    .Modal{
+		    	position: relative;
+		    	top: 10%;
+		    	z-index: 1;
+		    	width: 400px;
+		    	margin: 0 auto;
+		    	box-shadow: 0 5px 20px rgba(26,26,26,.1);
+		    }
+		    .Modal-large{
+		    	width: 536px;
+		    }
+		    .Modal-inner{
+		    	overflow: auto;
+		    	background: #FFF;
+		    	border-radius: 2px;
+		    }
+		    .Modal-title {
+			    margin-top: 40px;
+			    font-size: 24px;
+			    font-weight: 500;
+			    color: #1a1a1a;
+			    text-align: center;
+		 	}
+		 	.Modal-subtitle {
+			    padding: 0 38px;
+			    margin-top: 4px;
+			    font-size: 14px;
+			    line-height: 1.5;
+			    color: #8590a6;
+			    text-align: center;
+			}
+			.Modal-content {
+			    padding: 0 24px 32px;
+			    margin-top: 24px;
+			    line-height: 1.7;
+			    opacity: 1;
+			}
+			.Favlists-content{
+				padding: 0 24px 32px;
+				margin-top:24px ;
+				opacity: 1;
+				line-height: 1.7;
+			}
+			.Favlists-items {
+			    max-height: 335px;
+			    min-height: 140px;
+			    margin-bottom: 40px;
+			    overflow-x: hidden;
+			    overflow-y: auto;
+			}
+			.Favlists-item{
+				padding: 8px 0;
+    			border-bottom: 1px solid #ebebeb;
+			}
+			.Favlists-updateButton {
+			    padding-left: 0;
+			    padding-right: 0;
+			    width: 76px;
+			}
+			.Button--blue {
+			    color: #0084ff;
+			    border-color: #0084ff;
+			}
+			.fr{
+				float: right;
+			}
+			.fl{
+				float: left;
+			}
+			.mt6{
+				margin-top: 6px;
+			}
+			.Favlists-actions {
+			    padding: 16px 20px;
+			    text-align: center;
+			}
+			.Favlists-addButton {
+    			width: 220px;
+			}
+			.button--primary.button--blue {
+			    color: #fff;
+			    background-color: #0084ff;
+			}
+			.Modal-closeButton {
+			    position: absolute;
+			    top: 0px;
+			    right: 0px;
+			    padding: 2px;
+			    background: transparent;
+			}
+			.icon-close{
+				display: block;
+			    width: 25px;
+			    height: 25px;
+			    background: url(../img/travel/btn-dialog-close.png) 0 0 no-repeat;
+			    cursor: pointer;
+			}
+			.icon-close:hover {
+    			background-position: 0 -25px;
+			}
+			
+			
+			
+.Favlists-addItem{
+				margin-bottom: 8px;
+			}
+			.Input-wrapper{
+				 position: relative;     
+				 width: 180px;
+				 height: 34px;
+				 border: 1px solid #ebebeb;
+    		     border-radius: 3px;
+    		     padding: 4px 10px;
+			}
+			.Favlists-descritionInput,
+			 .Favlists-titleInput {
+			    display: block;
+			    width: 100%;
+			    height: auto;
+			    padding: 8px 12px;
+			}
+			.Favlists-descritionInput .input,
+			 .Favlists-titleInput .input{
+			    width: 100%;
+			}
+			.Input {
+			    padding: 0;
+			    overflow: hidden;
+			    font-family: inherit;
+			    font-size: inherit;
+			    font-weight: inherit;
+			    background: transparent;
+			    border: none;
+			    resize: none;
+			    outline: none;
+			}
+			input.Input {
+			    color: #1a1a1a;
+			    height: 24px;
+			    line-height: 24px;
+			}
+			.Input:not(input) {
+			    line-height: 24px;
+			}
+			.Favlists-privacyOption{
+				display: block;
+			}
+			.Input-wrapper.Input-wrapper--multiline {
+  			  height: inherit;
+			}
+			.Favlists-privacyOptionRadio {
+			    display: inline-block;
+			    width: 14px;
+			    height: 14px;
+			    padding: 2px;
+			    margin: 0 4px 0 0;
+			    vertical-align: middle;
+			    border: 2px solid #ebebeb;
+			    border-radius: 50%;
+			    -webkit-transition: background-color,border-color .3s;
+			    transition: background-color,border-color .3s;
+			    background-clip: content-box;
+			    -webkit-appearance: none;
+			    -moz-appearance: none;
+			    appearance: none;
+			    outline: none;
+			}
+			.Favlists-privacyOptionRadio:checked {
+			    background-color: #0084ff;
+			    border-color: #0084ff;
+			}
+			.Favlists-privacyOptionTips {
+			    margin-left: 4px;
+			    color: #8590a6;
+			}
+			.ModalButtonGroup--horizontal {
+			    
+			    margin-top: 48px;
+			}
+			.button-box{
+				border: 1px solid #8590a6;
+				border-radius: 2px;
+				padding: 0 28px;
+			}		
+			.button:disabled {
+			    cursor: default;
+			    opacity: 0.5;
+			    pointer-events: none;
+			}

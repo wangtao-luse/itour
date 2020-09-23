@@ -97,5 +97,22 @@ public JSONArray advert(HttpServletRequest request, JSONObject jsonObject, Respo
 		 
 	return result;
 }
-
+/**
+ * 收藏弹出框
+ * @return
+ */
+@RequestMapping("/favoriteModal")
+public String favoriteModal(String id,ModelMap model) {
+	model.addAttribute("id", id);
+return "/travel/plan/favorite";	
+}
+/**
+ * 
+ * @param model
+ * @return
+ */
+@RequestMapping("/favoriteAddModal")
+public String favoriteAddModal() {
+return "/travel/plan/favoriteAdd";	
+}
 }

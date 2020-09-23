@@ -1,20 +1,22 @@
 @layout("/layout/travel_template.html",{title:'首页'}){
 <script type="text/javascript" src="js/travel/index.js"></script>
+<div id="favoriteBox"></div>
            @#ajax norender content:{
            	@for(t in viewTravelList){
 			   	    			<div class="card storyItem storyItem-isRecommend">
 			   	    				<h2 class="contentItem_title">
-			   	    					<a href="/travel/planPage">${t.title}</a>
+			   	    					<a href="/travel/planPage" target="_blank">${t.title}</a>
 			   	    				</h2>
 			   	    				<div id="richContent" class="rich-content is-collapsed">
 			   	    					@if(t.url!=null && t.url!=''){
 			   	    					<div class="richContent-cover">
 			   	    						<div class="richContent-cover-inner">
-			   	    							<img src="${t.url}" align="cover" />
+			   	    						    <a href="/travel/planPage" target="_blank"><img src="${t.url}" align="cover" /></a>
 			   	    						</div>
 			   	    					</div>
 			   	    					@}
 			   	    					<div class="richContent-inner">
+			   	    					 <a href="/travel/planPage" target="_blank">
 			   	    						<span class="richText ztext copyrightRichText-richText">
 			   	    							${t.nickname}：${t.summary}
 			   	    					
@@ -22,26 +24,42 @@
 			   	    						<button  type="button" class="button contentItem-more button--plain">
 			   	    						   阅读全文<span class="all-icon"></span>
 			   	    						</button>
+			   	    						</a>
 			   	    					</div>
 			   	    					<div class="contentItem-actions">
 			   	    						<div class="item_action">
 			   	    							<button class="button voteButton voteButton--up" alias="${t.niceCount}">赞同&nbsp;${t.niceCount}</button>
 			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="comment-icon icon"></span>${t.commentCount}条评论
+			   	    								<a href="/travel/planPage#commentBox" target="_blank"><span class="comment-icon icon"></span>${t.commentCount}条评论</a>
 			   	    							</button>
 			   	    							<div class="popover shareMenu contentItem-action">
-			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<button class="button contentItem-action shareBtn button--plain button--withIcon button--withLabel">
 			   	    								<span class="share-icon icon"></span>分享
-			   	    							</button>
+			   	    								</button>
+			   	    								<div class="menu" style="display:none">
+			   	    							    	<div class="share-menu">
+			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
+			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
+			   	    							    	</button>
+			   	    							    	<div class="menu-item menu-item--noActive shareMenu-wechat">
+			   	    							    		<button type="button" class="button shareMenu-button button--plain">
+			   	    							    			<span class="zi-wechat share-icon icon" style="margin-right: 6px;"></span>微信扫一扫
+			   	    							    		</button>
+			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
+			   	    							    	</div>
+			   	    							    	</div>
+			   	    							    	
+			   	    							    </div>
+			   	    							
 			   	    							</div>
 			   	    							
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    							<button class="button contentItem-action favoriteButton button--plain button--withIcon button--withLabel" >
 			   	    								<span class="collect-icon icon"></span>收藏
 			   	    							</button>
 			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="eye-icon icon" title="浏览量"></span>${t.pv}
+			   	    								<a href="/travel/planPage" target="_blank"><span class="eye-icon icon" title="浏览量"></span>${t.pv}</a>
 			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel" style="display:none">
 			   	    								<span class="more-icon icon"></span>...
 			   	    							</button>
 			   	    							
@@ -54,7 +72,7 @@
 			   	    				<div class="pc-feedAd-container">
 			   	    		    		<div class="pc-feedAd">
 			   	    		    			<div class="pc-feedAd-card ">
-			   	    		    				<a href="${t.ad.url!}">
+			   	    		    				<a href="${t.ad.url!}" target="_blank">
 			   	    		    					<div class="pc-feedAd-card-brand">
 			   	    		    						<div class="pc-feedAd-card-brand-wrapper ">
 			   	    		    							<img src="${t.ad.logo!}" />
@@ -110,17 +128,18 @@
 			   	    		@for(t in viewTravelList){
 			   	    			<div class="card storyItem storyItem-isRecommend">
 			   	    				<h2 class="contentItem_title">
-			   	    					<a href="/travel/planPage">${t.title}</a>
+			   	    					<a href="/travel/planPage" target="_blank">${t.title}</a>
 			   	    				</h2>
 			   	    				<div id="richContent" class="rich-content is-collapsed">
 			   	    					@if(t.url!=null && t.url!=''){
 			   	    					<div class="richContent-cover">
 			   	    						<div class="richContent-cover-inner">
-			   	    							<img src="${t.url}" align="cover" />
+			   	    							 <a href="/travel/planPage" target="_blank"><img src="${t.url}" align="cover" /></a>
 			   	    						</div>
 			   	    					</div>
 			   	    					@}
 			   	    					<div class="richContent-inner">
+			   	    					 <a href="/travel/planPage" target="_blank">
 			   	    						<span class="richText ztext copyrightRichText-richText">
 			   	    							${t.nickname}：${t.summary}
 			   	    					
@@ -128,26 +147,42 @@
 			   	    						<button  type="button" class="button contentItem-more button--plain">
 			   	    						   阅读全文<span class="all-icon"></span>
 			   	    						</button>
+			   	    						</a>
 			   	    					</div>
 			   	    					<div class="contentItem-actions">
 			   	    						<div class="item_action">
 			   	    							<button class="button voteButton voteButton--up" alias="${t.niceCount}">赞同&nbsp;${t.niceCount}</button>
 			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="comment-icon icon"></span>${t.commentCount}条评论
+			   	    								<a href="/travel/planPage#commentBox" target="_blank"><span class="comment-icon icon"></span>${t.commentCount}条评论</a>
 			   	    							</button>
 			   	    							<div class="popover shareMenu contentItem-action">
-			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    								<button class="button contentItem-action shareBtn  button--plain button--withIcon button--withLabel">
 			   	    								<span class="share-icon icon"></span>分享
-			   	    							</button>
+			   	    								</button>
+			   	    								<div class="menu" style="display:none">
+			   	    							    	<div class="share-menu">
+			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
+			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
+			   	    							    	</button>
+			   	    							    	<div class="menu-item menu-item--noActive shareMenu-wechat">
+			   	    							    		<button type="button" class="button shareMenu-button button--plain">
+			   	    							    			<span class="zi-wechat share-icon icon" style="margin-right: 6px;"></span>微信扫一扫
+			   	    							    		</button>
+			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
+			   	    							    	</div>
+			   	    							    	</div>
+			   	    							    	
+			   	    							    </div>
+			   	    							
 			   	    							</div>
 			   	    							
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    							<button class="button contentItem-action favoriteButton button--plain button--withIcon button--withLabel" >
 			   	    								<span class="collect-icon icon"></span>收藏
 			   	    							</button>
 			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="eye-icon icon" title="浏览量"></span>${t.pv}
+			   	    								<a href="/travel/planPage" target="_blank"><span class="eye-icon icon" title="浏览量"></span>${t.pv}</a>
 			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel" style="display:none">
 			   	    								<span class="more-icon icon"></span>...
 			   	    							</button>
 			   	    							
@@ -160,7 +195,7 @@
 			   	    				<div class="pc-feedAd-container">
 			   	    		    		<div class="pc-feedAd">
 			   	    		    			<div class="pc-feedAd-card ">
-			   	    		    				<a href="${t.ad.url!}">
+			   	    		    				<a href="${t.ad.url!}" target="_blank">
 			   	    		    					<div class="pc-feedAd-card-brand">
 			   	    		    						<div class="pc-feedAd-card-brand-wrapper ">
 			   	    		    							<img src="${t.ad.logo!}" />
@@ -369,6 +404,20 @@
 			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
 			   	    								<span class="share-icon icon"></span>分享
 			   	    							</button>
+			   	    							<div class="menu" >
+			   	    							    	<div class="share-menu">
+			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
+			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
+			   	    							    	</button>
+			   	    							    	<div class="menu-item menu-item--noActive shareMenu-wechat">
+			   	    							    		<button type="button" class="button shareMenu-button button--plain">
+			   	    							    			<span class="zi-wechat share-icon icon" style="margin-right: 6px;"></span>微信扫一扫
+			   	    							    		</button>
+			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
+			   	    							    	</div>
+			   	    							    	</div>
+			   	    							    	
+			   	    							    </div>
 			   	    							</div>
 			   	    							
 			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
@@ -439,7 +488,7 @@
 			   	 	     	</div>
 			   	 	     	<div class="wechat-follow-con">
 			   	 	     		<img src="img/account/qrcode.jpg" class="wechat-scan" width="150" />
-			   	 	     			"灵魂旅行",提供最优旅行攻略，让旅行变得简单,节省您做攻略的时间,
+			   	 	     			"爱旅行SHOW",提供最优旅行攻略，让旅行变得简单,节省您做攻略的时间,
 			   	 	     		  让你带上你的灵魂去旅行，让旅行更加的有意义。
 			   	 	     		
 			   	 	     	</div>
