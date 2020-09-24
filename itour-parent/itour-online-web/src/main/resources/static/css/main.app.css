@@ -524,6 +524,7 @@ button{
 }
 .contentItem-actions{
 	padding: 10px 0;
+	height:30px;
 	clear: both;
 }
 .shareMenu .menu{
@@ -577,7 +578,7 @@ button{
 	text-align: left;
 }	
 .item_action{
-	
+	position: absolute;
 }
 .contentItem-actions .popover{
 	display: inline-block;
