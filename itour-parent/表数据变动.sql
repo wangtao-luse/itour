@@ -289,6 +289,10 @@ INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/favoriteModal','-1','authc','旅行信息收藏浮出框','0');
 INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/favoriteAddModal','-1','authc','旅行信息收藏创建收藏夹浮出框','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/queryFavoriteList','-1','authc','旅行信息收藏夹列表','0');
+INSERT INTO t_a_right_detail(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/insertFavorite','-1','authc','旅行信息创建收藏夹','0');
 ---前台权限表-------------------------------------------------------
 INSERT INTO t_a_right(MENU_NO,MENU,PARENT_ID,MENU_TYPE,URL,M_ORDER,S_ORDER)
 VALUES('1000','旅行信息修改','0','2','','0','0');

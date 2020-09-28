@@ -143,5 +143,29 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.insertHistory(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 旅行信息收藏夹创建
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage insertFavorite(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.insertFavorite(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 旅行信息收藏夹列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryFavoriteList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryFavoriteList(requestMessage);
+		return responseMessage;
+	}
 	
 }

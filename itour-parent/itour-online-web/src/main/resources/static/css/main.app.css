@@ -373,7 +373,7 @@ button{
     background: #fff;
     -webkit-box-shadow: 0 5px 20px rgba(26,26,26,.1);
     box-shadow: 0 5px 20px rgba(26,26,26,.1);
-    z-index: 999;
+    z-index: 1;
 }
 .advert-signpc-popup--isHidden{
 	display: none;
@@ -553,10 +553,12 @@ button{
   -o-transform: rotate(135deg);
   -ms-transform: rotate(135deg);
  background: #fff;
+     border-top: transparent;
+    border-right: transparent;
 }
  .shareMenu .menu:after{
 	width: 80px;
-	height: 19px;
+	height: 10px;
 	left: 30%;
 	content:"";
 	display: block;
@@ -566,7 +568,6 @@ button{
 	
  background: #fff;
 }
-
 
 .shareMenu-button{
 	height: 40px;

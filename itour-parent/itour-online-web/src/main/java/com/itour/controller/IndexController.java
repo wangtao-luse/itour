@@ -10,7 +10,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -107,12 +109,36 @@ public String favoriteModal(String id,ModelMap model) {
 return "/travel/plan/favorite";	
 }
 /**
- * 
+ * 创建收藏夹
  * @param model
  * @return
  */
 @RequestMapping("/favoriteAddModal")
 public String favoriteAddModal() {
 return "/travel/plan/favoriteAdd";	
+}
+/**
+ * 创建收藏夹
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/insertFavorite")
+@ResponseBody
+public ResponseMessage insertFavorite(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage insertFavorite = this.travelConnector.insertFavorite(jsonObject, request);
+	return insertFavorite;
+}
+/**
+ * 收藏夹列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/queryFavoriteList")
+@ResponseBody
+public ResponseMessage queryFavoriteList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage insertFavorite = this.travelConnector.queryFavoriteList(jsonObject, request);
+	return insertFavorite;
 }
 }

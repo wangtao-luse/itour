@@ -1,5 +1,8 @@
 @layout("/layout/travel_template.html",{title:'首页'}){
 <script type="text/javascript" src="js/travel/index.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
 <div id="favoriteBox"></div>
            @#ajax norender content:{
            	@for(t in viewTravelList){
@@ -36,8 +39,8 @@
 			   	    								<button class="button contentItem-action shareBtn button--plain button--withIcon button--withLabel">
 			   	    								<span class="share-icon icon"></span>分享
 			   	    								</button>
-			   	    								<div class="menu" style="display:none">
-			   	    							    	<div class="share-menu">
+			   	    								<div class="menu social-share" style="display:none">
+			   	    							    	<!-- <div class="share-menu">
 			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
 			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
 			   	    							    	</button>
@@ -47,7 +50,7 @@
 			   	    							    		</button>
 			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
 			   	    							    	</div>
-			   	    							    	</div>
+			   	    							    	</div> -->
 			   	    							    	
 			   	    							    </div>
 			   	    							
@@ -83,7 +86,7 @@
 			   	    		    				</a>
 			   	    		    			    <div class="advert-signpc">
 			   	    		    			    	<div class="advert-signpc-label">广告<span class="down-icon"></span></div>
-			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show">
+			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show" style="display:none">
 			   	    		    			    	 	<span class="advert-signpc-popup-arrow"></span>
 			   	    		    			    	 	<div class="advert-signpc-popup-menu">
 			   	    		    			    	 		<button type="button">不感兴趣</button>
@@ -159,8 +162,8 @@
 			   	    								<button class="button contentItem-action shareBtn  button--plain button--withIcon button--withLabel">
 			   	    								<span class="share-icon icon"></span>分享
 			   	    								</button>
-			   	    								<div class="menu" style="display:none">
-			   	    							    	<div class="share-menu">
+			   	    								<div class="menu social-share" style="display:none">
+			   	    							    	<!-- <div class="share-menu">
 			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
 			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
 			   	    							    	</button>
@@ -170,7 +173,7 @@
 			   	    							    		</button>
 			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
 			   	    							    	</div>
-			   	    							    	</div>
+			   	    							    	</div> -->
 			   	    							    	
 			   	    							    </div>
 			   	    							
@@ -206,7 +209,7 @@
 			   	    		    				</a>
 			   	    		    			    <div class="advert-signpc">
 			   	    		    			    	<div class="advert-signpc-label">广告<span class="down-icon"></span></div>
-			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show">
+			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show" style="display:none">
 			   	    		    			    	 	<span class="advert-signpc-popup-arrow"></span>
 			   	    		    			    	 	<div class="advert-signpc-popup-menu">
 			   	    		    			    	 		<button type="button">不感兴趣</button>

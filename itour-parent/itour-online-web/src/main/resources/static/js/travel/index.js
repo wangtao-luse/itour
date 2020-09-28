@@ -113,9 +113,14 @@ $(function(){
 	        }, {errorFunction:function(result){},cache: false, async: false,"contentType": "application/json; charset=utf-8"});
 	});
 	//分享
-	$("#storyContent").on("click",".shareBtn",function(){
+	$("#storyContent").on("click",".shareBtn",function(e){
 		$(".shareBtn").parent().find(".menu").hide();
 		$(this).parent().find(".menu").show();
+		 $(document).one('click',function(){
+		  $(".shareBtn").parent().find(".menu").hide();
+         })
+         e.stopPropagation();/*stopPropagation();方法可以阻止把事件分派到其他节点*/
+		
 	});
 	//关闭浮出层
 	$(document).on("click",".Modal-closeButton",function(){
@@ -135,6 +140,7 @@ $(function(){
 		        $(".Modal-wrapper").show();
 		    });
 	});
+	
 	
 });
 
