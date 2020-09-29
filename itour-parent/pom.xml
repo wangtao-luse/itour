@@ -75,6 +75,7 @@
   	<httpclient.version>4.5.12</httpclient.version>
   	<commonmark.version>0.15.0</commonmark.version>
   	<druid.version>1.1.23</druid.version>
+  	<docker.image.prefix>docker</docker.image.prefix> <!-- 在docker运行时要用的，只是一个前缀而已，就像包名一样,可自己任意定义此名称 -->
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -354,7 +355,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- docker 插件  -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+				<!-- docker私服的地址 -->
+				<dockerHost>http://106.54.162.159:2375</dockerHost>
+				<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+				<dockerDirectory>src/main/docker</dockerDirectory>
+				<resources>
+				<resource>
+				<targetPath>/</targetPath>
+				<directory>${project.build.directory}</directory>
+				<include>${project.build.finalName}.jar</include>
+				</resource>
+				</resources>
+				</configuration>
+			</plugin>
 		</plugins>
+		<finalName>test_itour</finalName><!--打包后文件名称-->
 	</build> 
   <repositories>
 		<repository>
