@@ -18,7 +18,6 @@
     <module>itour-travel-service</module>
     <module>itour-travel-persist</module>
     <module>itour-travel-api</module>
-    <module>itour-account-persist</module>
     <module>itour-work-api</module>
     <module>itour-work-service</module>
     <module>itour-work-persist</module>
