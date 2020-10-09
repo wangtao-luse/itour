@@ -348,19 +348,32 @@
 		
 		
 	</dependencyManagement>
-  <build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
+  <!-- <build> -->
+  		<!--<finalName>test_itour</finalName>打包后文件名称-->
+		<!-- <plugins> -->
+			<!-- <plugin> -->
+			<!-- https://www.cnblogs.com/thinking-better/p/7827368.html -->
+				<!-- <groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<!-- docker 插件  -->
+				<configuration>
+					<mainClass>com.itour.OnlienApplication</mainClass>
+					<classifier>exec</classifier>
+				</configuration>
+				<executions>
+			        <execution>
+			            <goals>
+			                <goal>repackage</goal>
+			            </goals>
+			        </execution>
+			    </executions> -->
+			<!-- </plugin> -->
+			<!-- docker 插件 
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>1.0.0</version>
-				<configuration>
-				<!-- docker私服的地址 -->
+				<configuration> -->
+				<!-- docker私服的地址 
 				<dockerHost>http://106.54.162.159:5000</dockerHost>
 				<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 				<dockerDirectory>src/main/docker</dockerDirectory>
@@ -372,11 +385,11 @@
 				</resource>
 				</resources>
 				</configuration>
-			</plugin>
-		</plugins>
-		<finalName>test_itour</finalName><!--打包后文件名称-->
-
-	</build> 
+			</plugin>-->
+		<!-- </plugins> -->
+		
+<!-- 
+	</build>  -->
   <repositories>
 		<repository>
 			<id>spring-milestones</id>
