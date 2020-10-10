@@ -348,16 +348,15 @@
 		
 		
 	</dependencyManagement>
-  <!-- <build> -->
-  		<!--<finalName>test_itour</finalName>打包后文件名称-->
-		<!-- <plugins> -->
-			<!-- <plugin> -->
+  <build>
+  		<finalName>test_itour</finalName><!-- 打包后文件名称 -->
+		<plugins>
+			<plugin>
 			<!-- https://www.cnblogs.com/thinking-better/p/7827368.html -->
-				<!-- <groupId>org.springframework.boot</groupId>
+				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.itour.OnlienApplication</mainClass>
-					<classifier>exec</classifier>
 				</configuration>
 				<executions>
 			        <execution>
@@ -365,8 +364,8 @@
 			                <goal>repackage</goal>
 			            </goals>
 			        </execution>
-			    </executions> -->
-			<!-- </plugin> -->
+			    </executions>
+			</plugin>
 			<!-- docker 插件 
 			<plugin>
 				<groupId>com.spotify</groupId>
@@ -386,10 +385,10 @@
 				</resources>
 				</configuration>
 			</plugin>-->
-		<!-- </plugins> -->
+		</plugins>
 		
-<!-- 
-	</build>  -->
+
+	</build> 
   <repositories>
 		<repository>
 			<id>spring-milestones</id>
