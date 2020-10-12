@@ -26,6 +26,7 @@ import com.itour.model.travel.History;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.Pageview;
 import com.itour.util.DateUtil;
+import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
 
 @Controller

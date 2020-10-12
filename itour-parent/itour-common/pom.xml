@@ -59,5 +59,21 @@
 	    <groupId>net.coobird</groupId>
 	    <artifactId>thumbnailator</artifactId>
 	</dependency>
+	<!-- markdown相关 -->
+	<!--引入atlassian（将markdown形式转成html格式的）-->
+		<dependency>
+		    <groupId>com.atlassian.commonmark</groupId>
+		    <artifactId>commonmark</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.atlassian.commonmark</groupId>
+		    <artifactId>commonmark-ext-gfm-tables</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.atlassian.commonmark</groupId>
+		    <artifactId>commonmark-ext-heading-anchor</artifactId>
+		</dependency>
   </dependencies>
 </project>
