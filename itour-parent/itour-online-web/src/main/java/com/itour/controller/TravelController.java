@@ -1,7 +1,6 @@
 package com.itour.controller;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
-import com.itour.connector.AdvertConnector;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantV;
@@ -26,7 +24,6 @@ import com.itour.model.travel.History;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.Pageview;
 import com.itour.util.DateUtil;
-import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
 
 @Controller
