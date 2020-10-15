@@ -356,6 +356,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.itour.OnlienApplication</mainClass>
+				<!-- 	https://www.jianshu.com/p/a95362dd8f2e 
+					<classifier>exec</classifier> -->
 				</configuration>
 				<executions>
 			        <execution>
