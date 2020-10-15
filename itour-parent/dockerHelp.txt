@@ -1,0 +1,20 @@
+1.itour-eureka-server
+  docker run -d --name itour-eureka-server -p 9090:9090 ben/itour-eureka-server
+2.itour-account-service
+  docker run -d --name itour-account-service -p 9092:9092 ben/itour-account-service
+3.itour-travel-service
+  docker run -d --name itour-travel-service -p 9082:9082 ben/itour-travel-service
+4.itour-advert-service
+docker run -d --name itour-advert-service -p 9080:9080  ben/itour-advert-service
+5.itour-dictionary-service
+docker run -d --name itour-dictionary-service -p 9099:9099  ben/itour-dictionary-service
+6.itour-msg-service
+docker run -d --name itour-msg-service -p 9097:9097  ben/itour-msg-service
+7.itour-quartz-service
+docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service
+8.itour-member-service
+docker run -d --name itour-member-service -p 9098:9098  ben/itour-member-service
+9.itour-online-manager-web
+docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-manager-web
+10.itour-online-web
+docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web

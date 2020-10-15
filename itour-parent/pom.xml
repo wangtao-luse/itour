@@ -74,7 +74,7 @@
   	<httpclient.version>4.5.12</httpclient.version>
   	<commonmark.version>0.15.0</commonmark.version>
   	<druid.version>1.1.23</druid.version>
-  	<docker.image.prefix>docker</docker.image.prefix> <!-- 在docker运行时要用的，只是一个前缀而已，就像包名一样,可自己任意定义此名称 -->
+  	<docker.image.prefix>ben</docker.image.prefix> <!-- 在docker运行时要用的，只是一个前缀而已，就像包名一样,可自己任意定义此名称 -->
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -162,13 +162,13 @@
     </dependency>
 	
 	
-    <!-- lombok 代码入侵太强
+    <!-- lombok 代码入侵太强  不建议在项目中使用-->
   	<dependency>
 	    <groupId>org.projectlombok</groupId>
 	    <artifactId>lombok</artifactId>
 	    <scope>provided</scope>
 	</dependency>
-	-->
+	
 	<!-- springboot 热部署 -->
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
@@ -347,49 +347,7 @@
 		
 		
 	</dependencyManagement>
-  <build>
-  		<finalName>test_itour</finalName><!-- 打包后文件名称 -->
-		<plugins>
-			<plugin>
-			<!-- https://www.cnblogs.com/thinking-better/p/7827368.html -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.itour.OnlienApplication</mainClass>
-				<!-- 	https://www.jianshu.com/p/a95362dd8f2e 
-					<classifier>exec</classifier> -->
-				</configuration>
-				<executions>
-			        <execution>
-			            <goals>
-			                <goal>repackage</goal>
-			            </goals>
-			        </execution>
-			    </executions>
-			</plugin>
-			<!-- docker 插件 
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<configuration> -->
-				<!-- docker私服的地址 
-				<dockerHost>http://106.54.162.159:5000</dockerHost>
-				<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-				<dockerDirectory>src/main/docker</dockerDirectory>
-				<resources>
-				<resource>
-				<targetPath>/</targetPath>
-				<directory>${project.build.directory}</directory>
-				<include>${project.build.finalName}.jar</include>
-				</resource>
-				</resources>
-				</configuration>
-			</plugin>-->
-		</plugins>
-		
 
-	</build> 
   <repositories>
 		<repository>
 			<id>spring-milestones</id>
@@ -409,14 +367,14 @@
             <id>dev</id>
             <activation>
                 <!--默认激活：如果在不指定profile时默认是开发环境-->
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
-                <server.account.port>9092</server.account.port>
-                <server.online.port>9093</server.online.port>
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
@@ -425,6 +383,8 @@
                 <server.dictionary.port>9099</server.dictionary.port>
                 <server.advert.port>9080</server.advert.port>
                 <server.quartz.port>9081</server.quartz.port>
+                <server.travel.port>9082</server.travel.port>
+                <server.work.port>9083</server.work.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -459,14 +419,14 @@
         <profile>
             <id>test</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>test</profiles.active>
-                <server.account.port>9092</server.account.port>
-                <server.online.port>9093</server.online.port>
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
@@ -475,6 +435,8 @@
                 <server.dictionary.port>9099</server.dictionary.port>
                 <server.advert.port>9080</server.advert.port>
                 <server.quartz.port>9081</server.quartz.port>
+                <server.travel.port>9082</server.travel.port>
+                <server.work.port>9083</server.work.port>
                 <eureka.host>106.54.162.159</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://106.54.162.159:3307/itour?serverTimezone=UTC</spring.datasource.url>
@@ -486,7 +448,7 @@
                 <spring.redis.host>106.54.162.159</spring.redis.host>
                 <spring.redis.port>6380</spring.redis.port>
                 <spring.redis.password>redis@958958</spring.redis.password>
-                 <spring.redis.timeout>30000</spring.redis.timeout>
+                <spring.redis.timeout>30000</spring.redis.timeout>
                 <spring.redis.pool.max-active>8</spring.redis.pool.max-active>
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
@@ -513,10 +475,10 @@
             </activation>
             <properties>
                 <profiles.active>pro</profiles.active>
-                <server.account.port>9092</server.account.port>
-                <server.online.port>9093</server.online.port>
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
@@ -525,6 +487,8 @@
                 <server.dictionary.port>9099</server.dictionary.port>
                 <server.advert.port>9080</server.advert.port>
                 <server.quartz.port>9081</server.quartz.port>
+                <server.travel.port>9082</server.travel.port>
+                <server.work.port>9083</server.work.port>
                 <eureka.host>106.54.162.159</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://106.54.162.159:3306/itour?serverTimezone=UTC</spring.datasource.url>
@@ -563,10 +527,11 @@
             </activation>
             <properties>
                 <profiles.active>pro</profiles.active>
-                <server.account.port>9092</server.account.port>
-                <server.online.port>9093</server.online.port>
+                
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
+                <server.account.port>9092</server.account.port>
+                <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
                 <server.demo.port>9096</server.demo.port>
@@ -575,6 +540,8 @@
                 <server.dictionary.port>9099</server.dictionary.port>
                 <server.advert.port>9080</server.advert.port>
                 <server.quartz.port>9081</server.quartz.port>
+                <server.travel.port>9082</server.travel.port>
+                <server.work.port>9083</server.work.port>
                 <eureka.host>106.54.162.159</eureka.host>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://106.54.162.159:3306/itour?serverTimezone=UTC</spring.datasource.url>
