@@ -1,5 +1,5 @@
 #端口
-server:  port: '@server.msg.port@'
+server:  port: '@server.work.port@'
 #项目名称
 spring:  application:    name: itour-msg-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
     driver-class-name: '@spring.datasource.driverClassName@'
