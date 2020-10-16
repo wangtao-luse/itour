@@ -527,7 +527,6 @@
             </activation>
             <properties>
                 <profiles.active>pro</profiles.active>
-                
                 <server.eureka.port>9090</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
                 <server.account.port>9092</server.account.port>

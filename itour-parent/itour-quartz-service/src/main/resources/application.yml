@@ -1,7 +1,9 @@
 #端口 https://blog.csdn.net/HXNLYW/article/details/95055601
 server:  port: '@server.quartz.port@'
 #项目名称
-spring:  application:    name: itour-quartz-service
+spring:
+  profiles:
+    active: '@profiles.active@'  application:    name: itour-quartz-service
   # 数据库配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
