@@ -3,7 +3,9 @@ server:  port: '@server.online-manager.port@'
   
 spring:  profiles:    active: '@profiles.active@' #指定激活环境
   application:    name: itour-online-manager-web #指定项目名称#eureka
-eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka    
+eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka  
+  instance:
+    prefer-ip-address: true   
       
 #beetl
 beetl:

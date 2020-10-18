@@ -8,7 +8,9 @@ spring:  application:    name: itour-demo-web
 eureka:
   client:
     service-url:
-      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka   
+      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
+  instance:
+    prefer-ip-address: true  
 #beetl
 beetl:
   templatesPath: /templates/   

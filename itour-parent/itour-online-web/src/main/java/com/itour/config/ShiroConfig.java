@@ -96,13 +96,15 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		
 		ResponseMessage accountRightAnon = accountConnector.getAccountRightAnon(null, null);
 		Map<String, Object> returnResult = accountRightAnon.getReturnResult();
-		List<Map<String, Object>> object = (List<Map<String, Object>>) returnResult.get(Constant.COMMON_KEY_RESULT);
-		for (Map<String, Object> map : object) {
-			Object islogin = map.get("ISLOGIN");
-			Object url = map.get("URL");
-			filterChainDefinitionMap.put(url.toString(), islogin.toString());
+		Object result = returnResult.get(Constant.COMMON_KEY_RESULT);
+		if(null!=result) {
+			List<Map<String, Object>> object = (List<Map<String, Object>>) returnResult.get(Constant.COMMON_KEY_RESULT);
+			for (Map<String, Object> map : object) {
+				Object islogin = map.get("ISLOGIN");
+				Object url = map.get("URL");
+				filterChainDefinitionMap.put(url.toString(), islogin.toString());
+			}
 		}
-		 
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
 		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

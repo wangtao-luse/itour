@@ -17,6 +17,8 @@ spring:
   
 #eureka
 eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
+  instance:
+    prefer-ip-address: true 
 #mybatis plus
 mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.itour.model.dictionary
