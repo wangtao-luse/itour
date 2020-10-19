@@ -111,8 +111,6 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		return shiroFilterFactoryBean;
 }
 
-
-
 @Bean
 public HashedCredentialsMatcher credentialsMatcher(){
     HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
