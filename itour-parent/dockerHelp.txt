@@ -37,24 +37,16 @@ docker run -d --name itour-demo-web -p 9096:9096 ben/itour-demo-web --restart=al
 
 
 
-1.portainer
-docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
-
-<<<<<<< HEAD
-2.MYSQL
-docker run --name ben-testmysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -d mysql --restart=always
-=======
-
-
 
 Portainer
 docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
 
 MYSQL
-docker run  --restart=always  --name ben-pro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -d mysql
+docker run  --restart=always  --name ben-pro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /var/pro/mysqldata:/var/lib/mysql -d mysql
 docker run  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -d mysql
+https://www.jianshu.com/p/530d00f97cbf
 
 Redis 
 docker run -itd --name ben-pro-redis -p 6379:6379 redis --requirepass 'redis@958958'
 docker run -itd --name ben-test-redis -p 6380:6379 redis --requirepass 'redis@958958'
->>>>>>> 84a5dc9bca5df88f0d949058ca9adf99dc1296e1
+
