@@ -1,4 +1,4 @@
----前台用户查询视图
+#-前台用户查询视图
 CREATE OR  REPLACE VIEW view_a_account AS 
 	SELECT
 		a.*,
@@ -14,7 +14,7 @@ CREATE OR  REPLACE VIEW view_a_account AS
 		a.SEX = sex.CODE 
 	AND a.UTYPE = utype.CODE 
 	AND a.`STATUS`=accountStatus.CODE;
---后台管理员查询视图
+#后台管理员查询视图
 CREATE OR  REPLACE VIEW view_m_account AS 
 	SELECT
 		a.*,
@@ -30,22 +30,22 @@ CREATE OR  REPLACE VIEW view_m_account AS
 		a.SEX = sex.CODE 
 	AND a.UTYPE = utype.CODE 
 	AND a.`STATUS`=accountStatus.CODE;
--- 字典表视图
+# 字典表视图
 CREATE OR REPLACE VIEW view_d_dictionary AS
 SELECT c.*,dstatus.STATUS_STR FROM `T_D_DICTIONARY` c ,
 (SELECT d.CODE,d.CODE_SET, d.`STATUS`,d.CNAME STATUS_STR FROM T_D_DICTIONARY d WHERE d.CODE_SET='dictionary_status') dstatus
 WHERE c.STATUS=dstatus.`CODE`;
---后台管理员权限表视图
+#后台管理员权限表视图
 CREATE OR REPLACE VIEW view_m_right AS
 SELECT  a.*, type.CNAME MENU_TYPE_STR FROM T_M_RIGHT a,
 (SELECT c.`CODE`,c.CNAME  FROM T_D_DICTIONARY c where c.CODE_SET='right_type') type
 where a.MENU_TYPE=type.`CODE`;
----前台会员权限表视图
+#-前台会员权限表视图
 CREATE OR REPLACE VIEW view_a_right AS
 SELECT  a.*, type.CNAME MENU_TYPE_STR FROM T_A_RIGHT a,
 (SELECT c.`CODE`,c.CNAME  FROM T_D_DICTIONARY c where c.CODE_SET='right_type') type
 where a.MENU_TYPE=type.`CODE`;
----前台会员账号查询详情
+#-前台会员账号查询详情
 CREATE OR REPLACE VIEW view_a_oauth AS
 SELECT
 	c.ID,
@@ -62,7 +62,7 @@ FROM
 T_A_ACCOUNT	 d
 WHERE
 	c.OAUTH_TYPE = type.`CODE` AND c.U_ID=d.UID;
----后台管理员账号查询详情
+#-后台管理员账号查询详情
 CREATE OR REPLACE VIEW view_m_oauth AS
 SELECT
 	c.ID,
@@ -79,7 +79,7 @@ FROM
 T_M_ACCOUNT	 d
 WHERE
 	c.OAUTH_TYPE = type.`CODE` AND c.U_ID=d.UID;
----前台查询指定组下的会员信息
+#-前台查询指定组下的会员信息
 CREATE OR REPLACE VIEW view_a_account_group AS
 SELECT
 	b.*,
@@ -94,7 +94,7 @@ FROM
 WHERE
 	s.CODE = b.STATUS 
 	AND u.`CODE` = b.UTYPE;
----后台查询指定组下的会员信息
+#-后台查询指定组下的会员信息
 CREATE OR REPLACE VIEW view_m_account_group AS
 SELECT
 	b.*,
@@ -109,12 +109,12 @@ FROM
 WHERE
 	s.CODE = b.STATUS 
 	AND u.`CODE` = b.UTYPE;
----消息列表
+#-消息列表
 CREATE OR REPLACE VIEW view_m_messageinfo AS
 	SELECT c.*,aim.CNAME AIM_STR ,origin.CNAME ORIGIN_STR FROM T_A_MESSAGEINFO c,
 	(SELECT d.`CODE`,d.CNAME FROM T_D_DICTIONARY d WHERE d.CODE_SET='MSG_AIM' AND d.`STATUS`='1') aim,
 	(SELECT d.`CODE`,d.CNAME FROM T_D_DICTIONARY d WHERE d.CODE_SET='MSG_ORIGIN' AND d.`STATUS`='1') origin
 	WHERE c.AIM=aim.`CODE` and c.ORIGIN=origin.`CODE`;
---博客列表视图
+#博客列表视图
 CREATE OR REPLACE VIEW view_travelInfo_oauth AS
 SELECT c.*,a.NICKNAME FROM T_T_TRAVEL_INFO c, T_A_OAUTH a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID;
