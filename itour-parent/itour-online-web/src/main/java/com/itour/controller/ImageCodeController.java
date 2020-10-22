@@ -39,7 +39,7 @@ public class ImageCodeController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {		
 		    //读取本地路径下的图片,随机选一条
-		    String path = this.getClass().getResource("/static/img/code").getPath();
+		    String path = this.getClass().getResource("/static/img/code").getPath();		    
 		    File file = new File(path);
 		    File[] files = file.listFiles();
 		    int n = new Random().nextInt(files.length);
@@ -54,6 +54,7 @@ public class ImageCodeController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}		
 	   
 	    return new ResponseMessage(resultMap);
