@@ -43,7 +43,7 @@ docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/doc
 
 MYSQL
 docker run  -d  --restart=always  --name ben-pro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /var/pro/mysqldata:/var/lib/mysql  -v /var/pro/mysql/conf:/etc/mysql/conf.d  mysql
-docker run  -d  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -v /var/test/mysqldata:/var/lib/mysql -v /var/test/mysql/conf:/etc/mysql/conf.d  mysql
+docker run  -d  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -v /var/test/mysqldata:/var/lib/mysql -v /var/test/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
 https://www.jianshu.com/p/530d00f97cbf
 
 Redis 

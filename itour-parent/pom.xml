@@ -401,6 +401,10 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <ribbon.ConnectTimeout>90000</ribbon.ConnectTimeout>
+                <ribbon.ReadTimeout>90000</ribbon.ReadTimeout>
+                <ribbon.MaxAutoRetries>0</ribbon.MaxAutoRetries>
+                <ribbon.MaxAutoRetriesNextServer>0</ribbon.MaxAutoRetriesNextServer>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>debug</logging.level>
                 <!-- 图片滑动验证码 图片路径 -->
@@ -453,6 +457,10 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <ribbon.ConnectTimeout>90000</ribbon.ConnectTimeout>
+                <ribbon.ReadTimeout>90000</ribbon.ReadTimeout>
+                <ribbon.MaxAutoRetries>0</ribbon.MaxAutoRetries>
+                <ribbon.MaxAutoRetriesNextServer>0</ribbon.MaxAutoRetriesNextServer>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>debug</logging.level>
                 <!-- 图片滑动验证码 图片路径-->
@@ -505,6 +513,10 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <ribbon.ConnectTimeout>90000</ribbon.ConnectTimeout>
+                <ribbon.ReadTimeout>90000</ribbon.ReadTimeout>
+                <ribbon.MaxAutoRetries>0</ribbon.MaxAutoRetries>
+                <ribbon.MaxAutoRetriesNextServer>0</ribbon.MaxAutoRetriesNextServer>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>debug</logging.level>
                 <!-- 图片滑动验证码 图片路径-->
@@ -557,6 +569,10 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <ribbon.ConnectTimeout>90000</ribbon.ConnectTimeout>
+                <ribbon.ReadTimeout>90000</ribbon.ReadTimeout>
+                <ribbon.MaxAutoRetries>0</ribbon.MaxAutoRetries>
+                <ribbon.MaxAutoRetriesNextServer>0</ribbon.MaxAutoRetriesNextServer>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>error</logging.level>
                 <!-- 图片滑动验证码 图片路径-->
