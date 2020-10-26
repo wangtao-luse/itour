@@ -457,6 +457,7 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                <!-- ribbon相关 -->
                 <ribbon.ConnectTimeout>90000</ribbon.ConnectTimeout>
                 <ribbon.ReadTimeout>90000</ribbon.ReadTimeout>
                 <ribbon.MaxAutoRetries>0</ribbon.MaxAutoRetries>
@@ -513,6 +514,7 @@
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
                 <spring.redis.pool.max-idle>8</spring.redis.pool.max-idle>
                 <spring.redis.pool.min-idle>0</spring.redis.pool.min-idle>
+                 <!-- ribbon相关 -->
                 <ribbon.ConnectTimeout>90000</ribbon.ConnectTimeout>
                 <ribbon.ReadTimeout>90000</ribbon.ReadTimeout>
                 <ribbon.MaxAutoRetries>0</ribbon.MaxAutoRetries>

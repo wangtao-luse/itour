@@ -15,7 +15,7 @@ spring:
   
 #eureka
 eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
-  instance:    prefer-ip-address: true
+  #instance:   # prefer-ip-address: false
 #mybatis plus
 mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.itour.model.account
@@ -24,9 +24,11 @@ mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
 logging:  level:    com: 
       itour:
         persist: '@logging.level@'
+#ribbon
 ribbon: 
   ConnectTimeout: '@ribbon.ConnectTimeout@'  #请求连接的超时时间 默认的时间为 1 秒
   ReadTimeout: '@ribbon.ReadTimeout@'     #请求处理的超时时间
   MaxAutoRetries: '@ribbon.MaxAutoRetries@'      #解决fegin超时重试多条数据插入数据库问题
   MaxAutoRetriesNextServer: '@ribbon.MaxAutoRetriesNextServer@'  #解决fegin超时重试多条数据插入数据库问题
+
         
