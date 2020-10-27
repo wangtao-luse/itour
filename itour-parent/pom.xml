@@ -367,7 +367,7 @@
             <id>dev</id>
             <activation>
                 <!--默认激活：如果在不指定profile时默认是开发环境-->
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
@@ -387,7 +387,7 @@
                 <server.work.port>9083</server.work.port>
                 <eureka.host>127.0.0.1</eureka.host>
                 <!-- 数据库相关 -->
-                <spring.datasource.url>jdbc:mysql://localhost:3306/itour?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.url>jdbc:mysql://106.54.162.159:3308/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
@@ -423,7 +423,7 @@
         <profile>
             <id>test</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>test</profiles.active>

@@ -1,5 +1,5 @@
---2020-7-3 wangtao 
---前台t_a_group初始化
+#2020-7-3 wangtao 
+#前台t_a_group初始化
 INSERT INTO T_A_GROUP ( G_NAME, G_DESC, G_PARENT )
 VALUES
 	( 'Gnormal', '普通会员组', '0' );
@@ -7,7 +7,7 @@ INSERT INTO T_A_GROUP ( G_NAME, G_DESC, G_PARENT )
 VALUES
 	( 'Gvip', 'VIP会员组', '0' );
 	
---前台t_a_role初始化	
+#前台t_a_role初始化	
 INSERT INTO T_A_ROLE( ROLE_NAME, ROLE_DESC ) 
 VALUES( 'Rnormal', '普通用户' );
 
@@ -20,14 +20,14 @@ VALUES( 'RSAdmin', '超级管理员' );
 INSERT INTO T_A_ROLE( ROLE_NAME, ROLE_DESC ) 
 VALUES( 'RNAdmin', '普通管理员' );
 
---前台t_m_group初始化
+#前台t_m_group初始化
 INSERT INTO T_M_GROUP ( G_NAME, G_DESC, G_PARENT )
 VALUES( 'Gnormal', '普通会员组', '0' );
 
 INSERT INTO T_M_GROUP ( G_NAME, G_DESC, G_PARENT )
 VALUES( 'Gvip', 'VIP会员组', '0' );	
 	
---后台t_m_role初始化	
+#后台t_m_role初始化	
 INSERT INTO T_M_ROLE (ROLE_NAME, ROLE_DESC)
 VALUES('Rnormal', '普通用户');
 
@@ -39,7 +39,7 @@ VALUES('RSAdmin','超级管理员');
 
 INSERT INTO T_M_ROLE (ROLE_NAME, ROLE_DESC)
 VALUES('RNAdmin','普通管理员');
----前台旅行信息专栏表
+#-前台旅行信息专栏表
 INSERT INTO T_T_TRAVEL_COLUMN(`COLUMN`,UID,CREATEDATE)VALUES('旅行攻略','10000','1596506073');
 INSERT INTO T_T_TRAVEL_COLUMN(`COLUMN`,UID,CREATEDATE)VALUES('周末攻略','10000','1596506073');
 INSERT INTO T_T_TRAVEL_COLUMN(`COLUMN`,UID,CREATEDATE)VALUES('vlog','10000','1596506073');
