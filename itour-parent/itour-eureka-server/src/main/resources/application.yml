@@ -1,5 +1,7 @@
 server:
-  port: '@server.eureka.port@' #服务端口号
+  port: '@server.eureka.port@' #服务端口号  
+  tomcat:
+    max-http-post-size: 8000
 eureka:  instance:    hostname: '@eureka.host@' #注册中心IP地址   
   client:    service-url:       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka  #注册地址
     register-with-eureka: false  #因为自己是注册中心，是否将自己注册给自己的注册中心（集群的时候需要设为true）
