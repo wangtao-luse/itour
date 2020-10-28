@@ -386,6 +386,7 @@
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
                 <eureka.host>127.0.0.1</eureka.host>
+                <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://106.54.162.159:3308/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
@@ -442,6 +443,7 @@
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
                 <eureka.host>106.54.162.159</eureka.host>
+                <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://106.54.162.159:3307/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
@@ -499,6 +501,7 @@
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
                 <eureka.host>106.54.162.159</eureka.host>
+                <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://106.54.162.159:3306/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
@@ -556,6 +559,7 @@
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
                 <eureka.host>106.54.162.159</eureka.host>
+                <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
                 <spring.datasource.url>jdbc:mysql://106.54.162.159:3306/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>

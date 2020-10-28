@@ -10,7 +10,7 @@ eureka:
     service-url:
       defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
   instance:
-    prefer-ip-address: true  
+    prefer-ip-address: '@eureka.instance.prefer-ip-address@'  
 #beetl
 beetl:
   templatesPath: /templates/   

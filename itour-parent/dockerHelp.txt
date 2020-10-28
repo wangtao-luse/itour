@@ -1,6 +1,6 @@
 项目模块容器Docker命令
 1.itour-eureka-server
-  docker run -d --name itour-eureka-server -p 9090:9090 ben/itour-eureka-server --restart=always
+  docker run -d --name itour-eureka-server --add-host VM-0-10-centos:106.54.162.159  -p 9090:9090 ben/itour-eureka-server --restart=always
 
 2.itour-account-service
   docker run -d --name itour-account-service -p 9092:9092 ben/itour-account-service  --restart=always
