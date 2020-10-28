@@ -2,6 +2,7 @@ package com.itour.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +40,10 @@ public class ImageCodeController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {		
 		    //读取本地路径下的图片,随机选一条
-		    String path = this.getClass().getResource("/static/img/code").getPath();		    
+			//https://www.guitu18.com/post/2019/02/23/28.html
+		    String path = this.getClass().getResource("/static/img/code").getPath();
+			InputStream resourceAsStream = this.getClass().getResourceAsStream("/static/img/code");
+			
 		    File file = new File(path);
 		    File[] files = file.listFiles();
 		    int n = new Random().nextInt(files.length);
