@@ -44,8 +44,8 @@ docker run  -d  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=m
 docker run  -d  --restart=always  --name ben-pro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /var/pro/mysqldata:/var/lib/mysql  -v /var/pro/mysql/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
 
 Redis 
-docker run -itd --name ben-pro-redis -p 6379:6379 redis --requirepass 'redis@958958'
-docker run -itd --name ben-test-redis -p 6380:6379 redis --requirepass 'redis@958958'
+docker run -itd --name ben-pro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
+docker run -itd --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 
 
 
