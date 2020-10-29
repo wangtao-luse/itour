@@ -1,5 +1,7 @@
 #端口
 server:  port: '@server.account.port@'
+  tomcat:
+    max-http-post-size: -1
 #项目名称
 spring:
   profiles:    active: '@profiles.active@'     application:    name: itour-account-service  datasource: #mysql的配置    url: '@spring.datasource.url@'

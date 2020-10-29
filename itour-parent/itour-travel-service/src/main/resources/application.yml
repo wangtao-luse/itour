@@ -1,5 +1,7 @@
 #端口
 server:  port: '@server.travel.port@'
+  tomcat:
+    max-http-post-size: -1
 #项目名称
 spring:
   profiles:
