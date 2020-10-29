@@ -35,4 +35,10 @@ ribbon:
   ReadTimeout: '@ribbon.ReadTimeout@'     #请求处理的超时时间
   MaxAutoRetries: '@ribbon.MaxAutoRetries@'      #解决fegin超时重试多条数据插入数据库问题
   MaxAutoRetriesNextServer: '@ribbon.MaxAutoRetriesNextServer@'  #解决fegin超时重试多条数据插入数据库问题
-     
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: '@eign.client.config.default.connect-timeout@'
+        read-timeout: '@eign.client.config.default.read-timeout@'    

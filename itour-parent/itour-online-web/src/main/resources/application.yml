@@ -11,8 +11,14 @@ beetl:
 #全局配置 
 
 ribbon: 
-  ConnectTimeout: 90000  #请求连接的超时时间 默认的时间为 1 秒
-  ReadTimeout: 90000     #请求处理的超时时间
-  MaxAutoRetries: 0      #解决fegin超时重试多条数据插入数据库问题
-  MaxAutoRetriesNextServer: 0  #解决fegin超时重试多条数据插入数据库问题
-  
+  ConnectTimeout: '@ribbon.ConnectTimeout@'  #请求连接的超时时间 默认的时间为 1 秒
+  ReadTimeout: '@ribbon.ReadTimeout@'     #请求处理的超时时间
+  MaxAutoRetries: '@ribbon.MaxAutoRetries@'      #解决fegin超时重试多条数据插入数据库问题
+  MaxAutoRetriesNextServer: '@ribbon.MaxAutoRetriesNextServer@'  #解决fegin超时重试多条数据插入数据库问题
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: '@feign.client.config.default.connect-timeout@'
+        read-timeout: '@feign.client.config.default.read-timeout@'    

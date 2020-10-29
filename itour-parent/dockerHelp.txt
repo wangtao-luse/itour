@@ -35,9 +35,6 @@ docker run -d --name itour-work-service -p 9083:9083 ben/itour-work-service --re
 12.itour-demo-web
 docker run -d --name itour-demo-web -p 9096:9096 ben/itour-demo-web --restart=always
 
-
-
-
 Portainer
 docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
 

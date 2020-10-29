@@ -31,5 +31,10 @@ ribbon:
   MaxAutoRetries: '@ribbon.MaxAutoRetries@'      #同一台实例的最大重试次数，但是不包括首次调用，默认为1次(解决fegin超时重试多条数据插入数据库问题)
   MaxAutoRetriesNextServer: '@ribbon.MaxAutoRetriesNextServer@'  #重试负载均衡其他实例的最大重试次数，不包括首次调用(解决fegin超时重试多条数据插入数据库问题)
 
-
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: '@feign.client.config.default.connect-timeout@'
+        read-timeout: '@feign.client.config.default.read-timeout@'
         
