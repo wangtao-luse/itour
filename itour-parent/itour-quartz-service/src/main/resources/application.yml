@@ -1,7 +1,6 @@
 #端口 https://blog.csdn.net/HXNLYW/article/details/95055601
 server:  port: '@server.quartz.port@'
-  tomcat:
-    max-http-post-size: -1
+
 #项目名称
 spring:
   profiles:
