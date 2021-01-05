@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,7 @@ private BaseService baseService;
 private AccountGroupMapper accountGroupMapper;
 	@Autowired
 private IpaddrService ipaddrService;
+	
 	@Autowired
 private GroupMapper groupMapper;
 
