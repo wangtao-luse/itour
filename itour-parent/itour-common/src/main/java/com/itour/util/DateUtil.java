@@ -305,20 +305,29 @@ public static long getMidnight() throws ParseException {
 public static void main(String[] args) throws ParseException {
 	//得到long类型的当前时间
 	long getlongDate = DateUtil.getlongDate(new Date());
-	System.out.println(getlongDate);//1589436700
+	//System.out.println(getlongDate);//1589436700
 									//1589438064
 									//1691766000
 	
 	long longDate = DateUtil.longDate(getlongDate);
-	System.out.println(longDate);
+	//System.out.println(longDate);
 	
 	Date d = new Date(longDate);
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String format = sdf.format(d);
-	System.out.println(format);
+	//System.out.println(format);
 	Date parse = sdf.parse("2023-08-11 23:00");
 	long time = DateUtil.getlongDate(parse);
-	System.out.println("指定日期的long格式"+time);
+	//System.out.println("指定日期的long格式"+time);
+	
+	test();
+}
+public static void test() {
+	//1.获取当前时间
+	Date now = new Date();
+	long time = now.getTime();	
+	System.out.println(time);
+	
 	
 }
 

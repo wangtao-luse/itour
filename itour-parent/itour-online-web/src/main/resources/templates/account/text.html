@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/itour/common.css" />
+		<link rel="stylesheet" href="../../css/itour/index.css" />
+		<script type="text/javascript" src="../../js/common/jquery-3.4.1.js.js" ></script>
+		<script type="text/javascript" src="../../js/itour/index.js" ></script>
+		<style>
+			#itour-banner .banner-container{
+				width: auto;
+				min-width: 100px;
+				max-width: 1100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="itour-banner">
+			<div class="bnner-inside">
+				<div class="banner-container">
+					<div class="banner-logo itour-banner-fl">
+						<a href="#"><img src="../../img/itour/common/itour-logo.png" /></a>
+					</div>
+					<ul class="banner-menus itour-banner-fl">
+						<li><a href="#" target="_blank">首页</a></li>
+						<li><a href="#" target="_blank">博客</a></li>
+						<li><a href="#" target="_blank">糖友</a></li>
+						<li><a href="#" target="_blank">寻觅佳人</a></li>
+						<li><a href="#" target="_blank">发现网站</a></li>
+					</ul>
+					<div class="banner-serach itour-banner-fl">
+						<div class="banner-serach-container">
+							<input type="text" class="banner-search-input" maxlength="100" autocomplete="off" placeholder="上海有那些好玩的地方"/>
+						<button type="button" class="banner-search-button"></button>
+						</div>
+						
+					</div>
+					<div class="banner-btns itour-banner-fr">
+						<div class="banner-btn banner-btn-write toolbar-subMenu-box itour-banner-fl">
+							<a href="#">
+								<i></i>创作中心
+							</a>
+							<div class="toolbar-subMenu">
+								<a href="#">写博客</a>
+							    <a href="#">写攻略</a>
+							</div>
+						</div>
+					    <a href="#" target="_blank" class="banner-btn banner-btn-collect itour-banner-fl">收藏</a>
+					   <div class="banner-btn banner-btn-msg  itour-banner-fl">
+					   	 <div class="toolbar-subMenu-box">
+					   	 	  <a href="#" target="_blank">消息</a>
+						   	  <div class="toolbar-subMenu">
+						   	  	<a href="#">公告</a>
+						   	  	<a href="#">评论</a>
+						   	  	<a href="#">关注</a>
+						   	  	<a href="#">点赞</a>
+						   	  	<a href="#">私信</a>
+						   	  	<a href="#">回答</a>
+						   	  	<a href="#">系统通知</a>
+						   	  	<a href="#">消息设置</a>
+						     </div>
+					   	 </div>					   	 
+					   </div>
+					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: block;">
+					   	 <a class="hasAvatar" href="#"><img src="../../img/itour/common/avatar-1.jpg" /></a>
+					   	 <div class="toolbar-subMenu">
+					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
+					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>
+					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-blog"></i>我的博客</a>
+					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-account"></i>设置</a>
+					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-logout"></i>退出</a>
+					   	 </div>
+					   </div>
+					   <div class="banner-btn-login itour-banner-fl" style="display: none;">
+					   	   <a class="" href="#">登录</a>
+					   	   <a class="" href="#">注册</a>
+					   </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="app">
+			<div class="appConsole">
+				<div class="creator-container">
+					<div class="left-box">
+						<div class="menu-box">
+							<p class="routerlink router-link-active">
+								<i class="comm-icon icon-home" style="background-position: -214px -16px;"></i>
+								<span>首页</span>
+							</p>
+							<div class="tac el-row">
+								<div class="el-col el-col-24">
+									<ul class="el-menu el_my_left_nav">
+										<li class="download-bt-link NoviceGuidanc2 el-submenu">
+											<div class="el-submenu__title">
+												<div class="nav-conten">
+													<i class="comm-icon icon-creaor"></i>
+													<span>内容创作</span>
+													<i class="el-submenu__icon-arrow el-icon-arrow-down"></i>
+												</div>
+												
+											</div>
+										    <ul class="el-menu el-menu--inline" style="display: none;">
+										    	<li class="el-menu-item"><a href="#" target="_blank">发布文章</a></li>
+										    </ul>
+										</li>
+										<li class="el-submenu">
+											<div class="el-submenu__title">
+												<div class="nav-conten">
+													<i class="comm-icon icon-content"></i>
+													<span>内容管理</span>
+													<i class="el-submenu__icon-arrow el-icon-arrow-down"></i>
+												</div>												
+											</div>
+											<ul class="el-menu el-menu--inline "style="display: none;">
+												<li class="el-menu-item"><a href="#">文章管理</a></li>
+												<li class="el-menu-item"><a href="#">评论管理</a></li>
+												<li class="el-menu-item"><a href="#">专栏管理</a></li>
+											</ul>
+										</li>
+									    <li class="el-submenu">
+									    	<div class="el-submenu__title">
+									    		<div class="nav-conten">
+									    			<i class="comm-icon icon-data"></i>
+									    			<span>数据分析</span>
+									    			<i class="el-submenu__icon-arrow el-icon-arrow-down"></i>
+									    		</div>
+									    	</div>
+									        <ul class="el-menu el-menu--inline" style="display: none;">
+									        	<li class="el-menu-item"><a href="#">博文数据</a></li>
+									        </ul>
+									    </li>
+									    <li class="el-submenu">
+									    	<div class="el-submenu__title">
+									    		<div class="nav-conten">
+									    			<i class="comm-icon icon-person"></i>
+									    			<span>个人中心</span>
+									    			<i class="el-submenu__icon-arrow el-icon-arrow-down"></i>
+									    		</div>
+									    	</div>
+									        <ul class="el-menu el-menu--inline" style="display: none;">
+									        	<li class="el-menu-item is-active"><a href="#">账号信息</a></li>
+									        	<li class="el-menu-item"><a href="#">登录日志</a></li>
+									        	<li class="el-menu-item"><a href="#">修改密码</a></li>
+									        </ul>
+									    </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="creator-wrp creator-wrp-active">
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>

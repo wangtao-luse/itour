@@ -45,19 +45,8 @@ private AdvertConnector advertConnector;
 	 */
 @RequestMapping("/index")
 public String index(ViewTravelinfoOauth viewTravelinfo,Page page,HttpServletRequest request,ModelMap model,String ajaxCmd) {
-	JSONObject jsonObject = new JSONObject();
-	jsonObject.put("page", page);
-	jsonObject.put("vo", viewTravelinfo);
-	//获取博客列表
-	ResponseMessage travelMsg = travelConnector.queryViewTravelinfoOauthList(jsonObject, request);
-	//植入广告
-	jsonObject.clear();
-	page.setSize(2);
-	jsonObject.put("page", page);
-	jsonObject.put("vo", viewTravelinfo);
-	JSONArray result = advert(request, jsonObject, travelMsg);
-	model.addAttribute("viewTravelList", result);
-	return "index"+(StringUtils.isEmpty(ajaxCmd)?"":"#"+ajaxCmd);
+	
+	return "index";
 }
 /**
  * 植入广告

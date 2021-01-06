@@ -1,0 +1,219 @@
+@layout("/layout/template-css.html",{title:'爱旅行-注册'}){
+<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">    
+    $(function(){
+    	var cip = returnCitySN.cip;
+    	var cname = returnCitySN.cname;
+    	   if(cname){
+    		   cname=cname.substr(cname.indexOf("市")+1)
+       	       $("#area").val(cname); 
+    	   }    	    
+    	var url="http://ip-api.com/json/?lang=zh-CN";    	
+    	 $.ajax({
+    	        type: "get",
+    	        dataType: "json",
+    	        url:  url,
+    	        async:true ,
+    	        beforeSend: function () {
+    	        },
+    	        success: function (resultData) {
+    	        	$("#city").val(resultData.city);
+    	        	$("#country").val(resultData.country);
+    	        	$("#countryCode").val(resultData.countryCode);
+    	        	$("#latitude").val(resultData.lat);
+    	        	$("#longitude").val(resultData.lon);
+    	        	$("#regionName").val(resultData.regionName);
+    	        	$("#region").val(resultData.region);
+    	        	$("#isp").val(resultData.isp);
+    	        	$("#ip").val(resultData.query);
+    	        },
+    	        error: function (result) {
+    	            
+    	        }
+    	    });
+    	
+    	
+    })
+</script>
+		<div class="auth-container">
+			<div class="header">
+		        <div class="logo-con w clearfix">
+		            <a href="#" class="itour-logo">
+		            </a>
+		            <div class="logo-title">欢迎注册</div>
+		            <div class="have-account">已有账号？ <a href="#">请登录&gt;</a></div>
+		
+		        </div>
+			</div>
+		
+    </div>
+	    <div class="pro-container">
+	    	<div class="w">
+	    		 <div class="progress-bar clearfix">
+			    	<div class="pro-step cur-step">
+			    		<span class="step-index">1</span>
+			    		<p class="step-desc">验证邮箱</p>
+			    	</div>
+			    	<div class="pro-line pro-line1 person-pro-line person-pro-line1 "></div>
+			    	<div class="pro-step pro-step2 person-pro-step2">
+			    		<span class="step-index">2</span>
+			    		<p class="step-desc">填写账号信息</p>
+			    	</div>
+			    	<div class="pro-line pro-line2 person-pro-line person-pro-line2 "></div>
+			    	<div class="pro-step pro-step3 person-pro-step3 ">
+			    		<span class="step-index">3</span>
+			    		<p class="step-desc">注册成功</p>
+			    	</div>
+			    </div>
+	    	     
+	    	</div>
+	    </div>
+	    <div class="mian-container">
+	    	<div class="main">
+		    	<div class="reg-form">
+		    		<form id="register-form">
+		    			<input style="display:none" name="hack">
+		    			<input type="password" style="display:none" name="hack1">
+		    			
+		    			<input type="hidden" name="uuid" id="uuid" value="${uuid}">
+	                    <input type="hidden" name="ip" id="ip">  
+	                    <input type="hidden" name="country" id="country">  
+	                    <input type="hidden" name="countrycode" id="countryCode">  
+	                    <input type="hidden" name="city" id="city">  
+	                    <input type="hidden" name="latitude" id="latitude">  
+	                    <input type="hidden" name="longitude" id="longitude">  
+	                    <input type="hidden" name="isp" id="isp">  
+	                    <input type="hidden" name="region" id="region">  
+	                    <input type="hidden" name="regionname" id="regionName">  
+	                    <input type="hidden" name="area" id="area">  
+		    			<div id="step1-wrap">
+		    				<div class="item-email-wrap" >
+		                        <div class="form-item">
+		                            <label>邮 箱 验 证</label>
+		                            <input type="text" name="email" id="form-email" class="field" autocomplete="off" maxlength="50" placeholder="请输入邮箱" default="<i class='i-def'></i>验证完成后，你可以使用该邮箱登录">
+		                            <i class="i-status"></i>
+			                        <ul class="suggest-container email-suggest">
+			                        	<li class=""><div class="value">\@qq.com</div></li>
+			                        	<li class=""><div class="value">\@163.com</div></li>
+			                        	<li class=""><div class="value">\@126.com</div></li>
+			                        	<li class=""><div class="value">\@Gmail.com</div></li>
+			                        	<li class=""><div class="value">\@Sohu.com</div></li>
+			                        	<li class="suggest-li-last "><div class="value">\@Sina.com</div></li>
+			                        </ul>
+		                        </div>
+		                        <div class="input-tip">
+		                            <span></span>
+		                        </div>
+		                    </div>
+		    			    <div class="item-getcode-wrap">
+		                        <div class="form-item form-item-getcode" clstag="">
+		                           	 点击按钮进行验证                                                           
+		                            <div id="slideAuthCode" class="slide-authCode-wraper">
+		                            	<a class="arrow"></a>
+		                            	<a class="close"></a>
+		                            	<div id="slideAuthCode" class="itourValidate-wrap">
+		                            		<div class="itour-slide " style="width: 100%;">
+		                            			<div class="itour-img-panel itour-embed ">
+		                            				<div class="itour-refresh" style="margin-right: 20px">
+		                            					<div class="itour-lable-refresh">完成拼图验证</div>
+							    						<div class="itour-img-refresh">
+							    							<span >换一张</span>
+							    							<div></div>
+							    						</div>
+		                            				</div>
+		                            				<div class="itour-img-wrap">
+		                            					<div class="itour-bigimg" style="height: 141.556px;">
+							    							<img src="../../img/common/bigimg.png" />
+							    						</div>
+							    						<div class="itour-smallimg" style="top: 33.3667px; width: 50.5556px; left: 0px;">
+							    							<img src="../../img/common/smallimg.png" />
+							    						</div>
+		                            				</div>
+		                            			</div>
+		                            			<div class="itour-slide-bg ">
+		                            				<div class="itour-slide-inner itour-slide-text">
+							    						<div class="itour-slide-left"></div>
+							    						<div class="itour-slide-center">向右滑动完成拼图</div>
+							    						<div class="itour-slide-right"></div>
+							    					</div>
+							    					<div class="itour-slide-inner itour-slide-bar">
+							    						<div class="itour-bar-left"></div>
+							    						<div class="itour-bar-center"></div>
+							    						<div class="itour-bar-right"></div>
+							    					</div>
+							    					<div class="itour-slide-inner itour-slide-btn" >
+							    						
+							    					</div>
+		                            			</div>
+		                            		</div>
+		                            	</div>
+		                            </div>
+		                        </div>
+		                        <div class="input-tip">
+		                            <span></span>
+		                        </div>
+	                    	</div>
+		    			    <div class="item-mailcode-wrap">
+		                        <div class="form-item form-item-mailcode">
+		                            <div class="mailcode-left">
+		                                <label>邮箱验证码</label>
+		                                <input type="text" name="mailCode" maxlength="6" autocomplete="off" id="mailCode" class="field mailcode" placeholder="请输入邮箱验证码">
+		                                <i class="i-status"></i>
+		                                <i class="i-cancel"></i>
+		                            </div>
+		                            <button id="getMailCode" class="btn-mailcode" type="button" clstag="">获取验证码</button>
+		                            <div class="input-tip">
+		                                <span></span>
+		                            </div>
+		                        </div>
+		                    </div>
+		    				<div id="step1-next" class="btn-register" clstag="">下一步</div>
+		    			</div>
+		    			<div id="step2-wrap">
+		    				<div class="form-item form-item-account" id="form-item-account">
+		                        <label>用　户　名</label>
+		                        <input type="text" id="form-account" _input="true" name="regName" class="field" autocomplete="off" maxlength="20" placeholder="您的账户名和登录名" default="<i class='i-def'></i>支持中文、英文、数字、“-”、“_”的组合，4-20个字符">
+		                        <i class="i-status"></i>
+		                        <i class="i-cancel"></i>
+		                    </div>
+		    				<div class="input-tip">
+		                        <span></span>
+		                    </div>
+		    				<div class="form-item">
+		                        <label>设 置 密 码</label>
+		                        <input autocomplete="off" type="password" name="pwd" id="form-pwd" _input="true" class="field" maxlength="20" placeholder="建议使用两种或两种以上字符组合" default="<i class='i-def'></i>建议使用字母、数字和符号两种及以上的组合，8-20个字符">
+		                        <i class="i-status"></i>
+		                        <i class="i-cancel"></i>
+		                    	<div class="capslock-tip tips">
+		                    		大写已开启<b class="arrow"></b><b class="arrow-inner"></b>
+		                    	</div>
+				    		</div>
+		    				<div class="input-tip">
+		                        <span></span>
+		                    </div>
+		                    <div class="form-item">
+		                        <label>确 认 密 码</label>
+		                        <input type="password" name="pwdRepeat" id="form-equalTopwd" _input="true" class="field" placeholder="请再次输入密码" default="<i class='i-def'></i>请再次输入密码">
+		                        <i class="i-status"></i>
+		                        <i class="i-cancel"></i>
+			                    <div class="capslock-tip tips">
+			                    	大写已开启<b class="arrow"></b><b class="arrow-inner"></b>
+			                    </div>
+		                    </div>
+		                    <div class="input-tip">
+		                        <span></span>
+		                    </div>
+		    				<div>
+		    					<button class="btn-register" id="form-register" _submit="true" clstag="">立即注册</button>
+		    				</div>
+		    				<div class="input-tip">
+		                        <span></span>
+		                    </div>
+		    			</div>
+		    		</form>
+		    	</div>
+	    	</div>
+	    </div>
+	   
+@}	    	
+

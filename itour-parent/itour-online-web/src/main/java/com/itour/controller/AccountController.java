@@ -1,6 +1,5 @@
 package com.itour.controller;
 
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +26,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
+import com.itour.util.StringHelper;
 
 @Controller
 @RequestMapping("/account")
@@ -40,10 +40,10 @@ public class AccountController {
 @RequestMapping("/reg")
 public String reg(HttpServletRequest request,ModelMap model) {
 	//生成UUID(相当于一个令牌)
-    String randomUUID = UUID.randomUUID().toString();
+    String randomUUID = StringHelper.getUUID();
     request.getSession().setAttribute("uuid", randomUUID);
    model.addAttribute("uuid", randomUUID);
-	return "account/register-person";
+	return "account/reg";
 }
 /**
  * 注册提交

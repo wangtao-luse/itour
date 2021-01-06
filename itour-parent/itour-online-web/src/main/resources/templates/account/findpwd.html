@@ -1,0 +1,101 @@
+@layout("/layout/template-css.html",{title:'爱旅行-注册'}){		
+	    <div class="auth-wrap">
+	    	<div class="header">
+	    		<div class="logo-con w clearfix">
+	    			<a href="#" class="itour-logo"></a>
+	    			<div class="logo-title">找回密码</div>
+	    			
+	    		</div>
+	    	</div>
+	        <div class="form-wrap setnew-wrap findpwd-step1">
+	        	<div class="form-item">
+	        		<span class="label hide"></span>
+	        		<div class="item-rcol">
+	        			<div class="item-input-wrap item-input-xl">
+	        				<input type="text" class="field" placeholder="请输入用户名/邮箱/已验证手机号" value="">
+	        				<span class="i-ops">
+	        					<span class="i-cancel iconfont icon-delete" ></span>
+	        				</span>	        				
+	        			</div>
+	        			<div class="input-error hide">
+	        				<i cite="i-error iconfont icon-warn"></i>
+	        				请输入用户名/邮箱/已验证手机号
+	        			</div>
+	        		</div>
+	        	</div>
+	            <div class="form-item ac mt20 form-item-validate">
+	            	<button type="button" class="btn-check-defaut btn-xl">
+	            		<span class=" icon-click"></span>点击进行验证
+	            	</button>
+	            	<div class="slide-authCode-wrape" style="display: none;">
+	            		<div class="arrow"></div>
+	            		<div class="close"></div>
+	            		<div id="itourValidate" class="itourValidate-wrap">
+	            			<div class="itour-slide" style="width: 100%">
+	            				<div class="itour-img-panel itour-embed ">
+	            					<div class="itour-refresh" style="margin-right: 0px">
+			    						<div class="itour-lable-refresh">完成拼图验证</div>
+			    						<div class="itour-img-refresh">
+			    							<span >换一张</span>
+			    							<div></div>
+			    						</div>
+			    					</div>
+			    					<div class="itour-img-wrap">
+			    						<div class="itour-bigimg" style="height: 141.556px;">
+			    							<img src="../../img/itour/common/bigimg.png" />
+			    						</div>
+			    						<div class="itour-smallimg" style="top: 33.3667px; width: 50.5556px; left: 0px;">
+			    							<img src="../../img/itour/common/smallimg.png" />
+			    						</div>
+			    					</div>
+	            				</div>
+	            				<div class="itour-slide-bg ">
+	            					<div class="itour-slide-inner itour-slide-text">
+			    						<div class="itour-slide-left"></div>
+			    						<div class="itour-slide-center">拖动滑块完成拼图，获取邮箱验证码</div>
+			    						<div class="itour-slide-right"></div>
+			    					</div>
+			    					<div class="itour-slide-inner itour-slide-bar" >
+			    						<div class="itour-bar-left"></div>
+			    						<div class="itour-bar-center"></div>
+			    						<div class="itour-bar-right"></div>
+			    					</div>
+			    					<div class="itour-slide-inner itour-slide-btn">
+			    						
+			    					</div>
+	            				</div>
+	            			</div>
+	            		</div>
+	            	</div>
+	            </div>
+	            <div class="form-item ac mt20">
+	            	<button type="button" class="btn-primary btn-xl disable">下一步</button>
+	            </div>
+	        </div>
+	        <div class="form-wrap setnew-wrap findpwd-step2">
+	        	<div class="form-title form-title-left">设置新密码</div>
+	        	<div class="form-item clearfix">
+	        		<div class="item-input-wrap item-input-xl item-input-xl">
+	        			<input type="password" class="field" placeholder="请输入新密码" maxlength="20" value="">
+	        			<span class="i-ops">
+	        				<span class="i-status iconfont icon-done"></span>
+	        				<span class="i-cancel iconfont icon-delete"></span>
+	        				<span class="icon-yanjing iconfont"></span>
+	        			</span>
+	        		</div>
+	        		<div class="input-tips">
+	        			<div class="input-error">
+	        				<i class="i-error iconfont icon-warn"></i>
+	        				请将密码设置为8-20位，并且由字母，数字和符号两种以上组合
+	        			</div>
+	        		</div>
+	        		
+	        		
+	        	</div>
+	        	<div class="form-item ac">
+	        		<button type="button" class="btn-primary btn-xl disable">提交</button>
+	        	</div>
+	        </div>
+	    </div>
+@}		
+

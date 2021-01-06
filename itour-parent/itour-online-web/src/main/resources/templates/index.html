@@ -1,608 +1,216 @@
-@layout("/layout/travel_template.html",{title:'首页'}){
-<script type="text/javascript" src="js/travel/index.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
-
-<div id="favoriteBox"></div>
-           @#ajax norender content:{
-           	@for(t in viewTravelList){
-			   	    			<div class="card storyItem storyItem-isRecommend">
-			   	    				<h2 class="contentItem_title">
-			   	    					<a href="/travel/planPage" target="_blank">${t.title}</a>
-			   	    				</h2>
-			   	    				<div id="richContent" class="rich-content is-collapsed">
-			   	    					@if(t.url!=null && t.url!=''){
-			   	    					<div class="richContent-cover">
-			   	    						<div class="richContent-cover-inner">
-			   	    						    <a href="/travel/planPage" target="_blank"><img src="${t.url}" align="cover" /></a>
-			   	    						</div>
-			   	    					</div>
-			   	    					@}
-			   	    					<div class="richContent-inner">
-			   	    					 <a href="/travel/planPage" target="_blank">
-			   	    						<span class="richText ztext copyrightRichText-richText">
-			   	    							${t.nickname}：${t.summary}
-			   	    					
-			   	    						</span>
-			   	    						<button  type="button" class="button contentItem-more button--plain">
-			   	    						   阅读全文<span class="all-icon"></span>
-			   	    						</button>
-			   	    						</a>
-			   	    					</div>
-			   	    					<div class="contentItem-actions">
-			   	    						<div class="item_action">
-			   	    							<button class="button voteButton voteButton--up" alias="${t.niceCount}">赞同&nbsp;${t.niceCount}</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<a href="/travel/planPage#commentBox" target="_blank"><span class="comment-icon icon"></span>${t.commentCount}条评论</a>
-			   	    							</button>
-			   	    							<div class="popover shareMenu contentItem-action">
-			   	    								<button class="button contentItem-action shareBtn button--plain button--withIcon button--withLabel">
-			   	    								<span class="share-icon icon"></span>分享
-			   	    								</button>
-			   	    								<div class="menu social-share" style="display:none">
-			   	    							    	<!-- <div class="share-menu">
-			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
-			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
-			   	    							    	</button>
-			   	    							    	<div class="menu-item menu-item--noActive shareMenu-wechat">
-			   	    							    		<button type="button" class="button shareMenu-button button--plain">
-			   	    							    			<span class="zi-wechat share-icon icon" style="margin-right: 6px;"></span>微信扫一扫
-			   	    							    		</button>
-			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
-			   	    							    	</div>
-			   	    							    	</div> -->
-			   	    							    	
-			   	    							    </div>
-			   	    							
-			   	    							</div>
-			   	    							
-			   	    							<button class="button contentItem-action favoriteButton button--plain button--withIcon button--withLabel" >
-			   	    								<span class="collect-icon icon"></span>收藏
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<a href="/travel/planPage" target="_blank"><span class="eye-icon icon" title="浏览量"></span>${t.pv}</a>
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel" style="display:none">
-			   	    								<span class="more-icon icon"></span>...
-			   	    							</button>
-			   	    							
-			   	    						</div>
-			   	    					</div>
-			   	    				</div>
-			   	    			</div>
-			   	    			@if(tLP.index%6==0){
-			   	    			<div class="card storyItem storyItem-isAdvert">
-			   	    				<div class="pc-feedAd-container">
-			   	    		    		<div class="pc-feedAd">
-			   	    		    			<div class="pc-feedAd-card ">
-			   	    		    				<a href="${t.ad.url!}" target="_blank">
-			   	    		    					<div class="pc-feedAd-card-brand">
-			   	    		    						<div class="pc-feedAd-card-brand-wrapper ">
-			   	    		    							<img src="${t.ad.logo!}" />
-			   	    		    							<span class="pc-feedAd-card-brand--bold">${t.ad.brand!}</span>
-			   	    		    							<div class="pc-feedAd-card-brand-metaText"></div>
-			   	    		    						</div>
-			   	    		    					</div>
-			   	    		    				</a>
-			   	    		    			    <div class="advert-signpc">
-			   	    		    			    	<div class="advert-signpc-label">广告<span class="down-icon"></span></div>
-			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show" style="display:none">
-			   	    		    			    	 	<span class="advert-signpc-popup-arrow"></span>
-			   	    		    			    	 	<div class="advert-signpc-popup-menu">
-			   	    		    			    	 		<button type="button">不感兴趣</button>
-			   	    		    			    	 		<a href="#">网站广告介绍</a>
-			   	    		    			    	 	</div>
-			   	    		    			    	 </div>
-			   	    		    			    </div>
-			   	    		    			    <a href="${t.ad.url!}">
-			   	    		    			    	<h2 class="pc-feedAd-card-title">${t.ad.title!}</h2>
-			   	    		    			    	<div class="pc-feedAd-card-content">
-			   	    		    			    		<div class="advertImg advertImg--isLoaded pc-feedAd-card-content-cover">
-			   	    		    			    			<img src="${t.ad.adverimg!}" alt="图片">
-			   	    		    			    		</div>
-			   	    		    			    		<div class="pc-feedAd-card-content-detail">
-			   	    		    			    			<span>${t.ad.summary!}</span>	
-			   	    		    			    			<span class="pc-feedAd-card-content-detail-cta">查看详情</span>
-			   	    		    			    			<span class="arrow-right"></span>
-			   	    		    			    		</div>
-			   	    		    			    	</div>
-			   	    		    			    </a>
-			   	    		    			</div>
-			   	    		    		</div>
-			   	    		    	</div>
-			   	    			</div>
-			   	    			@}
-			   	    		@}
-           @}
-			<div class="app-main">
-			   <div class="wrapper story-wrapper">
-			   	 <div class="story-mainColumn">
-			   	 	<div class="card story-tabCard">
-			   	 		<div class="nav storytabs story_tabs">
-			   	 			<a href="#" class="story-recomend stroytabs_link story_tabslink is--active">推荐</a>
-			   	 			<a href="#" class="story_scenic_spot stroytabs_link story_tabslink">攻略</a>
-			   	 			<!-- <a href="#" class="story_notes stroytabs_link story_tabslink">vlog</a> -->
-			   	 		</div>
-			   	 	</div>
-			   	    <div id="storyContent" class="story-content">
-			   	    	
-			   	    	<div class="listShortcut">
-			   	    		<div class="story-recommend">
-			   	    		@for(t in viewTravelList){
-			   	    			<div class="card storyItem storyItem-isRecommend">
-			   	    				<h2 class="contentItem_title">
-			   	    					<a href="/travel/planPage" target="_blank">${t.title}</a>
-			   	    				</h2>
-			   	    				<div id="richContent" class="rich-content is-collapsed">
-			   	    					@if(t.url!=null && t.url!=''){
-			   	    					<div class="richContent-cover">
-			   	    						<div class="richContent-cover-inner">
-			   	    							 <a href="/travel/planPage" target="_blank"><img src="${t.url}" align="cover" /></a>
-			   	    						</div>
-			   	    					</div>
-			   	    					@}
-			   	    					<div class="richContent-inner">
-			   	    					 <a href="/travel/planPage" target="_blank">
-			   	    						<span class="richText ztext copyrightRichText-richText">
-			   	    							${t.nickname}：${t.summary}
-			   	    					
-			   	    						</span>
-			   	    						<button  type="button" class="button contentItem-more button--plain">
-			   	    						   阅读全文<span class="all-icon"></span>
-			   	    						</button>
-			   	    						</a>
-			   	    					</div>
-			   	    					<div class="contentItem-actions">
-			   	    						<div class="item_action">
-			   	    							<button class="button voteButton voteButton--up" alias="${t.niceCount}">赞同&nbsp;${t.niceCount}</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<a href="/travel/planPage#commentBox" target="_blank"><span class="comment-icon icon"></span>${t.commentCount}条评论</a>
-			   	    							</button>
-			   	    							<div class="popover shareMenu contentItem-action">
-			   	    								<button class="button contentItem-action shareBtn  button--plain button--withIcon button--withLabel">
-			   	    								<span class="share-icon icon"></span>分享
-			   	    								</button>
-			   	    								<div class="menu social-share" style="display:none">
-			   	    							    	<!-- <div class="share-menu">
-			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
-			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
-			   	    							    	</button>
-			   	    							    	<div class="menu-item menu-item--noActive shareMenu-wechat">
-			   	    							    		<button type="button" class="button shareMenu-button button--plain">
-			   	    							    			<span class="zi-wechat share-icon icon" style="margin-right: 6px;"></span>微信扫一扫
-			   	    							    		</button>
-			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
-			   	    							    	</div>
-			   	    							    	</div> -->
-			   	    							    	
-			   	    							    </div>
-			   	    							
-			   	    							</div>
-			   	    							
-			   	    							<button class="button contentItem-action favoriteButton button--plain button--withIcon button--withLabel" >
-			   	    								<span class="collect-icon icon"></span>收藏
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<a href="/travel/planPage" target="_blank"><span class="eye-icon icon" title="浏览量"></span>${t.pv}</a>
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel" style="display:none">
-			   	    								<span class="more-icon icon"></span>...
-			   	    							</button>
-			   	    							
-			   	    						</div>
-			   	    					</div>
-			   	    				</div>
-			   	    			</div>
-			   	    			@if(tLP.index%6==0){
-			   	    			<div class="card storyItem storyItem-isAdvert">
-			   	    				<div class="pc-feedAd-container">
-			   	    		    		<div class="pc-feedAd">
-			   	    		    			<div class="pc-feedAd-card ">
-			   	    		    				<a href="${t.ad.url!}" target="_blank">
-			   	    		    					<div class="pc-feedAd-card-brand">
-			   	    		    						<div class="pc-feedAd-card-brand-wrapper ">
-			   	    		    							<img src="${t.ad.logo!}" />
-			   	    		    							<span class="pc-feedAd-card-brand--bold">${t.ad.brand!}</span>
-			   	    		    							<div class="pc-feedAd-card-brand-metaText"></div>
-			   	    		    						</div>
-			   	    		    					</div>
-			   	    		    				</a>
-			   	    		    			    <div class="advert-signpc">
-			   	    		    			    	<div class="advert-signpc-label">广告<span class="down-icon"></span></div>
-			   	    		    			    	 <div class="advert-signpc-popup advert-signpc-popup--show" style="display:none">
-			   	    		    			    	 	<span class="advert-signpc-popup-arrow"></span>
-			   	    		    			    	 	<div class="advert-signpc-popup-menu">
-			   	    		    			    	 		<button type="button">不感兴趣</button>
-			   	    		    			    	 		<a href="#">网站广告介绍</a>
-			   	    		    			    	 	</div>
-			   	    		    			    	 </div>
-			   	    		    			    </div>
-			   	    		    			    <a href="${t.ad.url!}">
-			   	    		    			    	<h2 class="pc-feedAd-card-title">${t.ad.title!}</h2>
-			   	    		    			    	<div class="pc-feedAd-card-content">
-			   	    		    			    		<div class="advertImg advertImg--isLoaded pc-feedAd-card-content-cover">
-			   	    		    			    			<img src="${t.ad.adverimg!}" alt="图片">
-			   	    		    			    		</div>
-			   	    		    			    		<div class="pc-feedAd-card-content-detail">
-			   	    		    			    			<span>${t.ad.summary!}</span>	
-			   	    		    			    			<span class="pc-feedAd-card-content-detail-cta">查看详情</span>
-			   	    		    			    			<span class="arrow-right"></span>
-			   	    		    			    		</div>
-			   	    		    			    	</div>
-			   	    		    			    </a>
-			   	    		    			</div>
-			   	    		    		</div>
-			   	    		    	</div>
-			   	    			</div>
-			   	    			@}
-			   	    		@}
-			   	    		    <span class="load-more">加载更多</span>
-			   	    			<div class="card storyItem storyItem-isRecommend" style="display: none">
-			   	    				<h2 class="contentItem_title">
-			   	    					<a href="#">去上海旅行怎么玩？您想要的攻略都在这了！去上海就这么玩？</a>
-			   	    				</h2>
-			   	    				<div id="richContent" class="rich-content is-collapsed">
-			   	    					<div class="richContent-cover">
-			   	    						<div class="richContent-cover-inner">
-			   	    							<img src="https://pic4.zhimg.com/50/v2-df4b91357a77c2776f75e15402792188_400x224.jpg" align="cover" />
-			   	    						</div>
-			   	    					</div>
-			   	    					<div class="richContent-inner">
-			   	    						<span class="richText ztext copyrightRichText-richText">
-			   	    							麦克疯： 让您在最短的时间里找的适合您的最佳旅行方案,快速了解这座神奇的城市，最大化节省您宝贵的时间，让旅行变得更加简单,更加的有意义。
-			   	    					
-			   	    						</span>
-			   	    						<button  type="button" class="button contentItem-more button--plain">
-			   	    						   阅读全文<span class="all-icon"></span>
-			   	    						</button>
-			   	    					</div>
-			   	    					<div class="contentItem-actions">
-			   	    						<div class="item_action">
-			   	    							<button class="button voteButton voteButton--up">赞同6707</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="comment-icon icon"></span>2,267条评论
-			   	    							</button>
-			   	    							<div class="popover shareMenu contentItem-action">
-			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="share-icon icon"></span>分享
-			   	    							</button>
-			   	    							</div>
-			   	    							
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="collect-icon icon"></span>收藏
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="eye-icon icon" title="浏览量"></span>6000
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="more-icon icon"></span>...
-			   	    							</button>
-			   	    							<div class="Popover ContentItem-action">
-			   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
-			   	    							</div>
-			   	    						</div>
-			   	    					</div>
-			   	    				</div>
-			   	    			</div>
-			   	    			<div class="story-plan" style="display: none">
-				   	    			<div class="card storyItem storyItem-isPlan">
-				   	    				<h2 class="contentItem_title">
-				   	    					<a href="#">1秒钟做出水面倒影成像的PS黑科技：免费送你制作水面倒影PS插件</a>
-				   	    				</h2>
-				   	    				<div class="rich-content is-collapsed">
-				   	    					<div class="richContent-cover">
-				   	    						<div class="richContent-cover-inner">
-				   	    							<img src="https://pic2.zhimg.com/v2-34fb4bbdbe6c4b162736e101a96f9af0_400x224.jpg?source=3af55fa1" align="cover" />
-				   	    						</div>
-				   	    					</div>
-				   	    					<div class="richContent-inner">
-				   	    						<span class="richText ztext copyrightRichText-richText">
-				   	    							俗话说的好，仁者乐山，智者乐水。我们外出游玩拍照，就喜欢拍一些山水为背景依托的照片。 因为只有这样，才能拍出来画面的美感，有山有水的照片拍出来的效果更会让人有那么一种与众不同气质。 甚至有些小姐姐拍个人写…
-				   	    					
-				   	    						</span>
-				   	    						<button  type="button" class="button contentItem-more button--plain">
-				   	    						   阅读全文<span class="all-icon"></span>
-				   	    						</button>
-				   	    					</div>
-				   	    					<div class="contentItem-actions">
-				   	    						<div class="item_action">
-				   	    							<button class="button voteButton voteButton--up">赞同6707</button>
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="comment-icon icon"></span>2,267条评论
-				   	    							</button>
-				   	    							<div class="popover shareMenu contentItem-action">
-				   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="share-icon icon"></span>分享
-				   	    							</button>
-				   	    							</div>
-				   	    							
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="collect-icon icon"></span>收藏
-				   	    							</button>
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="eye-icon icon" title="浏览量"></span>6000
-				   	    							</button>
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="more-icon icon"></span>...
-				   	    							</button>
-				   	    							<div class="Popover ContentItem-action">
-				   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
-				   	    							</div>
-				   	    						</div>
-				   	    					</div>
-				   	    				</div>			   	    				
-				   	    			</div>
-				   	    		 </div>
-				   	    		<div class="story-vlog" style="display: none">
-				   	    	    	<div class="card storyItem storyItem-isVlog">
-				   	    				<h2 class="contentItem_title">
-				   	    					<a href="#">1秒钟做出水面倒影成像的PS黑科技：免费送你制作水面倒影PS插件</a>
-				   	    				</h2>
-				   	    				<div class="rich-content is-collapsed">
-				   	    					<div class="richContent-cover">
-				   	    						<div class="richContent-cover-inner">
-				   	    							<img src="https://pic2.zhimg.com/v2-34fb4bbdbe6c4b162736e101a96f9af0_400x224.jpg?source=3af55fa1" align="cover" />
-				   	    						</div>
-				   	    					</div>
-				   	    					<div class="richContent-inner">
-				   	    						<span class="richText ztext copyrightRichText-richText">
-				   	    							俗话说的好，仁者乐山，智者乐水。我们外出游玩拍照，就喜欢拍一些山水为背景依托的照片。 因为只有这样，才能拍出来画面的美感，有山有水的照片拍出来的效果更会让人有那么一种与众不同气质。 甚至有些小姐姐拍个人写…
-				   	    					
-				   	    						</span>
-				   	    						<button  type="button" class="button contentItem-more button--plain">
-				   	    						   阅读全文<span class="all-icon"></span>
-				   	    						</button>
-				   	    					</div>
-				   	    					<div class="contentItem-actions">
-				   	    						<div class="item_action">
-				   	    							<button class="button voteButton voteButton--up">赞同6707</button>
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="comment-icon icon"></span>2,267条评论
-				   	    							</button>
-				   	    							<div class="popover shareMenu contentItem-action">
-				   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="share-icon icon"></span>分享
-				   	    							</button>
-				   	    							</div>
-				   	    							
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="collect-icon icon"></span>收藏
-				   	    							</button>
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="eye-icon icon" title="浏览量"></span>6000
-				   	    							</button>
-				   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-				   	    								<span class="more-icon icon"></span>...
-				   	    							</button>
-				   	    							<div class="Popover ContentItem-action">
-				   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
-				   	    							</div>
-				   	    						</div>
-				   	    					</div>
-				   	    				</div>			   	    				
-				   	    			</div>
-				   	    	    </div>
-			   	    			<div class="card storyItem storyItem-isRecommend" style="display: none">
-			   	    				<h2 class="contentItem_title">
-			   	    					<a href="#">微信又改版了，公众号时间线打乱，会带来什么影响？</a>
-			   	    				</h2>
-			   	    				<div id="richContent" class="rich-content is-collapsed">
-			   	    					
-			   	    					<div class="richContent-inner">
-			   	    						<span class="richText ztext copyrightRichText-richText">
-			   	    							麦克疯： 最近，有媒体报道公众号悄悄改版，新增了一些功能，包括订阅号的个性化推荐，公众号文章评论可盖楼，专辑功能等。在这些功能里，我认为对未来影响最大
-			   	    					
-			   	    						</span>
-			   	    						<button  type="button" class="button contentItem-more button--plain">
-			   	    						   阅读全文<span class="all-icon"></span>
-			   	    						</button>
-			   	    					</div>
-			   	    					<div class="contentItem-actions">
-			   	    						<div class="item_action">
-			   	    							<button class="button voteButton voteButton--up">赞同6707</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="comment-icon icon"></span>2,267条评论
-			   	    							</button>
-			   	    							<div class="popover shareMenu contentItem-action">
-			   	    								<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="share-icon icon"></span>分享
-			   	    							</button>
-			   	    							<div class="menu" >
-			   	    							    	<div class="share-menu">
-			   	    							    		<button type="button" class="button menu-item shareMenu-button button--plain">
-			   	    							    		<span class="share-menu-icon share-icon icon" style="margin-right: 6px;"></span>复制链接
-			   	    							    	</button>
-			   	    							    	<div class="menu-item menu-item--noActive shareMenu-wechat">
-			   	    							    		<button type="button" class="button shareMenu-button button--plain">
-			   	    							    			<span class="zi-wechat share-icon icon" style="margin-right: 6px;"></span>微信扫一扫
-			   	    							    		</button>
-			   	    							    		<img class="shareMenu-qrCode" src="img/account/qrcode.jpg" alt="微信二维码" width="94" height="94"/>
-			   	    							    	</div>
-			   	    							    	</div>
-			   	    							    	
-			   	    							    </div>
-			   	    							</div>
-			   	    							
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="collect-icon icon"></span>收藏
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="eye-icon icon"></span>600
-			   	    							</button>
-			   	    							<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-			   	    								<span class="more-icon icon"></span>...
-			   	    							</button>
-			   	    							<div class="Popover ContentItem-action">
-			   	    								<button class="Button OptionsButton button--plain Button--withIcon button--iconOnly"></button>
-			   	    							</div>
-			   	    						</div>
-			   	    					</div>
-			   	    				</div>
-			   	    			</div>
-			   	    		    <div class="card storyItem storyItem-isRecommend" style="display: none">
-			   	    		    
-			   	    		    </div>
-			   	    		</div>
-			   	    	</div>
-			   	    	
-			   	    </div>
-			   	 </div>
-			   	 <div class="globalSideBar">
-			   	 	<div class="wra">
-			   	 		<div class="card creatorEntrance" style="display: none">
-			   	 			<a  href="#" class="creatorEntrance-link creatorEntrance-Link--smallIcon">
-			   	 				<div class="creatorEntrance-hint profileSideCreator-creatorEntranceHint creatorEntrancePage-hint--smallIcon">
-			   	 					<div class="creatorEntrance-text">
-			   	 						<div class="creatorEntrance-indexPageTitle">
-			   	 							<span class="create-icon"></span>
-			   	 							  创作者中心
-			   	 							<span class="arrowRight arrowright-icon"></span>
-			   	 						</div>			   	 						
-			   	 					</div>
-			   	 					
-			   	 				</div>
-			   	 				<div class="profileSideCreator-analytics">
-			   	 					<div class="profileSideCreator-readCountItem">
-			   	 						<div class="profileSideCreator-readCountTitle">昨日被阅读数</div>
-			   	 						<div class="profileSideCreator-readCountNumber">--</div>
-			   	 						<div class="css_count">
-			   	 							<div class="css_before">较前日</div>
-			   	 							<div class="css_before_count">--</div>
-			   	 						</div>
-			   	 					</div>
-			   	 					<div accesskey="profileSideCreator-readCountItem">
-			   	 						<div class="profileSideCreator-readCountTitle">昨日或赞同数</div>
-			   	 						<div class="profileSideCreator-readCountNumber">--</div>
-			   	 						<div class="css_count">
-			   	 							<div class="css_before">较前日</div>
-			   	 							<div class="css_before_count">--</div>
-			   	 						</div>
-			   	 					</div>
-			   	 				</div>
-			   	 			</a>
-			   	 		</div>
-			   	 	    <div class="card wechat-follow-wrap">
+@layout("/layout/template.html",{title:'爱旅行-首页'}){
+		
+	    <div id="itour-main">
+	    	<div class="topstory">
+	    		<div class="topstory-container">
+	    			<div class="topstory-mainColunm">
+	    				<div id="topstoryContent" class="topstory-content topstory-mainColumnCard">
+	    					<div class="listShortcut">
+	    						<div class="topstory-recommend">
+	    							<div>
+	    								<div class="card topstoryItem topstoryItem-isRecommend">
+	    									<div class="feed">
+	    										<div class="contentItem videoItem">
+	    											<h2 class="contentItem-title"><a href="#" target="_blank">学《蛋黄焗南瓜》可蛋黄焗所有，网友：这么硬！大鹏：就是这么硬</a></h2>
+	    											<div class="richContent is-collapsed">
+	    												<div class="richContent-cover">
+	    													<div class="richContent-cover-inner">
+	    														<img src="../img/zhihu/item1_400x224.jpg" alt="cover">
+	    														<svg viewBox="0 0 72 72" class="richContent-cover-play"><circle cx="36" cy="36" fill="#fff" fill-opacity="0.95" r="36"></circle><path d="M50.835 37.06L29.477 49.97a1.203 1.203 0 0 1-1.664-.43 1.25 1.25 0 0 1-.17-.631V23.091c0-.682.543-1.234 1.213-1.234.219 0 .433.06.62.173l21.359 12.91a1.245 1.245 0 0 1 0 2.12z" fill="#444" fill-rule="nonzero"></path></svg>
+	    													</div>		    													
+	    												</div>
+	    												<div class="richContent-inner">
+	    													<span class="richText ztext copyrightRichText-richText">上期我们说到，在我们的拉尼亚凯亚超星系团里，有一个非常特殊且神秘的地方，周围成千上万的星系都在向其运动 这意味着此处至少需要有上万倍银河系质量的物质存在 但问题是 在这里我们并没有找到如此规模的庞然大…</span>
+	    													<button type="button" class="button contentItem-more button--plain">阅读全文</button>
+	    												</div>
+	    												<div class="contentItem-actions">
+	    													<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--thumb button-zi" fill="currentColor" viewBox="0 0 1024 1024"width="1.2em" height="1.2em"><path d="M724.928 976.384H339.712a143.04 143.04 0 0 1-141.888-131.008L165.76 444.544a141.44 141.44 0 0 1 33.536-103.616 141.696 141.696 0 0 1 108.288-50.048h39.296c129.856 0 164.16-107.392 164.16-164.224C511.04 63.552 560.832 16 626.944 16c44.992 0 87.296 22.4 113.152 59.904 29.76 43.072 48.576 120.896 20.992 214.976h88.256a142.528 142.528 0 0 1 140.544 164.992l-54.656 341.056a211.968 211.968 0 0 1-210.304 179.456z m-417.28-589.504c-16 1.152-27.264 6.848-35.264 16.32a46.208 46.208 0 0 0-10.944 33.728l32.064 400.832c1.92 23.872 22.208 42.624 46.208 42.624h385.216a116.48 116.48 0 0 0 115.584-98.56l54.656-341.312a46.4 46.4 0 0 0-45.76-53.632h-159.168a48.128 48.128 0 0 1-42.752-69.952c48.064-93.44 29.952-162.88 13.632-186.56a41.92 41.92 0 0 0-34.112-18.368c-13.184 0-19.904 4.928-19.904 14.656C607.104 256 517.76 386.88 346.944 386.88h-39.296zM111.104 976.384a48.064 48.064 0 0 1-47.808-44.16l-47.168-589.44a48 48 0 0 1 44.032-51.712 48.512 48.512 0 0 1 51.648 44.032l47.168 589.44a48.064 48.064 0 0 1-44.032 51.712l-3.84 0.128z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															80&nbsp;赞
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--eye button-zi" fill="currentColor"viewBox="0 0 1433 1024"  width="1.4em" height="1.4em"><path d="M720.69629629 932.6176963c-213.05768889 0-407.36918519-120.58848889-582.93448888-361.67534074-23.88337036-32.71571111-23.88337036-85.169 0-117.88471112C313.32711111 211.97079259 507.63860741 91.3823037 720.69629629 91.3823037s407.36918519 120.58848889 582.9344889 361.67534074c23.88337036 32.71571111 23.88337036 85.169 0 117.88471112C1128.06548147 812.02920741 933.75398519 932.6176963 720.69629629 932.6176963z m0-721.00740741C542.51734074 211.61028889 377.85727408 309.39691852 222.48017777 512 377.85727408 714.60308148 542.4272148 812.38971111 720.69629629 812.38971111c178.17895556 0 342.83902223-97.78662964 498.21611851-300.38971111C1063.53531852 309.39691852 898.96537777 211.61028889 720.69629629 211.61028889z m0 495.69259259a195.30288148 195.30288148 0 1 1 0-390.60576296 195.30288148 195.30288148 0 0 1 0 390.60576296zM720.69629629 602.12592592a90.12592592 90.12592592 0 1 0 0-180.25185184 90.12592592 90.12592592 0 0 0 0 180.25185184z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															80&nbsp;阅读
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg t="1568705456499" class="zi zi--comment button-zi" fill="currentColor" viewBox="0 0 1088 1024" width="1.2em" height="1.2em"><path d="M384 446.656a64.064 64.064 0 0 1-96.32 56.512A64 64 0 1 1 384 446.656zM576 448a64 64 0 1 1-128 0 64 64 0 0 1 128 0z m192 0a64 64 0 1 1-128 0 64 64 0 0 1 128 0z" fill="" p-id="16737"></path><path d="M217.28 1008a99.392 99.392 0 0 1-99.072-99.072v-107.2A300.352 300.352 0 0 1 16 574.656V319.36A303.744 303.744 0 0 1 319.36 16h408.512a303.68 303.68 0 0 1 303.36 303.36v255.36a303.68 303.68 0 0 1-303.36 303.36H429.184L275.2 989.248a98.368 98.368 0 0 1-57.92 18.752z m102.08-896a207.552 207.552 0 0 0-207.36 207.36v255.36c0 65.856 30.272 126.336 82.944 165.952 12.096 9.088 19.2 23.232 19.2 38.4l3.072 132.992a2.88 2.88 0 0 0 1.728-0.576l166.592-120.32a48 48 0 0 1 28.096-9.088h314.24a207.552 207.552 0 0 0 207.36-207.36V319.36a207.552 207.552 0 0 0-207.36-207.36H319.36z" fill="" p-id="16738"></path></svg>
+	    															</span>
+	    															80&nbsp;评论
+	    														</button>
+	    															    														
+	    													</div>
+	    												</div>
+	    											</div>
+	    										</div>
+	    									</div>
+	    								</div>
+	    							    <div class="card topstoryItem topstoryItem-isRecommend">
+	    							    	<div class="feed">
+	    							    		<div class="contentItem answerItem">
+	    							    			<h2 class="contentItem-title"><a href="#" target="_blank">英语零基础，有什么自学方法？</a></h2>
+	    							    			<div class="richContent is-collapsed">
+	    							    				<div class="richContent-cover">
+	    							    					<div class="richContent-cover-inner">
+	    							    						<img src="../img/zhihu/item2_400x244.jpg" />
+	    							    					</div>
+	    							    				</div>
+	    							    				<div class="richContent-inner">
+	    							    					<span class="richText ztext copyrightRichText-richText">
+	    							    						Lucky： 我就是零基础学习的英语。从一个单词都不认识开始，直到我能自考英语本科。 所以我想我有一点资格回答这个问题，回答之前先指出两件事情： <b>英语学完了一定要用，不用的话会忘的很快，所以考虑清楚自己为什</b>…
+	    							    					</span>
+	    							    					<button type="button" class="button contentItem-more button--plain">阅读全文</button>
+	    							    				</div>
+	    							    				<div class="contentItem-actions">
+	    													<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--thumb button-zi" fill="currentColor" viewBox="0 0 1024 1024"width="1.2em" height="1.2em"><path d="M724.928 976.384H339.712a143.04 143.04 0 0 1-141.888-131.008L165.76 444.544a141.44 141.44 0 0 1 33.536-103.616 141.696 141.696 0 0 1 108.288-50.048h39.296c129.856 0 164.16-107.392 164.16-164.224C511.04 63.552 560.832 16 626.944 16c44.992 0 87.296 22.4 113.152 59.904 29.76 43.072 48.576 120.896 20.992 214.976h88.256a142.528 142.528 0 0 1 140.544 164.992l-54.656 341.056a211.968 211.968 0 0 1-210.304 179.456z m-417.28-589.504c-16 1.152-27.264 6.848-35.264 16.32a46.208 46.208 0 0 0-10.944 33.728l32.064 400.832c1.92 23.872 22.208 42.624 46.208 42.624h385.216a116.48 116.48 0 0 0 115.584-98.56l54.656-341.312a46.4 46.4 0 0 0-45.76-53.632h-159.168a48.128 48.128 0 0 1-42.752-69.952c48.064-93.44 29.952-162.88 13.632-186.56a41.92 41.92 0 0 0-34.112-18.368c-13.184 0-19.904 4.928-19.904 14.656C607.104 256 517.76 386.88 346.944 386.88h-39.296zM111.104 976.384a48.064 48.064 0 0 1-47.808-44.16l-47.168-589.44a48 48 0 0 1 44.032-51.712 48.512 48.512 0 0 1 51.648 44.032l47.168 589.44a48.064 48.064 0 0 1-44.032 51.712l-3.84 0.128z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															80&nbsp;赞
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--eye button-zi" fill="currentColor"viewBox="0 0 1433 1024"  width="1.4em" height="1.4em"><path d="M720.69629629 932.6176963c-213.05768889 0-407.36918519-120.58848889-582.93448888-361.67534074-23.88337036-32.71571111-23.88337036-85.169 0-117.88471112C313.32711111 211.97079259 507.63860741 91.3823037 720.69629629 91.3823037s407.36918519 120.58848889 582.9344889 361.67534074c23.88337036 32.71571111 23.88337036 85.169 0 117.88471112C1128.06548147 812.02920741 933.75398519 932.6176963 720.69629629 932.6176963z m0-721.00740741C542.51734074 211.61028889 377.85727408 309.39691852 222.48017777 512 377.85727408 714.60308148 542.4272148 812.38971111 720.69629629 812.38971111c178.17895556 0 342.83902223-97.78662964 498.21611851-300.38971111C1063.53531852 309.39691852 898.96537777 211.61028889 720.69629629 211.61028889z m0 495.69259259a195.30288148 195.30288148 0 1 1 0-390.60576296 195.30288148 195.30288148 0 0 1 0 390.60576296zM720.69629629 602.12592592a90.12592592 90.12592592 0 1 0 0-180.25185184 90.12592592 90.12592592 0 0 0 0 180.25185184z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															80&nbsp;阅读
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg t="1568705456499" class="zi zi--comment button-zi" fill="currentColor" viewBox="0 0 1088 1024" width="1.2em" height="1.2em"><path d="M384 446.656a64.064 64.064 0 0 1-96.32 56.512A64 64 0 1 1 384 446.656zM576 448a64 64 0 1 1-128 0 64 64 0 0 1 128 0z m192 0a64 64 0 1 1-128 0 64 64 0 0 1 128 0z" fill="" p-id="16737"></path><path d="M217.28 1008a99.392 99.392 0 0 1-99.072-99.072v-107.2A300.352 300.352 0 0 1 16 574.656V319.36A303.744 303.744 0 0 1 319.36 16h408.512a303.68 303.68 0 0 1 303.36 303.36v255.36a303.68 303.68 0 0 1-303.36 303.36H429.184L275.2 989.248a98.368 98.368 0 0 1-57.92 18.752z m102.08-896a207.552 207.552 0 0 0-207.36 207.36v255.36c0 65.856 30.272 126.336 82.944 165.952 12.096 9.088 19.2 23.232 19.2 38.4l3.072 132.992a2.88 2.88 0 0 0 1.728-0.576l166.592-120.32a48 48 0 0 1 28.096-9.088h314.24a207.552 207.552 0 0 0 207.36-207.36V319.36a207.552 207.552 0 0 0-207.36-207.36H319.36z" fill="" p-id="16738"></path></svg>
+	    															</span>
+	    															80&nbsp;评论
+	    														</button>
+	    													</div>
+	    												</div>
+	    							    			</div>
+	    							    		</div>
+	    							    	</div>
+	    							    </div>
+	    							    <div class="card topstoryItem topstoryItem-isRecommend">
+	    							    	<div class="feed">
+	    							    		<div class="contentItem answerItem">
+	    							    			<h2 class="contentItem-title"><a href="#" target="_blank">有哪些质量很棒但人气不高的耽美小说?</a></h2>
+	    							    			<div class="richContent is-collapsed">
+	    							    				<div class="richContent-inner">
+	    							    					<span class="richText ztext copyrightRichText-richText">四夕酱： 有，质量高不高我不知道，但很小众，我喜欢，文笔很戳我。 <b>NO.1</b> 《向死而生》by客兮 <b>“自杀前，被表白了。”</b> <b>“李医生，那就用尽你所有想象力来爱我</b>…</span>
+	    							    				    <button type="button" class="button contentItem-more button--plain">阅读全文</button>
+	    							    				</div>
+	    							    				<div class="contentItem-actions">
+	    													<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--thumb button-zi" fill="currentColor" viewBox="0 0 1024 1024"width="1.2em" height="1.2em"><path d="M724.928 976.384H339.712a143.04 143.04 0 0 1-141.888-131.008L165.76 444.544a141.44 141.44 0 0 1 33.536-103.616 141.696 141.696 0 0 1 108.288-50.048h39.296c129.856 0 164.16-107.392 164.16-164.224C511.04 63.552 560.832 16 626.944 16c44.992 0 87.296 22.4 113.152 59.904 29.76 43.072 48.576 120.896 20.992 214.976h88.256a142.528 142.528 0 0 1 140.544 164.992l-54.656 341.056a211.968 211.968 0 0 1-210.304 179.456z m-417.28-589.504c-16 1.152-27.264 6.848-35.264 16.32a46.208 46.208 0 0 0-10.944 33.728l32.064 400.832c1.92 23.872 22.208 42.624 46.208 42.624h385.216a116.48 116.48 0 0 0 115.584-98.56l54.656-341.312a46.4 46.4 0 0 0-45.76-53.632h-159.168a48.128 48.128 0 0 1-42.752-69.952c48.064-93.44 29.952-162.88 13.632-186.56a41.92 41.92 0 0 0-34.112-18.368c-13.184 0-19.904 4.928-19.904 14.656C607.104 256 517.76 386.88 346.944 386.88h-39.296zM111.104 976.384a48.064 48.064 0 0 1-47.808-44.16l-47.168-589.44a48 48 0 0 1 44.032-51.712 48.512 48.512 0 0 1 51.648 44.032l47.168 589.44a48.064 48.064 0 0 1-44.032 51.712l-3.84 0.128z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															80&nbsp;赞
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--eye button-zi" fill="currentColor"viewBox="0 0 1433 1024"  width="1.4em" height="1.4em"><path d="M720.69629629 932.6176963c-213.05768889 0-407.36918519-120.58848889-582.93448888-361.67534074-23.88337036-32.71571111-23.88337036-85.169 0-117.88471112C313.32711111 211.97079259 507.63860741 91.3823037 720.69629629 91.3823037s407.36918519 120.58848889 582.9344889 361.67534074c23.88337036 32.71571111 23.88337036 85.169 0 117.88471112C1128.06548147 812.02920741 933.75398519 932.6176963 720.69629629 932.6176963z m0-721.00740741C542.51734074 211.61028889 377.85727408 309.39691852 222.48017777 512 377.85727408 714.60308148 542.4272148 812.38971111 720.69629629 812.38971111c178.17895556 0 342.83902223-97.78662964 498.21611851-300.38971111C1063.53531852 309.39691852 898.96537777 211.61028889 720.69629629 211.61028889z m0 495.69259259a195.30288148 195.30288148 0 1 1 0-390.60576296 195.30288148 195.30288148 0 0 1 0 390.60576296zM720.69629629 602.12592592a90.12592592 90.12592592 0 1 0 0-180.25185184 90.12592592 90.12592592 0 0 0 0 180.25185184z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															80&nbsp;阅读
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg t="1568705456499" class="zi zi--comment button-zi" fill="currentColor" viewBox="0 0 1088 1024" width="1.2em" height="1.2em"><path d="M384 446.656a64.064 64.064 0 0 1-96.32 56.512A64 64 0 1 1 384 446.656zM576 448a64 64 0 1 1-128 0 64 64 0 0 1 128 0z m192 0a64 64 0 1 1-128 0 64 64 0 0 1 128 0z" fill="" p-id="16737"></path><path d="M217.28 1008a99.392 99.392 0 0 1-99.072-99.072v-107.2A300.352 300.352 0 0 1 16 574.656V319.36A303.744 303.744 0 0 1 319.36 16h408.512a303.68 303.68 0 0 1 303.36 303.36v255.36a303.68 303.68 0 0 1-303.36 303.36H429.184L275.2 989.248a98.368 98.368 0 0 1-57.92 18.752z m102.08-896a207.552 207.552 0 0 0-207.36 207.36v255.36c0 65.856 30.272 126.336 82.944 165.952 12.096 9.088 19.2 23.232 19.2 38.4l3.072 132.992a2.88 2.88 0 0 0 1.728-0.576l166.592-120.32a48 48 0 0 1 28.096-9.088h314.24a207.552 207.552 0 0 0 207.36-207.36V319.36a207.552 207.552 0 0 0-207.36-207.36H319.36z" fill="" p-id="16738"></path></svg>
+	    															</span>
+	    															80&nbsp;评论
+	    														</button>
+	    													</div>
+	    												</div>
+	    							    			</div>
+	    							    		</div>
+	    							    	</div>
+	    							    </div>
+	    							    <div class="card topstoryItem topstoryItem--advertCard topstoryItem-isRecommend">
+	    							    	<div class="pc-feedAd-container">
+	    							    		<div class="pc-feedAd">
+	    							    			<div class="pc-feedAd-card">
+	    							    				<a href="#" target="_blank">
+	    							    					<div class="pc-feedAd-card-brand">
+	    							    						<div class="pc-feedAd-card-brand-wrapper">
+	    							    							<img src="../img/zhihu/itemadlogo_250x250.jpeg" alt="logo" />
+	    							    							<span class="pc-feedAd-card-brand--bold">VFine Music</span>
+	    							    							<div class="pc-feedAd-card-brand-metaText">&nbsp;</div>
+	    							    						</div>
+	    							    					</div>
+	    							    				</a>
+	    							    				<div class="advert-signpc">
+	    							    					<div class="advert-signpc-label">
+	    							    						广告<svg class="Icon Icon--triangle advert-signpc-svg" viewBox="0 0 24 24"><path d="M9.218 16.78a.737.737 0 0 0 1.052 0l4.512-4.249a.758.758 0 0 0 0-1.063L10.27 7.22a.737.737 0 0 0-1.052 0 .759.759 0 0 0-.001 1.063L13 12l-3.782 3.716a.758.758 0 0 0 0 1.063z" fill-rule="evenodd"></path></svg>
+	    							    					</div>
+	    							    					<div class="advert-signpc-popup advert-signpc-popup--isHidden" style="top: 360.667px; left: 925px;">
+	    							    						<span class="advert-signpc-popup-arrow"></span>
+	    							    						<div class="advert-signpc-popup-menu">
+	    							    							<button type="button">不感兴趣</button>
+	    							    							<a href="#" target="_blank">知乎广告介绍</a>
+	    							    						</div>
+	    							    					</div>
+	    							    				</div>
+	    							    				<a href="#" target="_blank">
+	    							    					<h2 class="pc-feedAd-card-title">
+	    							    						视频怎样避免音乐侵权？版权音乐又到底从哪找？
+	    							    					</h2>		    							    						    							    						
+	    							    					<div class="pc-feedAd-card-content">
+	    							    						<div class="advertImg advertImg--isLoaded pc-feedAd-card-content-cover">
+	    							    							<img src="../img/zhihu/adimg_400x224.jpeg"/>
+	    							    						</div>
+	    							    						<div class="pc-feedAd-card-content-detail">
+	    							    							<span>很多广告主和视频主都常苦恼于找不到更多更好的正版音乐，试试VFineMusic曲库，臻选来自世界各地的正版音乐，便捷筛选，极速授权！</span>
+	    							    							<span class="pc-feedAd-card-content-detail-cta">
+	    							    								查看详情<span style="display: inline-flex; align-items: center;">​
+	    							    									<svg class="Icon Icon--triangle pc-feedAd-card-content-detail-svg" viewBox="0 0 24 24"><path d="M9.218 16.78a.737.737 0 0 0 1.052 0l4.512-4.249a.758.758 0 0 0 0-1.063L10.27 7.22a.737.737 0 0 0-1.052 0 .759.759 0 0 0-.001 1.063L13 12l-3.782 3.716a.758.758 0 0 0 0 1.063z" fill-rule="evenodd"></path></svg>
+	    							    								</span>
+	    							    							</span>
+	    							    						</div>
+	    							    					</div>
+	    							    				</a>
+	    							    			</div>
+	    							    		</div>
+	    							    	</div>
+	    							    </div>
+	    							      <div class="text-center">
+	    							    	<ul class="pager">
+	    							    		<li id="btn-load-more">
+	    							    			<a href="#">点击载入更多</a>
+	    							    		</li>
+	    							    		<li id="btn-loading" class="hidden">
+	    							    			<a href="#">
+	    							    			<i class="fa fa-spinner fa-spin"></i> 载入中
+	    							    			</a>
+	    							    		</li>
+	    							    	</ul>
+	    							    </div>
+	    							</div>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="globalSideBar">
+	    				<div class="card wechat-follow-wrap">
 			   	 	     	<div class="wechat-follow-title">
 			   	 	     		<span>
-			   	 	     			<img class="wechat-icon" src="img/travel/wechat_icon.png" height="18" />
+			   	 	     			<img class="wechat-icon" src="${ctxPath}/img/common/wechat_icon.png" height="18" />
 			   	 	     			微信关注
 			   	 	     		</span>
 			   	 	     		
 			   	 	     	</div>
 			   	 	     	<div class="wechat-follow-con">
-			   	 	     		<img src="img/account/qrcode.jpg" class="wechat-scan" width="150" />
-			   	 	     			"爱旅行SHOW",提供最优旅行攻略，让旅行变得简单,节省您做攻略的时间,
-			   	 	     		  让你带上你的灵魂去旅行，让旅行更加的有意义。
-			   	 	     		
+			   	 	     		<img src="${ctxPath}/img/common/qrcode.jpg" class="wechat-scan" width="96" />
+			   	 	     			"爱旅行SHOW",提供最优旅行攻略，让旅行变得简单,	 有趣！			   	 	     		
 			   	 	     	</div>
 			   	 	     </div>
-			   	 	    <div class="card god-recommend" style="display: none">
-			   	 	    	<div class="god-recommend-wrap">
-			   	 	    		<h3 class="god-recommend-tit">
-			   	 	    			<span class="line"></span>
-			   	 	    			<span class="txt">为你推荐</span>			   	 	    			
-			   	 	    		</h3>
-			   	 	    		<div class="feed-god feed-god-list">
-			   	 	    			<ul class="god-recommend-items">
-			   	 	    				<li class="god-recommend-item">
-			   	 	    					<div class="img-box">
-			   	 	    						<a href="#">
-			   	 	    							<img src="https://pic4.zhimg.com/50/v2-df4b91357a77c2776f75e15402792188_400x224.jpg" height="48px" />
-			   	 	    						</a>
-			   	 	    					</div>
-			   	 	    					<div class="god-content-box">
-			   	 	    						<h3 class="god-recommend-title">
-			   	 	    							<a title="上海旅行攻略" href="#">
-			   	 	    								上海旅行攻略
-			   	 	    							</a>
-			   	 	    						</h3>
-			   	 	    						<p class="god-introuduce">去上海旅游的旅行计划？</p>
-			   	 	    					</div>
-			   	 	    				</li>
-			   	 	    				<li class="god-recommend-item">
-			   	 	    					<div class="img-box">
-			   	 	    						<a href="#">
-			   	 	    							<img src="https://pic4.zhimg.com/50/v2-df4b91357a77c2776f75e15402792188_400x224.jpg" height="48px" />
-			   	 	    						</a>
-			   	 	    					</div>
-			   	 	    					<div class="god-content-box">
-			   	 	    						<h3 class="god-recommend-title">
-			   	 	    							<a title="上海旅行攻略" href="#">
-			   	 	    								上海去哪儿吃
-			   	 	    							</a>
-			   	 	    						</h3>
-			   	 	    						<p class="god-introuduce">上海有那些值的去吃的美食？</p>
-			   	 	    					</div>
-			   	 	    				</li>
-			   	 	    				<li class="god-recommend-item">
-			   	 	    					<div class="img-box">
-			   	 	    						<a href="#">
-			   	 	    							<img src="https://pic4.zhimg.com/50/v2-df4b91357a77c2776f75e15402792188_400x224.jpg" height="48px" />
-			   	 	    						</a>
-			   	 	    					</div>
-			   	 	    					<div class="god-content-box">
-			   	 	    						<h3 class="god-recommend-title">
-			   	 	    							<a title="上海旅行攻略" href="#">
-			   	 	    								上海去哪儿玩
-			   	 	    							</a>
-			   	 	    						</h3>
-			   	 	    						<p class="god-introuduce">上海有那些值的去玩的地方？</p>
-			   	 	    					</div>
-			   	 	    				</li>
-			   	 	    				<li class="god-recommend-item">
-			   	 	    					<div class="img-box">
-			   	 	    						<a href="#">
-			   	 	    							<img src="https://pic4.zhimg.com/50/v2-df4b91357a77c2776f75e15402792188_400x224.jpg" height="48px" />
-			   	 	    						</a>
-			   	 	    					</div>
-			   	 	    					<div class="god-content-box">
-			   	 	    						<h3 class="god-recommend-title">
-			   	 	    							<a title="上海旅行攻略" href="#">
-			   	 	    								去上海住哪儿？
-			   	 	    							</a>
-			   	 	    						</h3>
-			   	 	    						<p class="god-introuduce">去上海旅行住在哪儿最方便舒适？</p>
-			   	 	    					</div>
-			   	 	    				</li>
-			   	 	    				<li class="god-recommend-item">
-			   	 	    					<div class="img-box">
-			   	 	    						<a href="#">
-			   	 	    							<img src="https://pic4.zhimg.com/50/v2-df4b91357a77c2776f75e15402792188_400x224.jpg" height="48px" />
-			   	 	    						</a>
-			   	 	    					</div>
-			   	 	    					<div class="god-content-box">
-			   	 	    						<h3 class="god-recommend-title">
-			   	 	    							<a title="上海旅行攻略" href="#">
-			   	 	    								上海的交通？
-			   	 	    							</a>
-			   	 	    						</h3>
-			   	 	    						<p class="god-introuduce">上海的交通状况？</p>
-			   	 	    					</div>
-			   	 	    				</li>
-			   	 	    				<li class="god-recommend-item">
-			   	 	    					<div class="img-box">
-			   	 	    						<a href="#">
-			   	 	    							<img src="https://pic4.zhimg.com/50/v2-df4b91357a77c2776f75e15402792188_400x224.jpg" height="48px" />
-			   	 	    						</a>
-			   	 	    					</div>
-			   	 	    					<div class="god-content-box">
-			   	 	    						<h3 class="god-recommend-title">
-			   	 	    							<a title="上海旅行攻略" href="#">
-			   	 	    								去上海玩需要注意什么？
-			   	 	    							</a>
-			   	 	    						</h3>
-			   	 	    						<p class="god-introuduce">去上海玩需要注意什么？</p>
-			   	 	    					</div>
-			   	 	    				</li>
-			   	 	    			</ul>
-			   	 	    		</div>
-			   	 	    	</div>
-			   	 	    </div>
-			   	 	</div>
-			   	 </div>
-			   </div>
-			</div>
-
-
-		
-@}
+	    			</div>
+	    		</div>
+		    </div>
+	    </div>	    
+    
+	    <div id="fixedTools" class="hidden-xs hidden-sm">
+              <a id="backtop" class="border-bottom" href="#">回顶部</a>
+        </div>
+@}	
