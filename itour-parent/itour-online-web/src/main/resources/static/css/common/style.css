@@ -928,6 +928,15 @@ input[type="checkbox"], input[type="radio"] {
 }
 /****找回密码end * ****/
 /***注册页面start***/
+.i-def, .i-error, .i-error1, .i-global, .i-suc {
+    background: url(../../img/common/icon.png) no-repeat;
+}
+.i-error {
+    background-position: -17px -100px;
+}
+.i-def {
+    background-position: 0 -100px;
+}
 .auth-container,.pro-container{
 	background: #fff;	
 }
@@ -1033,6 +1042,9 @@ input[type="checkbox"], input[type="radio"] {
 .item-email-wrap .form-item {
     z-index: 11;
 }
+.item-email-wrap .form-item:hover{
+	border: 1px solid #999;
+}
 .form-item label {
     float: left;
     width: 87px;
@@ -1092,6 +1104,13 @@ input[type="checkbox"], input[type="radio"] {
     font-size: 12px;
     padding-top: 5px;
 }
+.input-tip span i {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+    margin-right: 8px;
+}
 .form-item-getcode {
     line-height: 52px;
     text-align: center;
@@ -1099,6 +1118,9 @@ input[type="checkbox"], input[type="radio"] {
     color: #333;
     cursor: pointer;
     z-index: 2;
+}
+.form-item-getcode:hover {
+    border-color: #666;
 }
 .item-mailcode-wrap {
     display: none;
@@ -1254,5 +1276,8 @@ input[type="checkbox"], input[type="radio"] {
     left: 50%;
     margin-left: -4px;
     bottom: -15px;
+}
+#step2-wrap .form-item:hover {
+    border: 1px solid #999;
 }
 /***注册页面end***/
