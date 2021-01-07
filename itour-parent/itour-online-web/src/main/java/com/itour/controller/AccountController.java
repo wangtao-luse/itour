@@ -181,7 +181,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	 */
 	@RequestMapping("/setpwd")
 	public String setpwd() {		
-		return "/account/setpwd";
+		return "/account/findpwd";
 	}
 	/**
 	 * 修改密码
