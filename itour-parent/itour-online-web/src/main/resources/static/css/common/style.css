@@ -928,7 +928,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 /****找回密码end * ****/
 /***注册页面start***/
-.i-def, .i-error, .i-error1, .i-global, .i-suc {
+.form-item-valid .i-status,.i-def, .i-error, .i-error1, .i-global, .i-suc {
     background: url(../../img/common/icon.png) no-repeat;
 }
 .i-error {
@@ -1052,6 +1052,22 @@ input[type="checkbox"], input[type="radio"] {
     line-height: 50px;
     padding-left: 20px;
     color: #666;
+    font-size:14px;
+}
+.form-item .field::-webkit-input-placeholder {
+	color: #ccc
+}
+
+.form-item .field:-moz-placeholder {
+	color: #ccc
+}
+
+.form-item .field::-moz-placeholder {
+	color: #ccc
+}
+
+.form-item .field:-ms-input-placeholder {
+	color: #ccc
 }
 
 .form-item .field {
@@ -1070,6 +1086,10 @@ input[type="checkbox"], input[type="radio"] {
     height: 16px;
     top: 20px;
     right: 20px;
+}
+.form-item-valid .i-status {
+    display: block;
+    background-position: 0 -117px;
 }
 .email-suggest {
     position: absolute;
