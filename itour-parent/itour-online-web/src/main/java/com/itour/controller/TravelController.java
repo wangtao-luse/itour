@@ -146,7 +146,7 @@ public String planPage(Integer id,String title,HttpServletRequest request) {
 	history.setId(id);
 	history.setTitle(title);
 	history.setStatus(ConstantV.HISTORY_NORMAL);
-	history.setCreatedate(DateUtil.getlongDate(new Date()));
+	history.setCreatedate(DateUtil.currentLongDate());
 	String loc="";
 	history.setLoc(loc);
 	AccountVo sessionUser = SessionUtil.getSessionUser();
@@ -170,7 +170,7 @@ public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 		String status = jsonObject.getString("status");
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		Nice nice= new Nice();
-		nice.setCreatedate(DateUtil.getlongDate(new Date()));
+		nice.setCreatedate(DateUtil.currentLongDate());
 		nice.setStatus(status);
 	    nice.setTid(jsonObject.getInteger("tid"));
 	    AccountVo sessionUser = SessionUtil.getSessionUser();
@@ -196,7 +196,7 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		Pageview pageview= new Pageview();
 		pageview.setTid(Integer.valueOf(tid));
-		pageview.setCreatedate(DateUtil.getlongDate(new Date()));
+		pageview.setCreatedate(DateUtil.currentLongDate());
 		boolean hHasKey = redisManager.hHasKey(TravelRedisKey.KEY_PAGEVIEW, tid);
 		if(hHasKey) {//有浏览量
 			Pageview view = (Pageview)redisManager.hget(TravelRedisKey.KEY_PAGEVIEW, tid);

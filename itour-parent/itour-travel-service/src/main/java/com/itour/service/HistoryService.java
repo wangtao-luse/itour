@@ -78,7 +78,7 @@ public ResponseMessage insertHistory(RequestMessage requestMessage) {
 			queryWrapper.ge("CREATEDATE", DateUtil.getlongDate(DateUtil.getMidnight()));
 			History selectOne = this.baseMapper.selectOne(queryWrapper );
 			if(selectOne!=null) {
-				selectOne.setCreatedate(DateUtil.getlongDate(new Date()));
+				selectOne.setCreatedate(DateUtil.currentLongDate());
 				this.baseMapper.updateById(selectOne);
 			}else {
 				this.baseMapper.insert(history);

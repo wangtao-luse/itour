@@ -1,11 +1,7 @@
 package com.itour.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Resource;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,11 +17,11 @@ import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.constant.ConstantMessage;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Account;
 import com.itour.model.account.AccountGroup;
 import com.itour.model.account.Group;
+import com.itour.model.account.Ipaddr;
 import com.itour.model.account.Oauth;
 import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
@@ -33,6 +29,7 @@ import com.itour.persist.GroupMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
+import com.itour.util.StringHelper;
 
 
 
@@ -65,21 +62,22 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		JSONObject jsonObject = requestMesage.getBody().getContent();
 		//1.插入用户表
 		Account account = jsonObject.getJSONObject("vo").toJavaObject(Account.class);
+		Ipaddr ipaddr = jsonObject.getJSONObject("ipaddr").toJavaObject(Ipaddr.class);
 		//生成uid
 		String uid = baseService.getUid();
 		account.setUid(uid);
 		account.setUtype(StringUtils.isEmpty(account.getUtype())?"0":account.getUtype());
 		account.setStatus("1");
-		account.setCreateip(jsonObject.getString("ip"));
+		account.setSex("1");
+		account.setCreateip(ipaddr.getIp());
 		//注册日期		
-		account.setCreatedate(DateUtil.getlongDate(new Date()));
+		account.setCreatedate(DateUtil.currentLongDate());
 		this.baseMapper.insert(account);
 		//2.插入用户认证表
 		Oauth o = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
 		Oauth oauth = new Oauth();
 		BeanUtils.copyProperties(oauth, o);		
-		String salt = UUID.randomUUID().toString().replaceAll("-", "");
-		
+		String salt = StringHelper.getUuid();		
 		oauth.setPwd(salt);
 		String credential = oauth.getCredential();
 		String result = SimpleHashUtil.simpleHashMd5(credential, salt);		

@@ -1,11 +1,11 @@
 #2020-7-3 wangtao 
 #前台t_a_group初始化
-INSERT INTO T_A_GROUP ( G_NAME, G_DESC, G_PARENT )
+INSERT INTO T_A_GROUP ( G_NAME, G_DESC, G_PARENT,CREATEDATE)
 VALUES
-	( 'Gnormal', '普通会员组', '0' );
-INSERT INTO T_A_GROUP ( G_NAME, G_DESC, G_PARENT )
+	( 'Gnormal', '普通会员组', '0' ,1610157163369);
+INSERT INTO T_A_GROUP ( G_NAME, G_DESC, G_PARENT,CREATEDATE )
 VALUES
-	( 'Gvip', 'VIP会员组', '0' );
+	( 'Gvip', 'VIP会员组', '0',1610157389885 );
 	
 #前台t_a_role初始化	
 INSERT INTO T_A_ROLE( ROLE_NAME, ROLE_DESC ) 

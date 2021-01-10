@@ -305,6 +305,7 @@ $(".i-cancel").click(function(){
 });
 /**注册提交*/
 $("#form-register").click(function(){
+	console.log("注册");
 	var hasError = $("#register-form").find(".input-tip span").hasClass("error");
 	if(hasError){
 		return;
@@ -312,7 +313,7 @@ $("#form-register").click(function(){
 	var url="/account/regSub";
 	var data=$.serializeObject($('#register-form'));	
 	postAjax(url,JSON.stringify(data),function(result){
-		//alert(result.resultMessage);
+		alert(result.resultMessage);
 		var regName=$("#form-account").val();
 		location.href="/account/registerSucess?regName="+regName;
 	},{errorFunction:function(data){

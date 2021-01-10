@@ -65,7 +65,7 @@ public ResponseMessage sendEmail(RequestMessage requestMessage){
 	           transport.close();
 	           Messageinfo msgText = new Messageinfo();
 	           BeanUtils.copyProperties(msgText, email);
-	           msgText.setSendtime(DateUtil.getlongDate(new Date()));
+	           msgText.setSendtime(DateUtil.currentLongDate());
 	           msgText.setType(ConstantMessage.EMAIL);
 	           msgText.setFrom("wwangtaoc11@163.com");
 	           this.baseMapper.insert(msgText);

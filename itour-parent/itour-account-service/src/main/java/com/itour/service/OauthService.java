@@ -81,12 +81,12 @@ private IpaddrService ipaddrService;
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_STATUS);
 	        }
 	        //1.2修改最近登录时间
-	        account.setLasttime(DateUtil.getlongDate(new Date()));
+	        account.setLasttime(DateUtil.currentLongDate());
 	        this.accountMapper.updateById(account);
 	        responseMessage.setReturnResult(selectOne);
 	        //插入登录记录
 	        LoginList loginList = new LoginList();
-	        loginList.setLoginTime(DateUtil.getlongDate(new Date()));
+	        loginList.setLoginTime(DateUtil.currentLongDate());
 	        loginList.setOauthId(oauth.getOauthId());
 	        loginList.setOauthType(selectOne.getOauthType());
 	        loginList.setuId(selectOne.getuId());

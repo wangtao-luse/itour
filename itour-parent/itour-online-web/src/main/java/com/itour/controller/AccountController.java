@@ -61,7 +61,7 @@ public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequ
 	       oauth.setNickname(jsonObject.getString("regName"));
 	       
 	       tmpJson.put("vo", oauth);
-	       tmpJson.put("ip", jsonObject.getString("ip"));
+	       tmpJson.put("ipaddr", jsonObject);
 	       Object oraginuid = request.getSession().getAttribute("uuid");
 	       String uuid = jsonObject.getString("uuid");
 	       if(!uuid.equals(oraginuid.toString())) {

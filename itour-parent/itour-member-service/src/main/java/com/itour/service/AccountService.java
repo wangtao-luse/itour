@@ -75,10 +75,11 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		String uid = baseService.getUid();
 		account.setUid(uid);
 		account.setUtype(StringUtils.isEmpty(account.getUtype())?"0":account.getUtype());
-		account.setStatus("1");	
+		account.setStatus("1");
+		account.setSex("1");
 		account.setCreateip(jsonObject.getString("ip"));
 		//注册日期		
-		account.setCreatedate(DateUtil.getlongDate(new Date()));
+		account.setCreatedate(DateUtil.currentLongDate());
 		this.baseMapper.insert(account);
 		//2.插入用户认证表
 		Oauth o = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
