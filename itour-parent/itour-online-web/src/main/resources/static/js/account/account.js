@@ -1,5 +1,53 @@
 $(function(){
+	//鼠标的位置
+	var mX=0,mY=0;
+	//滑块区域左上位置
+	var dX=0,dY=0;
+	//拖动按钮对象
+	var divMove = $(".itour-slide-btn");
+	//鼠标可拖动的区域对象
+	var divWrap=$(".itour-slide-bg");
+	//鼠标拖拽标志
+	var isMousedown= true;
+	//onmousedown 事件会在鼠标按键被按下时发生
+	$(".itourValidate-wrap").on("mousedown",".itour-slide-btn",function(e){
+		var event = e||window.event;
+		//鼠标的位置
+		mX = event.pageX;
+		//鼠标可拖动的区域的左上位置(坐标)
+		dX = divWrap.offset().left;
+		dY = divWrap.offset().top;
+		//鼠标拖拽标志
+		isMousedown= true;
+		console.log(dX+","+dY);	
+		
+	});
+	
+	$.fn.mouseupWrap=function(callback){
+		var l = $(".itour-smallimg").offset().left;
+		var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
+		//修改鼠标拖拽标记
+		isMousedown=false;
+		callback(lastX);
+	};
+	//当鼠标指针在指定的元素中移动时，就会发生 mousemove 事件。
+	$(".itour-slide-btn").mousemove(function(e){
+		var event = e||event;
+		//鼠标滑动的x的坐标
+		var x = event.pageX;
+		console.log("X:"+x);
+		
+		if(isMousedown){
+			//鼠标滑动的x的坐标大于滑块区域x的坐标+30且滑块区域x的坐标+整个盒子的宽度-20-----》   需要研究
+			if(x>(dX+30) && x<dX+$(".itourValidate-wrap").width()-20){				
+                divMove.css({"left": (x - dX - 20) + "px"});//div动态位置赋值------》 需要研究
+                $(".itourValidate-wrap .itour-slide-bar").css("display","block").css({"width": (x - dX+10) + "px"})
+                $(".itourValidate-wrap").find(".itour-smallimg").css({"left": (x - dX-30) + "px"});//---->需要研究
+            }
 
+		}
+	});
+	
 /**
  * 校验email
  *  显示提示信息
@@ -89,7 +137,6 @@ $(".suggest-container.email-suggest li").click(function(){
  */
 $(".checkCode").click(function(){
 	showSliderBtn();
-	 $(".item-email-wrap").css("z-index","2");
 	var email=$("#form-email").val();
 	if(email){
 		var iserror=$(".item-email-wrap").find("span").hasClass("error");
@@ -110,6 +157,7 @@ $(".checkCode").click(function(){
         		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
         		 //显示验证码浮出层
         		 //$(".form-item-getcode").css("z-index","1001");
+        		 $(".item-email-wrap").css("z-index","2");
         		 $(".slide-authCode-wraper").css("display","block");
         	}, {errorFunction:function(data){
         		alert(data.resultMessage);
