@@ -84,11 +84,9 @@ $(function(){
 	$(".itour-close").click(function(){
 		$("#itour-wrap-loginsubmit").hide();
 	});
+	
 	$(".slide-authCode-wrape .close").click(function(){
 		$(".slide-authCode-wrape").hide();
-	});
-	$(".slide-authCode-wraper .close").click(function(){
-		$(".slide-authCode-wraper").hide();
 	});
 	$(".setnew-wrap button.btn-check-defaut").click(function(){
 		$(".slide-authCode-wrape").show();

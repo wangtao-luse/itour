@@ -1,4 +1,5 @@
 $(function(){
+
 /**
  * 校验email
  *  显示提示信息
@@ -88,12 +89,14 @@ $(".suggest-container.email-suggest li").click(function(){
  */
 $(".checkCode").click(function(){
 	showSliderBtn();
+	 $(".item-email-wrap").css("z-index","2");
 	var email=$("#form-email").val();
 	if(email){
 		var iserror=$(".item-email-wrap").find("span").hasClass("error");
 		if(iserror){
 			return;
-		}else{//显示验证码
+		}else{
+			//显示验证码
 			//获取图片验证码
 			var url="/getVerifyImage";
         	var postData ={};
@@ -106,13 +109,19 @@ $(".checkCode").click(function(){
         		 //滑动小图片的纵坐标
         		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
         		 //显示验证码浮出层
-        		 $(".form-item-getcode").css("z-index","1001");
+        		 //$(".form-item-getcode").css("z-index","1001");
         		 $(".slide-authCode-wraper").css("display","block");
         	}, {errorFunction:function(data){
         		alert(data.resultMessage);
         	},cache: false, async: false});
 		}
+	}else{
+		showError($("#form-email"),"form-email-error","请输入邮箱");
 	}
+});
+$(".slide-authCode-wraper .close").click(function(){
+	$(".slide-authCode-wraper").hide();
+	 $(".item-email-wrap").css("z-index","1000");
 });
 /**
  * 显示滑块到初始位置
@@ -120,10 +129,10 @@ $(".checkCode").click(function(){
  */
 function showSliderBtn(){
 	$(".itour-slide-btn").css({"left": (0) + "px"});
-	$(".taoValidate-wrap .itour-slide-btn").css("display","block");
-	$(".taoValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
-	$(".taoValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("");
-	$(".taoValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
+	$(".itourValidate-wrap .itour-slide-btn").css("display","block");
+	$(".itourValidate-wrap").find(".itour-smallimg").css({"left": (0) + "px"});
+	$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("");
+	$(".itourValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
 }
 /**
  * 注册下一步按钮
@@ -288,6 +297,8 @@ $("#form-equalTopwd").keyup(function(){
 		clearError($(this));
 		showDefault($(this));
 	}
+	
+	
 });
 //清除文本
 $(".i-cancel").click(function(){
@@ -321,7 +332,13 @@ $("#form-register").click(function(){
 $("#getMailCode").click(function(){
 	sendCode($("#form-email").val());
 });
-
+/**
+ * 更新图片验证码
+ * @returns
+ */
+$(".itour-img-refresh").click(function(){
+	$(".checkCode").trigger("click");
+});
 });
 /**
  * 用于文本框错误信息提示
