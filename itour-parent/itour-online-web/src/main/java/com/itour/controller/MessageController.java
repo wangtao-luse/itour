@@ -37,9 +37,9 @@ public class MessageController {
 	    JSONObject  jsonObject = new JSONObject();
 	    String code = MessageUtil.getCode();
 	    Messageinfo msg = new Messageinfo();
-	    msg.setSubject("[wangtao]注册验证码");
+	    msg.setSubject("[爱旅行]注册验证码");
 	    msg.setTo(email);
-	    msg.setText("[wangtao] 欢迎注册wangtao博客,验证码"+code+"请在注册页面填入验证码,完成注册!");	    
+	    msg.setText("[爱旅行] 欢迎注册爱旅行账号,验证码"+code+"请在注册页面填入验证码,完成注册!");	    
 	    msg.setTo(email);
 	    msg.setAim(ConstantMessage.MSG_AIM_REGISTER);
 	    msg.setOrigin(ConstantMessage.MSG_ORIGIN_ONLINE);
