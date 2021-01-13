@@ -116,8 +116,14 @@ showMessage(resultData);
 function showMessage(resultData) {
 alert(resultData.resultMessage);
 }
-
-
+//获取
+function getContextPath() {
+    // alert(document.location.pathname);
+    var pathName = document.location.pathname;
+    var index = pathName.substr(1).indexOf("/");
+    var result = pathName.substr(0, index + 1);
+    return result;
+}
 function filterSpecial(value) {
     return value.replace(/[']/g, '')
 }
@@ -132,11 +138,6 @@ $.serializeObject = function (form) {
     });
     return o
 }
-//获取
-function getContextPath() {
-    // alert(document.location.pathname);
-    var pathName = document.location.pathname;
-    var index = pathName.substr(1).indexOf("/");
-    var result = pathName.substr(0, index + 1);
-    return result;
+$.isEmpty = function(o){
+	return o==null||o=="";
 }
