@@ -237,24 +237,23 @@ $("#step1-next").click(function(){
 		showError($("#form-email"),"form-email-error","格式错误");
 		return;
 	}
-	var v = $(".item-getcode-wrap").isVisible();
+	var v = $(".item-getcode-wrap").is(':visible');
 	if(v){
 		showError($(".form-item-getcode .checkCode"),"form-account-error","请先进行验证！");
 		return;
-	}
-	
+	}	
 	var iserror = $(this).parent().find("span").hasClass("error");
 	if(iserror){
 		return;
-	}else{	
-		var mailcode=$("#mailCode").val();
-		if(null==mailcode||""==mailcode){
-			//显示错误信息	
-			showError($(".form-item-getcode .checkCode"),"form-account-error","请先进行验证！");
-			return;
-		}
-		checkEmailCode($("#mailCode").val());
+	}	
+	var mailcode=$("#mailCode").val();
+	if($.isEmpty(mailcode)){
+		//显示错误信息	
+		$("#getMailCode").next().find("span").addClass("error").attr("id","form-emailCode-error").html("<i class='i-error'></i>"+"请输入验证码");
+		return;
 	}
+		checkEmailCode($("#mailCode").val());
+	
 })
 /**
  * 校验用户名
@@ -524,7 +523,7 @@ function checkEmailCode(ecode){
     	$(".cur-step").removeClass("cur-step");    	
     	$(".person-pro-step2").addClass("cur-step");
    	},{errorFunction:function(data){
-   		$this.parent().find(".input-tip span").addClass("error").attr("id","form-account-error").html("<i class='i-error'></i>"+data.resultMessage);
+   		//$this.parent().find(".input-tip span").addClass("error").attr("id","form-account-error").html("<i class='i-error'></i>"+data.resultMessage);
 	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"});	
 }
 /**

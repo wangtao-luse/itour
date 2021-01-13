@@ -1123,6 +1123,7 @@ input[type="checkbox"], input[type="radio"] {
     height: 27px;
     font-size: 12px;
     padding-top: 5px;
+    clear:both;
 }
 .input-tip span i {
     display: inline-block;
