@@ -63,6 +63,9 @@
 		<!-- https://www.cnblogs.com/thinking-better/p/7827368.html -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
+			<!-- <configuration>
+			  <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>			  
+			</configuration> -->
 			<executions>
 		        <execution>
 		            <goals>

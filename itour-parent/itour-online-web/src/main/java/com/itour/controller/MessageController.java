@@ -33,7 +33,7 @@ public class MessageController {
 	 */
 	@RequestMapping(value = "/sendCodetoEmail", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ResponseMessage sendCodetoEmail(@RequestParam(value = "email") String email,HttpServletRequest request) {
+	public ResponseMessage sendCodetoEmail(@RequestParam(value = "email") String email,@RequestParam(value = "ip") String ip,HttpServletRequest request) {
 	    JSONObject  jsonObject = new JSONObject();
 	    String code = MessageUtil.getCode();
 	    Messageinfo msg = new Messageinfo();
@@ -43,6 +43,7 @@ public class MessageController {
 	    msg.setTo(email);
 	    msg.setAim(ConstantMessage.MSG_AIM_REGISTER);
 	    msg.setOrigin(ConstantMessage.MSG_ORIGIN_ONLINE);
+	    msg.setIp(ip);;
 	    jsonObject.put("vo", msg);	    
 	   ResponseMessage responseMessage = this.meesageConnector.sendEmailCode(jsonObject, request);
 	   if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {

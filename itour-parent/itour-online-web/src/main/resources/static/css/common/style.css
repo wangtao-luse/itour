@@ -721,6 +721,7 @@ input[type="checkbox"], input[type="radio"] {
     min-width: 400px;
     min-height: 62px;
     margin-bottom: 15px;
+    border:none;
 }
 .form-wrap .form-item .item-rcol {
     display: block;
@@ -1149,7 +1150,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 .form-item-mailcode, .form-item-phonecode {
     border: none;
-    z-index: 110;
+    z-index: 1;
     width: 402px;
 }
 .mailcode-left, .phonecode-left {

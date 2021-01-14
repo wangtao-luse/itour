@@ -73,6 +73,11 @@ public class Messageinfo extends Model<Messageinfo> {
      */
     @TableField("ORIGIN")
     private String origin;
+    /**
+     * IP地址
+     */
+    @TableField("IP")
+    private String ip;
 
     public Integer getId() {
         return id;
@@ -152,6 +157,14 @@ public class Messageinfo extends Model<Messageinfo> {
 
 	public void setOrigin(String origin) {
 		this.origin = origin;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 	@Override

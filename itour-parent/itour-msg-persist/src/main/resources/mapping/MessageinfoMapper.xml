@@ -13,10 +13,11 @@
         <result column="SENDTIME" property="sendtime" />
         <result column="AIM" property="aim" />
         <result column="ORIGIN" property="origin" />
+        <result column="IP" property="ip" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, SUBJECT, TEXT, FROM, TO, TYPE,  SENDTIME,AIM,ORIGIN
+        ID, SUBJECT, TEXT, FROM, TO, TYPE,  SENDTIME,AIM,ORIGIN,IP 
     </sql>
 
 </mapper>

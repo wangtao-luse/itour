@@ -115,6 +115,14 @@ $("#form-email").blur(function(){
 	//清楚默认的提示信息
 	clearTip($(this));
 });
+$("#form-email").change(function(){
+	var v =$(".item-mailcode-wrap").is(':visible');
+	if(v){
+		$(".item-mailcode-wrap").hide();	
+		$(".item-getcode-wrap").show();	
+	}
+	
+});
 /**
  * 鼠标释放时校验email
  */
@@ -223,11 +231,30 @@ function showSliderBtn(){
 	$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("");
 	$(".itourValidate-wrap .itour-slide-bar").css("display","none").css("width","44px");
 }
+$("#mailCode").blur(function(){
+	var code = $("#mailCode").val();
+	//清楚默认的提示信息
+	var hasdef = $("#getMailCode").next().find("span i").hasClass("i-def");
+	if(hasdef){
+		$("#getMailCode").next().find("span").html("");
+	}
+	if(!$.isEmpty(code)){
+		$("#getMailCode").next().find("span").removeClass("error").attr("id","");
+	}
+});
+$("#mailCode").focus(function(){
+	var code = $("#mailCode").val();
+	var has=$(".item-mailcode-wrap .input-tip").find("span i").hasClass("error");
+	if(!has){
+		 $(".item-mailcode-wrap .input-tip").html("<span><i class='i-def'></i>验证码已发送，120秒内输入有效</span>");
+	}
+	
+});
 /**
  * 注册下一步按钮
  */
 $("#step1-next").click(function(){
-	 //1.校验邮箱
+	 //1.校验邮箱	
 	var email = $("#form-email").val();
 	if($.isEmpty(email)){
 		showError($("#form-email"),"form-email-error","请输入邮箱");
@@ -241,7 +268,8 @@ $("#step1-next").click(function(){
 	if(v){
 		showError($(".form-item-getcode .checkCode"),"form-account-error","请先进行验证！");
 		return;
-	}	
+	}
+	$("#mailCode").trigger("blur");
 	var iserror = $(this).parent().find("span").hasClass("error");
 	if(iserror){
 		return;
@@ -255,6 +283,8 @@ $("#step1-next").click(function(){
 		checkEmailCode($("#mailCode").val());
 	
 })
+
+
 /**
  * 校验用户名
  * 校验通过显示成功图标
@@ -523,7 +553,7 @@ function checkEmailCode(ecode){
     	$(".cur-step").removeClass("cur-step");    	
     	$(".person-pro-step2").addClass("cur-step");
    	},{errorFunction:function(data){
-   		//$this.parent().find(".input-tip span").addClass("error").attr("id","form-account-error").html("<i class='i-error'></i>"+data.resultMessage);
+   	 $(".item-mailcode-wrap .input-tip").html("<span><i class='i-error'></i>"+data.resultMessage+"</span>");
 	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"});	
 }
 /**
@@ -663,7 +693,7 @@ function sendCode(email){
 	    //隐藏验证码浮出层	  
 	      hiddeCode();
 	    //发送验证码
-   	    postData={"email":email};
+   	    postData={"email":email,"ip":$("#ip").val()};
 	 	postAjax("/msg/sendCodetoEmail",postData,function(data){
 	 		
 	 	    //重发验证码倒计时
