@@ -1,0 +1,78 @@
+@layout("/layout/template-css.html",{title:'爱旅行-注册'}){
+        <script type="text/javascript">
+        $(function(){
+        	timer5();
+        	
+        });
+        function timer5(){
+     	   setTime = setInterval(timer,1000);
+     }
+     var time=5;  
+     var timer = function(){
+     	  if(time<=0){
+         clearInterval(setTime);
+         location.href="${ctxPath}/account/login";
+         return;
+     }
+     	  $(".to_login").text(time); 
+     	time--;
+     	
+     }  
+        </script>
+        <style>
+            
+            body{
+              background: #fff;
+            }
+        	
+        	.content{
+        		padding-top:150px ;
+        		text-align:center;
+        		color: #0066CC;
+        		min-height:300px;
+        		vertical-align: middle;
+        	}
+        	.content a:hover{
+        		background: #0099FF;
+        		color: #fff;
+        	}
+        	.content .text{
+        		font-size: 18px;
+        		font-weight: bold;
+        	}
+        	.btn-login{
+        		display: inline-block;
+        		padding:0 20px;
+        		margin-top: 10px;
+        		border: 1px solid #0099FF;
+        		background: #0084FF;
+        		color: #FFF;
+        		border-radius: 3px;
+        	    cursor: pointer;
+        	    height: 30px;
+        	    line-height: 30px;
+        	}
+        </style>
+		<div class="header">
+        <div class="login-head-wrap">
+			<div class="w">
+				<div class="logo">
+					 <a href="${ctxPath}/index">
+	           			 <img src="${ctxPath}/img/common/itour-logo.png" alt="爱旅行SHOW" width="170" height="60">
+	        		 </a>
+	                <span class="welcome">注册成功</span>
+				</div>
+			</div>
+		</div>
+    </div>
+   
+	
+		<div class="container w">
+			<div class="content">
+				<div><img src="${ctxPath}/img/common/success_reg.png" />
+				<span class="text">恭喜您,已注册成功！</span></div>
+				<div><a href="${ctxPath}/account/login" class="btn-login">立即登录</a></div>
+				<p style="margin-top: 10px;">页面将在<span class="to_login"></span>秒后跳转登录页面</p>
+			</div>
+		</div>	
+@}	

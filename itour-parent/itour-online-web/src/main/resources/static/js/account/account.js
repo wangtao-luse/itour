@@ -115,14 +115,7 @@ $("#form-email").blur(function(){
 	//清楚默认的提示信息
 	clearTip($(this));
 });
-$("#form-email").change(function(){
-	var v =$(".item-mailcode-wrap").is(':visible');
-	if(v){
-		$(".item-mailcode-wrap").hide();	
-		$(".item-getcode-wrap").show();	
-	}
-	
-});
+
 /**
  * 鼠标释放时校验email
  */
@@ -439,17 +432,12 @@ $("#form-register").click(function(){
 	postAjax(url,JSON.stringify(data),function(result){
 		//alert(result.resultMessage);
 		var regName=$("#form-account").val();
-		location.href="/account/registerSucess?regName="+regName;
+		location.href="${ctxPath}/account/registerSucess?regName="+regName;
 	},{errorFunction:function(data){
 		alert(data.resultMessage);
 	},cache: false, async: false})
 });	
-/**
- * 重新获取验证码
- */
-$("#getMailCode").click(function(){
-	sendCode($("#form-email").val());
-});
+
 /**
  * 更新图片验证码
  * @returns
@@ -457,6 +445,27 @@ $("#getMailCode").click(function(){
 $(".itour-img-refresh").click(function(){
 	$(".checkCode").trigger("click");
 });
+});
+/**
+ * 重新获取验证码
+ */
+var time=120; 
+$(document).on("click","#getMailCode",function(){
+	//重发验证码倒计时
+	time=120;
+    timer120();
+	sendCode($("#form-email").val());
+});
+$(document).on("change","#form-email",function(){
+	var v =$(".item-mailcode-wrap").is(':visible');
+	if(v){
+		 clearInterval(setTime);
+		 time=120;
+		 $("#getMailCode").text(time+"秒后重新获取");
+		$(".item-mailcode-wrap").hide();	
+		$(".item-getcode-wrap").show();	
+	}
+	
 });
 /**
  * 用于文本框错误信息提示
@@ -635,11 +644,12 @@ function checkEmail(email){
    	postData={"email":email};
    	postAjax(url,postData,function(data){  
      	//隐藏图片验证码按钮
- 		  hideCheckInput();
+ 		  hideCheckInput(); 		 
    	      //显示验证码文本框
 	 	   showEmailCodeInput();
    			//发送验证码
    	   		sendCode(email);
+   	  
 		
    	},{errorFunction:function(data){
    	      //隐藏验证码浮出框
@@ -662,7 +672,11 @@ function checkEmail(email){
  * @returns
  */
 function showEmailCodeInput(){
+	//重发验证码倒计时
+	time=120;
+     timer120();
 	//显示邮箱验证码文本框
+ 	$("#getMailCode").addClass("btn-code-disable");
    	$(".item-mailcode-wrap").css("display","block");
        $(".item-mailcode-wrap .input-tip").html("<span><i class='i-def'></i>验证码已发送，120秒内输入有效</span>");
 }
@@ -673,10 +687,13 @@ function showEmailCodeInput(){
 function timer120(){
 	   setTime = setInterval(timer,1000);
 }
-var time=120;  
+ 
 var timer = function(){
+	$("#getMailCode").addClass("btn-code-disable");
 	  if(time<0){
        clearInterval(setTime);
+       $("#getMailCode").removeClass("btn-code-disable");
+       $("#getMailCode").prop("disabled","");
        $("#getMailCode").text("重新获取"); 
        time=120;
        return;
@@ -689,16 +706,12 @@ var timer = function(){
  * 发送验证码
  * @returns
  */
-function sendCode(email){
+function sendCode(email){	
 	    //隐藏验证码浮出层	  
 	      hiddeCode();
 	    //发送验证码
    	    postData={"email":email,"ip":$("#ip").val()};
 	 	postAjax("/msg/sendCodetoEmail",postData,function(data){
-	 		
-	 	    //重发验证码倒计时
-	 	     timer120();
-	 	   
 	 	   //清楚错误信息
 	 	 $(".item-getcode-wrap").find(".input-tip").html("<span></span>");
 	 	
