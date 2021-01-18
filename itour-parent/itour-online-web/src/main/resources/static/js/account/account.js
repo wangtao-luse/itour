@@ -432,7 +432,7 @@ $("#form-register").click(function(){
 	postAjax(url,JSON.stringify(data),function(result){
 		//alert(result.resultMessage);
 		var regName=$("#form-account").val();
-		location.href="${ctxPath}/account/registerSucess?regName="+regName;
+		location.href=ctxPath+"/account/registerSucess?regName="+regName;
 	},{errorFunction:function(data){
 		alert(data.resultMessage);
 	},cache: false, async: false})
