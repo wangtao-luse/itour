@@ -1,5 +1,6 @@
 package com.itour.service;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -10,6 +11,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.model.account.Ipaddr;
 import com.itour.persist.IpaddrMapper;
+
 
 /**
  * <p>
@@ -29,9 +31,14 @@ public ResponseMessage insertIPAddr(RequestMessage requestMessage){
 		QueryWrapper<Ipaddr> queryWrapper = new QueryWrapper<Ipaddr>();
 		queryWrapper.eq("IP", ipaddr.getIp());
 		Ipaddr selectOne = this.baseMapper.selectOne(queryWrapper);
-		if(selectOne==null){
+		
+		if(selectOne!=null){
+			BeanUtils.copyProperties(selectOne, ipaddr);
+			this.baseMapper.updateById(selectOne);
+		}else {
 			this.baseMapper.insert(ipaddr);
 		}
+		
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
