@@ -125,7 +125,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 			String username = jsonObject.getString("loginname");
 			String password = jsonObject.getString("nloginpwd");
 			String ip = jsonObject.getString("ip");
-			String cname = jsonObject.getString("cname");
+			String cname = jsonObject.getString("city");
 			//获取当前的 Subject
 			Subject currentUser = SecurityUtils.getSubject();
 			if(!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录

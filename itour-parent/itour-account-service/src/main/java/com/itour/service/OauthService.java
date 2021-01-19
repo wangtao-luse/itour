@@ -65,10 +65,9 @@ private IpaddrService ipaddrService;
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			Oauth oauth = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
-			//1.校验用户名和密码(t_a_oauth)
+			//1.校验用户名
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", oauth.getOauthId());
-			//queryWrapper.eq("CREDENTIAL", oauth.getCredential());
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
 	        if(null==selectOne) {
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);

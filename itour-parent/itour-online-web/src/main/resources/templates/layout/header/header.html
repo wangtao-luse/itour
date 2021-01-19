@@ -56,20 +56,23 @@
 						     </div>
 					   	 </div>					   	 
 					   </div>
-					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: none;">
+					    @ if(!isEmpty(user)){
+					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: block;">
 					   	 <a class="hasAvatar" href="#"><img src="${ctxPath}/img/common/avatar-1.jpg" /></a>
 					   	 <div class="toolbar-subMenu">
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-blog"></i>我的博客</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-account"></i>设置</a>
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-logout"></i>退出</a>
+					   	 	<a href="${ctxPath}/shiro/logout" target="_blank"><i class="banner-icon banner-icon-logout"></i>退出</a>
 					   	 </div>
 					   </div>
+					   @}else{
 					   <div class="banner-btn-login itour-banner-fl" style="display: block;">
 					   	   <a class="" href="${ctxPath}/account/login">登录</a>
 					   	   <a class="" href="${ctxPath}/account/reg">注册</a>
 					   </div>
+					   @}
 					</div>
 				</div>
 			</div>

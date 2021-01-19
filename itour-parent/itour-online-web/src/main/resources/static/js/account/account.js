@@ -23,13 +23,7 @@ $(function(){
 		
 	});
 	
-	$.fn.mouseupWrap=function(callback){
-		var l = $(".itour-smallimg").offset().left;
-		var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
-		//修改鼠标拖拽标记
-		isMousedown=false;
-		callback(lastX);
-	};
+	
 	//当鼠标指针在指定的元素中移动时，就会发生 mousemove 事件。
 	$(".itour-slide-btn").mousemove(function(e){
 		var event = e||event;
@@ -51,6 +45,9 @@ $(function(){
 	$(".itourValidate-wrap").on("mouseup",".itour-slide-btn",function(e){
 		var l = $(".itour-smallimg").offset().left;
 		var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
+		if(lastX<0){
+			return;
+		}
 		//修改鼠标拖拽标记
 		isMousedown=false;
 		//校图片验证验证码
@@ -445,7 +442,111 @@ $("#form-register").click(function(){
 $(".itour-img-refresh").click(function(){
 	$(".checkCode").trigger("click");
 });
+$("#loginsubmit").click(function(){
+	showSliderBtn();
+	var loginname=$("#loginname").val();
+	var nloginpwd=$("#nloginpwd").val();
+	if(!loginname){
+		$(".login-box .msg-wrap .msg-error").html("<b></b>请输入用户名").show();
+		return;
+	}
+	if(!nloginpwd){
+		$(".login-box .msg-wrap .msg-error").html("<b></b>请输入密码").show();
+		return;
+	}
+			//显示验证码
+			//获取图片验证码
+			var url="/getVerifyImage";
+        	var postData ={};
+        	postAjax(url,JSON.stringify(postData),function(data){
+        		 console.log(data);	
+        		 //带阴影的图片
+        		 $(".itour-bigimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.srcImage);
+        		 //滑动的小图片
+        		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.cutImage);
+        		 //滑动小图片的纵坐标
+        		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
+        		 //显示验证码浮出层
+        		 $("#itour-wrap-loginsubmit").css("display","block");
+        	}, {errorFunction:function(data){
+        		$(".login-box .msg-wrap .msg-error").html("<b></b>"+data.resultMessage).show();
+        	},cache: false, async: false});
+	
 });
+//当鼠标指针移动到元素上方，并松开鼠标左键时;
+$("#itour-wrap-loginsubmit .itourValidate-wrap").on("mouseup",".itour-slide-btn",function(e){
+	var l = $(".itour-smallimg").offset().left;
+	var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
+	if(lastX<0){
+		return;
+	}
+	//修改鼠标拖拽标记
+	isMousedown=false;
+	//校图片验证验证码
+	var url="/checkImageCode";
+	var postData={"moveLength":lastX};
+	postAjax(url,postData,function(data){
+		var code = data.resultCode;
+		var email = $("#form-email").val();
+		    //校验二维码成功
+		    	$(".itourValidate-wrap .itour-slide-btn").css("display","none");
+	   			$(".itourValidate-wrap .itour-slide-bar").css("width","360px");
+	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
+	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block"); 
+   	   		 $("#itour-wrap-loginsubmit").css("display","none");
+   	         //登录
+   	    	loginSub();
+		    
+   	}, {errorFunction:function(data){
+   		$(".itourValidate-wrap .itour-slide").addClass("itour-slide-err");
+		    	//调整拖动按钮位置
+		    setTimeout(function () {
+	    	    // 重置滑块图片和拖动按钮位置
+	    		resetlocation();
+	    		//重置蓝色(滑块滑动)轨迹
+		    	resetSlidBar();
+		    	//重新获取二维码
+   		    	$(".checkCode").trigger("click");
+	    	}, 500);
+	    	
+   		console.log(data.resultMessage);
+   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
+	
+});
+
+$("#loginname").blur(function(){
+	var name = $(this).val();
+	if($.isEmpty(name)){
+		$(".login-box .msg-wrap .msg-error").html("<b></b>请输入用户名").show();
+	}else{
+		$(".login-box .msg-wrap .msg-error").hide();	
+	}
+})
+
+$(".clear-btn").click(function(){
+	$(this).parent().find("input").val("");
+	$(this).hide();
+});
+$("#loginname").keyup(function(){
+	var name = $(this).val();
+	if(name){
+		$(this).next().show();
+	}else{
+		$(this).next().hide();
+	}
+});
+});
+//登录
+function loginSub(){
+	var url ="/account/loginSub";
+	var data=$.serializeObject($('#loginform'))
+	postAjax(url,JSON.stringify(data),function(data){
+		location.href=ctxPath+"/index";
+	},{
+		cache:false
+	})
+};
+
 /**
  * 重新获取验证码
  */
