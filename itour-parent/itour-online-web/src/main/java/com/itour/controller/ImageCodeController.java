@@ -41,8 +41,8 @@ public class ImageCodeController {
 		try {		
 		    //读取本地路径下的图片,随机选一条
 			//https://www.guitu18.com/post/2019/02/23/28.html
-		    String path = this.getClass().getResource("/static/img/code").getPath();
-			InputStream resourceAsStream = this.getClass().getResourceAsStream("/static/img/code");
+		    String path = this.getClass().getResource("/static/img/code/login").getPath();
+			InputStream resourceAsStream = this.getClass().getResourceAsStream("/static/img/code/login");
 			
 		    File file = new File(path);
 		    File[] files = file.listFiles();

@@ -514,28 +514,26 @@ $("#itour-wrap-loginsubmit .itourValidate-wrap").on("mouseup",".itour-slide-btn"
 	
 });
 
-$("#loginname").blur(function(){
-	var name = $(this).val();
-	if($.isEmpty(name)){
-		$(".login-box .msg-wrap .msg-error").html("<b></b>请输入用户名").show();
-	}else{
-		$(".login-box .msg-wrap .msg-error").hide();	
-	}
-})
 
 $(".clear-btn").click(function(){
 	$(this).parent().find("input").val("");
 	$(this).hide();
 });
-$("#loginname").keyup(function(){
+
+
+
+});
+
+$(document).on("keyup","#loginname,#nloginpwd",function(){
 	var name = $(this).val();
 	if(name){
-		$(this).next().show();
+		$(this).next().css("display","inline");
 	}else{
 		$(this).next().hide();
 	}
 });
-});
+
+
 //登录
 function loginSub(){
 	var url ="/account/loginSub";
