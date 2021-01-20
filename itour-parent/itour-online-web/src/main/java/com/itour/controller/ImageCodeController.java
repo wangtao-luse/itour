@@ -11,11 +11,13 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.VerifyImage;
 import com.itour.constant.Constant;
@@ -25,7 +27,8 @@ import com.itour.util.VerifyImageUtil;
 
 @Controller
 public class ImageCodeController {
-
+private	static final String  default_url  = "/static/img/code";
+private	static final String  small_url  = "/static/img/code/login";
 	/**
 	 * @param @return 参数说明
 	 * @return BaseRestResult 返回类型
@@ -36,12 +39,17 @@ public class ImageCodeController {
 
 	@RequestMapping(value = "/getVerifyImage", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ResponseMessage VerifyImage(HttpServletRequest request) {
+	public ResponseMessage VerifyImage(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		String p = jsonObject.getString("small");
 		Map<String, Object> resultMap = new HashMap<>();
 		try {		
 		    //读取本地路径下的图片,随机选一条
 			//https://www.guitu18.com/post/2019/02/23/28.html
-		    String path = this.getClass().getResource("/static/img/code/login").getPath();
+			String url=default_url;
+			if("small".equals(p)) {
+				url=small_url;
+			}
+		    String path = this.getClass().getResource(url).getPath();
 			InputStream resourceAsStream = this.getClass().getResourceAsStream("/static/img/code/login");
 			
 		    File file = new File(path);

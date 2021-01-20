@@ -460,7 +460,7 @@ $("#loginsubmit").click(function(){
 			//显示验证码
 			//获取图片验证码
 			var url="/getVerifyImage";
-        	var postData ={};
+        	var postData ={"small":"small"};
         	postAjax(url,JSON.stringify(postData),function(data){
         		 console.log(data);	
         		 //带阴影的图片
