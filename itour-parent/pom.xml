@@ -30,9 +30,6 @@
     <module>itour-dictionary-persist</module>
     <module>itour-dictionary-service</module>
     <module>itour-dictionary-api</module>
-    <module>itour-advert-api</module>
-    <module>itour-advert-service</module>
-    <module>itour-advert-persist</module>
     <module>itour-quartz-service</module>
     <module>itour-quartz-api</module>
     <module>itour-quartz-persist</module>
@@ -383,7 +380,7 @@
                 <server.msg.port>9097</server.msg.port>
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>
-                <server.advert.port>9080</server.advert.port>
+                
                 <server.quartz.port>9081</server.quartz.port>
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
@@ -441,8 +438,7 @@
                 <server.demo.port>9096</server.demo.port>
                 <server.msg.port>9097</server.msg.port>
                 <server.member.port>9098</server.member.port>
-                <server.dictionary.port>9099</server.dictionary.port>
-                <server.advert.port>9080</server.advert.port>
+                <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
@@ -501,8 +497,7 @@
                 <server.demo.port>9096</server.demo.port>
                 <server.msg.port>9097</server.msg.port>
                 <server.member.port>9098</server.member.port>
-                <server.dictionary.port>9099</server.dictionary.port>
-                <server.advert.port>9080</server.advert.port>
+                <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
@@ -561,8 +556,7 @@
                 <server.demo.port>9096</server.demo.port>
                 <server.msg.port>9097</server.msg.port>
                 <server.member.port>9098</server.member.port>
-                <server.dictionary.port>9099</server.dictionary.port>
-                <server.advert.port>9080</server.advert.port>
+                <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>

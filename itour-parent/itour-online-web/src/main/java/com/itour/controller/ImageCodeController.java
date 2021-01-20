@@ -59,6 +59,10 @@ public class ImageCodeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}		
 	   
 	    return new ResponseMessage(resultMap);

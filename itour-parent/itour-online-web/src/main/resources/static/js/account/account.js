@@ -42,7 +42,7 @@ $(function(){
 		}
 	});
 	//当鼠标指针移动到元素上方，并松开鼠标左键时;
-	$(".itourValidate-wrap").on("mouseup",".itour-slide-btn",function(e){
+	$("#slideAuthCode .itourValidate-wrap").on("mouseup",".itour-slide-btn",function(e){
 		var l = $(".itour-smallimg").offset().left;
 		var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
 		if(lastX<0){
@@ -439,7 +439,10 @@ $("#form-register").click(function(){
  * 更新图片验证码
  * @returns
  */
-$(".itour-img-refresh").click(function(){
+$("#itour-wrap-loginsubmit .itour-img-refresh").click(function(){
+	$("#loginsubmit").trigger("click");
+});
+$("#slideAuthCode .itour-img-refresh").click(function(){
 	$(".checkCode").trigger("click");
 });
 $("#loginsubmit").click(function(){
@@ -467,6 +470,7 @@ $("#loginsubmit").click(function(){
         		 //滑动小图片的纵坐标
         		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
         		 //显示验证码浮出层
+        		 $(".item.item-fore5").css("z-index","10");
         		 $("#itour-wrap-loginsubmit").css("display","block");
         	}, {errorFunction:function(data){
         		$(".login-box .msg-wrap .msg-error").html("<b></b>"+data.resultMessage).show();
@@ -487,15 +491,17 @@ $("#itour-wrap-loginsubmit .itourValidate-wrap").on("mouseup",".itour-slide-btn"
 	var postData={"moveLength":lastX};
 	postAjax(url,postData,function(data){
 		var code = data.resultCode;
-		var email = $("#form-email").val();
 		    //校验二维码成功
 		    	$(".itourValidate-wrap .itour-slide-btn").css("display","none");
-	   			$(".itourValidate-wrap .itour-slide-bar").css("width","360px");
+	   			$(".itourValidate-wrap .itour-slide-bar").css("width","290px");
 	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
 	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block"); 
-   	   		 $("#itour-wrap-loginsubmit").css("display","none");
-   	         //登录
-   	    	loginSub();
+	   			setTimeout(function () {
+	   				$("#itour-wrap-loginsubmit").css("display","none");
+	      	         //登录
+	      	    	loginSub();
+		   	   		}, 500);
+	   			
 		    
    	}, {errorFunction:function(data){
    		$(".itourValidate-wrap .itour-slide").addClass("itour-slide-err");
@@ -506,7 +512,7 @@ $("#itour-wrap-loginsubmit .itourValidate-wrap").on("mouseup",".itour-slide-btn"
 	    		//重置蓝色(滑块滑动)轨迹
 		    	resetSlidBar();
 		    	//重新获取二维码
-   		    	$(".checkCode").trigger("click");
+   		    	$("#loginsubmit").trigger("click");
 	    	}, 500);
 	    	
    		console.log(data.resultMessage);
@@ -540,7 +546,9 @@ function loginSub(){
 	var data=$.serializeObject($('#loginform'))
 	postAjax(url,JSON.stringify(data),function(data){
 		location.href=ctxPath+"/index";
-	},{
+	},{errorFunction:function(data){
+		$(".login-box .msg-wrap .msg-error").html("<b></b>"+data.resultMessage).show();
+	},
 		cache:false
 	})
 };
