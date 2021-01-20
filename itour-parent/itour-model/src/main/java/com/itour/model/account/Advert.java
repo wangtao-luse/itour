@@ -1,4 +1,4 @@
-package com.itour.model.advert;
+package com.itour.model.account;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
