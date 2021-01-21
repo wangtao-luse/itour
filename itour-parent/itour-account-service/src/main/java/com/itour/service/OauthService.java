@@ -165,6 +165,9 @@ private IpaddrService ipaddrService;
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", regName);
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
+			if(selectOne==null) {
+				throw new BaseException(ExceptionInfo.EXCEPTION_USRNAME);
+			}
 			String getuId = selectOne.getuId();
 			List<Oauth> selectList = this.baseMapper.selectList(new QueryWrapper<Oauth>().eq("U_ID", getuId));
 			String salt = UUID.randomUUID().toString().replaceAll("-", "");
