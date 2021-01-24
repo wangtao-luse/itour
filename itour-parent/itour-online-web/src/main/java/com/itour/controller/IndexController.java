@@ -13,16 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.TravelConnector;
-import com.itour.constant.Constant;
-import com.itour.model.account.Advert;
 import com.itour.model.travel.dto.ViewTravelinfoOauth;
-import com.itour.util.FastJsonUtil;
 
 
 

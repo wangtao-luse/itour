@@ -719,7 +719,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 .form-wrap .form-item {
     min-width: 400px;
-    min-height: 62px;
+    min-height: 70px;
     margin-bottom: 15px;
     border:none;
 }
@@ -864,6 +864,7 @@ input[type="checkbox"], input[type="radio"] {
 .form-wrap .form-item .input-error .icon-warn {
     font-size: 16px;
     margin-right: 4px;
+    vertical-align: middle;
 }
 .form-wrap .form-item .icon-biyan, 
 .form-wrap .form-item .icon-delete,
@@ -1308,5 +1309,23 @@ input[type="checkbox"], input[type="radio"] {
     background: #f4f5f6;
     color: #999;
     cursor: default;
+}
+.btn-check-succ {
+    font-family: inherit;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #0c8;
+    letter-spacing: -0.25px;
+}
+.btn-check-succ .icon-done {
+	display:inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 7px!important;
+    background: url(../../img/common/icon.png) no-repeat;
+    background-position: 0 -117px;
+    vertical-align: middle;
+}
 }
 /***注册页面end***/

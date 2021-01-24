@@ -13,22 +13,22 @@
 	        		<span class="label hide"></span>
 	        		<div class="item-rcol">
 	        			<div class="item-input-wrap item-input-xl">
-	        				<input type="text" class="field" placeholder="请输入用户名/邮箱/已验证手机号" value="">
+	        				<input type="text" class="field input-text-account" placeholder="请输入用户名/邮箱/已验证手机号" value="">
 	        				<span class="i-ops">
 	        					<span class="i-cancel iconfont icon-delete" ></span>
 	        				</span>	        				
 	        			</div>
-	        			<div class="input-error hide">
-	        				<i cite="i-error iconfont icon-warn"></i>
-	        				请输入用户名/邮箱/已验证手机号
+	        			<div class="input-tip input-error hide">
+	        				<i class="i-error iconfont icon-warn"></i>
+	        				
 	        			</div>
 	        		</div>
 	        	</div>
 	            <div class="form-item ac mt20 form-item-validate">
-	            	<button type="button" class="btn-check-defaut btn-xl">
+	            	<button type="button" class="btn-check-defaut btn-xl button-check" id="find-pwd-button">
 	            		<span class=" icon-click"></span>点击进行验证
 	            	</button>
-	            	<div class="slide-authCode-wrape" style="display: none;">
+	            	<div id="find-pwd-code" class="slide-authCode-wrape" style="display: none;">
 	            		<div class="arrow"></div>
 	            		<div class="close"></div>
 	            		<div id="itourValidate" class="itourValidate-wrap">
@@ -57,9 +57,9 @@
 			    						<div class="itour-slide-right"></div>
 			    					</div>
 			    					<div class="itour-slide-inner itour-slide-bar" >
-			    						<div class="itour-bar-left"></div>
-			    						<div class="itour-bar-center"></div>
-			    						<div class="itour-bar-right"></div>
+			    						<div class="itour-slide-bar-left"></div>
+			    						<div class="itour-slide-bar-center"></div>
+			    						<div class="itour-slide-bar-right"></div>
 			    					</div>
 			    					<div class="itour-slide-inner itour-slide-btn">
 			    						
@@ -70,7 +70,7 @@
 	            	</div>
 	            </div>
 	            <div class="form-item ac mt20">
-	            	<button type="button" class="btn-primary btn-xl disable">下一步</button>
+	            	<button type="button" class="btn-primary btn-xl disable" id="find-pwd-next">下一步</button>
 	            </div>
 	        </div>
 	        <div class="form-wrap setnew-wrap findpwd-step2">
