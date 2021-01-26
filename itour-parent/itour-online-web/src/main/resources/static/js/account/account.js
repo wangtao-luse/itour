@@ -559,8 +559,9 @@ $("#find-pwd-next").addClass("disable").removeClass("btn-register");
 $("#find-pwd-button").click(function(){
 	showSliderBtn();
 	var v =$(".findpwd-step1 .input-text-account").val();
+	$(".item-rcol .input-tip").html("");
 	if(v){
-		$(".item-rcol .input-tip").html("");
+		
 		//获取二维码
 		//显示验证码
 		//获取图片验证码
@@ -603,10 +604,11 @@ $("#find-pwd-code .itourValidate-wrap").on("mouseup",".itour-slide-btn",function
 	   			$(".itourValidate-wrap .itour-slide-bar").css("width","364px");
 	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
 	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block"); 
-	   			setTimeout(function () {
-	   				
+	   			findpwdSendCodetoEmail($("#form-email").val());
+	   			setTimeout(function () {	   				
 	   				$("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");
-	   				$("#find-pwd-next").removeClass("disable").addClass("btn-register");
+	   				//$("#find-pwd-next").removeClass("disable").addClass("btn-register");
+	   				$(".findpwd-step1 .item-mailcode-wrap").css("display","block");
 	   				$("#find-pwd-code").css("display","none");
 	      	         
 		   	   		}, 500);
@@ -629,6 +631,8 @@ $("#find-pwd-code .itourValidate-wrap").on("mouseup",".itour-slide-btn",function
 	
 });
 $("#find-pwd-next").click(function(){
+	var d = $(this).hasClass("disable");
+	if(d){return;}
 	var url="/account/checkUserName";
 	var email=$(".findpwd-step1 .input-text-account").val();
 	var postData={"email":email};
@@ -941,4 +945,21 @@ function sendCode(email){
     	   resetSlidBar();
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: true,contentType:"application/x-www-form-urlencoded"}); 
+}
+function findpwdSendCodetoEmail(email){	
+    //隐藏验证码浮出层	  
+      hiddeCode();
+    //发送验证码
+	    postData={"email":email,"ip":$("#ip").val()};
+ 	postAjax("/msg/sendCodetoEmail",postData,function(data){
+ 	   //清楚错误信息
+ 	 $(".item-getcode-wrap").find(".input-tip").html("<span></span>");
+ 	
+   	}, {errorFunction:function(data){
+        //调整拖动按钮位置
+    	resetlocation();
+    	//重置(蓝色)轨迹样式
+	   resetSlidBar();
+   		console.log(data.resultMessage);
+   	},cache: false, async: true,contentType:"application/x-www-form-urlencoded"}); 
 }
