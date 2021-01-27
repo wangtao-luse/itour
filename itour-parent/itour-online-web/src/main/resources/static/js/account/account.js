@@ -629,6 +629,7 @@ $("#find-pwd-next").click(function(){
 	var d = $(this).hasClass("disable");
 	if(d){return;}
 	//1.校验验证码
+	
 });
 
 $(document).on("keyup","#loginname,#nloginpwd",function(){
