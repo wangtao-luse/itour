@@ -96,7 +96,21 @@ public ResponseMessage checkRegName(@RequestParam(value = "regName")String regNa
 @RequestMapping("/checkEmail")
 public ResponseMessage checkEmail(@RequestParam(value = "email")String email,HttpServletRequest request) {
 	JSONObject jsonObject =new JSONObject();
-	jsonObject.put("type", "email");
+	jsonObject.put("type", ConstAccount.EMAIL);
+	jsonObject.put("regName", email);
+	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
+	return checkRegName;
+}
+/**
+ * 检查邮箱是否在该系统中存在
+ * @param email
+ * @return
+ */
+@ResponseBody
+@RequestMapping("/checkExistEmail")
+public ResponseMessage checkExistEmail(@RequestParam(value = "email")String email,HttpServletRequest request) {
+	JSONObject jsonObject =new JSONObject();
+	jsonObject.put("type", ConstAccount.FINPWD);
 	jsonObject.put("regName", email);
 	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
 	return checkRegName;

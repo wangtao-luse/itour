@@ -409,7 +409,7 @@ $("#form-equalTopwd").keyup(function(){
 	
 });
 //清除文本
-$(".i-cancel").click(function(){
+$("#form-register .i-cancel").click(function(){
 	$(this).parent().find("input").val("");
 	hideClose($(this));
 	//显示默认的提示信息(需要先清楚错误信息)
@@ -548,14 +548,7 @@ $(".findpwd-step1 .input-text-account").change(function(){
 		
 	}
 })
-$(".i-cancel.icon-delete").click(function(){
-	$(this).parent().parent().find("input").val("");
-	$(this).hide();
-	$("#find-pwd-button").removeClass("btn-check-succ")
-	 .addClass("btn-check-defaut")
-	 .html("<span class=' icon-click'></span>点击进行验证 ");
-$("#find-pwd-next").addClass("disable").removeClass("btn-register");
-});
+
 $("#find-pwd-button").click(function(){
 	showSliderBtn();
 	var v =$(".findpwd-step1 .input-text-account").val();
@@ -604,11 +597,13 @@ $("#find-pwd-code .itourValidate-wrap").on("mouseup",".itour-slide-btn",function
 	   			$(".itourValidate-wrap .itour-slide-bar").css("width","364px");
 	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
 	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block"); 
-	   			findpwdSendCodetoEmail($("#form-email").val());
+	   			//1.校验用户是否存在
+	   			var email = $("#form-email").val();
+	   			checkExistEmail(email);
 	   			setTimeout(function () {	   				
-	   				$("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");
+	   				//$("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");
 	   				//$("#find-pwd-next").removeClass("disable").addClass("btn-register");
-	   				$(".findpwd-step1 .item-mailcode-wrap").css("display","block");
+	   				//$(".findpwd-step1 .item-mailcode-wrap").css("display","block");
 	   				$("#find-pwd-code").css("display","none");
 	      	         
 		   	   		}, 500);
@@ -633,17 +628,7 @@ $("#find-pwd-code .itourValidate-wrap").on("mouseup",".itour-slide-btn",function
 $("#find-pwd-next").click(function(){
 	var d = $(this).hasClass("disable");
 	if(d){return;}
-	var url="/account/checkUserName";
-	var email=$(".findpwd-step1 .input-text-account").val();
-	var postData={"email":email};
-	postAjax(url,postData,function(data){
-    		
-    	}, {errorFunction:function(data){
-    		$(".item-rcol .input-tip").html("");
-    		$(".item-rcol .input-tip").append("<i class='i-error icon-warn'></i>").append(data.resultMessage);
-    		$(".item-rcol .input-tip").show();
-    	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"});
-})
+	//1.校验验证码
 });
 
 $(document).on("keyup","#loginname,#nloginpwd",function(){
@@ -890,6 +875,37 @@ function checkEmail(email){
    
 	    	
 }
+//邮箱是否存在
+function checkExistEmail(email){
+	//校验邮箱是否可用
+   	url="/account/checkExistEmail";
+   	postData={"email":email};
+   	postAjax(url,postData,function(data){  
+     	//隐藏图片验证码按钮
+ 		  hideCheckInput(); 		 
+   	      //显示验证码文本框
+	 	   showEmailCodeInput();
+   			//找回密码发送验证码
+	 	  findpwdSendCodetoEmail(email);
+   	  
+		
+   	},{errorFunction:function(data){
+   	      //隐藏验证码浮出框
+			hiddeCode();
+			//重置蓝色(滑块滑动)轨迹
+			resetSlidBar();
+			//显示滑块到初始位置
+			showSliderBtn();
+			//将错误信息显示到emial文本框下
+			var errormsg=data.resultMessage;
+			$(".item-rcol .input-tip").append("<i class='i-error'></i>"+errormsg);
+			$(".item-rcol .input-tip").show();
+			$(".checkCode").trigger("click");
+   	},cache: false, async:true,contentType:"application/x-www-form-urlencoded"});
+   
+   
+	    	
+}
 /**
  * 显示邮箱验证码文本框
  * @returns
@@ -952,6 +968,8 @@ function findpwdSendCodetoEmail(email){
     //发送验证码
 	    postData={"email":email,"ip":$("#ip").val()};
  	postAjax("/msg/sendCodetoEmail",postData,function(data){
+ 		$("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");
+ 		$("#find-pwd-next").removeClass("disable").addClass("btn-register");
  	   //清楚错误信息
  	 $(".item-getcode-wrap").find(".input-tip").html("<span></span>");
  	

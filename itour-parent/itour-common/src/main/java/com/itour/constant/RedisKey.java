@@ -1,6 +1,6 @@
 package com.itour.constant;
 
-public class TravelRedisKey {
+public class RedisKey {
 /**
  * 旅行文章点赞
  */

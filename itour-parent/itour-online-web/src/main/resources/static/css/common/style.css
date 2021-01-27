@@ -1128,7 +1128,7 @@ input[type="checkbox"], input[type="radio"] {
     padding-top: 5px;
     clear:both;
 }
-.input-tip span i {
+.input-tip span i,.item-rcol .input-tip i {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -1310,10 +1310,9 @@ input[type="checkbox"], input[type="radio"] {
     color: #999;
     cursor: default;
 }
-<<<<<<< HEAD
 .findpwd-step1.form-wrap .form-item{
 	z-index: auto;
-=======
+}
 .btn-check-succ {
     font-family: inherit;
     background: #fff;
@@ -1334,6 +1333,5 @@ input[type="checkbox"], input[type="radio"] {
 }
 .findpwd-step1.form-wrap .form-item .field.mailcode{
 	width:158px;
->>>>>>> 12f2f83910a1efd5f398f938dcd2c36003d5ca93
 }
 /***注册页面end***/
