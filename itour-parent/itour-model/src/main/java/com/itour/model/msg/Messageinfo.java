@@ -64,7 +64,7 @@ public class Messageinfo extends Model<Messageinfo> {
     @TableField("SENDTIME")
     private Long sendtime;
     /**
-     * 验证码的作用(1:注册验证码)
+     * 验证码的作用(1:注册验证码;2:找回密码验证码)
      */
     @TableField("AIM")
     private String aim;

@@ -442,6 +442,9 @@ $("#form-register").click(function(){
 $("#itour-wrap-loginsubmit .itour-img-refresh").click(function(){
 	$("#loginsubmit").trigger("click");
 });
+$("#find-pwd-code .itour-img-refresh").click(function(){
+	$("#find-pwd-button").trigger("click");
+});
 $("#slideAuthCode .itour-img-refresh").click(function(){
 	$(".checkCode").trigger("click");
 });
@@ -524,10 +527,123 @@ $("#itour-wrap-loginsubmit .itourValidate-wrap").on("mouseup",".itour-slide-btn"
 $(".clear-btn").click(function(){
 	$(this).parent().find("input").val("");
 	$(this).hide();
+
 });
 
+$(".findpwd-step1 .input-text-account").keyup(function(){
+	var v = $(this).val();
+	if(v){
+		$(this).next().find(".i-cancel").show();
+	}else{
+		$(this).next().find(".i-cancel").hide();
+	}
+})
+$(".findpwd-step1 .input-text-account").change(function(){
+	var succ = $("#find-pwd-button").hasClass("btn-check-succ");
+	if(succ){
+		$("#find-pwd-button").removeClass("btn-check-succ")
+		 					 .addClass("btn-check-defaut")
+		 					 .html("<span class=' icon-click'></span>点击进行验证 ");
+		$("#find-pwd-next").addClass("disable").removeClass("btn-register");
+		
+	}
+})
+$(".i-cancel.icon-delete").click(function(){
+	$(this).parent().parent().find("input").val("");
+	$(this).hide();
+	$("#find-pwd-button").removeClass("btn-check-succ")
+	 .addClass("btn-check-defaut")
+	 .html("<span class=' icon-click'></span>点击进行验证 ");
+$("#find-pwd-next").addClass("disable").removeClass("btn-register");
+});
+$("#find-pwd-button").click(function(){
+	showSliderBtn();
+	var v =$(".findpwd-step1 .input-text-account").val();
+	$(".item-rcol .input-tip").html("");
+	if(v){
+		
+		//获取二维码
+		//显示验证码
+		//获取图片验证码
+		var url="/getVerifyImage";
+    	var postData ={};
+    	postAjax(url,JSON.stringify(postData),function(data){
+    		 console.log(data);	
+    		 //带阴影的图片
+    		 $(".itour-bigimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.srcImage);
+    		 //滑动的小图片
+    		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.cutImage);
+    		 //滑动小图片的纵坐标
+    		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
+    		 //显示验证码浮出层
+    		 $(".slide-authCode-wrape").css("display","block");
+    	}, {errorFunction:function(data){
+    		$(".login-box .msg-wrap .msg-error").html("<b></b>"+data.resultMessage).show();
+    	},cache: false, async: false});
+	}else{
+		$(".item-rcol .input-tip").append("请输入用户名/邮箱/已验证手机号");
+		$(".item-rcol .input-tip").show();
+	}
+});
 
-
+$("#find-pwd-code .itourValidate-wrap").on("mouseup",".itour-slide-btn",function(e){
+	var l = $(".itour-smallimg").offset().left;
+	var lastX = $(".itour-smallimg").offset().left - dX - 1; //---->需要研究
+	if(lastX<0){
+		return;
+	}
+	//修改鼠标拖拽标记
+	isMousedown=false;
+	//校图片验证验证码
+	var url="/checkImageCode";
+	var postData={"moveLength":lastX};
+	postAjax(url,postData,function(data){
+		var code = data.resultCode;
+		    //校验二维码成功
+		    	$(".itourValidate-wrap .itour-slide-btn").css("display","none");
+	   			$(".itourValidate-wrap .itour-slide-bar").css("width","364px");
+	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-center").text("拼接成功").css("color","#fff");
+	   			$(".itourValidate-wrap .itour-slide-bar .itour-slide-bar-right").css("display","block"); 
+	   			findpwdSendCodetoEmail($("#form-email").val());
+	   			setTimeout(function () {	   				
+	   				$("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");
+	   				//$("#find-pwd-next").removeClass("disable").addClass("btn-register");
+	   				$(".findpwd-step1 .item-mailcode-wrap").css("display","block");
+	   				$("#find-pwd-code").css("display","none");
+	      	         
+		   	   		}, 500);
+	   			
+		    
+   	}, {errorFunction:function(data){
+   		$(".itourValidate-wrap .itour-slide").addClass("itour-slide-err");
+		    	//调整拖动按钮位置
+		    setTimeout(function () {
+	    	    // 重置滑块图片和拖动按钮位置
+	    		resetlocation();
+	    		//重置蓝色(滑块滑动)轨迹
+		    	resetSlidBar();
+		    	//重新获取二维码
+   		    	$("#find-pwd-button").trigger("click");
+	    	}, 500);
+	    	
+   		console.log(data.resultMessage);
+   	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"}); 
+	
+});
+$("#find-pwd-next").click(function(){
+	var d = $(this).hasClass("disable");
+	if(d){return;}
+	var url="/account/checkUserName";
+	var email=$(".findpwd-step1 .input-text-account").val();
+	var postData={"email":email};
+	postAjax(url,postData,function(data){
+    		
+    	}, {errorFunction:function(data){
+    		$(".item-rcol .input-tip").html("");
+    		$(".item-rcol .input-tip").append("<i class='i-error icon-warn'></i>").append(data.resultMessage);
+    		$(".item-rcol .input-tip").show();
+    	},cache: false, async: false,contentType:"application/x-www-form-urlencoded"});
+})
 });
 
 $(document).on("keyup","#loginname,#nloginpwd",function(){
@@ -829,4 +945,21 @@ function sendCode(email){
     	   resetSlidBar();
 	   		console.log(data.resultMessage);
 	   	},cache: false, async: true,contentType:"application/x-www-form-urlencoded"}); 
+}
+function findpwdSendCodetoEmail(email){	
+    //隐藏验证码浮出层	  
+      hiddeCode();
+    //发送验证码
+	    postData={"email":email,"ip":$("#ip").val()};
+ 	postAjax("/msg/sendCodetoEmail",postData,function(data){
+ 	   //清楚错误信息
+ 	 $(".item-getcode-wrap").find(".input-tip").html("<span></span>");
+ 	
+   	}, {errorFunction:function(data){
+        //调整拖动按钮位置
+    	resetlocation();
+    	//重置(蓝色)轨迹样式
+	   resetSlidBar();
+   		console.log(data.resultMessage);
+   	},cache: false, async: true,contentType:"application/x-www-form-urlencoded"}); 
 }

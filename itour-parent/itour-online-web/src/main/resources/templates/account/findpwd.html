@@ -1,5 +1,51 @@
 @layout("/layout/template-css.html",{title:'爱旅行-注册'}){
-<script type="text/javascript" src="${ctxPath}/js/account/account.js"></script>		
+<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript" src="${ctxPath}/js/account/account.js"></script>	
+<script type="text/javascript">    
+    $(function(){
+    	var cip = returnCitySN.cip;
+    	var cname = returnCitySN.cname;
+    	   if(cname){    		   
+       	       $("#city").val(cname); 
+    	   }    	    
+    	var url="http://ip-api.com/json/?lang=zh-CN";    	
+    	 $.ajax({
+    	        type: "get",
+    	        dataType: "json",
+    	        url:  url,
+    	        async:true ,
+    	        beforeSend: function () {
+    	        },
+    	        success: function (resultData) {
+    	        	$("#area").val(resultData.city);
+    	        	$("#country").val(resultData.country);
+    	        	$("#countryCode").val(resultData.countryCode);
+    	        	$("#latitude").val(resultData.lat);
+    	        	$("#longitude").val(resultData.lon);
+    	        	$("#regionName").val(resultData.regionName);
+    	        	$("#region").val(resultData.region);
+    	        	$("#isp").val(resultData.isp);
+    	        	$("#ip").val(resultData.query);
+    	        },
+    	        error: function (result) {
+    	            
+    	        }
+    	    });
+    	
+    	
+    })
+</script>	
+<input type="hidden" name="uuid" id="uuid" value="">
+<input type="hidden" name="ip" id="ip">  
+<input type="hidden" name="country" id="country">  
+<input type="hidden" name="countrycode" id="countryCode">  
+<input type="hidden" name="city" id="city">  
+<input type="hidden" name="latitude" id="latitude">  
+<input type="hidden" name="longitude" id="longitude">  
+<input type="hidden" name="isp" id="isp">  
+<input type="hidden" name="region" id="region">  
+<input type="hidden" name="regionname" id="regionName">  
+<input type="hidden" name="area" id="area"> 
 	    <div class="auth-wrap">
 	    	<div class="header">
 	    		<div class="logo-con w clearfix">
@@ -13,22 +59,22 @@
 	        		<span class="label hide"></span>
 	        		<div class="item-rcol">
 	        			<div class="item-input-wrap item-input-xl">
-	        				<input type="text" class="field" placeholder="请输入用户名/邮箱/已验证手机号" value="">
+	        				<input type="text" class="field input-text-account" placeholder="请输入用户名/邮箱/已验证手机号" value="">
 	        				<span class="i-ops">
 	        					<span class="i-cancel iconfont icon-delete" ></span>
 	        				</span>	        				
 	        			</div>
-	        			<div class="input-error hide">
-	        				<i cite="i-error iconfont icon-warn"></i>
-	        				请输入用户名/邮箱/已验证手机号
+	        			<div class="input-tip input-error hide">
+	        				<i class="i-error iconfont icon-warn"></i>
+	        				
 	        			</div>
 	        		</div>
 	        	</div>
 	            <div class="form-item ac mt20 form-item-validate">
-	            	<button type="button" class="btn-check-defaut btn-xl">
+	            	<button type="button" class="btn-check-defaut btn-xl button-check" id="find-pwd-button">
 	            		<span class=" icon-click"></span>点击进行验证
 	            	</button>
-	            	<div class="slide-authCode-wrape" style="display: none;">
+	            	<div id="find-pwd-code" class="slide-authCode-wrape" style="display: none;">
 	            		<div class="arrow"></div>
 	            		<div class="close"></div>
 	            		<div id="itourValidate" class="itourValidate-wrap">
@@ -57,9 +103,9 @@
 			    						<div class="itour-slide-right"></div>
 			    					</div>
 			    					<div class="itour-slide-inner itour-slide-bar" >
-			    						<div class="itour-bar-left"></div>
-			    						<div class="itour-bar-center"></div>
-			    						<div class="itour-bar-right"></div>
+			    						<div class="itour-slide-bar-left"></div>
+			    						<div class="itour-slide-bar-center"></div>
+			    						<div class="itour-slide-bar-right"></div>
 			    					</div>
 			    					<div class="itour-slide-inner itour-slide-btn">
 			    						
@@ -70,7 +116,7 @@
 	            	</div>
 	            </div>
 	            <div class="form-item ac mt20">
-	            	<button type="button" class="btn-primary btn-xl disable">下一步</button>
+	            	<button type="button" class="btn-primary btn-xl disable" id="find-pwd-next">下一步</button>
 	            </div>
 	        </div>
 	        <div class="form-wrap setnew-wrap findpwd-step2">
