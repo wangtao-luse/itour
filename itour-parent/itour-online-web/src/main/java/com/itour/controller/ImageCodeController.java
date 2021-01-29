@@ -22,6 +22,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.VerifyImage;
 import com.itour.constant.Constant;
 import com.itour.util.DateUtil;
+import com.itour.util.StringHelper;
 import com.itour.util.VerifyImageUtil;
 
 
@@ -61,8 +62,10 @@ private	static final String  small_url  = "/static/img/code/login";
 				 resultMap.put("verifyImage", verifyImage);
 				 resultMap.put("errcode", "10");
 				 resultMap.put("errmsg", "success");
-			    //用于校验验证码
-			    request.getSession().setAttribute("xWidth", verifyImage.getxPosition());
+				 String key =StringHelper.getUUID();
+				 resultMap.put("key-verify",key);
+			    //用于校验验证码xWidth
+			    request.getSession().setAttribute(key, verifyImage.getxPosition());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

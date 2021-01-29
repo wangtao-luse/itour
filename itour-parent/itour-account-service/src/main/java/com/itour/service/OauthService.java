@@ -32,6 +32,7 @@ import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
 import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
+import com.itour.util.StringHelper;
 
 /**
  * <p>
@@ -170,7 +171,7 @@ private IpaddrService ipaddrService;
 			}
 			String getuId = selectOne.getuId();
 			List<Oauth> selectList = this.baseMapper.selectList(new QueryWrapper<Oauth>().eq("U_ID", getuId));
-			String salt = UUID.randomUUID().toString().replaceAll("-", "");
+			String salt = StringHelper.getUUID();
 			String result = SimpleHashUtil.simpleHashMd5(credential, salt);	
 			for (Oauth oauth : selectList) {
 				oauth.setPwd(salt);

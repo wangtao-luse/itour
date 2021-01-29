@@ -1,6 +1,5 @@
 package com.itour.controller;
 
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -19,7 +18,7 @@ import com.itour.common.vo.AccountVo;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantV;
-import com.itour.constant.TravelRedisKey;
+import com.itour.constant.RedisKey;
 import com.itour.model.travel.History;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.Pageview;
@@ -177,7 +176,7 @@ public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 	    nice.setUid(sessionUser.getuId());
 	    String key = nice.getUid()+"::"+nice.getTid();
 	    map.put(key, nice);
-	    this.redisManager.hmset(TravelRedisKey.KEY_NICE, map,8*60);
+	    this.redisManager.hmset(RedisKey.KEY_NICE, map,8*60);
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -197,15 +196,15 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 		Pageview pageview= new Pageview();
 		pageview.setTid(Integer.valueOf(tid));
 		pageview.setCreatedate(DateUtil.currentLongDate());
-		boolean hHasKey = redisManager.hHasKey(TravelRedisKey.KEY_PAGEVIEW, tid);
+		boolean hHasKey = redisManager.hHasKey(RedisKey.KEY_PAGEVIEW, tid);
 		if(hHasKey) {//有浏览量
-			Pageview view = (Pageview)redisManager.hget(TravelRedisKey.KEY_PAGEVIEW, tid);
+			Pageview view = (Pageview)redisManager.hget(RedisKey.KEY_PAGEVIEW, tid);
 			Integer pageVew = view.getPageVew();
 			view.setPageVew(pageVew+1);
 		}
 		map.put(tid, pageview);
 		//插入redis  key:TravelRedisKey.KEY_PAGEVIEW;时效:5天
-		this.redisManager.hmset(TravelRedisKey.KEY_PAGEVIEW, map, 5*24*60*60);
+		this.redisManager.hmset(RedisKey.KEY_PAGEVIEW, map, 5*24*60*60);
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
