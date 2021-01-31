@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS T_A_OAUTH;
 CREATE TABLE IF NOT EXISTS T_A_OAUTH(
 ID	INT PRIMARY KEY AUTO_INCREMENT COMMENT'编号标识',
 U_ID 	VARCHAR(10) COMMENT'用户唯一号(外键来源于用户表中的UID)',
-OAUTH_ID	VARCHAR(200) COMMENT'第三方登录唯一ID	站内保存手机号码;用户名，邮箱;',
+OAUTH_ID	VARCHAR(200) UNIQUE COMMENT'第三方登录唯一ID	站内保存手机号码;用户名，邮箱;',
 OAUTH_TYPE	VARCHAR(18) COMMENT'第三方登录平台标识(手机号，邮箱，用户名，第三方应用名称（微信，QQ，微博…）)	手机：phone;邮箱：email;QQ:qq;微信：wechat;用户名：uid;微博:weibo',	
 CREDENTIAL	VARCHAR(32) COMMENT'密码凭证	站内的保存密码，站外的不保存或保存token',
 NICKNAME	VARCHAR(18) COMMENT'昵称',

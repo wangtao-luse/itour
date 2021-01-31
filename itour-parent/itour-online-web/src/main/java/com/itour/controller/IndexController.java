@@ -35,11 +35,16 @@ private	TravelConnector travelConnector;
 	 * @return
 	 */
 @RequestMapping("/index")
-public String index(ViewTravelinfoOauth viewTravelinfo,Page page,HttpServletRequest request,ModelMap model,String ajaxCmd) {
+public String index(HttpServletRequest request,ModelMap model) {
 	
 	return "index";
 }
-
+//解决退出问题
+@RequestMapping("/")
+public String defaultPage() {
+	
+	return "index";
+}
 /**
  * 收藏弹出框
  * @return

@@ -63,7 +63,7 @@ private	static final String  small_url  = "/static/img/code/login";
 				 resultMap.put("errcode", "10");
 				 resultMap.put("errmsg", "success");
 				 String key =StringHelper.getUUID();
-				 resultMap.put("key-verify",key);
+				 resultMap.put("key_verify",key);
 			    //用于校验验证码xWidth
 			    request.getSession().setAttribute(key, verifyImage.getxPosition());
 		} catch (IOException e) {
@@ -88,10 +88,10 @@ private	static final String  small_url  = "/static/img/code/login";
 	 */
 	@RequestMapping(value = "/checkImageCode", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ResponseMessage verifyImageCode(@RequestParam(value = "moveLength") String moveLength,HttpServletRequest request) {
+	public ResponseMessage verifyImageCode(@RequestParam(value = "moveLength") String moveLength,@RequestParam(value="key-verify") String key,HttpServletRequest request) {
 	    Double dMoveLength = Double.valueOf(moveLength);
 	    try {
-	        Integer xWidth = (Integer) request.getSession().getAttribute("xWidth");
+	        Integer xWidth = (Integer) request.getSession().getAttribute(key);
 	        if (xWidth == null) {	            
 	            return ResponseMessage.getFailed("验证过期，请重试");
 	        }
@@ -104,7 +104,7 @@ private	static final String  small_url  = "/static/img/code/login";
 	    } catch (Exception e) {
 	        return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 	    } finally {
-	    	request.getSession().removeAttribute("xWidth");
+	    	request.getSession().removeAttribute(key);
 	    }
 	}
 	
@@ -116,14 +116,21 @@ private	static final String  small_url  = "/static/img/code/login";
 	 */
 	@RequestMapping(value = "/checkemailCode", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ResponseMessage checkemailCode(@RequestParam(value = "code") Object code,HttpServletRequest request) {
-		   Object ecode = request.getSession().getAttribute("code");
-		   Object time = request.getSession().getAttribute("limittime");
+	public ResponseMessage checkemailCode(@RequestParam(value = "code") Object code,@RequestParam(value="key-email-code") String key,HttpServletRequest request) {
+		   Object k = request.getSession().getAttribute(key);
+		   String ecode=null;
+		   String time=null;
+		   if(k!=null) {
+			   String[] split = k.toString().split(",");
+			   ecode=split[0];
+			   time=split[1];
+		   }
+		   
 		   if(!code.equals(ecode)) {//
 			   return ResponseMessage.getFailed("验证码错误");
 		   }else {
 			   //验证码有效期
-			   long valueOf = Long.valueOf(time.toString());
+			   long valueOf = Long.valueOf(time);
 			   //当前时间
 			   long longDate = DateUtil.currentLongDate();
 			   if(longDate>valueOf) {//当前日期大于验证码有效期

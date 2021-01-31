@@ -52,7 +52,8 @@
 				isMousedown=false;
 				//校图片验证验证码
 				var url="/checkImageCode";
-				var postData={"moveLength":lastX};
+				var key_verify = $("#key-verify").val();
+				var postData={"moveLength":lastX,"key-verify":key_verify};
 				postAjax(url,postData,function(data){
 					var code = data.resultCode;
 					var email = $("#form-email").val();
@@ -194,6 +195,7 @@
 		        		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.cutImage);
 		        		 //滑动小图片的纵坐标
 		        		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
+		        		 $("#key-verify").val(data.returnResult.key_verify);
 		        		 //显示验证码浮出层
 		        		 $(".item-email-wrap").css("z-index","2");
 		        		 $(".slide-authCode-wraper").css("display","block");
@@ -472,6 +474,7 @@
 		        		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.cutImage);
 		        		 //滑动小图片的纵坐标
 		        		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
+		        		 $("#key-verify").val(data.returnResult.key_verify);
 		        		 //显示验证码浮出层
 		        		 $(".item.item-fore5").css("z-index","10");
 		        		 $("#itour-wrap-loginsubmit").css("display","block");
@@ -491,7 +494,8 @@
 			isMousedown=false;
 			//校图片验证验证码
 			var url="/checkImageCode";
-			var postData={"moveLength":lastX};
+			var key_verify = $("#key-verify").val();
+			var postData={"moveLength":lastX,"key-verify":key_verify};
 			postAjax(url,postData,function(data){
 				var code = data.resultCode;
 				    //校验二维码成功
@@ -568,6 +572,7 @@
 		    		 $(".itour-smallimg img").attr("src","data:image/png;base64,"+data.returnResult.verifyImage.cutImage);
 		    		 //滑动小图片的纵坐标
 		    		 $(".itour-smallimg").css("top",data.returnResult.verifyImage.yPosition+"px");
+		    		 $("#key-verify").val(data.returnResult.key_verify);
 		    		 //显示验证码浮出层
 		    		 $(".slide-authCode-wrape").css("display","block");
 		    	}, {errorFunction:function(data){
@@ -589,7 +594,8 @@
 			isMousedown=false;
 			//校图片验证验证码
 			var url="/checkImageCode";
-			var postData={"moveLength":lastX};
+			var key_verify = $("#key-verify").val();
+			var postData={"moveLength":lastX,"key-verify":key_verify};
 			postAjax(url,postData,function(data){
 				var code = data.resultCode;
 				    //校验二维码成功
@@ -676,7 +682,8 @@
 });
 function checkFindpwdEmailCode(ecode){
    	url="/checkemailCode";
-   	postData={"code":ecode};
+   	var key = $("#key-email-code").val();
+   	postData={"code":ecode,"key-email-code":key};
    	postAjax(url,postData,function(data){
    		$(".findpwd-step1").css("display","none");
     	$(".findpwd-step2").css("display","block");
@@ -814,7 +821,8 @@ function hideClose($this){
  */
 function checkEmailCode(ecode){
    	url="/checkemailCode";
-   	postData={"code":ecode};
+	var key = $("#key-email-code").val();
+   	postData={"code":ecode,"key-email-code":key};
    	postAjax(url,postData,function(data){
    		$("#step1-wrap").css("display","none");
     	$("#step2-wrap").css("display","block");
@@ -1006,7 +1014,7 @@ function sendCode(email){
 	 	postAjax("/msg/sendCodetoEmail",postData,function(data){
 	 	   //清楚错误信息
 	 	 $(".item-getcode-wrap").find(".input-tip").html("<span></span>");
-	 	
+	 	  $("#key-email-code").val(data.returnResult.key_email_code);
 	   	}, {errorFunction:function(data){
 	        //调整拖动按钮位置
 	    	resetlocation();
@@ -1021,8 +1029,9 @@ function findpwdSendCodetoEmail(email){
     //发送验证码
 	    postData={"email":email,"ip":$("#ip").val()};
  	postAjax("/msg/sendCodetoEmail",postData,function(data){
- 		$("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");
- 		$("#find-pwd-next").removeClass("disable").addClass("btn-register");
+ 		 $("#key-email-code").val(data.returnResult.key_email_code);
+ 		 $("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");
+ 		 $("#find-pwd-next").removeClass("disable").addClass("btn-register");
  	   //清楚错误信息
  	 $(".item-getcode-wrap").find(".input-tip").html("<span></span>");
  	
