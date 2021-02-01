@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,7 +66,9 @@ private	static final String  small_url  = "/static/img/code/login";
 				 String key =StringHelper.getUUID();
 				 resultMap.put("key_verify",key);
 			    //用于校验验证码xWidth
-			    request.getSession().setAttribute(key, verifyImage.getxPosition());
+				 HttpSession session = request.getSession();
+				 session.setAttribute(key, verifyImage.getxPosition());
+				 session.setMaxInactiveInterval(120);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,7 +96,7 @@ private	static final String  small_url  = "/static/img/code/login";
 	    try {
 	        Integer xWidth = (Integer) request.getSession().getAttribute(key);
 	        if (xWidth == null) {	            
-	            return ResponseMessage.getFailed("验证过期，请重试");
+	            return ResponseMessage.getFailed("验证码过期，请重试");
 	        }
 	        if (Math.abs(xWidth - dMoveLength) > 10) {	            
 	            return ResponseMessage.getFailed("验证不通过");

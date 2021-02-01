@@ -36,7 +36,9 @@ $.serializeObject = function (form) {
 function filterSpecial(value) {
     return value.replace(/[']/g, '')
 }
-
+$.isEmpty = function(o){
+	return o==null||o=="";
+}
 var postAjax = function(url,postData,successFunction,options){
 	var returnData;
 	var defaultOptions = {
@@ -56,7 +58,7 @@ var postAjax = function(url,postData,successFunction,options){
         data: postData,
         contentType: currentOptions.contentType,
         dataType: currentOptions.dataType,
-        url: url,
+        url: getContextPath()+url,
         async: currentOptions.async,
     	beforeSend:function(){
     		$.messager.progress({title: '提示', text: '数据处理中，请稍候....'});

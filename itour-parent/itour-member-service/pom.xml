@@ -34,7 +34,12 @@
     	<groupId>com.itour</groupId>
     	<artifactId>itour-member-api</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
-    </dependency>   
+    </dependency>
+    <dependency>
+    	<groupId>com.itour</groupId>
+    	<artifactId>itour-account-api</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   <build>
       <finalName>${project.artifactId}</finalName>

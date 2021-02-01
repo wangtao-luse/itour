@@ -3,6 +3,7 @@ package com.itour.controller;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,9 @@ public class MessageController {
 		   String uuid = StringHelper.getUuid();
 		   responseMessage.add("key_email_code", uuid);
 		   Date addSecond = DateUtil.addSecond(new Date(), 120);
-		   request.getSession().setAttribute(uuid, code+","+(addSecond.getTime()));
+		   HttpSession session = request.getSession();
+		   session.setAttribute(uuid, code+","+(addSecond.getTime()));
+		   session.setMaxInactiveInterval(120);
 	   }
 	    return responseMessage;
 	}

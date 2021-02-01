@@ -12,6 +12,7 @@ import com.itour.service.AccountGroupService;
 import com.itour.service.AccountService;
 import com.itour.service.GroupRoleService;
 import com.itour.service.GroupService;
+import com.itour.service.IpaddrService;
 import com.itour.service.LoginListService;
 import com.itour.service.OauthService;
 import com.itour.service.RightDetailService;
@@ -53,6 +54,8 @@ private ViewAAccountGroupService viewAAccountGroupService;
 private AccountGroupService accountGroupService;
 @Autowired
 private LoginListService loginListService;
+@Autowired
+private IpaddrService ipaddrService;
 /**
  * 注册提交
  */
@@ -337,6 +340,11 @@ public ResponseMessage getAccountRightAnon(@RequestBody RequestMessage requestMe
 public ResponseMessage queryLoginList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return loginListService.queryLoginList(requestMessage);
+}
+@Override
+public ResponseMessage insertIPAddr(RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return ipaddrService.insertIPAddr(requestMessage);
 }
 
 }

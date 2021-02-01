@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.account.api.AccountApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
@@ -47,6 +48,8 @@ private LoginListMapper loginListMapper;
 private AccountMapper accountMapper;
 	@Autowired
 private IpaddrService ipaddrService;
+	
+private AccountApi accountApi;
 	/**
 	 * 登录
 	 * 1.校验用户名和密码(t_m_oauth)
@@ -63,10 +66,9 @@ private IpaddrService ipaddrService;
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			Oauth oauth = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
-			//1.校验用户名和密码(t_a_oauth)
+			//1.校验用户名
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", oauth.getOauthId());
-			//queryWrapper.eq("CREDENTIAL", oauth.getCredential());
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
 	        if(null==selectOne) {
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
@@ -93,7 +95,8 @@ private IpaddrService ipaddrService;
 	        this.loginListMapper.insert(loginList);
 	      //4.插入IP信息
 			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
-			ipaddrService.insertIPAddr(postData);
+			//ipaddrService.insertIPAddr(postData);
+			accountApi.insertIPAddr(postData);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();

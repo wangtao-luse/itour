@@ -483,7 +483,7 @@ public class AccountController {
 		return updateAccount;
 	}
 	/**
-	 * 前台登录列表页面
+	 * 登录列表页面
 	 * @return
 	 */
 	@RequestMapping("/loginListPage")
