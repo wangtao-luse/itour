@@ -34,7 +34,7 @@ public class RandomValidateCode {
      * @return 字体
      */
     private static Font getFont() {
-        return new Font("Fixedsys", Font.CENTER_BASELINE, 20);
+        return new Font("Fixedsys", Font.CENTER_BASELINE, 18);
     }
  
     /**

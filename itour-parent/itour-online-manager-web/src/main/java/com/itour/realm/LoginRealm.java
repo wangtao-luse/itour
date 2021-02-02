@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -22,11 +23,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.MemberConnector;
 import com.itour.constant.Constant;
-import com.itour.exception.BaseException;
-import com.itour.model.account.Group;
 import com.itour.model.account.Oauth;
-import com.itour.model.account.RightDetail;
-import com.itour.model.account.Role;
 import com.itour.util.FastJsonUtil;
 /**
  * 自定义的指定Shiro验证用户登录的类
@@ -125,7 +122,7 @@ public class LoginRealm extends AuthorizingRealm {
 		}else {
 			//https://blog.csdn.net/qq_42826413/article/details/103921055
 			//解决shiro
-			throw new AuthenticationException(loginSub.getResultMessage());
+			throw new IncorrectCredentialsException(loginSub.getResultMessage());
 		}
 		//4.根据用户信息来构建AuthenticationInfo并返回，通常使用的是SimpleAuthenticationInfo
 		//以下信息是从数据库中获取的

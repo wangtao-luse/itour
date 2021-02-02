@@ -48,7 +48,7 @@ private LoginListMapper loginListMapper;
 private AccountMapper accountMapper;
 	@Autowired
 private IpaddrService ipaddrService;
-	
+	@Autowired
 private AccountApi accountApi;
 	/**
 	 * 登录
