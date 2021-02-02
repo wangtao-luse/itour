@@ -119,7 +119,7 @@ public class LoginRealm extends AuthorizingRealm {
 			oauthObj = FastJsonUtil.mapToObject(map, Oauth.class, Constant.COMMON_KEY_RESULT);
 			salt = oauthObj.getPwd();
 		}else {
-			throw new BaseException(loginSub.getResultMessage());
+			throw new AuthenticationException(loginSub.getResultMessage());
 		}
 		//4.根据用户信息来构建AuthenticationInfo并返回，通常使用的是SimpleAuthenticationInfo
 		//以下信息是从数据库中获取的

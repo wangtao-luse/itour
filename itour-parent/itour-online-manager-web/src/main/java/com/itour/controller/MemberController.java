@@ -79,14 +79,10 @@ public class MemberController {
 						// TODO: handle exception
 						e.printStackTrace();
 						return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_STATUS);
-				   }catch (BaseException e) {
-						// TODO: handle exception
-						e.printStackTrace();
-						return ResponseMessage.getFailed(e.getMessage());
 				   }catch (AuthenticationException e) {
 						// TODO: handle exception
 						e.printStackTrace();
-						return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+						return ResponseMessage.getFailed(e.getMessage());
 						
 					}
 					
