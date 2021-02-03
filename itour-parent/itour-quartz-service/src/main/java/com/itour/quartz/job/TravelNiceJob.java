@@ -20,7 +20,7 @@ import com.itour.common.redis.RedisManager;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.constant.TravelRedisKey;
+import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.TravelInfo;
@@ -47,7 +47,7 @@ private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 		try {
 
 			// 1.从Redis缓存中取出点赞的数据;
-			Map<Object, Object> map = redisManager.hget(TravelRedisKey.KEY_NICE);
+			Map<Object, Object> map = redisManager.hget(RedisKey.KEY_NICE);
 			List<Nice> saveOrupdateList = new ArrayList<Nice>();
 			List<String> tidList = new ArrayList<String>();
 			List<TravelInfo> travelInfoList = new ArrayList<TravelInfo>();

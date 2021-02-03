@@ -163,7 +163,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 			   }catch (AuthenticationException e) {
 					// TODO: handle exception
 					e.printStackTrace();
-					return ResponseMessage.getFailed(e.getMessage());
+					return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 					
 				}
 				

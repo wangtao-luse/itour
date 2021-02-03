@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>首页</title>
+<title>爱旅行-首页</title>
 @include("/inc/inc.html"){}
     	 <style>
         .nav-bar .nav-left{
@@ -205,8 +205,8 @@
 		<div title="closeAll" data-options="iconCls:'delete'">关闭所有</div>
 	</div>
 <div id="index-layout">
-	<div id="north" data-options="region:'north',href:'/northPage'" class="banner" style="height: 50px; overflow: hidden;">north</div>
-	<div data-options="region:'west',href:'/westPage',split:true" style="width: 210px; overflow: hidden;" title="模块导航">west</div>
+	<div id="north" data-options="region:'north',href:'${ctxPath}/northPage'" class="banner" style="height: 50px; overflow: hidden;">north</div>
+	<div data-options="region:'west',href:'${ctxPath}/westPage',split:true" style="width: 210px; overflow: hidden;" title="模块导航">west</div>
 	<div data-options="region:'center'" style="overflow: hidden;">
 				<div id="index-tabs"  data-options="border:false" style="overflow: hidden">
 					<div title="首页" >

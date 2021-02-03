@@ -21,6 +21,11 @@ public String northPage() {
 public String westPage() {
 	return "/layout/west";
 }
-
+//解决退出问题
+@RequestMapping("/")
+public String defaultPage() {
+	
+	return "/member/login";
+}
 
 }

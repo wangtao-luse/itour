@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.account.api.AccountApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
@@ -55,6 +56,8 @@ private BaseService baseService;
 private AccountGroupMapper accountGroupMapper;
 	@Autowired
 private GroupMapper groupMapper;
+	@Autowired	
+private AccountApi accountApi;
 
 	/** 注册
 	 * 1.插入用户表(t_a_account)
@@ -89,7 +92,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		
 		oauth.setPwd(salt);
 		String credential = oauth.getCredential();
-		String result = SimpleHashUtil.simpleHashMd5(credential, salt);		
+		String result = SimpleHashUtil.simpleHashSHA_1(credential, salt);		
 		oauth.setOauthId(oauth.getOauthId());
 		oauth.setuId(uid);
 		oauth.setOauthType("email");
@@ -110,7 +113,8 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		this.accountGroupMapper.insert(accountGroup);
 		//4.插入IP信息
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
-		ipaddrService.insertIPAddr(postData);
+		//ipaddrService.insertIPAddr(postData);
+		accountApi.insertIPAddr(postData);
 		
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -125,7 +129,7 @@ public static void main(String[] args) {
 	System.out.println("414598c3a3f5f83061373e6b41b8663d".length());
 	String result = SimpleHashUtil.simpleHashMd5("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
 	System.out.println(result);
-	String simpleHashSHA_1 = SimpleHashUtil.simpleHashSHA_1("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
+	String simpleHashSHA_1 = SimpleHashUtil.simpleHashSHA_1("top958958", "a42617d417d7418dbcf5c30770fa0f7e");
 	System.out.println("sha-1:"+simpleHashSHA_1);
 	System.out.println(simpleHashSHA_1.length());
 }

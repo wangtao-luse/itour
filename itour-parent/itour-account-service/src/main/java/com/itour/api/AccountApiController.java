@@ -342,7 +342,7 @@ public ResponseMessage queryLoginList(@RequestBody RequestMessage requestMessage
 	return loginListService.queryLoginList(requestMessage);
 }
 @Override
-public ResponseMessage insertIPAddr(RequestMessage requestMessage) {
+public ResponseMessage insertIPAddr(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return ipaddrService.insertIPAddr(requestMessage);
 }
