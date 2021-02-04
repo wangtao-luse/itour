@@ -80,7 +80,7 @@ public class RandomValidateCode {
         String randomString = getValidate();
         //把生成的验证码存入session,并且1分钟超时失效
         session.setAttribute(uuid, result);
-        session.setMaxInactiveInterval(120);
+      //  session.setMaxInactiveInterval(120);
         String[] arr = randomString.toString().split("");
         for (int i = 1; i <= arr.length; i++) {
             drowString(g, arr[i - 1], i);

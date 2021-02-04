@@ -25,13 +25,13 @@ public class ViewAAccount extends Model<ViewAAccount> {
     private String sex;
 
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
 
     @TableField("CREATEIP")
     private String createip;
 
     @TableField("LASTTIME")
-    private Integer lasttime;
+    private Long lasttime;
 
     @TableField("STATUS")
     private String status;
@@ -86,11 +86,11 @@ public class ViewAAccount extends Model<ViewAAccount> {
         this.sex = sex;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 
@@ -102,11 +102,11 @@ public class ViewAAccount extends Model<ViewAAccount> {
         this.createip = createip;
     }
 
-    public Integer getLasttime() {
+    public Long getLasttime() {
         return lasttime;
     }
 
-    public void setLasttime(Integer lasttime) {
+    public void setLasttime(Long lasttime) {
         this.lasttime = lasttime;
     }
 

@@ -5,10 +5,21 @@ $(function(){
 	console.log("inittree");
 	var url="/menu/getMenuList";
 	initWestTree(url,$("#layout_west_tree"),{});
-	
+	var folderNodeAll = $('ul>li>.tree-node>.tree-folder').parent();
+	folderNodeAll.css('border-top','1px solid #ffcdd2').css('border-bottom','1px solid #ffcdd2')
+			.css('background-color','#fae2e2')
+			.find('.tree-title').css('font-size','16px');
+	$('#layout_west_tree').css('border-left','1px solid #ffcdd2').css('border-right','1px solid #ffcdd2');
 });
 
 </script>
+<style>
+#layout_west_tree .tree-file{
+		width:18px;
+		margin-top:7px;
+		height:30px;
+		background:url("${ctxPath}/static/img/common/icon-set7.png") no-repeat}
+</style>
 <!-- <style>
 	#layout_west_tree .tree-node{height:30px;}
 	#layout_west_tree .tree-title{padding:0 2px;height:30px;line-height:30px}

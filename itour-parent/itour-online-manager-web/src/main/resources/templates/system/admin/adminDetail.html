@@ -9,7 +9,7 @@
                     {field: 'oauthTypeStr', title: '账号类型', width: 150},
                     {field: 'nickname', title: '昵称', width: 100},
                     {field: 'avatar', title: '图像', width: 100},
-                    {field: 'createdate', title: '绑定日期', width: 100,formatter: function (value, row, index){return value?new Date(value*1000).Format("yyyy-MM-dd"):"";}},
+                    {field: 'createdate', title: '绑定日期', width: 100,formatter: function (value, row, index){return value?new Date(value).Format("yyyy-MM-dd"):"";}},
                 ]],
                 toolbar: ''
             };

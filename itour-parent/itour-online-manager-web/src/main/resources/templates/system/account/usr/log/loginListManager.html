@@ -34,7 +34,7 @@
 					{field:'oauthId',title:'账号',width:180},
 					{field:'oauthType',title:'账号类型' ,width:100},
 					{field:'loginIp',title:'登录IP地址',width:150},
-					{field:'loginTime',title:'上次登录时间',width:150,formatter: function (value, row, index){return value?new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}},
+					{field:'loginTime',title:'上次登录时间',width:150,formatter: function (value, row, index){return value?new Date(value).Format("yyyy-MM-dd hh:mm"):"";}},
 					{field:'loginIpLookup',title:'地址',width:120}
 				]],
                 toolbar: '#toolbar',

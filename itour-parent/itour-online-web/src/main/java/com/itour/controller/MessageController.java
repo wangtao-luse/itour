@@ -54,7 +54,7 @@ public class MessageController {
 		   Date addSecond = DateUtil.addSecond(new Date(), 120);
 		   HttpSession session = request.getSession();
 		   session.setAttribute(uuid, code+","+(addSecond.getTime()));
-		   session.setMaxInactiveInterval(120);
+		   //session.setMaxInactiveInterval(120);
 	   }
 	    return responseMessage;
 	}

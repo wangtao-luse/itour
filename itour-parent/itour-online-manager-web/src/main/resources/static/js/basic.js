@@ -262,7 +262,7 @@ function grantFunCommon(title, url, dataGridNode, newOptions) {
             title: title,
             width: newOptions&&newOptions.width?newOptions.width:500,
             height: newOptions&&newOptions.height?newOptions.height:300,
-            href: /*getContextPath() + */url + rows[0].id,
+            href: getContextPath() + url + rows[0].id,
             data: {'id': rows[0].id}
         }
         $.extend(options, newOptions);
@@ -314,7 +314,7 @@ function getInitDialogOptions(modelTitle,url,mainBtnId,newOptions){
 			width:newOptions&&newOptions.width?newOptions.width:500,
 			height:newOptions&&newOptions.height?newOptions.height:300,
 			title:modelTitle,
-			href: /*getContextPath() +*/ url,
+			href: getContextPath() + url,
 			buttons: [{id: mainBtnId, text: "保存"}]
 	};
 	newOptions?$.extend(options,newOptions):'';

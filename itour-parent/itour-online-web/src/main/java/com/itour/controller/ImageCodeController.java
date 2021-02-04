@@ -68,7 +68,7 @@ private	static final String  small_url  = "/static/img/code/login";
 			    //用于校验验证码xWidth
 				 HttpSession session = request.getSession();
 				 session.setAttribute(key, verifyImage.getxPosition());
-				 session.setMaxInactiveInterval(120);
+				// session.setMaxInactiveInterval(120);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

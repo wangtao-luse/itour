@@ -37,7 +37,7 @@ public class ViewMAccount extends Model<ViewMAccount> {
      * 注册时间
      */
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
 
     /**
      * 注册IP	
@@ -49,7 +49,7 @@ public class ViewMAccount extends Model<ViewMAccount> {
      * 上次登录时间
      */
     @TableField("LASTTIME")
-    private Integer lasttime;
+    private Long lasttime;
 
     /**
      * 状态	0：禁用；1：正常
@@ -110,11 +110,11 @@ public class ViewMAccount extends Model<ViewMAccount> {
         this.sex = sex;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 
@@ -126,11 +126,11 @@ public class ViewMAccount extends Model<ViewMAccount> {
         this.createip = createip;
     }
 
-    public Integer getLasttime() {
+    public Long getLasttime() {
         return lasttime;
     }
 
-    public void setLasttime(Integer lasttime) {
+    public void setLasttime(Long lasttime) {
         this.lasttime = lasttime;
     }
 
