@@ -4,16 +4,18 @@ package com.itour.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itour.common.vo.AccountVo;
 import com.itour.util.SessionUtil;
+import com.itour.util.ShiroFilterUtils;
 
 
 /**
@@ -41,6 +43,13 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 			request.setAttribute("host", host);
 			request.setAttribute("redirectURL", redirectURL);
 			request.setAttribute("user", sessionUser);
+			Subject subject = SecurityUtils.getSubject();
+			boolean authenticated = subject.isAuthenticated();
+			boolean ajax = ShiroFilterUtils.isAjax(request);
+			if(authenticated&&ajax&&null==sessionUser) {//session失效
+				ShiroFilterUtils.out(response);
+			}
+			
 			//判断当前的请求地址是否需要记录日志
 			String servletPath=request.getServletPath();
 			
@@ -106,6 +115,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 
 	    }
 
-	    return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
+	    return "0:0:0:0:0:0:0:1".equals(ip)?"127.0.0.1":ip;
 	}
+	
 }

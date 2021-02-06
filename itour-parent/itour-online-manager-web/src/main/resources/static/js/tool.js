@@ -84,8 +84,12 @@ var postAjax = function(url,postData,successFunction,options){
     			
     		}
     	},
-    	complete: function(){
-    		
+    	complete: function(XMLHttpRequest,textStatus){
+    		var sessionstatus=XMLHttpRequest.getResponseHeader("session-status");
+            if(sessionstatus=="timeout"){
+                //如果超时就处理 ，指定要跳转的页面(比如登陆页)
+                window.location.replace(ctxPath+"/member/login");
+            }
     	},
     	error:function(resultData){
     		$.messager.progress('close');

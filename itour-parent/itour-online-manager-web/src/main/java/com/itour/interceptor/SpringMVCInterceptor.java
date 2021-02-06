@@ -1,21 +1,22 @@
 package com.itour.interceptor;
 
-import java.util.Date;
-import java.util.UUID;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.method.HandlerMethod;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itour.common.vo.AccountVo;
 import com.itour.util.SessionUtil;
+import com.itour.util.ShiroFilterUtils;
 
 
 /**
@@ -25,24 +26,34 @@ import com.itour.util.SessionUtil;
  * 拦截所有的controller 统计时间
  *
  */
+@Component
 public class SpringMVCInterceptor implements HandlerInterceptor{
 	
 
 	private Logger logger=LoggerFactory.getLogger(SpringMVCInterceptor.class);
 
 	@Override
+	//在业务处理器处理请求之前被调用,预处理，可以进行编码、安全控制、权限校验等处理
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		try {
-			 AccountVo sessionUser = SessionUtil.getSessionUser();
+			AccountVo sessionUser = SessionUtil.getSessionUser();
 			String host=getRemoteHost(request, response);
 			request.setAttribute("startTime", System.currentTimeMillis());
 			String redirectURL=WebUtils.getPathWithinApplication(WebUtils.toHttp(request));
 			request.setAttribute("host", host);
 			request.setAttribute("redirectURL", redirectURL);
-			request.setAttribute("kssj", "08:00 - 23:00");
 			request.setAttribute("user", sessionUser);
-			
+			Subject subject = SecurityUtils.getSubject();
+			Session session = subject.getSession();
+			String attribute = (String)session.getAttribute("userName");
+			boolean authenticated = subject.isAuthenticated();
+			boolean ajax = ShiroFilterUtils.isAjax(request);
+			  if(ajax&&authenticated&&StringUtils.isEmpty(attribute)) {//session失效
+				  ShiroFilterUtils.out(response); 
+				  return false;
+			  }
+			 
 			//判断当前的请求地址是否需要记录日志
 			String servletPath=request.getServletPath();
 			
@@ -55,10 +66,14 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		
+		/*
+		 * 在业务处理器处理请求执行完成后，生成视图之前执行。
+		 * 后处理（调用了Service并返回ModelAndView，但未进行页面渲染），有机会修改ModelAndView
+		 */
 	}
 
 	@Override
+	//在DispatcherServlet完全处理完请求后被调用，可用于清理资源等。返回处理（已经渲染了页面）；
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 	}

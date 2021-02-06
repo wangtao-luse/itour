@@ -41,5 +41,5 @@ feign:
   client:
     config:
       default:
-        connect-timeout: '@eign.client.config.default.connect-timeout@'
-        read-timeout: '@eign.client.config.default.read-timeout@'    
+        connect-timeout: '@feign.client.config.default.connect-timeout@'
+        read-timeout: '@feign.client.config.default.read-timeout@'    

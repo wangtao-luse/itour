@@ -66,7 +66,8 @@ public class MemberController {
 					upt.setRememberMe(true);
 					try {
 						//执行登录
-						currentUser.login(upt);					
+						currentUser.login(upt);	
+						currentUser.getSession().setAttribute("userName", username);
 					}catch (UnknownAccountException e) {//用户不存在
 						// TODO: handle exception
 						e.printStackTrace();
