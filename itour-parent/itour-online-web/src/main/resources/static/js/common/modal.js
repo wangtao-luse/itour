@@ -1,8 +1,5 @@
 $(function(){
-	//关闭浮出层
-	$(".weui-desktop-dialog__close-btn,.weui-desktop-btn.weui-desktop-btn_default").click(function(){
-		$(".dialog-wrapper").hide();
-	});
+	
 	//checkbox
 	$(document).on("click",".article_tags_history_bd .weui-desktop-form__checkbox",function(){
 	     var tags = $(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
@@ -73,9 +70,7 @@ $(function(){
 	    }
 	});
 	
-	$(".modal-closeButton").click(function(){
-		$(".modal-wrapper").hide();
-	})
+	
 	$(".favlists-addButton").click(function(){
 		$(this).closest(".modal-wrapper").hide();
 		$(".article_add_collect").show();
@@ -96,3 +91,10 @@ function appendTag(t){
 	var tag ="<span class='weui-desktop-form-tag'><i class='weui-desktop-form-tag__name'>"+t+"</i><button type='button' class='weui-desktop-opr-btn weui-desktop-opr-btn_close'></button>	</span>";
 	$(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__input").before(tag);
 }
+//关闭浮出层
+$(document).on("click",".weui-desktop-dialog__close-btn,.weui-desktop-btn.weui-desktop-btn_default",function(){
+	$(".dialog-wrapper").hide();
+});
+$(document).on("click",".modal-closeButton",function(){
+	$(".modal-wrapper").hide();
+})

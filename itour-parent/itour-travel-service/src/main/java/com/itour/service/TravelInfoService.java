@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,8 +13,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantTravel;
 import com.itour.model.travel.TravelInfo;
+import com.itour.model.travel.WeekInfo;
 import com.itour.persist.TravelInfoMapper;
+import com.itour.persist.WeekInfoMapper;
 
 /**
  * <p>
@@ -25,6 +29,8 @@ import com.itour.persist.TravelInfoMapper;
  */
 @Service
 public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>  {
+	@Autowired
+	WeekInfoMapper weekInfoMapper;
 	/**
 	 * 旅行信息列表
 	 * @param requestMessage
@@ -117,6 +123,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 	 * @param requestMessage
 	 * @return
 	 */
+	@Transactional
 	public ResponseMessage delTravelInfo(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
@@ -135,12 +142,27 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 	 * @param requestMessage
 	 * @return
 	 */
+	@Transactional
 	public ResponseMessage insertTravelInfo(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
+			//获取参数
 			JSONObject jsonObject = requestMessage.getBody().getContent();
+			String type = jsonObject.getString(ConstantTravel.TRAVEL_INFO_WEEK);
+			String travel_type = jsonObject.getString(ConstantTravel.TRAVEL_INFO_TYPE);
+			//1.插入旅行旅行信息表
 			TravelInfo travelInfo = jsonObject.toJavaObject(TravelInfo.class);
 			this.baseMapper.insert(travelInfo);
+			
+			//2.插入周末旅行信息表
+			if(ConstantTravel.TRAVEL_INFO_WEEK.equals(travel_type)) {
+				WeekInfo entity = new WeekInfo();
+				entity.setTid(travelInfo.getId());
+				entity.setWeekContent(jsonObject.getString("markdown"));
+				weekInfoMapper.insert(entity);
+			}
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -236,6 +236,12 @@
 .setting-group__checkbox-item {
     margin-top: 20px;
 }
+.frm_radio_label, .frm_checkbox_label {
+    display: inline-block;
+    text-align: left;
+    cursor: pointer;
+    margin-right: 1em;
+}
 .appsmg-editor__after-area .frm_checkbox_label {
     white-space: nowrap;
 }

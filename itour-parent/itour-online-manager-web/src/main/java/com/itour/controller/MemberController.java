@@ -61,6 +61,8 @@ public class MemberController {
 				String cname = jsonObject.getString("city");
 				//获取当前的 Subject
 				Subject currentUser = SecurityUtils.getSubject();
+				currentUser.getSession().setTimeout(1000*20);
+			
 				if(!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
 					ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, ip,cname,jsonObject,request);
 					upt.setRememberMe(true);

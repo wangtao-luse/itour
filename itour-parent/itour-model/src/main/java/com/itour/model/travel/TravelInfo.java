@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-07-31
+ * @since 2021-02-12
  */
 @TableName("t_t_travel_info")
 public class TravelInfo extends Model<TravelInfo> {
@@ -47,6 +47,12 @@ public class TravelInfo extends Model<TravelInfo> {
      */
     @TableField("TYPE")
     private String type;
+
+    /**
+     * 文章类型（1：原创;2:非原创）
+     */
+    @TableField("ARTICLE_TYPE")
+    private String articleType;
 
     /**
      * 所属专栏编号
@@ -142,6 +148,14 @@ public class TravelInfo extends Model<TravelInfo> {
         this.type = type;
     }
 
+    public String getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(String articleType) {
+        this.articleType = articleType;
+    }
+
     public Integer getColumnId() {
         return columnId;
     }
@@ -227,6 +241,7 @@ public class TravelInfo extends Model<TravelInfo> {
         ", summary=" + summary +
         ", url=" + url +
         ", type=" + type +
+        ", articleType=" + articleType +
         ", columnId=" + columnId +
         ", uid=" + uid +
         ", code=" + code +

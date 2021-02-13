@@ -6,14 +6,42 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.common.file.MultipartFileUpload;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.util.FileUtil;
 
 @Controller
+@RequestMapping(value="/upload",produces = {"application/json;charset=UTF-8"})
 public class FileController {
+	@RequestMapping("/multipartFileUpload")
+    @ResponseBody
+public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file", required = true) MultipartFile fileMultipartFile,HttpServletRequest request) {
+	JSONObject fileUpload = MultipartFileUpload.fileUpload(fileMultipartFile);
+	return fileUpload;
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 /**
    * 上传图片
  * @param file

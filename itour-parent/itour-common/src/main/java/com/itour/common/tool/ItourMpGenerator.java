@@ -44,13 +44,13 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_t_history"};
+  			 String [] include= new String[] {"t_t_travelinfo_column"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
   			 String [] tableprefix = new String [] {};
   			 /**
-  			  * 是否需要覆盖Service  
+  			  * 是否需要覆盖Service  （是否创建service）
   			  */
 		     boolean isOverflowService=true;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
@@ -107,7 +107,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 
 		
             dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-            dsc.setUrl("jdbc:mysql://localhost:3306/itour?serverTimezone=UTC");
+            dsc.setUrl("jdbc:mysql://106.54.162.159:3308/itour?serverTimezone=UTC");
             dsc.setUsername("root");
             dsc.setPassword("root");
             mpg.setDataSource(dsc);

@@ -23,6 +23,7 @@ import com.itour.model.travel.History;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.Pageview;
 import com.itour.util.DateUtil;
+import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
 
 @Controller
@@ -214,4 +215,30 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 	return responseMessage;	
 }
 
+
+@RequestMapping("/md")
+public String md() {
+	return "/travel/info/md";
+}
+@RequestMapping("/detail")
+public String detail() {
+	return "/travel/info/detail";
+}
+@RequestMapping("/insertweekTravel")
+public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	String markdown = jsonObject.getString("markdown");
+	String markdownToHtml = MarkdownUtils.markdownToHtml(markdown);
+	System.out.println(markdownToHtml);
+	return responseMessage;
+	
+}
+@RequestMapping("/tag")
+public String tag() {
+	return "/travel/info/tag";
+}
+@RequestMapping("/column")
+public String column() {
+	return "/travel/info/column";
+}
 }

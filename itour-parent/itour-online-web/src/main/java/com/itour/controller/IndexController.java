@@ -1,8 +1,6 @@
 package com.itour.controller;
 
 
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.TravelConnector;
-import com.itour.model.travel.dto.ViewTravelinfoOauth;
 
 
 
@@ -87,4 +83,5 @@ public ResponseMessage queryFavoriteList(@RequestBody JSONObject jsonObject,Http
 	ResponseMessage insertFavorite = this.travelConnector.queryFavoriteList(jsonObject, request);
 	return insertFavorite;
 }
+
 }

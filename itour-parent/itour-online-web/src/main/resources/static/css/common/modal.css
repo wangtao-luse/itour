@@ -421,7 +421,7 @@ input[type="checkbox"], input[type="radio"] {
 	right: 0;
 	left: 0;
 	bottom: 0;
-	z-index: 2;
+	z-index: 5000;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
