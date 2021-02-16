@@ -135,9 +135,12 @@ input[type="checkbox"], input[type="radio"] {
 }
 .weui-desktop-form__counter{
 	font-style: normal;
-	color: #9a9a9;
+	color: #9a9a9a;
 	vertical-align: middle;
 	font-size: 14px;
+}
+.weui-desktop-form__counter.error{
+	color:#fa5151;
 }
 .weui-desktop-form-tag__area .weui-desktop-form__counter{
 	position: relative;

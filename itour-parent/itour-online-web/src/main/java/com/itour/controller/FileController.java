@@ -18,10 +18,29 @@ import com.itour.util.FileUtil;
 @Controller
 @RequestMapping(value="/upload",produces = {"application/json;charset=UTF-8"})
 public class FileController {
+	/**
+	 * markdown图片上传实现
+	 * @param fileMultipartFile
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/multipartFileUpload")
     @ResponseBody
 public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file", required = true) MultipartFile fileMultipartFile,HttpServletRequest request) {
 	JSONObject fileUpload = MultipartFileUpload.fileUpload(fileMultipartFile);
+	return fileUpload;
+	
+}
+	/**
+	 * 单文件上传
+	 * @param file
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/fileUpload")
+    @ResponseBody
+public JSONObject fileUpload(MultipartFile file,HttpServletRequest request) {
+	JSONObject fileUpload = MultipartFileUpload.fileUpload(file);
 	return fileUpload;
 	
 }

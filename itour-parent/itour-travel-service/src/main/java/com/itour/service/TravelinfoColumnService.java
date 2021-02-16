@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2021-02-13
  */
 @Service
-public class TravelinfoColumnService extends ServiceImpl<TravelinfoColumnMapper, TravelinfoColumn> implements TravelinfoColumnService {
+public class TravelinfoColumnService extends ServiceImpl<TravelinfoColumnMapper, TravelinfoColumn>  {
 
 }

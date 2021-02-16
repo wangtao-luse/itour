@@ -34,6 +34,9 @@
 	margin-right: 8px;
 	color: rgba(0,0,0,0.75);
 }
+.article-title-wrp .suffix.error{
+	color:#fa5151;
+}
 /**title end**/
 /**文章设置开始**/
 .setttings-container{
@@ -184,7 +187,9 @@
     font-weight: 400;
     font-style: normal;
 }
-
+.frm_textarea_box.with_counter .frm_counter.error {
+    color: #fa5151;
+}
 
 /**原创声明**/
 .setting-group__switch{
@@ -340,7 +345,6 @@ input[type="checkbox"], input[type="radio"] {
     margin-top: -0.2em;
     background: url(../../img/common/up.png) no-repeat ;
     background-size:100% ;
-    background-clip: ;
 }
 .tool_bar__fold-btn.fold:before {
     -webkit-transform: rotate(-180deg);

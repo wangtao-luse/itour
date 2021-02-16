@@ -12,6 +12,7 @@ import com.itour.service.HistoryService;
 import com.itour.service.LocationService;
 import com.itour.service.NiceService;
 import com.itour.service.PageviewService;
+import com.itour.service.TagService;
 import com.itour.service.TransportationInfoService;
 import com.itour.service.TransportationTypeService;
 import com.itour.service.TravelColumnService;
@@ -48,6 +49,8 @@ public class TravelApiController implements TravelApi {
 	PageviewService pageviewService;
 	@Autowired
 	HistoryService historyService;
+	@Autowired
+	TagService tagService;
 	 /**
      * 旅游信息列表
      */
@@ -421,7 +424,7 @@ public class TravelApiController implements TravelApi {
 	 * 浏览记录列表新增
 	 */
 	@Override
-	public ResponseMessage insertHistory(RequestMessage requestMessage) {
+	public ResponseMessage insertHistory(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return historyService.insertHistory(requestMessage);
 	}
@@ -429,9 +432,29 @@ public class TravelApiController implements TravelApi {
 	 * 浏览记录清除
 	 */
 	@Override
-	public ResponseMessage clearHistory(RequestMessage requestMessage) {
+	public ResponseMessage clearHistory(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return historyService.clearHistory(requestMessage);
+	}
+	@Override
+	public ResponseMessage queryTravelTagList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return tagService.queryTravelTagList(requestMessage);
+	}
+	@Override
+	public ResponseMessage insertTravelTag(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return tagService.insertTravelTag(requestMessage);
+	}
+	@Override
+	public ResponseMessage updateTravelTag(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return tagService.updateTravelTag(requestMessage);
+	}
+	@Override
+	public ResponseMessage delTravelTag(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return tagService.delTravelTag(requestMessage);
 	}
 	
 	

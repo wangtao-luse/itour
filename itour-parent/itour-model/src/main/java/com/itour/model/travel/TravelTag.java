@@ -22,41 +22,41 @@ public class TravelTag extends Model<TravelTag> {
      * 编号(主键)
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 攻略编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     /**
      * 标签编号
      */
     @TableField("TAG_ID")
-    private Integer tagId;
+    private Long tagId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getTid() {
+    public Long getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(Long tid) {
         this.tid = tid;
     }
 
-    public Integer getTagId() {
+    public Long getTagId() {
         return tagId;
     }
 
-    public void setTagId(Integer tagId) {
+    public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 

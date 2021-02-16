@@ -17,6 +17,7 @@ import com.itour.constant.ConstantTravel;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
 import com.itour.persist.TravelInfoMapper;
+import com.itour.persist.TravelTagMapper;
 import com.itour.persist.WeekInfoMapper;
 
 /**
@@ -31,6 +32,8 @@ import com.itour.persist.WeekInfoMapper;
 public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>  {
 	@Autowired
 	WeekInfoMapper weekInfoMapper;
+	@Autowired
+	TravelTagMapper travelTagMapper;
 	/**
 	 * 旅行信息列表
 	 * @param requestMessage
@@ -161,6 +164,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 				entity.setWeekContent(jsonObject.getString("markdown"));
 				weekInfoMapper.insert(entity);
 			}
+			//3.插入标签
 			
 			
 		} catch (Exception e) {

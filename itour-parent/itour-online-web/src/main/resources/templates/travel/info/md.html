@@ -1,5 +1,6 @@
 @layout("/layout/template.html",{title:'爱旅行-写文章'}){
 		<link rel="stylesheet" href="${ctxPath}/md/css/editormd.min.css" />
+		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
 		<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
 		<script type="text/javascript" src="${ctxPath}/js/travel/info.js" ></script>
 		<style>
@@ -8,11 +9,11 @@
 		}
 		</style>
 	</head>
-	<body>
+	<body id="top0">
 	    <div id="tag-container"></div>
 	    <div id="column-container"></div>
-		<article>
-			<div class="article-container">
+		<article >
+			<div class="article-container" >
 				<!--标题-->
 				<div class="article-title-wrp">
 						<input class="article-title-text" type="text" placeholder="请输入标题"/>
@@ -34,7 +35,9 @@
 						<div class="select-cover__btn js_cover_btn_area">
 							<i class="icon-add_css"></i>
 							<span class="btn-text">选择封面</span>
-							<input type="file" class="input-fileUpload" />
+							<form id="form_upload" method="post"  enctype="multipart/form-data" >
+							<input type="file" name="file" class="input-fileUpload" onchange="upload_file()"/>
+							</form>							
 							<input type="hidden" id="input-fileUpload-path">
 						</div>
 					</div>
@@ -67,7 +70,7 @@
 		    	<div class="setting-group__title" id="article_type_setting">文章设置</div>
 		    	<div class="setting-group__content">
 		    		<div id="js_article_tags_area" class="setting-group__checkbox-item">
-		    			<label class="frm_checkbox_label">
+		    			<label class="frm_checkbox_label" return="false">
 		    				<input type="checkbox" class="frm_checkbox js_article_tags">
 		    				<i class="icon_checkbox"></i>
 		    				<div class="allow_click_opr js_article_tags_label">
@@ -78,7 +81,7 @@
 		    			</label>
 		    		</div>
 		    	    <div id="js_article_option_area" class="setting-group__checkbox-item">
-		    	    	<label class="frm_checkbox_label selected">
+		    	    	<label class="frm_checkbox_label">
 		    	    		<input type="checkbox" class="frm_checkbox" />
 		    	    		<i class="icon_checkbox js_option_checkbox_icon"></i>
 		    	    		<div class="allow_click_opr js_article_option_allow_click">
@@ -102,7 +105,7 @@
 								<span  class="fold_tips_value">0</span>
 							</span>
 							<span class="js_fold fold_tips fold_tips_scrolltop">
-								<a class="tool_bar__fold-btn">文章设置</a>
+								<a class="tool_bar__fold-btn ">回到顶部</a>
 							</span>
 						</div>
 						<span id="js_send" class="btn btn_input btn_default fr">

@@ -76,17 +76,22 @@ public class Lambda {
 		streamToMap();
 		//List<String> list1 = new ArrayList<String>();
 		//String.join(",", list1);
+		
 		//4.Stream 常见操作
 		commonStream();
 		
-		
-		
-		//3.List<JavaBean>中的某属性---->List<基本类型|包装类>
+		//5.List<JavaBean>中的某属性---->List<基本类型|包装类>
 		List<Integer> toList = ToList(list);
 		
+		//6.检查list集合中是否存在某个值
+				contains(list);
+				
 		/*
 		 * 跟多方式 https://www.it1352.com/999007.html
 		 */	}
+	private static void contains(List<Student> list) {
+		boolean present = list.stream().filter(t->t.getName().equals("张三")).findAny().isPresent();
+	}
 	/**
 	 * Stream转为Map
 	 */

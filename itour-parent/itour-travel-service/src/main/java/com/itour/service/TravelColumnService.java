@@ -1,5 +1,6 @@
 package com.itour.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -13,8 +14,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.TravelColumn;
 import com.itour.persist.TravelColumnMapper;
+import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -106,6 +109,7 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 	 * @param requestMessage
 	 * @return
 	 */
+	@Transactional
 	public ResponseMessage delTravelColumn(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
@@ -124,13 +128,35 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 	 * @param requestMessage
 	 * @return
 	 */
+	@Transactional
 	public ResponseMessage insertTravelColumn(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			TravelColumn travelColumn = jsonObject.toJavaObject(TravelColumn.class);
-			this.baseMapper.insert(travelColumn);
-		} catch (Exception e) {
+			String getuId = requestMessage.getBody().getuId();			
+			List<TravelColumn> javaList = jsonObject.getJSONArray("arr").toJavaList(TravelColumn.class);
+			List<TravelColumn>  reqList = new ArrayList<TravelColumn>();
+			QueryWrapper<TravelColumn> queryWrapper = new QueryWrapper<TravelColumn>();
+			queryWrapper.eq("UID", getuId);
+			List<TravelColumn> selectList = this.baseMapper.selectList(queryWrapper);
+			//设置属性且判重
+			javaList.stream().forEach(t->{
+				t.setUid(getuId);
+				t.setCreatedate(DateUtil.currentLongDate());
+				boolean present = selectList.stream().filter(p->p.getColumn().equals(t.getColumn())).findAny().isPresent();
+				if(!present) {
+					reqList.add(t);
+				}
+			});
+			if(null!=reqList && reqList.size()>0) {
+				this.saveBatch(reqList);
+			}
+			
+		} catch (BaseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseMessage.getFailed(e.getMessage());
+		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);

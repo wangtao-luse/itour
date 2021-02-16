@@ -27,9 +27,11 @@ $(function(){
 		if(fold){
 			 $(this).removeClass("fold");	
 			 $(this).text("回到顶部");
+			 $(this).attr("href","#article_setting_area");
 		}else{
 		  $(this).addClass("fold");	
 		  $(this).text("文章设置");
+		  $(this).attr("href","#top0");
 		}
 		
 	});

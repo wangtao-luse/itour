@@ -22,7 +22,7 @@ public class Tag extends Model<Tag> {
      * 编号(主键)
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 标签创建者
@@ -42,11 +42,11 @@ public class Tag extends Model<Tag> {
     @TableField("CREATEDATE")
     private Long createdate;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

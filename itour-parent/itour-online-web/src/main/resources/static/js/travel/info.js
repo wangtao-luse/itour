@@ -18,13 +18,31 @@
             }
       
 		});
+		$("#edit-md-area").keyup(function(){
+			var len =mdEditer.getMarkdown().length;
+			$("#bottom_main .fold_tips_value").text(len);
+		});
 	$("#js_send").click(function(){
 		var text = mdEditer.getHTML();
 		var title = $("#article-title-text").val();
 		var summary = $("#js_description").text();
 		var url = $("#input-fileUpload-path").val();
 		var articleType = $("#ori-setting").val();
-	    var data= {"markdown":text,"title":title,"summary":summary,"url":url,"articleType":articleType};
+        var tag_arr=[];
+		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
+		tags.each(function(i,item){
+			var tag ={};
+			    tag.tag=$(this).text();
+			    tag_arr.push(tag);
+		});
+		var col_arr=[];		
+		var cols = $("#column-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
+		cols.each(function(i,item){
+			var col ={};
+			    col.column=$(this).text();
+			    col_arr.push(col);
+		});
+	    var data= {"markdown":text,"title":title,"summary":summary,"url":url,"articleType":articleType,"tag_arr":tag_arr,"col_arr":col_arr};
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
         	
         }, {errorFunction:function(result){
@@ -32,19 +50,159 @@
         },cache: false, async: false,"contentType": "application/json; charset=utf-8"});
 
 	});
-	$("#js_article_tags_area .frm_checkbox_label").click(function(){
-		 var dxUrl = ctxPath+"/travel/tag";
+	$("#js_article_tags_area .frm_checkbox_label .icon_checkbox").click(function(){
+		var o =$("#js_article_tags_area .frm_checkbox_label");
+		var has =o.hasClass("selected");
+		 if(has){
+			 o.removeClass("selected");
+			 $("#js_article_tags_area .js_article_tags_content").text("最多可以指定三个标签");
+		 }else{
+			o.addClass("selected");
+			$("#js_article_tags_area .frm_checkbox_label .allow_click_opr").trigger("click");
+		 }
+	});
+	$("#js_article_tags_area .frm_checkbox_label .allow_click_opr").click(function(e){
+		 var dxUrl = ctxPath+"/travel/tag";		
 		    $("#tag-container").load(dxUrl, function () {
-		        $("#tag-container .dialog-wrapper").show();
+		    	var tags = $("#js_article_tags_area .js_article_tags_content").text();
+		    	var tobject =$("#tag-container .weui-desktop-form__check-label");
+		    	
+		    	if(tags&&tags.indexOf("最多可以指定三个标签")==-1){
+		    		
+		    		 var t_arr = tags.split(",");
+		    		 console.log(t_arr);
+		    		 for(var i = 0; i < t_arr.length; i++){
+		    			 //1.追加标签
+			    		  appendTag(t_arr[i]);
+			    		  //2.选择标签
+			    		  tobject.each(function(j){
+			    			  var v =$(this).find(".weui-desktop-form__check-content").text();
+			    			  console.log(typeof t_arr[i] + " t_arr[i] "+t_arr[i]+typeof v + " v "+v );
+				    			 if(t_arr[i]==v){
+				    				 $(this).find(".weui-desktop-form__checkbox").prop("checked","checked");
+				    			 }
+				    		 });
+			    		}
+		    		
+		    	}
+		    	
+		    	$("#tag-container .dialog-wrapper").show();  
 		    });
 	});
-	$("#js_article_option_area").click(function(){
+	//话题标签提交
+	$(document).on("click","#btn_tag_sub",function(){
+		var arr=[];		
+		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
+		tags.each(function(i,item){
+			var tag ={};
+			    tag.tag=$(this).text();
+			arr.push(tag);
+		});
+		var data={"arr":arr};
+		postAjax("/travel/inserTravelTag", JSON.stringify(data), function (result) {
+			var tag_arr=[];
+        	$("#tag-container .weui-desktop-form-tag__name").each(function(i){
+        		tag_arr[i]=$(this).text();
+        	});
+        	$("#js_article_tags_area .js_article_tags_content").text(tag_arr.join(","));
+        	$("#js_article_tags_area .frm_checkbox_label").addClass("selected");
+        	$(".weui-desktop-dialog__close-btn").trigger("click");
+        }, {errorFunction:function(result){
+        	alert(result.resultMessage);
+        },cache: false, async: false,"contentType": "application/json; charset=utf-8"});
+
+		
+	});
+	$("#js_article_option_area .frm_checkbox_label .icon_checkbox").click(function(){
+		var o =$("#js_article_option_area .frm_checkbox_label");
+		var has =o.hasClass("selected");
+		 if(has){
+			 o.removeClass("selected");
+			 $("#js_article_option_area .article_url_setting").text("最多可以设置三个分类专栏");
+		 }else{
+			o.addClass("selected");
+			$("#js_article_option_area .frm_checkbox_label .allow_click_opr").trigger("click");
+		 }
+	});
+	$("#js_article_option_area .frm_checkbox_label .allow_click_opr").click(function(e){
+		
 		var dxUrl = ctxPath+"/travel/column";
 		$("#column-container").load(dxUrl, function () {
+			var cols = $("#js_article_option_area .article_url_setting").text();
+	    	var tobject =$("#column-container .weui-desktop-form__check-label");
+	    	if(cols&&cols.indexOf("最多可以设置三个分类专栏")==-1){
+	    		 var c_arr = cols.split(",");
+	    		 console.log(c_arr);
+	    		 for(var i = 0; i < c_arr.length; i++){
+	    			 //1.追加标签
+		    		  appendTag(c_arr[i]);
+		    		  //2.选择标签
+		    		  tobject.each(function(j){
+		    			  var v =$(this).find(".weui-desktop-form__check-content").text();
+			    			 if(c_arr[i]==v){
+			    				 $(this).find(".weui-desktop-form__checkbox").prop("checked","checked");
+			    			 }
+			    		 });
+		    		}
+	    		
+	    	}
+	    	
 			$("#column-container .dialog-wrapper").show();
 		});
 	});
+	$(document).on("click","#btn-col-sub",function(){
+		var arr=[];		
+		var cols = $("#column-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
+		cols.each(function(i,item){
+			var col ={};
+			    col.column=$(this).text();
+			arr.push(col);
+		});
+		var data={"arr":arr};
+		postAjax("/travel/inserTravelCol", JSON.stringify(data), function (result) {
+			var col_arr=[];
+        	$("#column-container .weui-desktop-form-tag__name").each(function(i){
+        		col_arr[i]=$(this).text();
+        	});
+        	$("#js_article_option_area .article_url_setting").text(col_arr.join(","));
+        	$("#js_article_option_area .frm_checkbox_label").addClass("selected");
+        	$(".weui-desktop-dialog__close-btn").trigger("click");
+        }, {errorFunction:function(result){
+        	alert(result.resultMessage);
+        },cache: false, async: false,"contentType": "application/json; charset=utf-8"});
+	});
+	
+	$(".article-title-wrp .article-title-text").keyup(function(){
+		var len =$(this).val().length;
+		$(".article-title-wrp .suffix").text(len+"/100");
+		if(len>100){
+			$(".article-title-wrp .suffix").addClass("error");
+		}else{
+			$(".article-title-wrp .suffix").removeClass("error");
+		}
+		
+		
+	});
+	$("#js_description").keyup(function(){
+		var len =$(this).val().length;
+		$("#js_description_area .frm_counter").text(len+"/120");
+		if(len>120){
+			$("#js_description_area .frm_counter").addClass("error");
+		}else{
+			$("#js_description_area .frm_counter").removeClass("error");
+		}
+		
+	});
+	
+	$("#js_cover_area .input-fileUpload").change(function(){/*
+		postAjax("/upload/multipartFileUpload", JSON.stringify(data), function (result) {
+			alert(result.resultMessage);
+        }, {errorFunction:function(result){
+        	alert(result.resultMessage);
+        },cache: false, async: false,"contentType": "application/x-www-form-urlencoded"});
+	*/});
 });
+	
 function checkWeekTravel(){
 	var text = mdEditer.getHTML();
 	var title = $("#article-title-text").val();
@@ -55,4 +213,17 @@ function checkWeekTravel(){
 		return false;
 	}
 	return true;
+}
+
+function upload_file() {
+        $('#form_upload').ajaxSubmit({            
+            type: 'post',
+            url :ctxPath+"/upload/fileUpload",
+            success: function(data) {
+            	if(data.success=='1'){
+            		alert(data.message);
+            	}
+            }
+        });
+     return false; // 阻止表单自动提交事件
 }

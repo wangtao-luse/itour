@@ -225,6 +225,7 @@ public String detail() {
 	return "/travel/info/detail";
 }
 @RequestMapping("/insertweekTravel")
+@ResponseBody
 public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	String markdown = jsonObject.getString("markdown");
@@ -240,5 +241,19 @@ public String tag() {
 @RequestMapping("/column")
 public String column() {
 	return "/travel/info/column";
+}
+@RequestMapping("/inserTravelTag")
+@ResponseBody
+public ResponseMessage inserTravelTag(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage inserTravelTag = this.travelConnector.inserTravelTag(jsonObject, request);
+	return inserTravelTag;
+	
+}
+@RequestMapping("/inserTravelCol")
+@ResponseBody
+public ResponseMessage inserTravelCol(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage inserTravelTag = this.travelConnector.insertTravelColumn(jsonObject, request);
+	return inserTravelTag;
+	
 }
 }

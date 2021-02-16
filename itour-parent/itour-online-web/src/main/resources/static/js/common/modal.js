@@ -64,9 +64,38 @@ $(function(){
 	
 	$(document).on("keyup",".weui-desktop-form-tag__input",function(e){
 		var ev = document.all ? window.event : e;
+		//输入的标签
+    	var t=$(this).val();
+		$(".weui-desktop-form__counter").text(t.length+"/16");
+		if(t.length>16){
+    		$(".weui-desktop-form__counter").addClass("error");
+    		return;
+    	}else{
+    		$(".weui-desktop-form__counter").removeClass("error");
+    		
+    	}
 	    if(ev.keyCode==13) {
-	    	var t=$(this).val();
 	        appendTag(t);
+	        $(".article_tags_history .weui-desktop-form__checkbox").each(function(){
+	        	var txt = $(this).parent().find(".weui-desktop-form__check-content").text();
+	        	if(t==txt){
+	        		$(this).prop("checked","checked");
+	        		return;
+	        	}
+	        	
+	        });
+	        //禁用索引的checkbox
+	       var len = $(".weui-desktop-form-tag__wrp .weui-desktop-form-tag").length;
+	       if(len>=3){
+	    	   $(".article_tags_history .weui-desktop-form__checkbox").each(function(){
+	    		  var checked = $(this).is(":checked");
+	    		  if(!checked){
+	    			  $(this).prop("disabled","disabled");  
+	    		  }
+		        		
+		        	
+		        }); 
+	       }
 	    }
 	});
 	
@@ -89,7 +118,7 @@ $(function(){
 //追加话题标签
 function appendTag(t){
 	var tag ="<span class='weui-desktop-form-tag'><i class='weui-desktop-form-tag__name'>"+t+"</i><button type='button' class='weui-desktop-opr-btn weui-desktop-opr-btn_close'></button>	</span>";
-	$(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__input").before(tag);
+	$(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__input").before(tag).val("");
 }
 //关闭浮出层
 $(document).on("click",".weui-desktop-dialog__close-btn,.weui-desktop-btn.weui-desktop-btn_default",function(){

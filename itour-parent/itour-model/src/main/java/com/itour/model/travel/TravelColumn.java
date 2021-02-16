@@ -35,13 +35,13 @@ public class TravelColumn extends Model<TravelColumn> {
      * 用户ID
      */
     @TableField("UID")
-    private Integer uid;
+    private String uid;
 
     /**
      * 创建日期
      */
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
     /**创建日期***/
     @TableField(exist = false)
     private LongRange createdateRange;
@@ -70,19 +70,19 @@ public class TravelColumn extends Model<TravelColumn> {
         this.column = column;
     }
 
-    public Integer getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Integer uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 
