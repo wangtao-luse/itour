@@ -2,30 +2,32 @@ $(function(){
 	
 	//checkbox
 	$(document).on("click",".article_tags_history_bd .weui-desktop-form__checkbox",function(){
-	     var tags = $(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
-	     var disTags =$(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+		//已勾选
+	     var tags =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
+	     //未勾选
+	     var disTags =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
 	     //当前对象的标签
 	     var tagContent=$(this).parent().find(".weui-desktop-form__check-content").text();
 	     //只允许选择三个标签
 	     if(tags.length>=3){
 	     	disTags.prop("disabled","disabled");
-	     	$(".weui-desktop-form-tag__input").attr("placeholder","");
+	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","");
 	     }else{
 	     	disTags.prop("disabled","");
-	     	$(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
+	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
 	     }
 	     //确认按钮样式
 	     if(tags.length>=1){
-	     $(".weui-desktop-dialog__ft .weui-desktop-btn_primary.weui-desktop-btn_disabled").removeClass("weui-desktop-btn_disabled");	
+	    	 $(this).closest(".dialog-wrapper").find(".weui-desktop-dialog__ft .weui-desktop-btn_primary.weui-desktop-btn_disabled").removeClass("weui-desktop-btn_disabled");	
 	     }else{
-	     $(".weui-desktop-dialog__ft .weui-desktop-btn_primary").addClass("weui-desktop-btn_disabled");	
+	    	 $(this).closest(".dialog-wrapper").find(".weui-desktop-dialog__ft .weui-desktop-btn_primary").addClass("weui-desktop-btn_disabled");	
 	     }
 	     //追加标签
 	    var check= $(this).is(":checked");
 	    if(check){
 	    appendTag(tagContent);	
 	    }else{
-	    	var tagct = $(".weui-desktop-form-tag__wrp").find(".weui-desktop-form-tag__name");
+	    	var tagct =  $(this).closest(".dialog-wrapper .weui-desktop-form-tag__wrp").find(".weui-desktop-form-tag__name");
 	         $(tagct).each(function(){
 	         	var t = $(this).text();
 	         	if(t==tagContent){
@@ -41,9 +43,9 @@ $(function(){
 	
 	$(document).on("click",".weui-desktop-form-tag .weui-desktop-opr-btn_close",function(){
 		var name = $(this).parent().find(".weui-desktop-form-tag__name").text();
-		var check =$(".article_tags_history_bd .weui-desktop-form__check-content");
-		var tags = $(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
-		var disTags =$(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+		var check =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__check-content");
+		var tags = $(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
+		var disTags =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
 		//取消checkbox选择
 		$(check).each(function(){
 			var v =$(this).text();
@@ -54,10 +56,10 @@ $(function(){
 		//删除标签时检查checkbox状态
 		if(tags.length>3){
 	     	disTags.prop("disabled","disabled");
-	     	$(".weui-desktop-form-tag__input").attr("placeholder","");
+	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","");
 	     }else{
 	     	disTags.prop("disabled","");
-	     	$(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
+	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
 	     }
 		$(this).parent().remove();
 	});
@@ -66,17 +68,17 @@ $(function(){
 		var ev = document.all ? window.event : e;
 		//输入的标签
     	var t=$(this).val();
-		$(".weui-desktop-form__counter").text(t.length+"/16");
+    	$(this).closest(".dialog-wrapper").find(".weui-desktop-form__counter").text(t.length+"/16");
 		if(t.length>16){
-    		$(".weui-desktop-form__counter").addClass("error");
+			$(this).closest(".dialog-wrapper").find(".weui-desktop-form__counter").addClass("error");
     		return;
     	}else{
-    		$(".weui-desktop-form__counter").removeClass("error");
+    		$(this).closest(".dialog-wrapper").find(".weui-desktop-form__counter").removeClass("error");
     		
     	}
 	    if(ev.keyCode==13) {
 	        appendTag(t);
-	        $(".article_tags_history .weui-desktop-form__checkbox").each(function(){
+	        $(this).closest(".dialog-wrapper").find(".article_tags_history .weui-desktop-form__checkbox").each(function(){
 	        	var txt = $(this).parent().find(".weui-desktop-form__check-content").text();
 	        	if(t==txt){
 	        		$(this).prop("checked","checked");
@@ -85,7 +87,7 @@ $(function(){
 	        	
 	        });
 	        //禁用索引的checkbox
-	       var len = $(".weui-desktop-form-tag__wrp .weui-desktop-form-tag").length;
+	       var len = $(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__wrp .weui-desktop-form-tag").length;
 	       if(len>=3){
 	    	   $(".article_tags_history .weui-desktop-form__checkbox").each(function(){
 	    		  var checked = $(this).is(":checked");
