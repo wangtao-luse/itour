@@ -39,7 +39,7 @@ public class TagService extends ServiceImpl<TagMapper, Tag> {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {		
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			TravelInfo travelInfoVo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfo.class);
+			Tag tagVo = jsonObject.getJSONObject("vo").toJavaObject(Tag.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>();
 			queryWrapper.orderByDesc("CREATEDATE");

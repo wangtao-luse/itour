@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -235,7 +236,11 @@ public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpS
 	
 }
 @RequestMapping("/tag")
-public String tag() {
+public String tag(HttpServletRequest request,ModelMap model) {
+	JSONObject jsonObject = new JSONObject();
+	ResponseMessage queryTravelTagList = this.travelConnector.queryTravelTagList(jsonObject, request);
+	Map<String, Object> returnResult = queryTravelTagList.getReturnResult();
+	model.addAttribute("tagList", returnResult.get(Constant.COMMON_KEY_RESULT));
 	return "/travel/info/tag";
 }
 @RequestMapping("/column")

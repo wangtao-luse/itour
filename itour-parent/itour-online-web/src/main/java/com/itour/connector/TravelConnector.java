@@ -180,6 +180,18 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	/**
+	 * 旅行话题标签列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryTravelTagList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryTravelTagList(requestMessage);
+		return responseMessage;
+	}
+	/**
 	 * 旅行专栏新增
 	 * @param jsonObject
 	 * @param request
