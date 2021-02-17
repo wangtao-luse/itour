@@ -69,16 +69,16 @@
 	$("#js_article_tags_area .frm_checkbox_label .allow_click_opr").click(function(e){
 		 var dxUrl = ctxPath+"/travel/tag";		
 		    $("#tag-container").load(dxUrl, function () {
-		    	var tags = $("#js_article_tags_area .js_article_tags_content").text();
+		    	var tags_text = $("#js_article_tags_area .js_article_tags_content").text();
 		    	var tobject =$("#tag-container .weui-desktop-form__check-label");
 		    	
-		    	if(tags&&tags.indexOf("最多可以指定三个标签")==-1){
+		    	if(tags_text&&tags_text.indexOf("最多可以指定三个标签")==-1){
 		    		
-		    		 var t_arr = tags.split(",");
+		    		 var t_arr = tags_text.split(",");
 		    		 console.log(t_arr);
 		    		 for(var i = 0; i < t_arr.length; i++){
 		    			 //1.追加标签
-			    		  appendTag(t_arr[i]);
+			    		  appendTag(t_arr[i],$(this));
 			    		  //2.选择标签
 			    		  tobject.each(function(j){
 			    			  var v =$(this).find(".weui-desktop-form__check-content").text();
@@ -89,7 +89,7 @@
 				    		 });
 			    		}
 		    		 var tags = $("#tag-container .article_tags_history_bd .weui-desktop-form__checkbox:checked");
-		    		 var disTags =$("#tag-container .article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+			    	 var disTags =$("#tag-container .article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
 		    		 if(tags.length>=3){
 		    		     	disTags.prop("disabled","disabled");
 		    		     	$("#tag-container .weui-desktop-form-tag__input").attr("placeholder","");
@@ -99,7 +99,10 @@
 		    		     }
 		    		
 		    	}
-		    	
+		    	var disaled_btn =$("#tag-container .article_tags_history_bd .weui-desktop-form__checkbox:checked");
+		    	if(disaled_btn.length>0){
+		    	    $("#tag-container .weui-desktop-btn.weui-desktop-btn_primary").removeClass("weui-desktop-btn_disabled");
+		    	}
 		    	$("#tag-container .dialog-wrapper").show();  
 		    });
 	});
@@ -144,14 +147,14 @@
 		
 		var dxUrl = ctxPath+"/travel/column";
 		$("#column-container").load(dxUrl, function () {
-			var cols = $("#js_article_option_area .article_url_setting").text();
+			var cols_text = $("#js_article_option_area .article_url_setting").text();
 	    	var tobject =$("#column-container .weui-desktop-form__check-label");
-	    	if(cols&&cols.indexOf("最多可以设置三个分类专栏")==-1){
-	    		 var c_arr = cols.split(",");
+	    	if(cols_text&&cols_text.indexOf("最多可以设置三个分类专栏")==-1){
+	    		 var c_arr = cols_text.split(",");
 	    		 console.log(c_arr);
 	    		 for(var i = 0; i < c_arr.length; i++){
 	    			 //1.追加标签
-		    		  appendTag(c_arr[i]);
+		    		  appendTag(c_arr[i],$(this));
 		    		  //2.选择标签
 		    		  tobject.each(function(j){
 		    			  var v =$(this).find(".weui-desktop-form__check-content").text();
@@ -160,18 +163,21 @@
 			    			 }
 			    		 });
 		    		}
-	    		 var tags = $("#column-container .article_tags_history_bd .weui-desktop-form__checkbox:checked");
-	    		 var disTags =$("#column-container .article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
-	    		 if(tags.length>=3){
-	    		     	disTags.prop("disabled","disabled");
+	    		 var cols = $("#column-container .article_tags_history_bd .weui-desktop-form__checkbox:checked");
+	    		 var discols =$("#column-container .article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+	    		 if(cols.length>=3){
+	    			 discols.prop("disabled","disabled");
 	    		     	$("#column-container .weui-desktop-form-tag__input").attr("placeholder","");
 	    		     }else{
-	    		     	disTags.prop("disabled","");
+	    		    	 discols.prop("disabled","");
 	    		     	$("#column-container .weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
 	    		     }
 	    		
 	    	}
-	    	
+	    	var disabled_text= $("#column-container .article_tags_history_bd .weui-desktop-form__checkbox:checked");
+	    	if(disabled_text.length>0){
+	    		 $("#column-container .weui-desktop-btn.weui-desktop-btn_primary").removeClass("weui-desktop-btn_disabled");
+	    	}
 			$("#column-container .dialog-wrapper").show();
 		});
 	});

@@ -25,13 +25,13 @@ $(function(){
 	     //追加标签
 	    var check= $(this).is(":checked");
 	    if(check){
-	    appendTag(tagContent);	
-	    }else{
-	    	var tagct =  $(this).closest(".dialog-wrapper .weui-desktop-form-tag__wrp").find(".weui-desktop-form-tag__name");
+	    appendTag(tagContent,$(this));	
+	    }else{//取消选择
+	    	var tagct =  $(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__name");
 	         $(tagct).each(function(){
 	         	var t = $(this).text();
 	         	if(t==tagContent){
-	    		$(this).parent().remove();
+	    		 $(this).parent().remove();
 	    	}
 	         })
 	    	
@@ -77,7 +77,7 @@ $(function(){
     		
     	}
 	    if(ev.keyCode==13) {
-	        appendTag(t);
+	        appendTag(t,$(this));
 	        $(this).closest(".dialog-wrapper").find(".article_tags_history .weui-desktop-form__checkbox").each(function(){
 	        	var txt = $(this).parent().find(".weui-desktop-form__check-content").text();
 	        	if(t==txt){
@@ -118,9 +118,9 @@ $(function(){
 	
 });
 //追加话题标签
-function appendTag(t){
+function appendTag(t,$this){
 	var tag ="<span class='weui-desktop-form-tag'><i class='weui-desktop-form-tag__name'>"+t+"</i><button type='button' class='weui-desktop-opr-btn weui-desktop-opr-btn_close'></button>	</span>";
-	$(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__input").before(tag).val("");
+	$($this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__input").before(tag).val("");
 }
 //关闭浮出层
 $(document).on("click",".weui-desktop-dialog__close-btn,.weui-desktop-btn.weui-desktop-btn_default",function(){
