@@ -80,6 +80,7 @@ public static void testHttpPostData() {
 	String str = HttpClientUtil.httpPostData(url, entity);
 	
 }
+
 public static String httpPost(String uri,String jsonParam) {
 	HttpClient httpClient = null;
 	HttpPost httpPost=null;

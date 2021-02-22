@@ -49,7 +49,7 @@ public class HttpURLConnectionUtil {
 			//3.设置请求参数
 			//3.1设置请求方式
 			http.setRequestMethod("POST");
-			//3.2设定传送的内容类型
+			//3.2设定传送的内容类型			  
 			http.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 			//3.3设置是否从httpUrlConnection读入，默认情况下是true;
 			http.setDoInput(true);
