@@ -13,9 +13,12 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
+import com.itour.filter.CustomFormAuthenticationFilter;
 import com.itour.realm.LoginRealm;
 
 @Configuration
@@ -58,6 +61,8 @@ public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(S
     authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
     return authorizationAttributeSourceAdvisor;
 }
+
+
 	/**
 	 * shiro的过滤器
 	 * @param securityManager
@@ -66,6 +71,9 @@ public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(S
 @Bean("shiroFilter")
 public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();//获取filters
+		filters.put("authc", new CustomFormAuthenticationFilter());//将自定义 的FormAuthenticationFilter注入shiroFilter中  
+
 	    shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");// 未授权界面(没有权限);
 		// 登录成功后要跳转的链接
@@ -89,6 +97,16 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
+}
+@Bean
+//https://www.cnblogs.com/ginponson/p/6217057.html
+public FilterRegistrationBean delegatingFilterProxy(){
+  FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+  DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+  proxy.setTargetFilterLifecycle(true);
+  proxy.setTargetBeanName("shiroFilter");
+  filterRegistrationBean.setFilter(proxy);
+  return filterRegistrationBean;
 }
 
 

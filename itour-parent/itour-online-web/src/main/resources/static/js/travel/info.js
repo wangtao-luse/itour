@@ -47,7 +47,6 @@
 		});
 	    var data= {"markdown":text,"title":title,"summary":summary,"url":url,"articleType":articleType,"tag_arr":tag_arr,"col_arr":col_arr};
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
-        	
         }, {errorFunction:function(result){
         	
         },cache: false, async: false,"contentType": "application/json; charset=utf-8"});
@@ -238,7 +237,7 @@
 	
 function checkWeekTravel(){
 	var text = mdEditer.getHTML();
-	var title = $("#article-title-text").val();
+	var title = $(".article-title-text").val();
 	if($.isEmpty(text)){
 		return false;
 	}

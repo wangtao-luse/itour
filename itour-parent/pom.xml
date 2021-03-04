@@ -74,6 +74,7 @@
   	<!-- 在docker运行时要用的，只是一个前缀而已，就像包名一样,可自己任意定义此名称 -->
   	<docker.image.prefix>ben</docker.image.prefix> 
   	<org.redisson.version>3.14.1</org.redisson.version>
+  	<axis2.version>1.6.2</axis2.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -348,6 +349,33 @@
 				    <artifactId>commonmark-ext-heading-anchor</artifactId>
 				    <version>${commonmark.version}</version>
 				</dependency>
+				<!-- axis2 方式实现webservice -->
+				<dependency>
+		            <groupId>org.apache.axis2</groupId>
+		            <artifactId>axis2</artifactId>
+		            <version>${axis2.version}</version>
+		        </dependency>
+		        <dependency>
+		            <groupId>org.apache.axis2</groupId>
+		            <artifactId>axis2-adb</artifactId>
+		            <version>${axis2.version}</version>
+		        </dependency>
+		        <dependency>
+		            <groupId>org.apache.axis2</groupId>
+		            <artifactId>axis2-transport-http</artifactId>
+		            <version>${axis2.version}</version>
+		        </dependency>
+		        <dependency>
+		            <groupId>org.apache.axis2</groupId>
+		            <artifactId>axis2-transport-local</artifactId>
+		            <version>${axis2.version}</version>
+		        </dependency>
+		        <dependency>
+		            <groupId>org.apache.axis2</groupId>
+		            <artifactId>axis2-kernel</artifactId>
+		            <version>${axis2.version}</version>
+		        </dependency>
+				
 		</dependencies>
 		
 		

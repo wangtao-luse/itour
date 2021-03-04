@@ -23,7 +23,7 @@ public class ShiroFilterUtils {
      * @throws IOException
      */
     public static void out(ServletResponse servletResponse){
-        HttpServletResponse response = (HttpServletResponse) servletResponse;        
+        HttpServletResponse response = (HttpServletResponse) servletResponse;  
         response.setCharacterEncoding("UTF-8");
         //在响应头设置session状态
         response.setHeader("session-status", "timeout");

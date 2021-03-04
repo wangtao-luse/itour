@@ -54,41 +54,14 @@
 		 		    							<h4>历史专栏</h4>
 		 		    						</div>
 		 		    						<div class="article_tags_history_bd">
-		 		    							<label class="weui-desktop-form__check-label">
+		 		    						 @for(col in colList!){
+		 		    						 	<label class="weui-desktop-form__check-label">
 		 		    								<input type="checkbox" class="weui-desktop-form__checkbox" value="" />
 		 		    								<i class="weui-desktop-icon-checkbox"></i>
-		 		    								<span class="weui-desktop-form__check-content">上海旅行</span>
+		 		    								<span class="weui-desktop-form__check-content">${col.column!}</span>
 		 		    							</label>
-		 		    							<label class="weui-desktop-form__check-label">
-		 		    								<input type="checkbox" class="weui-desktop-form__checkbox" value="" />
-		 		    								<i class="weui-desktop-icon-checkbox"></i>
-		 		    								<span class="weui-desktop-form__check-content">广州旅行</span>
-		 		    							</label>
-		 		    							<label class="weui-desktop-form__check-label">
-		 		    								<input type="checkbox" class="weui-desktop-form__checkbox" value="" />
-		 		    								<i class="weui-desktop-icon-checkbox"></i>
-		 		    								<span class="weui-desktop-form__check-content">杭州旅行</span>
-		 		    							</label>
-		 		    							<label class="weui-desktop-form__check-label">
-		 		    								<input type="checkbox" class="weui-desktop-form__checkbox" value="" />
-		 		    								<i class="weui-desktop-icon-checkbox"></i>
-		 		    								<span class="weui-desktop-form__check-content">南京旅行</span>
-		 		    							</label>
-		 		    							<label class="weui-desktop-form__check-label">
-		 		    								<input type="checkbox" class="weui-desktop-form__checkbox" value="" />
-		 		    								<i class="weui-desktop-icon-checkbox"></i>
-		 		    								<span class="weui-desktop-form__check-content">云南旅行</span>
-		 		    							</label>
-		 		    							<label class="weui-desktop-form__check-label">
-		 		    								<input type="checkbox" class="weui-desktop-form__checkbox" value="" />
-		 		    								<i class="weui-desktop-icon-checkbox"></i>
-		 		    								<span class="weui-desktop-form__check-content">苏州旅行</span>
-		 		    							</label>
-		 		    							<label class="weui-desktop-form__check-label">
-		 		    								<input type="checkbox" class="weui-desktop-form__checkbox" value="" />
-		 		    								<i class="weui-desktop-icon-checkbox"></i>
-		 		    								<span class="weui-desktop-form__check-content">北京旅行</span>
-		 		    							</label>
+		 		    						 @}
+		 		    							
 		 		    						</div>
 		 		    					</div>
 		 		    				</div>

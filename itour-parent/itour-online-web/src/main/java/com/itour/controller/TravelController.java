@@ -1,6 +1,7 @@
 package com.itour.controller;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,8 @@ import com.itour.constant.RedisKey;
 import com.itour.model.travel.History;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.Pageview;
+import com.itour.model.travel.Tag;
+import com.itour.model.travel.TravelColumn;
 import com.itour.util.DateUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
@@ -238,13 +241,27 @@ public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpS
 @RequestMapping("/tag")
 public String tag(HttpServletRequest request,ModelMap model) {
 	JSONObject jsonObject = new JSONObject();
+	 Tag t = new Tag();
+	 AccountVo sessionUser = SessionUtil.getSessionUser();
+	 t.setUid(sessionUser.getuId());
+	 jsonObject.put("vo", t);
 	ResponseMessage queryTravelTagList = this.travelConnector.queryTravelTagList(jsonObject, request);
 	Map<String, Object> returnResult = queryTravelTagList.getReturnResult();
-	model.addAttribute("tagList", returnResult.get(Constant.COMMON_KEY_RESULT));
+	List<Tag> tagList =(List<Tag>)returnResult.get(Constant.COMMON_KEY_RESULT);
+	model.addAttribute("tagList",tagList );
 	return "/travel/info/tag";
 }
 @RequestMapping("/column")
-public String column() {
+public String column(HttpServletRequest request,ModelMap model) {
+	JSONObject jsonObject = new JSONObject();
+	TravelColumn c = new TravelColumn();
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	c.setUid(sessionUser.getuId());
+	jsonObject.put("vo", c);
+	ResponseMessage queryTravelColumnList = this.travelConnector.queryTravelColumnList(jsonObject, request);
+	Map<String, Object> returnResult = queryTravelColumnList.getReturnResult();
+	List<TravelColumn> colList = (List<TravelColumn>)returnResult.get(Constant.COMMON_KEY_RESULT);
+	model.addAttribute("colList", colList);
 	return "/travel/info/column";
 }
 @RequestMapping("/inserTravelTag")
@@ -258,6 +275,13 @@ public ResponseMessage inserTravelTag(@RequestBody JSONObject jsonObject,HttpSer
 @ResponseBody
 public ResponseMessage inserTravelCol(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage inserTravelTag = this.travelConnector.insertTravelColumn(jsonObject, request);
+	return inserTravelTag;
+	
+}
+@RequestMapping("/queryTravelColumnList")
+@ResponseBody
+public ResponseMessage queryTravelColumnList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage inserTravelTag = this.travelConnector.queryTravelColumnList(jsonObject, request);
 	return inserTravelTag;
 	
 }

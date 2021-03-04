@@ -203,5 +203,17 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.insertTravelColumn(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 旅行专栏列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryTravelColumnList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryTravelColumnList(requestMessage);
+		return responseMessage;
+	}
 	
 }

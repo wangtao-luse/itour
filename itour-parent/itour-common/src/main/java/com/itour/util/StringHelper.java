@@ -19,5 +19,7 @@ public static String getUuid() {
 	String randomUUID = UUID.randomUUID().toString().replace("-", "");
 	return randomUUID;
 }
-
+public static boolean isEmpty(Object obj) {
+	return obj==null||obj=="";
+}
 }

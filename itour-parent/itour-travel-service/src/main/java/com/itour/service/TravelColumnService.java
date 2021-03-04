@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ctc.wstx.util.StringUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
@@ -18,6 +19,9 @@ import com.itour.exception.BaseException;
 import com.itour.model.travel.TravelColumn;
 import com.itour.persist.TravelColumnMapper;
 import com.itour.util.DateUtil;
+import com.itour.util.StringHelper;
+
+import cn.hutool.core.util.StrUtil;
 
 /**
  * <p>
@@ -44,8 +48,12 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 			queryWrapper.likeRight(!StringUtils.isEmpty(travelColumnVo.getColumn()), "COLUMN", travelColumnVo.getColumn());
 			queryWrapper.eq(null!=travelColumnVo.getUid(), "UID", travelColumnVo.getUid());
 			//日期
-			queryWrapper.ge(null!=travelColumnVo.getCreatedateRange().getLowerLimit(), "CREATEDATE", travelColumnVo.getCreatedateRange().getLowerLimit());
-			queryWrapper.le(null!=travelColumnVo.getCreatedateRange().getUpperLimit(), "CREATEDATE", travelColumnVo.getCreatedateRange().getUpperLimit());
+			if(!StringHelper.isEmpty(travelColumnVo.getCreatedateRange())&&!StringHelper.isEmpty(travelColumnVo.getCreatedateRange().getLowerLimit())) {
+				queryWrapper.ge("CREATEDATE", travelColumnVo.getCreatedateRange().getLowerLimit());
+			}
+			if(!StringHelper.isEmpty(travelColumnVo.getCreatedateRange())&&!StringHelper.isEmpty(travelColumnVo.getCreatedateRange().getUpperLimit())) {
+				queryWrapper.le("CREATEDATE", travelColumnVo.getCreatedateRange().getUpperLimit());
+			}
 			queryWrapper.orderByDesc("ID");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
