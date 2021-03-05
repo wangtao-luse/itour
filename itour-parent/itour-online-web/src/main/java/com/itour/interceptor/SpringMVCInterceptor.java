@@ -44,11 +44,14 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 			request.setAttribute("redirectURL", redirectURL);
 			request.setAttribute("user", sessionUser);
 			Subject subject = SecurityUtils.getSubject();
-			boolean authenticated = subject.isAuthenticated();
-			boolean ajax = ShiroFilterUtils.isAjax(request);
-			if(authenticated&&ajax&&null==sessionUser) {//session失效
-				ShiroFilterUtils.out(response);
+			if(subject!=null) {
+				boolean authenticated = subject.isAuthenticated();
+				boolean ajax = ShiroFilterUtils.isAjax(request);
+				if(authenticated&&ajax&&null==sessionUser) {//session失效
+					ShiroFilterUtils.out(response);
+				}
 			}
+			
 			
 			//判断当前的请求地址是否需要记录日志
 			String servletPath=request.getServletPath();

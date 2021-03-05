@@ -267,6 +267,7 @@ public String column(HttpServletRequest request,ModelMap model) {
 @RequestMapping("/inserTravelTag")
 @ResponseBody
 public ResponseMessage inserTravelTag(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	System.out.println(jsonObject);
 	ResponseMessage inserTravelTag = this.travelConnector.inserTravelTag(jsonObject, request);
 	return inserTravelTag;
 	
