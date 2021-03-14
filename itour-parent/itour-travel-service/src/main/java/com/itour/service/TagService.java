@@ -3,6 +3,7 @@ package com.itour.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +43,7 @@ public class TagService extends ServiceImpl<TagMapper, Tag> {
 			Tag tagVo = jsonObject.getJSONObject("vo").toJavaObject(Tag.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>();
+			queryWrapper.eq(!StringUtils.isEmpty(tagVo.getUid()), "UID", tagVo.getUid());
 			queryWrapper.orderByDesc("CREATEDATE");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);

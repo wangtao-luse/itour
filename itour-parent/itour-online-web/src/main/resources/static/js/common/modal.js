@@ -46,6 +46,12 @@ $(function(){
 		var check =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__check-content");
 		var tags = $(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
 		var disTags =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+		var btn_tag = $(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__wrp .weui-desktop-form-tag").length;
+		if(btn_tag>1){
+			$(this).closest(".dialog-wrapper").find(".weui-desktop-btn.weui-desktop-btn_primary").removeClass("weui-desktop-btn_disabled");	
+		}else{
+			$(this).closest(".dialog-wrapper").find(".weui-desktop-btn.weui-desktop-btn_primary").addClass("weui-desktop-btn_disabled");	
+		}
 		//取消checkbox选择
 		$(check).each(function(){
 			var v =$(this).text();
@@ -62,6 +68,10 @@ $(function(){
 	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
 	     }
 		$(this).parent().remove();
+		
+		
+		
+		
 	});
 	
 	$(document).on("keyup",".weui-desktop-form-tag__input",function(e){
@@ -78,6 +88,7 @@ $(function(){
     	}
 	    if(ev.keyCode==13) {
 	        appendTag(t,$(this));
+	        
 	        $(this).closest(".dialog-wrapper").find(".article_tags_history .weui-desktop-form__checkbox").each(function(){
 	        	var txt = $(this).parent().find(".weui-desktop-form__check-content").text();
 	        	if(t==txt){
@@ -121,6 +132,8 @@ $(function(){
 function appendTag(t,$this){
 	var tag ="<span class='weui-desktop-form-tag'><i class='weui-desktop-form-tag__name'>"+t+"</i><button type='button' class='weui-desktop-opr-btn weui-desktop-opr-btn_close'></button>	</span>";
 	$($this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__input").before(tag).val("");
+	$($this).closest(".dialog-wrapper").find(".weui-desktop-btn.weui-desktop-btn_primary").removeClass("weui-desktop-btn_disabled");
+	$($this).closest(".dialog-wrapper").find(".weui-desktop-form__counter").text("0/16");
 }
 //关闭浮出层
 $(document).on("click",".weui-desktop-dialog__close-btn,.weui-desktop-btn.weui-desktop-btn_default",function(){
