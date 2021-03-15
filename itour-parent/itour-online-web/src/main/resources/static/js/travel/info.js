@@ -34,16 +34,14 @@
         var tag_arr=[];
 		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
 		tags.each(function(i,item){
-			var tag ={};
-			    tag.tag=$(this).text();
-			    tag_arr.push(tag);
+			    var v = $(this).text();
+			    tag_arr.push(v);
 		});
 		var col_arr=[];		
 		var cols = $("#column-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
 		cols.each(function(i,item){
-			var col ={};
-			    col.column=$(this).text();
-			    col_arr.push(col);
+			    var c = $(this).text();
+			    col_arr.push(c);
 		});
 	    var data= {"markdown":text,"title":title,"summary":summary,"url":url,"articleType":articleType,"tag_arr":tag_arr,"col_arr":col_arr};
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
@@ -233,6 +231,17 @@
         	alert(result.resultMessage);
         },cache: false, async: false,"contentType": "application/x-www-form-urlencoded"});
 	*/});
+	$("#js_original").on("click",".weui-desktop-switch__input",function(){
+		var c = $(".weui-desktop-switch__input").is(":checked");
+		if(c){
+			$("#ori-setting").val("1");
+			$(this).parent().next("div").text("原创");
+		}else{
+			$("#ori-setting").val("2");
+			$(this).parent().next("div").text("未声明原创");
+		}
+		
+	})
 });
 	
 function checkWeekTravel(){
