@@ -166,7 +166,7 @@
 	    		 var discols =$("#column-container .article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
 	    		 if(cols.length>=3){
 	    			 discols.prop("disabled","disabled");
-	    		     	$("#column-container .weui-desktop-form-tag__input").attr("placeholder","");
+	    		     	$("#column-container .").attr("placeholder","");
 	    		     }else{
 	    		    	 discols.prop("disabled","");
 	    		     	$("#column-container .weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");

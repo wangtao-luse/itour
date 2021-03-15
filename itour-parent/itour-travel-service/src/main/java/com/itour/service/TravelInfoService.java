@@ -1,11 +1,14 @@
 package com.itour.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,8 +17,12 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
+import com.itour.model.travel.Tag;
+import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
+import com.itour.persist.TagMapper;
+import com.itour.persist.TravelColumnMapper;
 import com.itour.persist.TravelInfoMapper;
 import com.itour.persist.TravelTagMapper;
 import com.itour.persist.WeekInfoMapper;
@@ -34,6 +41,14 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 	WeekInfoMapper weekInfoMapper;
 	@Autowired
 	TravelTagMapper travelTagMapper;
+	@Autowired
+	TagMapper tagMapper;
+	@Autowired
+	TagService tagService;
+	@Autowired
+	TravelColumnMapper travelColumnMapper;
+	@Autowired
+	TravelColumnService travelColumnService;
 	/**
 	 * 旅行信息列表
 	 * @param requestMessage
@@ -151,12 +166,12 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		try {
 			//获取参数
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			String type = jsonObject.getString(ConstantTravel.TRAVEL_INFO_WEEK);
 			String travel_type = jsonObject.getString(ConstantTravel.TRAVEL_INFO_TYPE);
+			JSONArray tagArr = jsonObject.getJSONArray("tag_arr");
+			JSONArray colArr = jsonObject.getJSONArray("col_arr");
 			//1.插入旅行旅行信息表
 			TravelInfo travelInfo = jsonObject.toJavaObject(TravelInfo.class);
 			this.baseMapper.insert(travelInfo);
-			
 			//2.插入周末旅行信息表
 			if(ConstantTravel.TRAVEL_INFO_WEEK.equals(travel_type)) {
 				WeekInfo entity = new WeekInfo();
@@ -164,8 +179,9 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 				entity.setWeekContent(jsonObject.getString("markdown"));
 				weekInfoMapper.insert(entity);
 			}
-			//3.插入标签
+			//3.插入标签中间表
 			
+			//4.插入分类专栏表中间表
 			
 		} catch (Exception e) {
 			// TODO: handle exception
