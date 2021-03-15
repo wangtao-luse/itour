@@ -22,7 +22,7 @@ public class TravelInfo extends Model<TravelInfo> {
      * 编号(主键)
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 标题
@@ -100,7 +100,7 @@ public class TravelInfo extends Model<TravelInfo> {
      * 发布时间
      */
     @TableField("PUBLISHTIME")
-    private Integer publishtime;
+    private Long publishtime;
 
     /**
      * 最后发布时间
@@ -108,11 +108,11 @@ public class TravelInfo extends Model<TravelInfo> {
     @TableField("UPDATETIME")
     private Integer updatetime;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -212,11 +212,11 @@ public class TravelInfo extends Model<TravelInfo> {
         this.pv = pv;
     }
 
-    public Integer getPublishtime() {
+    public Long getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(Integer publishtime) {
+    public void setPublishtime(Long publishtime) {
         this.publishtime = publishtime;
     }
 

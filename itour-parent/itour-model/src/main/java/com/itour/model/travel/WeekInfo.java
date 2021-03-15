@@ -34,7 +34,7 @@ public class WeekInfo extends Model<WeekInfo> {
      * 文章编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class WeekInfo extends Model<WeekInfo> {
         this.weekContent = weekContent;
     }
 
-    public Integer getTid() {
+    public Long getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(Long tid) {
         this.tid = tid;
     }
 

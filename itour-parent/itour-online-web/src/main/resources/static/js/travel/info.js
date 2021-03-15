@@ -27,8 +27,8 @@
 	//保存草稿
 	$("#js_send").click(function(){
 		var text = mdEditer.getHTML();
-		var title = $("#article-title-text").val();
-		var summary = $("#js_description").text();
+		var title = $(".article-title-text").val();
+		var summary = $("#js_description").val();
 		var url = $("#input-fileUpload-path").val();
 		var articleType = $("#ori-setting").val();
         var tag_arr=[];
