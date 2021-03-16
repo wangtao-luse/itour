@@ -23,7 +23,7 @@ public class TravelColumn extends Model<TravelColumn> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 专栏名称
@@ -54,11 +54,11 @@ public class TravelColumn extends Model<TravelColumn> {
 		this.createdateRange = createdateRange;
 	}
 
-	public Integer getId() {
+	public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -232,7 +232,9 @@ public String detail() {
 @RequestMapping("/insertweekTravel")
 @ResponseBody
 public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	jsonObject.put(ConstantTravel.TRAVEL_INFO_TYPE, "1");
+	jsonObject.put("type", "1");
+	 AccountVo sessionUser = SessionUtil.getSessionUser();
+	 jsonObject.put("uid", sessionUser.getuId());
 	String markdown = jsonObject.getString("markdown");
 	String markdownToHtml = MarkdownUtils.markdownToHtml(markdown);
 	System.out.println(markdownToHtml);

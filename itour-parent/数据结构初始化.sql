@@ -10,7 +10,7 @@ USE ITOUR;
 #-新增字段语法
  	#-ALTER TABLE 表名  ADD COLUMN 字段名 数据类型 DEFAULT '默认值' COMMENT '注释';
 #-删除字段
-	#-alter table user DROP COLUMN 列名;
+	#-alter table 表名 DROP COLUMN 列名;
 #-修改字段
    #1.修改字段的数据类型
       #-alter table 表名 MODIFY 字段名 数据类型;
@@ -167,15 +167,14 @@ SUMMARY	VARCHAR(128) COMMENT'简介',
 URL    	VARCHAR(300) COMMENT'简介图片视频地址',
 TYPE	VARCHAR(2) COMMENT'类型(1:旅行攻略;2.周末攻略;3.景点介绍;4.vlog;5.广告)',
 ARTICLE_TYPE VARCHAR(2) COMMENT'文章类型（1：原创;2:非原创）',
-COLUMN_ID	INT	COMMENT'所属专栏编号',
 UID VARCHAR(10) COMMENT'用户唯一号',
 `CODE`	VARCHAR(18) COMMENT'城市代码',	
 READ_COUNT INT DEFAULT '0' COMMENT '阅读数',
 COMMENT_COUNT INT DEFAULT '0' COMMENT '评论数',
 NICE_COUNT INT DEFAULT '0' COMMENT'点赞数',
 PV INT DEFAULT '0' COMMENT'浏览量',
-PUBLISHTIME INT COMMENT'发布时间',	
-UPDATETIME	INT COMMENT'最后发布时间'	
+PUBLISHTIME BIGINT COMMENT'发布时间',	
+UPDATETIME	BIGINT COMMENT'最后发布时间'	
 );
 
 ALTER TABLE T_T_TRAVEL_INFO COMMENT '旅行信息表';
