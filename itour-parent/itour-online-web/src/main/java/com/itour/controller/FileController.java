@@ -77,7 +77,7 @@ public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file
 			String fileName = UUID.randomUUID().toString().replaceAll("-", "")+suffix;
 			// 文件访问路径
 			// http://localhost:9093/itour/upload/189ec6990e554471b15631816d371066.JPG
-			String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1)
+			String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/"))
 					+ getPath() + File.separator + fileName;
 			//文件保存的路径
 			String savePath = uploadFileLocation + File.separator + getPath();

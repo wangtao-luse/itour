@@ -260,10 +260,11 @@ function upload_file() {
         $('#form_upload').ajaxSubmit({            
             type: 'post',
             url :ctxPath+"/upload/fileUpload",
+            dataType:"json",
             success: function(data) {
-            	if(data.success=='1'){
-            		alert(data.message);
-            	}
+            	var path = data.returnResult.result;
+            	$("#input-fileUpload-path").val(path);
+            	$("#js_cover_area .select-cover__preview").css("background-image","url("+path.replace(/\\/g,"/")+")").css("display","block");
             }
         });
      return false; // 阻止表单自动提交事件

@@ -7,6 +7,78 @@
 		#footer{
 			display: none;
 		}
+		.select-cover__loading__mask {
+		    z-index: 2;
+		    visibility: hidden;
+		    position: absolute;
+		    left: 0;
+		    right: 0;
+		    top: 0;
+		    bottom: 0;
+		    display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    -webkit-box-pack: center;
+		    -webkit-justify-content: center;
+		    justify-content: center;
+		    -webkit-box-align: center;
+		    -webkit-align-items: center;
+		    align-items: center;
+		    background-color: rgba(0,0,0,0.2);
+		    -webkit-transition: all .1s;
+		    transition: all .1s;
+		}
+		.weui-desktop-loading {
+	    display: inline-block;
+	    vertical-align: middle;
+	    width: 32px;
+	    height: 32px;
+	    font-size: 0;
+	    color: transparent;
+	    background: transparent url(data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient x1='94.087%25' y1='0%25' x2='94.087%25' y2='90.559%25' id='a'%3E%3Cstop stop-color='%23606060' stop-opacity='0' offset='0%25'/%3E%3Cstop stop-color='%23606060' stop-opacity='.3' offset='100%25'/%3E%3C/linearGradient%3E%3ClinearGradient x1='100%25' y1='8.674%25' y2='90.629%25' id='b'%3E%3Cstop stop-color='%23606060' offset='0%25'/%3E%3Cstop stop-color='%23606060' stop-opacity='.3' offset='100%25'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' fill-rule='evenodd' opacity='.9'%3E%3Cpath d='M40 0c22.091 0 40 17.909 40 40S62.091 80 40 80v-7c18.225 0 33-14.775 33-33S58.225 7 40 7V0z' fill='url(%23a)'/%3E%3Cpath d='M40 0v7C21.775 7 7 21.775 7 40s14.775 33 33 33v7C17.909 80 0 62.091 0 40S17.909 0 40 0z' fill='url(%23b)'/%3E%3Ccircle fill='%23606060' cx='40.5' cy='3.5' r='3.5'/%3E%3C/g%3E%3C/svg%3E) no-repeat 0 0;
+	    animation: weuiDesktopLoading 1s linear infinite;
+	    background-size: 100%;
+	}
+	.select-cover__loading__mask .select-cover__loading {
+	    width: 20px;
+	    height: 20px;
+	}
+	.select-cover__preview {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 1;
+}
+.cover__preview__mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.2);
+    text-align: center;
+    padding-top: 30px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .1s;
+    transition: all .1s;
+}
+.icon20_common {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 100px;
+    overflow: hidden;
+}
+.icon20_common.edit_media_white {
+    background: url(${ctxPath}/img/common/media_cps_z49d030.png) 0 -1933px no-repeat;
+}
 		</style>
 	</head>
 	<body id="top0">
@@ -38,8 +110,18 @@
 							<form id="form_upload" method="post"  enctype="multipart/form-data" >
 							<input type="file" name="file" class="input-fileUpload" onchange="upload_file()"/>
 							</form>							
-							<input type="hidden" id="input-fileUpload-path">
 						</div>
+						 <!-- 封面加载之前的loading状态 -->
+						<div class="select-cover__loading__mask js_cover_loading">
+                          <i class="select-cover__loading weui-desktop-loading"></i>
+                        </div>
+                        <!-- 默认隐藏,选择图片后显示 -->
+                        <div class="select-cover__preview js_cover_preview first_appmsg_cover" style="display: none;">
+                        	<div class="select-cover__preview__mask js_cover_btn_area">
+                                <a href="javascript:;" class="icon20_common edit_media_white js_modifyCover" onclick="return false;">修改</a>
+                            </div>
+                            <input type="hidden" id="input-fileUpload-path">
+                        </div>
 					</div>
 					<div id="js_description_area" class="setting-group__abstract js_desc_area">
 						<span class="frm_textarea_box with_counter counter_in append count">
