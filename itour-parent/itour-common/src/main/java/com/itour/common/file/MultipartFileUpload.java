@@ -7,9 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.common.vo.AccountVo;
+import com.itour.util.SessionUtil;
 
 import cn.hutool.core.lang.UUID;
 
@@ -19,20 +22,26 @@ public static void main(String[] args) {
 	//2.管理文件
 	//3.上传图片
 }
+@Value("${fileupload.path}") static String pathname;
 public static JSONObject fileUpload(MultipartFile file)  {
 	JSONObject res = new JSONObject();
 	try {
+		
 		//1.设置上传路径
-		String pathname="D:\\temp\\upload";
+		//为每个用户分配一个文件夹
+		AccountVo sessionUser = SessionUtil.getSessionUser();
+		if(null!=sessionUser) {
+			pathname+=File.separator+sessionUser.getuId();
+		}else {
+			pathname+=File.separator+"public";
+		}
 		//2.文件夹按年份创建
 		Calendar instance = Calendar.getInstance();
 		int y=instance.get(Calendar.YEAR);
 		String year = "y"+y;
-		System.out.println(year);	
 		DateFormat df = new SimpleDateFormat("MMM",Locale.ENGLISH);
 		String month = df.format(new Date());
-	    System.out.println(month);
-	    String path = pathname+File.separator+year+File.separator+month;
+		String path = pathname+File.separator+year+File.separator+month;
 	    File realPath = new File(path);    
 	    boolean exists = realPath.exists();
 	    if(!exists) {
@@ -55,4 +64,5 @@ public static JSONObject fileUpload(MultipartFile file)  {
 	return res;
 	
 }
+
 }

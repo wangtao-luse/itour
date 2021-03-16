@@ -458,6 +458,8 @@
                 <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
                 <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+                <!-- 文件上传相关 -->
+                <fileupload.path>D:\\temp\\upload\\</fileupload.path>
             </properties>
         </profile>
         <!--测试环境-->
@@ -517,6 +519,8 @@
                 <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
                 <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+                 <!-- 文件上传相关 -->
+                <fileupload.path>D:\\temp\\upload\\</fileupload.path>
             </properties>
         </profile>
          <!--模拟生产环境-->
@@ -576,6 +580,8 @@
                 <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
                 <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+                 <!-- 文件上传相关 -->
+                <fileupload.path>D:\\temp\\upload\\</fileupload.path>
             </properties>
         </profile>
         <!--生产环境 -->
@@ -634,6 +640,8 @@
                 <baidu.api.requestUrl>https://aip.baidubce.com</baidu.api.requestUrl>
                 <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
+                 <!-- 文件上传相关 -->
+                <fileupload.path>D:\\temp\\upload\\</fileupload.path>
             </properties>
         </profile>
     </profiles>

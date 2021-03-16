@@ -1,9 +1,11 @@
 package com.itour.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +20,11 @@ import com.itour.util.FileUtil;
 @Controller
 @RequestMapping(value="/upload",produces = {"application/json;charset=UTF-8"})
 public class FileController {
+	@Value("${upload.resourceHandler}")
+    private String resourceHandler;//请求 url 中的资源映射，不推荐写死在代码中，最好提供可配置，如 /uploadFiles/**
+ 
+    @Value("${upload.location}")
+    private String uploadFileLocation;//上传文件保存的本地目录，使用@Value获取全局配置文件中配置的属性值，如 E:/wmx/uploadFiles/	
 	/**
 	 * markdown图片上传实现
 	 * @param fileMultipartFile
@@ -36,12 +43,26 @@ public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file
 	 * @param file
 	 * @param request
 	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("/fileUpload")
     @ResponseBody
-public JSONObject fileUpload(MultipartFile file,HttpServletRequest request) {
-	JSONObject fileUpload = MultipartFileUpload.fileUpload(file);
-	return fileUpload;
+public String fileUpload(MultipartFile file,HttpServletRequest request) throws IllegalStateException, IOException {
+		//https://www.cnblogs.com/zhaoyan001/p/10953711.html
+		  String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+	        String fileName = file.getOriginalFilename();
+	        String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1) + fileName;
+	        File realPath = new File(uploadFileLocation);
+	        boolean exists = realPath.exists();
+		    if(!exists) {
+		    	realPath.mkdirs();
+		    }
+	        File saveFile = new File(uploadFileLocation, fileName);
+	        file.transferTo(saveFile);
+	        String absolutePath = saveFile.getAbsolutePath();
+	    JSONObject fileUpload = MultipartFileUpload.fileUpload(file);
+	return "<a href='" + fileServerPath + "'>" + fileServerPath + "</a>";
 	
 }
 	
