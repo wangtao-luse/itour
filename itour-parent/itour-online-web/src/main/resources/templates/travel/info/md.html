@@ -102,31 +102,141 @@
 		    opacity: 1;
 		    visibility: visible;
 		}
-		/* 
-	
-
-
-
-
-.setting-group__cover {
-    position: relative;
-}
-.setting-group__cover {
-    float: left;
-    margin-right: 10px;
-}
- */
+		
+		
+		
+		
+		.page_msg.with_closed {
+		    position: relative;
+		}
+		.page_msg .inner {
+		    position: relative;
+		    *zoom: 1;
+		    background-color: #e0eaf6;
+		}
+		.page_msg.mini .inner {
+		    padding: 9px 20px;
+		}
+		.page_appmsg_new .page_msg.mini .inner {
+		    padding-right: 32px;
+		}
+		.page_msg .msg_icon_wrp, .page_msg .msg_icon_wrapper {
+		    float: left;
+		    margin-right: 10px;
+		    font-size: 0;
+		}
+		.page_msg.mini .msg_icon_wrp {
+		    margin-top: 4px;
+		    margin-right: 6px;
+		}
+		.icon_msg_mini {
+		    width: 16px;
+		    height: 16px;
+		    vertical-align: middle;
+		    display: inline-block;
+		}
+		.icon_msg_mini.info {
+		    background: url(${ctxPath}/img/common/base_z49d030.png) 0 -876px no-repeat;
+		}
+		.page_msg .msg_content {
+		    overflow: hidden;
+		    *zoom: 1;
+		    padding-top: 5px;
+		}
+		.page_msg .msg_content {
+		    padding-top: 0;
+		}
+		.page_msg.mini .msg_content {
+		    padding-top: 0;
+		}
+		.page_msg p {
+		    font-size: 14px;
+		    color: #9a9a9a;
+		}
+		.page_msg.mini p {
+		    color: #353535;
+		}
+		.page_msg .msg_closed {
+		    position: absolute;
+		    right: 20px;
+		    top: 50%;
+		    margin-top: -5px;
+		    line-height: 300px;
+		    overflow: hidden;
+		    cursor: pointer;
+		    background: url(${ctxPath}/img/common/base_z49d030.png) 0 -2110px no-repeat;
+		    width: 10px;
+		    height: 10px;
+		    vertical-align: middle;
+		    display: inline-block;
+		}
+		.tool_area_pannel {
+		    position: fixed;
+		    bottom: 0;
+		    z-index: 2;
+		    background-color: #fff;
+		    border-top: 1px solid #d9dadc;
+		    z-index: 118;
+		    border-top-width: 0;
+		    box-shadow: 0 -1px 4px 0 rgba(0,0,0,0.05);
+		}
+		.page_tips {
+		    position: fixed;
+		    bottom: 67px;
+		    left: 0;
+		    text-align: center;
+		    width: 100%;
+		    z-index: 10000;
+		}
+		.tool_area_wrp .page_tips {
+		    position: absolute;
+		    top: -30px;
+		    left: 0;
+		    right: 0;
+		    margin-left: 0;
+		}
+		.page_tips .inner {
+		    display: inline-block;
+		    *display: inline;
+		    *zoom: 1;
+		    min-width: 280px;
+		    padding: 5px 30px;
+		    color: #fff;
+		}
+		.page_tips.success .inner {
+		    background-color: #0088FF;
+		}
+		.tool_area_wrp .page_tips .inner {
+		    width: 100%;
+		    padding-left: 0;
+		    padding-right: 0;
+		}
 		</style>
 	</head>
 	<body id="top0">
+	    
 	    <div id="tag-container"></div>
 	    <div id="column-container"></div>
 		<article >
 			<div class="article-container" >
+				
 				<!--标题-->
 				<div class="article-title-wrp">
 						<input class="article-title-text" type="text" placeholder="请输入标题"/>
 						<span class="suffix">0/100</span>
+				</div>
+				<div id="js_editor_area" class="js_editor_area editor_area edui-default" style="display: none">
+				   <div class="page_msg mini with_closed js_content_error js_error_msg edui-default">
+				      <div class="inner edui-default">
+				           <span class="msg_icon_wrp edui-default">
+				             <i class="icon_msg_mini info edui-default"></i>
+				           </span>
+				           <div class="msg_content edui-default">
+				              <p class="js_msg_content edui-default">请先输入一段正文（或者标题），再点击保存、预览、保存为草稿按钮。</p>		             
+				           </div>
+				      </div>
+				      <span class="msg_closed js_msg_close edui-default">关闭</span>
+				   </div>
 				</div>
 				<!--编辑器-->
 				<div  class="edit-mod-container">
@@ -214,6 +324,14 @@
 		    </div>
 		
 		</div>
+		<div id="editor_pannel" class="appmsg_input_area">
+		  <div class="tool_area_pannel">
+		  <div id="js_save_success" class="page_tips success" style="display:none;">
+		    <div class="inner">保存成功，可在创作管理-图文素材中查看</div>
+		  </div>
+		</div>	
+		</div>
+		
 		<div class="tool-bar-wrapper">
 			<div id="bottom_main" class="tool_area_wrp">
 				<div class="js_bot_bar tool_area">
@@ -240,5 +358,5 @@
 				</div>
 			</div>
 		</div>
-		
+	
 @}

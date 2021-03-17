@@ -43,8 +43,23 @@
 			    var c = $(this).text();
 			    col_arr.push(c);
 		});
+		if($.isEmpty(title)||$.isEmpty(text)){
+			$("#js_editor_area").css("display","block");
+			$(document).scrollTop(0);
+			return;
+		}
+		if($.isEmpty(url)){
+			var target = $("#js_cover_description_area").offset().top;
+			$(document).scrollTop(target);
+			$("#js_cover_description_area .js_error_msg").css("display","block").text("必须上传一张图片");
+			return;
+		}
 	    var data= {"markdown":text,"title":title,"summary":summary,"url":url,"articleType":articleType,"tag_arr":tag_arr,"col_arr":col_arr};
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
+	    	$("#js_save_success").css("display","block");
+	    	setTimeout(function(){
+	    		$("#js_save_success").css("display","none");
+	    	},3000);
         }, {errorFunction:function(result){
         	
         },cache: false, async: false,"contentType": "application/json; charset=utf-8"});
@@ -241,7 +256,10 @@
 			$(this).parent().next("div").text("未声明原创");
 		}
 		
-	})
+	});
+	$("#js_editor_area").on("click",".msg_closed.js_msg_close",function(){
+		$("#js_editor_area").css("display","none");
+	});
 });
 	
 function checkWeekTravel(){
