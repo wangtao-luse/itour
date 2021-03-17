@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
-public class MyWebMvcConfigurer implements WebMvcConfigurer{
+public class WebMvcConfig implements WebMvcConfigurer{
 	@Value("${upload.resourceHandler}")
     private String resourceHandler;//请求 url 中的资源映射，不推荐写死在代码中，最好提供可配置，如 /uploadFiles/**
  

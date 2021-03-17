@@ -261,10 +261,25 @@ function upload_file() {
             type: 'post',
             url :ctxPath+"/upload/fileUpload",
             dataType:"json",
+            beforeSubmit:function(){
+            	$("#js_cover_area .select-cover__loading__mask").css("visibility","visible");
+            },
             success: function(data) {
-            	var path = data.returnResult.result;
-            	$("#input-fileUpload-path").val(path);
-            	$("#js_cover_area .select-cover__preview").css("background-image","url("+path.replace(/\\/g,"/")+")").css("display","block");
+            	$("#js_cover_area .select-cover__loading__mask").css("visibility","hidden");
+            	$("#js_cover_description_area .js_error_msg").css("display","none").text("");
+            	if("10"==data.resultCode){
+            		var path = data.returnResult.result;
+                	$("#input-fileUpload-path").val(path);
+                	$("#js_cover_area .select-cover__preview").css("background-image","url("+path.replace(/\\/g,"/")+")").css("display","block");
+            	}else{
+            		$("#js_cover_description_area .js_error_msg").css("display","block").text(data.resultMessage);
+            	}
+            	
+            },
+            error:function(data){
+            	var msg = data.returnResult.result;
+            	$("#js_cover_area .select-cover__loading__mask").css("visibility","hidden");
+            	$("#js_cover_description_area .js_error_msg").css("display","block").text(msg);
             }
         });
      return false; // 阻止表单自动提交事件

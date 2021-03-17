@@ -185,6 +185,7 @@ h1, h2, h3 {
 	top: 0;
 	cursor: pointer;
 	opacity: 0;
+	z-index:10;
 	
 }
 @media (min-width: 690px)
