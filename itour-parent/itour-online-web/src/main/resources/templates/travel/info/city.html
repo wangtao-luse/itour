@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="${ctxPath}/css/common/combo.select.css" />
+<script type="text/javascript" src="${ctxPath}/js/common/jquery.combo.select.js" ></script>
+<script>
+$(function() {
+	$('select').comboSelect();
+
+	$('select').change(function(e, v) {
+		$('.result').html('你选择了第' + e.target.selectedIndex + '项，值是' + e.target.value);
+		if(!$.isEmpty(e.target.value)){
+			$("#btn-city-sub").removeClass("weui-desktop-btn_disabled");
+		}else{
+			$("#btn-city-sub").addClass("weui-desktop-btn_disabled");
+		}
+		
+	});
+});
+</script>
+ <div class="dialog-wrapper">
+		 	<div class="weui-desktop-dialog__wrp article_tags_dialog js_article_tags_dialog">
+		 		<div class="weui-desktop-dialog" style="width: 600px;">
+		 			<div class="weui-desktop-dialog__hd">
+		 				<h3 class="weui-desktop-dialog__title">分类专栏</h3>
+		 				<button type="button" class="weui-desktop-icon-btn weui-desktop-dialog__close-btn">
+		 					<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M10.01 8.996l7.922-7.922c.086-.086.085-.21.008-.289l-.73-.73c-.075-.074-.208-.075-.29.007L9 7.984 1.077.062C.995-.02.863-.019.788.055l-.73.73c-.078.078-.079.203.007.29l7.922 7.92-7.922 7.922c-.086.086-.085.212-.007.29l.73.73c.075.074.207.074.29-.008l7.92-7.921 7.922 7.921c.082.082.215.082.29.008l.73-.73c.077-.078.078-.204-.008-.29l-7.921-7.921z"></path></svg>
+		 				</button>
+		 			</div>
+		 		    <div class="weui-desktop-dialog__bd">
+		 		    	<div class="article_tags_dialog_inner">
+		 		    		<form onsubmit="return false;">
+		 		    			<div class="weui-desktop-form__control-group">
+		 		    				<label class="weui-desktop-form__label">城市</label>
+		 		    				<div class="weui-desktop-form__controls">
+		 		    					<div class="tags_input_wrap js_not_hide_similar_tags">
+		 		    						<div>
+		 		    						  <div class="weui-desktop-form-tag-control">
+		 		    						  	 	 <select>
+													<option value="">请选择</option>
+											
+													<optgroup label="广东省">
+														<option value="深圳">深圳</option>
+														<option value="广州">广州</option>
+														<option value="珠海">珠海</option>
+														<option value="惠州">惠州</option>
+													</optgroup>
+											
+													<optgroup label="湖南省">
+														<option value="长沙">长沙</option>
+														<option value="株洲">株洲</option>
+														<option value="岳阳">岳阳</option>
+														<option value="张家界">张家界</option>
+													</optgroup>
+											
+													<optgroup label="江西省">
+														<option value="南昌">南昌</option>
+														<option value="赣州">赣州</option>
+														<option value="宜春">宜春</option>
+														<option value="九江">九江</option>
+													</optgroup>
+												</select>
+		 		    						  	
+		 		    						  	 
+		 		    						  </div>
+		 		    						</div>
+		 		    					    <div class="weui-desktop-dropdown-menu article_tags_sug" style="display: none;">
+		 		    					    	<div class="article_tags_sug_tips">创建专栏</div>
+		 		    					    	<ul class="weui-desktop-dropdown__list">
+		 		    					    		<li class="weui-desktop-dropdown__list-ele">
+		 		    					    			<div class="weui-desktop-dropdown__list-ele-contain">上海旅行</div>
+		 		    					    		</li>
+		 		    					    	</ul>
+		 		    					    </div>
+		 		    					</div>
+		 		    					<div class="weui-desktop-form__tips">
+		 		    						<p>设置一个城市，可以精准的查找到该攻略</p>
+		 		    					</div>
+		 		    				</div>
+		 		    			</div>
+		 		    	
+		 		    		</form>
+		 		    	</div>
+		 		    </div>
+		 		    <div class="weui-desktop-dialog__ft">
+		 		    	<div class="weui-desktop-btn_wrp">
+		 		    		<button type="button" class="weui-desktop-btn weui-desktop-btn_primary weui-desktop-btn_disabled" id="btn-city-sub">确定</button>
+		 		    	</div>
+		 		    	<div class="weui-desktop-btn_wrp">
+		 		    		<button class="weui-desktop-btn weui-desktop-btn_default">取消</button>
+		 		    	</div>
+		 		    </div>
+		 		</div>
+		 	</div>
+		 	<div class="weui-desktop-mask"></div>
+		 </div>

@@ -265,6 +265,13 @@
 	$("#js_editor_area").on("click",".msg_closed.js_msg_close",function(){
 		$("#js_editor_area").css("display","none");
 	});
+	//城市设置
+	$("#js_article_city_area .frm_checkbox_label .allow_click_opr").click(function(){
+		var dxUrl = ctxPath+"/travel/cityPage";
+		$("#city-container").load(dxUrl,function(){
+			$("#city-container .dialog-wrapper").show();
+		});
+	});
 });
 	
 function checkWeekTravel(){

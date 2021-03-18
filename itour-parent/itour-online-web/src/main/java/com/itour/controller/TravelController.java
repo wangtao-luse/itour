@@ -290,4 +290,8 @@ public ResponseMessage queryTravelColumnList(@RequestBody JSONObject jsonObject,
 	return inserTravelTag;
 	
 }
+@RequestMapping("/cityPage")
+public String cityPage(HttpServletRequest request,ModelMap model) {
+	return "/travel/info/city";
+}
 }

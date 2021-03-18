@@ -1,10 +1,9 @@
 @layout("/layout/template.html",{title:'爱旅行-写文章'}){
 		<link rel="stylesheet" href="${ctxPath}/md/css/editormd.min.css" />
-		<link rel="stylesheet" href="${ctxPath}/css/common/combo.select.css" />
 		<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
 		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
 		<script type="text/javascript" src="${ctxPath}/js/travel/info.js" ></script>
-		<script type="text/javascript" src="${ctxPath}/js/common/jquery.combo.select.js" ></script>
+		
 		<style>
 		#footer{
 			display: none;
@@ -233,15 +232,7 @@
 		}
 		
 		</style>
-		<script>
-$(function() {
-	$('select').comboSelect();
-
-	$('select').change(function(e, v) {
-		$('.result').html('你选择了第' + e.target.selectedIndex + '项，值是' + e.target.value);
-	});
-});
-</script>
+		
 		
 		
 	</head>
@@ -249,6 +240,7 @@ $(function() {
 	
 	    <div id="tag-container"></div>
 	    <div id="column-container"></div>
+	    <div id="city-container"></div>
 		<article >
 			<div class="article-container" >
 				
@@ -357,7 +349,7 @@ $(function() {
 			    	    		<input type="checkbox" class="frm_checkbox" />
 			    	    		<i class="icon_checkbox js_option_checkbox_icon"></i>
 			    	    		<div class="allow_click_opr js_article_option_allow_click">
-			    	    			<span class="lbl_content">分类专栏</span>
+			    	    			<span class="lbl_content">城市设置</span>
 			    	    			<i class="lbl_content_after read-more__icon__more"></i>
 			    	    			<span class="lbl_content_after lbl_content_desc lbl_content_desc_url article_url_setting"></span>
 			    	    		</div>
