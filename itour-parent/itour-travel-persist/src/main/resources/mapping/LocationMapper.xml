@@ -18,10 +18,12 @@
         <result column="LOCATION" property="location" />
         <result column="INTROUDUCE" property="introuduce" />
         <result column="WEATHER" property="weather" />
+        <result column="PID" property="pid" />
+        <result column="LEVEL" property="level" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, COUNTRY_CODE, COUNTRY, COUNTRY_EN, CODE, CITY_EN, CITY, SIGNIMG, LOCIMG, DISTRICTIMG, DISTRICTDESC, LOCATION, INTROUDUCE, WEATHER
+        ID, COUNTRY_CODE, COUNTRY, COUNTRY_EN, CODE, CITY_EN, CITY, SIGNIMG, LOCIMG, DISTRICTIMG, DISTRICTDESC, LOCATION, INTROUDUCE, WEATHER,PID,LEVEL
     </sql>
 
 </mapper>

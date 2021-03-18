@@ -22,7 +22,7 @@ public class Location extends Model<Location> {
      * 编号	
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 国家代码
@@ -65,7 +65,16 @@ public class Location extends Model<Location> {
      */
     @TableField("SIGNIMG")
     private String signimg;
-
+    /**
+     * 地区父id
+     */
+    @TableField("PID")
+    private Long pid;
+    /**
+     * 地区级别
+     */
+    @TableField("LEVEL")
+    private String level;
     /**
      * 位置图片
      */
@@ -102,11 +111,11 @@ public class Location extends Model<Location> {
     @TableField("WEATHER")
     private String weather;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -126,7 +135,15 @@ public class Location extends Model<Location> {
         this.country = country;
     }
 
-    public String getCountryEn() {
+    public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public String getCountryEn() {
         return countryEn;
     }
 
@@ -214,7 +231,15 @@ public class Location extends Model<Location> {
         this.weather = weather;
     }
 
-    @Override
+    public Long getPid() {
+		return pid;
+	}
+
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
+
+	@Override
     protected Serializable pkVal() {
         return null;
     }
