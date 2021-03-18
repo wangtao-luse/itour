@@ -19,6 +19,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
@@ -215,11 +216,14 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			if(colList.size()>0) {
 				travelinfoColumnService.saveBatch(colList, colList.size());
 			}
-			
-		} catch (Exception e) {
+		} catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(e.getMessage());
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}

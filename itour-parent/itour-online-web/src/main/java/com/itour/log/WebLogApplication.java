@@ -57,46 +57,15 @@ public class WebLogApplication {
  
     @Before("webLog()") //在切入点的方法运行之前的时候
     public void logBeforeController(JoinPoint joinPoint) {
-        String string = joinPoint.toString();
-        Object[] args = joinPoint.getArgs();
-        final Object target = joinPoint.getTarget();
-        System.out.println("########前置通知########");
-        long startTime = System.currentTimeMillis();
-        time.set(startTime);
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        RequestMessage requestMessage = new RequestMessage();
-        RequestHeader requestHeader = new RequestHeader();
-        RequestBody requestbody = new RequestBody();
-        //url
-        requestHeader.setRequestURI(request.getRequestURI());//返回除去host（域名或者ip）部分的路径
-        requestHeader.setRequestURL(request.getRequestURL());//返回全路径
-        requestHeader.setContextPath(request.getContextPath());//返回工程名部分，如果工程映射为/，此处返回则为空
-        requestHeader.setServletPath(request.getServletPath());////返回除去host和工程名部分的路径
- 
-        //addr
-        requestHeader.setRemoteAddr(request.getRemoteAddr());//获得客户端的ip地址
-        requestHeader.setLocalAddr(request.getLocalAddr());////获取服务器的IP地址
-        requestHeader.setServerName(request.getServerName());//当前页面所在的服务器的名字
-        requestHeader.setServerPort(request.getServerPort());
-        requestHeader.setScheme(request.getScheme());//返回当前页面使用的协议，http 或是 https;
-        requestHeader.setRemoteHost(request.getRemoteHost());//获得客户端的主机名        
-        requestMessage.setRequestHeader(requestHeader);
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        Enumeration<String> en = request.getParameterNames();
-        while (en.hasMoreElements()) {
-            String name = en.nextElement();
-            String value = request.getParameter(name);
-            parameters.put(name, value);
- 
-        }
-        JSONObject content = new JSONObject(parameters);
-        requestbody.setContent(content);
-        requestMessage.setRequestHeader(requestHeader);
-        requestMessage.setBody(requestbody);
-        logger.info("REQUEST:"+JSONObject.toJSONString(requestMessage));
+    	// 调用方法开始时间
+    	 long startTime = System.currentTimeMillis();
+         time.set(startTime); 
+         //请求参数（用于日志处理）
+        requestInfo(joinPoint);
  
     }
+
+	
  
     @AfterReturning(returning = "object", pointcut = "webLog()")
     public void doAfterReturning(JoinPoint JoinPoint ,Object object) throws Throwable {
@@ -144,8 +113,8 @@ public class WebLogApplication {
         	String name = method.getName();
         	Object[] args = proceedingJoinPoint.getArgs();
         	//防重复提交
-        	duplicateSubmit(method, name, args);           
-            Object proceed = proceedingJoinPoint.proceed();
+        	//ResponseMessage duplicateSubmit = duplicateSubmit(method, name, args);           
+            Object proceed = proceedingJoinPoint.proceed(args);
             System.out.println("###########方法后#########");
             return proceed;
         }catch (BaseException e) {
@@ -169,11 +138,12 @@ public class WebLogApplication {
      * @return
      */
 	public ResponseMessage duplicateSubmit(Method method, String name, Object[] args) {
-		DuplicateSubmitToken annotation = method.getAnnotation(DuplicateSubmitToken.class);        	
+		DuplicateSubmitToken annotation = method.getAnnotation(DuplicateSubmitToken.class);
+		ResponseMessage resp = ResponseMessage.getSucess();
 		String key =name +args;
-		if(StringUtils.isEmpty(key)) {
+		if(!StringUtils.isEmpty(key)) {
 			if(CACHES.getIfPresent(key)!=null) {
-				ResponseMessage resp = new ResponseMessage();
+				
 				resp.setResultCode("00");
 				resp.setResultMessage("请勿重复请求");
 				return resp;
@@ -181,7 +151,44 @@ public class WebLogApplication {
 		}else {
 			CACHES.put(key, key);
 		}
-		return null;
+		return resp;
 	}
+	public void requestInfo(JoinPoint joinPoint) {
+		String string = joinPoint.toString();
+        Object[] args = joinPoint.getArgs();
+        final Object target = joinPoint.getTarget();
+        System.out.println("########前置通知########");
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        RequestMessage requestMessage = new RequestMessage();
+        RequestHeader requestHeader = new RequestHeader();
+        RequestBody requestbody = new RequestBody();
+        //url
+        requestHeader.setRequestURI(request.getRequestURI());//返回除去host（域名或者ip）部分的路径
+        requestHeader.setRequestURL(request.getRequestURL());//返回全路径
+        requestHeader.setContextPath(request.getContextPath());//返回工程名部分，如果工程映射为/，此处返回则为空
+        requestHeader.setServletPath(request.getServletPath());////返回除去host和工程名部分的路径
  
+        //addr
+        requestHeader.setRemoteAddr(request.getRemoteAddr());//获得客户端的ip地址
+        requestHeader.setLocalAddr(request.getLocalAddr());////获取服务器的IP地址
+        requestHeader.setServerName(request.getServerName());//当前页面所在的服务器的名字
+        requestHeader.setServerPort(request.getServerPort());
+        requestHeader.setScheme(request.getScheme());//返回当前页面使用的协议，http 或是 https;
+        requestHeader.setRemoteHost(request.getRemoteHost());//获得客户端的主机名        
+        requestMessage.setRequestHeader(requestHeader);
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        Enumeration<String> en = request.getParameterNames();
+        while (en.hasMoreElements()) {
+            String name = en.nextElement();
+            String value = request.getParameter(name);
+            parameters.put(name, value);
+ 
+        }
+        JSONObject content = new JSONObject(parameters);
+        requestbody.setContent(content);
+        requestMessage.setRequestHeader(requestHeader);
+        requestMessage.setBody(requestbody);
+        logger.info("REQUEST:"+JSONObject.toJSONString(requestMessage));
+	}
 }

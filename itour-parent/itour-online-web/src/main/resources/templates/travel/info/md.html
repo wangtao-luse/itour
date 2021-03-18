@@ -206,6 +206,10 @@
 		.page_tips.success .inner {
 		    background-color: #0088FF;
 		}
+		.page_tips.fail .inner {
+		    background-color: #e0eaf6;
+		    color:red;
+		}
 		.tool_area_wrp .page_tips .inner {
 		    width: 100%;
 		    padding-left: 0;
@@ -333,7 +337,10 @@
 		<div id="editor_pannel" class="appmsg_input_area">
 		  <div class="tool_area_pannel">
 		  <div id="js_save_success" class="page_tips success" style="display:none;">
-		    <div class="inner">保存成功，可在创作管理-图文素材中查看</div>
+		    <div class="inner">保存成功，可在我的文章中查看</div>
+		  </div>
+		  <div id="js_save_fail" class="page_tips fail" style="display:none;">
+		    <div class="inner"></div>
 		  </div>
 		</div>	
 		</div>

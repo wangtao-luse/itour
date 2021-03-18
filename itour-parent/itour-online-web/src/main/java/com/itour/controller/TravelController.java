@@ -19,7 +19,6 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
-import com.itour.constant.ConstantTravel;
 import com.itour.constant.ConstantV;
 import com.itour.constant.RedisKey;
 import com.itour.model.travel.History;
@@ -30,6 +29,7 @@ import com.itour.model.travel.TravelColumn;
 import com.itour.util.DateUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 
 @Controller
 @RequestMapping("/travel")

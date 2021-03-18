@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "servlet",
-  "type": "java.lang.String",
-  "description": "A description for 'servlet'"
-}]}
+{"properties": [
+  {
+    "name": "servlet",
+    "type": "java.lang.String",
+    "description": "A description for 'servlet'"
+  },
+  {
+    "name": "hystrix.command",
+    "type": "java.lang.String",
+    "description": "A description for 'hystrix.command'"
+  }
+]}

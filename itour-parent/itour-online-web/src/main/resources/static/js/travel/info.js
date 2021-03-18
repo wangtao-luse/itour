@@ -57,11 +57,16 @@
 	    var data= {"markdown":text,"title":title,"summary":summary,"url":url,"articleType":articleType,"tag_arr":tag_arr,"col_arr":col_arr};
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
 	    	$("#js_save_success").css("display","block");
+	    	$("#js_save_success .inner");
 	    	setTimeout(function(){
 	    		$("#js_save_success").css("display","none");
 	    	},3000);
         }, {errorFunction:function(result){
-        	
+        	$("#js_save_fail").css("display","block");
+        	$("#js_save_fail .inner").text(result.resultMessage);
+	    	setTimeout(function(){
+	    		$("#js_save_fail").css("display","none");
+	    	},5000);
         },cache: false, async: false,"contentType": "application/json; charset=utf-8"});
 
 	});

@@ -21,8 +21,8 @@ feign:
       default:
         connect-timeout: '@feign.client.config.default.connect-timeout@'
         read-timeout: '@feign.client.config.default.read-timeout@'
+#文件上传配置
 upload:
   location: '@fileupload.path@'
   resourceHandler: /upload/**   #请求 url 中的资源映射
   
-     

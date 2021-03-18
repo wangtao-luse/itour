@@ -124,7 +124,12 @@
 	    <groupId>org.springframework.cloud</groupId>
 	    <artifactId>spring-cloud-starter-openfeign</artifactId>
 	</dependency>
-
+	<!-- 为解决Service抛出异常在controller可以接受到异常信息 -->
+	<dependency>
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+	</dependency>
+	
         <!-- fastjson  -->
 	<dependency>
 	    <groupId>com.alibaba</groupId>
