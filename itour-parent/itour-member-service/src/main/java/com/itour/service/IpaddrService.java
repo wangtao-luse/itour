@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.member.Ipaddr;
 import com.itour.persist.IpaddrMapper;
 
@@ -35,7 +36,7 @@ public class IpaddrService extends ServiceImpl<IpaddrMapper, Ipaddr> {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);  
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);  
 		}
 		
 		return responseMessage;

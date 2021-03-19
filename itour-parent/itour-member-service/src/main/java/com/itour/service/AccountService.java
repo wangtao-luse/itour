@@ -119,7 +119,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	   
 	return responseMessage;
@@ -164,7 +164,7 @@ public ResponseMessage selectAccountList(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return resposeMessage;
 }
@@ -194,7 +194,7 @@ public ResponseMessage getAccount(RequestMessage requestMessage) {
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }
@@ -216,7 +216,7 @@ public ResponseMessage updateAccount(RequestMessage requestMessage) {
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }

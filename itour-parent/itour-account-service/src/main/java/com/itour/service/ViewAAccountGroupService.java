@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.account.dto.ViewAAccountGroup;
 import com.itour.persist.ViewAAccountGroupMapper;
 
@@ -57,6 +59,7 @@ public class ViewAAccountGroupService extends ServiceImpl<ViewAAccountGroupMappe
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+				throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 			}
 			return responseMessage;
 		

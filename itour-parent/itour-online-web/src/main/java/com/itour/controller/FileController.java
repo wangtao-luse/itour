@@ -43,9 +43,54 @@ public class FileController {
 	 */
 	@RequestMapping("/multipartFileUpload")
     @ResponseBody
-public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file", required = true) MultipartFile fileMultipartFile,HttpServletRequest request) {
-	JSONObject fileUpload = MultipartFileUpload.fileUpload(fileMultipartFile);
-	return fileUpload;
+public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file", required = true) MultipartFile file,HttpServletRequest request) {
+		// https://www.cnblogs.com/zhaoyan001/p/10953711.html
+		JSONObject result = new JSONObject();
+		try {
+			
+			// http://localhost:9093/itour
+			String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+					+ request.getContextPath();
+			//获取上传源文件名称
+			String originName = file.getOriginalFilename();// IMG_3903.JPG
+			//获取文件后缀
+			String suffix =  originName.substring(originName.lastIndexOf("."));
+			boolean checkFileSuffix = checkFileSuffix(suffix);
+			if(!checkFileSuffix) {
+				  result.put("url","");
+				  result.put("success", 2);
+				  result.put("message", "仅支持.jpg, .jpeg, .gif, .png, .bmp格式图片");
+				  return result;
+			}
+			//重新生成文件名
+			String fileName = UUID.randomUUID().toString().replaceAll("-", "")+suffix;
+			// 文件访问路径
+			// http://localhost:9093/itour/upload/189ec6990e554471b15631816d371066.JPG
+			String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/"))
+					+ getPath() + File.separator + fileName;
+			//文件保存的路径
+			String savePath = uploadFileLocation + File.separator + getPath();
+			//如果目录不能存在创建目录
+			File realPath = new File(savePath);
+			boolean exists = realPath.exists();
+			if (!exists) {
+				realPath.mkdirs();
+			}
+			//写入文件到服务器指定目录
+			File saveFile = new File(savePath, fileName);
+			file.transferTo(saveFile);
+			  result.put("url",fileServerPath);
+			  result.put("success", 1);
+			  result.put("message", "upload success!");
+			  return  result;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			  e.printStackTrace();
+			  result.put("url","");
+			  result.put("success", 2);
+			  result.put("message", "upload fail!");
+			return result;
+		} 
 	
 }
 	/**

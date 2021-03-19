@@ -66,11 +66,11 @@ public ResponseMessage queryRoleList(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}	
 	
 	return responseMessage;
@@ -89,11 +89,11 @@ public ResponseMessage getRole(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}	
 	
 	return responseMessage;
@@ -120,10 +120,10 @@ public ResponseMessage updateRole(RequestMessage requestMessage) {
 		int updateById = this.baseMapper.updateById(role);
 	} catch (BaseException e) {
 		// TODO: handle exception
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 	
@@ -141,11 +141,11 @@ public ResponseMessage deleteRole(RequestMessage requestMessage) {
 	} catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return ResponseMessage.getSucess();
@@ -172,11 +172,11 @@ public ResponseMessage insertRole(RequestMessage requestMessage) {
 	} catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;	
@@ -289,11 +289,11 @@ public ResponseMessage getAccountRoleName(RequestMessage requestMessage) {
 	} catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;	

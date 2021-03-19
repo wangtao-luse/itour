@@ -3,6 +3,7 @@ package com.itour.service;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.Collect;
 import com.itour.persist.CollectMapper;
 import com.itour.service.CollectService;
@@ -52,7 +53,7 @@ public ResponseMessage queryCollectList(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 	

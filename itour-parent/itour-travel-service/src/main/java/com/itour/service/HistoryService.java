@@ -19,6 +19,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantV;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.History;
 import com.itour.persist.HistoryMapper;
 import com.itour.util.DateUtil;
@@ -56,7 +57,7 @@ public ResponseMessage queryHistoryList(RequestMessage requestMessage) {
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }
@@ -88,7 +89,7 @@ public ResponseMessage insertHistory(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }
@@ -120,7 +121,7 @@ public ResponseMessage clearHistory(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle finally clause
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }

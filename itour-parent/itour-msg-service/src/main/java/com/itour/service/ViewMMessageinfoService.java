@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.msg.ViewMMessageinfo;
 import com.itour.persist.ViewMMessageinfoMapper;
 
@@ -44,6 +46,7 @@ public class ViewMMessageinfoService extends ServiceImpl<ViewMMessageinfoMapper,
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
