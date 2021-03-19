@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.Keyword;
 import com.itour.persist.KeywordMapper;
 
@@ -43,7 +44,7 @@ public ResponseMessage queryKeywordList(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return response;
 }
@@ -58,7 +59,7 @@ public ResponseMessage selectKeywordById(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return response;
 }
@@ -72,7 +73,7 @@ public ResponseMessage updateKeyword(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return response;
 }
@@ -86,7 +87,7 @@ public ResponseMessage delKeyword(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return response;
 }

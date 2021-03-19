@@ -1,6 +1,5 @@
 package com.itour.service;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -10,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.TravelSchedule;
 import com.itour.persist.TravelScheduleMapper;
 
@@ -41,7 +41,7 @@ public class TravelScheduleService extends ServiceImpl<TravelScheduleMapper, Tra
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return response;
 	}
@@ -57,7 +57,7 @@ public class TravelScheduleService extends ServiceImpl<TravelScheduleMapper, Tra
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return response;
 	}
@@ -71,7 +71,7 @@ public class TravelScheduleService extends ServiceImpl<TravelScheduleMapper, Tra
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return response;
 	}
@@ -85,7 +85,7 @@ public class TravelScheduleService extends ServiceImpl<TravelScheduleMapper, Tra
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return response;
 	}

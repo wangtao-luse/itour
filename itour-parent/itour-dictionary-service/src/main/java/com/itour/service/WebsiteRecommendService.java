@@ -1,22 +1,21 @@
 package com.itour.service;
 
-import com.itour.common.req.RequestMessage;
-import com.itour.common.resp.ResponseMessage;
-import com.itour.constant.Constant;
-import com.itour.model.dictionary.Dictionary;
-import com.itour.model.dictionary.WebsiteRecommend;
-import com.itour.persist.WebsiteRecommendMapper;
-import com.itour.service.WebsiteRecommendService;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.req.RequestMessage;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
+import com.itour.model.dictionary.WebsiteRecommend;
+import com.itour.persist.WebsiteRecommendMapper;
 
 /**
  * <p>
@@ -55,7 +54,7 @@ public ResponseMessage queryWebsiteList(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }
@@ -74,7 +73,7 @@ public ResponseMessage getWebsite(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }
@@ -93,7 +92,7 @@ public ResponseMessage updateWebsite(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }

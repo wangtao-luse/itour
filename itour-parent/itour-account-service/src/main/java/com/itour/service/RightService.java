@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.account.Right;
 import com.itour.persist.RightMapper;
 
@@ -36,7 +37,6 @@ public ResponseMessage getMenuList(RequestMessage requestMessage) {
 	JSONArray jsonArray = new JSONArray();
 	try {
 		String uid = requestMessage.getBody().getOauthId();
-		uid="10000";
 		List<Right> menuList = this.baseMapper.getMenuList(uid);	
 		for (Right right : menuList) {
 			JSONObject jsonObject = new JSONObject();
@@ -72,7 +72,7 @@ public ResponseMessage getMenuList(RequestMessage requestMessage) {
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;

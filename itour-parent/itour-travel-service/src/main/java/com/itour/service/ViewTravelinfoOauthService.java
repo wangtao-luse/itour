@@ -50,7 +50,7 @@ public class ViewTravelinfoOauthService extends ServiceImpl<ViewTravelinfoOauthM
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			
 		}
 		
 		return responseMessage;
@@ -70,7 +70,7 @@ public class ViewTravelinfoOauthService extends ServiceImpl<ViewTravelinfoOauthM
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			
 		}
 		return responseMessage;
 	}

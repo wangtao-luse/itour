@@ -93,7 +93,7 @@ private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 						TravelInfo travelInfo = new TravelInfo();
 						Object tid = map2.get("tid");
 						Object count = map2.get("count");
-						travelInfo.setId(Integer.valueOf(tid.toString()));
+						travelInfo.setId(Long.valueOf(tid.toString()));
 						travelInfo.setNiceCount(Integer.valueOf(count.toString()));
 						travelInfoList.add(travelInfo);
 

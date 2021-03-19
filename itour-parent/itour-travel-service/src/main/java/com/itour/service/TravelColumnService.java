@@ -67,7 +67,7 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		
 		return responseMessage;
@@ -89,7 +89,7 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
@@ -108,7 +108,7 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
@@ -127,7 +127,7 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
@@ -167,7 +167,7 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}

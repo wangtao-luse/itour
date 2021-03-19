@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.Pageview;
 import com.itour.persist.PageviewMapper;
 
@@ -55,13 +56,13 @@ public ResponseMessage saveOrUpdateBatchPageview(RequestMessage requestMessage) 
 		if(saveOrUpdateBatch) {
 			return responseMessage;
 		}else {
-			return ResponseMessage.getFailed();
+			throw new BaseException(Constant.FAILED_MESSAGE);
 		}
 		
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 }
 }

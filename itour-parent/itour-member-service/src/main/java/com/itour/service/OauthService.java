@@ -100,11 +100,11 @@ private AccountApi accountApi;
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(e.getMessage());
+			throw new BaseException(e.getMessage());
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
@@ -146,11 +146,11 @@ private AccountApi accountApi;
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(e.getMessage());
+			throw new BaseException(e.getMessage());
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
@@ -180,11 +180,11 @@ private AccountApi accountApi;
 		} catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(e.getMessage());
+			throw new BaseException(e.getMessage());
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 
 		}
 		
@@ -216,6 +216,7 @@ public ResponseMessage getOAuthList(RequestMessage requestMessage) {
 		
 	} catch (Exception e) {
 		// TODO: handle exception
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	return responseMessage;
 }

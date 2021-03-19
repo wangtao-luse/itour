@@ -69,7 +69,7 @@ public ResponseMessage queryGroupList(RequestMessage requestMessage) {
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		
 		return responseMessage;
@@ -96,11 +96,11 @@ public ResponseMessage insertGroup(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;
@@ -129,11 +129,11 @@ public ResponseMessage updateGroup(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;
@@ -152,11 +152,11 @@ public ResponseMessage deleteGroup(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;
@@ -215,11 +215,11 @@ public ResponseMessage authorizeRoleList(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-	     return ResponseMessage.getFailed(e.getMessage());
+	     throw new BaseException(e.getMessage());
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	return responseMessage;
@@ -255,11 +255,11 @@ public ResponseMessage getGroup(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-	     return ResponseMessage.getFailed(e.getMessage());
+	     throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	
@@ -280,11 +280,11 @@ public ResponseMessage getAccountGroupName(RequestMessage requestMessage) {
 	}catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(e.getMessage());
+		throw new BaseException(e.getMessage());
 	}catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
 	

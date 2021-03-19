@@ -4,15 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.account.RightDetail;
 import com.itour.persist.RightDetailMapper;
 
@@ -42,7 +41,7 @@ public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDeta
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
@@ -62,7 +61,7 @@ public class RightDetailService extends ServiceImpl<RightDetailMapper, RightDeta
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
