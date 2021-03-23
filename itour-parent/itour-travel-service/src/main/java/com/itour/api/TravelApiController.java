@@ -12,6 +12,7 @@ import com.itour.service.HistoryService;
 import com.itour.service.LocationService;
 import com.itour.service.NiceService;
 import com.itour.service.PageviewService;
+import com.itour.service.RegionService;
 import com.itour.service.TagService;
 import com.itour.service.TransportationInfoService;
 import com.itour.service.TransportationTypeService;
@@ -51,6 +52,8 @@ public class TravelApiController implements TravelApi {
 	HistoryService historyService;
 	@Autowired
 	TagService tagService;
+	@Autowired
+	RegionService regionService;
 	 /**
      * 旅游信息列表
      */
@@ -455,6 +458,11 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage delTravelTag(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return tagService.delTravelTag(requestMessage);
+	}
+	@Override
+	public ResponseMessage getRegionList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return regionService.getRegionList(requestMessage);
 	}
 	
 	

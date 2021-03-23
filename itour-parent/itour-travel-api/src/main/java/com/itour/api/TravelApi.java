@@ -376,4 +376,9 @@ ResponseMessage updateTravelTag(@RequestBody RequestMessage requestMessage);
 @RequestMapping(value = "/travel/delTravelTag",produces = {"application/json;charset=UTF-8"})
 ResponseMessage delTravelTag(@RequestBody RequestMessage requestMessage);
 
+@RequestMapping(value = "/travel/getRegionList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getRegionList(@RequestBody RequestMessage requestMessage);
+
+
+
 }

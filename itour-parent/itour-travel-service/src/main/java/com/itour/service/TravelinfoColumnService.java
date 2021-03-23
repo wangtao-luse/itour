@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author wangtao
- * @since 2021-02-13
+ * @since 2021-03-20
  */
 @Service
 public class TravelinfoColumnService extends ServiceImpl<TravelinfoColumnMapper, TravelinfoColumn>  {

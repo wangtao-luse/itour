@@ -1,6 +1,6 @@
 package com.itour.persist;
 
-import com.itour.model.travel.TravelinfoColumn;
+import com.itour.model.travel.Region;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author wangtao
  * @since 2021-03-20
  */
-public interface TravelinfoColumnMapper extends BaseMapper<TravelinfoColumn> {
+public interface RegionMapper extends BaseMapper<Region> {
 
 }

@@ -215,5 +215,17 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.queryTravelColumnList(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 获取城市列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getCityList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.getRegionList(requestMessage);
+		return responseMessage;
+	}
 	
 }

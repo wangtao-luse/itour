@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2021-02-13
+ * @since 2021-03-20
  */
 @TableName("t_t_travelinfo_column")
 public class TravelinfoColumn extends Model<TravelinfoColumn> {

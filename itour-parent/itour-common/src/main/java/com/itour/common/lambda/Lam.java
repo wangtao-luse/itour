@@ -24,7 +24,6 @@ public static void main(String[] args) {
 	//--------------------------------------------------------一、转换部分---------------------------------------------------------------------------
 	//1.将List<Student> 中的ID(Integer)属性转为List<String>|List<Integer>的集合;
 	List<String> strList = listJavaBeantoListobj(stuList);
-	
 	//2.将List<String>转换为指定分隔符(,)的字符串
 	String str = listStrToStr(strList);
 	

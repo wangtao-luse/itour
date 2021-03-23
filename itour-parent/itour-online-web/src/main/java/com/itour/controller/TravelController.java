@@ -294,4 +294,11 @@ public ResponseMessage queryTravelColumnList(@RequestBody JSONObject jsonObject,
 public String cityPage(HttpServletRequest request,ModelMap model) {
 	return "/travel/info/city";
 }
+@RequestMapping("/getCityList")
+@ResponseBody
+public ResponseMessage getCityList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage getCityList = this.travelConnector.getCityList(jsonObject, request);
+	return getCityList;
+	
+}
 }
