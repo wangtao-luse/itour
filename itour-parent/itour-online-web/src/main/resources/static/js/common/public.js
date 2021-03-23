@@ -36,3 +36,17 @@ var test_phone = function(phone){
 var equalTopwd = function(pwd,topPwd){
 	return pwd == topPwd;
 }
+
+
+function showCity(){
+	var data={};
+    postAjax("/travel/getCityList", JSON.stringify(data), function (result) {
+    	console.log(result);
+    	$.each(result.returnResult.result,function(key,value){
+        	$.each(value,function(key,value){
+                console.info("key: " + key + ", Value: " + value.regionCode+"---"+value.regionName );
+
+        })
+    })
+    }, {errorFunction:function(result){},cache: false, async: false});
+}

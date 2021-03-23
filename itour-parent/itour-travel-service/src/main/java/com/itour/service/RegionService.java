@@ -1,13 +1,13 @@
 package com.itour.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
@@ -34,12 +34,14 @@ public class RegionService extends ServiceImpl<RegionMapper, Region>   {
 			QueryWrapper<Region> queryWrapper = new QueryWrapper<Region>();
 			List<Region> selectList = this.baseMapper.selectList(queryWrapper);
 			List<Region> provinceList = selectList.stream().filter(t->"1".equals(t.getRegionLevel())).collect(Collectors.toList());
-			HashMap<String, Object> map = new LinkedHashMap<String, Object>();
+			List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
 			provinceList.forEach(p->{
+				HashMap<String,Object>  map = new HashMap<String, Object>();
 				List<Region> cityList = selectList.stream().filter(c->c.getRegionParentId().equals(p.getRegionCode())).collect(Collectors.toList());
 				map.put(p.getRegionName(), cityList);
+				result.add(map);
 			});
-			responseMessage.setReturnResult(map);
+			responseMessage.setReturnResult(result);
 		} catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
