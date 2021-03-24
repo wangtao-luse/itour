@@ -42,11 +42,19 @@ function showCity(){
 	var data={};
     postAjax("/travel/getCityList", JSON.stringify(data), function (result) {
     	console.log(result);
+    	var str="<option value=''>请选择</option>";
     	$.each(result.returnResult.result,function(key,value){
-        	$.each(value,function(key,value){
-                console.info("key: " + key + ", Value: " + value.regionCode+"---"+value.regionName );
+        	$.each(value,function(k,v){
+                console.info("key: " + k );
+                str+='<optgroup label=\"'+k+'\">'
+                $.each(v,function(kk,vv){
+                	str+='<option value=\"'+vv.regionCode+'\">'+vv.regionName+'</option>';
+                    console.info( "Value: " + vv.regionName);
 
+            })
+            str+="</optgroup>";
         })
     })
+    $("#city").html(str);
     }, {errorFunction:function(result){},cache: false, async: false});
 }
