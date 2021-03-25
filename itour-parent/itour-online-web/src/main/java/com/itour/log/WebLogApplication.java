@@ -123,11 +123,11 @@ public class WebLogApplication {
         }
         catch (Exception e) {
             e.printStackTrace();
-            return ResponseMessage.getFailed(Constant.FAILED_CODE);
+            return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
         } catch (Throwable e) {
 			// TODO Auto-generated catch block
         	e.printStackTrace();
-            return ResponseMessage.getFailed(Constant.FAILED_CODE);
+            return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}
     }
     /**

@@ -19,6 +19,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantTravel;
 import com.itour.constant.ConstantV;
 import com.itour.constant.RedisKey;
 import com.itour.model.travel.History;
@@ -232,7 +233,7 @@ public String detail() {
 @RequestMapping("/insertweekTravel")
 @ResponseBody
 public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	jsonObject.put("type", "1");
+	jsonObject.put("type", ConstantTravel.TRAVEL_INFO_WEEK);
 	 AccountVo sessionUser = SessionUtil.getSessionUser();
 	 jsonObject.put("uid", sessionUser.getuId());
 	String markdown = jsonObject.getString("markdown");

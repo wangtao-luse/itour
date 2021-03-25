@@ -2,6 +2,9 @@ package com.itour.controller;
 
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.TravelConnector;
+import com.itour.constant.Constant;
+import com.itour.model.travel.TravelInfo;
 
 
 
@@ -31,8 +37,14 @@ private	TravelConnector travelConnector;
 	 * @return
 	 */
 @RequestMapping("/index")
-public String index(HttpServletRequest request,ModelMap model) {
-	
+public String index(Page page, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+	JSONObject jsonObject = new JSONObject();
+	TravelInfo travelInfo = new TravelInfo();
+	jsonObject.put("vo", travelInfo);
+	ResponseMessage queryTravelInfoList = this.travelConnector.queryTravelInfoList(jsonObject, request);
+	Map<String, Object> returnResult = queryTravelInfoList.getReturnResult();
+	List<TravelInfo> list = (List<TravelInfo>)returnResult.get(Constant.COMMON_KEY_RESULT);
+	model.addAttribute("travel", list);
 	return "index";
 }
 //解决退出问题

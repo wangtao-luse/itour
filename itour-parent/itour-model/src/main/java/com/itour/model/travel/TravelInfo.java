@@ -54,12 +54,7 @@ public class TravelInfo extends Model<TravelInfo> {
     @TableField("ARTICLE_TYPE")
     private String articleType;
 
-    /**
-     * 所属专栏编号
-     */
-    @TableField("COLUMN_ID")
-    private Integer columnId;
-
+  
     /**
      * 用户唯一号
      */
@@ -156,13 +151,7 @@ public class TravelInfo extends Model<TravelInfo> {
         this.articleType = articleType;
     }
 
-    public Integer getColumnId() {
-        return columnId;
-    }
-
-    public void setColumnId(Integer columnId) {
-        this.columnId = columnId;
-    }
+   
 
     public String getUid() {
         return uid;
@@ -242,7 +231,6 @@ public class TravelInfo extends Model<TravelInfo> {
         ", url=" + url +
         ", type=" + type +
         ", articleType=" + articleType +
-        ", columnId=" + columnId +
         ", uid=" + uid +
         ", code=" + code +
         ", readCount=" + readCount +
