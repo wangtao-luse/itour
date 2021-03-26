@@ -55,6 +55,6 @@ function showCity(){
             str+="</optgroup>";
         })
     })
-    $("#city").html(str);
+    $("#city-select").html(str);
     }, {errorFunction:function(result){},cache: false, async: false});
 }

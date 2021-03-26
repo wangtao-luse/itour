@@ -31,6 +31,7 @@
 		var summary = $("#js_description").val();
 		var url = $("#input-fileUpload-path").val();
 		var articleType = $("#ori-setting").val();
+		var cityCode=$("#cityCode").val();
         var tag_arr=[];
 		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
 		tags.each(function(i,item){
@@ -54,7 +55,24 @@
 			$("#js_cover_description_area .js_error_msg").css("display","block").text("必须上传一张图片");
 			return;
 		}
-	    var data= {"markdown":text,"title":title,"summary":summary,"url":url,"articleType":articleType,"tag_arr":tag_arr,"col_arr":col_arr};
+		if($.isEmpty(cityCode)){
+			$("#js_save_fail .inner").text("请选择攻略的所在城市");
+			$("#js_save_fail").css("display","block");
+			setTimeout(function(){
+	    		$("#js_save_fail").css("display","none");
+	    	},5000);
+        	
+		}
+	    var data= {
+	    		"markdown":text,
+	    		"title":title,
+	    		"summary":summary,
+	    		"url":url,
+	    		"articleType":articleType,
+	    		"tag_arr":tag_arr,
+	    		"col_arr":col_arr,
+	    		"code":cityCode
+	    };
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
 	    	$("#js_save_success").css("display","block");
 	    	$("#js_save_success .inner");
@@ -269,8 +287,19 @@
 	$("#js_article_city_area .frm_checkbox_label .allow_click_opr").click(function(){
 		var dxUrl = ctxPath+"/travel/cityPage";
 		$("#city-container").load(dxUrl,function(){
+			var code = $("#js_article_city_area #cityCode").val();
 			$("#city-container .dialog-wrapper").show();
+			$("#city-select").val(code);
 		});
+	});
+	//城市设置
+	$("#city-container").on("click","#btn-city-sub",function(){
+		var cityCode = $("#city-select").val();
+		var cityName =$("#city-select option:selected").text();
+		$("#js_article_city_area .lbl_content_desc").text(cityName);
+		$("#js_article_city_area #cityCode").val(cityCode);
+		$("#js_article_city_area .frm_checkbox_label").addClass("selected");
+		$("#city-container .dialog-wrapper").hide();
 	});
 });
 	

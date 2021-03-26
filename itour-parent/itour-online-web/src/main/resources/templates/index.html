@@ -23,7 +23,13 @@
 			    							    				</div>
 			    							    				<div class="richContent-inner">
 			    							    					<span class="richText ztext copyrightRichText-richText">
-			    							    						Lucky：${t.summary} 
+			    							    					Lucky：
+			    							    					       @if(strutil.length(t.summary)>98){
+			    							    					       		${strutil.subStringTo(t.summary,0,98)+"..."} 
+			    							    					       @}else{
+			    							    					            ${t.summary}
+			    							    					       @}
+			    							    						
 			    							    					</span>
 			    							    					<button type="button" class="button contentItem-more button--plain">阅读全文</button>
 			    							    				</div>
