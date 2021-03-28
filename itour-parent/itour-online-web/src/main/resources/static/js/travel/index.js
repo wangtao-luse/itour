@@ -1,10 +1,28 @@
 $(function(){
+	$("#topstoryContent").on("click",".contentItem-more",function(){
+		var tid = $(this).attr("tid");
+		location.href=ctxPath+"/travel/detail?id="+tid;
+	});
+	$("#topstoryContent").on("click",".richContent-cover,.richContent-inner",function(){
+		var tid = $(this).attr("tid");
+		location.href=ctxPath+"/travel/detail?id="+tid;
+	});
+});
+	var current=1;
+	function loadMore(){
+		current=current+1;
+		var postDate = {"current":current,"size":"10"};
+		queryInfo(postDate);
+	}
 	
 	//默认查询
 	function queryInfo(postData){
 		var url="/index?ajaxCmd=content";
 		postForm(url, postData, function(result){
-			$("#storyContent .story-recommend").append(result);
+			if(result){
+				$("#topstoryContent .topstory-recommend div:first").append(result);
+			}
+			
 		},{});
 	}
 	//https://www.jianshu.com/p/05ef1dd140e4
@@ -14,7 +32,7 @@ $(function(){
 	 * 判断元素span在不在可见窗口内
 	 * 在返回true;不在返回false;
 	 */
-	function loadMore(node){
+	/*function loadMore(node){
 		//窗口滚动的高度
 		var scrollTop = $(window).scrollTop();
 		//窗口高度+滚动高度(元素刚好要进入窗口)
@@ -43,7 +61,7 @@ $(function(){
 				data:{"current":current,"size":"12"},
 				success:function(result){
 					console.log("result :::-->"+result);
-					$("#storyContent .story-recommend").append(result);
+					$("#storyContent .story-recommend div").append(result);
 				}
 			}).done(function(result){
 				if(result.status=0){
@@ -56,19 +74,19 @@ $(function(){
 			}); 
 	  }
 		
-	}
-	//滚动监听事件
+	}*/
+/*	//滚动监听事件
 	$(window).scroll(function () {
 	//滚动条在Y轴上的滚动距离
     var scrollTop = $(this).scrollTop();
     var scrollHeight = $(document).height();
     var windowHeight = $(this).height();
     console.log("widownscrollTop: "+scrollTop+" documentHeight: "+scrollHeight+" windowHeight： "+windowHeight);
-   /* if (scrollTop + windowHeight == scrollHeight) {
+    if (scrollTop + windowHeight == scrollHeight) {
     	var data={"page":{"current":"1","size":"2"}}
     	queryInfo({});
     	
-    }*/
+    }
     var isload = loadMore($(".load-more"));
     if(!isload&&send){
     	//queryInfo({});
@@ -119,7 +137,7 @@ $(function(){
 		 $(document).one('click',function(){
 		  $(".shareBtn").parent().find(".menu").hide();
          })
-         e.stopPropagation();/*stopPropagation();方法可以阻止把事件分派到其他节点*/
+         e.stopPropagation();stopPropagation();方法可以阻止把事件分派到其他节点
 		
 	});
 	//关闭浮出层
@@ -139,8 +157,8 @@ $(function(){
 		    $("#favoriteBox").load(dxUrl, function () {
 		        $(".Modal-wrapper").show();
 		    });
-	});
+	});*/
 	
 	
-});
+
 

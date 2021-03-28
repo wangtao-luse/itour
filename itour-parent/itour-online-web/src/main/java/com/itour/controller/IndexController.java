@@ -20,6 +20,9 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.model.travel.TravelInfo;
+import com.itour.util.FastJsonUtil;
+
+import cn.hutool.json.JSON;
 
 
 
@@ -37,21 +40,36 @@ private	TravelConnector travelConnector;
 	 * @return
 	 */
 @RequestMapping("/index")
-public String index(Page page, HttpServletRequest request,String ajaxCmd,ModelMap model) {
-	JSONObject jsonObject = new JSONObject();
-	TravelInfo travelInfo = new TravelInfo();
-	jsonObject.put("vo", travelInfo);
+public String index(Page page,TravelInfo travelInfo, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("vo", travelInfo);
+		jsonObject.put("page", page);	
 	ResponseMessage queryTravelInfoList = this.travelConnector.queryTravelInfoList(jsonObject, request);
 	Map<String, Object> returnResult = queryTravelInfoList.getReturnResult();
-	List<TravelInfo> list = (List<TravelInfo>)returnResult.get(Constant.COMMON_KEY_RESULT);
-	model.addAttribute("travel", list);
-	return "index";
+	Page p = FastJsonUtil.mapToObject(returnResult, Page.class, Constant.COMMON_KEY_RESULT);
+	model.addAttribute("travel", p.getRecords());
+	if(ajaxCmd==null) {
+		return "index";
+	}else {
+		return "index#"+ajaxCmd;
+	}
+	
 }
 //解决退出问题
 @RequestMapping("/")
-public String defaultPage() {
-	
-	return "index";
+public String defaultPage(Page page,TravelInfo travelInfo, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+	JSONObject jsonObject = new JSONObject();
+	jsonObject.put("vo", travelInfo);
+	jsonObject.put("page", page);	
+	ResponseMessage queryTravelInfoList = this.travelConnector.queryTravelInfoList(jsonObject, request);
+	Map<String, Object> returnResult = queryTravelInfoList.getReturnResult();
+	Page p = FastJsonUtil.mapToObject(returnResult, Page.class, Constant.COMMON_KEY_RESULT);
+	model.addAttribute("travel", p.getRecords());
+	if(ajaxCmd==null) {
+		return "index";
+	}else {
+		return "index#"+ajaxCmd;
+	}
 }
 /**
  * 收藏弹出框

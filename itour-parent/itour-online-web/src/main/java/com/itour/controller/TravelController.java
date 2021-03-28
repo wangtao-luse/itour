@@ -227,7 +227,8 @@ public String md() {
 	return "/travel/info/md";
 }
 @RequestMapping("/detail")
-public String detail() {
+public String detail(Long id,ModelMap model) {
+	model.addAttribute("id", id);
 	return "/travel/info/detail";
 }
 @RequestMapping("/insertweekTravel")

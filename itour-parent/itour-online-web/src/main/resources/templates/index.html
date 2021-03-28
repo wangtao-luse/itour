@@ -1,5 +1,5 @@
 @layout("/layout/template.html",{title:'爱旅行-首页'}){
-		
+<script type="text/javascript" src="${ctxPath}/js/travel/index.js" ></script>		
 	    <div id="itour-main">
 	    	<div class="topstory">
 	    		<div class="topstory-container">
@@ -8,20 +8,69 @@
 	    					<div class="listShortcut">
 	    						<div class="topstory-recommend">
 	    							<div>
-	    							  @#ajax content :{
+	    							  @#ajax content:{
 	    							     @for(t in travel){
-		    							     @if(t.type=="2"){		    							     
+	    							         @if(t.type=="1"){
+	    							            <div class="card topstoryItem topstoryItem-isRecommend">
+			    									<div class="feed">
+			    										<div class="contentItem videoItem">
+			    											<h2 class="contentItem-title"><a href="${ctxPath}/travel/detail?id=${t.id}" target="_blank">${t.title}</a></h2>
+			    											<div class="richContent is-collapsed" tid=${t.id}>
+			    												<div class="richContent-cover">
+			    													<div class="richContent-cover-inner">
+			    														<img src="${t.url}" alt="cover">
+			    														<svg viewBox="0 0 72 72" class="richContent-cover-play"><circle cx="36" cy="36" fill="#fff" fill-opacity="0.95" r="36"></circle><path d="M50.835 37.06L29.477 49.97a1.203 1.203 0 0 1-1.664-.43 1.25 1.25 0 0 1-.17-.631V23.091c0-.682.543-1.234 1.213-1.234.219 0 .433.06.62.173l21.359 12.91a1.245 1.245 0 0 1 0 2.12z" fill="#444" fill-rule="nonzero"></path></svg>
+			    													</div>		    													
+			    												</div>
+			    												<div class="richContent-inner">
+			    													<span class="richText ztext copyrightRichText-richText">
+			    														@if(strutil.length(t.summary)>98){
+			    							    					       		${strutil.subStringTo(t.summary,0,98)+"..."} 
+			    							    					       @}else{
+			    							    					            ${t.summary}
+			    							    					       @}
+			    													</span>
+			    													<button type="button" class="button contentItem-more button--plain" tid=${t.id}>阅读全文</button>
+			    												</div>
+			    												<div class="contentItem-actions">
+			    													<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
+			    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			    															<span style="display: inline-flex; align-items: center;">​
+			    																<svg class="zi zi--thumb button-zi" fill="currentColor" viewBox="0 0 1024 1024"width="1.2em" height="1.2em"><path d="M724.928 976.384H339.712a143.04 143.04 0 0 1-141.888-131.008L165.76 444.544a141.44 141.44 0 0 1 33.536-103.616 141.696 141.696 0 0 1 108.288-50.048h39.296c129.856 0 164.16-107.392 164.16-164.224C511.04 63.552 560.832 16 626.944 16c44.992 0 87.296 22.4 113.152 59.904 29.76 43.072 48.576 120.896 20.992 214.976h88.256a142.528 142.528 0 0 1 140.544 164.992l-54.656 341.056a211.968 211.968 0 0 1-210.304 179.456z m-417.28-589.504c-16 1.152-27.264 6.848-35.264 16.32a46.208 46.208 0 0 0-10.944 33.728l32.064 400.832c1.92 23.872 22.208 42.624 46.208 42.624h385.216a116.48 116.48 0 0 0 115.584-98.56l54.656-341.312a46.4 46.4 0 0 0-45.76-53.632h-159.168a48.128 48.128 0 0 1-42.752-69.952c48.064-93.44 29.952-162.88 13.632-186.56a41.92 41.92 0 0 0-34.112-18.368c-13.184 0-19.904 4.928-19.904 14.656C607.104 256 517.76 386.88 346.944 386.88h-39.296zM111.104 976.384a48.064 48.064 0 0 1-47.808-44.16l-47.168-589.44a48 48 0 0 1 44.032-51.712 48.512 48.512 0 0 1 51.648 44.032l47.168 589.44a48.064 48.064 0 0 1-44.032 51.712l-3.84 0.128z" fill-rule="evenodd"></path></svg>
+			    															</span>
+			    															80&nbsp;赞
+			    														</button>
+			    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			    															<span style="display: inline-flex; align-items: center;">​
+			    																<svg class="zi zi--eye button-zi" fill="currentColor"viewBox="0 0 1433 1024"  width="1.4em" height="1.4em"><path d="M720.69629629 932.6176963c-213.05768889 0-407.36918519-120.58848889-582.93448888-361.67534074-23.88337036-32.71571111-23.88337036-85.169 0-117.88471112C313.32711111 211.97079259 507.63860741 91.3823037 720.69629629 91.3823037s407.36918519 120.58848889 582.9344889 361.67534074c23.88337036 32.71571111 23.88337036 85.169 0 117.88471112C1128.06548147 812.02920741 933.75398519 932.6176963 720.69629629 932.6176963z m0-721.00740741C542.51734074 211.61028889 377.85727408 309.39691852 222.48017777 512 377.85727408 714.60308148 542.4272148 812.38971111 720.69629629 812.38971111c178.17895556 0 342.83902223-97.78662964 498.21611851-300.38971111C1063.53531852 309.39691852 898.96537777 211.61028889 720.69629629 211.61028889z m0 495.69259259a195.30288148 195.30288148 0 1 1 0-390.60576296 195.30288148 195.30288148 0 0 1 0 390.60576296zM720.69629629 602.12592592a90.12592592 90.12592592 0 1 0 0-180.25185184 90.12592592 90.12592592 0 0 0 0 180.25185184z" fill-rule="evenodd"></path></svg>
+			    															</span>
+			    															80&nbsp;阅读
+			    														</button>
+			    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			    															<span style="display: inline-flex; align-items: center;">​
+			    																<svg t="1568705456499" class="zi zi--comment button-zi" fill="currentColor" viewBox="0 0 1088 1024" width="1.2em" height="1.2em"><path d="M384 446.656a64.064 64.064 0 0 1-96.32 56.512A64 64 0 1 1 384 446.656zM576 448a64 64 0 1 1-128 0 64 64 0 0 1 128 0z m192 0a64 64 0 1 1-128 0 64 64 0 0 1 128 0z" fill="" p-id="16737"></path><path d="M217.28 1008a99.392 99.392 0 0 1-99.072-99.072v-107.2A300.352 300.352 0 0 1 16 574.656V319.36A303.744 303.744 0 0 1 319.36 16h408.512a303.68 303.68 0 0 1 303.36 303.36v255.36a303.68 303.68 0 0 1-303.36 303.36H429.184L275.2 989.248a98.368 98.368 0 0 1-57.92 18.752z m102.08-896a207.552 207.552 0 0 0-207.36 207.36v255.36c0 65.856 30.272 126.336 82.944 165.952 12.096 9.088 19.2 23.232 19.2 38.4l3.072 132.992a2.88 2.88 0 0 0 1.728-0.576l166.592-120.32a48 48 0 0 1 28.096-9.088h314.24a207.552 207.552 0 0 0 207.36-207.36V319.36a207.552 207.552 0 0 0-207.36-207.36H319.36z" fill="" p-id="16738"></path></svg>
+			    															</span>
+			    															80&nbsp;评论
+			    														</button>
+			    															    														
+			    													</div>
+			    												</div>
+			    											</div>
+			    										</div>
+			    									</div>
+			    								</div>
+	    							         @}else if(t.type=="2"){		    							     
 			    								<div class="card topstoryItem topstoryItem-isRecommend">
 			    							    	<div class="feed">
 			    							    		<div class="contentItem answerItem">
-			    							    			<h2 class="contentItem-title"><a href="#" target="_blank">${t.title}</a></h2>
-			    							    			<div class="richContent is-collapsed">
-			    							    				<div class="richContent-cover">
+			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/travel/detail?id=${t.id}" target="_blank">${t.title}</a></h2>
+			    							    			<div class="richContent is-collapsed" >
+			    							    				<div class="richContent-cover" tid=${t.id}>
 			    							    					<div class="richContent-cover-inner">
 			    							    						<img src="${t.url}" />
 			    							    					</div>
 			    							    				</div>
-			    							    				<div class="richContent-inner">
+			    							    				<div class="richContent-inner" tid=${t.id}>
 			    							    					<span class="richText ztext copyrightRichText-richText">
 			    							    					Lucky：
 			    							    					       @if(strutil.length(t.summary)>98){
@@ -31,7 +80,7 @@
 			    							    					       @}
 			    							    						
 			    							    					</span>
-			    							    					<button type="button" class="button contentItem-more button--plain">阅读全文</button>
+			    							    					<button type="button" class="button contentItem-more button--plain"  tid=${t.id} >阅读全文</button>
 			    							    				</div>
 			    							    				<div class="contentItem-actions">
 			    													<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
@@ -62,48 +111,7 @@
 			    							 @}
 	    							    @}
 	    							 @}
-	    							    <div class="card topstoryItem topstoryItem-isRecommend" style="display:block">
-	    									<div class="feed">
-	    										<div class="contentItem videoItem">
-	    											<h2 class="contentItem-title"><a href="#" target="_blank">学《蛋黄焗南瓜》可蛋黄焗所有，网友：这么硬！大鹏：就是这么硬</a></h2>
-	    											<div class="richContent is-collapsed">
-	    												<div class="richContent-cover">
-	    													<div class="richContent-cover-inner">
-	    														<img src="../img/zhihu/item1_400x224.jpg" alt="cover">
-	    														<svg viewBox="0 0 72 72" class="richContent-cover-play"><circle cx="36" cy="36" fill="#fff" fill-opacity="0.95" r="36"></circle><path d="M50.835 37.06L29.477 49.97a1.203 1.203 0 0 1-1.664-.43 1.25 1.25 0 0 1-.17-.631V23.091c0-.682.543-1.234 1.213-1.234.219 0 .433.06.62.173l21.359 12.91a1.245 1.245 0 0 1 0 2.12z" fill="#444" fill-rule="nonzero"></path></svg>
-	    													</div>		    													
-	    												</div>
-	    												<div class="richContent-inner">
-	    													<span class="richText ztext copyrightRichText-richText">上期我们说到，在我们的拉尼亚凯亚超星系团里，有一个非常特殊且神秘的地方，周围成千上万的星系都在向其运动 这意味着此处至少需要有上万倍银河系质量的物质存在 但问题是 在这里我们并没有找到如此规模的庞然大…</span>
-	    													<a href="${ctxPath}/travel/detail"><button type="button" class="button contentItem-more button--plain">阅读全文</button></a>
-	    												</div>
-	    												<div class="contentItem-actions">
-	    													<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
-	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-	    															<span style="display: inline-flex; align-items: center;">​
-	    																<svg class="zi zi--thumb button-zi" fill="currentColor" viewBox="0 0 1024 1024"width="1.2em" height="1.2em"><path d="M724.928 976.384H339.712a143.04 143.04 0 0 1-141.888-131.008L165.76 444.544a141.44 141.44 0 0 1 33.536-103.616 141.696 141.696 0 0 1 108.288-50.048h39.296c129.856 0 164.16-107.392 164.16-164.224C511.04 63.552 560.832 16 626.944 16c44.992 0 87.296 22.4 113.152 59.904 29.76 43.072 48.576 120.896 20.992 214.976h88.256a142.528 142.528 0 0 1 140.544 164.992l-54.656 341.056a211.968 211.968 0 0 1-210.304 179.456z m-417.28-589.504c-16 1.152-27.264 6.848-35.264 16.32a46.208 46.208 0 0 0-10.944 33.728l32.064 400.832c1.92 23.872 22.208 42.624 46.208 42.624h385.216a116.48 116.48 0 0 0 115.584-98.56l54.656-341.312a46.4 46.4 0 0 0-45.76-53.632h-159.168a48.128 48.128 0 0 1-42.752-69.952c48.064-93.44 29.952-162.88 13.632-186.56a41.92 41.92 0 0 0-34.112-18.368c-13.184 0-19.904 4.928-19.904 14.656C607.104 256 517.76 386.88 346.944 386.88h-39.296zM111.104 976.384a48.064 48.064 0 0 1-47.808-44.16l-47.168-589.44a48 48 0 0 1 44.032-51.712 48.512 48.512 0 0 1 51.648 44.032l47.168 589.44a48.064 48.064 0 0 1-44.032 51.712l-3.84 0.128z" fill-rule="evenodd"></path></svg>
-	    															</span>
-	    															80&nbsp;赞
-	    														</button>
-	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-	    															<span style="display: inline-flex; align-items: center;">​
-	    																<svg class="zi zi--eye button-zi" fill="currentColor"viewBox="0 0 1433 1024"  width="1.4em" height="1.4em"><path d="M720.69629629 932.6176963c-213.05768889 0-407.36918519-120.58848889-582.93448888-361.67534074-23.88337036-32.71571111-23.88337036-85.169 0-117.88471112C313.32711111 211.97079259 507.63860741 91.3823037 720.69629629 91.3823037s407.36918519 120.58848889 582.9344889 361.67534074c23.88337036 32.71571111 23.88337036 85.169 0 117.88471112C1128.06548147 812.02920741 933.75398519 932.6176963 720.69629629 932.6176963z m0-721.00740741C542.51734074 211.61028889 377.85727408 309.39691852 222.48017777 512 377.85727408 714.60308148 542.4272148 812.38971111 720.69629629 812.38971111c178.17895556 0 342.83902223-97.78662964 498.21611851-300.38971111C1063.53531852 309.39691852 898.96537777 211.61028889 720.69629629 211.61028889z m0 495.69259259a195.30288148 195.30288148 0 1 1 0-390.60576296 195.30288148 195.30288148 0 0 1 0 390.60576296zM720.69629629 602.12592592a90.12592592 90.12592592 0 1 0 0-180.25185184 90.12592592 90.12592592 0 0 0 0 180.25185184z" fill-rule="evenodd"></path></svg>
-	    															</span>
-	    															80&nbsp;阅读
-	    														</button>
-	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-	    															<span style="display: inline-flex; align-items: center;">​
-	    																<svg t="1568705456499" class="zi zi--comment button-zi" fill="currentColor" viewBox="0 0 1088 1024" width="1.2em" height="1.2em"><path d="M384 446.656a64.064 64.064 0 0 1-96.32 56.512A64 64 0 1 1 384 446.656zM576 448a64 64 0 1 1-128 0 64 64 0 0 1 128 0z m192 0a64 64 0 1 1-128 0 64 64 0 0 1 128 0z" fill="" p-id="16737"></path><path d="M217.28 1008a99.392 99.392 0 0 1-99.072-99.072v-107.2A300.352 300.352 0 0 1 16 574.656V319.36A303.744 303.744 0 0 1 319.36 16h408.512a303.68 303.68 0 0 1 303.36 303.36v255.36a303.68 303.68 0 0 1-303.36 303.36H429.184L275.2 989.248a98.368 98.368 0 0 1-57.92 18.752z m102.08-896a207.552 207.552 0 0 0-207.36 207.36v255.36c0 65.856 30.272 126.336 82.944 165.952 12.096 9.088 19.2 23.232 19.2 38.4l3.072 132.992a2.88 2.88 0 0 0 1.728-0.576l166.592-120.32a48 48 0 0 1 28.096-9.088h314.24a207.552 207.552 0 0 0 207.36-207.36V319.36a207.552 207.552 0 0 0-207.36-207.36H319.36z" fill="" p-id="16738"></path></svg>
-	    															</span>
-	    															80&nbsp;评论
-	    														</button>
-	    															    														
-	    													</div>
-	    												</div>
-	    											</div>
-	    										</div>
-	    									</div>
-	    								</div>
+	    							    
 	    							    <div class="card topstoryItem topstoryItem-isRecommend" style="display:none">
 	    							    	<div class="feed">
 	    							    		<div class="contentItem answerItem">
@@ -186,19 +194,20 @@
 	    							    		</div>
 	    							    	</div>
 	    							    </div>
-	    							      <div class="text-center">
-	    							    	<ul class="pager">
-	    							    		<li id="btn-load-more">
-	    							    			<a href="#">点击载入更多</a>
-	    							    		</li>
-	    							    		<li id="btn-loading" class="hidden">
-	    							    			<a href="#">
-	    							    			<i class="fa fa-spinner fa-spin"></i> 载入中
-	    							    			</a>
-	    							    		</li>
-	    							    	</ul>
-	    							    </div>
+	    							    
 	    							</div>
+	    							<div class="text-center">
+    							    	<ul class="pager">
+    							    		<li id="btn-load-more">
+    							    			<a href="javaScript:;" onclick="loadMore();">点击载入更多</a>
+    							    		</li>
+    							    		<li id="btn-loading" class="hidden">
+    							    			<a href="#">
+    							    			<i class="fa fa-spinner fa-spin"></i> 载入中
+    							    			</a>
+    							    		</li>
+    							    	</ul>
+	    							 </div>
 	    						</div>
 	    					</div>
 	    				</div>
