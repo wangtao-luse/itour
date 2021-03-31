@@ -7,6 +7,25 @@ $(function(){
 		var tid = $(this).attr("tid");
 		location.href=ctxPath+"/travel/detail?id="+tid;
 	});
+	 $("#topstoryContent").on("click","button.itour_nice_btn",function(){
+	    	var tid = $(this).attr("tid");
+	    	var has = $(this).hasClass("nice");
+	    	var status="";
+	    	if(has){
+	    		$(this).removeClass("nice");
+	    		status="0";
+	    	}else{
+	    		$(this).addClass("nice");
+	    		status="1";
+	    	}
+	    	
+	    	var data={tid:tid,status:status};
+	    	postAjax("/niceSub", JSON.stringify(data), function (result) {
+	    		console.log(tid);
+	        }, {errorFunction:function(result){
+	        	alert(result.resultMessage);
+	        },cache: false, async: false});
+	    })	
 });
 	var current=1;
 	function loadMore(){
@@ -25,6 +44,7 @@ $(function(){
 			
 		},{});
 	}
+	
 	//https://www.jianshu.com/p/05ef1dd140e4
 	//https://www.jb51.net/article/104904.htm
 	//https://bbs.csdn.net/topics/392344151

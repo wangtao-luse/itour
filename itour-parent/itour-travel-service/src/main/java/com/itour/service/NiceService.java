@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -87,6 +88,21 @@ public ResponseMessage insertNice(RequestMessage requestMessage) {
 	
 }
 @Transactional
+public ResponseMessage insertNiceBatch(RequestMessage requestMessage) {
+	ResponseMessage response = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		List<Nice> javaList = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(Nice.class);
+        this.saveBatch(javaList, javaList.size());
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return response;
+	
+}
+@Transactional
 public ResponseMessage updateNice(RequestMessage requestMessage) {
 	ResponseMessage response = ResponseMessage.getSucess();
 	try {
@@ -140,4 +156,6 @@ public ResponseMessage countNiceList(RequestMessage requestMessage) {
 	}
 	return response;
 }
+
+
 }

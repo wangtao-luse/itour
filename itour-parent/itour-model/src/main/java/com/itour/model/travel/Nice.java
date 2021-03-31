@@ -22,13 +22,13 @@ public class Nice extends Model<Nice> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 旅行信息编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     /**
      * 用户编号
@@ -48,19 +48,19 @@ public class Nice extends Model<Nice> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getTid() {
+    public Long getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(Long tid) {
         this.tid = tid;
     }
 

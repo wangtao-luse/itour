@@ -336,6 +336,14 @@ public class TravelApiController implements TravelApi {
 		return niceService.insertNice(requestMessage);
 	}
 	/**
+	 * 旅行信息点赞信息新增批量
+	 */
+	@Override
+	public ResponseMessage insertNiceBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return niceService.insertNiceBatch(requestMessage);
+	}
+	/**
 	 * 修改旅行点赞信息（取消点赞)
 	 */
 	@Override

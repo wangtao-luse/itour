@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
+import com.itour.connector.AccountConnector;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
@@ -30,13 +31,14 @@ import com.itour.model.travel.TravelColumn;
 import com.itour.util.DateUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
-import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 
 @Controller
 @RequestMapping("/travel")
 public class TravelController {
 	@Autowired
 private  TravelConnector travelConnector;
+	@Autowired
+private AccountConnector accountConnector;
 	@Autowired
 private RedisManager redisManager;
 
@@ -178,7 +180,7 @@ public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 		Nice nice= new Nice();
 		nice.setCreatedate(DateUtil.currentLongDate());
 		nice.setStatus(status);
-	    nice.setTid(jsonObject.getInteger("tid"));
+	    nice.setTid(jsonObject.getLong("tid"));
 	    AccountVo sessionUser = SessionUtil.getSessionUser();
 	    nice.setUid(sessionUser.getuId());
 	    String key = nice.getUid()+"::"+nice.getTid();
@@ -228,6 +230,7 @@ public String md() {
 }
 @RequestMapping("/detail")
 public String detail(Long id,ModelMap model) {
+	
 	model.addAttribute("id", id);
 	return "/travel/info/detail";
 }
@@ -303,4 +306,5 @@ public ResponseMessage getCityList(@RequestBody JSONObject jsonObject,HttpServle
 	return getCityList;
 	
 }
+
 }

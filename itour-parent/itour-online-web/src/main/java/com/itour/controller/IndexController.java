@@ -2,7 +2,7 @@ package com.itour.controller;
 
 
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.AccountVo;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
+import com.itour.constant.RedisKey;
+import com.itour.model.travel.Nice;
 import com.itour.model.travel.TravelInfo;
 import com.itour.util.FastJsonUtil;
-
-import cn.hutool.json.JSON;
+import com.itour.util.SessionUtil;
 
 
 
@@ -30,6 +33,8 @@ import cn.hutool.json.JSON;
 public class IndexController {
 	@Autowired
 private	TravelConnector travelConnector;
+	
+private	RedisManager redisManager;
 	/**
 	 * 旅行信息首页
 	 * @param viewTravelinfo
@@ -71,6 +76,25 @@ public String defaultPage(Page page,TravelInfo travelInfo, HttpServletRequest re
 		return "index#"+ajaxCmd;
 	}
 }
+
+//点赞
+
+@RequestMapping("/niceSub")
+public ResponseMessage niceSub(@RequestBody JSONObject jsonObject) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		AccountVo sessionUser = SessionUtil.getSessionUser();
+		jsonObject.put("uid", sessionUser.getuId());
+		
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+	
+return responseMessage;	
+}
+
+
 /**
  * 收藏弹出框
  * @return

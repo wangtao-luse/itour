@@ -14,8 +14,9 @@ import org.springframework.util.CollectionUtils;
 public class RedisManager {
 	@Autowired
 private RedisTemplate<Object, Object> redisTemplate;
+
 	@Autowired
-private StringRedisTemplate  StringRedisTemplate;
+private StringRedisTemplate  stringRedisTemplate;
 
 	/**
 	 * 1.Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
@@ -33,7 +34,7 @@ private StringRedisTemplate  StringRedisTemplate;
 	 */
 	public boolean set(String key,String value) {
 		try {
-			StringRedisTemplate.opsForValue().set(key, value);
+			stringRedisTemplate.opsForValue().set(key, value);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -45,12 +46,12 @@ private StringRedisTemplate  StringRedisTemplate;
 	 * 缓存放入 string（字符串)
 	 * @param key 键
 	 * @param value 值
-	 * @param timeout 时间(秒) timeout要大于0 如果time小于等于0 将设置无限期
+	 * @param timeout 时间(秒) timeout要大于0 如果timeout小于等于0 将设置无限期
 	 * @return true: 成功;false：失败;
 	 */
 	public boolean set(String key,String value,long timeout) {
 		try {
-			StringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
+			stringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -64,7 +65,7 @@ private StringRedisTemplate  StringRedisTemplate;
 	 * @return 字符串
 	 */
 	public String get(String key) {
-		return StringUtils.isEmpty(key)?"":StringRedisTemplate.opsForValue().get(key);
+		return StringUtils.isEmpty(key)?"":stringRedisTemplate.opsForValue().get(key);
 				
 	}
 	/**
@@ -73,7 +74,7 @@ private StringRedisTemplate  StringRedisTemplate;
 	 * @return 时间（秒） 返回0表示永久有效
 	 */
 	public long getStrExpire(String key) {
-		return StringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
+		return stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
 	}
 	/**
 	 * 判断key是否存在
@@ -81,7 +82,7 @@ private StringRedisTemplate  StringRedisTemplate;
 	 * @return
 	 */
 	public boolean hasStrKey(String key) {
-		return StringRedisTemplate.hasKey(key);
+		return stringRedisTemplate.hasKey(key);
 	}
 	/**
 	 * 删除缓存
@@ -91,10 +92,10 @@ private StringRedisTemplate  StringRedisTemplate;
 	public boolean del(String ...key) {
 		if(key!=null&&key.length>0) {
 			if(key.length==1) {
-				StringRedisTemplate.delete(key[0]);
+				stringRedisTemplate.delete(key[0]);
 				return true;
 			}else {
-				StringRedisTemplate.delete(CollectionUtils.arrayToList(key));
+				stringRedisTemplate.delete(CollectionUtils.arrayToList(key));
 				return true;
 			}
 		}

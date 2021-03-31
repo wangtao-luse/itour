@@ -511,6 +511,9 @@ overflow: hidden;
  {
 	fill: #0084FF;
 }
+.contentItem-action.nice svg{
+	fill:#0084FF;
+}
 .contentItem-action svg:hover path.hover{
 	fill:  #0084FF;
 }

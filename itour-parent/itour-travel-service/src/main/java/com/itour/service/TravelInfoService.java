@@ -1,7 +1,10 @@
 package com.itour.service;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +13,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.redis.RedisManager;
 import com.itour.common.req.RequestBody;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
+import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.model.travel.Nice;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
@@ -52,6 +57,8 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 	TagMapper tagMapper;
 	@Autowired
 	TravelColumnMapper travelColumnMapper;
+	@Autowired
+	RedisManager redisManager;
 	/**
 	 * 旅行信息列表
 	 * @param requestMessage
@@ -227,5 +234,34 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		}
 		return responseMessage;
 	}
-	
+	public ResponseMessage niceSub(RequestMessage requestMessage) {
+		ResponseMessage response = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Long tid = jsonObject.getLong("tid");
+			String status = jsonObject.getString("status");
+			String uid = jsonObject.getString("uid");
+			Nice n = new Nice();
+			 n.setStatus(status);
+			 n.setTid(tid);
+			 n.setUid(uid);
+			 n.setCreatedate(DateUtil.currentLongDate());
+			//将点赞对象放入缓存并设置缓存超时时间
+				boolean hasStrKey = redisManager.hasStrKey(RedisKey.KEY_NICE);
+				if(hasStrKey) {//key在缓存中不存在
+					Map<Object, Object> map = (Map<Object, Object>)redisManager.hget(RedisKey.KEY_NICE);
+					map.put(uid+"::"+tid, n);
+					redisManager.hmset(RedisKey.KEY_NICE, map);		
+				}else {//key 不存在直接放入缓存
+					HashMap<String, Object> m = new HashMap<String, Object>();
+					m.put(uid+"::"+tid, n);
+					 redisManager.hmset(RedisKey.KEY_NICE, m);
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return response;
+	}
 }

@@ -437,9 +437,9 @@
                 <spring.datasource.password>root</spring.datasource.password>
                 <!-- redis相关 -->
                 <spring.redis.database>0</spring.redis.database>
-                <spring.redis.host>127.0.0.1</spring.redis.host>
-                <spring.redis.port>6379</spring.redis.port>
-                <spring.redis.password>123</spring.redis.password>
+                <spring.redis.host>106.54.162.159</spring.redis.host>
+                <spring.redis.port>6380</spring.redis.port>
+                <spring.redis.password>redis@958958</spring.redis.password>
                 <spring.redis.timeout>30000</spring.redis.timeout>
                 <spring.redis.pool.max-active>8</spring.redis.pool.max-active>
                 <spring.redis.pool.max-wait>-1</spring.redis.pool.max-wait>
