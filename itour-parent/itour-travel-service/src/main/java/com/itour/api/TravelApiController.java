@@ -102,6 +102,11 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return travelInfoService.insertTravelInfo(requestMessage);
 	}
+	@Override
+	public ResponseMessage niceSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelInfoService.niceSub(requestMessage);
+	}
 	/**
 	 * 城市列表查询
 	 */

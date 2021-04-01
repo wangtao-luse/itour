@@ -21,8 +21,8 @@ import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 public class RedisConfig {
 	@Bean
     @ConditionalOnMissingBean(name = "redisTemplate")
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         //一般我们存取redis使用json格式的数据，为了存取方便，我们可以自定义序列化器来将数据自动使用json格式序列化
         //使用fastjson序列化
          //默认使用JdkSerializationRedisSerializer方式序列话:存入Redis的值；
@@ -36,6 +36,7 @@ public class RedisConfig {
         template.setConnectionFactory(redisConnectionFactory);
         return template;
     }
+
 
 
     @Bean

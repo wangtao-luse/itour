@@ -1,4 +1,4 @@
-package com.itour.quartz.service;
+package com.itour.quartz.study;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

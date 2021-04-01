@@ -381,6 +381,8 @@ ResponseMessage getRegionList(RequestMessage requestMessage);
 
 @RequestMapping(value = "/travel/insertNiceBatch",produces = {"application/json;charset=UTF-8"})
 ResponseMessage insertNiceBatch(RequestMessage requestMessage);
+@RequestMapping(value = "/travel/niceSub",produces = {"application/json;charset=UTF-8"})
+ResponseMessage niceSub(RequestMessage requestMessage);
 
 
 

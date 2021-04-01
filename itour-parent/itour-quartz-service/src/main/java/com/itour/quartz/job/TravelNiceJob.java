@@ -48,10 +48,10 @@ private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 
 			// 1.从Redis缓存中取出点赞的数据;
 			Map<Object, Object> map = redisManager.hget(RedisKey.KEY_NICE);
+			// 2.查看该用户是否已经点赞
 			List<Nice> saveOrupdateList = new ArrayList<Nice>();
 			List<String> tidList = new ArrayList<String>();
 			List<TravelInfo> travelInfoList = new ArrayList<TravelInfo>();
-			// 2.查看该用户是否已经点赞
 			map.forEach((k, v) -> {
 				Nice nice = (Nice) v;
 				JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(nice));
@@ -61,18 +61,19 @@ private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 					// 3.同步数据到数据库
 					Map<String, Object> returnResult = responseMessage.getReturnResult();
 					if (null != returnResult.get(Constant.COMMON_KEY_RESULT)) {// 点赞或取消点赞过
-						// 修改点赞状态
+						// 修改点赞状态（批量修改）
 						Nice like = (Nice) returnResult.get(Constant.COMMON_KEY_RESULT);
 						nice.setId(like.getId());
+						nice.setStatus(nice.getStatus());
 						saveOrupdateList.add(like);
-					} else {// 插入点赞表
+					} else {// 插入点赞表（批量插入）
 						saveOrupdateList.add(nice);
 					}
 
 				}
-				tidList.add(String.valueOf(nice.getTid()));
+				tidList.add(String.valueOf(nice.getTid()));//批量更新点赞数;
 			});
-			// 批量同步点赞数据
+			// 批量同步点赞数据到数据库
 			if (saveOrupdateList.size() > 0) {
 				JSONObject tmpJSon = new JSONObject();
 				tmpJSon.put(Constant.COMMON_KEY_ARR, saveOrupdateList);
@@ -80,6 +81,7 @@ private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 				ResponseMessage saveOrUpdateBatchNice = travelApi.saveOrUpdateBatchNice(postData);
 			}
 			// 4.更新点赞数
+			//4.1 统计文字点赞数;
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("tids", ArrayUtils.listToStr(tidList));
 			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
@@ -101,7 +103,7 @@ private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 				}
 
 			}
-			// 批量更新点赞数
+			// 4.2 批量更新点赞数
 			jsonObject.clear();
 			jsonObject.put(Constant.COMMON_KEY_ARR, travelInfoList);
 			RequestMessage request = HttpDataUtil.postData(jsonObject, null);

@@ -80,11 +80,12 @@ public String defaultPage(Page page,TravelInfo travelInfo, HttpServletRequest re
 //点赞
 
 @RequestMapping("/niceSub")
-public ResponseMessage niceSub(@RequestBody JSONObject jsonObject) {
+public ResponseMessage niceSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
 		AccountVo sessionUser = SessionUtil.getSessionUser();
 		jsonObject.put("uid", sessionUser.getuId());
+		responseMessage = this.travelConnector.niceSub(jsonObject, request);
 		
 	}catch (Exception e) {
 		// TODO: handle exception
