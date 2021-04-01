@@ -80,17 +80,9 @@ public String defaultPage(Page page,TravelInfo travelInfo, HttpServletRequest re
 //点赞
 
 @RequestMapping("/niceSub")
+@ResponseBody
 public ResponseMessage niceSub(@RequestBody JSONObject jsonObject) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
-	try {
-		AccountVo sessionUser = SessionUtil.getSessionUser();
-		jsonObject.put("uid", sessionUser.getuId());
-		
-	}catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-	}
-	
 return responseMessage;	
 }
 
