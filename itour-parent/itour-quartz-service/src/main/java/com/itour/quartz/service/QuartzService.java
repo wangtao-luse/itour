@@ -1,4 +1,4 @@
-package com.itour.quartz.study;
+package com.itour.quartz.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;

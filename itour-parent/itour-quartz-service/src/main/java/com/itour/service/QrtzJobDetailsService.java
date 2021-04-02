@@ -33,7 +33,7 @@ import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.quartz.QrtzJobDetails;
 import com.itour.persist.QrtzJobDetailsMapper;
-import com.itour.quartz.study.QuartzService;
+import com.itour.quartz.service.QuartzService;
 import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 /**

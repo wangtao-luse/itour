@@ -1,4 +1,4 @@
-package com.itour.quartz.study;
+package com.itour.quartz.service;
 
 import java.sql.SQLException;
 import java.text.ParseException;

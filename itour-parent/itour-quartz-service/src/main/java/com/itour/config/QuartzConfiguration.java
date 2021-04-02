@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.itour.quartz.job.TravelNiceJob;
 
-@Configuration
+//@Configuration
 public class QuartzConfiguration {
 	   @Bean
 	    public JobDetail travelJobDetail(){
