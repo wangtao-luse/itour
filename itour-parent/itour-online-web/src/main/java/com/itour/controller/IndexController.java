@@ -46,23 +46,15 @@ private	RedisManager redisManager;
 	 */
 @RequestMapping("/index")
 public String index(Page page,TravelInfo travelInfo, HttpServletRequest request,String ajaxCmd,ModelMap model) {
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("vo", travelInfo);
-		jsonObject.put("page", page);	
-	ResponseMessage queryTravelInfoList = this.travelConnector.queryTravelInfoList(jsonObject, request);
-	Map<String, Object> returnResult = queryTravelInfoList.getReturnResult();
-	Page p = FastJsonUtil.mapToObject(returnResult, Page.class, Constant.COMMON_KEY_RESULT);
-	model.addAttribute("travel", p.getRecords());
-	if(ajaxCmd==null) {
-		return "index";
-	}else {
-		return "index#"+ajaxCmd;
-	}
+		return indexPage(page, travelInfo, request, ajaxCmd, model);
 	
 }
 //解决退出问题
 @RequestMapping("/")
 public String defaultPage(Page page,TravelInfo travelInfo, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+	return indexPage(page, travelInfo, request, ajaxCmd, model);
+}
+private String indexPage(Page page, TravelInfo travelInfo, HttpServletRequest request, String ajaxCmd, ModelMap model) {
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("vo", travelInfo);
 	jsonObject.put("page", page);	
@@ -80,11 +72,7 @@ public String defaultPage(Page page,TravelInfo travelInfo, HttpServletRequest re
 //点赞
 
 @RequestMapping("/niceSub")
-<<<<<<< HEAD
 @ResponseBody
-public ResponseMessage niceSub(@RequestBody JSONObject jsonObject) {
-	ResponseMessage responseMessage = ResponseMessage.getSucess();
-=======
 public ResponseMessage niceSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -97,7 +85,6 @@ public ResponseMessage niceSub(@RequestBody JSONObject jsonObject,HttpServletReq
 		e.printStackTrace();
 	}
 	
->>>>>>> 60c5b1faaa78826ae4624ce07ad28bc5c0d0e8ee
 return responseMessage;	
 }
 
