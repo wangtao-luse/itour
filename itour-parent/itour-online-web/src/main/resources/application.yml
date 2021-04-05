@@ -1,7 +1,19 @@
 #端口号
 server:  port: '@server.online.port@'  servlet:    context-path: /itour
 spring:  profiles:    active: '@profiles.active@' #指定激活环境
-  application:    name: itour-online-web #指定项目名称#eureka
+  application:    name: itour-online-web #指定项目名称
+  redis:     #reids相关配置单元测试的时候需要用到此配置
+    database: '@spring.redis.database@'
+    host: '@spring.redis.host@'
+    port: '@spring.redis.port@'
+    password: '@spring.redis.password@'
+    jedis:
+      pool:
+        max-active: '@spring.redis.pool.max-active@'
+        max-wait: '@spring.redis.pool.max-wait@'
+        max-idle: '@spring.redis.pool.max-idle@'
+        min-idle: '@spring.redis.pool.min-idle@'
+    timeout: '@spring.redis.timeout@'#eureka
 eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka      instance:    prefer-ip-address: '@eureka.instance.prefer-ip-address@'
       
 #beetl

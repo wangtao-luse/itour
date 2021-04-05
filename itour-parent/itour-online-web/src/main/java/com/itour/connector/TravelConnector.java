@@ -227,5 +227,11 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.getRegionList(requestMessage);
 		return responseMessage;
 	}
+	public ResponseMessage niceSub(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.niceSub(requestMessage);
+		return responseMessage;
+	}
 	
 }

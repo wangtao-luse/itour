@@ -1,5 +1,6 @@
 package com.itour.common.redis;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -12,8 +13,12 @@ import org.springframework.util.CollectionUtils;
 //https://www.jianshu.com/p/8e71737a1101
 @Component
 public class RedisManager {
+	/**
+	* 注入自定义的RedisTemplate
+	* 注意:泛型的类型一定要一致,否则会注入失败
+	*/
 	@Autowired
-private RedisTemplate<Object, Object> redisTemplate;
+private RedisTemplate<String, Object> redisTemplate;
 
 	@Autowired
 private StringRedisTemplate  stringRedisTemplate;
@@ -71,7 +76,7 @@ private StringRedisTemplate  stringRedisTemplate;
 	/**
 	 * 根据key 获取过期时间
 	 * @param key key不能为null
-	 * @return 时间（秒） 返回0表示永久有效
+	 * @return 时间（秒） 0:表示永久有效;-1:如果该值没有设置过期时间;-2:如果没有该值;
 	 */
 	public long getStrExpire(String key) {
 		return stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
@@ -105,10 +110,27 @@ private StringRedisTemplate  stringRedisTemplate;
 	/**
 	 * HashSet 缓存存放
 	 * @param key 键
+	 * @param map map
+	 * @return true: 成功;false：失败;
+	 */
+	public  boolean hmset(String key,Map<Object, Object> map) {
+		try {
+			redisTemplate.opsForHash().putAll(key, map);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	/**
+	 * HashSet 缓存存放
+	 * @param key 键
 	 * @param m map
 	 * @return true: 成功;false：失败;
 	 */
-	public  boolean hmset(String key,Map<String, Object> m) {
+	public  boolean hmSset(String key,HashMap<String, Object> m) {
 		try {
 			redisTemplate.opsForHash().putAll(key, m);
 			return true;
