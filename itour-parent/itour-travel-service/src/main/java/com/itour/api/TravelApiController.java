@@ -84,7 +84,7 @@ public class TravelApiController implements TravelApi {
 	@Override
 	public ResponseMessage updateTravelInfoBatch(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return travelInfoService.updateTravelInfo(requestMessage);
+		return travelInfoService.updateTravelInfoBatch(requestMessage);
 	}
 	 /**
      * 旅游信息删除

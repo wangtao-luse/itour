@@ -31,6 +31,14 @@ public class TravelNiceService {
 	@Autowired
  TravelApi travelApi;
 	@Transactional
+	/***
+	 * 1.从缓存中获取点赞的数据列表;
+	 * 2.查看用户是否已经点赞过,点赞过设置Id和status;
+	 * 3.批量插入点赞表
+	 * 4.统计文章的点赞数,封装为列表;
+	 * 5.批量更新点赞数;
+	 * 6.将缓存中的点赞数据删除;
+	 */
 	public void insertNice() {
 		try {
 			// 1.从Redis缓存中取出点赞的数据;
@@ -93,7 +101,20 @@ public class TravelNiceService {
 			jsonObject.clear();
 			jsonObject.put(Constant.COMMON_KEY_ARR, travelInfoList);
 			RequestMessage request = HttpDataUtil.postData(jsonObject, null);
-			ResponseMessage updateTravelInfoBatch = this.travelApi.updateTravelInfoBatch(request);
+			if(travelInfoList.size()>0) {
+				ResponseMessage updateTravelInfoBatch = this.travelApi.updateTravelInfoBatch(request);
+				if(Constant.SUCCESS_CODE.equals(updateTravelInfoBatch.getResultCode())) {
+					//4.3清楚缓存
+					saveOrupdateList.forEach(key->{
+						String hashKey=key.getUid()+"::"+key.getTid();
+						boolean hdel = this.redisManager.hdel(RedisKey.KEY_NICE, hashKey);	
+					});
+				}
+			}
+			
+			
+			
+			
 		} catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
