@@ -25,6 +25,17 @@ public static JSONObject mapToJson(Map map) {
 	return parseObject;
 }
 /**
+ * Object转为JSONObject
+ * @param obj
+ * @return JSONObject
+ */
+
+public static JSONObject objToJSONObject(Object obj) {
+	String text = JSON.toJSONString(obj);
+	JSONObject parseObject = JSONObject.parseObject(text);
+	return parseObject;
+}
+/**
  * Map转为实体List
  * @param <T>
  * @param map  Map

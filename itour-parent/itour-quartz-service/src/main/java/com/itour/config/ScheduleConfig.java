@@ -1,17 +1,11 @@
 package com.itour.config;
 
-import java.io.IOException;
-import java.util.Properties;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import org.quartz.Scheduler;
-import org.quartz.ee.servlet.QuartzInitializerListener;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -35,40 +29,27 @@ public class ScheduleConfig implements SchedulingConfigurer {
 	public Executor taskExecutor() {
 		return Executors.newScheduledThreadPool(20);
 	}
-	
-	//------------解决quartz注入失败问题----------------------------
+	//解决SpringBoot使用Quartz无法注入Bean的问题
 	//https://my.oschina.net/tianshl/blog/1818841
-	@Autowired
-    private SpringJobFactory springJobFactory;
-
-	@Bean(name="SchedulerFactory")
-    public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
-		//// Spring提供SchedulerFactoryBean为Scheduler提供配置信息,并被Spring容器管理其生命周期
-        SchedulerFactoryBean factory = new SchedulerFactoryBean();
-        factory.setAutoStartup(true);
-        //注意这里是重点
-        factory.setJobFactory(springJobFactory);  
-        return factory;
-    }
-
-  
-
-    /*
-     * quartz初始化监听器
+	/*
+	 * private SpringJobFactory jobFactory; public void
+	 * setJobFactory(SpringJobFactory jobFactory) { this.jobFactory = jobFactory; }
+	 */
+	/**
+     * 配置SchedulerFactoryBean
+     *
+     * 将一个方法产生为Bean并交给Spring容器管理
      */
-    @Bean
-    public QuartzInitializerListener executorListener() {
-       return new QuartzInitializerListener();
-    }
-
-    /*
-     * 通过SchedulerFactoryBean获取Scheduler的实例
-     */
-    @Bean(name="Scheduler")
-    public Scheduler scheduler() throws IOException {
-        return schedulerFactoryBean().getScheduler();
-    }
-
-	
+	/*
+	 * @Bean public SchedulerFactoryBean schedulerFactoryBean() { //
+	 * Spring提供SchedulerFactoryBean为Scheduler提供配置信息,并被Spring容器管理其生命周期
+	 * SchedulerFactoryBean factory = new SchedulerFactoryBean(); // 设置自定义Job
+	 * Factory，用于Spring管理Job bean factory.setJobFactory(jobFactory); return factory;
+	 * }
+	 * 
+	 * @Bean(name = "scheduler") public Scheduler scheduler() { return
+	 * schedulerFactoryBean().getScheduler(); }
+	 */
 }
+
  

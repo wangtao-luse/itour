@@ -22,6 +22,7 @@ import com.itour.exception.BaseException;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.TravelInfo;
 import com.itour.util.ArrayUtils;
+import com.itour.util.FastJsonUtil;
 @Service
 public class TravelNiceService {
 	private final static Logger logger=LoggerFactory.getLogger(TravelNiceService.class);
@@ -32,24 +33,23 @@ public class TravelNiceService {
 	@Transactional
 	public void insertNice() {
 		try {
-
 			// 1.从Redis缓存中取出点赞的数据;
 			Map<Object, Object> map = redisManager.hget(RedisKey.KEY_NICE);
 			// 2.查看该用户是否已经点赞
 			List<Nice> saveOrupdateList = new ArrayList<Nice>();
 			List<String> tidList = new ArrayList<String>();
 			List<TravelInfo> travelInfoList = new ArrayList<TravelInfo>();
-			map.forEach((k, v) -> {
-				Nice nice = (Nice) v;
-				JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(nice));
+			map.forEach((key, v) -> {
+				JSONObject jsonObject = FastJsonUtil.objToJSONObject(v);
+				Nice nice = jsonObject.toJavaObject(Nice.class);
 				RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
 				ResponseMessage responseMessage = travelApi.getNice(requestMessage);
 				if (Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 					// 3.同步数据到数据库
-					Map<String, Object> returnResult = responseMessage.getReturnResult();
-					if (null != returnResult.get(Constant.COMMON_KEY_RESULT)) {// 点赞或取消点赞过
+					Map<String, Object> map1 = responseMessage.getReturnResult();
+					if (null != map1.get(Constant.COMMON_KEY_RESULT)) {// 点赞或取消点赞过
 						// 修改点赞状态（批量修改）
-						Nice like = (Nice) returnResult.get(Constant.COMMON_KEY_RESULT);
+						Nice like = FastJsonUtil.mapToObject(map1, Nice.class, Constant.COMMON_KEY_RESULT);
 						nice.setId(like.getId());
 						nice.setStatus(nice.getStatus());
 						saveOrupdateList.add(like);
@@ -85,7 +85,6 @@ public class TravelNiceService {
 						travelInfo.setId(Long.valueOf(tid.toString()));
 						travelInfo.setNiceCount(Integer.valueOf(count.toString()));
 						travelInfoList.add(travelInfo);
-
 					}
 				}
 

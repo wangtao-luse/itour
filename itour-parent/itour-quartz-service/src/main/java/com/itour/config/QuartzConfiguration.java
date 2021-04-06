@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.itour.quartz.job.TravelNiceJob;
 
-//@Configuration
+@Configuration
 public class QuartzConfiguration {
 	   @Bean
 	    public JobDetail travelJobDetail(){
@@ -20,7 +20,7 @@ public class QuartzConfiguration {
 	    @Bean
 	    public Trigger travelTrigger(){
 	    	//构建
-	    	CronScheduleBuilder cronSchedule = CronScheduleBuilder.cronSchedule("0/5 * * * * ?");
+	    	CronScheduleBuilder cronSchedule = CronScheduleBuilder.cronSchedule("0/30 * * * * ?");
 	        Trigger trigger = TriggerBuilder.newTrigger()
 	                .forJob(travelJobDetail())
 	                .withSchedule(cronSchedule)
