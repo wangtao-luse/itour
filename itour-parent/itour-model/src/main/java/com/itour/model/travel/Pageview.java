@@ -20,13 +20,13 @@ public class Pageview extends Model<Pageview> {
      * 编号
      */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
     /**
      * 旅行信息编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     /**
      * 用户
@@ -70,23 +70,24 @@ public class Pageview extends Model<Pageview> {
     @TableField("CREATEDATE")
     private Long createdate;
 
-    public Integer getId() {
-        return id;
-    }
+    
+    public Long getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Integer getTid() {
-        return tid;
-    }
+	public Long getTid() {
+		return tid;
+	}
 
-    public void setTid(Integer tid) {
-        this.tid = tid;
-    }
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 
-    public String getUid() {
+	public String getUid() {
         return uid;
     }
 

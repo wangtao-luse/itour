@@ -43,6 +43,7 @@ public ResponseMessage queryPageviewList(RequestMessage requestMessage) {
 		}
 	} catch (Exception e) {
 		// TODO: handle exception
+		e.printStackTrace();
 	}
 	return responseMessage;
 }

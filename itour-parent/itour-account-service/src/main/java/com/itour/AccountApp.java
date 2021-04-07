@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement//开启springboot事务支持
 @MapperScan("com.itour.persist")//扫描指定的Mapper文件
 @EnableCaching//开启基于Spring注解的缓存
-public class AccountApplication {
+public class AccountApp {
  public static void main(String[] args) {
-	SpringApplication.run(AccountApplication.class, args);
+	SpringApplication.run(AccountApp.class, args);
 }
 }

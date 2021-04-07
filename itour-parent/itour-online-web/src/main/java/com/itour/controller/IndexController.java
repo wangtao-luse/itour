@@ -25,6 +25,7 @@ import com.itour.constant.RedisKey;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.TravelInfo;
 import com.itour.util.FastJsonUtil;
+import com.itour.util.IpUtil;
 import com.itour.util.SessionUtil;
 
 

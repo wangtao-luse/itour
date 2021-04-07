@@ -8,36 +8,8 @@ import java.util.Date;
 
 public class DateUtil {
 /**
- * 将日期存储转换为long类型用于存储到mysql数据库中Int的字段中
- * @param date
- * @return
- */
-public static long getlongDate(Date date) {
-	long time = date.getTime()/1000;
-	return time;
-}
-/**
- * 将日期存储转换为long类型用于存储到mysql数据库中Int的字段中
- * @param long
- * @return
- */
-public static long getlongDate(long date) {
-	long time = date/1000;
-	return time;
-}
-/**
- * 展示时需要*1000在进行转换
- * @param t
- * @return
- */
-public static long longDate(long t) {
-	Date date= new Date(t*1000);
-	long time = date.getTime();
-	return time;
-}
-/**
- * 返回当前日期的的long形式日期
- * @return
+ * 返回当前日期的long类型日期
+ * @return long
  */
 public static long currentLongDate() {
 	Date date= new Date();
@@ -45,9 +17,29 @@ public static long currentLongDate() {
 	return time;
 }
 /**
- * 将日期转换为以毫米数
- * @param date 开始日期
- * @return 以毫秒为来单位的时间
+ * 返回指定日期long类型日期
+ * @param date
+ * @return long
+ */
+public static long getlongDate(Date date) {
+	long time = date.getTime();
+	return time;
+}
+/**
+ * 将Date型日期转为对应的pattern格式的日期
+ * @param date
+ * @param pattern
+ * @return
+ */
+public static String getStrDate(Date date,String pattern) {
+	SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+	  String format = sdf.format(date);
+	return format;
+}
+/**
+ * 将日期转换为对应的毫秒数
+ * @param date 日期
+ * @return 以毫秒为来单位的时间 long
  */
 public static long getMillis(Date date) {
 	Calendar c = Calendar.getInstance();
@@ -291,10 +283,11 @@ public static final int daysBetween(Date early, Date late) {
  */
 public static long getMidnight() throws ParseException {
     //1.得到long类型的当前时间
-	long getlongDate = DateUtil.getlongDate(new Date());
+	long current = DateUtil.getlongDate(new Date());
 	//2.将当前日期格式化为yyyy-MM-dd
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	String format = sdf.format(new Date(DateUtil.longDate(getlongDate)));
+	String format = sdf.format(new Date(current));
+	System.out.println(format);
 	//3.将日格式化的日期字符串转为long类型日期
 	Date parse = sdf.parse(format);
 	long time = parse.getTime();
@@ -303,16 +296,13 @@ public static long getMidnight() throws ParseException {
 	
 }
 
+
 public static void main(String[] args) throws ParseException {
 	//得到long类型的当前时间
-	long getlongDate = DateUtil.getlongDate(new Date());
+	long longDate = DateUtil.getlongDate(new Date());
 	//System.out.println(getlongDate);//1589436700
 									//1589438064
 									//1691766000
-	
-	long longDate = DateUtil.longDate(getlongDate);
-	//System.out.println(longDate);
-	
 	Date d = new Date(longDate);
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String format = sdf.format(d);
@@ -322,6 +312,7 @@ public static void main(String[] args) throws ParseException {
 	//System.out.println("指定日期的long格式"+time);
 	
 	test();
+	getMidnight();
 }
 public static void test() {
 	//1.获取当前时间

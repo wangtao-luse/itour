@@ -1,6 +1,5 @@
 package com.itour.quartz.job;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +13,10 @@ import com.itour.api.TravelApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.redis.RedisManager;
 import com.itour.common.req.RequestMessage;
-import com.itour.constant.RedisKey;
-import com.itour.model.travel.Pageview;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.model.travel.TravelInfo;
+import com.itour.util.FastJsonUtil;
 
 public class TravelPageviewJob extends QuartzJobBean{
 	@Autowired
@@ -28,14 +29,23 @@ public class TravelPageviewJob extends QuartzJobBean{
 		saveOrUpdatePageview();
 	}
     private void  saveOrUpdatePageview() {
-    	//1.从Redis中取出缓存
-    	Map<Object, Object> map = redisManager.hget(RedisKey.KEY_PAGEVIEW);
-    	//2.同步数据到数据库
-    	List<Pageview> pageviewList = new ArrayList<Pageview>();
-         JSONObject jsonObject = new JSONObject();
-         jsonObject.put("arr", pageviewList);
-         RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
-         this.travelApi.saveOrUpdateBatchPageview(requestMessage);
+    	//1.查询出所有的文章编号
+    	JSONObject jsonObject = new JSONObject();
+    	TravelInfo info = new TravelInfo();
+    	jsonObject.put("vo", info);
+    	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
+    	ResponseMessage list = this.travelApi.queryTravelInfoList(requestMessage);
+    	if(Constant.SUCCESS_CODE.equals(list.getResultCode())) {
+    		Map<String, Object> result = list.getReturnResult();
+    		List<TravelInfo> mapToList = FastJsonUtil.mapToList(result, TravelInfo.class, Constant.COMMON_KEY_RESULT);
+    		for (TravelInfo travelInfo : mapToList) {
+    			String key="";
+				String string = this.redisManager.get(key);
+			}
+    	}
+    	//2.根据Key从缓存中获取对应的独立IP访问数;
+    	//3.更新独立IP访问数到数据库
+    	
     	
 	   
    }

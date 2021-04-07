@@ -1,5 +1,7 @@
 package com.itour.controller;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import com.itour.model.travel.Pageview;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.util.DateUtil;
+import com.itour.util.IpUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
 
@@ -147,22 +150,26 @@ public ResponseMessage selectViewTravelinfoOauthById(@RequestBody JSONObject jso
 	
 }
 @RequestMapping("/planPage")
-public String planPage(Integer id,String title,HttpServletRequest request) {
-	//1.添加浏览记录
-	JSONObject jsonObject = new JSONObject();
-	History history = new History();
-	history.setId(id);
-	history.setTitle(title);
-	history.setStatus(ConstantV.HISTORY_NORMAL);
-	history.setCreatedate(DateUtil.currentLongDate());
-	String loc="";
-	history.setLoc(loc);
-	AccountVo sessionUser = SessionUtil.getSessionUser();
-	String uId=sessionUser.getuId();
-	history.setuId(uId);
-	this.travelConnector.insertHistory(jsonObject, request);
+public String planPage(Long id,String title,HttpServletRequest request) {
+	//1.浏览量
+	//pageView(id);
+	//2.独立访客
+	 
+	//3.独立IP
+	 ip(request);
 	//2.跳转页面
 	return "/travel/plan/detail";
+}
+public void ip(HttpServletRequest request) {
+	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	 String ipAddr = IpUtil.getIpAddr(request);
+	 String key=ipAddr+"::"+strDate;
+	 this.redisManager.incr(key, 1);
+}
+private void pageView(Long id) {
+	//1.浏览量
+	String key=RedisKey.KEY_ITOUR_PAGEVIEW+"::"+id;
+	this.redisManager.incr(key, 1);
 }
 @RequestMapping("/infoAddPage")
 public String infoAddPage() {
@@ -173,19 +180,7 @@ public String infoAddPage() {
 public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
-		//1.将点赞数据插入redis中,定时同步数据库
-		//key =uid::pid;用户唯一号+文章编号;
-		String status = jsonObject.getString("status");
-		Map<String, Object> map = new LinkedHashMap<String, Object>();
-		Nice nice= new Nice();
-		nice.setCreatedate(DateUtil.currentLongDate());
-		nice.setStatus(status);
-	    nice.setTid(jsonObject.getLong("tid"));
-	    AccountVo sessionUser = SessionUtil.getSessionUser();
-	    nice.setUid(sessionUser.getuId());
-	    String key = nice.getUid()+"::"+nice.getTid();
-	    map.put(key, nice);
-	    this.redisManager.hmset(RedisKey.KEY_NICE, map,8*60);
+		
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -199,21 +194,7 @@ return responseMessage;
 public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
-		//1.将浏览量数据插入redis中,定时同步数据库
-		String tid = jsonObject.getString("tid");
-		Map<String, Object> map = new LinkedHashMap<String, Object>();
-		Pageview pageview= new Pageview();
-		pageview.setTid(Integer.valueOf(tid));
-		pageview.setCreatedate(DateUtil.currentLongDate());
-		boolean hHasKey = redisManager.hHasKey(RedisKey.KEY_PAGEVIEW, tid);
-		if(hHasKey) {//有浏览量
-			Pageview view = (Pageview)redisManager.hget(RedisKey.KEY_PAGEVIEW, tid);
-			Integer pageVew = view.getPageVew();
-			view.setPageVew(pageVew+1);
-		}
-		map.put(tid, pageview);
-		//插入redis  key:TravelRedisKey.KEY_PAGEVIEW;时效:5天
-		this.redisManager.hmset(RedisKey.KEY_PAGEVIEW, map, 5*24*60*60);
+		
 	} catch (Exception e) {
 		// TODO: handle exception
 		e.printStackTrace();
