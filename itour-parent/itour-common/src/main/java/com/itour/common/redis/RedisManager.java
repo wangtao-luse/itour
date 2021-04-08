@@ -2,10 +2,12 @@ package com.itour.common.redis;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -239,12 +241,47 @@ private StringRedisTemplate  stringRedisTemplate;
 	}
 	//-------------------------------list-----------------------------------------------------
 	/**
+	 * 将list放入缓存( * 在列表的最左边塞入一个value)
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean lpush(String key, String value) {
+		try {
+			 redisTemplate.opsForList().leftPush(key, value);
+			 return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	   
+	}
+	/**
+	 * 将list放入缓存
+	 * @param keyleftPush
+	 * @param value
+	 * @return
+	 */
+	public boolean lpush(String key,Object value,long timeout) {
+		try {
+			redisTemplate.opsForList().leftPush(key, value);
+			if(timeout>0) {
+				expire(key, timeout);
+			}
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
+	}
+	/**
 	 * 将list放入缓存
 	 * @param key
 	 * @param value
 	 * @return
 	 */
-	public boolean lset(String key,Object value) {
+	public boolean rpush(String key,Object value) {
 		try {
 			redisTemplate.opsForList().rightPush(key, value);
 			return true;
@@ -260,7 +297,7 @@ private StringRedisTemplate  stringRedisTemplate;
 	 * @param value
 	 * @return
 	 */
-	public boolean lset(String key,Object value,long timeout) {
+	public boolean rpush(String key,Object value,long timeout) {
 		try {
 			redisTemplate.opsForList().rightPush(key, value);
 			if(timeout>0) {
@@ -270,6 +307,22 @@ private StringRedisTemplate  stringRedisTemplate;
 		} catch (Exception e) {
 			// TODO: handle exception
 			return false;
+		}
+		
+	}
+	/**
+	 * 获取指定索引位置的值, index为-1时，表示返回的是最后一个；当index大于实际的列表长度时，返回null
+	 *
+	 * @param key
+	 * @param index
+	 * @return
+	 */
+	public Object index(String key, int index) {
+		try {
+			return redisTemplate.opsForList().index(key, index);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
 		}
 		
 	}
@@ -286,6 +339,7 @@ private StringRedisTemplate  stringRedisTemplate;
             return 0;
         }
     }
+  
     /**
      	* 通过索引 获取list中的值
      * @param key 键
@@ -332,6 +386,23 @@ private StringRedisTemplate  stringRedisTemplate;
             return 0;
         }
     }
+    /**
+     * 删除list首尾，只保留 [start, end] 之间的值
+     *
+     * @param key
+     * @param start
+     * @param end
+     */
+    public boolean trim(String key, Integer start, Integer end) {
+    	try {
+    		redisTemplate.opsForList().trim(key, start, end);
+    		return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+        
+    }
     //---------------------------------------set---------------------------------------
 	/**
 	 * set 放入缓存
@@ -339,7 +410,7 @@ private StringRedisTemplate  stringRedisTemplate;
 	 * @param values
 	 * @return
 	 */
-	public boolean sSet(String key,Object... values) {
+	public boolean sAdd(String key,Object... values) {
 		try {
 			redisTemplate.opsForSet().add(key, values);
 			return true;
@@ -355,13 +426,28 @@ private StringRedisTemplate  stringRedisTemplate;
 	 * @param values
 	 * @return
 	 */
-	public boolean sSet(String key,long timeout,Object... values) {
+	public boolean sAdd(String key,long timeout,Object... values) {
 		try {
 			redisTemplate.opsForSet().add(key, values);
 			if(timeout>0) {
 				expire(key, timeout);
 			}
 			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
+	}
+	/**
+	 * 判断 member 元素是否是集合 key 的成员，在集合中返回True
+	 * @param key
+	 * @param o
+	 * @return
+	 */
+	public boolean sisMember(String key,Object member) {
+		try {
+			return redisTemplate.opsForSet().isMember(key, member);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return false;
@@ -380,6 +466,20 @@ private StringRedisTemplate  stringRedisTemplate;
             e.printStackTrace();
             return 0;
         }
+    }
+    /**
+     * 返回集合中的所有成员
+     * @param key
+     * @return
+     */
+    public Set<Object> smembers(String key) {
+    	try {
+    		Set<Object> members = redisTemplate.opsForSet().members(key);
+    		return members;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
     }
     /**
               * 移除值为value的

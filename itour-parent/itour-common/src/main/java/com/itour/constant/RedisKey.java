@@ -26,6 +26,26 @@ public static String KEY_ITOUR_VISIT_IEW="itour_visit_iew";
  * 视频播放量
  */
 public static String KEY_ITOUR_VIDEO_VIEW="itour_video_view";
+/**
+ * 旅行文章独立IP统计
+ */
+public static String KEY_ITOUR_IP_COUNT="itour_ip_count";
+/**
+ * 所有浏览过攻略的IP
+ */
+public static String KEY_ITOUR_IPS="itour_ips";
+/**
+ * 所有浏览过攻略的独立访客
+ */
+public static String KEY_ITOUR_UNIQUEISITORS="itour_uniqueisitors";
+/**
+ * 攻略文章统计独立访客
+ */
+public static String KEY_ITOUR_UNIQUEISITOR_COUNT="itour_uniqueisitor_count";
+/**
+ * 浏览过的文章的编号
+ */
+public static String ITOUR_PAGEVIEW_IDS="itour_pageview_ids";
 
 //超时时间2小时
 public static long TIMEOUT=60*60*2;

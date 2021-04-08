@@ -2,10 +2,12 @@ package com.itour.controller;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,7 @@ import com.itour.connector.AccountConnector;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
-import com.itour.constant.ConstantV;
 import com.itour.constant.RedisKey;
-import com.itour.model.travel.History;
-import com.itour.model.travel.Nice;
-import com.itour.model.travel.Pageview;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.util.DateUtil;
@@ -151,26 +149,11 @@ public ResponseMessage selectViewTravelinfoOauthById(@RequestBody JSONObject jso
 }
 @RequestMapping("/planPage")
 public String planPage(Long id,String title,HttpServletRequest request) {
-	//1.浏览量
-	//pageView(id);
-	//2.独立访客
-	 
-	//3.独立IP
-	 ip(request);
+	
 	//2.跳转页面
 	return "/travel/plan/detail";
 }
-public void ip(HttpServletRequest request) {
-	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
-	 String ipAddr = IpUtil.getIpAddr(request);
-	 String key=ipAddr+"::"+strDate;
-	 this.redisManager.incr(key, 1);
-}
-private void pageView(Long id) {
-	//1.浏览量
-	String key=RedisKey.KEY_ITOUR_PAGEVIEW+"::"+id;
-	this.redisManager.incr(key, 1);
-}
+
 @RequestMapping("/infoAddPage")
 public String infoAddPage() {
 	return "/travel/info/infoAdd";
@@ -210,11 +193,86 @@ public String md() {
 	return "/travel/info/md";
 }
 @RequestMapping("/detail")
-public String detail(Long id,ModelMap model) {
-	
+public String detail(Long id,ModelMap model,HttpServletRequest request ) {
+	//1.浏览量
+		pageView(id);
+		//2.独立访客
+		 unique(request);
+		//3.独立IP
+		 ip(request);
 	model.addAttribute("id", id);
 	return "/travel/info/detail";
 }
+public void unique(HttpServletRequest request) {
+	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	 Cookie[] cookies = request.getCookies();
+	 String cookie_=null;
+	 for (Cookie cookie : cookies) {
+		System.out.println(cookie.getName()+"--"+cookie.getValue());
+		if("JSESSIONID".equals(cookie.getName())) {
+			cookie_=cookie.getValue();
+		}
+	}
+	 String key=cookie_+"::"+strDate;
+	 boolean hasStrKey = this.redisManager.hasStrKey(RedisKey.KEY_ITOUR_UNIQUEISITORS);
+	 if(hasStrKey) {//有缓存查看缓存中是否有对应的key
+		 boolean hHasKey = this.redisManager.hHasKey(RedisKey.KEY_ITOUR_UNIQUEISITORS, key);
+		 if(!hHasKey) {
+			 Map<Object, Object> m = this.redisManager.hget(RedisKey.KEY_ITOUR_UNIQUEISITORS);
+			 	m.put(key, key);
+				this.redisManager.hmset(RedisKey.KEY_ITOUR_UNIQUEISITORS, m);
+				this.redisManager.incr(RedisKey.KEY_ITOUR_UNIQUEISITOR_COUNT, 1);  
+		 }
+		 
+	 }else {
+		 HashMap<String,Object > m= new HashMap<String, Object>();
+			m.put(key, key);
+			this.redisManager.hmSset(RedisKey.KEY_ITOUR_UNIQUEISITORS, m);
+			this.redisManager.incr(RedisKey.KEY_ITOUR_UNIQUEISITOR_COUNT, 1);  
+	 }
+}
+public void ip(HttpServletRequest request) {
+	 //1.组装key
+	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	 String ipAddr = IpUtil.getIpAddr(request);
+	 String key=ipAddr+"::"+strDate;
+	 //key是否存在
+	 boolean hasStrKey = this.redisManager.hasStrKey(RedisKey.KEY_ITOUR_IPS);
+	 if(hasStrKey) {//有缓存看缓存中是否有对应的key
+		 boolean hHasKey = this.redisManager.hHasKey(RedisKey.KEY_ITOUR_IPS, key);
+		 if(!hHasKey) {
+		 Map<Object, Object> m = this.redisManager.hget(RedisKey.KEY_ITOUR_IPS);
+		 	m.put(key, key);
+			this.redisManager.hmset(RedisKey.KEY_ITOUR_IPS, m);
+			this.redisManager.incr(RedisKey.KEY_ITOUR_IP_COUNT, 1);
+		 }
+	 }else {//没有缓存直接放入缓存
+		 HashMap<String,Object > m= new HashMap<String, Object>();
+			m.put(key, key);
+			this.redisManager.hmSset(RedisKey.KEY_ITOUR_IPS, m);
+			this.redisManager.incr(RedisKey.KEY_ITOUR_IP_COUNT, 1);  
+	 }
+	 
+	 
+}
+private void pageView(Long id) {
+	//1.浏览量
+	String key=RedisKey.KEY_ITOUR_PAGEVIEW+"::"+id;
+	this.redisManager.incr(key, 1);
+	boolean hasStrKey = this.redisManager.sisMember(RedisKey.ITOUR_PAGEVIEW_IDS,id);
+	if(hasStrKey) {
+		Set<Object> pvList = this.redisManager.smembers(RedisKey.ITOUR_PAGEVIEW_IDS);
+		   pvList.add(id);
+		this.redisManager.rpush(RedisKey.ITOUR_PAGEVIEW_IDS, pvList);
+	}else {
+		Set<Object> pvList = new HashSet<Object>();
+		pvList.add(id);
+		this.redisManager.rpush(RedisKey.ITOUR_PAGEVIEW_IDS, pvList);
+	}
+	
+	
+}
+
 @RequestMapping("/insertweekTravel")
 @ResponseBody
 public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
