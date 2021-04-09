@@ -110,6 +110,9 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return travelInfoService.insertTravelInfo(requestMessage);
 	}
+	/**
+	 * 旅行攻略点赞功能
+	 */
 	@Override
 	public ResponseMessage niceSub(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub

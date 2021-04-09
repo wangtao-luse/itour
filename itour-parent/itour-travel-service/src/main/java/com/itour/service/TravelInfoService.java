@@ -259,6 +259,11 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		}
 		return responseMessage;
 	}
+	/**
+	   * 旅行攻略点赞功能
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage niceSub(RequestMessage requestMessage) {
 		ResponseMessage response = ResponseMessage.getSucess();
 		try {

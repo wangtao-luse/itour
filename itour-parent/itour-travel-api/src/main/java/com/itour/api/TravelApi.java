@@ -390,6 +390,15 @@ ResponseMessage getRegionList(RequestMessage requestMessage);
 ResponseMessage insertNiceBatch(RequestMessage requestMessage);
 @RequestMapping(value = "/travel/niceSub",produces = {"application/json;charset=UTF-8"})
 ResponseMessage niceSub(RequestMessage requestMessage);
+/**
+ * 获取周末攻略
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selecWeekInfotById",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selecWeekInfotById(RequestMessage requestMessage);
+
+
 
 
 
