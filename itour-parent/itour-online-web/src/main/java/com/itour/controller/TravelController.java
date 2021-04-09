@@ -194,16 +194,17 @@ public String md() {
 }
 @RequestMapping("/detail")
 public String detail(Long id,ModelMap model,HttpServletRequest request ) {
-	//1.浏览量
-		pageView(id);
+	   //1.浏览量
+		//pageView(String.valueOf(id));
 		//2.独立访客
-		 unique(request);
+		 //unique(request,String.valueOf(id));
 		//3.独立IP
-		 ip(request);
+		 ip(request,String.valueOf(id));
+	   
 	model.addAttribute("id", id);
 	return "/travel/info/detail";
 }
-public void unique(HttpServletRequest request) {
+public void unique(HttpServletRequest request,String id) {
 	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
 	 Cookie[] cookies = request.getCookies();
 	 String cookie_=null;
@@ -213,61 +214,44 @@ public void unique(HttpServletRequest request) {
 			cookie_=cookie.getValue();
 		}
 	}
-	 String key=cookie_+"::"+strDate;
-	 boolean hasStrKey = this.redisManager.hasStrKey(RedisKey.KEY_ITOUR_UNIQUEISITORS);
-	 if(hasStrKey) {//有缓存查看缓存中是否有对应的key
-		 boolean hHasKey = this.redisManager.hHasKey(RedisKey.KEY_ITOUR_UNIQUEISITORS, key);
-		 if(!hHasKey) {
-			 Map<Object, Object> m = this.redisManager.hget(RedisKey.KEY_ITOUR_UNIQUEISITORS);
-			 	m.put(key, key);
-				this.redisManager.hmset(RedisKey.KEY_ITOUR_UNIQUEISITORS, m);
-				this.redisManager.incr(RedisKey.KEY_ITOUR_UNIQUEISITOR_COUNT, 1);  
-		 }
-		 
-	 }else {
-		 HashMap<String,Object > m= new HashMap<String, Object>();
-			m.put(key, key);
-			this.redisManager.hmSset(RedisKey.KEY_ITOUR_UNIQUEISITORS, m);
+	 String key=cookie_+"::"+strDate+"::"+id;
+	 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOUR_UNIQUEISITORS, key);
+	 if(!isMember) {//缓存中没有则添加到缓存
+			this.redisManager.sAdd(RedisKey.KEY_ITOUR_UNIQUEISITORS, key);
 			this.redisManager.incr(RedisKey.KEY_ITOUR_UNIQUEISITOR_COUNT, 1);  
 	 }
 }
-public void ip(HttpServletRequest request) {
+public void ip(HttpServletRequest request,String id) {
 	 //1.组装key
 	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
 	 String ipAddr = IpUtil.getIpAddr(request);
-	 String key=ipAddr+"::"+strDate;
-	 //key是否存在
-	 boolean hasStrKey = this.redisManager.hasStrKey(RedisKey.KEY_ITOUR_IPS);
-	 if(hasStrKey) {//有缓存看缓存中是否有对应的key
-		 boolean hHasKey = this.redisManager.hHasKey(RedisKey.KEY_ITOUR_IPS, key);
-		 if(!hHasKey) {
-		 Map<Object, Object> m = this.redisManager.hget(RedisKey.KEY_ITOUR_IPS);
-		 	m.put(key, key);
-			this.redisManager.hmset(RedisKey.KEY_ITOUR_IPS, m);
+	 String key=ipAddr+"::"+strDate+"::"+id;
+		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOUR_IPS, key);
+		 if(!isMember) {//缓存中没有则添加到缓存
+		 	this.redisManager.sAdd(RedisKey.KEY_ITOUR_IPS,key);
 			this.redisManager.incr(RedisKey.KEY_ITOUR_IP_COUNT, 1);
 		 }
-	 }else {//没有缓存直接放入缓存
-		 HashMap<String,Object > m= new HashMap<String, Object>();
-			m.put(key, key);
-			this.redisManager.hmSset(RedisKey.KEY_ITOUR_IPS, m);
-			this.redisManager.incr(RedisKey.KEY_ITOUR_IP_COUNT, 1);  
-	 }
-	 
-	 
 }
-private void pageView(Long id) {
+public void pv(HttpServletRequest request,String id) {
+	//1.组装key
+	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	String ipAddr = IpUtil.getIpAddr(request);
+	String key=ipAddr+"::"+strDate+"::"+id;
+	String k=strDate+"::"+id;
+	boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOUR_PVS, key);
+	if(!isMember) {//缓存中没有则添加到缓存
+		this.redisManager.sAdd(RedisKey.KEY_ITOUR_PVS,key);
+		this.redisManager.incr(k, 1);
+	}
+}
+private void pageView(String id) {
 	//1.浏览量
-	String key=RedisKey.KEY_ITOUR_PAGEVIEW+"::"+id;
+	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	String key=RedisKey.KEY_ITOUR_PAGEVIEW+"::"+strDate+"::"+id;
 	this.redisManager.incr(key, 1);
-	boolean hasStrKey = this.redisManager.sisMember(RedisKey.ITOUR_PAGEVIEW_IDS,id);
-	if(hasStrKey) {
-		Set<Object> pvList = this.redisManager.smembers(RedisKey.ITOUR_PAGEVIEW_IDS);
-		   pvList.add(id);
-		this.redisManager.rpush(RedisKey.ITOUR_PAGEVIEW_IDS, pvList);
-	}else {
-		Set<Object> pvList = new HashSet<Object>();
-		pvList.add(id);
-		this.redisManager.rpush(RedisKey.ITOUR_PAGEVIEW_IDS, pvList);
+	boolean isMember = this.redisManager.sisMember(RedisKey.ITOUR_PAGEVIEW_IDS,id);
+	if(!isMember) {
+		this.redisManager.sAdd(RedisKey.ITOUR_PAGEVIEW_IDS,key);
 	}
 	
 	

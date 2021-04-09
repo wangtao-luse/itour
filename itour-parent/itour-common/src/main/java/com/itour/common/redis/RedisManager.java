@@ -232,7 +232,7 @@ private StringRedisTemplate  stringRedisTemplate;
 	public boolean hHasKey(String key,Object hashKey) {
 		boolean b=true;
 		try {
-			redisTemplate.opsForHash().hasKey(key, hashKey);
+			b= redisTemplate.opsForHash().hasKey(key, hashKey);
 		} catch (Exception e) {
 			// TODO: handle exception
 			b=false;
@@ -489,7 +489,7 @@ private StringRedisTemplate  stringRedisTemplate;
      */
     public long setRemove(String key, Object... values) {
         try {
-            Long count = redisTemplate.opsForSet().remove(key, values);
+            Long count = redisTemplate.opsForSet().remove(key, values);            
             return count;
         } catch (Exception e) {
             e.printStackTrace();

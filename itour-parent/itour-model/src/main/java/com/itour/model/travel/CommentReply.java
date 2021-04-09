@@ -7,14 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 旅行信息评论表
+ * 旅行信息评论回复表
  * </p>
  *
  * @author wangtao
  * @since 2021-04-09
  */
-@TableName("t_t_travel_comment")
-public class TravelComment extends Model<TravelComment> {
+@TableName("t_t_comment_reply")
+public class CommentReply extends Model<CommentReply> {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,28 +25,34 @@ public class TravelComment extends Model<TravelComment> {
     private Integer id;
 
     /**
-     * 评论内容
+     * 评论编号
      */
-    @TableField("COMMENT")
-    private String comment;
+    @TableField("COMMENT_ID")
+    private Integer commentId;
 
     /**
-     * 评论时间
+     * 回复内容
      */
-    @TableField("CTIME")
-    private Long ctime;
+    @TableField("REPLY")
+    private String reply;
 
     /**
-     * 用户编号
+     * 回复时间
      */
-    @TableField("UID")
-    private String uid;
+    @TableField("RTIME")
+    private Long rtime;
 
     /**
-     * 旅行信息编号
+     * 回复人的ID
      */
-    @TableField("TID")
-    private Integer tid;
+    @TableField("FROM_UID")
+    private String fromUid;
+
+    /**
+     * 回复给目标人的ID
+     */
+    @TableField("TO_UID")
+    private String toUid;
 
     /**
      * 点赞数
@@ -68,36 +74,44 @@ public class TravelComment extends Model<TravelComment> {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
-    public Long getCtime() {
-        return ctime;
+    public String getReply() {
+        return reply;
     }
 
-    public void setCtime(Long ctime) {
-        this.ctime = ctime;
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 
-    public String getUid() {
-        return uid;
+    public Long getRtime() {
+        return rtime;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setRtime(Long rtime) {
+        this.rtime = rtime;
     }
 
-    public Integer getTid() {
-        return tid;
+    public String getFromUid() {
+        return fromUid;
     }
 
-    public void setTid(Integer tid) {
-        this.tid = tid;
+    public void setFromUid(String fromUid) {
+        this.fromUid = fromUid;
+    }
+
+    public String getToUid() {
+        return toUid;
+    }
+
+    public void setToUid(String toUid) {
+        this.toUid = toUid;
     }
 
     public Integer getThum() {
@@ -123,12 +137,13 @@ public class TravelComment extends Model<TravelComment> {
 
     @Override
     public String toString() {
-        return "TravelComment{" +
+        return "CommentReply{" +
         ", id=" + id +
-        ", comment=" + comment +
-        ", ctime=" + ctime +
-        ", uid=" + uid +
-        ", tid=" + tid +
+        ", commentId=" + commentId +
+        ", reply=" + reply +
+        ", rtime=" + rtime +
+        ", fromUid=" + fromUid +
+        ", toUid=" + toUid +
         ", thum=" + thum +
         ", status=" + status +
         "}";

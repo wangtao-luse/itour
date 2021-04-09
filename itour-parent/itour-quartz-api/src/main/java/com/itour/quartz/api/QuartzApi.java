@@ -64,4 +64,5 @@ public interface QuartzApi {
 	 */
 	@RequestMapping(value = "/quartz/startNowJob",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage startNowJob(RequestMessage requestMessage);
+	
 }

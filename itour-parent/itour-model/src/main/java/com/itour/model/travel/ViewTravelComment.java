@@ -1,27 +1,23 @@
 package com.itour.model.travel;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 旅行信息评论表
+ * VIEW
  * </p>
  *
  * @author wangtao
  * @since 2021-04-09
  */
-@TableName("t_t_travel_comment")
-public class TravelComment extends Model<TravelComment> {
+public class ViewTravelComment extends Model<ViewTravelComment> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 编号
      */
-    @TableId(value = "ID", type = IdType.AUTO)
+    @TableField("ID")
     private Integer id;
 
     /**
@@ -59,6 +55,18 @@ public class TravelComment extends Model<TravelComment> {
      */
     @TableField("STATUS")
     private String status;
+
+    /**
+     * 图像
+     */
+    @TableField("AVATAR")
+    private String avatar;
+
+    /**
+     * 昵称
+     */
+    @TableField("NICKNAME")
+    private String nickname;
 
     public Integer getId() {
         return id;
@@ -116,6 +124,22 @@ public class TravelComment extends Model<TravelComment> {
         this.status = status;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     protected Serializable pkVal() {
         return null;
@@ -123,7 +147,7 @@ public class TravelComment extends Model<TravelComment> {
 
     @Override
     public String toString() {
-        return "TravelComment{" +
+        return "ViewTravelComment{" +
         ", id=" + id +
         ", comment=" + comment +
         ", ctime=" + ctime +
@@ -131,6 +155,8 @@ public class TravelComment extends Model<TravelComment> {
         ", tid=" + tid +
         ", thum=" + thum +
         ", status=" + status +
+        ", avatar=" + avatar +
+        ", nickname=" + nickname +
         "}";
     }
 }

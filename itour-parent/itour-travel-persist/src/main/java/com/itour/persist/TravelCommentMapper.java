@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 旅行信息评论表 Mapper 接口
  * </p>
  *
  * @author wangtao
- * @since 2020-07-30
+ * @since 2021-04-09
  */
 public interface TravelCommentMapper extends BaseMapper<TravelComment> {
 

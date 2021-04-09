@@ -46,6 +46,10 @@ public static String KEY_ITOUR_UNIQUEISITOR_COUNT="itour_uniqueisitor_count";
  * 浏览过的文章的编号
  */
 public static String ITOUR_PAGEVIEW_IDS="itour_pageview_ids";
+/**
+ * 文章浏览量（首页显示）
+ */
+public static String KEY_ITOUR_PVS="itour_pvs";
 
 //超时时间2小时
 public static long TIMEOUT=60*60*2;

@@ -1,7 +1,9 @@
 package com.itour.persist;
 
-import com.itour.model.travel.TravelInfo;
+import java.util.Collection;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.travel.TravelInfo;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-12
  */
 public interface TravelInfoMapper extends BaseMapper<TravelInfo> {
-
+	 int updatePvBatch(Collection<TravelInfo> entityList);
 }

@@ -37,6 +37,13 @@ public ResponseMessage updateTravelInfo( RequestMessage requestMessage);
 @RequestMapping(value = "/travel/updateTravelInfoBatch",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage updateTravelInfoBatch( RequestMessage requestMessage);
 /**
+ * 旅行信息浏览量批量修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updatePvBatch",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage updatePvBatch(RequestMessage requestMessage);
+/**
  * 旅行信息删除
  * @param requestMessage
  * @return

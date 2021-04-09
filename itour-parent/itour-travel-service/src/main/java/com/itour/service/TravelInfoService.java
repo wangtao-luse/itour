@@ -59,6 +59,8 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 	TravelColumnMapper travelColumnMapper;
 	@Autowired
 	RedisManager redisManager;
+	@Autowired
+	TravelInfoMapper travelInfoMapper;
 	/**
 	 * 旅行信息列表
 	 * @param requestMessage
@@ -138,7 +140,30 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			List<TravelInfo> travelInfoVo = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(TravelInfo.class);
-			this.updateBatchById(travelInfoVo, travelInfoVo.size());
+			if(travelInfoVo.size()>0) {
+				this.updateBatchById(travelInfoVo, travelInfoVo.size());
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 批量修改旅行信息的浏览量
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage updatePvBatch(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			List<TravelInfo> travelInfoVo = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(TravelInfo.class);
+			if(travelInfoVo.size()>0) {
+				this.travelInfoMapper.updatePvBatch(travelInfoVo);				
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

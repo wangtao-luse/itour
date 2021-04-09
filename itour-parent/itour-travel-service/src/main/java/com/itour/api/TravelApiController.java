@@ -86,6 +86,14 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return travelInfoService.updateTravelInfoBatch(requestMessage);
 	}
+	/**
+	 * 旅游信息浏览量批量修改
+	 */
+	@Override
+	public ResponseMessage updatePvBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelInfoService.updatePvBatch(requestMessage);
+	}
 	 /**
      * 旅游信息删除
      */

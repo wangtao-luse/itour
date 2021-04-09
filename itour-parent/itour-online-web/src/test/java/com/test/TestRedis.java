@@ -1,7 +1,9 @@
 package com.test;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,7 +68,7 @@ public class TestRedis {
 		Tag t = new Tag();
 		t.setCreatedate(DateUtil.currentLongDate());
 		t.setId(1L);
-		t.setTag("杭州");
+		t.setTag("杭州1");
 		t.setUid("10001");
 		HashMap<String, Object> m = new HashMap<String, Object>();
 		m.put(t.getTag(), t);
@@ -75,5 +77,24 @@ public class TestRedis {
 		Map<Object, Object> hget = this.redisManager.hget("nice");
 		
 		
+	}
+	@Test
+	public void testSet() {
+		Set<Object> set =new HashSet<Object>();
+		  set.add("AA");
+		  set.add("AA");
+		  set.add("BB");
+		  set.add("cc");
+	 boolean sAdd = this.redisManager.sAdd("testSet", "c");
+	 long size = this.redisManager.sGetSetSize("testSet");
+	 System.out.println("set size----------------------->"+size);
+	 boolean sisMember = this.redisManager.sisMember("testSet", "AA");
+	 if(sisMember) {
+		 System.out.println("testSet中有对应的成员");
+	 }else {
+		 System.out.println("testSet中 没有找到对应的成员");
+	 }
+	 Set<Object> smembers = this.redisManager.smembers("testSet");
+	 System.out.println("smembers-------"+smembers);
 	}
 }
