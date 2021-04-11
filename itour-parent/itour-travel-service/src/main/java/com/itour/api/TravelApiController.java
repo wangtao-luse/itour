@@ -488,6 +488,11 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return regionService.getRegionList(requestMessage);
 	}
+	@Override
+	public ResponseMessage selecWeekInfotById(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
