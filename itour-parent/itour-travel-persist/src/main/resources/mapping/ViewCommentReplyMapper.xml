@@ -3,7 +3,7 @@
 <mapper namespace="com.itour.persist.ViewCommentReplyMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.travel.ViewCommentReply">
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.dto.ViewCommentReply">
         <result column="ID" property="id" />
         <result column="COMMENT_ID" property="commentId" />
         <result column="REPLY" property="reply" />

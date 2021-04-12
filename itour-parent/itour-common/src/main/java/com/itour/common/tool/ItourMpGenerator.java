@@ -40,11 +40,11 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否为视图
   			  */
-  			 boolean isView =false;//视图
+  			 boolean isView =true;//视图
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_t_travel_comment","t_t_comment_reply","view_travel_comment","view_comment_reply"};
+  			 String [] include= new String[] {"view_travel_tag","view_travel_comment","view_comment_reply"};
   			 /**
   			  * 需要忽略的表前缀
   			  */

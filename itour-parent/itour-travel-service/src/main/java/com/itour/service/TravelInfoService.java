@@ -100,7 +100,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Integer id = jsonObject.getInteger("id");
+			Long id = jsonObject.getLong("id");
 			TravelInfo selectById = this.baseMapper.selectById(id);
 			responseMessage.setReturnResult(selectById);
 		} catch (Exception e) {
@@ -202,7 +202,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			//获取参数
 			RequestBody body = requestMessage.getBody();
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			String travel_type = jsonObject.getString(ConstantTravel.TRAVEL_INFO_TYPE);
+			String travel_type = jsonObject.getString("type");
 			JSONArray tagArr = jsonObject.getJSONArray("tag_arr");
 			JSONArray colArr = jsonObject.getJSONArray("col_arr");
 			//1.插入旅行旅行信息表
@@ -277,16 +277,10 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			 n.setUid(uid);
 			 n.setCreatedate(DateUtil.currentLongDate());
 			//将点赞对象放入缓存并设置缓存超时时间
-				boolean hasStrKey = redisManager.hasStrKey(RedisKey.KEY_NICE);
-				if(hasStrKey) {//key在缓存中不存在
-					Map<Object, Object> map = (Map<Object, Object>)redisManager.hget(RedisKey.KEY_NICE);
-					map.put(uid+"::"+tid, n);
-					redisManager.hmset(RedisKey.KEY_NICE, map);		
-				}else {//key 不存在直接放入缓存
-					HashMap<String, Object> m = new HashMap<String, Object>();
-					m.put(uid+"::"+tid, n);
-					 redisManager.hmSset(RedisKey.KEY_NICE, m);
-				}
+			//key 不存在直接放入缓存
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			 m.put(uid+"::"+tid, n);
+			 redisManager.hmSset(RedisKey.KEY_NICE, m);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

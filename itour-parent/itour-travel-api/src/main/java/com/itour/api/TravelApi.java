@@ -388,6 +388,11 @@ ResponseMessage getRegionList(RequestMessage requestMessage);
 
 @RequestMapping(value = "/travel/insertNiceBatch",produces = {"application/json;charset=UTF-8"})
 ResponseMessage insertNiceBatch(RequestMessage requestMessage);
+/**
+ * 旅行攻略点赞
+ * @param requestMessage
+ * @return
+ */
 @RequestMapping(value = "/travel/niceSub",produces = {"application/json;charset=UTF-8"})
 ResponseMessage niceSub(RequestMessage requestMessage);
 /**
@@ -395,8 +400,22 @@ ResponseMessage niceSub(RequestMessage requestMessage);
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "/travel/selecWeekInfotById",produces = {"application/json;charset=UTF-8"})
-ResponseMessage selecWeekInfotById(RequestMessage requestMessage);
+@RequestMapping(value = "/travel/selecWeekInfoOne",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selecWeekInfoOne(RequestMessage requestMessage);
+/**
+ * 获取文章标签
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryViewTravelTagList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryViewTravelTagList(RequestMessage requestMessage);
+/**
+ * 插入旅行攻略评论
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertComment",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertComment(RequestMessage requestMessage);
 
 
 

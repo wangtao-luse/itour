@@ -227,11 +227,42 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.getRegionList(requestMessage);
 		return responseMessage;
 	}
+	/***
+	 * 旅行攻略点赞
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
 	public ResponseMessage niceSub(JSONObject jsonObject, HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		ResponseMessage responseMessage = travelApi.niceSub(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 根据文章id获取周末旅行攻略内容
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selecWeekInfoOne(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selecWeekInfoOne(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 获取旅行攻略文章的标签
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryViewTravelTagList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryViewTravelTagList(requestMessage);
+		return responseMessage;
+	}
+	
 	
 }

@@ -1,4 +1,4 @@
-package com.itour.model.travel;
+package com.itour.model.travel.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2021-04-09
+ * @since 2021-04-12
  */
 public class ViewTravelComment extends Model<ViewTravelComment> {
 

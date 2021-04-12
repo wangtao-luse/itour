@@ -101,7 +101,7 @@ public class TravelInfo extends Model<TravelInfo> {
      * 最后发布时间
      */
     @TableField("UPDATETIME")
-    private Integer updatetime;
+    private Long updatetime;
 
     public Long getId() {
         return id;
@@ -209,11 +209,11 @@ public class TravelInfo extends Model<TravelInfo> {
         this.publishtime = publishtime;
     }
 
-    public Integer getUpdatetime() {
+    public Long getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(Integer updatetime) {
+    public void setUpdatetime(Long updatetime) {
         this.updatetime = updatetime;
     }
 

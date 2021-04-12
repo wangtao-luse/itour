@@ -1,11 +1,8 @@
 package com.itour.controller;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +25,11 @@ import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
+import com.itour.model.travel.TravelInfo;
+import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.ViewTravelTag;
 import com.itour.util.DateUtil;
+import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
@@ -194,14 +195,39 @@ public String md() {
 }
 @RequestMapping("/detail")
 public String detail(Long id,ModelMap model,HttpServletRequest request ) {
-	   //1.浏览量
-		//pageView(String.valueOf(id));
-		//2.独立访客
-		 //unique(request,String.valueOf(id));
-		//3.独立IP
+		//1.独立IP访问数作为显示的浏览量（浏览量功能相关）
 		 ip(request,String.valueOf(id));
+	   //2.获取旅行信息
+		 JSONObject jsonObject = new JSONObject();
+		 jsonObject.put("id", id);
+		ResponseMessage resp = this.travelConnector.selectTravelInfoById(jsonObject , request);
+		if(Constant.SUCCESS_CODE.equals(resp.getResultCode())) {
+			TravelInfo travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), TravelInfo.class, Constant.COMMON_KEY_RESULT);			
+			 model.addAttribute("travelInfo", travelInfo);
+			 //获取周末旅行攻略的内容
+			 if("2".equals(travelInfo.getType())) {
+				 jsonObject.clear();
+				 jsonObject.put("tid", id);
+				ResponseMessage weekinfo = this.travelConnector.selecWeekInfoOne(jsonObject, request);
+				if(Constant.SUCCESS_CODE.equals(weekinfo.getResultCode())) {
+					WeekInfo mapToObject = FastJsonUtil.mapToObject(weekinfo.getReturnResult(), WeekInfo.class, Constant.COMMON_KEY_RESULT);
+					model.addAttribute("weekinfo", mapToObject);
+				}
+			 }
+			 //获取旅行攻略的标签列表
+			 jsonObject.clear();
+			 jsonObject.put("tid", id);
+			 ResponseMessage tagResp = this.travelConnector.queryViewTravelTagList(jsonObject, request);
+			 if(Constant.SUCCESS_CODE.equals(tagResp.getResultCode())) {
+				 List<ViewTravelTag> mapToList = FastJsonUtil.mapToList(tagResp.getReturnResult(), ViewTravelTag.class, Constant.COMMON_KEY_RESULT);
+				 model.addAttribute("tagList", mapToList);
+			 }
+			 
+		}
+		
+		 
+	    model.addAttribute("id", id);
 	   
-	model.addAttribute("id", id);
 	return "/travel/info/detail";
 }
 public void unique(HttpServletRequest request,String id) {

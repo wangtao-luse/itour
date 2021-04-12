@@ -1,6 +1,6 @@
 package com.itour.persist;
 
-import com.itour.model.travel.dto.ViewCommentReply;
+import com.itour.model.travel.dto.ViewTravelTag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author wangtao
  * @since 2021-04-12
  */
-public interface ViewCommentReplyMapper extends BaseMapper<ViewCommentReply> {
+public interface ViewTravelTagMapper extends BaseMapper<ViewTravelTag> {
 
 }

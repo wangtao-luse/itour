@@ -20,7 +20,9 @@ import com.itour.service.TravelColumnService;
 import com.itour.service.TravelCommentService;
 import com.itour.service.TravelInfoService;
 import com.itour.service.TravelTypeService;
+import com.itour.service.ViewTravelTagService;
 import com.itour.service.ViewTravelinfoOauthService;
+import com.itour.service.WeekInfoService;
 
 @RestController
 public class TravelApiController implements TravelApi {
@@ -54,6 +56,10 @@ public class TravelApiController implements TravelApi {
 	TagService tagService;
 	@Autowired
 	RegionService regionService;
+	@Autowired
+	WeekInfoService weekInfoService;
+	@Autowired
+	ViewTravelTagService viewTravelTagService;
 	 /**
      * 旅游信息列表
      */
@@ -489,9 +495,20 @@ public class TravelApiController implements TravelApi {
 		return regionService.getRegionList(requestMessage);
 	}
 	@Override
-	public ResponseMessage selecWeekInfotById(RequestMessage requestMessage) {
+	public ResponseMessage selecWeekInfoOne(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return null;
+		return weekInfoService.selecWeekInfoOne(requestMessage);
+	}
+	
+	@Override
+	public ResponseMessage queryViewTravelTagList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewTravelTagService.queryViewTravelTagList(requestMessage);
+	}
+	@Override
+	public ResponseMessage insertComment(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelCommentService.insertComment(requestMessage);
 	}
 	
 	

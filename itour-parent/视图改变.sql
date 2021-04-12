@@ -125,3 +125,6 @@ SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_T_TRAVEL_COMMENT c,(SELECT * FROM t_a_
 CREATE OR REPLACE VIEW view_comment_reply AS
 SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_T_COMMENT_REPLY c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp 
 WHERE c.from_uid=tmp.U_ID;
+#旅行标签视图
+CREATE OR REPLACE VIEW view_travel_tag AS
+SELECT c.id,c.tid,c.tag_id,d.tag,d.uid FROM t_t_travel_tag c ,t_t_tag d WHERE c.TAG_ID=d.ID;

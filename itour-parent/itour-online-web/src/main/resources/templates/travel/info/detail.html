@@ -1,4 +1,8 @@
 @layout("/layout/template.html",{title:'爱旅行-详情'}){
+   <style>
+   .richContent .richContent-inner {
+     max-height: none;
+}</style>
 		<div id="itour-main">
 	    	<div class="topstory">
 	    		<div class="topstory-container">
@@ -17,24 +21,31 @@
 	    									</a>
 	    								</div>	    								
 	    							</div>
-	    							<h1 class="mb-1 h1">去上海旅游有什么推荐的地方?</h1>
+	    							<h1 class="mb-1 h1">${travelInfo.title}</h1>
 	    							<div class="article_tags">
 	    								<div class="tags">
-	    									<a href="#" class="tag article_tag">旅行</a>
-	    									<a href="#" class="tag article_tag">上海旅行攻略</a>
-	    									<a href="#" class="tag article_tag">周末去哪儿</a>
+	    								   @for(tag in tagList){
+	    								   <a href="#" class="tag article_tag">${tag.tag}</a>
+	    								   @}
+	    									
 	    								</div>
 	    								<div class="text-secondary">
-	    									阅读 1.1k
+	    									阅读 
+	    									@if(travelInfo.readCount>0){
+	    									  ${travelInfo.readCount}
+	    									@}
 	    									<span class="split-dot"></span>
-	    									<span class="datePublished">发布于 2020-12-1 12:30:50</span>
+	    									<span class="datePublished">发布于 ${travelInfo.publishtime,dateFormat='yyyy-MM-dd HH:mm'}</span>
 	    								</div>
 	    								
 	    								
 	    							</div>
 	    							<article class="richContent">
 	    								<div class="richContent-inner">
-	    									主体内容
+	    								   @if(travelInfo.type=='2'){
+	    								   ${weekinfo.weekContent!}
+	    								   @}
+	    									
 	    								</div>
 	    								<div class="contentItem-actions sticky richContent-actions is-fixed is-bottom">
 	    									<button class="button contentItem-action button--plain button--withIcon button--withLabel">
@@ -42,14 +53,21 @@
 												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
 												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	
 												</span>
-												赞80
+												赞
+												@if(travelInfo.niceCount>0){
+												  ${travelInfo.niceCount}
+												@}
+												
 											</button>
 											<button class="button contentItem-action button--plain button--withIcon button--withLabel">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarComment.png" width="22" height="22">
 												<img class="isactive" src="${ctxPath}/img/common/tobarCommentactive.png" width="22" height="22" style="display: none;">	
 												</span>
-												评论800
+												评论
+												@if(travelInfo.commentCount>0){
+												 ${travelInfo.commentCount}
+												 @}
 											</button>
 											<button class="button contentItem-action button--plain button--withIcon button--withLabel">
 												<span style="display: inline-flex; align-items: center;">​

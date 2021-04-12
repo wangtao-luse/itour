@@ -50,7 +50,11 @@ public class TravelNiceService {
 			map.forEach((key, v) -> {
 				JSONObject jsonObject = FastJsonUtil.objToJSONObject(v);
 				Nice nice = jsonObject.toJavaObject(Nice.class);
-				RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
+			    JSONObject tmpJson = new JSONObject();
+				Nice tmpObj = new Nice();
+				     tmpObj.setTid(nice.getTid());
+				     tmpObj.setUid(nice.getUid());
+				RequestMessage requestMessage = HttpDataUtil.postData(tmpJson, null);
 				ResponseMessage responseMessage = travelApi.getNice(requestMessage);
 				if (Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 					// 3.同步数据到数据库
@@ -76,7 +80,7 @@ public class TravelNiceService {
 				ResponseMessage saveOrUpdateBatchNice = travelApi.saveOrUpdateBatchNice(postData);
 			}
 			// 4.更新点赞数
-			//4.1 统计文字点赞数;
+			//4.1 统计文章点赞数;
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("tids", ArrayUtils.listToStr(tidList));
 			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);

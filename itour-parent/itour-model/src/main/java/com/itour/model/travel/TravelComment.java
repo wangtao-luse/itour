@@ -22,7 +22,7 @@ public class TravelComment extends Model<TravelComment> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 评论内容
@@ -46,7 +46,7 @@ public class TravelComment extends Model<TravelComment> {
      * 旅行信息编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     /**
      * 点赞数
@@ -60,11 +60,11 @@ public class TravelComment extends Model<TravelComment> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -92,11 +92,11 @@ public class TravelComment extends Model<TravelComment> {
         this.uid = uid;
     }
 
-    public Integer getTid() {
+    public Long getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(Long tid) {
         this.tid = tid;
     }
 
