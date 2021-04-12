@@ -7,6 +7,7 @@ import com.itour.exception.BaseException;
 import com.itour.model.travel.TravelComment;
 import com.itour.persist.TravelCommentMapper;
 import com.itour.service.TravelCommentService;
+import com.itour.util.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,8 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			TravelComment commentVo = jsonObject.getJSONObject("vo").toJavaObject(TravelComment.class);
+			commentVo.setCtime(DateUtil.currentLongDate());
+			commentVo.setStatus(Constant.COMMON_STATUS_CHECKING);
 			this.baseMapper.insert(commentVo);
 		} catch (Exception e) {
 			// TODO: handle exception

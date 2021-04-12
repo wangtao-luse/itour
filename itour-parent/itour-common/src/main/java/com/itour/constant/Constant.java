@@ -18,7 +18,12 @@ public static final String COMMON_KEY_ARR="arr";
 //请求的key
 public static final String COMMON_VO_NEEDTOTAL="needTotal";
 
-
+//评论待审核
+public static final String COMMON_STATUS_CHECKING="0";
+//审核通过
+public static final String COMMON_STATUS_CHECKED="1";
+//审核不通过
+public static final String COMMON_STATUS_CHECK="2";
 
 
 

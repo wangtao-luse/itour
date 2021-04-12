@@ -3,6 +3,8 @@
    .richContent .richContent-inner {
      max-height: none;
 }</style>
+<script type="text/javascript" src="${ctxPath}/js/travel/detail.js" ></script>
+@var uid=user.uId!;
 		<div id="itour-main">
 	    	<div class="topstory">
 	    		<div class="topstory-container">
@@ -121,8 +123,8 @@
 									    	<textarea class="comment-content" id="comment_content" maxlength="1000"placeholder="快来写下你的评论..."></textarea>
 									    	<div class="opt-box">
 									    		<input type="hidden" id="comment_replyId" />
-									    		<input type="hidden" id="article_id" />
-									    		<input type="hidden" id="comment_userId" />
+									    		<input type="hidden" id="article_id" value="${id}"/>
+									    		<input type="hidden" id="comment_userId" value="${uid!}"/>
 									    		<input type="hidden" id="commentId" />
 									    		<div class="right-box">
 									    			<span id="tip_comment" class="tip">
@@ -130,8 +132,8 @@
 									    				<em>987</em>
 									    				个字符
 									    			</span>									    			
-									    			<a href="#">
-									    				<input type="submit" class="btn btn-sm btn-comment" value="发表评论">
+									    			<a href="javascript:void(0);">
+									    				<input type="button" class="btn btn-sm btn-comment" value="发表评论" >
 									    			</a>
 									    		</div>
 									    		

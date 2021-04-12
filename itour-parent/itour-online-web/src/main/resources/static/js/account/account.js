@@ -1027,7 +1027,7 @@ function findpwdSendCodetoEmail(email){
     //隐藏验证码浮出层	  
       hiddeCode();
     //发送验证码
-	    postData={"email":email,"ip":$("#ip").val()};
+	   postData={"email":email,"ip":$("#ip").val()};
  	postAjax("/msg/sendCodetoEmail",postData,function(data){
  		 $("#key-email-code").val(data.returnResult.key_email_code);
  		 $("#find-pwd-button").addClass("btn-check-succ").removeClass("btn-check-defaut").html("<span class=' iconfont icon-done'></span>"+"认证成功");

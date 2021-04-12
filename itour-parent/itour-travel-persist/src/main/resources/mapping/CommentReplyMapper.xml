@@ -10,12 +10,11 @@
         <result column="RTIME" property="rtime" />
         <result column="FROM_UID" property="fromUid" />
         <result column="TO_UID" property="toUid" />
-        <result column="THUM" property="thum" />
         <result column="STATUS" property="status" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, THUM, STATUS
+        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, STATUS
     </sql>
 
 </mapper>

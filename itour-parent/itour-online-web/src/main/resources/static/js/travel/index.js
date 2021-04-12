@@ -179,6 +179,8 @@ $(function(){
 		    });
 	});*/
 	
-	
+	$("#comment_content").on("click",".btn-comment",function(){
+		//$(this).removeClass("open");
+	});	
 
 

@@ -7,4 +7,6 @@ public class ConstantTravel {
 	//周末攻略
 	public static final String TRAVEL_INFO_WEEK="2";
 	
+	
+	
 }

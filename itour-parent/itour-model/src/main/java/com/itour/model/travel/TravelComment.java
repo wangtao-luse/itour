@@ -49,13 +49,9 @@ public class TravelComment extends Model<TravelComment> {
     private Long tid;
 
     /**
-     * 点赞数
-     */
-    @TableField("THUM")
-    private Integer thum;
-
+     * 
     /**
-     * 状态（1:正常;0:删除）
+     * 状态（0:待审核状态;1:审核通过;2:审核不通过;）
      */
     @TableField("STATUS")
     private String status;
@@ -100,13 +96,7 @@ public class TravelComment extends Model<TravelComment> {
         this.tid = tid;
     }
 
-    public Integer getThum() {
-        return thum;
-    }
-
-    public void setThum(Integer thum) {
-        this.thum = thum;
-    }
+   
 
     public String getStatus() {
         return status;
@@ -129,7 +119,6 @@ public class TravelComment extends Model<TravelComment> {
         ", ctime=" + ctime +
         ", uid=" + uid +
         ", tid=" + tid +
-        ", thum=" + thum +
         ", status=" + status +
         "}";
     }

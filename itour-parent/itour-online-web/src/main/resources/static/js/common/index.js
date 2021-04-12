@@ -19,9 +19,7 @@ $(function(){
 	$("#comment_content,#comment_contentNew").focus(function(){
 		$(this).addClass("open");
 	});
-	$("#comment_content").blur(function(){
-		//$(this).removeClass("open");
-	});
+	
 	$(".tool_bar__fold-btn").click(function(){
 		var fold = $(this).hasClass("fold");
 		if(fold){

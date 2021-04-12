@@ -355,5 +355,14 @@ public ResponseMessage getCityList(@RequestBody JSONObject jsonObject,HttpServle
 	return getCityList;
 	
 }
+@RequestMapping("/insertComment")
+@ResponseBody
+public ResponseMessage insertComment(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	jsonObject.put("uid", sessionUser.getuId());
+	ResponseMessage getCityList = this.travelConnector.insertComment(jsonObject, request);
+	return getCityList;
+	
+}
 
 }

@@ -263,6 +263,18 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.queryViewTravelTagList(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 旅行攻略添加评论
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage insertComment(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.insertComment(requestMessage);
+		return responseMessage;
+	}
 	
 	
 }
