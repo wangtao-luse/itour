@@ -4,7 +4,12 @@
      max-height: none;
 }</style>
 <script type="text/javascript" src="${ctxPath}/js/travel/detail.js" ></script>
+
 @var uid=user.uId!;
+	    
+		<div id="ct-out" style="width: 100%;position: fixed; left: 0;bottom: 10%;text-align: center;z-index: 9000;display: none">
+			<span id="ct-outContent" style="display: inline-block;background:rgb(67,116,240);color:rgb(255, 255, 255);max-width:80%;padding:8px 24px;border-radius: 4px;font-size: 16px;">请填写评论内容</span>
+		</div>
 		<div id="itour-main">
 	    	<div class="topstory">
 	    		<div class="topstory-container">
@@ -120,7 +125,8 @@
 											<img  class="avatar" src="${ctxPath}/img/common/avatar-1.jpg" width="24" height="24">
 										</div>
 									    <form id="comment-form">
-									    	<textarea class="comment-content" id="comment_content" maxlength="1000"placeholder="快来写下你的评论..."></textarea>
+									        <div id="ct-mask" onclick="closeMask()" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.4);position: fixed;left: 0;top: 0;z-index: 8999;display: none" ></div>
+									    	<textarea class="comment-content" id="comment_content" maxlength="1200"placeholder="快来写下你的评论..."></textarea>
 									    	<div class="opt-box">
 									    		<input type="hidden" id="comment_replyId" />
 									    		<input type="hidden" id="article_id" value="${id}"/>
@@ -129,11 +135,11 @@
 									    		<div class="right-box">
 									    			<span id="tip_comment" class="tip">
 									    				还能输入
-									    				<em>987</em>
+									    				<em>1200</em>
 									    				个字符
 									    			</span>									    			
 									    			<a href="javascript:void(0);">
-									    				<input type="button" class="btn btn-sm btn-comment" value="发表评论" >
+									    				<input type="button" class="btn btn-sm btn-comment" value="发表评论" onclick="comment()" >
 									    			</a>
 									    		</div>
 									    		
@@ -176,7 +182,7 @@
 																	</span>44	
 																	
 																</button>
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
+																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely">
 																	<span>
 																	</span>
 																	回复
@@ -199,7 +205,8 @@
 																	<img  class="avatar" src="${ctxPath}/img/common/avatar-1.jpg" width="24" height="24">
 																</div>
 															    <form id="commentformNew">
-															    	<textarea class="comment-content" id="comment_contentNew" maxlength="1000"placeholder="回复：王天三"></textarea>
+															        <div id="ctn-mask" onclick="closeMask()" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.4);position: fixed;left: 0;top: 0;z-index: 8999;display: none" ></div>
+															    	<textarea class="comment-content" id="comment_contentNew" maxlength="1200"placeholder="回复：王天三"></textarea>
 															    	<div class="opt-box">
 															    		<input type="hidden" id="comment_replyIdNew" />
 															    		<input type="hidden" id="article_idNew" />
@@ -208,12 +215,12 @@
 															    		<div class="right-box right-box-new">
 															    			<span id="tip_commentNew" class="tip">
 															    				还能输入
-															    				<em>987</em>
+															    				<em>1200</em>
 															    				个字符
 															    			</span>	
-															    			<input type="button" class="btn btn-sm btn-cancel" value="取消评论">
+															    			<input type="button" class="btn btn-sm btn-cancel" value="取消评论" onclick="closeMask()">
 															    			<a href="#">
-															    				<input type="submit" class="btn btn-sm btn-comment" value="发表评论">
+															    				<input type="submit" class="btn btn-sm btn-comment" value="发表评论"  onclick="commentRely()">
 															    			</a>
 															    		</div>
 															    		

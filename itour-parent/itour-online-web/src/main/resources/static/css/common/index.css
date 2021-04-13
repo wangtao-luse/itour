@@ -1109,7 +1109,7 @@ border-radius: 2px;
 	transition: height 0.3s ease-in-out;;
 }
 .comment-box form .comment-content.open{
-	height: 64px;
+	height: 80px;
 	background: #fff;
 	border: 1px solid #5094d5;
 	-webkit-box-shadow: 0 0 6px 0 #5094d5;

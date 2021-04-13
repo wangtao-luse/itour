@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,6 +24,7 @@ import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
+import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
@@ -201,7 +203,7 @@ public String detail(Long id,ModelMap model,HttpServletRequest request ) {
 		 JSONObject jsonObject = new JSONObject();
 		 jsonObject.put("id", id);
 		ResponseMessage resp = this.travelConnector.selectTravelInfoById(jsonObject , request);
-		if(Constant.SUCCESS_CODE.equals(resp.getResultCode())) {
+		if(Constant.SUCCESS_CODE.equals(resp.getResultCode())&&null!=resp.getReturnResult()) {
 			TravelInfo travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), TravelInfo.class, Constant.COMMON_KEY_RESULT);			
 			 model.addAttribute("travelInfo", travelInfo);
 			 //获取周末旅行攻略的内容
@@ -355,14 +357,48 @@ public ResponseMessage getCityList(@RequestBody JSONObject jsonObject,HttpServle
 	return getCityList;
 	
 }
+/**
+ * 添加评论
+ * @param jsonObject
+ * @param request
+ * @return
+ */
 @RequestMapping("/insertComment")
 @ResponseBody
 public ResponseMessage insertComment(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	jsonObject.put("uid", sessionUser.getuId());
-	ResponseMessage getCityList = this.travelConnector.insertComment(jsonObject, request);
-	return getCityList;
+	ResponseMessage insertComment = this.travelConnector.insertComment(jsonObject, request);
+	return insertComment;
 	
+}
+/**
+ * 插入旅行攻略评论回复
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/insertCommentReply")
+@ResponseBody
+public ResponseMessage insertCommentReply(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	jsonObject.put("fromUid", sessionUser.getuId());
+	ResponseMessage insertCommentReply = this.travelConnector.insertCommentReply(jsonObject, request);
+	return insertCommentReply;
+	
+}
+/**
+ * 旅行攻略评论回复html
+ * @param jsonObject
+ * @param ajaxCmd
+ * @param model
+ * @return
+ */
+@RequestMapping("/commentReply")
+public String commentReply(@RequestBody JSONObject jsonObject,String ajaxCmd,ModelMap model ) {
+	CommentReply reply = jsonObject.toJavaObject(CommentReply.class);
+	model.addAttribute("commentReply", reply);
+	return "/travel/info/commentReply#"+ajaxCmd;
 }
 
 }

@@ -49,7 +49,7 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			TravelComment commentVo = jsonObject.getJSONObject("vo").toJavaObject(TravelComment.class);
+			TravelComment commentVo = jsonObject.toJavaObject(TravelComment.class);
 			commentVo.setCtime(DateUtil.currentLongDate());
 			commentVo.setStatus(Constant.COMMON_STATUS_CHECKING);
 			this.baseMapper.insert(commentVo);

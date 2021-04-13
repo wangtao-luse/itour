@@ -416,6 +416,13 @@ ResponseMessage queryViewTravelTagList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/insertComment",produces = {"application/json;charset=UTF-8"})
 ResponseMessage insertComment(RequestMessage requestMessage);
+/**
+ * 插入旅行攻略评论
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/insertCommentReply",produces = {"application/json;charset=UTF-8"})
+ResponseMessage insertCommentReply(RequestMessage requestMessage);
 
 
 

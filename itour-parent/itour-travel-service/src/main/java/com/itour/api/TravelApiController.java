@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.CollectService;
+import com.itour.service.CommentReplyService;
 import com.itour.service.FavoritesService;
 import com.itour.service.HistoryService;
 import com.itour.service.LocationService;
@@ -60,6 +61,8 @@ public class TravelApiController implements TravelApi {
 	WeekInfoService weekInfoService;
 	@Autowired
 	ViewTravelTagService viewTravelTagService;
+	@Autowired
+	CommentReplyService commentReplyService;
 	 /**
      * 旅游信息列表
      */
@@ -489,26 +492,45 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return tagService.delTravelTag(requestMessage);
 	}
+	/**
+	 * 获取地区列表
+	 */
 	@Override
 	public ResponseMessage getRegionList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return regionService.getRegionList(requestMessage);
 	}
+	/**
+	 * 获取周末旅行攻略的内容
+	 */
 	@Override
 	public ResponseMessage selecWeekInfoOne(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return weekInfoService.selecWeekInfoOne(requestMessage);
 	}
-	
+	/**
+	 * 获取文章的的标签
+	 */
 	@Override
 	public ResponseMessage queryViewTravelTagList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return viewTravelTagService.queryViewTravelTagList(requestMessage);
 	}
+	/**
+	 * 插入评论表
+	 */
 	@Override
 	public ResponseMessage insertComment(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.insertComment(requestMessage);
+	}
+	/**
+	 * 插入评论回复表
+	 */
+	@Override
+	public ResponseMessage insertCommentReply(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.commentReplyService.insertCommentReply(requestMessage);
 	}
 	
 	
