@@ -1,7 +1,9 @@
 package com.itour.model.travel.dto;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 /**
  * <p>
  * VIEW
@@ -18,7 +20,7 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
      * 编号
      */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
     /**
      * 评论内容
@@ -42,13 +44,9 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
      * 旅行信息编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
-    /**
-     * 点赞数
-     */
-    @TableField("THUM")
-    private Integer thum;
+  
 
     /**
      * 状态（1:正常;0:删除）
@@ -67,12 +65,17 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
      */
     @TableField("NICKNAME")
     private String nickname;
+    /**
+              * 评论回复
+     */
+    @TableField(exist = false)
+    private List<ViewCommentReply> vCommentReplyList;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -100,21 +103,15 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
         this.uid = uid;
     }
 
-    public Integer getTid() {
+    public Long getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(Long tid) {
         this.tid = tid;
     }
 
-    public Integer getThum() {
-        return thum;
-    }
-
-    public void setThum(Integer thum) {
-        this.thum = thum;
-    }
+    
 
     public String getStatus() {
         return status;
@@ -145,7 +142,15 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
         return null;
     }
 
-    @Override
+    public List<ViewCommentReply> getvCommentReplyList() {
+		return vCommentReplyList;
+	}
+
+	public void setvCommentReplyList(List<ViewCommentReply> vCommentReplyList) {
+		this.vCommentReplyList = vCommentReplyList;
+	}
+
+	@Override
     public String toString() {
         return "ViewTravelComment{" +
         ", id=" + id +
@@ -153,7 +158,6 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
         ", ctime=" + ctime +
         ", uid=" + uid +
         ", tid=" + tid +
-        ", thum=" + thum +
         ", status=" + status +
         ", avatar=" + avatar +
         ", nickname=" + nickname +

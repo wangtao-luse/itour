@@ -17,13 +17,32 @@
    				<em>1200</em>
    				个字符
    			</span>	
-   			<input type="button" class="btn btn-sm btn-cancel" value="取消评论" onclick="closeMask()">
-   			<a href="#">
-   				<input type="submit" class="btn btn-sm btn-comment" value="发表评论"  onclick="commentRely()">
-    			</a>
+   			<input type="button" class="btn btn-sm btn-cancel" value="取消评论" >
+   			<input type="button" class="btn btn-sm btn-comment" value="发表评论"  onclick="commentRely()">
     		</div>
     		
     	</div>
     </form>
 </div>
+<script>
+function commentRely(){
+	//评论文章编号
+	var tid = $("#article_id").val();
+	//评论人的编号
+	var comment_userId = $("#comment_userId").val();
+	//评论内容
+	var comment_content = $("#comment_content").val();
+	if($.isEmpty(comment_content)){
+		outMsg("请填写回复内容");
+		return;
+	}
+	var data={"tid":tid,"uid":comment_userId,"comment":comment_content};
+	postAjax("/travel/insertCommentReply", JSON.stringify(data), function (result) {
+		$("#comment_contentNew").val("");
+		outMsg("回复成功,审核后显示");
+    }, {errorFunction:function(result){
+    	console.log(result);
+    },cache: false, async: false});
+}
+</script>
 @}

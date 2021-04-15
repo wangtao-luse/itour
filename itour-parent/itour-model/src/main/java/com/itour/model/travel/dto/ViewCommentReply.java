@@ -18,13 +18,13 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
      * 编号
      */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
     /**
      * 评论编号
      */
     @TableField("COMMENT_ID")
-    private Integer commentId;
+    private Long commentId;
 
     /**
      * 回复内容
@@ -50,11 +50,6 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
     @TableField("TO_UID")
     private String toUid;
 
-    /**
-     * 点赞数
-     */
-    @TableField("THUM")
-    private Integer thum;
 
     /**
      * 状态（1:正常;0:删除）
@@ -74,19 +69,19 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
     @TableField("NICKNAME")
     private String nickname;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Integer commentId) {
+    public void setCommentId(Long commentId) {
         this.commentId = commentId;
     }
 
@@ -122,13 +117,7 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
         this.toUid = toUid;
     }
 
-    public Integer getThum() {
-        return thum;
-    }
-
-    public void setThum(Integer thum) {
-        this.thum = thum;
-    }
+  
 
     public String getStatus() {
         return status;
@@ -168,7 +157,6 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
         ", rtime=" + rtime +
         ", fromUid=" + fromUid +
         ", toUid=" + toUid +
-        ", thum=" + thum +
         ", status=" + status +
         ", avatar=" + avatar +
         ", nickname=" + nickname +

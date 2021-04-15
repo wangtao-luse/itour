@@ -10,14 +10,15 @@ $(function(){
 		})
 		e.stopPropagation();
 	});
-	$("#commentformNew").click(function(e){
+	$(document).on("click","#commentformNew",function(e){
 		var hasOpen =$("#comment_content").hasClass("open");
 		if(hasOpen){
 			$("#comment_content").removeClass("open")
 		}
 		$(this).find("#comment_contentNew").addClass("open");
 		$(document).one("click",function(){
-			$("#commentformNew").find("#comment_contentNew").removeClass("open");
+			//$("#commentformNew").find("#comment_contentNew").removeClass("open");
+			$(".commentListV2 .comment-box.comment-edit-box").remove();
 		})
 		e.stopPropagation();
 		
@@ -32,6 +33,7 @@ $(function(){
 		var len = $(this).val().length;
 		var commentLen = parseInt(1200)-parseInt(len);
 		$("#commentformNew .right-box em").text(commentLen);
+		
 	});
 	
 	$(document).on("click",".commentRely",function(){
@@ -39,13 +41,16 @@ $(function(){
 		var data={};
 		var url="/travel/commentReply?ajaxCmd=commentReply";
 		postForm(url, JSON.stringify(data), function (result) {
-			var ed = $($this).closest(".commentItemV2-footer").next().hasClass(".comment-box comment-edit-box");
-			if(!ed){
-				$($this).closest(".commentItemV2-footer").after(result);
-			}
-			
+			$(".commentListV2 .comment-box.comment-edit-box").remove();
+		    $($this).closest(".commentItemV2-footer").after(result);
+		    $("#commentformNew").trigger("click");
 	      }, {"contentType": "application/json; charset=utf-8"});
 	});
+	$(document).on("click","#commentformNew .btn-cancel",function(e){
+		$(".commentListV2 .comment-box.comment-edit-box").remove();
+		e.stopPropagation();
+	})
+	
 });
 function outMsg(msg){
 	$("#ct-out span").text(msg);
@@ -77,26 +82,9 @@ function comment(){
     	console.log(result);
     },cache: false, async: false});
 }
-function commentReply(){
-	//评论文章编号
-	var tid = $("#article_id").val();
-	//评论人的编号
-	var comment_userId = $("#comment_userId").val();
-	//评论内容
-	var comment_content = $("#comment_content").val();
-	if($.isEmpty(comment_content)){
-		outMsg("请填写回复内容");
-		return;
-	}
-	var data={"tid":tid,"uid":comment_userId,"comment":comment_content};
-	postAjax("/travel/insertCommentReply", JSON.stringify(data), function (result) {
-		$("#comment_contentNew").val("");
-		outMsg("回复成功,审核后显示");
-    }, {errorFunction:function(result){
-    	console.log(result);
-    },cache: false, async: false});
-}
+
 function closeMask(){
 	$("#ct-mask").css("display","none");
 	$("#ctn-mask").css("display","none");
 }
+

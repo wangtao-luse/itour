@@ -21,6 +21,7 @@ import com.itour.service.TravelColumnService;
 import com.itour.service.TravelCommentService;
 import com.itour.service.TravelInfoService;
 import com.itour.service.TravelTypeService;
+import com.itour.service.ViewTravelCommentService;
 import com.itour.service.ViewTravelTagService;
 import com.itour.service.ViewTravelinfoOauthService;
 import com.itour.service.WeekInfoService;
@@ -63,6 +64,8 @@ public class TravelApiController implements TravelApi {
 	ViewTravelTagService viewTravelTagService;
 	@Autowired
 	CommentReplyService commentReplyService;
+	@Autowired
+	ViewTravelCommentService viewTravelCommentService;
 	 /**
      * 旅游信息列表
      */
@@ -531,6 +534,14 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage insertCommentReply(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return this.commentReplyService.insertCommentReply(requestMessage);
+	}
+	/**
+	 * 评论列表
+	 */
+	@Override
+	public ResponseMessage queryCommentList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewTravelCommentService.queryCommentList(requestMessage);
 	}
 	
 	

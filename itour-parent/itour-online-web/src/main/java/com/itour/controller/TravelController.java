@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +29,7 @@ import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
@@ -200,37 +201,49 @@ public String detail(Long id,ModelMap model,HttpServletRequest request ) {
 		//1.独立IP访问数作为显示的浏览量（浏览量功能相关）
 		 ip(request,String.valueOf(id));
 	   //2.获取旅行信息
-		 JSONObject jsonObject = new JSONObject();
-		 jsonObject.put("id", id);
-		ResponseMessage resp = this.travelConnector.selectTravelInfoById(jsonObject , request);
-		if(Constant.SUCCESS_CODE.equals(resp.getResultCode())&&null!=resp.getReturnResult()) {
-			TravelInfo travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), TravelInfo.class, Constant.COMMON_KEY_RESULT);			
-			 model.addAttribute("travelInfo", travelInfo);
-			 //获取周末旅行攻略的内容
-			 if("2".equals(travelInfo.getType())) {
-				 jsonObject.clear();
-				 jsonObject.put("tid", id);
-				ResponseMessage weekinfo = this.travelConnector.selecWeekInfoOne(jsonObject, request);
-				if(Constant.SUCCESS_CODE.equals(weekinfo.getResultCode())) {
-					WeekInfo mapToObject = FastJsonUtil.mapToObject(weekinfo.getReturnResult(), WeekInfo.class, Constant.COMMON_KEY_RESULT);
-					model.addAttribute("weekinfo", mapToObject);
-				}
-			 }
-			 //获取旅行攻略的标签列表
-			 jsonObject.clear();
-			 jsonObject.put("tid", id);
-			 ResponseMessage tagResp = this.travelConnector.queryViewTravelTagList(jsonObject, request);
-			 if(Constant.SUCCESS_CODE.equals(tagResp.getResultCode())) {
-				 List<ViewTravelTag> mapToList = FastJsonUtil.mapToList(tagResp.getReturnResult(), ViewTravelTag.class, Constant.COMMON_KEY_RESULT);
-				 model.addAttribute("tagList", mapToList);
-			 }
-			 
-		}
-		
-		 
-	    model.addAttribute("id", id);
+		 travelInfo(id, model, request);
+		//3.获取评论信息;
+		 commentList(id, model, request);
+	     model.addAttribute("id", id);
 	   
 	return "/travel/info/detail";
+}
+private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
+	JSONObject jsonObject = new JSONObject();
+	 jsonObject.put("id", id);
+	ResponseMessage resp = this.travelConnector.selectTravelInfoById(jsonObject , request);
+	if(Constant.SUCCESS_CODE.equals(resp.getResultCode())&&null!=resp.getReturnResult()) {
+		TravelInfo travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), TravelInfo.class, Constant.COMMON_KEY_RESULT);			
+		 model.addAttribute("travelInfo", travelInfo);
+		 //获取周末旅行攻略的内容
+		 if("2".equals(travelInfo.getType())) {
+			 jsonObject.clear();
+			 jsonObject.put("tid", id);
+			ResponseMessage weekinfo = this.travelConnector.selecWeekInfoOne(jsonObject, request);
+			if(Constant.SUCCESS_CODE.equals(weekinfo.getResultCode())) {
+				WeekInfo mapToObject = FastJsonUtil.mapToObject(weekinfo.getReturnResult(), WeekInfo.class, Constant.COMMON_KEY_RESULT);
+				model.addAttribute("weekinfo", mapToObject);
+			}
+		 }
+		 //获取旅行攻略的标签列表
+		 jsonObject.clear();
+		 jsonObject.put("tid", id);
+		 ResponseMessage tagResp = this.travelConnector.queryViewTravelTagList(jsonObject, request);
+		 if(Constant.SUCCESS_CODE.equals(tagResp.getResultCode())) {
+			 List<ViewTravelTag> mapToList = FastJsonUtil.mapToList(tagResp.getReturnResult(), ViewTravelTag.class, Constant.COMMON_KEY_RESULT);
+			 model.addAttribute("tagList", mapToList);
+		 }
+	}
+}
+private void commentList(Long id, ModelMap model, HttpServletRequest request) {
+	JSONObject jsonObject = new JSONObject();
+	 jsonObject.put("tid", id);
+	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
+	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StringUtils.isEmpty(respMsg.getReturnResult())) {
+		Map<String, Object> returnResult = respMsg.getReturnResult();
+		List<ViewTravelComment> mapToList = FastJsonUtil.mapToList(returnResult, ViewTravelComment.class, Constant.COMMON_KEY_RESULT);
+		model.addAttribute("commentList", mapToList);
+	}
 }
 public void unique(HttpServletRequest request,String id) {
 	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
@@ -249,7 +262,7 @@ public void unique(HttpServletRequest request,String id) {
 			this.redisManager.incr(RedisKey.KEY_ITOUR_UNIQUEISITOR_COUNT, 1);  
 	 }
 }
-public void ip(HttpServletRequest request,String id) {
+private void ip(HttpServletRequest request,String id) {
 	 //1.组装key
 	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
 	 String ipAddr = IpUtil.getIpAddr(request);
