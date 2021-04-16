@@ -300,5 +300,31 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	
+	/**
+	 * 删除评论
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage delComment(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.delComment(requestMessage);
+		return responseMessage;
+	}
+	
+	/**
+	 * 删除评论回复
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage delCommentRely(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.delCommentReply(requestMessage);
+		return responseMessage;
+	}
+	
 	
 }

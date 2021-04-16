@@ -1,6 +1,8 @@
 package com.itour.model.travel.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-08-03
  */
+@TableName("view_travelInfo_oauth")
 public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
 
     private static final long serialVersionUID = 1L;
@@ -18,7 +21,7 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
      * 编号(主键)
      */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
     /**
      * 标题
@@ -43,12 +46,6 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
      */
     @TableField("TYPE")
     private String type;
-
-    /**
-     * 所属专栏编号
-     */
-    @TableField("COLUMN_ID")
-    private Integer columnId;
 
     /**
      * 用户唯一号
@@ -90,25 +87,30 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
      * 发布时间
      */
     @TableField("PUBLISHTIME")
-    private Integer publishtime;
+    private Long publishtime;
 
     /**
      * 最后发布时间
      */
     @TableField("UPDATETIME")
-    private Integer updatetime;
+    private Long updatetime;
 
     /**
      * 昵称
      */
     @TableField("NICKNAME")
     private String nickname;
+    /**
+     * 作者图像
+     */
+    @TableField("AVATAR")
+    private String avatar;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -144,13 +146,6 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
         this.type = type;
     }
 
-    public Integer getColumnId() {
-        return columnId;
-    }
-
-    public void setColumnId(Integer columnId) {
-        this.columnId = columnId;
-    }
 
     public String getUid() {
         return uid;
@@ -200,19 +195,19 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
         this.pv = pv;
     }
 
-    public Integer getPublishtime() {
+    public Long getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(Integer publishtime) {
+    public void setPublishtime(Long publishtime) {
         this.publishtime = publishtime;
     }
 
-    public Integer getUpdatetime() {
+    public Long getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(Integer updatetime) {
+    public void setUpdatetime(Long updatetime) {
         this.updatetime = updatetime;
     }
 
@@ -224,7 +219,15 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
         this.nickname = nickname;
     }
 
-    @Override
+    public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	@Override
     protected Serializable pkVal() {
         return null;
     }
@@ -237,7 +240,6 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
         ", summary=" + summary +
         ", url=" + url +
         ", type=" + type +
-        ", columnId=" + columnId +
         ", uid=" + uid +
         ", code=" + code +
         ", readCount=" + readCount +

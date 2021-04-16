@@ -234,38 +234,7 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return travelTypeService.delTravelType(requestMessage);
 	}
-	/**
-	 * 旅行信息评论列表
-	 */
-	@Override
-	public ResponseMessage queryTravelCommentList(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return travelCommentService.queryTravelCommentList(requestMessage);
-	}
-	/**
-	 * 旅行信息评论单条
-	 */
-	@Override
-	public ResponseMessage getTravelComment(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return travelCommentService.getTravelComment(requestMessage);
-	}
-	/**
-	 * 旅行信息评论修改
-	 */
-	@Override
-	public ResponseMessage updateTravelComment(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return travelCommentService.updateTravelComment(requestMessage);
-	}
-	/**
-	 * 旅行信息评论修改
-	 */
-	@Override
-	public ResponseMessage deleteTravelComment(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return travelCommentService.delelteTravelComment(requestMessage);
-	}
+	
 	/**
 	 * 旅行信息专栏列表
 	 */
@@ -542,6 +511,16 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage queryCommentList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return viewTravelCommentService.queryCommentList(requestMessage);
+	}
+	@Override
+	public ResponseMessage delComment(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelCommentService.delComment(requestMessage);
+	}
+	@Override
+	public ResponseMessage delCommentReply(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.commentReplyService.delCommentReply(requestMessage);
 	}
 	
 	

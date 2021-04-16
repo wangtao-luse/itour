@@ -1,6 +1,8 @@
 package com.itour.model.travel.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2021-04-12
  */
+@TableName("view_comment_reply")
 public class ViewCommentReply extends Model<ViewCommentReply> {
 
     private static final long serialVersionUID = 1L;
@@ -58,18 +61,61 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
     private String status;
 
     /**
-     * 图像
+     * 回复人图像
      */
-    @TableField("AVATAR")
-    private String avatar;
+    @TableField("FROM_AVATAR")
+    private String fromAvatar;
 
     /**
-     * 昵称
+     * 回复人昵称
      */
-    @TableField("NICKNAME")
-    private String nickname;
+    @TableField("FROM_NICKNAME")
+    private String fromNickname;
+    /**
+     * 回复目标者图像
+     */
+    @TableField("TO_AVATAR")
+    private String toAvatar;
+    
+    /**
+     * 回复目标者昵称
+     */
+    @TableField("TO_NICKNAME")
+    private String toNickname;
 
-    public Long getId() {
+    public String getFromAvatar() {
+		return fromAvatar;
+	}
+
+	public void setFromAvatar(String fromAvatar) {
+		this.fromAvatar = fromAvatar;
+	}
+
+	public String getFromNickname() {
+		return fromNickname;
+	}
+
+	public void setFromNickname(String fromNickname) {
+		this.fromNickname = fromNickname;
+	}
+
+	public String getToAvatar() {
+		return toAvatar;
+	}
+
+	public void setToAvatar(String toAvatar) {
+		this.toAvatar = toAvatar;
+	}
+
+	public String getToNickname() {
+		return toNickname;
+	}
+
+	public void setToNickname(String toNickname) {
+		this.toNickname = toNickname;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -127,21 +173,7 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
         this.status = status;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+   
 
     @Override
     protected Serializable pkVal() {
@@ -158,8 +190,11 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
         ", fromUid=" + fromUid +
         ", toUid=" + toUid +
         ", status=" + status +
-        ", avatar=" + avatar +
-        ", nickname=" + nickname +
+        ", fromAvatar=" + fromAvatar +
+        ", fromNickname=" + fromNickname +
+        ", toAvatar=" + toAvatar +
+        ", toNickname=" + toNickname +
+        
         "}";
     }
 }

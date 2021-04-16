@@ -59,7 +59,7 @@ private String indexPage(Page page, TravelInfo travelInfo, HttpServletRequest re
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("vo", travelInfo);
 	jsonObject.put("page", page);	
-	ResponseMessage queryTravelInfoList = this.travelConnector.queryTravelInfoList(jsonObject, request);
+	ResponseMessage queryTravelInfoList = this.travelConnector.queryViewTravelinfoOauthList(jsonObject, request);
 	Map<String, Object> returnResult = queryTravelInfoList.getReturnResult();
 	Page p = FastJsonUtil.mapToObject(returnResult, Page.class, Constant.COMMON_KEY_RESULT);
 	model.addAttribute("travel", p.getRecords());

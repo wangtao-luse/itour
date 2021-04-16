@@ -9,7 +9,6 @@
         <result column="SUMMARY" property="summary" />
         <result column="URL" property="url" />
         <result column="TYPE" property="type" />
-        <result column="COLUMN_ID" property="columnId" />
         <result column="UID" property="uid" />
         <result column="CODE" property="code" />
         <result column="READ_COUNT" property="readCount" />
@@ -19,10 +18,11 @@
         <result column="PUBLISHTIME" property="publishtime" />
         <result column="UPDATETIME" property="updatetime" />
         <result column="NICKNAME" property="nickname" />
+        <result column="AVATAR" property="avatar" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TITLE, SUMMARY, URL, TYPE, COLUMN_ID, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME, NICKNAME
+        ID, TITLE, SUMMARY, URL, TYPE, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME, NICKNAME,AVATAR 
     </sql>
 
 </mapper>

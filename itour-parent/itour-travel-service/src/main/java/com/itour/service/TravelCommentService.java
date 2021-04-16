@@ -1,17 +1,22 @@
 package com.itour.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
+import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.TravelComment;
+import com.itour.persist.CommentReplyMapper;
 import com.itour.persist.TravelCommentMapper;
-import com.itour.service.TravelCommentService;
 import com.itour.util.DateUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -23,26 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class TravelCommentService extends ServiceImpl<TravelCommentMapper, TravelComment>   {
-
-	public ResponseMessage queryTravelCommentList(RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseMessage getTravelComment(RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseMessage updateTravelComment(RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseMessage delelteTravelComment(RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@Autowired
+	CommentReplyMapper commentReplyMapper;	
 	@Transactional
 	public ResponseMessage insertComment(RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -53,6 +40,32 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 			commentVo.setCtime(DateUtil.currentLongDate());
 			commentVo.setStatus(Constant.COMMON_STATUS_CHECKING);
 			this.baseMapper.insert(commentVo);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 逻辑删除评论
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage delComment(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelComment commentVo = jsonObject.toJavaObject(TravelComment.class);
+			commentVo.setStatus(Constant.COMMON_STATUS_CHECK);
+			this.updateById(commentVo);
+			QueryWrapper<CommentReply> updateWrapper = new QueryWrapper<CommentReply>();
+			updateWrapper.eq("COMMENT_ID", commentVo.getId());
+			CommentReply entity = new CommentReply();
+			entity.setStatus(Constant.COMMON_STATUS_CHECK);
+			this.commentReplyMapper.update(entity , updateWrapper);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

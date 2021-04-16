@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
@@ -27,10 +28,10 @@ import com.itour.constant.RedisKey;
 import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
-import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
+import com.itour.model.travel.dto.ViewTravelinfoOauth;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
@@ -166,28 +167,12 @@ public String infoAddPage() {
 @ResponseBody
 public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
-	try {
-		
-	} catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
-	}
-	
 return responseMessage;	
 }
 @RequestMapping("/pageview")
 @ResponseBody
 public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
-	try {
-		
-	} catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
-	}
-	
 	return responseMessage;	
 }
 
@@ -197,13 +182,13 @@ public String md() {
 	return "/travel/info/md";
 }
 @RequestMapping("/detail")
-public String detail(Long id,ModelMap model,HttpServletRequest request ) {
+public String detail(Long id,ModelMap model,Page page,HttpServletRequest request ) {
 		//1.独立IP访问数作为显示的浏览量（浏览量功能相关）
 		 ip(request,String.valueOf(id));
 	   //2.获取旅行信息
 		 travelInfo(id, model, request);
 		//3.获取评论信息;
-		 commentList(id, model, request);
+		 commentList(id, model, request,page);
 	     model.addAttribute("id", id);
 	   
 	return "/travel/info/detail";
@@ -211,9 +196,9 @@ public String detail(Long id,ModelMap model,HttpServletRequest request ) {
 private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
 	 jsonObject.put("id", id);
-	ResponseMessage resp = this.travelConnector.selectTravelInfoById(jsonObject , request);
+	ResponseMessage resp = this.travelConnector.selectViewTravelinfoOauthById(jsonObject , request);
 	if(Constant.SUCCESS_CODE.equals(resp.getResultCode())&&null!=resp.getReturnResult()) {
-		TravelInfo travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), TravelInfo.class, Constant.COMMON_KEY_RESULT);			
+		ViewTravelinfoOauth travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), ViewTravelinfoOauth.class, Constant.COMMON_KEY_RESULT);			
 		 model.addAttribute("travelInfo", travelInfo);
 		 //获取周末旅行攻略的内容
 		 if("2".equals(travelInfo.getType())) {
@@ -235,14 +220,18 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 		 }
 	}
 }
-private void commentList(Long id, ModelMap model, HttpServletRequest request) {
+private void commentList(Long id, ModelMap model, HttpServletRequest request,Page page) {
 	JSONObject jsonObject = new JSONObject();
 	 jsonObject.put("tid", id);
+	 page.setSize(20);
+	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
 	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StringUtils.isEmpty(respMsg.getReturnResult())) {
 		Map<String, Object> returnResult = respMsg.getReturnResult();
-		List<ViewTravelComment> mapToList = FastJsonUtil.mapToList(returnResult, ViewTravelComment.class, Constant.COMMON_KEY_RESULT);
-		model.addAttribute("commentList", mapToList);
+		Page resultPage = FastJsonUtil.mapToObject(returnResult, Page.class, Constant.COMMON_KEY_RESULT);
+		List<ViewTravelComment> commentList = resultPage.getRecords();
+		model.addAttribute("commentList", commentList);
+		model.addAttribute(Constant.COMMON_KEY_PAGE, resultPage);
 	}
 }
 public void unique(HttpServletRequest request,String id) {
@@ -294,8 +283,6 @@ private void pageView(String id) {
 	if(!isMember) {
 		this.redisManager.sAdd(RedisKey.ITOUR_PAGEVIEW_IDS,key);
 	}
-	
-	
 }
 
 @RequestMapping("/insertweekTravel")
@@ -350,14 +337,12 @@ public ResponseMessage inserTravelTag(@RequestBody JSONObject jsonObject,HttpSer
 public ResponseMessage inserTravelCol(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage inserTravelTag = this.travelConnector.insertTravelColumn(jsonObject, request);
 	return inserTravelTag;
-	
 }
 @RequestMapping("/queryTravelColumnList")
 @ResponseBody
 public ResponseMessage queryTravelColumnList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage inserTravelTag = this.travelConnector.queryTravelColumnList(jsonObject, request);
 	return inserTravelTag;
-	
 }
 @RequestMapping("/cityPage")
 public String cityPage(HttpServletRequest request,ModelMap model) {
@@ -368,7 +353,6 @@ public String cityPage(HttpServletRequest request,ModelMap model) {
 public ResponseMessage getCityList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage getCityList = this.travelConnector.getCityList(jsonObject, request);
 	return getCityList;
-	
 }
 /**
  * 添加评论
@@ -411,7 +395,21 @@ public ResponseMessage insertCommentReply(@RequestBody JSONObject jsonObject,Htt
 public String commentReply(@RequestBody JSONObject jsonObject,String ajaxCmd,ModelMap model ) {
 	CommentReply reply = jsonObject.toJavaObject(CommentReply.class);
 	model.addAttribute("commentReply", reply);
+	model.addAttribute("toNickname", jsonObject.getString("toNickname"));
 	return "/travel/info/commentReply#"+ajaxCmd;
+}
+
+@RequestMapping("/delComment")
+@ResponseBody
+public ResponseMessage delComment(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage delComment = this.travelConnector.delComment(jsonObject, request);
+	return delComment;
+}
+@RequestMapping("/delCommentReply")
+@ResponseBody
+public ResponseMessage delCommentReply(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+   ResponseMessage delCommentRely = this.travelConnector.delCommentRely(jsonObject, request);
+	return delCommentRely;
 }
 
 }

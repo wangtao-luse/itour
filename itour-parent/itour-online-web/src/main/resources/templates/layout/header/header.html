@@ -58,7 +58,13 @@
 					   </div> -->
 					    @ if(!isEmpty(user)){
 					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: block;">
-					   	 <a class="hasAvatar" href="#"><img src="${ctxPath}/img/common/avatar-5.webp" /></a>
+					   	 <a class="hasAvatar" href="#">
+					   	    @if(isEmpty(user.avatar)){
+					   	 		<img src="${ctxPath}/img/common/avatar-5.webp" />
+					   	 	@}else{
+					   	 		<img src="${user.avatar}" />
+					   	 	@}
+					   	 </a>
 					   	 <div class="toolbar-subMenu">
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>

@@ -11,12 +11,14 @@
         <result column="FROM_UID" property="fromUid" />
         <result column="TO_UID" property="toUid" />
         <result column="STATUS" property="status" />
-        <result column="AVATAR" property="avatar" />
-        <result column="NICKNAME" property="nickname" />
+        <result column="FROM_AVATAR" property="fromAvatar" />
+        <result column="FROM_NICKNAME" property="fromNickname" />
+        <result column="TO_AVATAR" property="toAvatar" />
+        <result column="TO_NICKNAME" property="toNickname" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, STATUS, AVATAR, NICKNAME
+        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, STATUS, FROM_AVATAR, FROM_NICKNAME,TO_AVATAR,TO_NICKNAME
     </sql>
 
 </mapper>

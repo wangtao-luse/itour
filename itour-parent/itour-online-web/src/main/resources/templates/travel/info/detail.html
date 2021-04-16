@@ -21,10 +21,14 @@
 	    								<div class="authorInfo-wrap mb-1">
 	    									<a href="#" target="_blank" class="align-items-centers">
 	    										<span class="mr-2">
-	    											<img class="high-rank-use" src="${ctxPath}/img/common/avatar-1.jpg" width="32" height="32" />
+	    										    @if(isEmpty(travelInfo.avatar)){
+	    										    <img class="high-rank-use" src="${ctxPath}/img/common/avatar-5.webp" width="32" height="32" />
+	    										    @}else{
+	    										    <img class="high-rank-use" src="${travelInfo.avatar}" width="32" height="32" />
+	    										    @}
 	    										</span>
 		    									
-		    									<storng>爱旅行SHOW</storng>
+		    									<storng>${travelInfo.nickname}</storng>
 	    									</a>
 	    								</div>	    								
 	    							</div>
@@ -108,8 +112,15 @@
 							<div class="commentsV2 commentsV2--withEditor commentsV2-withPagination">
 								<div class="topbar commentTopbar">
 									<div class="topbar-title">
-										<h2 class="commentTopbar-tile">217条评论</h2>
+										<h2 class="commentTopbar-tile">
+										@if(travelInfo.commentCount>0){
+										  ${travelInfo.commentCount}条评论
+										@}else{
+										  还没用评论
+										@}
+										</h2>
 									</div>
+									@if(travelInfo.commentCount>0){
 									<div class="topbar-options">
 										<button type="button" class="button button--plain button--withIcon button--withLabel">
 											<span style="display: inline-flex;align-items: center;">
@@ -118,11 +129,17 @@
 											切换为时间排序
 										</button>
 									</div>
+									@}
 								</div>
 								<div>
 									<div class="comment-box comment-edit-box">
 										<div class="user-img">
-											<img  class="avatar" src="${ctxPath}/img/common/avatar-1.jpg" width="24" height="24">
+										 @if(isEmpty(travelInfo.avatar)){
+   										    <img class="avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
+   										 @}else{
+   										    <img class="avatar" src="${travelInfo.avatar}" width="24" height="24" />
+   										 @}
+											
 										</div>
 									    <form id="comment-form">
 									        <div id="ct-mask" onclick="closeMask()" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.4);position: fixed;left: 0;top: 0;z-index: 8999;display: none" ></div>
@@ -159,7 +176,12 @@
 																<div class="popover">
 																	<div id="popover35-toggle">
 																		<a class="userLink-link">
-																			<img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-4.jpg" width="24" height="24"/>
+																		@if(isEmpty(travelInfo.avatar)){
+								   										    <img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
+								   										 @}else{
+								   										    <img class="avatar userLink-avatar" src="${travelInfo.avatar}" width="24" height="24" />
+								   										 @}
+																			
 																		</a>
 																	</div>
 																</div>
@@ -181,19 +203,21 @@
 																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
 																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
 																	</span>44	
-																	
 																</button>
+																@if(uid!=c.uid){
 																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely">
 																	<span>
 																	</span>
 																	回复
 																</button>
-																
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
+																@}
+																@if(uid==c.uid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain delete_comment_btn" cid="${c.id}">
 																	<span>
 																	</span>
 																	删除
 																</button>
+																@}
 																<button type="button" class="button commentItemV2-likeBtn button--plain">
 																	<span>
 																	</span>
@@ -207,7 +231,8 @@
 												</div>
 											</li>
 											@for(r in c.vCommentReplyList){
-										    <li class="nestComment--child">
+											@var index=rLP.index;
+										    <li class="nestComment--child ${index>2?'hide':''}">
 										    	<div class="commentItemV2">
 										    		<div>
 										    			<div class="commentItemV2-meta">
@@ -215,19 +240,24 @@
 										    					<div class="popover">
 										    						<div id="popover36-toggle">
 										    							<a href="#" class="userLink-link">
-										    								<img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-2.jpg" width="24" height="24"/>
+										    							    @if(isEmpty(travelInfo.avatar)){
+									   										    <img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
+									   										 @}else{
+									   										    <img class="avatar userLink-avatar" src="${travelInfo.avatar}" width="24" height="24"/>
+									   										 @}
+										    								
 										    							</a>
 										    						</div>
 										    					</div>
 										    				</span>
 										    				<span class="userLink">
-										    					<a  class="userLink-link" href="#">芊芊左</a>
+										    					<a  class="userLink-link" href="#">${r.fromNickname}</a>
 										    				</span>
 										    				<span class="commentItemV2-reply">回复</span>
 										    				<span class="userLink">
-										    					<a  class="userLink-link" href="#">王三天</a>
+										    					<a  class="userLink-link" href="#">${r.toNickname}</a>
 										    				</span>
-										    				<span class="commentItemV2-time">2020-12-02</span>
+										    				<span class="commentItemV2-time">${r.rtime,dateFormat='yyyy-MM-dd'}</span>
 										    			</div>
 										    			<div class="commentItemV2-metaSibling">
 										    				<div class="commentRichText commentItemV2-content">
@@ -241,12 +271,20 @@
 																	</span>44	
 																	
 																</button>
-																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely">
+																@if(uid!=r.fromUid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely" comment_id="${r.commentId}" from_uid="${uid!}" to_uid="${r.fromUid}" to_nickName=${r.fromNickname}>
 																	<span>
 																	</span>
 																	回复
 																</button>
-																
+																@}
+																@if(uid==r.fromUid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain del-commentRely-btn" rid="${r.id}">
+																	<span>
+																	</span>
+																	删除
+																</button>
+																@}
 																<button type="button" class="button commentItemV2-likeBtn button--plain">
 																	<span>
 																	</span>
@@ -258,222 +296,16 @@
 										    	</div>
 										    </li>
 										    @}
-										    
+										    @if(c.vCommentReplyList.~size>2){
 										    <div>
 										    	<div class="commentMoreReplyButton">
-										    		<button type="button" class="button button--plain">查看全部 14 条回复</button>
+										    		<button type="button" class="button button--plain commentMore_btn">查看全部 ${c.vCommentReplyList.~size} 条回复</button>
 										    	</div>
 										    </div>
+										    @}
 										</ul>
 										@}
-										<ul class="nestComment">
-											<li class="nestComment--rootComment">
-												<div class="commentItemV2">
-													<div>
-														<div class="commentItemV2-meta">
-															<span class="userLink commentItemV2-avatar">
-																<div class="popover">
-																	<div id="popover35-toggle">
-																		<a class="userLink-link">
-																			<img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-4.jpg" width="24" height="24"/>
-																		</a>
-																	</div>
-																</div>
-															</span>
-														    <span class="userLink">
-														    	<a  class="userLink-link" href="#">王三天</a>
-														    </span>
-														    <span class="commentItemV2-time">12-02</span>
-														</div>
-														<div class="commentItemV2-metaSibling">
-															<div class="commentRichText commentItemV2-content">
-																<div class="richText ztext">
-																	90后和80后不一样，房子孩子二选一，压力会小很多[赞同]
-																</div>
-															</div>
-															<div class="commentItemV2-footer">
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
-																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
-																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
-																	</span>44	
-																	
-																</button>
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	回复
-																</button>
-																
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	举报
-																</button>
-															</div>
-														 
-														</div>
-													</div>
-												</div>
-											</li>
-										    <li class="nestComment--child">
-										    	<div class="commentItemV2">
-										    		<div>
-										    			<div class="commentItemV2-meta">
-										    				<span class="userLink commentItemV2-avatar">
-										    					<div class="popover">
-										    						<div id="popover36-toggle">
-										    							<a href="#" class="userLink-link">
-										    								<img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-2.jpg" width="24" height="24"/>
-										    							</a>
-										    						</div>
-										    					</div>
-										    				</span>
-										    				<span class="userLink">
-										    					<a  class="userLink-link" href="#">芊芊左</a>
-										    				</span>
-										    				<span class="commentItemV2-reply">回复</span>
-										    				<span class="userLink">
-										    					<a  class="userLink-link" href="#">王三天</a>
-										    				</span>
-										    				<span class="commentItemV2-time">2020-12-02</span>
-										    			</div>
-										    			<div class="commentItemV2-metaSibling">
-										    				<div class="commentRichText commentItemV2-content">
-										    					<div class="richText ztext">一个都不选岂不更好[惊喜]</div>
-										    				</div>
-										    				<div class="commentItemV2-footer">
-										    					<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
-																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
-																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
-																	</span>44	
-																	
-																</button>
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	回复
-																</button>
-																
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	举报
-																</button>
-										    				</div>
-										    			</div>
-										    		</div>
-										    	</div>
-										    </li>
-										    <li class="nestComment--child">
-										    	<div class="commentItemV2">
-										    		<div>
-										    			<div class="commentItemV2-meta">
-										    				<span class="userLink commentItemV2-avatar">
-										    					<div class="popover">
-										    						<div id="popover36-toggle">
-										    							<a href="#" class="userLink-link">
-										    								<img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-3.jpg" width="24" height="24"/>
-										    							</a>
-										    						</div>
-										    					</div>
-										    				</span>
-										    				<span class="userLink">
-										    					<a  class="userLink-link" href="#">无人之境</a>
-										    				</span>
-										    				<span class="commentItemV2-reply">回复</span>
-										    				<span class="userLink">
-										    					<a  class="userLink-link" href="#">王三天</a>
-										    				</span>
-										    				<span class="commentItemV2-time">12-02</span>
-										    			</div>
-										    			<div class="commentItemV2-metaSibling">
-										    				<div class="commentRichText commentItemV2-content">
-										    					<div class="richText ztext">都不要，要啥自行车[飙泪笑]</div>
-										    				</div>
-										    				<div class="commentItemV2-footer">
-										    					<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
-																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
-																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
-																	</span>44	
-																	
-																</button>
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	回复
-																</button>
-																
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	举报
-																</button>
-										    				</div>
-										    			</div>
-										    		</div>
-										    	</div>
-										    </li>
-										    <div>
-										    	<div class="commentMoreReplyButton">
-										    		<button type="button" class="button button--plain">查看全部 14 条回复</button>
-										    	</div>
-										    </div>
-										</ul>
-										<ul class="nestComment">
-											<li class="nestComment--rootCommentNoChild">
-												<div class="commentItemV2">
-													<div>
-														<div class="commentItemV2-meta">
-															<span class="userLink commentItemV2-avatar">
-																<div class="popover">
-																	<div id="popover35-toggle">
-																		<a class="userLink-link">
-																			<img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-1.jpg" width="24" height="24"/>
-																		</a>
-																	</div>
-																</div>
-															</span>
-														    <span class="userLink">
-														    	<a  class="userLink-link" href="#">王三天</a>
-														    </span>
-														    <span class="commentItemV2-time">9小时前</span>
-														</div>
-														<div class="commentItemV2-metaSibling">
-															<div class="commentRichText commentItemV2-content">
-																<div class="richText ztext">
-																	90后和80后不一样，房子孩子二选一，压力会小很多[赞同]
-																</div>
-															</div>
-															<div class="commentItemV2-footer">
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
-																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
-																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
-																	</span>44	
-																	
-																</button>
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	回复
-																</button>
-																
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
-																	<span>
-																	</span>
-																	举报
-																</button>
-																
-															</div>
-														    
-														</div>
-													</div>
-												</div>
-											</li>
-										</ul>
+										
 									</div>
 								</div>
 								

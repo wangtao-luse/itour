@@ -94,6 +94,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/md/**","anon");	
 		filterChainDefinitionMap.put("/test/**", "anon");
 		filterChainDefinitionMap.put("/niceSub/**", "anon");
+		filterChainDefinitionMap.put("/upload/**", "anon");
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/shiro/logout", "logout");
 		

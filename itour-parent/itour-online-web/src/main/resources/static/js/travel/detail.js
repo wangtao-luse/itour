@@ -38,7 +38,11 @@ $(function(){
 	
 	$(document).on("click",".commentRely",function(){
 		var $this=$(this);
-		var data={};
+		 var commentId = $(this).attr("comment_id");
+		 var toNickname = $(this).attr("to_nickname");
+		 var fromUid = $(this).attr("from_uid");
+		 var toUid = $(this).attr("to_uid");
+		var data={commentId:commentId,toNickname:toNickname,fromUid:fromUid,toUid:toUid};
 		var url="/travel/commentReply?ajaxCmd=commentReply";
 		postForm(url, JSON.stringify(data), function (result) {
 			$(".commentListV2 .comment-box.comment-edit-box").remove();
@@ -49,6 +53,28 @@ $(function(){
 	$(document).on("click","#commentformNew .btn-cancel",function(e){
 		$(".commentListV2 .comment-box.comment-edit-box").remove();
 		e.stopPropagation();
+	});
+	
+	$(document).on("click",".commentMoreReplyButton .commentMore_btn",function(){
+		$(this).closest(".nestComment").find(".nestComment--child").removeClass("hide");
+		$(this).hide();
+	});
+	
+	$(document).on("click",".commentItemV2-footer .delete_comment_btn",function(){
+		var cid = $(this).attr("cid");
+		var data={id:cid};
+		postAjax("/travel/delComment", JSON.stringify(data), function (result) {
+	    }, {errorFunction:function(result){
+	    	console.log(result);
+	    },cache: false, async: false});
+	})
+	$(document).on("click",".commentItemV2-footer .del-commentRely-btn",function(){
+		var rid = $(this).attr("rid");
+		var data={id:rid};
+		postAjax("/travel/delCommentReply", JSON.stringify(data), function (result) {
+		}, {errorFunction:function(result){
+			console.log(result);
+		},cache: false, async: false});
 	})
 	
 });

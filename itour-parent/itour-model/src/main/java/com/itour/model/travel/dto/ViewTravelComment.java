@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 /**
  * <p>
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  * @author wangtao
  * @since 2021-04-12
  */
+@TableName("view_travel_comment")
 public class ViewTravelComment extends Model<ViewTravelComment> {
 
     private static final long serialVersionUID = 1L;

@@ -117,14 +117,16 @@ CREATE OR REPLACE VIEW view_m_messageinfo AS
 	WHERE c.AIM=aim.`CODE` and c.ORIGIN=origin.`CODE`;
 #博客列表视图
 CREATE OR REPLACE VIEW view_travelInfo_oauth AS
-SELECT c.*,a.NICKNAME FROM T_T_TRAVEL_INFO c, T_A_OAUTH a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID;
+SELECT c.*,a.NICKNAME,a.AVATAR FROM T_T_TRAVEL_INFO c, T_A_OAUTH a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID;
 #旅行攻略评论表视图
 CREATE OR REPLACE VIEW view_travel_comment AS
 SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_T_TRAVEL_COMMENT c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp WHERE c.UID=tmp.U_ID;
 #旅行攻略评论回复表视图
 CREATE OR REPLACE VIEW view_comment_reply AS
-SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_T_COMMENT_REPLY c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp 
-WHERE c.from_uid=tmp.U_ID;
+SELECT c.*,tmp.AVATAR FROM_AVATAR,tmp.NICKNAME FROM_NICKNAME,tmp1.AVATAR TO_AVATAR,tmp1.NICKNAME TO_NICKNAME FROM T_T_COMMENT_REPLY c,
+(SELECT c.U_ID,c.NICKNAME,c.AVATAR FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp,
+(select c.U_ID,c.NICKNAME,c.AVATAR FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp1
+WHERE c.from_uid=tmp.U_ID and c.TO_UID=tmp1.U_ID;
 #旅行标签视图
 CREATE OR REPLACE VIEW view_travel_tag AS
 SELECT c.id,c.tid,c.tag_id,d.tag,d.uid FROM t_t_travel_tag c ,t_t_tag d WHERE c.TAG_ID=d.ID;

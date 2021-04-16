@@ -3,6 +3,7 @@ package com.itour.service;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
 import com.itour.model.travel.dto.ViewTravelinfoOauth;
 import com.itour.persist.ViewTravelinfoOauthMapper;
 import com.itour.service.ViewTravelinfoOauthService;
@@ -50,6 +51,7 @@ public class ViewTravelinfoOauthService extends ServiceImpl<ViewTravelinfoOauthM
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 			
 		}
 		
