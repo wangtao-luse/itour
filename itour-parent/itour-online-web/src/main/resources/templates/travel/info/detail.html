@@ -3,6 +3,22 @@
    .richContent .richContent-inner {
      max-height: none;
 }</style>
+<style>
+ .Pagination {
+    padding: 16px 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+.CommentsV2-pagination {
+    border-top: 1px solid #ebebeb;
+}
+.PaginationButton {
+    color: #121212;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+    padding: 0 15px;
+}
+</style>
 <script type="text/javascript" src="${ctxPath}/js/travel/detail.js" ></script>
 
 @var uid=user.uId!;
@@ -307,6 +323,17 @@
 										@}
 										
 									</div>
+								    <div class="Pagination CommentsV2-pagination">
+									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain">上一页</button>
+									    <button type="button" class="button PaginationButton button--plain">1</button>
+									    <button type="button" class="button PaginationButton button--plain">2</button>
+									    <button type="button" class="button PaginationButton button--plain">3</button>
+									    <button type="button" disabled="" class="button PaginationButton PaginationButton--current button--plain">4</button>
+									    <button type="button" class="button PaginationButton button--plain">5</button>
+									    <button disabled="" class="PaginationButton PaginationButton--ellipsis">...</button>
+									    <button type="button" class="button PaginationButton button--plain">10</button>
+									    <button type="button" class="button PaginationButton PaginationButton-next button--plain">下一页</button>
+								    </div>
 								</div>
 								
 							</div>
