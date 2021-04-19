@@ -25,12 +25,12 @@ $(function(){
 		
 	});
 
-	$("#comment_content").keyup(function(){
+	$(document).on("keyup","#comment_content",function(){
 		var len = $(this).val().length;
 		var commentLen = parseInt(1200)-parseInt(len);
 		$("#comment-form .right-box em").text(commentLen);
 	});
-	$("#comment_contentNew").keyup(function(){
+	$(document).on("keyup","#comment_contentNew",function(){
 		var len = $(this).val().length;
 		var commentLen = parseInt(1200)-parseInt(len);
 		$("#commentformNew .right-box em").text(commentLen);
