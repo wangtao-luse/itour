@@ -216,9 +216,9 @@
 									    @}
 									    @for(pageNo in page.navigatepageNums){	
 									       @if(current==pageNo){
-									       		<button type="button" disabled="" class="button PaginationButton PaginationButton--current button--plain" pageNo="${current}">${pageNo}</button>
+									       		<button type="button" disabled="" class="button PaginationButton PaginationButton--current button--plain" pageNo="${pageNo}">${pageNo}</button>
 									       @}else{
-									       <button type="button" class="button PaginationButton button--plain" pageNo="${current}">${pageNo}</button>
+									       <button type="button" class="button PaginationButton button--plain" pageNo="${pageNo}">${pageNo}</button>
 									       @}
 									       
 										@} 
