@@ -79,11 +79,12 @@ $(function(){
 	});
 	$(document).on("click",".Pagination.CommentsV2-pagination button",function(){
 		var pageNo = $(this).attr("pageNo");
-		var data={"page":{"current":pageNo}};
-		var url="/travel/detail?ajaxCmd=commentList";
-		postForm(url, data, function (result) {
-			$("#commentList").html(result);
-	      }, {"contentType": "application/x-www-form-urlencoded"});
+		var id=$("#tid").val();
+		var data={"id":id,"page":{"current":pageNo}};
+		var url="/travel/commentList?ajaxCmd=commentList";
+		postForm(url, JSON.stringify(data), function (result) {
+			$("#comment-container").html(result);
+	      }, {"contentType": "application/json; charset=utf-8"});
 	})
 	
 });
@@ -127,7 +128,7 @@ function query(){
 	var id=$("#tid").val();
 	var data={"id":id,"page":{"current":pageNo}};
 	var url="/travel/commentList?ajaxCmd=commentList";
-	postForm(url, data, function (result) {
+	postForm(url, JSON.stringify(data), function (result) {
 		$("#comment-container").html(result);
-      }, {"contentType": "application/x-www-form-urlencoded"});	
+      }, {"contentType": "application/json; charset=utf-8"});	
 }

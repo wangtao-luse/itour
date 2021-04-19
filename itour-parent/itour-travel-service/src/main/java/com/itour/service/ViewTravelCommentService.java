@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.entity.PageInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelComment;
@@ -53,8 +54,8 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 			List<ViewTravelComment> resultList = getCommentList(commentList);
 			responseMessage.setReturnResult(resultList);
 		}else {
-			Page page = pageVo.toJavaObject(Page.class);
-			Page selectPage = this.baseMapper.selectPage(page, queryWrapper);
+			PageInfo page = pageVo.toJavaObject(PageInfo.class);
+			PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
 			//3.获取对应文章评论下的回复
 			List<ViewTravelComment> resultList = getCommentList(selectPage.getRecords());
 			Page resultPage = selectPage.setRecords(resultList);			

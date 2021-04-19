@@ -208,42 +208,28 @@
 							        @var total=page.total;
 							        <!-- 总页数 -->
 							        
-							        @var pages=total/size;
-							        @if(total%size!=0){
-							           @pages=total/size+1;
-							        @}
-							        
-							        <!-- 两侧显示页码数 -->
-							        @var both=2;
-									@if(pages>1){
+							        @var pages=page.ps;
 								    <div class="Pagination CommentsV2-pagination">
 								        @if(current>1){
 									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain" pageNo="${current-1}">上一页</button>
+									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain" pageNo="1">首页</button>
 									    @}
-									    @for(var pageNo=1;pageNo< pages;pageNo++){	
+									    @for(pageNo in page.navigatepageNums){	
 									       @if(current==pageNo){
 									       		<button type="button" disabled="" class="button PaginationButton PaginationButton--current button--plain" pageNo="${current}">${pageNo}</button>
+									       @}else{
+									       <button type="button" class="button PaginationButton button--plain" pageNo="${current}">${pageNo}</button>
 									       @}
-									       @if(current!=pageNo&&(pageNo<=4||pageNo==pages-1)) {
-										       	<button type="button" class="button PaginationButton button--plain" pageNo="${current}">${pageNo}</button>
-									       @}
-									       @if(pageNo>4&&pageNo!=pages&&pageNo==(pages-2)){
-									       <button disabled="" class="PaginationButton PaginationButton--ellipsis">...</button>
-									      @}
-									      
-										@}
-									    
-									  <!--   <button type="button" class="button PaginationButton button--plain">2</button>
-									    <button type="button" class="button PaginationButton button--plain">3</button>
-									    <button type="button" disabled="" class="button PaginationButton PaginationButton--current button--plain">4</button>
-									    <button type="button" class="button PaginationButton button--plain">5</button>
-									    <button disabled="" class="PaginationButton PaginationButton--ellipsis">...</button>
-									    <button type="button" class="button PaginationButton button--plain">10</button> -->
+									       
+										@} 
+										
 									    @if(current < pages){
 									    <button type="button" class="button PaginationButton PaginationButton-next button--plain" pageNo="${current+1}">下一页</button>
+									     <button type="button" class="button PaginationButton PaginationButton-next button--plain" pageNo="${pages}">末页</button>
 								        @}
+								        共${pages}页
 								    </div>
-								    @}
+								    
 								   
 								</div>
 								

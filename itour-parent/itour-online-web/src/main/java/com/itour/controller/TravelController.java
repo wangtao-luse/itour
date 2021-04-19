@@ -25,6 +25,7 @@ import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
+import com.itour.entity.PageInfo;
 import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
@@ -191,11 +192,13 @@ public String detail(Long id,ModelMap model,Page page,HttpServletRequest request
 		return "/travel/info/detail";	
 }
 @RequestMapping("/commentList")
-public String commentList(Long id,ModelMap model,Page page,String ajaxCmd,HttpServletRequest request ) {
+public String commentList(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request ) {
+	Long id = jsonObject.getLong("id");
+	Page pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(Page.class);
 	//1.获取旅行信息
 	 travelInfo(id, model, request);
 	//2.获取评论信息;
-	commentList(id, model, request,page);
+	commentList(id, model, request,pageVo);
 	 model.addAttribute("id", id);
 	return "/travel/info/commentList#"+ajaxCmd;	
 }
@@ -229,16 +232,19 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 private void commentList(Long id, ModelMap model, HttpServletRequest request,Page page) {
 	JSONObject jsonObject = new JSONObject();
 	 jsonObject.put("tid", id);
-	 page.setSize(10);
+	 page.setSize(1);
 	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
 	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StringUtils.isEmpty(respMsg.getReturnResult())) {
 		Map<String, Object> returnResult = respMsg.getReturnResult();
-		Page resultPage = FastJsonUtil.mapToObject(returnResult, Page.class, Constant.COMMON_KEY_RESULT);
+		PageInfo resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
+		resultPage.pageNav();
+		resultPage.getPs();
 		List<ViewTravelComment> commentList = resultPage.getRecords();
 		model.addAttribute("commentList", commentList);
 		model.addAttribute(Constant.COMMON_KEY_PAGE, resultPage);
 	}
+	
 }
 public void unique(HttpServletRequest request,String id) {
 	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
