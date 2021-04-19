@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.OnlienApplication;
+import com.itour.OnlienApp;
 import com.itour.common.vo.ExUsernamePasswordToken;
 
 /***https://blog.csdn.net/qq_35915384/article/details/80227297
@@ -47,7 +47,7 @@ import com.itour.common.vo.ExUsernamePasswordToken;
  *7.一个单元测试类执行顺序为：@BeforeClass –> @Before –> @Test –> @After –> @AfterClass
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = OnlienApplication.class)
+@SpringBootTest(classes = OnlienApp.class)
 @AutoConfigureMockMvc //Controller测试的，需要是用这个注解
 public class TestSpringboot {
 	@Autowired

@@ -4,7 +4,7 @@
 	<img  class="avatar" src="${ctxPath}/img/common/avatar-1.jpg" width="24" height="24">
 </div>
    <form id="commentformNew">
-       <div id="ctn-mask" onclick="closeMask()" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.4);position: fixed;left: 0;top: 0;z-index: 8999;display: none" ></div>
+       <div id="ctn-mask" onclick="closeMask(this)" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.4);position: fixed;left: 0;top: 0;z-index: 8999;display: none" ></div>
    	<textarea class="comment-content" id="comment_contentNew" maxlength="1200"placeholder="回复：${toNickname}"></textarea>
    	<div class="opt-box">
    		<input type="hidden" id="comment_replyIdNew"  value="${commentReply.commentId}"/>
@@ -31,13 +31,13 @@ function commentRely(){
 	var commentId = $("#comment_replyIdNew").val();
 	var toUid = $("#comment_userIdNew").val();
 	if($.isEmpty(comment_content)){
-		outMsg("请填写回复内容");
+		outMsg("请填写回复内容","#ctn-mask");
 		return;
 	}
 	var data={"commentId":commentId,"toUid":toUid,"reply":comment_content};
 	postAjax("/travel/insertCommentReply", JSON.stringify(data), function (result) {
 		$("#comment_contentNew").val("");
-		outMsg("回复成功,审核后显示");
+		outMsg("回复成功,审核后显示","#ctn-mask");
     }, {errorFunction:function(result){
     	console.log(result);
     },cache: false, async: false});

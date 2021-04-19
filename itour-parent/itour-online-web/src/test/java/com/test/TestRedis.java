@@ -12,12 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.OnlienApplication;
+import com.itour.OnlienApp;
 import com.itour.common.redis.RedisManager;
 import com.itour.model.travel.Tag;
 import com.itour.util.DateUtil;
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = OnlienApplication.class)
+@SpringBootTest(classes = OnlienApp.class)
 public class TestRedis {
 /***
  * 1.做Java API的测试只需要在方法上加入@Test注解即可;

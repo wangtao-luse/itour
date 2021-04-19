@@ -1,5 +1,6 @@
 $(function(){
-	$("#comment-form").click(function(e){
+	query();
+	$(document).on("click","#comment-form",function(e){
 		var hasOpen =$("#comment_contentNew").hasClass("open");
 		if(hasOpen){
 			$("#comment_contentNew").removeClass("open");
@@ -75,15 +76,23 @@ $(function(){
 		}, {errorFunction:function(result){
 			console.log(result);
 		},cache: false, async: false});
+	});
+	$(document).on("click",".Pagination.CommentsV2-pagination button",function(){
+		var pageNo = $(this).attr("pageNo");
+		var data={"page":{"current":pageNo}};
+		var url="/travel/detail?ajaxCmd=commentList";
+		postForm(url, data, function (result) {
+			$("#commentList").html(result);
+	      }, {"contentType": "application/x-www-form-urlencoded"});
 	})
 	
 });
-function outMsg(msg){
+function outMsg(msg,ele){
 	$("#ct-out span").text(msg);
-	$("#ct-mask").css("display","block");
+	$(ele).css("display","block");
 	$("#ct-out").css("display","block");
 	setTimeout(function(){
-		$("#ct-mask").css("display","none");
+		$(ele).css("display","none");
 		$("#ct-out").css("display","none");
 	},5000);	
 }
@@ -96,21 +105,29 @@ function comment(){
 	//评论内容
 	var comment_content = $("#comment_content").val();
 	if($.isEmpty(comment_content)){
-		outMsg("请填写评论内容");
+		outMsg("请填写评论内容","#ct-mask");
 		return;
 	}
        
 	var data={"tid":tid,"uid":comment_userId,"comment":comment_content};
 	postAjax("/travel/insertComment", JSON.stringify(data), function (result) {
 		$("#comment_content").val("");
-		outMsg("评论成功,审核后显示");
+		outMsg("评论成功,审核后显示","#ct-mask");
     }, {errorFunction:function(result){
     	console.log(result);
     },cache: false, async: false});
 }
 
-function closeMask(){
-	$("#ct-mask").css("display","none");
-	$("#ctn-mask").css("display","none");
+function closeMask($this){
+	var mask = $($this).attr("id");
+	$("#"+mask).css("display","none");
 }
-
+function query(){
+	var pageNo =1;
+	var id=$("#tid").val();
+	var data={"id":id,"page":{"current":pageNo}};
+	var url="/travel/commentList?ajaxCmd=commentList";
+	postForm(url, data, function (result) {
+		$("#comment-container").html(result);
+      }, {"contentType": "application/x-www-form-urlencoded"});	
+}

@@ -187,11 +187,17 @@ public String detail(Long id,ModelMap model,Page page,HttpServletRequest request
 		 ip(request,String.valueOf(id));
 	   //2.获取旅行信息
 		 travelInfo(id, model, request);
-		//3.获取评论信息;
-		 commentList(id, model, request,page);
 	     model.addAttribute("id", id);
-	   
-	return "/travel/info/detail";
+		return "/travel/info/detail";	
+}
+@RequestMapping("/commentList")
+public String commentList(Long id,ModelMap model,Page page,String ajaxCmd,HttpServletRequest request ) {
+	//1.获取旅行信息
+	 travelInfo(id, model, request);
+	//2.获取评论信息;
+	commentList(id, model, request,page);
+	 model.addAttribute("id", id);
+	return "/travel/info/commentList#"+ajaxCmd;	
 }
 private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
@@ -223,7 +229,7 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 private void commentList(Long id, ModelMap model, HttpServletRequest request,Page page) {
 	JSONObject jsonObject = new JSONObject();
 	 jsonObject.put("tid", id);
-	 page.setSize(20);
+	 page.setSize(10);
 	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
 	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StringUtils.isEmpty(respMsg.getReturnResult())) {
