@@ -103,7 +103,7 @@ public class TravelCommentNiceService {
 			jsonObject.put(Constant.COMMON_KEY_ARR, travelInfoList);
 			RequestMessage request = HttpDataUtil.postData(jsonObject, null);
 			if(travelInfoList.size()>0) {
-				ResponseMessage updateTravelInfoBatch = this.travelApi.updateTravelInfoBatch(request);
+				ResponseMessage updateTravelInfoBatch = this.travelApi.updateCommentBatch(request);
 				if(Constant.SUCCESS_CODE.equals(updateTravelInfoBatch.getResultCode())) {
 					//4.3清楚缓存
 					saveOrupdateList.forEach(key->{
