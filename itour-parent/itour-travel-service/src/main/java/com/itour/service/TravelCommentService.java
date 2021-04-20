@@ -1,5 +1,7 @@
 package com.itour.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,13 +61,34 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			TravelComment commentVo = jsonObject.toJavaObject(TravelComment.class);
-			commentVo.setStatus(Constant.COMMON_STATUS_CHECK);
+			commentVo.setStatus(Constant.COMMON_STATUS_DELETED);
 			this.updateById(commentVo);
 			QueryWrapper<CommentReply> updateWrapper = new QueryWrapper<CommentReply>();
 			updateWrapper.eq("COMMENT_ID", commentVo.getId());
 			CommentReply entity = new CommentReply();
-			entity.setStatus(Constant.COMMON_STATUS_CHECK);
+			entity.setStatus(Constant.COMMON_STATUS_DELETED);
 			this.commentReplyMapper.update(entity , updateWrapper);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	* 批量修改评论信息
+	* @param requestMessage
+	* @return
+	*/
+	@Transactional
+	public ResponseMessage updateCommentBatch(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			List<TravelComment> commentReplyVo = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(TravelComment.class);
+			if(commentReplyVo.size()>0) {
+				this.updateBatchById(commentReplyVo, commentReplyVo.size());
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -10,12 +10,13 @@
         <result column="UID" property="uid" />
         <result column="TID" property="tid" />
         <result column="STATUS" property="status" />
+        <result column="NICE_COUNT" property="niceCount" />
         <result column="AVATAR" property="avatar" />
         <result column="NICKNAME" property="nickname" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, COMMENT, CTIME, UID, TID, STATUS, AVATAR, NICKNAME
+        ID, COMMENT, CTIME, UID, TID, STATUS,NICE_COUNT, AVATAR, NICKNAME
     </sql>
 
 </mapper>

@@ -5,6 +5,14 @@ public class RedisKey {
  * 旅行文章点赞
  */
 public static String KEY_NICE="itour_nice";
+/**
+ * 旅行文章评论点赞
+ */
+public static String KEY_ITOUR_COMMENT_NICE="itour_comment_nice";
+/**
+ * 旅行文章评论回复点赞
+ */
+public static String KEY_ITOUR_COMMENTREPLY_NICE="itour_commentReply_nice";
 
 /**
  * 旅行文章浏览量

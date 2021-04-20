@@ -232,7 +232,7 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 private void commentList(Long id, ModelMap model, HttpServletRequest request,Page page) {
 	JSONObject jsonObject = new JSONObject();
 	 jsonObject.put("tid", id);
-	 page.setSize(1);
+	 page.setSize(10);
 	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
 	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StringUtils.isEmpty(respMsg.getReturnResult())) {
@@ -422,6 +422,34 @@ public ResponseMessage delComment(@RequestBody JSONObject jsonObject,HttpServlet
 public ResponseMessage delCommentReply(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
    ResponseMessage delCommentRely = this.travelConnector.delCommentRely(jsonObject, request);
 	return delCommentRely;
+}
+/**
+ * 旅行攻略评论回复点赞数
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/commentReplyNice")
+@ResponseBody
+public ResponseMessage commentReplyNice(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	jsonObject.put("uid", sessionUser.getuId());
+	ResponseMessage responseMessage = this.travelConnector.commentReplyNiceSub(jsonObject, request);
+	return responseMessage;
+}
+/**
+ * 旅行攻略评论点赞数
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/commentNice")
+@ResponseBody
+public ResponseMessage commentNice(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	jsonObject.put("uid", sessionUser.getuId());
+	ResponseMessage responseMessage = this.travelConnector.commentNiceSub(jsonObject, request);
+	return responseMessage;
 }
 
 }

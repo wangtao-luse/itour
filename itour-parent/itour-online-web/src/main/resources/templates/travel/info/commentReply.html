@@ -38,6 +38,7 @@ function commentRely(){
 	postAjax("/travel/insertCommentReply", JSON.stringify(data), function (result) {
 		$("#comment_contentNew").val("");
 		outMsg("回复成功,审核后显示","#ctn-mask");
+		query();
     }, {errorFunction:function(result){
     	console.log(result);
     },cache: false, async: false});

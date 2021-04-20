@@ -11,11 +11,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import com.itour.quartz.service.TravelCommentNiceService;
 import com.itour.quartz.service.TravelNiceService;
 public class TravelNiceJob extends QuartzJobBean {
 private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 @Autowired
 TravelNiceService travelNiceService;
+@Autowired
+TravelCommentNiceService travelCommentNiceService;
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		// TODO Auto-generated method stub
@@ -24,7 +27,14 @@ TravelNiceService travelNiceService;
 		//2.查看该用户是否已经点赞
 		//3.同步数据到数据库
 		//5.每5分钟执行一次
+		/**
+		 * 旅行攻略文章点赞数刷新
+		 */
 		travelNiceService.insertNice();
+		/**
+		 * 旅行攻略文章评论点赞数刷新
+		 */
+		travelCommentNiceService.insertCommentNice();
 		
 	}
 

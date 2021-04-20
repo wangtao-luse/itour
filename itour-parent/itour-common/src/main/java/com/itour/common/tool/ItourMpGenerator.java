@@ -40,19 +40,19 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否为视图
   			  */
-  			 boolean isView =true;//视图
+  			 boolean isView =false;//视图
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"view_travel_tag","view_travel_comment","view_comment_reply"};
+  			 String [] include= new String[] {"T_T_TRAVEL_COMMENT_REPLY_NICE"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
-  			 String [] tableprefix = new String [] {};
+  			 String [] tableprefix = new String [] {"t_t_travel_"};
   			 /**
   			  * 是否需要覆盖Service  （是否创建service）
   			  */
-		     boolean isOverflowService=true;
+		     boolean isOverflowService=false;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 

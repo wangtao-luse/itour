@@ -37,7 +37,7 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
     private Long ctime;
 
     /**
-     * 用户编号
+     * 评论用户编号
      */
     @TableField("UID")
     private String uid;
@@ -51,11 +51,15 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
   
 
     /**
-     * 状态（1:正常;0:删除）
+     * 状态（0:待审核状态;1:审核通过;2:审核不通过;3:已删除）
      */
     @TableField("STATUS")
     private String status;
-
+    /**
+          * 评论点赞数
+     */
+    @TableField("NICE_COUNT")
+    private Integer niceCount;
     /**
      * 图像
      */
@@ -123,7 +127,15 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
         this.status = status;
     }
 
-    public String getAvatar() {
+    public Integer getNiceCount() {
+		return niceCount;
+	}
+
+	public void setNiceCount(Integer niceCount) {
+		this.niceCount = niceCount;
+	}
+
+	public String getAvatar() {
         return avatar;
     }
 

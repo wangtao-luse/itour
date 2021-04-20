@@ -47,20 +47,27 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 		//2.获取对应文章评论
 		QueryWrapper<ViewTravelComment> queryWrapper = new QueryWrapper<ViewTravelComment>();
 		queryWrapper.eq(!StringUtils.isEmpty(comment.getTid()), "TID", comment.getTid());
+		String getuId = requestMessage.getBody().getuId();
+		if(StringUtils.isEmpty(getuId)) {
+			queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKED);
+		}else {
+			String [] statusArr = {Constant.COMMON_STATUS_CHECKED,Constant.COMMON_STATUS_CHECKING};
+			queryWrapper.in("STATUS", statusArr);
+			queryWrapper.eq("UID", getuId);
+		}
 		queryWrapper.orderByDesc("CTIME");
 		if(StringUtils.isEmpty(pageVo)) {
 			List<ViewTravelComment> commentList = this.baseMapper.selectList(queryWrapper);
 			//3.获取对应文章评论下的回复
-			List<ViewTravelComment> resultList = getCommentList(commentList);
+			List<ViewTravelComment> resultList = getCommentList(commentList,getuId);
 			responseMessage.setReturnResult(resultList);
 		}else {
 			PageInfo page = pageVo.toJavaObject(PageInfo.class);
 			PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
 			//3.获取对应文章评论下的回复
-			List<ViewTravelComment> resultList = getCommentList(selectPage.getRecords());
+			List<ViewTravelComment> resultList = getCommentList(selectPage.getRecords(),getuId);
 			Page resultPage = selectPage.setRecords(resultList);			
 			responseMessage.setReturnResult(resultPage);
-			
 		}
 		
 	} catch (Exception e) {
@@ -70,10 +77,15 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 	}
 	return responseMessage;
 }
-public List<ViewTravelComment> getCommentList(List<ViewTravelComment> commentList) {
+public List<ViewTravelComment> getCommentList(List<ViewTravelComment> commentList,String uid) {
 	String collect = commentList.stream().map(ViewTravelComment::getId).map(String::valueOf).collect(Collectors.joining(","));
 	QueryWrapper<ViewCommentReply> wrapper = new QueryWrapper<ViewCommentReply>();
 	wrapper.in(!StringUtils.isEmpty(collect),"COMMENT_ID", collect.split(","));
+	if(!StringUtils.isEmpty(uid)) {
+		wrapper.eq("FROM_UID", uid);
+		String [] statusArr = {Constant.COMMON_STATUS_CHECKING,Constant.COMMON_STATUS_CHECKED};
+		wrapper.in("STATUS", statusArr);
+	}
 	wrapper.orderByDesc("RTIME");
 	List<ViewCommentReply> replyList = viewCommentReplyMapper.selectList(wrapper);		
 	//4.组装评论下的回复信息

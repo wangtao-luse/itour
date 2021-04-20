@@ -20,4 +20,6 @@ import com.itour.model.travel.Nice;
 public interface NiceMapper extends BaseMapper<Nice> {
 @Select("select c.TID tid, count(*) count from t_t_nice c  where c.`STATUS`='1'  and c.TID in(#{tid}) GROUP BY c.TID")
 List<Map<String,Object>> countNice(@Param("tid") String tid);
+
+
 }

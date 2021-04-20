@@ -20,10 +20,12 @@ public static final String COMMON_VO_NEEDTOTAL="needTotal";
 
 //评论待审核
 public static final String COMMON_STATUS_CHECKING="0";
-//审核通过
+//评论审核通过
 public static final String COMMON_STATUS_CHECKED="1";
-//审核不通过
+//评论审核不通过
 public static final String COMMON_STATUS_CHECK="2";
+//评论已删除
+public static final String COMMON_STATUS_DELETED="3";
 
 
 

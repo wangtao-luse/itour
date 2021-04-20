@@ -7,14 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 旅行信息评论表
+ * 
  * </p>
  *
  * @author wangtao
- * @since 2021-04-09
+ * @since 2021-04-20
  */
-@TableName("t_t_travel_comment")
-public class TravelComment extends Model<TravelComment> {
+@TableName("t_t_travel_comment_reply_nice")
+public class CommentReplyNice extends Model<CommentReplyNice> {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,16 +25,10 @@ public class TravelComment extends Model<TravelComment> {
     private Long id;
 
     /**
-     * 评论内容
+     * 攻略评论回复表编号
      */
-    @TableField("COMMENT")
-    private String comment;
-
-    /**
-     * 评论时间
-     */
-    @TableField("CTIME")
-    private Long ctime;
+    @TableField("RID")
+    private Long rid;
 
     /**
      * 用户编号
@@ -43,33 +37,18 @@ public class TravelComment extends Model<TravelComment> {
     private String uid;
 
     /**
-     * 旅行信息编号
+     * 点赞时间
      */
-    @TableField("TID")
-    private Long tid;
+    @TableField("CREATEDATE")
+    private Long createdate;
 
     /**
-     * 
-    /**
-     * 状态（0:待审核状态;1:审核通过;2:审核不通过;3:已删除）
+     * 状态（0:取消;1:有效）
      */
     @TableField("STATUS")
     private String status;
-    /**
-     	* 评论点赞数
-     */
-    @TableField("NICE_COUNT")
-    private Integer niceCount;
 
-    public Integer getNiceCount() {
-		return niceCount;
-	}
-
-	public void setNiceCount(Integer niceCount) {
-		this.niceCount = niceCount;
-	}
-
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -77,20 +56,12 @@ public class TravelComment extends Model<TravelComment> {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
+    public Long getRid() {
+        return rid;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Long getCtime() {
-        return ctime;
-    }
-
-    public void setCtime(Long ctime) {
-        this.ctime = ctime;
+    public void setRid(Long rid) {
+        this.rid = rid;
     }
 
     public String getUid() {
@@ -101,15 +72,13 @@ public class TravelComment extends Model<TravelComment> {
         this.uid = uid;
     }
 
-    public Long getTid() {
-        return tid;
+    public Long getCreatedate() {
+        return createdate;
     }
 
-    public void setTid(Long tid) {
-        this.tid = tid;
+    public void setCreatedate(Long createdate) {
+        this.createdate = createdate;
     }
-
-   
 
     public String getStatus() {
         return status;
@@ -126,12 +95,11 @@ public class TravelComment extends Model<TravelComment> {
 
     @Override
     public String toString() {
-        return "TravelComment{" +
+        return "CommentReplyNice{" +
         ", id=" + id +
-        ", comment=" + comment +
-        ", ctime=" + ctime +
+        ", rid=" + rid +
         ", uid=" + uid +
-        ", tid=" + tid +
+        ", createdate=" + createdate +
         ", status=" + status +
         "}";
     }

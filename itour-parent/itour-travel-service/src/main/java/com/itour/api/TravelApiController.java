@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.CollectService;
+import com.itour.service.CommentNiceService;
+import com.itour.service.CommentReplyNiceService;
 import com.itour.service.CommentReplyService;
 import com.itour.service.FavoritesService;
 import com.itour.service.HistoryService;
@@ -66,6 +68,10 @@ public class TravelApiController implements TravelApi {
 	CommentReplyService commentReplyService;
 	@Autowired
 	ViewTravelCommentService viewTravelCommentService;
+	@Autowired
+	CommentNiceService commentNiceService;
+	@Autowired
+	CommentReplyNiceService commentReplyNiceService;
 	 /**
      * 旅游信息列表
      */
@@ -512,16 +518,97 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return viewTravelCommentService.queryCommentList(requestMessage);
 	}
+	/**
+	 * 删除评论
+	 */
 	@Override
 	public ResponseMessage delComment(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.delComment(requestMessage);
 	}
+	/**
+	 * 评论点赞记录查询单条
+	 */
+	@Override
+	public ResponseMessage getCommentNice(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentNiceService.getCommentNice(requestMessage);
+	}
+	/**
+	 * 评论点赞提交
+	 */
+	@Override
+	public ResponseMessage commentNiceSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentNiceService.commentNiceSub(requestMessage);
+	}
+	/**
+	 * 批量修改或新增评论点赞记录
+	 */
+	@Override
+	public ResponseMessage saveOrUpdateBatchCommentNice(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentNiceService.saveOrUpdateBatchCommentNice(requestMessage);
+	}
+	/**
+	 * 评论统计
+	 */
+	@Override
+	public ResponseMessage countCommentNiceList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentNiceService.countCommentNiceList(requestMessage);
+	}
+	/**
+	 * 删除评论回复
+	 */
 	@Override
 	public ResponseMessage delCommentReply(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return this.commentReplyService.delCommentReply(requestMessage);
 	}
+	/**
+	 * 旅行攻略评论回复点赞提交
+	 */
+	@Override
+	public ResponseMessage commentReplyNiceSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentReplyNiceService.commentReplyNiceSub(requestMessage);
+	}
+	/**
+	 * 旅行攻略评论回复查询单条
+	 */
+	@Override
+	public ResponseMessage getCommentReplyNice(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentReplyNiceService.getCommentReplyNice(requestMessage);
+	}
+	/**
+	 * 旅行攻略评论回复批量修改或新增
+	 */
+	@Override
+	public ResponseMessage saveOrUpdateBatchCommentReplyNice(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentReplyNiceService.saveOrUpdateBatchCommentReplyNice(requestMessage);
+	}
+	/**
+	 * 评论回复统计
+	 */
+	@Override
+	public ResponseMessage countCommentReplyNiceList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentReplyNiceService.countCommentReplyNiceList(requestMessage);
+	}
+	@Override
+	public ResponseMessage updateCommentReplyBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentReplyService.updateCommentReplyBatch(requestMessage);
+	}
+	@Override
+	public ResponseMessage updateCommentBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelCommentService.updateCommentBatch(requestMessage);
+	}
+	
 	
 	
 	

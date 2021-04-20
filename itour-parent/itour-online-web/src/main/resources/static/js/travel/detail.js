@@ -62,20 +62,27 @@ $(function(){
 	});
 	
 	$(document).on("click",".commentItemV2-footer .delete_comment_btn",function(){
-		var cid = $(this).attr("cid");
-		var data={id:cid};
-		postAjax("/travel/delComment", JSON.stringify(data), function (result) {
-	    }, {errorFunction:function(result){
-	    	console.log(result);
-	    },cache: false, async: false});
+		if(confirm("你确定要删除此评论吗？")){
+			var cid = $(this).attr("cid");
+			var data={id:cid};
+			postAjax("/travel/delComment", JSON.stringify(data), function (result) {
+				query();
+		    }, {errorFunction:function(result){
+		    	console.log(result);
+		    },cache: false, async: false});
+		}
+		
 	})
 	$(document).on("click",".commentItemV2-footer .del-commentRely-btn",function(){
-		var rid = $(this).attr("rid");
-		var data={id:rid};
-		postAjax("/travel/delCommentReply", JSON.stringify(data), function (result) {
-		}, {errorFunction:function(result){
-			console.log(result);
-		},cache: false, async: false});
+		if(confirm("你确定要删除此评论吗？")){
+			var rid = $(this).attr("rid");
+			var data={id:rid};
+			postAjax("/travel/delCommentReply", JSON.stringify(data), function (result) {
+				query();
+			}, {errorFunction:function(result){
+				console.log(result);
+			},cache: false, async: false});
+		}
 	});
 	$(document).on("click",".Pagination.CommentsV2-pagination button",function(){
 		var pageNo = $(this).attr("pageNo");
@@ -86,7 +93,59 @@ $(function(){
 			$("#comment-container").html(result);
 	      }, {"contentType": "application/json; charset=utf-8"});
 	})
-	
+	$(document).on("click",".commentItemV2-footer .comment-nice-btn",function(){
+		var cid = $(this).attr("cid");
+		var uid = $(this).attr("uid");
+		var isactive = $(this).find("img.isactive").is(":visible");
+		var status;
+		var nice =$(this).find(".nice-count").text();
+		 var vv =nice.replace(/\s*/g,"")
+		var txt = parseInt(Boolean(vv)?nice:"0");
+		if(isactive){//取消点赞
+			$(this).find("img.isactive").css("display","none");
+			$(this).find("img.isdefault").css("display","block");
+			status="0";
+			var v =txt-parseInt("1");
+			$(this).find(".nice-count").text(v>0?v:"");
+		}else{//点赞
+			$(this).find("img.isactive").css("display","block");
+			$(this).find("img.isdefault").css("display","none");
+			status="1";
+			var v = txt+parseInt("1");
+			$(this).find(".nice-count").text(v>0?v:"");
+		}
+		var data={"cid":cid,"uid":uid,"status":status};
+		postAjax("/travel/commentNice", JSON.stringify(data), function (result) {
+		}, {errorFunction:function(result){
+			console.log(result);
+		},cache: false, async: false});
+	})
+	$(document).on("click",".commentItemV2-footer .commentReply-nice-btn",function(){
+		var rid = $(this).attr("rid");
+		var uid = $(this).attr("uid");
+		var isactive = $(this).find("img.isactive").is(":visible");
+		var status;
+		var nice =$(this).find(".nice-count").text().replace(/\s*/g,"")
+		if(isactive){//取消点赞
+			$(this).find("img.isactive").css("display","none");
+			$(this).find("img.isdefault").css("display","block");
+			status="0";
+			var txt = parseInt(nice?nice:"0")-parseInt("1");
+			$(this).find(".nice-count").text(txt>0?txt:"");			
+		}else{//点赞
+			$(this).find("img.isactive").css("display","block");
+			$(this).find("img.isdefault").css("display","none");
+			status="1";
+			var txt = parseInt(nice?nice:"0")+parseInt("1");
+			
+			$(this).find(".nice-count").text(txt>0?txt:"");
+		}
+		var data={"rid":rid,"uid":uid,"status":status};
+		postAjax("/travel/commentReplyNice", JSON.stringify(data), function (result) {
+		}, {errorFunction:function(result){
+			console.log(result);
+		},cache: false, async: false});
+	})
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);
@@ -114,6 +173,7 @@ function comment(){
 	postAjax("/travel/insertComment", JSON.stringify(data), function (result) {
 		$("#comment_content").val("");
 		outMsg("评论成功,审核后显示","#ct-mask");
+		query();
     }, {errorFunction:function(result){
     	console.log(result);
     },cache: false, async: false});

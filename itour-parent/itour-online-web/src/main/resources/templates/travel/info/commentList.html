@@ -91,11 +91,17 @@
 																</div>
 															</div>
 															<div class="commentItemV2-footer">
-																<button type="button" class="button commentItemV2-likeBtn button--plain">
+																<button type="button" class="button commentItemV2-likeBtn button--plain comment-nice-btn" cid="${c.id}" uid="${uid!}">
 																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
 																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
 																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
-																	</span>44	
+																	</span>
+																	<span class="nice-count">
+																	@if(c.niceCount>0){
+																	   ${c.niceCount}
+																	  @}
+																	</span>
+																	
 																</button>
 																@if(uid!=c.uid){
 																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely">
@@ -111,12 +117,13 @@
 																	删除
 																</button>
 																@}
+																@if(uid!=c.uid){
 																<button type="button" class="button commentItemV2-likeBtn button--plain">
 																	<span>
 																	</span>
 																	举报
 																</button>
-																
+																@}
 															</div>
 														  
 														</div>
@@ -157,11 +164,16 @@
 										    					<div class="richText ztext">${r.reply}</div>
 										    				</div>
 										    				<div class="commentItemV2-footer">
-										    					<button type="button" class="button commentItemV2-likeBtn button--plain">
+										    					<button type="button" class="button commentItemV2-likeBtn button--plain commentReply-nice-btn" rid="${r.id}" uid="${uid!}">
 																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
 																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
 																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
-																	</span>44	
+																	</span>
+																	 <span class="nice-count">
+																	 @if(r.niceCount>0){
+																	  ${r.niceCount}
+																	 @}
+																	 </span>	
 																	
 																</button>
 																@if(uid!=r.fromUid){
@@ -178,11 +190,13 @@
 																	删除
 																</button>
 																@}
+																@if(uid!=r.fromUid){
 																<button type="button" class="button commentItemV2-likeBtn button--plain">
 																	<span>
 																	</span>
 																	举报
 																</button>
+																@}
 										    				</div>
 										    			</div>
 										    		</div>

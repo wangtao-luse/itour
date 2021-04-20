@@ -326,5 +326,30 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	
+	/**
+	 * 旅行攻略评论点赞数
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage commentNiceSub(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.commentNiceSub(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 旅行攻略评论回复点赞数
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage commentReplyNiceSub(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.commentReplyNiceSub(requestMessage);
+		return responseMessage;
+	}
+	
 	
 }

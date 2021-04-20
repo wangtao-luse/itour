@@ -11,6 +11,7 @@
         <result column="FROM_UID" property="fromUid" />
         <result column="TO_UID" property="toUid" />
         <result column="STATUS" property="status" />
+        <result column="NICE_COUNT" property="countNice" />
         <result column="FROM_AVATAR" property="fromAvatar" />
         <result column="FROM_NICKNAME" property="fromNickname" />
         <result column="TO_AVATAR" property="toAvatar" />
@@ -18,7 +19,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, STATUS, FROM_AVATAR, FROM_NICKNAME,TO_AVATAR,TO_NICKNAME
+        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, STATUS,NICE_COUNT, FROM_AVATAR, FROM_NICKNAME,TO_AVATAR,TO_NICKNAME
     </sql>
 
 </mapper>

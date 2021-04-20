@@ -6,12 +6,16 @@ import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.TravelComment;
+import com.itour.model.travel.TravelInfo;
 import com.itour.persist.CommentReplyMapper;
 import com.itour.service.CommentReplyService;
 import com.itour.util.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +56,7 @@ public ResponseMessage delCommentReply(RequestMessage requestMessage) {
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		CommentReply commentReplyVo = jsonObject.toJavaObject(CommentReply.class);
-		commentReplyVo.setStatus(Constant.COMMON_STATUS_CHECK);
+		commentReplyVo.setStatus(Constant.COMMON_STATUS_DELETED);
 		this.updateById(commentReplyVo);
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -61,4 +65,26 @@ public ResponseMessage delCommentReply(RequestMessage requestMessage) {
 	}
 	return responseMessage;
 }
+/**
+* 批量修改评论信息
+* @param requestMessage
+* @return
+*/
+@Transactional
+public ResponseMessage updateCommentReplyBatch(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		List<CommentReply> commentReplyVo = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(CommentReply.class);
+		if(commentReplyVo.size()>0) {
+			this.updateBatchById(commentReplyVo, commentReplyVo.size());
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+
 }

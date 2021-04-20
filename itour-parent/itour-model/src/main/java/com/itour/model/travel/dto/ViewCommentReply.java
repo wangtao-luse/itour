@@ -59,6 +59,11 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
      */
     @TableField("STATUS")
     private String status;
+    /**
+	     * 评论回复点赞数
+	*/
+	@TableField("NICE_COUNT")
+	private Integer niceCount;
 
     /**
      * 回复人图像
@@ -83,7 +88,15 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
     @TableField("TO_NICKNAME")
     private String toNickname;
 
-    public String getFromAvatar() {
+    public Integer getNiceCount() {
+		return niceCount;
+	}
+
+	public void setNiceCount(Integer niceCount) {
+		this.niceCount = niceCount;
+	}
+
+	public String getFromAvatar() {
 		return fromAvatar;
 	}
 

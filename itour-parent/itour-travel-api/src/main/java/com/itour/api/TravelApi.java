@@ -419,6 +419,76 @@ ResponseMessage delComment(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/delCommentReply",produces = {"application/json;charset=UTF-8"})
 ResponseMessage delCommentReply(RequestMessage requestMessage);
+/**
+ * 旅行攻略评论点赞
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/commentNiceSub",produces = {"application/json;charset=UTF-8"})
+ResponseMessage commentNiceSub(RequestMessage requestMessage);
+/**
+ * 旅行攻略评论回复点赞
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/commentReplyNiceSub",produces = {"application/json;charset=UTF-8"})
+ResponseMessage commentReplyNiceSub(RequestMessage requestMessage);
+/**
+ * 旅行攻略评论点赞单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getCommentNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getCommentNice(RequestMessage requestMessage);
+/**
+ *批量插入或修改旅行攻略评论点赞记录
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/saveOrUpdateBatchCommentNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage saveOrUpdateBatchCommentNice(RequestMessage requestMessage);
+/**
+ * 旅行攻略评论回复点赞单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getCommentReplyNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getCommentReplyNice(RequestMessage requestMessage);
+/**
+ * 评论回复点赞记录批量新增或修改
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/saveOrUpdateBatchCommentReplyNice",produces = {"application/json;charset=UTF-8"})
+ResponseMessage saveOrUpdateBatchCommentReplyNice(RequestMessage requestMessage);
+/**
+ * 评论点赞统计
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/countCommentNiceList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage countCommentNiceList(RequestMessage requestMessage);
+/**
+ * 评论回复点赞统计
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/countCommentReplyNiceList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage countCommentReplyNiceList(RequestMessage requestMessage);
+/**
+ * 批量修改评论回复信息
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateCommentReplyBatch",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateCommentReplyBatch(RequestMessage requestMessage);
+/**
+ * 批量修改评论信息
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/updateCommentBatch",produces = {"application/json;charset=UTF-8"})
+ResponseMessage updateCommentBatch(RequestMessage requestMessage);
 
 
 

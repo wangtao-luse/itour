@@ -11,10 +11,11 @@
         <result column="FROM_UID" property="fromUid" />
         <result column="TO_UID" property="toUid" />
         <result column="STATUS" property="status" />
+        <result column="NICE_COUNT" property="niceCount" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, STATUS
+        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, STATUS,NICE_COUNT
     </sql>
 
 </mapper>

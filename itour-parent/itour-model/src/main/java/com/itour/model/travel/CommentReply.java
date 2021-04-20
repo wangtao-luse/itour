@@ -56,11 +56,16 @@ public class CommentReply extends Model<CommentReply> {
 
   
     /**
-     * 状态（0:待审核状态;1:审核通过;2:审核不通过;）
+     * 状态（0:待审核状态;1:审核通过;2:审核不通过;3:已删除）
      */
     @TableField("STATUS")
     private String status;
-
+    /**
+     	* 评论点赞数
+     */
+    @TableField("NICE_COUNT")
+    private Integer niceCount;
+    
     public Long getId() {
         return id;
     }
@@ -124,7 +129,15 @@ public class CommentReply extends Model<CommentReply> {
         return null;
     }
 
-    @Override
+    public Integer getNiceCount() {
+		return niceCount;
+	}
+
+	public void setNiceCount(Integer niceCount) {
+		this.niceCount = niceCount;
+	}
+
+	@Override
     public String toString() {
         return "CommentReply{" +
         ", id=" + id +

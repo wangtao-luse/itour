@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itour.persist.TravelCommentMapper">
+<mapper namespace="com.itour.persist.CommentNiceMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.travel.TravelComment">
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.CommentNice">
         <id column="ID" property="id" />
-        <result column="COMMENT" property="comment" />
-        <result column="CTIME" property="ctime" />
+        <result column="CID" property="cid" />
         <result column="UID" property="uid" />
-        <result column="TID" property="tid" />
+        <result column="CREATEDATE" property="createdate" />
         <result column="STATUS" property="status" />
-        <result column="NICE_COUNT" property="niceCount" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, COMMENT, CTIME, UID, TID, STATUS,NICE_COUNT
+        ID, CID, UID, CREATEDATE, STATUS
     </sql>
 
 </mapper>
