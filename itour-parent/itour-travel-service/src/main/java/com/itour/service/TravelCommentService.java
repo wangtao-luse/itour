@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.entity.PageInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.TravelComment;
@@ -32,7 +33,41 @@ import com.itour.util.DateUtil;
 public class TravelCommentService extends ServiceImpl<TravelCommentMapper, TravelComment>   {
 	@Autowired
 	CommentReplyMapper commentReplyMapper;	
+	/**
+	 * 评论列表
+	 * @param requestMessage
+	 * @return
+	 */
 	@Transactional
+	public ResponseMessage queryTravelCommentList(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelComment travelComment = jsonObject.getJSONObject("vo").toJavaObject(TravelComment.class);
+			JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
+			QueryWrapper<TravelComment> queryWrapper = new QueryWrapper<TravelComment>();
+			queryWrapper.eq(!StringUtils.isEmpty(travelComment.getStatus()), "STATUS", travelComment.getStatus());
+			if(!StringUtils.isEmpty(pageVo)) {
+				PageInfo page = pageVo.toJavaObject(PageInfo.class);
+				PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
+				responseMessage.setReturnResult(selectPage);
+			}else {
+				List<TravelComment> selectList = this.baseMapper.selectList(queryWrapper);
+				responseMessage.setReturnResult(selectList);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 添加评论
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage insertComment(RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
@@ -85,9 +120,9 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			List<TravelComment> commentReplyVo = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(TravelComment.class);
-			if(commentReplyVo.size()>0) {
-				this.updateBatchById(commentReplyVo, commentReplyVo.size());
+			List<TravelComment> travelCommentList = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(TravelComment.class);
+			if(travelCommentList.size()>0) {
+				this.updateBatchById(travelCommentList, travelCommentList.size());
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

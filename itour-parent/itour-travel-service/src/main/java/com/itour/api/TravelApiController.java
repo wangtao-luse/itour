@@ -16,6 +16,7 @@ import com.itour.service.LocationService;
 import com.itour.service.NiceService;
 import com.itour.service.PageviewService;
 import com.itour.service.RegionService;
+import com.itour.service.SensitiveWordService;
 import com.itour.service.TagService;
 import com.itour.service.TransportationInfoService;
 import com.itour.service.TransportationTypeService;
@@ -72,6 +73,8 @@ public class TravelApiController implements TravelApi {
 	CommentNiceService commentNiceService;
 	@Autowired
 	CommentReplyNiceService commentReplyNiceService;
+	@Autowired
+	SensitiveWordService sensitiveWordService;
 	 /**
      * 旅游信息列表
      */
@@ -498,9 +501,25 @@ public class TravelApiController implements TravelApi {
 	 * 插入评论表
 	 */
 	@Override
+	public ResponseMessage queryTravelCommentList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelCommentService.queryTravelCommentList(requestMessage);
+	}
+	/**
+	 * 插入评论表
+	 */
+	@Override
 	public ResponseMessage insertComment(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.insertComment(requestMessage);
+	}
+	/**
+	 * 评论回复表列表
+	 */
+	@Override
+	public ResponseMessage queryTravelCommentReplyList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.commentReplyService.queryTravelCommentReplyList(requestMessage);
 	}
 	/**
 	 * 插入评论回复表
@@ -607,6 +626,11 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage updateCommentBatch(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelCommentService.updateCommentBatch(requestMessage);
+	}
+	@Override
+	public ResponseMessage querySensitiveWordList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return sensitiveWordService.querySensitiveWordList(requestMessage);
 	}
 	
 	

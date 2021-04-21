@@ -3,10 +3,9 @@ package com.itour.service;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.entity.PageInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.CommentReply;
-import com.itour.model.travel.TravelComment;
-import com.itour.model.travel.TravelInfo;
 import com.itour.persist.CommentReplyMapper;
 import com.itour.service.CommentReplyService;
 import com.itour.util.DateUtil;
@@ -18,6 +17,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -29,6 +29,41 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class CommentReplyService extends ServiceImpl<CommentReplyMapper, CommentReply> {
+	/**
+	 * 评论回复列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage queryTravelCommentReplyList(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			CommentReply travelComment = jsonObject.getJSONObject("vo").toJavaObject(CommentReply.class);
+			JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
+			QueryWrapper<CommentReply> queryWrapper = new QueryWrapper<CommentReply>();
+			queryWrapper.eq(!StringUtils.isEmpty(travelComment.getStatus()), "STATUS", travelComment.getStatus());
+			if(!StringUtils.isEmpty(pageVo)) {
+				PageInfo page = pageVo.toJavaObject(PageInfo.class);
+				PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
+				responseMessage.setReturnResult(selectPage);
+			}else {
+				List<CommentReply> selectList = this.baseMapper.selectList(queryWrapper);
+				responseMessage.setReturnResult(selectList);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+/**
+ * 添加评论回复
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage insertCommentReply(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {

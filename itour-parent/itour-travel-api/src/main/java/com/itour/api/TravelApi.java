@@ -384,6 +384,13 @@ ResponseMessage selecWeekInfoOne(RequestMessage requestMessage);
 @RequestMapping(value = "/travel/queryViewTravelTagList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage queryViewTravelTagList(RequestMessage requestMessage);
 /**
+ * 旅行攻略评论列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryTravelCommentList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryTravelCommentList(RequestMessage requestMessage);
+/**
  * 插入旅行攻略评论
  * @param requestMessage
  * @return
@@ -391,7 +398,14 @@ ResponseMessage queryViewTravelTagList(RequestMessage requestMessage);
 @RequestMapping(value = "/travel/insertComment",produces = {"application/json;charset=UTF-8"})
 ResponseMessage insertComment(RequestMessage requestMessage);
 /**
- * 插入旅行攻略评论
+ * 插入旅行攻略评论回复
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryTravelCommentReplyList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryTravelCommentReplyList(RequestMessage requestMessage);
+/**
+ * 插入旅行攻略评论回复
  * @param requestMessage
  * @return
  */
@@ -489,6 +503,13 @@ ResponseMessage updateCommentReplyBatch(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/updateCommentBatch",produces = {"application/json;charset=UTF-8"})
 ResponseMessage updateCommentBatch(RequestMessage requestMessage);
+/**
+ * 敏感字列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/querySensitiveWordList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage querySensitiveWordList(RequestMessage requestMessage);
 
 
 
