@@ -58,7 +58,7 @@
 					   </div> -->
 					    @ if(!isEmpty(user)){
 					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: block;">
-					   	 <a class="hasAvatar" href="#">
+					   	 <a class="hasAvatar" href="${ctxPath}/travel/personCenter">
 					   	    @if(isEmpty(user.avatar)){
 					   	 		<img src="${ctxPath}/img/common/avatar-5.webp" />
 					   	 	@}else{
@@ -66,7 +66,7 @@
 					   	 	@}
 					   	 </a>
 					   	 <div class="toolbar-subMenu">
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
+					   	 	<a href="${ctxPath}/travel/personCenter" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-blog"></i>我的博客</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-account"></i>设置</a>
@@ -83,3 +83,10 @@
 				</div>
 			</div>
 		</div>
+<script>
+$(function(){
+	$(".banner-search-button").click(function(){
+		location.href="${ctxPath}/travel/search";
+	})
+})
+</script>

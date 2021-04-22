@@ -221,8 +221,8 @@
 							        <!-- 总数据条数 -->
 							        @var total=page.total;
 							        <!-- 总页数 -->
-							        
 							        @var pages=page.ps;
+							        @if(pages>0){
 								    <div class="Pagination CommentsV2-pagination">
 								        @if(current>1){
 									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain" pageNo="${current-1}">上一页</button>
@@ -243,7 +243,7 @@
 								        @}
 								        共${pages}页
 								    </div>
-								    
+								    @}
 								   
 								</div>
 								

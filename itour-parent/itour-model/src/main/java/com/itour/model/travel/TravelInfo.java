@@ -90,7 +90,11 @@ public class TravelInfo extends Model<TravelInfo> {
      */
     @TableField("PV")
     private Integer pv;
-
+    /**
+     * 状态（0：待审核;1:审核通过;2:审核不通过;3:已删除）
+     */
+    @TableField("STATUS")
+    private String status;
     /**
      * 发布时间
      */
@@ -200,7 +204,7 @@ public class TravelInfo extends Model<TravelInfo> {
     public void setPv(Integer pv) {
         this.pv = pv;
     }
-
+    
     public Long getPublishtime() {
         return publishtime;
     }
@@ -222,7 +226,15 @@ public class TravelInfo extends Model<TravelInfo> {
         return null;
     }
 
-    @Override
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@Override
     public String toString() {
         return "TravelInfo{" +
         ", id=" + id +
@@ -237,6 +249,7 @@ public class TravelInfo extends Model<TravelInfo> {
         ", commentCount=" + commentCount +
         ", niceCount=" + niceCount +
         ", pv=" + pv +
+        ", status=" + status +        
         ", publishtime=" + publishtime +
         ", updatetime=" + updatetime +
         "}";

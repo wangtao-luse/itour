@@ -451,5 +451,28 @@ public ResponseMessage commentNice(@RequestBody JSONObject jsonObject,HttpServle
 	ResponseMessage responseMessage = this.travelConnector.commentNiceSub(jsonObject, request);
 	return responseMessage;
 }
+/**
+ * 搜索页
+ * @param request
+ * @param model
+ * @return
+ */
 
+@RequestMapping("/search")
+public String search(HttpServletRequest request,ModelMap model) {
+	return "/travel/search";
+}
+/**
+ * 个人中心
+ * @param request
+ * @param model
+ * @return
+ */
+
+@RequestMapping("/personCenter")
+public String personCenter(HttpServletRequest request,ModelMap model) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	model.addAttribute("account", sessionUser);
+	return "/travel/person/personCenter";
+}
 }
