@@ -10,12 +10,12 @@ import java.io.InputStream;
 import java.util.UUID;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.constant.FilePrefix;
+import com.itour.constant.ConstantFile;
 import com.itour.exception.BaseException;
 
 public class FileUtil {
 /**
- * 保存文件
+ * 保存文件 
  * @param inputStream
  * @param fileName
  * @param savePath
@@ -68,7 +68,7 @@ public static boolean uploadPhoto(InputStream inputStream,JSONObject jsonObject)
 	//文件名称
 	String fileName = jsonObject.getString("fileName");
 	//检查图片后缀
-	checkedSuffix(fileName, FilePrefix.FUNCTION_IMG);
+	checkedSuffix(fileName, ConstantFile.FUNCTION_IMG);
 	//保存路径
 	String savePath = jsonObject.getString("savePath");
 	//是否压缩
@@ -126,29 +126,29 @@ public static boolean checkedSuffix(String fileName,String function){
 	String suffix = fileName.toLowerCase();
 	String regex="";
 	boolean matches=false;
-	if(FilePrefix.FUNCTION_IMG.equals(function)) {
+	if(ConstantFile.FUNCTION_IMG.equals(function)) {
 		  regex ="(.)+(.png|.jpg|.jpeg)";
 		  matches = suffix.matches(regex);
 		  if(!matches) {
-				throw new BaseException(FilePrefix.ERROR_SUFFIX_IMG);
+				throw new BaseException(ConstantFile.ERROR_SUFFIX_IMG);
 		 }
-	}else if(FilePrefix.FUNCTION_PDF.equals(function)) {
+	}else if(ConstantFile.FUNCTION_PDF.equals(function)) {
 		  regex ="(.)+(.pdf)";
 		  matches = suffix.matches(regex);
 		  if(!matches) {
-				throw new BaseException(FilePrefix.ERROR_SUFFIX_PDF);
+				throw new BaseException(ConstantFile.ERROR_SUFFIX_PDF);
 		 }
-	}else if(FilePrefix.FUNCTION_DOC.equals(function)) {
+	}else if(ConstantFile.FUNCTION_DOC.equals(function)) {
 		  regex ="(.)+(.doc|docx)";
 		  matches = suffix.matches(regex);
 		 if(!matches) {
-				throw new BaseException(FilePrefix.ERROR_SUFFIX_DOC);
+				throw new BaseException(ConstantFile.ERROR_SUFFIX_DOC);
 		}
-	}else if(FilePrefix.FUNCTION_PDF_DOC.equals(function)) {
+	}else if(ConstantFile.FUNCTION_PDF_DOC.equals(function)) {
 		  regex ="(.)+(.pdf|.doc|docx)";
 		  matches = suffix.matches(regex);
 		 if(!matches) {
-				throw new BaseException(FilePrefix.ERROR_SUFFIX_PDF_DOC);
+				throw new BaseException(ConstantFile.ERROR_SUFFIX_PDF_DOC);
 		}
 	}
 	
@@ -159,7 +159,7 @@ public static boolean uploadPdf(InputStream inputStream,JSONObject jsonObject) {
 	//文件名称
 		String fileName = jsonObject.getString("fileName");
 		//检查图片后缀
-		checkedSuffix(fileName, FilePrefix.FUNCTION_PDF);
+		checkedSuffix(fileName, ConstantFile.FUNCTION_PDF);
 		//保存路径
 		String savePath = jsonObject.getString("savePath");
 		//是否压缩
@@ -184,7 +184,7 @@ public static boolean uploadDoc(InputStream inputStream,JSONObject jsonObject) {
 	//文件名称
 		String fileName = jsonObject.getString("fileName");
 		//检查图片后缀
-		checkedSuffix(fileName, FilePrefix.FUNCTION_DOC);
+		checkedSuffix(fileName, ConstantFile.FUNCTION_DOC);
 		//保存路径
 		String savePath = jsonObject.getString("savePath");
 		//是否压缩
@@ -209,7 +209,7 @@ public static boolean uploadPdfAndDoc(InputStream inputStream,JSONObject jsonObj
 	//文件名称
 		String fileName = jsonObject.getString("fileName");
 		//检查图片后缀
-		checkedSuffix(fileName, FilePrefix.FUNCTION_PDF_DOC);
+		checkedSuffix(fileName, ConstantFile.FUNCTION_PDF_DOC);
 		//保存路径
 		String savePath = jsonObject.getString("savePath");
 		//是否压缩

@@ -13,7 +13,7 @@ public class AccountVo implements Serializable {
 	/**
      * 编号
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户唯一号
@@ -44,11 +44,11 @@ public class AccountVo implements Serializable {
 
    
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

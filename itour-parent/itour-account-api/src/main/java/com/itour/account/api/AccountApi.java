@@ -247,5 +247,12 @@ public ResponseMessage queryLoginList(@RequestBody RequestMessage requestMessage
  */
 @RequestMapping(value = "/account/insertIPAddr",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage insertIPAddr(@RequestBody RequestMessage requestMessage);
+/**
+ * 修改认证信息表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/updateOAuthById",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage updateOAuthById(@RequestBody RequestMessage requestMessage);
 }
 

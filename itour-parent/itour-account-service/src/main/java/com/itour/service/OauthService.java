@@ -1,10 +1,8 @@
 
 package com.itour.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,7 +23,6 @@ import com.itour.constant.ConstantMessage;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Account;
-import com.itour.model.account.Ipaddr;
 import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
 import com.itour.persist.AccountMapper;
@@ -218,7 +216,27 @@ private IpaddrService ipaddrService;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
 	}
+	/**
+	 * 修改用户认证表
+	 * @param requestMessage
+	 * @return
+	 */
+    public ResponseMessage updateOAuthById(RequestMessage requestMessage) {
+    	ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Oauth o = jsonObject.toJavaObject(Oauth.class);
+			this.baseMapper.updateById(o);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+    }
 }

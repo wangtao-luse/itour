@@ -1,6 +1,8 @@
 package com.itour.controller;
 
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -10,15 +12,20 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.common.file.FileUploadHelper;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.AccountVo;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.ConstAccount;
@@ -26,6 +33,8 @@ import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
+import com.itour.util.FastJsonUtil;
+import com.itour.util.SessionUtil;
 import com.itour.util.StringHelper;
 
 @Controller
@@ -33,6 +42,12 @@ import com.itour.util.StringHelper;
 public class AccountController {
 	@Autowired
 	AccountConnector accountConnector;
+	
+	@Value("${upload.resourceHandler}")
+    private String resourceHandler;
+	
+	@Value("${upload.location}")
+    private String uploadFileLocation;
 	/**
 	 * 注册页面
 	 * @return 注册页面
@@ -220,5 +235,39 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		jsonObject.put("regName", email);
 		ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
 		return checkRegName;
+	}
+	/** 检查用户是否 存在
+	* @param email
+	* @param request
+	* @return
+	*/
+	@ResponseBody
+	@RequestMapping("/updateAvatar")
+	public ResponseMessage updateAvatar(MultipartFile file,HttpServletRequest request) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		 try {
+			ResponseMessage upload = FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request);
+			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&StringUtils.isEmpty(upload.getReturnResult())) {
+				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
+				JSONObject jsonObject = new JSONObject();
+				AccountVo sessionUser = SessionUtil.getSessionUser();
+				Oauth o = new Oauth();
+				o.setId(sessionUser.getId());
+				o.setAvatar(avatar);
+				jsonObject.put(Constant.COMMON_KEY_VO, o);
+				responseMessage = this.accountConnector.checkOauthId(jsonObject, request);
+			}
+			
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		
+		return responseMessage;
 	}
 }

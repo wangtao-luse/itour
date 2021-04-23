@@ -341,10 +341,21 @@ public ResponseMessage queryLoginList(@RequestBody RequestMessage requestMessage
 	// TODO Auto-generated method stub
 	return loginListService.queryLoginList(requestMessage);
 }
+/**
+ * 插入IP地址
+ */
 @Override
 public ResponseMessage insertIPAddr(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return ipaddrService.insertIPAddr(requestMessage);
+}
+/**
+ * 修改用户信息认证表
+ */
+@Override
+public ResponseMessage updateOAuthById(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return this.oauthService.updateOAuthById(requestMessage);
 }
 
 }
