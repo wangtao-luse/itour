@@ -10,4 +10,6 @@ public static final String ERROR_SUFFIX_IMG="目前仅支持.jpg,.jpeg,.png,bmp,
 public static final String ERROR_SUFFIX_PDF="目前仅支持.pdf格式文件";
 public static final String ERROR_SUFFIX_DOC="目前仅支持.doc,.docx格式文件";
 public static final String ERROR_SUFFIX_PDF_DOC="目前仅支持.pdf,.doc,.docx格式文件";
+
+public static final String ERROR_FILE_LENGTH="文件超出指定大小";
 }

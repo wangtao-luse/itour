@@ -246,7 +246,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	public ResponseMessage updateAvatar(MultipartFile file,HttpServletRequest request) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		 try {
-			ResponseMessage upload = FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request);
+			ResponseMessage upload = FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
 			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&StringUtils.isEmpty(upload.getReturnResult())) {
 				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
 				JSONObject jsonObject = new JSONObject();
