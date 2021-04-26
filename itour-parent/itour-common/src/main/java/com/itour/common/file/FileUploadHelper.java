@@ -192,7 +192,4 @@ public static void main(String[] args) {
 	System.out.println("len:"+(length/1024)+"KB");
 	
 }
-public void test(long ...value) {
-	
-}
 }

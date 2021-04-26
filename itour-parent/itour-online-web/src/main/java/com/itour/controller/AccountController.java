@@ -244,30 +244,33 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	@ResponseBody
 	@RequestMapping("/updateAvatar")
 	public ResponseMessage updateAvatar(MultipartFile file,HttpServletRequest request) {
-		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		ResponseMessage upload = ResponseMessage.getSucess();
 		 try {
-			ResponseMessage upload = FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
-			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&StringUtils.isEmpty(upload.getReturnResult())) {
+			 upload = FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
+			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&!StringUtils.isEmpty(upload.getReturnResult())) {
 				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
-				JSONObject jsonObject = new JSONObject();
 				AccountVo sessionUser = SessionUtil.getSessionUser();
 				Oauth o = new Oauth();
 				o.setId(sessionUser.getId());
+				o.setuId(sessionUser.getuId());
 				o.setAvatar(avatar);
-				jsonObject.put(Constant.COMMON_KEY_VO, o);
-				responseMessage = this.accountConnector.checkOauthId(jsonObject, request);
+				JSONObject jsonObject = FastJsonUtil.objToJSONObject(o);
+				ResponseMessage updateOAuthById = this.accountConnector.updateOAuthById(jsonObject, request);
+				if(Constant.FAILED_CODE.equals(updateOAuthById.getResultCode())) {
+					return ResponseMessage.getFailed(updateOAuthById.getResultMessage());
+				}else {
+					sessionUser.setAvatar(avatar);
+				}
+				
 			}
 			
-		} catch (IllegalStateException e) {
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}
 		
-		return responseMessage;
+		return upload;
 	}
+
 }

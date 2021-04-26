@@ -48,12 +48,12 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 		QueryWrapper<ViewTravelComment> queryWrapper = new QueryWrapper<ViewTravelComment>();
 		queryWrapper.eq(!StringUtils.isEmpty(comment.getTid()), "TID", comment.getTid());
 		String getuId = requestMessage.getBody().getuId();
+		queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKED);
 		if(StringUtils.isEmpty(getuId)) {
-			queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKED);
-		}else {
-			String [] statusArr = {Constant.COMMON_STATUS_CHECKED,Constant.COMMON_STATUS_CHECKING};
-			queryWrapper.in("STATUS", statusArr);
+			queryWrapper.or();
+			queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKING);
 			queryWrapper.eq("UID", getuId);
+			queryWrapper.eq("TID", comment.getTid());
 		}
 		queryWrapper.orderByDesc("CTIME");
 		if(StringUtils.isEmpty(pageVo)) {

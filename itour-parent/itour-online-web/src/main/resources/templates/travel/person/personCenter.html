@@ -1,9 +1,11 @@
 @layout("/layout/template.html",{title:'爱旅行-搜索'}){
+<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
 <script type="text/javascript" src="${ctxPath}/js/travel/person/personCenter.js" ></script>
 	    <div class="userCenter">
 	    	<div class="infoMsgHead">
 	    		<div class="infoMsgHead-inner">
 	    			<div class="user-left">
+	    			    <label>
 	    				<div class="user-img">
 	    				   @if(isEmpty(user.avatar)){
 	    				   <img src="${ctxPath}/img/common/avatar-5.webp" />
@@ -12,8 +14,11 @@
 	    				   @}
 	    					
 	    					<p class="modify-img">上传头像</p>
+	    					<form id="form_upload" method="post"  enctype="multipart/form-data" >
+	    					<input type="file" name="file" class="input-fileUpload" onchange="upload_file()" >
+	    					</form>
 	    				</div>
-	    				
+	    				</label>
 	    			</div>
 	    			<div class="user-info">
 	    				<p class="id-msg">
@@ -571,9 +576,7 @@
 						<div class="vicp-drop-area">
 							<img src="${ctxPath}/img/common/upload.png" class="vicp-icon1" />
 							<span class="vicp-hint">点击或拖动图片至此处</span>
-							<form id="form_upload_avatar" method="post"  enctype="multipart/form-data" >
 								<input type="file" style="display: none;">
-							</form>
 						</div>
 						<div class="vicp-operate">
 							<a>取消</a>
@@ -584,7 +587,7 @@
 						<div class="vicp-crop">
 							<div class="vicp-crop-left">
 								<div class="vicp-img-container">
-									<img src="../../img/itour/common/avatar-3.jpg"  class="vicp-img"  style="top: 0px; left: -20.7059px; width: 281.412px; height: 184px;" />
+									<img src="../../img/itour/common/avatar-3.jpg"  class="vicp-img"  style="height: 184px;" />
 								</div>
 								<div class="vicp-range">
 									<input type="range" step="1" min="0" max="100" />

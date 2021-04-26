@@ -127,5 +127,16 @@ public ResponseMessage getAccountRightAnon(JSONObject jsonObject,HttpServletRequ
 	ResponseMessage responseMessage = accountApi.getAccountRightAnon(postData);
 	return responseMessage;
 }
+/**
+ * 修改图像
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage updateOAuthById(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.updateOAuthById(postData);
+	return responseMessage;
+}
 
 }
