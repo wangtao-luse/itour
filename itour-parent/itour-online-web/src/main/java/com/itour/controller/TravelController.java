@@ -7,10 +7,12 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,10 +28,10 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
-import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
 import com.itour.model.travel.dto.ViewTravelinfoOauth;
@@ -178,7 +180,7 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 }
 
 
-@RequestMapping("/md")
+@RequestMapping("/mdEdit")
 public String md() {
 	return "/travel/info/md";
 }
@@ -405,9 +407,8 @@ public ResponseMessage insertCommentReply(@RequestBody JSONObject jsonObject,Htt
  */
 @RequestMapping("/commentReply")
 public String commentReply(@RequestBody JSONObject jsonObject,String ajaxCmd,ModelMap model ) {
-	CommentReply reply = jsonObject.toJavaObject(CommentReply.class);
+	ViewCommentReply reply = jsonObject.toJavaObject(ViewCommentReply.class);
 	model.addAttribute("commentReply", reply);
-	model.addAttribute("toNickname", jsonObject.getString("toNickname"));
 	return "/travel/info/commentReply#"+ajaxCmd;
 }
 

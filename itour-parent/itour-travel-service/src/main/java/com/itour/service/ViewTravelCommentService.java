@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -37,6 +36,11 @@ import com.itour.persist.ViewTravelCommentMapper;
 public class ViewTravelCommentService extends ServiceImpl<ViewTravelCommentMapper, ViewTravelComment> {
 	@Autowired
 	private ViewCommentReplyMapper viewCommentReplyMapper;
+	/**
+	 * 评论列表
+	 * @param requestMessage
+	 * @return
+	 */
 public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -49,7 +53,7 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 		queryWrapper.eq(!StringUtils.isEmpty(comment.getTid()), "TID", comment.getTid());
 		String getuId = requestMessage.getBody().getuId();
 		queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKED);
-		if(StringUtils.isEmpty(getuId)) {
+		if(!StringUtils.isEmpty(getuId)) {
 			queryWrapper.or();
 			queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKING);
 			queryWrapper.eq("UID", getuId);
@@ -77,14 +81,22 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 	}
 	return responseMessage;
 }
+/**
+ * 组装评论回复
+ * @param commentList
+ * @param uid
+ * @return
+ */
 public List<ViewTravelComment> getCommentList(List<ViewTravelComment> commentList,String uid) {
 	String collect = commentList.stream().map(ViewTravelComment::getId).map(String::valueOf).collect(Collectors.joining(","));
 	QueryWrapper<ViewCommentReply> wrapper = new QueryWrapper<ViewCommentReply>();
-	wrapper.in(!StringUtils.isEmpty(collect),"COMMENT_ID", collect.split(","));
+	wrapper.in(!StringUtils.isEmpty(collect),"COMMENT_ID", collect.split(","));	
+	wrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKED);
 	if(!StringUtils.isEmpty(uid)) {
+		wrapper.or();
+		wrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKING);
 		wrapper.eq("FROM_UID", uid);
-		String [] statusArr = {Constant.COMMON_STATUS_CHECKING,Constant.COMMON_STATUS_CHECKED};
-		wrapper.in("STATUS", statusArr);
+		wrapper.in(!StringUtils.isEmpty(collect),"COMMENT_ID", collect.split(","));
 	}
 	wrapper.orderByDesc("RTIME");
 	List<ViewCommentReply> replyList = viewCommentReplyMapper.selectList(wrapper);		

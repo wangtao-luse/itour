@@ -90,14 +90,9 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 		filterChainDefinitionMap.put("/css/**","anon");
 		filterChainDefinitionMap.put("/js/**","anon");
-		filterChainDefinitionMap.put("/img/**","anon");	
-		filterChainDefinitionMap.put("/md/**","anon");	
-		filterChainDefinitionMap.put("/test/**", "anon");
-		filterChainDefinitionMap.put("/niceSub/**", "anon");
-		filterChainDefinitionMap.put("/upload/**", "anon");
+		filterChainDefinitionMap.put("/img/**","anon");
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/shiro/logout", "logout");
-		
 		ResponseMessage accountRightAnon = accountConnector.getAccountRightAnon(null, null);
 		Map<String, Object> returnResult = accountRightAnon.getReturnResult();
 		Object result = returnResult.get(Constant.COMMON_KEY_RESULT);

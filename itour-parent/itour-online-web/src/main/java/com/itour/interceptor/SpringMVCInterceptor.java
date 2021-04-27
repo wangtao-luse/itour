@@ -22,7 +22,7 @@ import com.itour.util.ShiroFilterUtils;
  * 
  * @author ddd
  * @since 2017/11/16
- * 拦截所有的controller 统计时间
+ * 拦截所有的controller 
  *
  */
 @Component
@@ -38,19 +38,10 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 		try {
 			 AccountVo sessionUser = SessionUtil.getSessionUser();
 			String host=getRemoteHost(request, response);
-			request.setAttribute("startTime", System.currentTimeMillis());
 			String redirectURL=WebUtils.getPathWithinApplication(WebUtils.toHttp(request));
+			request.setAttribute("startTime", System.currentTimeMillis());
 			request.setAttribute("host", host);
 			request.setAttribute("redirectURL", redirectURL);
-			request.setAttribute("user", sessionUser);
-			/*
-			 * Subject subject = SecurityUtils.getSubject(); if(subject!=null) { boolean
-			 * authenticated = subject.isAuthenticated(); boolean ajax =
-			 * ShiroFilterUtils.isAjax(request); if(authenticated&&ajax&&null==sessionUser)
-			 * {//session失效 ShiroFilterUtils.out(response); } }
-			 */
-			
-			
 			//判断当前的请求地址是否需要记录日志
 			String servletPath=request.getServletPath();
 			
@@ -70,11 +61,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 			long startTime=(long) request.getAttribute("startTime");
 			long endTime = System.currentTimeMillis();
 			long executeTime = endTime - startTime;
-			
 			String host=this.getRemoteHost(request, response);//IP
-			
-			
-			Object obj= request.getAttribute("controllerLog");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

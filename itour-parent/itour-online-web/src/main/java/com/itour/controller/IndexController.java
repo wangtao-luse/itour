@@ -2,7 +2,6 @@ package com.itour.controller;
 
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +20,8 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
-import com.itour.constant.RedisKey;
-import com.itour.model.travel.Nice;
 import com.itour.model.travel.TravelInfo;
 import com.itour.util.FastJsonUtil;
-import com.itour.util.IpUtil;
 import com.itour.util.SessionUtil;
 
 

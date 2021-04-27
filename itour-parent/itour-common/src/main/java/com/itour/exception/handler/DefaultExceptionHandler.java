@@ -1,37 +1,52 @@
 package com.itour.exception.handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.entity.ResponseEntity;
 import com.itour.exception.BaseException;
 
 
 
 
 /***
- * 捕获服务提供者
- * @author wwang
+ * 捕获服务提供者抛出的异常
+ * 
  *
  */
 
 @ControllerAdvice
 public class DefaultExceptionHandler {
 	protected Logger logger = LoggerFactory.getLogger(DefaultExceptionHandler.class);
-
+    
 	/**
 	 * <p/>
 	 * 后续根据不同的需求定制即可
 	 */
 	@ResponseBody
 	@ExceptionHandler({ Throwable.class })	
-	public static Object processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
+	public  Object processUnauthenticatedException(HttpServletRequest request, HttpServletResponse response,
 			Throwable ex) {
+		logger.error("DefaultExceptionHandler:", ex);
+		String accept = request.getHeader("accept");
+		String width = request.getHeader("X-Requested-With");
+		if(StringUtils.isEmpty(width)) {//非ajax请求根据错误跳转页面
+			ResponseEntity responseEntity = ResponseEntity.from(ex);
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("error", responseEntity);
+			mv.setViewName(responseEntity.getCallbackUrl());
+			return mv;
+		}else {//ajax请求
 			if (ex instanceof BaseException) {
 				ex.printStackTrace();
 				return ResponseMessage.getFailed(ex.getMessage());
@@ -42,6 +57,9 @@ public class DefaultExceptionHandler {
 				ex.printStackTrace();
 				return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 			}
+		}
+		
+			
 	}
 	/**
 	 * 判断请求是否是Ajax异步请求方式

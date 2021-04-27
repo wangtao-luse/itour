@@ -5,7 +5,7 @@
 </div>
    <form id="commentformNew">
        <div id="ctn-mask" onclick="closeMask(this)" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.4);position: fixed;left: 0;top: 0;z-index: 8999;display: none" ></div>
-   	<textarea class="comment-content" id="comment_contentNew" maxlength="1200"placeholder="回复：${toNickname}"></textarea>
+   	<textarea class="comment-content" id="comment_contentNew" maxlength="1200"placeholder="回复：${commentReply.toNickname}"></textarea>
    	<div class="opt-box">
    		<input type="hidden" id="comment_replyIdNew"  value="${commentReply.commentId}"/>
    		<input type="hidden" id="article_idNew" />

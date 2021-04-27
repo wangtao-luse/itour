@@ -4,6 +4,7 @@ public class Constant {
 //系统相关设置
 public static final String SUCCESS_CODE="10";
 public static final String FAILED_CODE="00";
+public static final String LOGIN = "99";
 public static final String SUCESS_MESSAGE="操作成功";
 public static final String FAILED_MESSAGE="操作失败";
 public static final String FAILED_SYSTEM_ERROR="系统繁忙,请稍后再试";
@@ -27,6 +28,8 @@ public static final String COMMON_STATUS_CHECKED="1";
 public static final String COMMON_STATUS_CHECK="2";
 //评论已删除
 public static final String COMMON_STATUS_DELETED="3";
+
+
 
 
 

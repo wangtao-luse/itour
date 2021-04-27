@@ -262,6 +262,8 @@ INSERT INTO T_D_DICTIONARY(CODE_SET,`CODE`,CNAME,CREATEDATE)VALUES('WEBSITE_FEE'
 ###前台菜单明细表#################################
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/index','-1','anon','首页','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/detail','-1','anon','攻略详情页面','0');
 ##用户模块
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/account/loginSub','-1','anon','登录提交','1');
@@ -290,16 +292,28 @@ VALUES('/checkemailCode','-1','anon','校验邮箱验证码','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/msg/sendCodetoEmail','-1','anon','发送验证码','0');
 ##旅行模块################################-
+
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/queryTravelInfoList','-1','anon','旅行信息列表查询','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/commentList','-1','anon','攻略评论','0');
+
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/getLocation','-1','authc','城市信息单条查询','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/personCenter','-1','authc','个人中心（旅行攻略）','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/mdEdit','-1','authc','创作中心','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/upload/fileUpload','-1','authc','单个文件上传','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/niceSub','-1','authc','攻略点赞','1');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/selectTravelInfoById','-1','authc','旅行信息查询单条','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/updateTravelInfo','1000','authc','旅行信息修改','1');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/delTravelInfo','1001','authc','旅行信息删除','1');
-INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
-VALUES('/travel/getLocation','-1','authc','城市信息单条查询','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/queryTransportationInfoList','-1','authc','交通信息列表查询','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)

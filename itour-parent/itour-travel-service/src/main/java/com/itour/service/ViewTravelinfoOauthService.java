@@ -48,6 +48,7 @@ public class ViewTravelinfoOauthService extends ServiceImpl<ViewTravelinfoOauthM
 				List<ViewTravelinfoOauth> selectList = this.baseMapper.selectList(queryWrapper);
 				responseMessage.setReturnResult(selectList);
 			}
+			System.out.println(1/0);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

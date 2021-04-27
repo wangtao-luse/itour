@@ -26,10 +26,10 @@
 								<div>
 									<div class="comment-box comment-edit-box">
 										<div class="user-img">
-										 @if(isEmpty(travelInfo.avatar)){
+										 @if(isEmpty(user.avatar)){
    										    <img class="avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
    										 @}else{
-   										    <img class="avatar" src="${travelInfo.avatar}" width="24" height="24" />
+   										    <img class="avatar" src="${user.avatar}" width="24" height="24" />
    										 @}
 											
 										</div>
@@ -72,7 +72,7 @@
 																		@if(isEmpty(c.avatar)){
 								   										    <img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
 								   										 @}else{
-								   										    <img class="avatar userLink-avatar" src="${travelInfo.avatar}" width="24" height="24" />
+								   										    <img class="avatar userLink-avatar" src="${c.avatar}" width="24" height="24" />
 								   										 @}
 																			
 																		</a>
@@ -104,7 +104,7 @@
 																	
 																</button>
 																@if(uid!=c.uid){
-																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely">
+																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely" comment_id="${c.id}" from_uid="${uid!}" to_uid="${c.uid}" to_nickName="${c.nickname}">
 																	<span>
 																	</span>
 																	回复
@@ -140,10 +140,10 @@
 										    					<div class="popover">
 										    						<div id="popover36-toggle">
 										    							<a href="#" class="userLink-link">
-										    							    @if(isEmpty(r.avatar)){
+										    							    @if(isEmpty(r.fromAvatar)){
 									   										    <img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
 									   										 @}else{
-									   										    <img class="avatar userLink-avatar" src="${travelInfo.avatar}" width="24" height="24"/>
+									   										    <img class="avatar userLink-avatar" src="${r.fromAvatar}" width="24" height="24"/>
 									   										 @}
 										    								
 										    							</a>
@@ -177,7 +177,7 @@
 																	
 																</button>
 																@if(uid!=r.fromUid){
-																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely" comment_id="${r.commentId}" from_uid="${uid!}" to_uid="${r.fromUid}" to_nickName=${r.fromNickname}>
+																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely" comment_id="${r.commentId}" from_uid="${uid!}" to_uid="${r.fromUid}" to_nickName="${r.fromNickname}">
 																	<span>
 																	</span>
 																	回复

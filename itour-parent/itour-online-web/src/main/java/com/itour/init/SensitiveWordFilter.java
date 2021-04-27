@@ -21,7 +21,7 @@ import com.itour.constant.Constant;
 import com.itour.model.travel.SensitiveWord;
 import com.itour.util.FastJsonUtil;
 
-//@Configuration
+@Configuration
 public class SensitiveWordFilter implements InitializingBean {
 	/**
 	 * https://www.jianshu.com/p/f0af22d671a5

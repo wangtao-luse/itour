@@ -106,6 +106,7 @@ private static ResponseMessage uploadFile(MultipartFile file, String uploadFileL
 	String fileName = getFileName(suffix);
 	File saveFile = new File(savePath,fileName);
 	file.transferTo(saveFile);
+	//返回访问路径
 	// http://localhost:9093/itour
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+ request.getContextPath();
 	// http://localhost:9093/itour/upload/189ec6990e554471b15631816d371066.JPG
