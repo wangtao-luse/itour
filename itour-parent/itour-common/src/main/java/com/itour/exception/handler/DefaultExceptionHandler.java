@@ -16,15 +16,11 @@ import com.itour.constant.Constant;
 import com.itour.entity.ResponseEntity;
 import com.itour.exception.BaseException;
 
-
-
-
 /***
  * 捕获服务提供者抛出的异常
- * 
+ * @author wangtaoc11
  *
  */
-
 @ControllerAdvice
 public class DefaultExceptionHandler {
 	protected Logger logger = LoggerFactory.getLogger(DefaultExceptionHandler.class);

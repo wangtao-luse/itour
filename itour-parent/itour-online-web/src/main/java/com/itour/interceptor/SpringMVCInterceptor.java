@@ -42,6 +42,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 			request.setAttribute("startTime", System.currentTimeMillis());
 			request.setAttribute("host", host);
 			request.setAttribute("redirectURL", redirectURL);
+			request.setAttribute("user", sessionUser);
 			//判断当前的请求地址是否需要记录日志
 			String servletPath=request.getServletPath();
 			

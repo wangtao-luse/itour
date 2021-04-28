@@ -37,7 +37,7 @@
 								<i></i>创作中心
 							</a>
 							<div class="toolbar-subMenu">
-							    <a href="${ctxPath}/travel/md">写攻略</a>
+							    <a href="${ctxPath}/travel/mdEdit">写攻略</a>
 							</div>
 						</div>
 					   <!--  <a href="#" target="_blank" class="banner-btn banner-btn-collect itour-banner-fl">收藏</a> -->
@@ -56,7 +56,7 @@
 						     </div>
 					   	 </div>					   	 
 					   </div> -->
-					    @ if(!isEmpty(user)){
+					    @if(!isEmpty(user)){
 					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: block;">
 					   	 <a class="hasAvatar" href="${ctxPath}/travel/personCenter">
 					   	    @if(isEmpty(user.avatar)){

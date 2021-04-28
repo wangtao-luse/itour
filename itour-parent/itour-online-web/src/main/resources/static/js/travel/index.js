@@ -1,12 +1,4 @@
 $(function(){
-	$("#topstoryContent").on("click",".contentItem-more",function(){
-		var tid = $(this).attr("tid");
-		location.href=ctxPath+"/travel/detail?id="+tid;
-	});
-	$("#topstoryContent").on("click",".richContent-cover,.richContent-inner",function(){
-		var tid = $(this).attr("tid");
-		location.href=ctxPath+"/travel/detail?id="+tid;
-	});
 	 $("#topstoryContent").on("click","button.itour_nice_btn",function(){
 	    	var tid = $(this).attr("tid");
 	    	var has = $(this).hasClass("nice");

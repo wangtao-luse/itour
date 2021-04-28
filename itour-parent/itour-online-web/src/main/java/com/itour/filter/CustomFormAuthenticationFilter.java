@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.itour.common.resp.ResponseMessage;
@@ -32,7 +34,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 	protected void saveRequestAndRedirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
 		String requestUrl = getPathWithinApplication(request);
 		requestUrl = URLEncoder.encode(requestUrl, "UTF-8");
-		setLoginUrl("/member/login" + "?redirectURL=" + requestUrl);
+		setLoginUrl("/account/login" + "?redirectURL=" + requestUrl);
 		super.saveRequestAndRedirectToLogin(request, response);
 
 	}
@@ -66,9 +68,11 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 			if (!(httpServletRequest.getHeader("accept").indexOf("application/json") > -1
 					|| (httpServletRequest.getHeader("X-Requested-With") != null
 							&& (httpServletRequest).getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+				//非ajax
 				saveRequestAndRedirectToLogin(request, response);
+				//super.onAccessDenied(httpServletRequest, httpServletResponse);
 
-			} else {
+			} else {//ajax
 				PrintWriter out = null;
 				try {
 					String lastRequestUrl = httpServletRequest.getHeader("Referer");

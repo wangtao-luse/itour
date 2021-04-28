@@ -31,6 +31,12 @@ var postAjax = function(url,postData,successFunction,options){
 							
 						}
 						returnFlag = true;
+					}else if(isLogin(resultData.resultCode)){
+						  var pathName = document.location.pathname;
+			                var index = pathName.substr(1).indexOf("/");
+			                var result = pathName.substr(0, index + 1);
+			                alert(resultData.resultMessage);
+			                location.replace(result+resultData.returnResult.result);
 					}else{
 						defaultOptions.errorFunction(resultData);
 						returnFlag = false;
@@ -80,7 +86,7 @@ var postForm = function (url, postData, successFunction, options) {
                 successFunction(resultData);
             }else{
                 if(typeof resultData =="object") {
-                    alert(resultData.description);
+                    alert(resultData.resultMessage);
                 }
             }
         },
@@ -108,6 +114,9 @@ function deleteLoading(){
 }
 function isSuccess(resultCode){
 return ("10"===resultCode)
+}
+function isLogin(result) {
+    return (result === "99")
 }
 function errorFunction(resultData) {
 showMessage(resultData);

@@ -297,6 +297,8 @@ INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/queryTravelInfoList','-1','anon','旅行信息列表查询','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/commentList','-1','anon','攻略评论','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/travel/search','-1','anon','搜索页','0');
 
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/getLocation','-1','authc','城市信息单条查询','0');
