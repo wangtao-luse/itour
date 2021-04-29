@@ -17,7 +17,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
      <!-- beetl -->
@@ -32,9 +31,9 @@
 	</dependency>
 	
 	<dependency>
-			    <groupId>com.baomidou</groupId>
-			    <artifactId>mybatis-plus-boot-starter</artifactId>
-			</dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-spring</artifactId>
+    </dependency>
 	<dependency>
 		<groupId>com.itour</groupId>
 		<artifactId>itour-model</artifactId>
@@ -70,6 +69,10 @@
 		<artifactId>itour-quartz-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
+	<dependency>
+		    <groupId>org.apache.shiro</groupId>
+		    <artifactId>shiro-spring-boot-web-starter</artifactId>
+		</dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName>

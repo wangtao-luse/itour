@@ -1,6 +1,5 @@
 package com.itour.filter;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.itour.common.resp.ResponseMessage;
@@ -28,17 +25,8 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 	private static final Logger log = LoggerFactory.getLogger(CustomFormAuthenticationFilter.class);
 
 
-	/**
-	 * 重新跳转逻辑
-	 */
-	protected void saveRequestAndRedirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
-		String requestUrl = getPathWithinApplication(request);
-		requestUrl = URLEncoder.encode(requestUrl, "UTF-8");
-		setLoginUrl("/account/login" + "?redirectURL=" + requestUrl);
-		super.saveRequestAndRedirectToLogin(request, response);
 
-	}
-
+    @Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
@@ -63,30 +51,23 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 			}
 
 			/**
-			 * 如果是ajax提交，获取上次请求路径
+			 * 如果是ajax提交，获取上次请求路径在JS中跳转页面
 			 */
-			if (!(httpServletRequest.getHeader("accept").indexOf("application/json") > -1
-					|| (httpServletRequest.getHeader("X-Requested-With") != null
-							&& (httpServletRequest).getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+			if (!isAjax(httpServletRequest)) {
 				//非ajax
-				saveRequestAndRedirectToLogin(request, response);
-				//super.onAccessDenied(httpServletRequest, httpServletResponse);
+				super.saveRequestAndRedirectToLogin(request, response);
 
 			} else {//ajax
 				PrintWriter out = null;
 				try {
 					String lastRequestUrl = httpServletRequest.getHeader("Referer");
-					
 					String contextPath = httpServletRequest.getContextPath();
-					
 					lastRequestUrl = lastRequestUrl.substring(lastRequestUrl.indexOf(contextPath) + contextPath.length());
-					
 					lastRequestUrl = URLEncoder.encode(lastRequestUrl, "UTF-8");
 					ResponseMessage responseMessage = new ResponseMessage();
 					responseMessage.setResultCode(Constant.LOGIN);
 					responseMessage.setResultMessage("请先登录！");
 					responseMessage.setReturnResult("/account/login" + "?redirectURL=" + lastRequestUrl);
-
 					String jsonStr = JSON.toJSONString(responseMessage);
 					response.setContentType("text/json;charset=UTF-8");
 					out = response.getWriter();
@@ -102,5 +83,12 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 			return false;
 		}
 	}
+    private boolean isAjax(ServletRequest request){
+        String header = ((HttpServletRequest) request).getHeader("X-Requested-With");
+        if("XMLHttpRequest".equalsIgnoreCase(header)){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
 
 }

@@ -7,14 +7,12 @@ import java.util.Map;
 import javax.servlet.Filter;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -91,7 +89,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		Map<String, Filter> filterMap = new LinkedHashMap<>();
         // 若CustomShiroUserFilter交由spring管理的话会导致filter在shiroFilter之外而且运行在shiroFilter之前了，导致无法bind securityManager
         filterMap.put("customShiroUserFilter", new CustomFormAuthenticationFilter());
-        shiroFilterFactoryBean.setFilters(filterMap);
+         shiroFilterFactoryBean.setFilters(filterMap);
 
 		/* <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
 //		https://blog.csdn.net/zhangchen124/article/details/104725640/
@@ -99,9 +97,9 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/css/**","anon");
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");
+		filterChainDefinitionMap.put("/uploaded/**","anon");
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/shiro/logout", "logout");
-		filterChainDefinitionMap.put("/rest/manage/**", "customShiroUserFilter");
 		ResponseMessage accountRightAnon = accountConnector.getAccountRightAnon(null, null);
 		Map<String, Object> returnResult = accountRightAnon.getReturnResult();
 		Object result = returnResult.get(Constant.COMMON_KEY_RESULT);
@@ -114,7 +112,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 			}
 		}
 		/* /主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证 */
-		//filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
+		filterChainDefinitionMap.put("/**", "authc");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
 		filterChainDefinitionMap.put("/**", "customShiroUserFilter");//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;

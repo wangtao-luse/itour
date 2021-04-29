@@ -59,6 +59,11 @@
 	    <groupId>com.atlassian.commonmark</groupId>
 	    <artifactId>commonmark-ext-heading-anchor</artifactId>
 	</dependency>
+	<!-- shiro -->
+	<dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-spring</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName> 
