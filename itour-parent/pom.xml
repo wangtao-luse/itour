@@ -55,7 +55,7 @@
   	<beetl.version>1.2.19.RELEASE</beetl.version>
   	<pagehelper.version>5.1.11</pagehelper.version>
   	<guava.version>28.1-jre</guava.version>
-  	<shiro-spring.version>1.6.0</shiro-spring.version>
+  	<shiro-spring.version>1.7.0</shiro-spring.version>
   	<shiro-spring-boot-web-starter.version>1.6.0</shiro-spring-boot-web-starter.version>
   	<dom4j.version>1.6.1</dom4j.version>
   	<xstream.version>1.4.11.1</xstream.version>
