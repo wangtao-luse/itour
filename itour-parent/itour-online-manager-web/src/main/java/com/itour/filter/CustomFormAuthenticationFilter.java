@@ -58,28 +58,23 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 			/**
 			 * 如果是ajax提交，获取上次请求路径
 			 */
-			/*
-			 * if (!(httpServletRequest.getHeader("accept").indexOf("application/json") > -1
-			 * || (httpServletRequest.getHeader("X-Requested-With") != null &&
-			 * (httpServletRequest).getHeader("X-Requested-With").indexOf("XMLHttpRequest")
-			 * > -1))) { saveRequestAndRedirectToLogin(request, response);
-			 * 
-			 * } else {
-			 * 
-			 * }
-			 */
-			Subject subject = getSubject(httpServletRequest, httpServletResponse);
-			if(!isAjax(httpServletRequest)) {
-				saveRequestAndRedirectToLogin(request, response);
-			}else {
-				 if(null==subject.getPrincipal()) {
-					 httpServletResponse.setCharacterEncoding("UTF-8");
-						//在响应头设置session状态
-					 httpServletResponse.setHeader("session-status", "timeout");
-				 }
-			}
-			return false;
+			
+			  if (!isAjax(httpServletRequest)) { 
+				  super.saveRequestAndRedirectToLogin(request, response);
+			  
+			  } else {
+				  //Session是否失效			
+				  Subject subject = getSubject(httpServletRequest, httpServletResponse);
+				  if(null==subject.getPrincipal()&&isAjax(httpServletRequest)) {
+					  System.out.println(subject.getPrincipal());
+					  httpServletResponse.setCharacterEncoding("UTF-8"); //在响应头设置session状态
+					  httpServletResponse.setHeader("session-status", "timeout"); 
+				  }
+			  }
+			 
+			
 		}
+		return false;
 	}
 	private boolean isAjax(HttpServletRequest request) {
 		return request.getHeader("X-Requested-With") != null&&request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1;

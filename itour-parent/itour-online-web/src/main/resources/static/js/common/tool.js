@@ -44,7 +44,11 @@ var postAjax = function(url,postData,successFunction,options){
 					
 					
 				},
-				complete:function(){
+				complete:function(XMLHttpRequest, status){
+					var sessionStatus = XMLHttpRequest.getResponseHeader("session-status");
+			        if(sessionStatus=="timeout"){
+			        location.href=getContextPath() + "/account/login";
+			        }
 					deleteLoading();
 				},
 				error:function(result){

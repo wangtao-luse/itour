@@ -7,7 +7,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +79,8 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 					if(out!=null)out.close();
 				}
 			}
-
+			
+			 
 			return false;
 		}
 	}
