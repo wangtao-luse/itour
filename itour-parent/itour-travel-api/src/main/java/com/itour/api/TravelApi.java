@@ -16,12 +16,12 @@ public interface TravelApi {
 @RequestMapping(value = "/travel/queryTravelInfoList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage queryTravelInfoList( RequestMessage requestMessage);
 /**
- * 旅行信息根据编号
+ * 旅行信息查询单条
  * @param requestMessage
  * @return
  */
-@RequestMapping(value = "/travel/selectTravelInfoById",produces = {"application/json;charset=UTF-8"})
-public ResponseMessage selectTravelInfoById( RequestMessage requestMessage);
+@RequestMapping(value = "/travel/selectTravelInfoOne",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage selectTravelInfoOne( RequestMessage requestMessage);
 /**
  * 旅行信息修改
  * @param requestMessage

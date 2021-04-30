@@ -30,6 +30,7 @@ import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
+import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelComment;
@@ -70,10 +71,10 @@ public ResponseMessage queryTravelInfoList(@RequestBody JSONObject jsonObject,Ht
  * @param request
  * @return
  */
-@RequestMapping("/selectTravelInfoById")
+@RequestMapping("/selectTravelInfoOne")
 @ResponseBody
-public ResponseMessage selectTravelInfoById(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	ResponseMessage queryTravelInfoList = travelConnector.selectTravelInfoById(jsonObject, request);
+public ResponseMessage selectTravelInfoOne(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage queryTravelInfoList = travelConnector.selectTravelInfoOne(jsonObject, request);
 	return queryTravelInfoList;
 	
 }
@@ -475,5 +476,45 @@ public String personCenter(HttpServletRequest request,ModelMap model) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("account", sessionUser);
 	return "/travel/person/personCenter";
+}
+/**
+ * 编辑页面
+ * @param id
+ * @param request
+ * @param model
+ * @return
+ */
+@RequestMapping("/updateMd")
+public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	JSONObject jsonObject = new JSONObject();
+	jsonObject.put("id", id);
+	jsonObject.put("uid", sessionUser.getuId());
+	ResponseMessage selectTravelInfoOne = this.travelConnector.selectTravelInfoOne(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(selectTravelInfoOne)) {
+		Map<String, Object> returnResult = selectTravelInfoOne.getReturnResult();
+		if(StringUtils.isEmpty(returnResult.get(Constant.COMMON_KEY_RESULT))) {
+			//提示没有权限操作该文章
+			model.addAttribute("error", ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
+		}else {
+			TravelInfo mapToObject = FastJsonUtil.mapToObject(returnResult, TravelInfo.class, Constant.COMMON_KEY_RESULT);
+			model.addAttribute("travelInfo", mapToObject);
+			String type = mapToObject.getType();
+			if(ConstantTravel.TRAVEL_INFO_WEEK.equals(type)) {
+				jsonObject.clear();
+				jsonObject.put("tid", mapToObject.getId());
+				ResponseMessage selecWeekInfoOne = this.travelConnector.selecWeekInfoOne(jsonObject, request);
+				if(ResponseMessage.isSuccessResult(selecWeekInfoOne)) {
+					WeekInfo weekInfo = FastJsonUtil.mapToObject(selecWeekInfoOne.getReturnResult(), WeekInfo.class, Constant.COMMON_KEY_RESULT);
+					model.addAttribute("weekInfo", weekInfo);
+				}
+			}
+			
+		}
+		
+	}
+
+
+	return "/travel/info/updateMd";
 }
 }

@@ -27,14 +27,38 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	/**
+	 * 旅行信息列表(视图)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryViewTravelinfoOauthList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryViewTravelinfoOauthList(requestMessage);
+		return responseMessage;
+	}
+	/**
 	 * 旅行信息单条
 	 * @param jsonObject
 	 * @param request
 	 * @return
 	 */
-	public ResponseMessage selectTravelInfoById(JSONObject jsonObject,HttpServletRequest request) {
+	public ResponseMessage selectTravelInfoOne(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage = travelApi.selectTravelInfoById(requestMessage);
+		ResponseMessage responseMessage = travelApi.selectTravelInfoOne(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 旅行信息单条(视图)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectViewTravelinfoOauthById(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectViewTravelinfoOauthById(requestMessage);
 		return responseMessage;
 	}
 	/**
@@ -94,30 +118,8 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	
-	/**
-	 * 旅行信息列表(视图)
-	 * @param jsonObject
-	 * @param request
-	 * @return
-	 */
-	public ResponseMessage queryViewTravelinfoOauthList(JSONObject jsonObject, HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage = travelApi.queryViewTravelinfoOauthList(requestMessage);
-		return responseMessage;
-	}
-	/**
-	 * 旅行信息单条(视图)
-	 * @param jsonObject
-	 * @param request
-	 * @return
-	 */
-	public ResponseMessage selectViewTravelinfoOauthById(JSONObject jsonObject, HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage = travelApi.selectViewTravelinfoOauthById(requestMessage);
-		return responseMessage;
-	}
+	
+	
 	/**
 	 * 旅行信息浏览记录列表
 	 * @param jsonObject

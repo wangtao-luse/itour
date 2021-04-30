@@ -87,9 +87,9 @@ public class TravelApiController implements TravelApi {
      * 旅游信息查询单条
      */
 	@Override
-	public ResponseMessage selectTravelInfoById(@RequestBody RequestMessage requestMessage) {
+	public ResponseMessage selectTravelInfoOne(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return travelInfoService.selectTravelInfoById(requestMessage);
+		return travelInfoService.selectTravelInfoOne(requestMessage);
 	}
 	 /**
      * 旅游信息修改

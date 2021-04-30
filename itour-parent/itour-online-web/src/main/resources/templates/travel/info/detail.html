@@ -75,7 +75,7 @@
 	    								   @}
 	    									
 	    								</div>
-	    								<div class="contentItem-actions sticky richContent-actions is-fixed is-bottom">
+	    								<div class="contentItem-actions sticky richContent-actions is-fixed is-bottom travel_area">
 	    									<button class="button contentItem-action button--plain button--withIcon button--withLabel">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
@@ -111,13 +111,25 @@
 												</span>
 												收藏 600
 											</button>
-											<button class="button contentItem-action button--plain button--withIcon button--withLabel">
-												<span style="display: inline-flex; align-items: center;">​
-												<img class="isdefault" src="${ctxPath}/img/common/tobarReport.png" width="22" height="22">
-												<img class="isactive" src="${ctxPath}/img/common/tobarReportactive.png" width="22" height="22" style="display: none;">	
-												</span>
-												举报
-											</button>
+											
+											@if(uid==travelInfo.uid){
+												<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_edit_btn">
+													<span style="display: inline-flex; align-items: center;">​
+													<img class="isdefault" src="${ctxPath}/img/common/tobarReport.png" width="22" height="22">
+													<img class="isactive" src="${ctxPath}/img/common/tobarReportactive.png" width="22" height="22" style="display: none;">	
+													</span>
+													  编辑
+												</button>
+											@}else{
+												<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+													<span style="display: inline-flex; align-items: center;">​
+													<img class="isdefault" src="${ctxPath}/img/common/tobarReport.png" width="22" height="22">
+													<img class="isactive" src="${ctxPath}/img/common/tobarReportactive.png" width="22" height="22" style="display: none;">	
+													</span>
+													举报
+												</button>
+											@}
+											
 	    								</div>
 	    							</article>
 	    						</div>

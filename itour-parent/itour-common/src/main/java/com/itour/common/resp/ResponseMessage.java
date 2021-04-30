@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.util.StringUtils;
+
 import com.itour.constant.Constant;
 
 
@@ -89,6 +91,14 @@ public final class ResponseMessage implements Serializable {
 	}
 	public static ResponseMessage getFailed(String faileMsg) {
 		return new ResponseMessage(Constant.FAILED_CODE, faileMsg);
+	}
+	public static boolean isSuccessResult(ResponseMessage resp) {
+		Map<String, Object> map = resp.getReturnResult();
+		return Constant.SUCCESS_CODE.equals(resp.getResultCode())&&!StringUtils.isEmpty(map)&&!StringUtils.isEmpty(map.get(Constant.COMMON_KEY_RESULT));
+	}
+	public static boolean isFailResult(ResponseMessage resp) {
+		Map<String, Object> map = resp.getReturnResult();
+		return Constant.FAILED_CODE.equals(resp.getResultCode())||StringUtils.isEmpty(map)||StringUtils.isEmpty(map.get(Constant.COMMON_KEY_RESULT));
 	}
 
 }

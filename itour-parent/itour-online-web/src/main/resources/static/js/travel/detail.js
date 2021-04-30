@@ -146,6 +146,10 @@ $(function(){
 			console.log(result);
 		},cache: false, async: false});
 	})
+	$(document).on("click",".travel_area .travel_edit_btn",function(){
+		var id = $("#tid").val();
+		location.href=ctxPath+"/travel/updateMd?id="+id;
+	})
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);

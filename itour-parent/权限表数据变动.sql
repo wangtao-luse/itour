@@ -311,7 +311,7 @@ VALUES('/upload/fileUpload','-1','authc','单个文件上传','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/niceSub','-1','authc','攻略点赞','1');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
-VALUES('/travel/selectTravelInfoById','-1','authc','旅行信息查询单条','0');
+VALUES('/travel/selectTravelInfoOne','-1','authc','旅行信息查询单条','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/updateTravelInfo','1000','authc','旅行信息修改','1');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)

@@ -10,9 +10,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -92,17 +94,22 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		return responseMessage;
 }
 	 /**
-	 * 根据编号获取旅行信息
+	 * 获取旅行信息单条
 	 * @param requestMessage
 	 * @return
 	 */
-	public  ResponseMessage selectTravelInfoById(RequestMessage requestMessage) {
+	public  ResponseMessage selectTravelInfoOne(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			Long id = jsonObject.getLong("id");
-			TravelInfo selectById = this.baseMapper.selectById(id);
-			responseMessage.setReturnResult(selectById);
+			String uid = jsonObject.getString("uid");
+			QueryWrapper<TravelInfo> queryWrapper = new QueryWrapper<TravelInfo>();
+			queryWrapper.eq(!StringUtils.isEmpty(id), "ID", id);
+			queryWrapper.eq(!StringUtils.isEmpty(uid), "UID", uid);
+			TravelInfo selectOne = this.baseMapper.selectOne(queryWrapper );
+			responseMessage.setReturnResult(selectOne);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
