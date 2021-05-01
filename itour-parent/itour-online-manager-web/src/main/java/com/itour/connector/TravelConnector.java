@@ -100,7 +100,7 @@ public ResponseMessage insertTravelInfo(JSONObject jsonObject,HttpServletRequest
  */
 public ResponseMessage selectTravelInfoById(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage responseMessage =travelApi.selectTravelInfoById(requestMessage);
+	ResponseMessage responseMessage =travelApi.selectTravelInfoOne(requestMessage);
 	return responseMessage;
 }
 /**

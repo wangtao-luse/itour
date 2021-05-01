@@ -91,7 +91,7 @@ public class TravelInfo extends Model<TravelInfo> {
     @TableField("PV")
     private Integer pv;
     /**
-     * 状态（0：待审核;1:审核通过;2:审核不通过;3:已删除）
+     * 状态（0：草稿；1：待审核;2:审核通过；3：审核不通过；4：已删除）
      */
     @TableField("STATUS")
     private String status;
@@ -106,6 +106,7 @@ public class TravelInfo extends Model<TravelInfo> {
      */
     @TableField("UPDATETIME")
     private Long updatetime;
+   
 
     public Long getId() {
         return id;

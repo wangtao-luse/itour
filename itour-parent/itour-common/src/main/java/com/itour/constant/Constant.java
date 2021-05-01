@@ -30,6 +30,16 @@ public static final String COMMON_STATUS_CHECK="2";
 public static final String COMMON_STATUS_DELETED="3";
 
 
+//文章 草稿
+public static final String ARTICLE_STATUS_DRAFT="0";
+//文章 待审核
+public static final String ARTICLE_STATUS_CHECKING="1";
+// 文章 审核通过
+public static final String ARTICLE_STATUS_CHECKED="2";
+//文章 审核通过
+public static final String ARTICLE_STATUS_CHECK="3";
+// 文章 已删除
+public static final String ARTICLE_STATUS_DELETED="4";
 
 
 

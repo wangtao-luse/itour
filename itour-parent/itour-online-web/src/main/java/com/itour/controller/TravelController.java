@@ -306,9 +306,6 @@ public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpS
 	jsonObject.put("type", ConstantTravel.TRAVEL_INFO_WEEK);
 	 AccountVo sessionUser = SessionUtil.getSessionUser();
 	 jsonObject.put("uid", sessionUser.getuId());
-	String markdown = jsonObject.getString("markdown");
-	String markdownToHtml = MarkdownUtils.markdownToHtml(markdown);
-	System.out.println(markdownToHtml);
 	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);
 	return insertTravelInfo;
 	

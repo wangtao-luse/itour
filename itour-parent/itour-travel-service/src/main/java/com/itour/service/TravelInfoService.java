@@ -215,7 +215,8 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			//1.插入旅行旅行信息表
 			TravelInfo travelInfo = jsonObject.toJavaObject(TravelInfo.class);
              travelInfo.setPublishtime(DateUtil.currentLongDate());
-			this.baseMapper.insert(travelInfo);
+             travelInfo.setStatus(Constant.ARTICLE_STATUS_DRAFT);
+			 this.baseMapper.insert(travelInfo);
 			//2.插入周末旅行信息表
 			if(ConstantTravel.TRAVEL_INFO_WEEK.equals(travel_type)) {
 				WeekInfo entity = new WeekInfo();
