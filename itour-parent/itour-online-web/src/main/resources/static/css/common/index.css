@@ -284,8 +284,9 @@ background-position-x: 0;
 	align-items: flex-start;
 	width: 1000px;
 	padding: 0 16px;
-	margin: 10px auto;
+	margin: 10px auto 180px auto;
 	min-height:560px;
+	
 }
 .topstory-mainColunm{
 	-ms-flex-negative: 0;
@@ -809,6 +810,10 @@ overflow: hidden;
     line-height: 1.6;
     vertical-align: top;
     background: #FFF;
+    position:fixed;
+    bottom:0;
+    width:100%
+    
 }
 
 #footer .container{
