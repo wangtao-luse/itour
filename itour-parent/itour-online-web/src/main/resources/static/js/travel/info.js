@@ -27,6 +27,7 @@
 	//保存草稿
 	$("#js_send").click(function(){
 		var text = mdEditer.getHTML();
+		var tid = $("#tid").val();
 		var title = $(".article-title-text").val();
 		var summary = $("#js_description").val();
 		var url = $("#input-fileUpload-path").val();
@@ -64,16 +65,22 @@
         	
 		}
 	    var data= {
+	    		"vo":{
+	    			"id":tid,
+	    			"title":title,
+	    			"summary":summary,	    			
+	    			"url":url,
+	    			"articleType":articleType,
+	    			"code":cityCode
+	    		}, 
 	    		"markdown":text,
-	    		"title":title,
-	    		"summary":summary,
-	    		"url":url,
-	    		"articleType":articleType,
 	    		"tag_arr":tag_arr,
-	    		"col_arr":col_arr,
-	    		"code":cityCode
+	    		"col_arr":col_arr
+	    		
 	    };
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
+	    	var data = result.returnResult;
+	    	$("#tid").val(data.id);
 	    	$("#js_save_success").css("display","block");
 	    	$("#js_save_success .inner");
 	    	setTimeout(function(){

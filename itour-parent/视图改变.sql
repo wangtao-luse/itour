@@ -117,7 +117,7 @@ CREATE OR REPLACE VIEW view_m_messageinfo AS
 	WHERE c.AIM=aim.`CODE` and c.ORIGIN=origin.`CODE`;
 #博客列表视图
 CREATE OR REPLACE VIEW view_travelInfo_oauth AS
-SELECT c.*,a.NICKNAME,a.AVATAR FROM T_T_TRAVEL_INFO c, T_A_OAUTH a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID;
+SELECT c.*,a.NICKNAME,a.AVATAR FROM T_T_TRAVEL_INFO c, T_A_OAUTH a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID AND c.`STATUS`='30';
 #旅行攻略评论表视图
 CREATE OR REPLACE VIEW view_travel_comment AS
 SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_T_TRAVEL_COMMENT c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp WHERE c.UID=tmp.U_ID;
@@ -130,3 +130,6 @@ WHERE c.from_uid=tmp.U_ID and c.TO_UID=tmp1.U_ID;
 #旅行标签视图
 CREATE OR REPLACE VIEW view_travel_tag AS
 SELECT c.id,c.tid,c.tag_id,d.tag,d.uid FROM t_t_travel_tag c ,t_t_tag d WHERE c.TAG_ID=d.ID;
+#旅行信息和周末攻略表视图(审核的时候)
+CREATE OR REPLACE VIEW view_travelInfo_weekinfo AS
+SELECT 	c.ID,	c.`STATUS`,	d.WEEK_CONTENT FROM 	T_T_TRAVEL_INFO c,t_t_week_info d	WHERE c.ID = d.TID AND c.`STATUS`='20'

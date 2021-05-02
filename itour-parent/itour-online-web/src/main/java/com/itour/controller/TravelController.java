@@ -299,11 +299,38 @@ private void pageView(String id) {
 		this.redisManager.sAdd(RedisKey.ITOUR_PAGEVIEW_IDS,key);
 	}
 }
-
+//保存草稿
 @RequestMapping("/insertweekTravel")
 @ResponseBody
 public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	 AccountVo sessionUser = SessionUtil.getSessionUser();
+	TravelInfo travelInfo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(TravelInfo.class);
+	travelInfo.setType(ConstantTravel.TRAVEL_INFO_WEEK);
+	travelInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
+	travelInfo.setUid(sessionUser.getuId());
+	jsonObject.put(Constant.COMMON_KEY_VO, travelInfo);
+	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);
+	return insertTravelInfo;
+	
+}
+//保存草稿
+@RequestMapping("/savetweekTravel")
+@ResponseBody
+public ResponseMessage savetweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	jsonObject.put("type", ConstantTravel.TRAVEL_INFO_WEEK);
+	jsonObject.put("status", Constant.COMMON_STATUS_CHECKED);
+	 AccountVo sessionUser = SessionUtil.getSessionUser();
+	 jsonObject.put("uid", sessionUser.getuId());
+	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);
+	return insertTravelInfo;
+	
+}
+//保存草稿
+@RequestMapping("/previewWeekInfo")
+@ResponseBody
+public ResponseMessage previewWeekInfo(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	jsonObject.put("type", ConstantTravel.TRAVEL_INFO_WEEK);
+	jsonObject.put("status", Constant.COMMON_STATUS_CHECKED);
 	 AccountVo sessionUser = SessionUtil.getSessionUser();
 	 jsonObject.put("uid", sessionUser.getuId());
 	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);

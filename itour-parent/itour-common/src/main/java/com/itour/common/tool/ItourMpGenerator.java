@@ -22,7 +22,6 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
     public class ItourMpGenerator{
     	public static final String MODEL_TRAVEL="itour-travel-service";
     	public static final String MODEL_DICTIONARY="itour-dictionary-service";
-    	public static final String MODEL_ADVERT="itour-advert-service";
     	public static final String MODEL_ACCOUNT="itour-account-service";
     	public static final String MODEL_QUARTZ="itour-quartz-service";
     	
@@ -34,17 +33,17 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_QUARTZ;
+  			 String model=ItourMpGenerator.MODEL_TRAVEL;
   			        
   			        
   			 /**
   			  * 是否为视图
   			  */
-  			 boolean isView =false;//视图
+  			 boolean isView =true;//视图
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"t_c_sensitive_word"};
+  			 String [] include= new String[] {"view_travelInfo_weekinfo"};
   			 /**
   			  * 需要忽略的表前缀
   			  */

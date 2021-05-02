@@ -49,6 +49,19 @@ public static <T> List<T> mapToList(Map<String,Object> map,Class<T> clazz,String
 	return javaList;
 }
 /**
+ * Map转为实体List
+ * @param <T>
+ * @param map  Map
+ * @param clazz  实体
+ * @param key   键
+ * @return  List
+ */
+public static <T> List<T> mapToList(Map<String,Object> map,Class<T> clazz){
+	  JSONObject mapToJson = FastJsonUtil.mapToJson(map);
+	 List<T> javaList = mapToJson.getJSONArray(Constant.COMMON_KEY_RESULT).toJavaList(clazz);
+	return javaList;
+}
+/**
  * Map 转实体类
  * @param <T>
  * @param map  map

@@ -91,7 +91,7 @@ public class TravelInfo extends Model<TravelInfo> {
     @TableField("PV")
     private Integer pv;
     /**
-     * 状态（0：草稿；1：待审核;2:审核通过；3：审核不通过；4：已删除）
+     * 状态（10：草稿；20：待审核;30:审核通过；40：审核不通过；50：已删除）
      */
     @TableField("STATUS")
     private String status;
