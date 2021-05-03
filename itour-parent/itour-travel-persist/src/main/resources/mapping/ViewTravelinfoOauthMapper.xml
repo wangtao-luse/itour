@@ -15,6 +15,7 @@
         <result column="COMMENT_COUNT" property="commentCount" />
         <result column="NICE_COUNT" property="niceCount" />
         <result column="PV" property="pv" />
+        <result column="STATUS" property="status" />
         <result column="PUBLISHTIME" property="publishtime" />
         <result column="UPDATETIME" property="updatetime" />
         <result column="NICKNAME" property="nickname" />
@@ -22,7 +23,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TITLE, SUMMARY, URL, TYPE, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, PUBLISHTIME, UPDATETIME, NICKNAME,AVATAR 
+        ID, TITLE, SUMMARY, URL, TYPE, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, STATUS,PUBLISHTIME, UPDATETIME, NICKNAME,AVATAR 
     </sql>
 
 </mapper>

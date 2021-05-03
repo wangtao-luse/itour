@@ -25,8 +25,9 @@
 			$("#bottom_main .fold_tips_value").text(len);
 		});
 	//保存草稿
-	$("#js_send").click(function(){
-		var text = mdEditer.getHTML();
+	$("#js_send,#js_submit,#js_preview").click(function(){
+		var $this = $(this);
+		var text = mdEditer.getMarkdown();
 		var tid = $("#tid").val();
 		var title = $(".article-title-text").val();
 		var summary = $("#js_description").val();
@@ -81,8 +82,15 @@
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
 	    	var data = result.returnResult;
 	    	$("#tid").val(data.id);
-	    	$("#js_save_success").css("display","block");
-	    	$("#js_save_success .inner");
+	    	var v = $($this).attr("id");
+	    	if(v=="js_preview"){
+	    		var tempwindow=window.open('_blank');
+	    		tempwindow.location=ctxPath+"/travel/detail?id="+data.id;
+	    	}else{
+	    		$("#js_save_success").css("display","block");
+		    	$("#js_save_success .inner");
+	    	}
+	    	
 	    	setTimeout(function(){
 	    		$("#js_save_success").css("display","none");
 	    	},3000);

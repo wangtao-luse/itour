@@ -117,7 +117,7 @@ CREATE OR REPLACE VIEW view_m_messageinfo AS
 	WHERE c.AIM=aim.`CODE` and c.ORIGIN=origin.`CODE`;
 #博客列表视图
 CREATE OR REPLACE VIEW view_travelInfo_oauth AS
-SELECT c.*,a.NICKNAME,a.AVATAR FROM T_T_TRAVEL_INFO c, T_A_OAUTH a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID AND c.`STATUS`='30';
+SELECT c.*,a.NICKNAME,a.AVATAR FROM T_T_TRAVEL_INFO c, T_A_OAUTH a WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID AND c.`STATUS` in('10','30');
 #旅行攻略评论表视图
 CREATE OR REPLACE VIEW view_travel_comment AS
 SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_T_TRAVEL_COMMENT c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp WHERE c.UID=tmp.U_ID;

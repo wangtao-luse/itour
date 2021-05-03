@@ -39,6 +39,7 @@ public class ViewTravelinfoOauthService extends ServiceImpl<ViewTravelinfoOauthM
 			ViewTravelinfoOauth viewTravelinfoOauthVo = jsonObject.getJSONObject("vo").toJavaObject(ViewTravelinfoOauth.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<ViewTravelinfoOauth> queryWrapper = new QueryWrapper<ViewTravelinfoOauth>();
+			queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKED);
 			queryWrapper.orderByDesc("PUBLISHTIME");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);

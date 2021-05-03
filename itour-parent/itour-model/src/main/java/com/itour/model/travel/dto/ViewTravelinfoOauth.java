@@ -82,7 +82,11 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
      */
     @TableField("PV")
     private Integer pv;
-
+    /**
+     * 状态（10：草稿；20：待审核;30:审核通过；40：审核不通过；50：已删除）
+     */
+    @TableField("STATUS")
+    private String status;
     /**
      * 发布时间
      */
@@ -225,6 +229,14 @@ public class ViewTravelinfoOauth extends Model<ViewTravelinfoOauth> {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

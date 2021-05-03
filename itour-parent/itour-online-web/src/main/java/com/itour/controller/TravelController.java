@@ -303,7 +303,13 @@ private void pageView(String id) {
 @RequestMapping("/insertweekTravel")
 @ResponseBody
 public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	 AccountVo sessionUser = SessionUtil.getSessionUser();
+	ResponseMessage insertTravelInfo = saveTravelInfo(jsonObject, request);
+	return insertTravelInfo;
+	
+}
+
+private ResponseMessage saveTravelInfo(JSONObject jsonObject, HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
 	TravelInfo travelInfo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(TravelInfo.class);
 	travelInfo.setType(ConstantTravel.TRAVEL_INFO_WEEK);
 	travelInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
@@ -311,30 +317,21 @@ public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpS
 	jsonObject.put(Constant.COMMON_KEY_VO, travelInfo);
 	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);
 	return insertTravelInfo;
-	
 }
-//保存草稿
+//保存
 @RequestMapping("/savetweekTravel")
 @ResponseBody
 public ResponseMessage savetweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	jsonObject.put("type", ConstantTravel.TRAVEL_INFO_WEEK);
-	jsonObject.put("status", Constant.COMMON_STATUS_CHECKED);
-	 AccountVo sessionUser = SessionUtil.getSessionUser();
-	 jsonObject.put("uid", sessionUser.getuId());
-	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);
-	return insertTravelInfo;
+	 ResponseMessage insertTravelInfo = saveTravelInfo(jsonObject, request);
+		return insertTravelInfo;
 	
 }
-//保存草稿
+//预览
 @RequestMapping("/previewWeekInfo")
 @ResponseBody
-public ResponseMessage previewWeekInfo(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	jsonObject.put("type", ConstantTravel.TRAVEL_INFO_WEEK);
-	jsonObject.put("status", Constant.COMMON_STATUS_CHECKED);
-	 AccountVo sessionUser = SessionUtil.getSessionUser();
-	 jsonObject.put("uid", sessionUser.getuId());
-	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);
-	return insertTravelInfo;
+public ResponseMessage previewWeekInfo(@RequestBody JSONObject jsonObject,HttpServletRequest request,ModelMap model) {
+	 ResponseMessage insertTravelInfo = saveTravelInfo(jsonObject, request);
+	return insertTravelInfo;	
 	
 }
 @RequestMapping("/tag")

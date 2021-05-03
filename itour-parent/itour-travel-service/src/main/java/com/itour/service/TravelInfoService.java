@@ -224,8 +224,18 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			JSONArray tagArr = jsonObject.getJSONArray("tag_arr");
 			JSONArray colArr = jsonObject.getJSONArray("col_arr");
+			
 			//1.插入旅行旅行信息表
 			TravelInfo travelInfo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfo.class);
+			if(!StringUtils.isEmpty(travelInfo.getId())) {
+				QueryWrapper<TravelInfo> queryWrapper = new QueryWrapper<TravelInfo>();
+				queryWrapper.eq("ID", travelInfo.getId());
+				queryWrapper.eq("UID", body.getuId());
+				TravelInfo selectOne = this.baseMapper.selectOne(queryWrapper );
+				if(StringUtils.isEmpty(selectOne)) {
+					throw new BaseException(ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
+				}
+			}
              travelInfo.setPublishtime(DateUtil.currentLongDate());
 			 this.saveOrUpdate(travelInfo);
 			//2.插入周末旅行信息表
