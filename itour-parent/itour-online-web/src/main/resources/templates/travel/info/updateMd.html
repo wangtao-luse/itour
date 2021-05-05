@@ -9,26 +9,22 @@
 </script>
 @}
 		<link rel="stylesheet" href="${ctxPath}/md/css/editormd.min.css" />
-		<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
-		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
-		<script type="text/javascript" src="${ctxPath}/js/travel/info.js" ></script>
-		
-		<style>
-		#footer{
-			display: none;
-		}
-		.combo-select {
-		    position: relative;
-		    max-width: 200px;
-		    margin-bottom: 15px;
-		    font: 100% Helvetica, Arial, Sans-serif;
-		    border: 1px #ccc solid;
-		    border-radius: 3px;
-		    display: inline-block;
-		}
-		.combo-input {
-			padding:8px;
-		}
+       	<style>
+			#footer{
+				display: none;
+			}
+			.combo-select {
+			    position: relative;
+			    max-width: 200px;
+			    margin-bottom: 15px;
+			    font: 100% Helvetica, Arial, Sans-serif;
+			    border: 1px #ccc solid;
+			    border-radius: 3px;
+			    display: inline-block;
+			}
+			.combo-input {
+				padding:8px;
+			}
 		</style>
 		
 	</head>
@@ -42,7 +38,7 @@
 				
 				<!--标题-->
 				<div class="article-title-wrp">
-						<input class="article-title-text" type="text" placeholder="请输入标题"/>
+						<input class="article-title-text" type="text" placeholder="请输入标题" value="${travelInfo.title!}"/>
 						<span class="suffix">0/100</span>
 				</div>
 				<div id="js_editor_area" class="js_editor_area editor_area edui-default" style="display: none">
@@ -59,9 +55,10 @@
 				   </div>
 				</div>
 				<!--编辑器-->
-				<div  class="edit-mod-container">
+				 <div  class="edit-mod-container">
 				  <div id="edit-md-area"></div>	
-				</div>			
+				</div> 	
+				<div id="content" style="display:none;">${weekInfo.weekContent!}</div>
 			</div>
 			
 		</article>
@@ -92,7 +89,7 @@
 					</div>
 					<div id="js_description_area" class="setting-group__abstract js_desc_area">
 						<span class="frm_textarea_box with_counter counter_in append count">
-							<textarea id="js_description" placeholder="选填，摘要会在订阅号消息、转发链接等文章外的场景显露，帮助读者快速了解内容，如不填写则默认抓取正文前54字" class="frm_textarea js_desc js_counter js_field" name="digest" max-length="120"></textarea>
+							<textarea id="js_description" placeholder="选填，摘要会在订阅号消息、转发链接等文章外的场景显露，帮助读者快速了解内容，如不填写则默认抓取正文前54字" class="frm_textarea js_desc js_counter js_field" name="digest" max-length="120">${travelInfo.summary!}</textarea>
 							<em class="frm_input_append frm_counter">0/120</em>
 						</span>
 					</div>
@@ -193,6 +190,27 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
+		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
+		<script type="text/javascript" src="${ctxPath}/js/travel/info.js" ></script>
+		<script type="text/javascript">
+		show_text();
+		$(function(){
+			$(".article-title-wrp .article-title-text").trigger("keyup");
+			$("#js_description").trigger("keyup");		
+			if(articleType=='1'){//原创
+				$(".weui-desktop-switch__input").prop("checked",true);
+				$("#ori-setting").val("1");
+				$(".weui-desktop-switch__input").parent().next("div").text("原创");
+			}else{//非原创
+				$(".weui-desktop-switch__input").prop("checked",false);
+				$("#ori-setting").val("2");
+				$(".weui-desktop-switch__input").parent().next("div").text("未声明原创");
+			}
+			
+		})
+	
+      </script>
 
 
 @}
