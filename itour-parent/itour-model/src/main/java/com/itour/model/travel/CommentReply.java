@@ -56,7 +56,7 @@ public class CommentReply extends Model<CommentReply> {
 
   
     /**
-     * 状态（0:待审核状态;1:审核通过;2:审核不通过;3:已删除）
+     * 状态（20:待审核状态;30:审核通过;40:审核不通过;50:已删除）
      */
     @TableField("STATUS")
     private String status;

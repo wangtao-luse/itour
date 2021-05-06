@@ -10,5 +10,4 @@ public class ConstantTravel {
 	public static final String EXCEPTION_INFO_NOAUTHOR="没有权限操作该文章";
 	
 	
-	
 }

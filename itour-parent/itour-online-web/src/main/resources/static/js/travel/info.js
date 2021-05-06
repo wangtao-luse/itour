@@ -1,4 +1,4 @@
-	var mdEditer;
+var mdEditer;
 	$(function(){
 		//markdown编辑器
 		 mdEditer=editormd("edit-md-area",{
@@ -25,8 +25,10 @@
 			$("#bottom_main .fold_tips_value").text(len);
 		});
 	//保存草稿
-	$("#js_send").click(function(){
-		var text = mdEditer.getHTML();
+	$("#js_send,#js_submit,#js_preview").click(function(){
+		var $this = $(this);
+		var text = mdEditer.getMarkdown();
+		var tid = $("#tid").val();
 		var title = $(".article-title-text").val();
 		var summary = $("#js_description").val();
 		var url = $("#input-fileUpload-path").val();
@@ -64,18 +66,31 @@
         	
 		}
 	    var data= {
+	    		"vo":{
+	    			"id":tid,
+	    			"title":title,
+	    			"summary":summary,	    			
+	    			"url":url,
+	    			"articleType":articleType,
+	    			"code":cityCode
+	    		}, 
 	    		"markdown":text,
-	    		"title":title,
-	    		"summary":summary,
-	    		"url":url,
-	    		"articleType":articleType,
 	    		"tag_arr":tag_arr,
-	    		"col_arr":col_arr,
-	    		"code":cityCode
+	    		"col_arr":col_arr
+	    		
 	    };
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
-	    	$("#js_save_success").css("display","block");
-	    	$("#js_save_success .inner");
+	    	var data = result.returnResult;
+	    	$("#tid").val(data.id);
+	    	var v = $($this).attr("id");
+	    	if(v=="js_preview"){
+	    		var tempwindow=window.open('_blank');
+	    		tempwindow.location=ctxPath+"/travel/detail?id="+data.id;
+	    	}else{
+	    		$("#js_save_success").css("display","block");
+		    	$("#js_save_success .inner");
+	    	}
+	    	
 	    	setTimeout(function(){
 	    		$("#js_save_success").css("display","none");
 	    	},3000);
@@ -343,3 +358,4 @@ function upload_file() {
         });
      return false; // 阻止表单自动提交事件
 }
+

@@ -219,6 +219,8 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 			ResponseMessage weekinfo = this.travelConnector.selecWeekInfoOne(jsonObject, request);
 			if(Constant.SUCCESS_CODE.equals(weekinfo.getResultCode())) {
 				WeekInfo mapToObject = FastJsonUtil.mapToObject(weekinfo.getReturnResult(), WeekInfo.class, Constant.COMMON_KEY_RESULT);
+				String markdownToHtml = MarkdownUtils.markdownToHtml(mapToObject.getWeekContent());
+				mapToObject.setWeekContent(markdownToHtml);
 				model.addAttribute("weekinfo", mapToObject);
 			}
 		 }
@@ -299,18 +301,39 @@ private void pageView(String id) {
 		this.redisManager.sAdd(RedisKey.ITOUR_PAGEVIEW_IDS,key);
 	}
 }
-
+//保存草稿
 @RequestMapping("/insertweekTravel")
 @ResponseBody
 public ResponseMessage insertweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	jsonObject.put("type", ConstantTravel.TRAVEL_INFO_WEEK);
-	 AccountVo sessionUser = SessionUtil.getSessionUser();
-	 jsonObject.put("uid", sessionUser.getuId());
-	String markdown = jsonObject.getString("markdown");
-	String markdownToHtml = MarkdownUtils.markdownToHtml(markdown);
-	System.out.println(markdownToHtml);
+	ResponseMessage insertTravelInfo = saveTravelInfo(jsonObject, request);
+	return insertTravelInfo;
+	
+}
+
+private ResponseMessage saveTravelInfo(JSONObject jsonObject, HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	TravelInfo travelInfo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(TravelInfo.class);
+	travelInfo.setType(ConstantTravel.TRAVEL_INFO_WEEK);
+	travelInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
+	travelInfo.setUid(sessionUser.getuId());
+	jsonObject.put(Constant.COMMON_KEY_VO, travelInfo);
 	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);
 	return insertTravelInfo;
+}
+//保存
+@RequestMapping("/savetweekTravel")
+@ResponseBody
+public ResponseMessage savetweekTravel(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	 ResponseMessage insertTravelInfo = saveTravelInfo(jsonObject, request);
+		return insertTravelInfo;
+	
+}
+//预览
+@RequestMapping("/previewWeekInfo")
+@ResponseBody
+public ResponseMessage previewWeekInfo(@RequestBody JSONObject jsonObject,HttpServletRequest request,ModelMap model) {
+	 ResponseMessage insertTravelInfo = saveTravelInfo(jsonObject, request);
+	return insertTravelInfo;	
 	
 }
 @RequestMapping("/tag")

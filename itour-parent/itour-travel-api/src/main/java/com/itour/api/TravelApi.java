@@ -16,12 +16,26 @@ public interface TravelApi {
 @RequestMapping(value = "/travel/queryTravelInfoList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage queryTravelInfoList( RequestMessage requestMessage);
 /**
+ * 旅行信息列表（视图）
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryViewTravelinfoOauthList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryViewTravelinfoOauthList( RequestMessage requestMessage);
+/**
  * 旅行信息查询单条
  * @param requestMessage
  * @return
  */
 @RequestMapping(value = "/travel/selectTravelInfoOne",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage selectTravelInfoOne( RequestMessage requestMessage);
+/**
+ * 旅行信息单条（视图）
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectViewTravelinfoOauthById",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selectViewTravelinfoOauthById( RequestMessage requestMessage);
 /**
  * 旅行信息修改
  * @param requestMessage
@@ -200,21 +214,7 @@ ResponseMessage queryTransportationTypeList( RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/getTransportationType",produces = {"application/json;charset=UTF-8"})
 ResponseMessage getTransportationType( RequestMessage requestMessage);
-/**
- * 旅行信息列表（视图）
- * @param requestMessage
- * @return
- */
-@RequestMapping(value = "/travel/queryViewTravelinfoOauthList",produces = {"application/json;charset=UTF-8"})
-ResponseMessage queryViewTravelinfoOauthList( RequestMessage requestMessage);
 
-/**
- * 旅行信息单条（视图）
- * @param requestMessage
- * @return
- */
-@RequestMapping(value = "/travel/selectViewTravelinfoOauthById",produces = {"application/json;charset=UTF-8"})
-ResponseMessage selectViewTravelinfoOauthById( RequestMessage requestMessage);
 /**
  * 旅行信息点赞列表
  * @param requestMessage
@@ -510,6 +510,14 @@ ResponseMessage updateCommentBatch(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/querySensitiveWordList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage querySensitiveWordList(RequestMessage requestMessage);
+
+/**
+ * 周末攻略列表视图查询
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryViewTravelinfoWeekinfoList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryViewTravelinfoWeekinfoList(RequestMessage requestMessage);
 
 
 

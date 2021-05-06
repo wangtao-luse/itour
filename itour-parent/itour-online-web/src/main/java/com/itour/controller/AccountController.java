@@ -150,6 +150,7 @@ public String login() {
 	@ResponseBody
 public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		try {
+			String width = request.getHeader("X-Requested-With");
 			String username = jsonObject.getString("loginname");
 			String password = jsonObject.getString("nloginpwd");
 			String ip = jsonObject.getString("ip");
