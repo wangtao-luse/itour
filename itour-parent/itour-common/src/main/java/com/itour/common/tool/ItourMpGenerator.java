@@ -43,7 +43,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"view_travelInfo_weekinfo"};
+  			 String [] include= new String[] {"view_travel_column"};
   			 /**
   			  * 需要忽略的表前缀
   			  */

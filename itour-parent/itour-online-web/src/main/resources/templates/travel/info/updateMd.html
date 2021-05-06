@@ -1,32 +1,34 @@
 @layout("/layout/template.html",{title:'爱旅行-写文章'}){
+@if(has(error)){
+<script>
+    function showErrorMessage() {
+        alert("${error!}");
+    }
+
+    showErrorMessage();
+</script>
+@}
 		<link rel="stylesheet" href="${ctxPath}/md/css/editormd.min.css" />
 		<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
 		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
 		<script type="text/javascript" src="${ctxPath}/js/travel/info.js" ></script>
-		
-		<style>
-		#footer{
-			display: none;
-		}
-		
+       	<style>
+			#footer{
+				display: none;
+			}
+			.combo-select {
+			    position: relative;
+			    max-width: 200px;
+			    margin-bottom: 15px;
+			    font: 100% Helvetica, Arial, Sans-serif;
+			    border: 1px #ccc solid;
+			    border-radius: 3px;
+			    display: inline-block;
+			}
+			.combo-input {
+				padding:8px;
+			}
 		</style>
-		<style>
-		.combo-select {
-		    position: relative;
-		    max-width: 200px;
-		    margin-bottom: 15px;
-		    font: 100% Helvetica, Arial, Sans-serif;
-		    border: 1px #ccc solid;
-		    border-radius: 3px;
-		    display: inline-block;
-		}
-		.combo-input {
-			padding:8px;
-		}
-		
-		</style>
-		
-		
 		
 	</head>
 	<body id="top0">
@@ -36,10 +38,11 @@
 	    <div id="city-container"></div>
 		<article >
 			<div class="article-container" >
-				<input type="hidden" id="tid" >
+				<input type="hidden" id="tid" value="${travelInfo.id!}">
+				<input type="hidden" id="path" value="${travelInfo.url!}">
 				<!--标题-->
 				<div class="article-title-wrp">
-						<input class="article-title-text" type="text" placeholder="请输入标题"/>
+						<input class="article-title-text" type="text" placeholder="请输入标题" value="${travelInfo.title!}"/>
 						<span class="suffix">0/100</span>
 				</div>
 				<div id="js_editor_area" class="js_editor_area editor_area edui-default" style="display: none">
@@ -57,9 +60,12 @@
 				</div>
 				<!--编辑器-->
 				<div  class="edit-mod-container">
-				  <div id="edit-md-area"></div>	
+				  <div id="edit-md-area">
+					  <textarea id="htmlContent" style="display: none;">${weekInfo.weekContent!}</textarea>
+					  <textarea id="textContent"></textarea>
+				  </div>	
 				</div>			
-			</div>
+
 			
 		</article>
 	    <!--原创设置-->
@@ -84,12 +90,12 @@
                         	<div class="select-cover__preview__mask js_cover_btn_area" >
                                 <a href="javascript:;" class="icon20_common edit_media_white js_modifyCover" onclick="return false;">修改</a>
                             </div>
-                            <input type="hidden" id="input-fileUpload-path">
+                            <input type="hidden" id="input-fileUpload-path" value="${travelInfo.url!}">
                         </div>
 					</div>
 					<div id="js_description_area" class="setting-group__abstract js_desc_area">
 						<span class="frm_textarea_box with_counter counter_in append count">
-							<textarea id="js_description" placeholder="选填，摘要会在订阅号消息、转发链接等文章外的场景显露，帮助读者快速了解内容，如不填写则默认抓取正文前54字" class="frm_textarea js_desc js_counter js_field" name="digest" max-length="120"></textarea>
+							<textarea id="js_description" placeholder="选填，摘要会在订阅号消息、转发链接等文章外的场景显露，帮助读者快速了解内容，如不填写则默认抓取正文前54字" class="frm_textarea js_desc js_counter js_field" name="digest" max-length="120">${travelInfo.summary!}</textarea>
 							<em class="frm_input_append frm_counter">0/120</em>
 						</span>
 					</div>
@@ -138,14 +144,14 @@
 		    	    	</label>
 		    	    </div>
 		    	    <div id="js_article_city_area" class="setting-group__checkbox-item">
-			    	    <label class="frm_checkbox_label">
+			    	    <label class="frm_checkbox_label  selected">
 			    	    		<input type="checkbox" class="frm_checkbox" />
 			    	    		<i class="icon_checkbox js_option_checkbox_icon"></i>
 			    	    		<div class="allow_click_opr js_article_option_allow_click">
 			    	    			<span class="lbl_content">城市设置</span>
 			    	    			<i class="lbl_content_after read-more__icon__more"></i>
-			    	    			<span class="lbl_content_after lbl_content_desc lbl_content_desc_url article_url_setting"></span>
-			    	    			<input type="hidden" name="cityCode" id="cityCode"> 
+			    	    			<span class="lbl_content_after lbl_content_desc lbl_content_desc_url article_url_setting">${region.regionName!}</span>
+			    	    			<input type="hidden" name="cityCode" id="cityCode" value="${travelInfo.code!}"> 
 			    	    		</div>
 			    	    	</label>
 		    	    </div>
@@ -190,6 +196,29 @@
 				</div>
 			</div>
 		</div>
-
+		<script type="text/javascript">
+		$(function(){
+			$(".article-title-wrp .article-title-text").trigger("keyup");
+			$("#js_description").trigger("keyup");
+			$("#js_cover_area .js_cover_loading").css("visibility","hidden");
+			var path=$("#input-fileUpload-path").val();
+			$("#js_cover_area .first_appmsg_cover").css("background-image","url("+path.replace(/\\/g,"/")+")")
+												   .css("display","block");
+			var articleType ='${travelInfo.articleType!}';
+			if(articleType=='1'){//原创
+				$(".weui-desktop-switch__input").prop("checked",true);
+				$("#ori-setting").val("1");
+				$(".weui-desktop-switch__input").parent().next("div").text("原创");
+			}else{//非原创
+				$(".weui-desktop-switch__input").prop("checked",false);
+				$("#ori-setting").val("2");
+				$(".weui-desktop-switch__input").parent().next("div").text("未声明原创");
+			}
+			
+			
+		})
 	
+      </script>
+
+
 @}

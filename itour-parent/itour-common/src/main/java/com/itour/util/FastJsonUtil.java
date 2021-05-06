@@ -74,6 +74,19 @@ public static <T> T mapToObject(Map<String,Object> map,Class<T> clazz,String key
 	 T javaObject = mapToJson.getJSONObject(key).toJavaObject(clazz);
 	return javaObject;
 }
+/**
+ * Map 转实体类
+ * @param <T>
+ * @param map  map
+ * @param clazz 类
+ * @param key  键
+ * @return  实体类型对象
+ */
+public static <T> T mapToObject(Map<String,Object> map,Class<T> clazz){
+	JSONObject mapToJson = FastJsonUtil.mapToJson(map);
+	T javaObject = mapToJson.getJSONObject(Constant.COMMON_KEY_RESULT).toJavaObject(clazz);
+	return javaObject;
+}
 public static String mapTosStirng(Map<String,Object>map,String key) {
 	JSONObject mapToJson = FastJsonUtil.mapToJson(map);
 	String string = mapToJson.getString(key);

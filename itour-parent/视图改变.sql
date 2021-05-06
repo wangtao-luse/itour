@@ -133,3 +133,7 @@ SELECT c.id,c.tid,c.tag_id,d.tag,d.uid FROM t_t_travel_tag c ,t_t_tag d WHERE c.
 #旅行信息和周末攻略表视图(审核的时候)
 CREATE OR REPLACE VIEW view_travelInfo_weekinfo AS
 SELECT 	c.ID,	c.`STATUS`,	d.WEEK_CONTENT FROM 	T_T_TRAVEL_INFO c,t_t_week_info d	WHERE c.ID = d.TID AND c.`STATUS`='20'
+#旅行攻略分类视图
+CREATE OR REPLACE VIEW view_travel_column AS
+SELECT c.ID,c.`COLUMN`,c.UID,c.CREATEDATE,d.TID FROM t_t_travel_column c,t_t_travelinfo_column d
+ where c.ID=d.CID;  
