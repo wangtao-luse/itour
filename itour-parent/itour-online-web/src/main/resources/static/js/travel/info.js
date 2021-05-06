@@ -1,4 +1,4 @@
-	var mdEditer;
+var mdEditer;
 	$(function(){
 		//markdown编辑器
 		 mdEditer=editormd("edit-md-area",{
@@ -358,3 +358,4 @@ function upload_file() {
         });
      return false; // 阻止表单自动提交事件
 }
+

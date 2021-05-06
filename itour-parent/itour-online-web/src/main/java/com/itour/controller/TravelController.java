@@ -219,6 +219,8 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 			ResponseMessage weekinfo = this.travelConnector.selecWeekInfoOne(jsonObject, request);
 			if(Constant.SUCCESS_CODE.equals(weekinfo.getResultCode())) {
 				WeekInfo mapToObject = FastJsonUtil.mapToObject(weekinfo.getReturnResult(), WeekInfo.class, Constant.COMMON_KEY_RESULT);
+				String markdownToHtml = MarkdownUtils.markdownToHtml(mapToObject.getWeekContent());
+				mapToObject.setWeekContent(markdownToHtml);
 				model.addAttribute("weekinfo", mapToObject);
 			}
 		 }
