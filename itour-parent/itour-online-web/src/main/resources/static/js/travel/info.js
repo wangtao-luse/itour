@@ -303,8 +303,18 @@ var mdEditer;
 		var dxUrl = ctxPath+"/travel/cityPage";
 		$("#city-container").load(dxUrl,function(){
 			var code = $("#js_article_city_area #cityCode").val();
+			if(code){
+				$(".combo-dropdown li").each(function(item,index){
+					var v = $(this).attr("data-value");
+					if(v==code){
+						$(this).addClass("option-selected option-hover");
+						
+					}
+				})
+			}
+			
 			$("#city-container .dialog-wrapper").show();
-			$("#city-select").val(code);
+			
 		});
 	});
 	//城市设置

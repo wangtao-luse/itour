@@ -90,7 +90,7 @@
                         	<div class="select-cover__preview__mask js_cover_btn_area" >
                                 <a href="javascript:;" class="icon20_common edit_media_white js_modifyCover" onclick="return false;">修改</a>
                             </div>
-                            <input type="hidden" id="input-fileUpload-path">
+                            <input type="hidden" id="input-fileUpload-path" value="${travelInfo.url!}">
                         </div>
 					</div>
 					<div id="js_description_area" class="setting-group__abstract js_desc_area">
@@ -144,14 +144,14 @@
 		    	    	</label>
 		    	    </div>
 		    	    <div id="js_article_city_area" class="setting-group__checkbox-item">
-			    	    <label class="frm_checkbox_label">
+			    	    <label class="frm_checkbox_label  selected">
 			    	    		<input type="checkbox" class="frm_checkbox" />
 			    	    		<i class="icon_checkbox js_option_checkbox_icon"></i>
 			    	    		<div class="allow_click_opr js_article_option_allow_click">
 			    	    			<span class="lbl_content">城市设置</span>
 			    	    			<i class="lbl_content_after read-more__icon__more"></i>
-			    	    			<span class="lbl_content_after lbl_content_desc lbl_content_desc_url article_url_setting"></span>
-			    	    			<input type="hidden" name="cityCode" id="cityCode"> 
+			    	    			<span class="lbl_content_after lbl_content_desc lbl_content_desc_url article_url_setting">${region.regionName!}</span>
+			    	    			<input type="hidden" name="cityCode" id="cityCode" value="${travelInfo.code!}"> 
 			    	    		</div>
 			    	    	</label>
 		    	    </div>
@@ -201,10 +201,9 @@
 			$(".article-title-wrp .article-title-text").trigger("keyup");
 			$("#js_description").trigger("keyup");
 			$("#js_cover_area .js_cover_loading").css("visibility","hidden");
-			var path=$("#path").val();
+			var path=$("#input-fileUpload-path").val();
 			$("#js_cover_area .first_appmsg_cover").css("background-image","url("+path.replace(/\\/g,"/")+")")
 												   .css("display","block");
-			$("#input-fileUpload-path").val(path);
 			var articleType ='${travelInfo.articleType!}';
 			if(articleType=='1'){//原创
 				$(".weui-desktop-switch__input").prop("checked",true);
@@ -215,6 +214,7 @@
 				$("#ori-setting").val("2");
 				$(".weui-desktop-switch__input").parent().next("div").text("未声明原创");
 			}
+			
 			
 		})
 	

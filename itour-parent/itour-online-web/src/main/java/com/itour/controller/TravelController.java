@@ -7,12 +7,10 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,11 +26,14 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
+import com.itour.model.travel.Location;
+import com.itour.model.travel.Region;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
 import com.itour.model.travel.dto.ViewCommentReply;
+import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
 import com.itour.model.travel.dto.ViewTravelinfoOauth;
@@ -543,8 +544,26 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
 				 
 			 }
 			//获取攻略分类
-			 
+			 jsonObject.clear();
+			 ViewTravelColumn v = new ViewTravelColumn();
+			 v.setUid(sessionUser.getuId());
+			 v.setTid(id);
+			 jsonObject.put(Constant.COMMON_KEY_VO, v);
+			 ResponseMessage queryViewTravelColumnList = this.travelConnector.queryViewTravelColumnList(jsonObject, request);
+			 if(ResponseMessage.isSuccessResult(queryViewTravelColumnList)) {
+				 List<ViewTravelColumn> mapToList = FastJsonUtil.mapToList(queryViewTravelColumnList.getReturnResult(), ViewTravelColumn.class);
+				 model.addAttribute("colList", mapToList);
+			 }
 			//获取攻略所在城市
+			 jsonObject.clear();
+			 Region r = new Region();
+			 r.setRegionCode(mapToObject.getCode());
+			 jsonObject.put(Constant.COMMON_KEY_VO,r);
+			 ResponseMessage locationResp = this.travelConnector.selectRegionOne(jsonObject, request);
+			 if(ResponseMessage.isSuccessResult(locationResp)) {
+				 Region region = FastJsonUtil.mapToObject(locationResp.getReturnResult(), Region.class);
+				 model.addAttribute("region", region);
+			 }
 			
 			
 		}

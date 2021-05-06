@@ -352,6 +352,30 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.commentReplyNiceSub(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 旅行攻略专栏视图查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryViewTravelColumnList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryViewTravelColumnList(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 地区查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectRegionOne(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectRegionOne(requestMessage);
+		return responseMessage;
+	}
 	
 	
 }

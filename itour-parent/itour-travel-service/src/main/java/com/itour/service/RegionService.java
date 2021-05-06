@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
@@ -42,6 +44,26 @@ public class RegionService extends ServiceImpl<RegionMapper, Region>   {
 				result.add(map);
 			});
 			responseMessage.setReturnResult(result);
+		} catch (BaseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(e.getMessage());
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	public ResponseMessage selectRegionOne(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			QueryWrapper<Region> queryWrapper = new QueryWrapper<Region>();
+			Region region = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(Region.class);
+			queryWrapper.eq(!StringUtils.isEmpty(region.getRegionCode()), "REGION_CODE", region.getRegionCode());
+			Region selectOne = this.baseMapper.selectOne(queryWrapper);
+			responseMessage.setReturnResult(selectOne);
 		} catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();

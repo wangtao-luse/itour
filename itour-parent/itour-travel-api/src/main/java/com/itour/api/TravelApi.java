@@ -518,7 +518,20 @@ ResponseMessage querySensitiveWordList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/queryViewTravelinfoWeekinfoList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage queryViewTravelinfoWeekinfoList(RequestMessage requestMessage);
-
+/**
+ * 旅行攻略专栏视图列表查询
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryViewTravelColumnList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryViewTravelColumnList(RequestMessage requestMessage);
+/**
+ * 地区查询单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectRegionOne",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selectRegionOne(RequestMessage requestMessage);
 
 
 }
