@@ -9,6 +9,9 @@
 </script>
 @}
 		<link rel="stylesheet" href="${ctxPath}/md/css/editormd.min.css" />
+		<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
+		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
+		<script type="text/javascript" src="${ctxPath}/js/travel/info.js" ></script>
        	<style>
 			#footer{
 				display: none;
@@ -35,7 +38,8 @@
 	    <div id="city-container"></div>
 		<article >
 			<div class="article-container" >
-				
+				<input type="hidden" id="tid" value="${travelInfo.id!}">
+				<input type="hidden" id="path" value="${travelInfo.url!}">
 				<!--标题-->
 				<div class="article-title-wrp">
 						<input class="article-title-text" type="text" placeholder="请输入标题" value="${travelInfo.title!}"/>
@@ -55,20 +59,13 @@
 				   </div>
 				</div>
 				<!--编辑器-->
-<<<<<<< HEAD
 				<div  class="edit-mod-container">
 				  <div id="edit-md-area">
-				  <textarea id="htmlContent" style="display: none;"></textarea>
-				  <textarea id="textContent"></textarea>
+					  <textarea id="htmlContent" style="display: none;">${weekInfo.weekContent!}</textarea>
+					  <textarea id="textContent"></textarea>
 				  </div>	
 				</div>			
-=======
-				 <div  class="edit-mod-container">
-				  <div id="edit-md-area"></div>	
-				</div> 	
-				<div id="content" style="display:none;">${weekInfo.weekContent!}</div>
->>>>>>> 7d07f5230f9d33782b00ce544cee87a782abd37e
-			</div>
+
 			
 		</article>
 	    <!--原创设置-->
@@ -199,14 +196,16 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
-		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
-		<script type="text/javascript" src="${ctxPath}/js/travel/info.js" ></script>
 		<script type="text/javascript">
-		show_text();
 		$(function(){
 			$(".article-title-wrp .article-title-text").trigger("keyup");
-			$("#js_description").trigger("keyup");		
+			$("#js_description").trigger("keyup");
+			$("#js_cover_area .js_cover_loading").css("visibility","hidden");
+			var path=$("#path").val();
+			$("#js_cover_area .first_appmsg_cover").css("background-image","url("+path.replace(/\\/g,"/")+")")
+												   .css("display","block");
+			$("#input-fileUpload-path").val(path);
+			var articleType ='${travelInfo.articleType!}';
 			if(articleType=='1'){//原创
 				$(".weui-desktop-switch__input").prop("checked",true);
 				$("#ori-setting").val("1");

@@ -2512,7 +2512,7 @@ color: #646464;
     height: 32px;
     font-size: 0;
     color: transparent;
-    background: transparent url(${ctxPath}/img/common/file-loading.svg) no-repeat 0 0;
+    background: transparent url(../../img/common/file-loading.svg) no-repeat 0 0;
     animation: weuiDesktopLoading 1s linear infinite;
     -webkit-animation:weuiDesktopBtnLoading 1s infinite; /*Safari and Chrome*/
 	    background-size: 100%;
@@ -2572,7 +2572,7 @@ color: #646464;
 	    overflow: hidden;
 	}
 	.icon20_common.edit_media_white {
-	    background: url(${ctxPath}/img/common/media_cps_z49d030.png) 0 -1933px no-repeat;
+	    background: url(../../img/common/media_cps_z49d030.png) 0 -1933px no-repeat;
 	}
 	.setting-group__cover:hover .select-cover__preview__mask {
 	    opacity: 1;
@@ -2612,7 +2612,7 @@ color: #646464;
 	    display: inline-block;
 	}
 	.icon_msg_mini.info {
-	    background: url(${ctxPath}/img/common/base_z49d030.png) 0 -876px no-repeat;
+	    background: url(../../img/common/base_z49d030.png) 0 -876px no-repeat;
 	}
 	.page_msg .msg_content {
 	    overflow: hidden;
@@ -2640,7 +2640,7 @@ color: #646464;
 	    line-height: 300px;
 	    overflow: hidden;
 	    cursor: pointer;
-	    background: url(${ctxPath}/img/common/base_z49d030.png) 0 -2110px no-repeat;
+	    background: url(../../img/common/base_z49d030.png) 0 -2110px no-repeat;
 	    width: 10px;
 	    height: 10px;
 	    vertical-align: middle;

@@ -227,7 +227,8 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			
 			//1.插入旅行旅行信息表
 			TravelInfo travelInfo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfo.class);
-			if(!StringUtils.isEmpty(travelInfo.getId())) {
+			if(!StringUtils.isEmpty(travelInfo.getId())) {//修改
+				//1.检查该用户是否有权限修改此攻略
 				QueryWrapper<TravelInfo> queryWrapper = new QueryWrapper<TravelInfo>();
 				queryWrapper.eq("ID", travelInfo.getId());
 				queryWrapper.eq("UID", body.getuId());

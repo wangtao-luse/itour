@@ -523,6 +523,7 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
 			TravelInfo mapToObject = FastJsonUtil.mapToObject(returnResult, TravelInfo.class, Constant.COMMON_KEY_RESULT);
 			model.addAttribute("travelInfo", mapToObject);
 			String type = mapToObject.getType();
+			//获取周末旅行攻略
 			if(ConstantTravel.TRAVEL_INFO_WEEK.equals(type)) {
 				jsonObject.clear();
 				jsonObject.put("tid", mapToObject.getId());
@@ -532,6 +533,19 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
 					model.addAttribute("weekInfo", weekInfo);
 				}
 			}
+			//获取攻略标签
+			jsonObject.clear();
+			jsonObject.put("tid", id);
+			 ResponseMessage tagResp = this.travelConnector.queryViewTravelTagList(jsonObject, request);
+			 if(ResponseMessage.isSuccessResult(tagResp)) {
+				 List<ViewTravelTag> tagList = FastJsonUtil.mapToList(tagResp.getReturnResult(), ViewTravelTag.class);
+				 model.addAttribute("tagList", tagList);
+				 
+			 }
+			//获取攻略分类
+			 
+			//获取攻略所在城市
+			
 			
 		}
 		

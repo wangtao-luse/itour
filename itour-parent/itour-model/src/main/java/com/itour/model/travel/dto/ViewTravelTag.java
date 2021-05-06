@@ -1,4 +1,6 @@
 package com.itour.model.travel.dto;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2021-04-12
  */
+@TableName("view_travel_tag")
 public class ViewTravelTag extends Model<ViewTravelTag> {
 
     private static final long serialVersionUID = 1L;
@@ -16,26 +19,31 @@ public class ViewTravelTag extends Model<ViewTravelTag> {
     /**
      * 编号(主键)
      */
+    @TableField("ID")
     private Long id;
 
     /**
      * 攻略编号
      */
+    @TableField("TID")
     private Long tid;
 
     /**
      * 标签编号
      */
+    @TableField("TAG_ID")
     private Long tagId;
 
     /**
      * 标签名称
      */
+    @TableField("TAG")
     private String tag;
 
     /**
      * 标签创建者
      */
+    @TableField("UID")
     private String uid;
 
     public Long getId() {
