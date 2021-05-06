@@ -34,6 +34,7 @@ var mdEditer;
 		var url = $("#input-fileUpload-path").val();
 		var articleType = $("#ori-setting").val();
 		var cityCode=$("#cityCode").val();
+		var preview = $(this).attr("fun");
         var tag_arr=[];
 		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
 		tags.each(function(i,item){
@@ -76,7 +77,8 @@ var mdEditer;
 	    		}, 
 	    		"markdown":text,
 	    		"tag_arr":tag_arr,
-	    		"col_arr":col_arr
+	    		"col_arr":col_arr,
+	    		"preview":preview
 	    		
 	    };
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {

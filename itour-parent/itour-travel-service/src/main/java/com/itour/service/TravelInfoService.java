@@ -224,6 +224,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			JSONArray tagArr = jsonObject.getJSONArray("tag_arr");
 			JSONArray colArr = jsonObject.getJSONArray("col_arr");
+			String function = jsonObject.getString(Constant.COMMOM_FUNCTION);
 			//1.插入旅行旅行信息表
 			TravelInfo travelInfo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfo.class);
 			if(!StringUtils.isEmpty(travelInfo.getId())) {//修改
@@ -235,8 +236,11 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 				if(StringUtils.isEmpty(selectOne)) {
 					throw new BaseException(ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
 				}
-				travelInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
-				travelInfo.setUpdatetime(DateUtil.currentLongDate());
+				if(!Constant.COMMOM_FUNCTION_PREVIEW.equals(function)) {
+					travelInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
+					travelInfo.setUpdatetime(DateUtil.currentLongDate());
+				}
+				
 			}else {
 				travelInfo.setPublishtime(DateUtil.currentLongDate());	
 			}

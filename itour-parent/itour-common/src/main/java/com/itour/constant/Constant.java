@@ -30,6 +30,10 @@ public static final String COMMON_STATUS_CHECKED="30";
 public static final String COMMON_STATUS_CHECK="40";
 //已删除
 public static final String COMMON_STATUS_DELETED="50";
+//功能
+public static final String COMMOM_FUNCTION="function";
+//预览
+public static final String COMMOM_FUNCTION_PREVIEW="preview";
 
 
 
