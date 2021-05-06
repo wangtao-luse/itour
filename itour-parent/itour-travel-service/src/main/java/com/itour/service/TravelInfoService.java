@@ -236,13 +236,16 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 				if(StringUtils.isEmpty(selectOne)) {
 					throw new BaseException(ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
 				}
-				if(!Constant.COMMOM_FUNCTION_PREVIEW.equals(function)) {
+				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					travelInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
 					travelInfo.setUpdatetime(DateUtil.currentLongDate());
+				}else if(Constant.COMMON_FUNCTION_DRAFT.equals(function)) {
+					travelInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 				}
 				
 			}else {
 				travelInfo.setPublishtime(DateUtil.currentLongDate());	
+				travelInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 			}
              
 			 this.saveOrUpdate(travelInfo);

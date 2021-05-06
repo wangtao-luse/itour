@@ -34,6 +34,10 @@ public static final String COMMON_STATUS_DELETED="50";
 public static final String COMMOM_FUNCTION="function";
 //预览
 public static final String COMMOM_FUNCTION_PREVIEW="preview";
+//保存
+public static final String COMMON_FUNCTION_SAVE="save";
+//草稿
+public static final String COMMON_FUNCTION_DRAFT="draft";
 
 
 

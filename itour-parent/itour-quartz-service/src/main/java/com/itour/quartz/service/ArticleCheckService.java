@@ -14,6 +14,7 @@ import com.itour.constant.Constant;
 import com.itour.init.SensitiveWordFilter;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.dto.ViewTravelinfoWeekinfo;
+import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 
 public class ArticleCheckService {
@@ -41,6 +42,10 @@ public class ArticleCheckService {
 					t.setStatus(Constant.COMMON_STATUS_CHECK);
 				}else {
 					t.setStatus(Constant.COMMON_STATUS_CHECKED);
+					Long updatetime = t.getUpdatetime();
+					if(null==updatetime) {
+						t.setPublishtime(DateUtil.currentLongDate());
+					}
 				}
 				t.setId(travel.getId());
 				list.add(t);
