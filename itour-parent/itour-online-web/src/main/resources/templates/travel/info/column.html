@@ -1,3 +1,22 @@
+<script type="text/javascript">
+$(function(){
+	var cols_text = $("#js_article_option_area .article_url_setting").text();
+	var c_arr = cols_text.split(",");
+	var tobject =$("#column-container .weui-desktop-form__check-label");
+	console.log("tag:"+c_arr);
+	for(var i = 0; i < c_arr.length; i++){
+		  appendTag(c_arr[i],$(".js_article_cols_dialog"));
+		  tobject.each(function(index,item){
+			  var v =$(this).find(".weui-desktop-form__check-content").text();
+			  console.log(typeof c_arr[i] +"  "+ c_arr[i]+ "---"+typeof v +"  "+v );
+    			 if(c_arr[i].trim()==v.trim()){
+    				 $(this).find(".weui-desktop-form__checkbox").prop("checked","checked");
+    			 }
+    		 });
+	 }
+	
+})
+</script>
  <div class="dialog-wrapper">
 		 	<div class="weui-desktop-dialog__wrp article_tags_dialog js_article_cols_dialog">
 		 		<div class="weui-desktop-dialog" style="width: 600px;">
