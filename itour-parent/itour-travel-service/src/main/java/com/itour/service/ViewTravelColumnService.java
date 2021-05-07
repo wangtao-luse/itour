@@ -33,7 +33,9 @@ public ResponseMessage queryViewTravelColumnList(RequestMessage requestMessage) 
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
+		ViewTravelColumn vo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(ViewTravelColumn.class);
 		QueryWrapper queryWrapper = new QueryWrapper<ViewTravelColumn>();
+		queryWrapper.eq(!StringUtils.isEmpty(vo.getTid()), "TID", vo.getTid());
 		if(!StringUtils.isEmpty(pageVo)) {
 			PageInfo page = pageVo.toJavaObject(PageInfo.class);			
 			this.baseMapper.selectPage(page, queryWrapper );

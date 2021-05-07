@@ -546,7 +546,6 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
 			//获取攻略分类
 			 jsonObject.clear();
 			 ViewTravelColumn v = new ViewTravelColumn();
-			 v.setUid(sessionUser.getuId());
 			 v.setTid(id);
 			 jsonObject.put(Constant.COMMON_KEY_VO, v);
 			 ResponseMessage queryViewTravelColumnList = this.travelConnector.queryViewTravelColumnList(jsonObject, request);

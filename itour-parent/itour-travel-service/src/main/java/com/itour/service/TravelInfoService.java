@@ -275,7 +275,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			this.travelTagMapper.delete(wrapper);
 			String join = String.join(",",tagArr.stream().map(String::valueOf).collect(Collectors.toList()));
 			QueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>();
-			queryWrapper.in("TAG", join);
+			queryWrapper.in("TAG", tagArr);
 			queryWrapper.eq("UID", body.getuId());
 			
 			List<Tag> selectList = this.tagMapper.selectList(queryWrapper);			
@@ -292,12 +292,13 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			
 			
 			//4.插入分类专栏表中间表
+			 //4.1 删除该文章下的中间表关系
 			QueryWrapper<TravelinfoColumn> ew = new QueryWrapper<TravelinfoColumn>();
 			ew.eq("TID", travelInfo.getId());
 			this.travelinfoColumnMapper.delete(ew  );
 			QueryWrapper<TravelColumn> qw = new QueryWrapper<TravelColumn>();
 			String colStr = String.join(",", colArr.stream().map(String::valueOf).collect(Collectors.toList()));
-			qw.in("`COLUMN`", colStr);
+			qw.in("`COLUMN`", colArr);
 			qw.eq("UID",body.getuId());
 			List<TravelColumn> selectColList = this.travelColumnMapper.selectList(qw);
 			List<TravelinfoColumn> colList = new ArrayList<TravelinfoColumn>();

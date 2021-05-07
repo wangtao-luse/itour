@@ -279,13 +279,7 @@ var mdEditer;
 		
 	});
 	
-	$("#js_cover_area .input-fileUpload").change(function(){/*
-		postAjax("/upload/multipartFileUpload", JSON.stringify(data), function (result) {
-			alert(result.resultMessage);
-        }, {errorFunction:function(result){
-        	alert(result.resultMessage);
-        },cache: false, async: false,"contentType": "application/x-www-form-urlencoded"});
-	*/});
+	
 	$("#js_original").on("click",".weui-desktop-switch__input",function(){
 		var c = $(".weui-desktop-switch__input").is(":checked");
 		if(c){
@@ -304,17 +298,6 @@ var mdEditer;
 	$("#js_article_city_area .frm_checkbox_label .allow_click_opr").click(function(){
 		var dxUrl = ctxPath+"/travel/cityPage";
 		$("#city-container").load(dxUrl,function(){
-			var code = $("#js_article_city_area #cityCode").val();
-			if(code){
-				$(".combo-dropdown li").each(function(item,index){
-					var v = $(this).attr("data-value");
-					if(v==code){
-						$(this).addClass("option-selected option-hover");
-						
-					}
-				})
-			}
-			
 			$("#city-container .dialog-wrapper").show();
 			
 		});

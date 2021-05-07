@@ -1,6 +1,8 @@
 package com.itour.model.travel.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2021-05-06
  */
+@TableName("view_travel_column")
 public class ViewTravelColumn extends Model<ViewTravelColumn> {
 
     private static final long serialVersionUID = 1L;

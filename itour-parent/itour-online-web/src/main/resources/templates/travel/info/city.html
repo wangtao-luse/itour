@@ -5,7 +5,20 @@ $(function() {
 	/* https://www.jq22.com/jquery-info8567 */
 	showCity();
 	$('select').comboSelect();
-
+	var code = $("#js_article_city_area #cityCode").val();
+	console.log(code);
+	if(code){
+		$(".combo-dropdown li").each(function(item,index){
+			var v = $(this).attr("data-value");
+			if(v==code){
+				$(".combo-dropdown li").removeClass("option-selected option-hover");
+				$(this).addClass("option-selected option-hover");
+				$(".combo-input.text-input").val($(this).text());
+				$("#btn-city-sub").removeClass("weui-desktop-btn_disabled");
+				return;
+			}
+		})
+	}
 	$('select').change(function(e, v) {
 		$('.result').html('你选择了第' + e.target.selectedIndex + '项，值是' + e.target.value);
 		if(!$.isEmpty(e.target.value)){

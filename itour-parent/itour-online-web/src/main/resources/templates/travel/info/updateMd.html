@@ -128,7 +128,13 @@
 		    				<div class="allow_click_opr js_article_tags_label">
 		    					<span class="lbl_content">话题标签</span>
 		    					<i class="lbl_content_after read-more__icon__more"></i>
-		    					<span class="lbl_content_after lbl_content_desc js_article_tags_content">最多可以指定三个标签</span>
+		    					<span class="lbl_content_after lbl_content_desc js_article_tags_content">
+		    					@for(t in tagList!){
+		    					   ${tLP.last?t.tag:t.tag+","}
+		    					@}elsefor{
+		    					 最多可以指定三个标签
+		    					@}
+		    					</span>
 		    				</div>
 		    			</label>
 		    		</div>
@@ -139,7 +145,13 @@
 		    	    		<div class="allow_click_opr js_article_option_allow_click">
 		    	    			<span class="lbl_content">分类专栏</span>
 		    	    			<i class="lbl_content_after read-more__icon__more"></i>
-		    	    			<span class="lbl_content_after lbl_content_desc lbl_content_desc_url article_url_setting">最多可以设置三个分类专栏</span>
+		    	    			<span class="lbl_content_after lbl_content_desc lbl_content_desc_url article_url_setting">
+		    	    			@for(c in colList!){
+		    	    			  ${cLP.last?c.column:c.column+","}
+		    	    			@}elsefor{
+		    	    			     最多可以设置三个分类专栏
+		    	    			 @}
+		    	    			</span>
 		    	    		</div>
 		    	    	</label>
 		    	    </div>
@@ -204,6 +216,15 @@
 			var path=$("#input-fileUpload-path").val();
 			$("#js_cover_area .first_appmsg_cover").css("background-image","url("+path.replace(/\\/g,"/")+")")
 												   .css("display","block");
+			
+			 var tsize = '${tagList.~size}';
+			 var csize = '${colList.~size}';
+			 if(tsize>0){
+				 $("#js_article_tags_area .frm_checkbox_label").addClass("selected");
+			 }
+			if(csize>0){
+				$("#js_article_option_area .frm_checkbox_label").addClass("selected");			 
+				}
 			var articleType ='${travelInfo.articleType!}';
 			if(articleType=='1'){//原创
 				$(".weui-desktop-switch__input").prop("checked",true);
