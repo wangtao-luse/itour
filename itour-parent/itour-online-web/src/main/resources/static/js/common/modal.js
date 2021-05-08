@@ -1,6 +1,6 @@
 $(function(){
 	
-	//checkbox
+	//checkbox 选择
 	$(document).on("click",".article_tags_history_bd .weui-desktop-form__checkbox",function(){
 		//已勾选
 	     var tags =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
@@ -8,13 +8,14 @@ $(function(){
 	     var disTags =$(this).closest(".dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
 	     //当前对象的标签
 	     var tagContent=$(this).parent().find(".weui-desktop-form__check-content").text();
-	     //只允许选择三个标签
+	     //只允许选择三个标签 tag-container
+	      var txt = settingTxt($(this));
 	     if(tags.length>=3){
 	     	disTags.prop("disabled","disabled");
 	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","");
 	     }else{
 	     	disTags.prop("disabled","");
-	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
+	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder",txt);
 	     }
 	     //确认按钮样式
 	     if(tags.length>=1){
@@ -29,8 +30,8 @@ $(function(){
 	    }else{//取消选择
 	    	var tagct =  $(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__wrp .weui-desktop-form-tag__name");
 	         $(tagct).each(function(){
-	         	var t = $(this).text();
-	         	if(t==tagContent){
+	         	var t = $(this).text().trim();
+	         	if(t==tagContent.trim()){
 	    		 $(this).parent().remove();
 	    	}
 	         })
@@ -54,8 +55,8 @@ $(function(){
 		}
 		//取消checkbox选择
 		$(check).each(function(){
-			var v =$(this).text();
-			if(name==v){
+			var v =$(this).text().trim();
+			if(name.trim()==v){
 			$(this).parent().find(".weui-desktop-form__checkbox").prop("checked","");
 			}
 		});
@@ -65,7 +66,8 @@ $(function(){
 	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","");
 	     }else{
 	     	disTags.prop("disabled","");
-	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
+	     	 var txt = settingTxt($(this));
+	     	$(this).closest(".dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder",txt);
 	     }
 		$(this).parent().remove();
 		
@@ -142,3 +144,13 @@ $(document).on("click",".weui-desktop-dialog__close-btn,.weui-desktop-btn.weui-d
 $(document).on("click",".modal-closeButton",function(){
 	$(".modal-wrapper").hide();
 })
+function settingTxt($this){
+	 var wrap = $($this).closest(".dialog-wrapper").parent().attr("id");
+	    var txt;
+	    if(wrap=="tag-container"){
+	    	  txt ="请输入话题，按回车分割";
+	    }else if(wrap=="column-container"){
+	    	txt="请输入专栏，按回车分割";
+	    }
+	    return txt;
+}

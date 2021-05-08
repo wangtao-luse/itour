@@ -315,7 +315,6 @@ private ResponseMessage saveTravelInfo(JSONObject jsonObject, HttpServletRequest
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	TravelInfo travelInfo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(TravelInfo.class);
 	travelInfo.setType(ConstantTravel.TRAVEL_INFO_WEEK);
-	travelInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 	travelInfo.setUid(sessionUser.getuId());
 	jsonObject.put(Constant.COMMON_KEY_VO, travelInfo);
 	ResponseMessage insertTravelInfo = this.travelConnector.insertTravelInfo(jsonObject, request);

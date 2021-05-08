@@ -24,7 +24,7 @@ var mdEditer;
 			var len =mdEditer.getMarkdown().length;
 			$("#bottom_main .fold_tips_value").text(len);
 		});
-	//保存草稿
+	//保存草稿,预览，保存
 	$("#js_send,#js_submit,#js_preview").click(function(){
 		var $this = $(this);
 		var text = mdEditer.getMarkdown();
@@ -38,13 +38,13 @@ var mdEditer;
         var tag_arr=[];
 		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
 		tags.each(function(i,item){
-			    var v = $(this).text();
+			    var v = $(this).text().trim();
 			    tag_arr.push(v);
 		});
 		var col_arr=[];		
 		var cols = $("#column-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
 		cols.each(function(i,item){
-			    var c = $(this).text();
+			    var c = $(this).text().trim();
 			    col_arr.push(c);
 		});
 		if($.isEmpty(title)||$.isEmpty(text)){
@@ -86,8 +86,9 @@ var mdEditer;
 	    	$("#tid").val(data.id);
 	    	var v = $($this).attr("id");
 	    	if(v=="js_preview"){
-	    		var tempwindow=window.open('_blank');
-	    		tempwindow.location=ctxPath+"/travel/detail?id="+data.id;
+	    		var url = ctxPath+"/travel/detail?id="+data.id;
+	    		$("#link-preview").attr("href",url);
+	    		$('#preview-link').trigger("click");
 	    	}else{
 	    		$("#js_save_success").css("display","block");
 		    	$("#js_save_success .inner");
@@ -324,7 +325,7 @@ function checkWeekTravel(){
 	}
 	return true;
 }
-
+//文件上传
 function upload_file() {
         $('#form_upload').ajaxSubmit({            
             type: 'post',

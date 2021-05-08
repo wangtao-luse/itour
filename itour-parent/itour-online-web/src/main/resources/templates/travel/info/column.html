@@ -2,6 +2,7 @@
 $(function(){
 	var cols_text = $("#js_article_option_area .article_url_setting").text();
 	var c_arr = cols_text.split(",");
+	if(cols_text&&cols_text.indexOf("最多可以设置三个分类专栏")==-1){
 	var tobject =$("#column-container .weui-desktop-form__check-label");
 	console.log("tag:"+c_arr);
 	for(var i = 0; i < c_arr.length; i++){
@@ -14,7 +15,18 @@ $(function(){
     			 }
     		 });
 	 }
-	
+	//选中的的checkbox
+	var tags =$("#column-container .dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
+	//未选中的的checkbox
+	 var disTags =$("#column-container .dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+	 if(tags.length>=3){//未选择的禁用
+	     	disTags.prop("disabled","disabled");
+	     	$("#column-container .dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","");
+     }else{
+     	disTags.prop("disabled","");
+     	$("#column-container .dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入专栏，按回车分割");
+     }
+	}
 })
 </script>
  <div class="dialog-wrapper">

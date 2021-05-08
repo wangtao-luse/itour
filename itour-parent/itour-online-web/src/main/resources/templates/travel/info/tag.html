@@ -2,6 +2,7 @@
 $(function(){
 	var tags_text = $("#article_setting_area2 .js_article_tags_content").text();
 	var t_arr = tags_text.split(",");
+	if(tags_text&&tags_text.indexOf("最多可以指定三个标签")==-1){
 	var tobject =$("#tag-container .weui-desktop-form__check-label");
 	console.log("tag:"+t_arr);
 	for(var i = 0; i < t_arr.length; i++){
@@ -14,7 +15,18 @@ $(function(){
     			 }
     		 });
 	 }
-	
+	//选中的的checkbox
+	var tags =$("#tag-container .dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
+	//未选中的的checkbox
+	 var disTags =$("#tag-container .dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+	 if(tags.length>=3){//未选择的禁用
+	     	disTags.prop("disabled","disabled");
+	     	$("#tag-container .dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","");
+     }else{
+     	disTags.prop("disabled","");
+     	$("#tag-container .dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
+     }
+	}
 })
 </script>
  <div class="dialog-wrapper">

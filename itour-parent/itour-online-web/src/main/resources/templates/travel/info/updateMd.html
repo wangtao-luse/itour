@@ -36,6 +36,8 @@
 	    <div id="tag-container"></div>
 	    <div id="column-container"></div>
 	    <div id="city-container"></div>
+	    <a href="" target="_blank" id="link-preview"><span id="preview-link"></span></a>
+	    
 		<article >
 			<div class="article-container" >
 				<input type="hidden" id="tid" value="${travelInfo.id!}">
@@ -235,10 +237,15 @@
 				$("#ori-setting").val("2");
 				$(".weui-desktop-switch__input").parent().next("div").text("未声明原创");
 			}
+
+			 var dxUrl = ctxPath+"/travel/tag";		
+			 $("#tag-container").load(dxUrl, function () {});
+			 var dxUrl = ctxPath+"/travel/column";
+			 $("#column-container").load(dxUrl, function () {});
 			
 			
 		})
-	
+	   
       </script>
 
 
