@@ -102,5 +102,38 @@ private QuartzApi quartzApi;
 		ResponseMessage responseMessage =quartzApi.deleteJob(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 发送验证码
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage sendEmailCode(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = quartzApi.sendEmailCode(postData);
+		return responseMessage;
+	}
+	/**
+	 * 消息列表
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryMessageList(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = quartzApi.queryMessageList(postData);
+		return responseMessage;
+	}
+	/**
+	 * 消息列表(视图)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryViewMessageList(JSONObject jsonObject,HttpServletRequest request) {
+		RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = quartzApi.queryViewMessageList(postData);
+		return responseMessage;
+	}
 	
 }

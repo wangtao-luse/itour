@@ -3,7 +3,7 @@
 <mapper namespace="com.itour.persist.MessageinfoMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.msg.Messageinfo">
+    <resultMap id="BaseResultMap" type="com.itour.model.quartz.Messageinfo">
         <id column="ID" property="id" />
         <result column="SUBJECT" property="subject" />
         <result column="TEXT" property="text" />
@@ -17,7 +17,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, SUBJECT, TEXT, FROM, TO, TYPE,  SENDTIME,AIM,ORIGIN,IP 
+        ID, SUBJECT, TEXT, FROM, TO, TYPE, SENDTIME, AIM, ORIGIN, IP
     </sql>
 
 </mapper>

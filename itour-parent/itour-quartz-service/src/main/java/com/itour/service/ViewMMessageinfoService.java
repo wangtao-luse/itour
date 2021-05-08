@@ -1,21 +1,21 @@
 package com.itour.service;
 
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
-
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.msg.ViewMMessageinfo;
+import com.itour.model.quartz.dto.ViewMMessageinfo;
 import com.itour.persist.ViewMMessageinfoMapper;
+import com.itour.service.ViewMMessageinfoService;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -23,10 +23,10 @@ import com.itour.persist.ViewMMessageinfoMapper;
  * </p>
  *
  * @author wangtao
- * @since 2020-07-17
+ * @since 2021-05-08
  */
 @Service
-public class ViewMMessageinfoService extends ServiceImpl<ViewMMessageinfoMapper, ViewMMessageinfo> {
+public class ViewMMessageinfoService extends ServiceImpl<ViewMMessageinfoMapper, ViewMMessageinfo>{
 	public ResponseMessage queryViewMessageList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {

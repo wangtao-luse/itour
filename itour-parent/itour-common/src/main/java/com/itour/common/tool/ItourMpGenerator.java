@@ -33,7 +33,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_TRAVEL;
+  			 String model=ItourMpGenerator.MODEL_QUARTZ;
   			        
   			        
   			 /**
@@ -43,7 +43,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"view_travel_column"};
+  			 String [] include= new String[] {"view_m_messageinfo"};
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -113,7 +113,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 
             // 策略配置
             StrategyConfig strategy = new StrategyConfig();
-            String [] tablePrefix = new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_","t_d_","t_t_"};
+            String [] tablePrefix = new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_","t_d_","t_t_",""};
             tablePrefix =tableprefix.length<=0?tablePrefix:tableprefix;
             strategy.setTablePrefix(tablePrefix);// 此处可以修改为您的表前缀
             strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略

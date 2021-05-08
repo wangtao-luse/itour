@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +17,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.MessageConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantMessage;
-import com.itour.model.msg.Messageinfo;
+import com.itour.model.quartz.Messageinfo;
 import com.itour.util.DateUtil;
 import com.itour.util.MessageUtil;
 

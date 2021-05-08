@@ -1,4 +1,4 @@
-package com.itour.model.msg;
+package com.itour.model.quartz;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 消息发送记录表
+ * 
  * </p>
  *
  * @author wangtao
- * @since 2020-05-14
+ * @since 2021-05-08
  */
 @TableName("t_a_messageinfo")
 public class Messageinfo extends Model<Messageinfo> {
@@ -39,42 +39,41 @@ public class Messageinfo extends Model<Messageinfo> {
     /**
      * 发送者
      */
-    @TableField("`FROM`")
+    @TableField("FROM")
     private String from;
 
     /**
      * 接受者
      */
-    @TableField("`TO`")
+    @TableField("TO")
     private String to;
 
-  
-
     /**
-     * 消息类型(email:邮件;phone:手机)
+     * 消息类型
      */
-    @TableField("`TYPE`")
+    @TableField("TYPE")
     private String type;
-
- 
 
     /**
      * 消息发送时间
      */
     @TableField("SENDTIME")
     private Long sendtime;
+
     /**
-     * 验证码的作用(1:注册验证码;2:找回密码验证码)
+     * 消息用途（1:注册验证码）
      */
     @TableField("AIM")
     private String aim;
+
     /**
-          * 来源 (1:前台用户 ;2:后台用户)
+     * 消息来源(1:前台;2后台)
      */
     @TableField("ORIGIN")
     private String origin;
+
     /**
-     * IP地址
+     * ip地址
      */
     @TableField("IP")
     private String ip;
@@ -119,18 +118,15 @@ public class Messageinfo extends Model<Messageinfo> {
         this.to = to;
     }
 
-  
-
     public String getType() {
         return type;
     }
 
-
     public void setType(String type) {
-		this.type = type;
-	}
+        this.type = type;
+    }
 
-	public Long getSendtime() {
+    public Long getSendtime() {
         return sendtime;
     }
 
@@ -138,36 +134,36 @@ public class Messageinfo extends Model<Messageinfo> {
         this.sendtime = sendtime;
     }
 
+    public String getAim() {
+        return aim;
+    }
+
+    public void setAim(String aim) {
+        this.aim = aim;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
     @Override
     protected Serializable pkVal() {
         return null;
     }
 
-    public String getAim() {
-		return aim;
-	}
-
-	public void setAim(String aim) {
-		this.aim = aim;
-	}
-
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-
-	@Override
+    @Override
     public String toString() {
         return "Messageinfo{" +
         ", id=" + id +
@@ -179,6 +175,7 @@ public class Messageinfo extends Model<Messageinfo> {
         ", sendtime=" + sendtime +
         ", aim=" + aim +
         ", origin=" + origin +
+        ", ip=" + ip +
         "}";
     }
 }

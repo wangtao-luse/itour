@@ -1,4 +1,5 @@
-package com.itour.model.msg;
+package com.itour.model.quartz.dto;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -8,8 +9,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-07-17
+ * @since 2021-05-08
  */
+@TableName("view_m_messageinfo")
 public class ViewMMessageinfo extends Model<ViewMMessageinfo> {
 
     private static final long serialVersionUID = 1L;
@@ -35,26 +37,26 @@ public class ViewMMessageinfo extends Model<ViewMMessageinfo> {
     /**
      * 发送者
      */
-    @TableField("`FROM`")
+    @TableField("FROM")
     private String from;
 
     /**
      * 接受者
      */
-    @TableField("`TO`")
+    @TableField("TO")
     private String to;
 
     /**
      * 消息类型
      */
-    @TableField("`TYPE`")
+    @TableField("TYPE")
     private String type;
 
     /**
      * 消息发送时间
      */
     @TableField("SENDTIME")
-    private Integer sendtime;
+    private Long sendtime;
 
     /**
      * 消息用途（1:注册验证码）
@@ -134,11 +136,11 @@ public class ViewMMessageinfo extends Model<ViewMMessageinfo> {
         this.type = type;
     }
 
-    public Integer getSendtime() {
+    public Long getSendtime() {
         return sendtime;
     }
 
-    public void setSendtime(Integer sendtime) {
+    public void setSendtime(Long sendtime) {
         this.sendtime = sendtime;
     }
 

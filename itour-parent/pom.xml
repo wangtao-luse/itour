@@ -20,10 +20,7 @@
     <module>itour-travel-api</module>
     <module>itour-work-api</module>
     <module>itour-work-service</module>
-    <module>itour-work-persist</module>
-    <module>itour-msg-api</module>
-    <module>itour-msg-persist</module>
-    <module>itour-msg-service</module>
+    <module>itour-work-persist</module>    
     <module>itour-member-persist</module>
     <module>itour-member-api</module>
     <module>itour-member-service</module>
@@ -419,11 +416,9 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>
-                <server.msg.port>9097</server.msg.port>
+                <server.demo.port>9096</server.demo.port>                
                 <server.member.port>9098</server.member.port>
-                <server.dictionary.port>9099</server.dictionary.port>
-                
+                <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
@@ -480,8 +475,7 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>
-                <server.msg.port>9097</server.msg.port>
+                <server.demo.port>9096</server.demo.port>                
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
@@ -541,8 +535,7 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>
-                <server.msg.port>9097</server.msg.port>
+                <server.demo.port>9096</server.demo.port>                
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
@@ -602,8 +595,7 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>
-                <server.msg.port>9097</server.msg.port>
+                <server.demo.port>9096</server.demo.port>                
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>

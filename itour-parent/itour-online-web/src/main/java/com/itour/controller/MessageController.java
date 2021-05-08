@@ -17,7 +17,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.MessageConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantMessage;
-import com.itour.model.msg.Messageinfo;
+import com.itour.model.quartz.Messageinfo;
 import com.itour.util.DateUtil;
 import com.itour.util.MessageUtil;
 import com.itour.util.StringHelper;
@@ -54,7 +54,6 @@ public class MessageController {
 		   Date addSecond = DateUtil.addSecond(new Date(), 120);
 		   HttpSession session = request.getSession();
 		   session.setAttribute(uuid, code+","+(addSecond.getTime()));
-		   //session.setMaxInactiveInterval(120);
 	   }
 	    return responseMessage;
 	}

@@ -1,7 +1,7 @@
 package com.itour.persist;
 
+import com.itour.model.quartz.dto.ViewMMessageinfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.msg.ViewMMessageinfo;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.itour.model.msg.ViewMMessageinfo;
  * </p>
  *
  * @author wangtao
- * @since 2020-07-17
+ * @since 2021-05-08
  */
 public interface ViewMMessageinfoMapper extends BaseMapper<ViewMMessageinfo> {
 

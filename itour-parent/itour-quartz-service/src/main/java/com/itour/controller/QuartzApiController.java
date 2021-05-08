@@ -7,11 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.quartz.api.QuartzApi;
+import com.itour.service.MessageinfoService;
 import com.itour.service.QrtzJobDetailsService;
+import com.itour.service.ViewMMessageinfoService;
 @RestController
 public class QuartzApiController implements QuartzApi {
 	@Autowired
 	QrtzJobDetailsService qrtzJobDetailsService;
+	@Autowired
+	MessageinfoService messageinfoService;
+	@Autowired
+	ViewMMessageinfoService viewMMessageinfoService;
 	/**
 	 * 定时任务列表
 	 * @param requestMessage
@@ -77,5 +83,29 @@ public ResponseMessage queryJobList(@RequestBody RequestMessage requestMessage) 
 	public ResponseMessage getTrigger(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return this.qrtzJobDetailsService.getTrigger(requestMessage);
+	}
+	/**
+	 * 发送email
+	 */
+	@Override
+	public ResponseMessage sendEmailCode(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return messageinfoService.sendEmail(requestMessage);
+	}
+	/**
+	 * 查看消息列表
+	 */
+	@Override
+	public ResponseMessage queryMessageList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return messageinfoService.queryMessageList(requestMessage);
+	}
+	/**
+	 * 查看消息列表
+	 */
+	@Override
+	public ResponseMessage queryViewMessageList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewMMessageinfoService.queryViewMessageList(requestMessage);
 	}
 }

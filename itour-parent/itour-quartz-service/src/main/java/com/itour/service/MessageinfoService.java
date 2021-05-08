@@ -1,9 +1,21 @@
 package com.itour.service;
 
-import java.util.Date;
+import com.itour.common.req.RequestMessage;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.constant.ConstantMessage;
+import com.itour.exception.BaseException;
+import com.itour.model.quartz.Messageinfo;
+import com.itour.persist.MessageinfoMapper;
+import com.itour.service.MessageinfoService;
+import com.itour.util.DateUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,20 +29,16 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.itour.common.req.RequestMessage;
-import com.itour.common.resp.ResponseMessage;
-import com.itour.constant.Constant;
-import com.itour.constant.ConstantMessage;
-import com.itour.exception.BaseException;
-import com.itour.model.msg.Messageinfo;
-import com.itour.persist.MessageinfoMapper;
-import com.itour.util.DateUtil;
+/**
+ * <p>
+ *  服务实现类
+ * </p>
+ *
+ * @author wangtao
+ * @since 2021-05-08
+ */
 @Service
-public class MessageinfoService  extends ServiceImpl<MessageinfoMapper, Messageinfo> {
+public class MessageinfoService extends ServiceImpl<MessageinfoMapper, Messageinfo> {
 	/**
 	 * 发送email
 	 * @param email
@@ -109,6 +117,11 @@ public static void main(String[] args) throws MessagingException {
 		           System.out.println("邮件发送成功...");
 		           transport.close();
 }
+/**
+ * 查看发送的消息列表
+ * @param requestMessage
+ * @return
+ */
 public ResponseMessage queryMessageList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
