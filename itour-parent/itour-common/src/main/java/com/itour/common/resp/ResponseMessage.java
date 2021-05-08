@@ -66,8 +66,6 @@ public final class ResponseMessage implements Serializable {
 		  this.returnResult = map;
 	  }
 	  
-	 
-
 
 	public  ResponseMessage add(Object object) {
 		this.returnResult.put("data", object);

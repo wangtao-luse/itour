@@ -249,6 +249,7 @@ private void commentList(Long id, ModelMap model, HttpServletRequest request,Pag
 		List<ViewTravelComment> commentList = resultPage.getRecords();
 		model.addAttribute("commentList", commentList);
 		model.addAttribute(Constant.COMMON_KEY_PAGE, resultPage);
+		model.addAttribute(ConstantTravel.TRAVEL_COMMENTSIZE, returnResult.get(ConstantTravel.TRAVEL_COMMENTSIZE));
 	}
 	
 }

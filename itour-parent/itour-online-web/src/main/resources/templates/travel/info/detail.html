@@ -63,7 +63,13 @@
 	    									  ${travelInfo.readCount}
 	    									@}
 	    									<span class="split-dot"></span>
-	    									<span class="datePublished">发布于 ${travelInfo.publishtime,dateFormat='yyyy-MM-dd HH:mm'}</span>
+	    									<span class="datePublished">
+	    									 @if(isNotEmpty(travelInfo.updatetime)){
+	    									        最后发布于 ${travelInfo.updatetime,dateFormat='yyyy-MM-dd HH:mm'}
+	    									 @}else{
+	    									         发布于 ${travelInfo.publishtime,dateFormat='yyyy-MM-dd HH:mm'}
+	    									 @}
+	    									</span>
 	    								</div>
 	    								
 	    								

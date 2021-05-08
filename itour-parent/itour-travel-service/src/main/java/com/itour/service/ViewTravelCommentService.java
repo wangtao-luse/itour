@@ -2,7 +2,9 @@ package com.itour.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantTravel;
 import com.itour.entity.PageInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.persist.ViewCommentReplyMapper;
 import com.itour.persist.ViewTravelCommentMapper;
+import com.itour.util.FastJsonUtil;
 
 
 /**
@@ -60,18 +64,25 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 			queryWrapper.eq("TID", comment.getTid());
 		}
 		queryWrapper.orderByDesc("CTIME");
-		if(StringUtils.isEmpty(pageVo)) {
+		if(StringUtils.isEmpty(pageVo)) {//获取文章下的评论及回复
 			List<ViewTravelComment> commentList = this.baseMapper.selectList(queryWrapper);
 			//3.获取对应文章评论下的回复
-			List<ViewTravelComment> resultList = getCommentList(commentList,getuId);
-			responseMessage.setReturnResult(resultList);
+			Map<String, Object> cList = getCommentList(commentList,getuId);
+			responseMessage.setReturnResult(cList);
 		}else {
 			PageInfo page = pageVo.toJavaObject(PageInfo.class);
 			PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
 			//3.获取对应文章评论下的回复
-			List<ViewTravelComment> resultList = getCommentList(selectPage.getRecords(),getuId);
-			Page resultPage = selectPage.setRecords(resultList);			
+			Map<String, Object> commentList = getCommentList(selectPage.getRecords(),getuId);
+			List<ViewTravelComment> resultList = FastJsonUtil.mapToList(commentList, ViewTravelComment.class);
+			Page resultPage = selectPage.setRecords(resultList);
+			long total = selectPage.getTotal();
+			Integer  replaysize =(Integer)commentList.get(ConstantTravel.TRAVEL_REPLYSIZE);
 			responseMessage.setReturnResult(resultPage);
+			if(!StringUtils.isEmpty(replaysize)) {
+				responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total+replaysize);
+			}
+			
 		}
 		
 	} catch (Exception e) {
@@ -87,7 +98,8 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
  * @param uid
  * @return
  */
-public List<ViewTravelComment> getCommentList(List<ViewTravelComment> commentList,String uid) {
+public Map<String,Object> getCommentList(List<ViewTravelComment> commentList,String uid) {
+	Map<String,Object> result = new HashMap<String, Object>();
 	String collect = commentList.stream().map(ViewTravelComment::getId).map(String::valueOf).collect(Collectors.joining(","));
 	QueryWrapper<ViewCommentReply> wrapper = new QueryWrapper<ViewCommentReply>();
 	wrapper.in(!StringUtils.isEmpty(collect),"COMMENT_ID", collect.split(","));	
@@ -112,6 +124,8 @@ public List<ViewTravelComment> getCommentList(List<ViewTravelComment> commentLis
 		}
 		vComment.setvCommentReplyList(rList);
 	}
-	return commentList;
+	result.put(ConstantTravel.TRAVEL_REPLYSIZE, replyList.size());
+	result.put(Constant.COMMON_KEY_RESULT, commentList);
+	return result;
 }
 }
