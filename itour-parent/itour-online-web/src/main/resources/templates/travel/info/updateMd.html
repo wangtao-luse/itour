@@ -214,6 +214,7 @@
 		$(function(){
 			$(".article-title-wrp .article-title-text").trigger("keyup");
 			$("#js_description").trigger("keyup");
+			$("#edit-md-area").trigger("keyup");
 			$("#js_cover_area .js_cover_loading").css("visibility","hidden");
 			var path=$("#input-fileUpload-path").val();
 			$("#js_cover_area .first_appmsg_cover").css("background-image","url("+path.replace(/\\/g,"/")+")")
