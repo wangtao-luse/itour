@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.api.MessageApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.quartz.api.QuartzApi;
 
 @Service
 public class MessageConnector {
 	@Autowired
-	MessageApi mssageApi;
+	QuartzApi quartzApi;
 	/**
 	 * 发送验证码
 	 * @param jsonObject
@@ -23,7 +23,7 @@ public class MessageConnector {
 	 */
 	public ResponseMessage sendEmailCode(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage = mssageApi.sendEmailCode(postData);
+		ResponseMessage responseMessage = quartzApi.sendEmailCode(postData);
 		return responseMessage;
 	}
 	/**
@@ -34,7 +34,7 @@ public class MessageConnector {
 	 */
 	public ResponseMessage queryMessageList(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage = mssageApi.queryMessageList(postData);
+		ResponseMessage responseMessage = quartzApi.queryMessageList(postData);
 		return responseMessage;
 	}
 	/**
@@ -45,7 +45,7 @@ public class MessageConnector {
 	 */
 	public ResponseMessage queryViewMessageList(JSONObject jsonObject,HttpServletRequest request) {
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
-		ResponseMessage responseMessage = mssageApi.queryViewMessageList(postData);
+		ResponseMessage responseMessage = quartzApi.queryViewMessageList(postData);
 		return responseMessage;
 	}
 }

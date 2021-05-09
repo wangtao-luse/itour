@@ -36,11 +36,6 @@
 	</dependency>
 	<dependency>
 		<groupId>com.itour</groupId>
-		<artifactId>itour-msg-api</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-	<dependency>
-		<groupId>com.itour</groupId>
 		<artifactId>itour-travel-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
@@ -64,6 +59,11 @@
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-spring</artifactId>
     </dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-quartz-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName> 
