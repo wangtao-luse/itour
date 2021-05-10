@@ -23,6 +23,7 @@ import com.itour.entity.PageInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelComment;
+import com.itour.model.vo.Orderby;
 import com.itour.persist.ViewCommentReplyMapper;
 import com.itour.persist.ViewTravelCommentMapper;
 import com.itour.util.FastJsonUtil;
@@ -57,13 +58,24 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 		queryWrapper.eq(!StringUtils.isEmpty(comment.getTid()), "TID", comment.getTid());
 		String getuId = requestMessage.getBody().getuId();
 		queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKED);
+		List<Orderby> orderbyList = comment.getOrderbyList();
 		if(!StringUtils.isEmpty(getuId)) {
 			queryWrapper.or();
 			queryWrapper.eq("STATUS", Constant.COMMON_STATUS_CHECKING);
 			queryWrapper.eq("UID", getuId);
 			queryWrapper.eq("TID", comment.getTid());
 		}
-		queryWrapper.orderByDesc("CTIME");
+		if(null!=orderbyList&&orderbyList.size()>0) {
+			for (Orderby orderby : orderbyList) {
+				String sortRule = orderby.getSortRule();
+				String sortType = orderby.getSortType();
+				if("1".equals(sortRule)){
+					queryWrapper.orderByAsc(sortType);
+				}else{
+					queryWrapper.orderByDesc(sortType);
+				} 
+			}
+		}
 		if(StringUtils.isEmpty(pageVo)) {//获取文章下的评论及回复
 			List<ViewTravelComment> commentList = this.baseMapper.selectList(queryWrapper);
 			//3.获取对应文章评论下的回复

@@ -1,9 +1,11 @@
 package com.itour.model.travel.dto;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.io.Serializable;
+import java.util.List;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.Orderby;
 /**
  * <p>
  * VIEW
@@ -87,7 +89,7 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
      */
     @TableField("TO_NICKNAME")
     private String toNickname;
-
+   
     public Integer getNiceCount() {
 		return niceCount;
 	}
@@ -187,8 +189,7 @@ public class ViewCommentReply extends Model<ViewCommentReply> {
     }
 
    
-
-    @Override
+	@Override
     protected Serializable pkVal() {
         return null;
     }

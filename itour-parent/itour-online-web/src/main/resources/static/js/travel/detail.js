@@ -1,5 +1,5 @@
 $(function(){
-	query();
+	query(new Array());
 	$(document).on("click","#comment-form",function(e){
 		var hasOpen =$("#comment_contentNew").hasClass("open");
 		if(hasOpen){
@@ -66,7 +66,7 @@ $(function(){
 			var cid = $(this).attr("cid");
 			var data={id:cid};
 			postAjax("/travel/delComment", JSON.stringify(data), function (result) {
-				query();
+				query(new Array());
 		    }, {errorFunction:function(result){
 		    	console.log(result);
 		    },cache: false, async: false});
@@ -78,7 +78,7 @@ $(function(){
 			var rid = $(this).attr("rid");
 			var data={id:rid};
 			postAjax("/travel/delCommentReply", JSON.stringify(data), function (result) {
-				query();
+				query(new Array());
 			}, {errorFunction:function(result){
 				console.log(result);
 			},cache: false, async: false});
@@ -150,6 +150,23 @@ $(function(){
 		var id = $("#tid").val();
 		location.href=ctxPath+"/travel/updateMd?id="+id;
 	})
+	$(document).on("click","#topbar-options-btn",function(){
+		var order = $("#order").val();
+		var arr = new Array();
+		var orderby = {};
+		    orderby.sortType="CTIME";
+		    orderby.sortRule=order;
+		    arr.push(orderby);
+		if("1"==order){
+			$("#order").val("0");
+			$(this).text("切换为默认的排序方式");
+			query(arr);
+		}else if("0"==order){
+			$("#order").val("1");
+			$(this).text("切换为时间升序排序");
+			query(arr);
+		}
+	})
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);
@@ -177,7 +194,7 @@ function comment(){
 	postAjax("/travel/insertComment", JSON.stringify(data), function (result) {
 		$("#comment_content").val("");
 		outMsg("评论成功,审核后显示","#ct-mask");
-		query();
+		query(new Array());
     }, {errorFunction:function(result){
     	console.log(result);
     },cache: false, async: false});
@@ -187,10 +204,18 @@ function closeMask($this){
 	var mask = $($this).attr("id");
 	$("#"+mask).css("display","none");
 }
-function query(){
+function query(list){
 	var pageNo =1;
 	var id=$("#tid").val();
-	var data={"id":id,"page":{"current":pageNo}};
+	var arr = new Array();
+	var orderby = {};
+	    orderby.sortType="CTIME";
+	    orderby.sortRule="0";
+	    arr.push(orderby);
+	if(list.length>0){
+		arr=list;
+	}    
+	var data={"id":id,"orderbyList":arr,"page":{"current":pageNo}};
 	var url="/travel/commentList?ajaxCmd=commentList";
 	postForm(url, JSON.stringify(data), function (result) {
 		$("#comment-container").html(result);

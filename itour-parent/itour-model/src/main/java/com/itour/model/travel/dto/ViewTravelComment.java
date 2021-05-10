@@ -5,6 +5,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.Orderby;
 /**
  * <p>
  * VIEW
@@ -76,7 +77,8 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
      */
     @TableField(exist = false)
     private List<ViewCommentReply> vCommentReplyList;
-
+    @TableField(exist = false)
+    private List<Orderby> orderbyList;
     public Long getId() {
         return id;
     }
@@ -162,6 +164,14 @@ public class ViewTravelComment extends Model<ViewTravelComment> {
 
 	public void setvCommentReplyList(List<ViewCommentReply> vCommentReplyList) {
 		this.vCommentReplyList = vCommentReplyList;
+	}
+
+	public List<Orderby> getOrderbyList() {
+		return orderbyList;
+	}
+
+	public void setOrderbyList(List<Orderby> orderbyList) {
+		this.orderbyList = orderbyList;
 	}
 
 	@Override

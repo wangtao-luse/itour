@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -183,6 +184,7 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 
 
 @RequestMapping("/mdEdit")
+@RequiresPermissions("/travel/mdEdit")
 public String md() {
 	return "/travel/info/md";
 }
@@ -202,7 +204,7 @@ public String commentList(@RequestBody JSONObject jsonObject,ModelMap model,Stri
 	//1.获取旅行信息
 	 travelInfo(id, model, request);
 	//2.获取评论信息;
-	commentList(id, model, request,pageVo);
+	commentList(jsonObject, model, request,pageVo);
 	 model.addAttribute("id", id);
 	return "/travel/info/commentList#"+ajaxCmd;	
 }
@@ -235,9 +237,10 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 		 }
 	}
 }
-private void commentList(Long id, ModelMap model, HttpServletRequest request,Page page) {
+private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest request,Page page) {
 	JSONObject jsonObject = new JSONObject();
-	 jsonObject.put("tid", id);
+	 jsonObject.put("tid", jsonTmp.getLong("id"));
+	 jsonObject.put("orderbyList", jsonTmp.getJSONArray("orderbyList"));
 	 page.setSize(10);
 	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
