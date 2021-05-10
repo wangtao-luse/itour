@@ -214,8 +214,9 @@ function query(list){
 	    arr.push(orderby);
 	if(list.length>0){
 		arr=list;
-	}    
-	var data={"id":id,"orderbyList":arr,"page":{"current":pageNo}};
+	}  
+	var order =$("#order").val();
+	var data={"id":id,"order":order,"orderbyList":arr,"page":{"current":pageNo}};
 	var url="/travel/commentList?ajaxCmd=commentList";
 	postForm(url, JSON.stringify(data), function (result) {
 		$("#comment-container").html(result);

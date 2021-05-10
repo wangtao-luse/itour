@@ -206,6 +206,7 @@ public String commentList(@RequestBody JSONObject jsonObject,ModelMap model,Stri
 	//2.获取评论信息;
 	commentList(jsonObject, model, request,pageVo);
 	 model.addAttribute("id", id);
+	 model.addAttribute("order", jsonObject.getString("order"));	 
 	return "/travel/info/commentList#"+ajaxCmd;	
 }
 private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
