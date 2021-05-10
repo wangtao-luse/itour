@@ -627,7 +627,7 @@
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>error</logging.level>
                 <!-- 图片滑动验证码 图片路径-->
-               <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
+               <prefix.verificationImagePathPrefix>/itour/imgs/</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
                  <wechat.api.requestUrl>https://api.weixin.qq.com</wechat.api.requestUrl>
                  <wechat.api.appid>wxf4c100beea39b4db</wechat.api.appid>
@@ -637,7 +637,7 @@
                 <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
                  <!-- 文件上传相关 -->
-                <fileupload.path>D:\\temp\\upload\\</fileupload.path>
+                <fileupload.path>/itour/upload/</fileupload.path>
             </properties>
         </profile>
     </profiles>
