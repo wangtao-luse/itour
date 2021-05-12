@@ -503,7 +503,7 @@ public String search(HttpServletRequest request,ModelMap model) {
 public String personCenter(HttpServletRequest request,ModelMap model) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("account", sessionUser);
-	return "/travel/person/personCenter";
+	return "/account/personCenter";
 }
 /**
  * 编辑页面

@@ -1,93 +1,28 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<link rel="stylesheet" href="../../css/itour/common.css" />
-		<link rel="stylesheet" href="../../css/itour/index.css" />
-		<script type="text/javascript" src="../../js/common/jquery-3.4.1.js.js" ></script>
-		<script type="text/javascript" src="../../js/itour/index.js" ></script>
-		
-	</head>
-	<body>
-		<div id="itour-banner">
-			<div class="bnner-inside">
-				<div class="banner-container">
-					<div class="banner-logo itour-banner-fl">
-						<a href="#"><img src="../../img/itour/common/itour-logo.png" /></a>
-					</div>
-					<ul class="banner-menus itour-banner-fl">
-						<li><a href="#" target="_blank">首页</a></li>
-						<li><a href="#" target="_blank">博客</a></li>
-						<li><a href="#" target="_blank">糖友</a></li>
-						<li><a href="#" target="_blank">寻觅佳人</a></li>
-						<li><a href="#" target="_blank">发现网站</a></li>
-						<li><a href="#" target="_blank">发现电影</a></li>
-					</ul>
-					<div class="banner-serach itour-banner-fl">
-						<div class="banner-serach-container">
-							<input type="text" class="banner-search-input" maxlength="100" autocomplete="off" placeholder="上海有那些好玩的地方"/>
-						<button type="button" class="banner-search-button"></button>
-						</div>
-						
-					</div>
-					<div class="banner-btns itour-banner-fr">
-						<div class="banner-btn banner-btn-write toolbar-subMenu-box itour-banner-fl">
-							<a href="#">
-								<i></i>创作中心
-							</a>
-							<div class="toolbar-subMenu">
-								<a href="#">写博客</a>
-							    <a href="#">写攻略</a>
-							</div>
-						</div>
-					    <a href="#" target="_blank" class="banner-btn banner-btn-collect itour-banner-fl">收藏</a>
-					   <div class="banner-btn banner-btn-msg  itour-banner-fl">
-					   	 <div class="toolbar-subMenu-box">
-					   	 	  <a href="#" target="_blank">消息</a>
-						   	  <div class="toolbar-subMenu">
-						   	  	<a href="#">公告</a>
-						   	  	<a href="#">评论</a>
-						   	  	<a href="#">关注</a>
-						   	  	<a href="#">点赞</a>
-						   	  	<a href="#">私信</a>
-						   	  	<a href="#">回答</a>
-						   	  	<a href="#">系统通知</a>
-						   	  	<a href="#">消息设置</a>
-						     </div>
-					   	 </div>					   	 
-					   </div>
-					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: block;">
-					   	 <a class="hasAvatar" href="#"><img src="../../img/itour/common/avatar-1.jpg" /></a>
-					   	 <div class="toolbar-subMenu">
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-blog"></i>我的博客</a>
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-account"></i>设置</a>
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-logout"></i>退出</a>
-					   	 </div>
-					   </div>
-					   <div class="banner-btn-login itour-banner-fl" style="display: none;">
-					   	   <a class="" href="#">登录</a>
-					   	   <a class="" href="#">注册</a>
-					   </div>
-					</div>
-				</div>
-			</div>
-		</div>
+@layout("/layout/template.html",{title:'爱旅行-搜索'}){
+<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/travel/person/personCenter.js" ></script>
 	    <div class="userCenter">
 	    	<div class="infoMsgHead">
 	    		<div class="infoMsgHead-inner">
 	    			<div class="user-left">
+	    			    <label>
 	    				<div class="user-img">
-	    					<img src="../../img/itour/common/avatar-1.jpg" />
+	    				   @if(isEmpty(user.avatar)){
+	    				   <img src="${ctxPath}/img/common/avatar-5.webp" />
+	    				   @}else{
+	    				   <img src="${account.avatar}" />
+	    				   @}
+	    					
 	    					<p class="modify-img">上传头像</p>
+	    					<form id="form_upload" method="post"  enctype="multipart/form-data" >
+	    					<input type="file" name="file" class="input-fileUpload" onchange="upload_file()" >
+	    					</form>
 	    				</div>
-	    				
+	    				</label>
 	    			</div>
 	    			<div class="user-info">
 	    				<p class="id-msg">
-	    					<span class="user-id">爱旅行SHOW</span>
+	    					<span class="user-id">${user.nickname}</span>
 	    					<span class="adv-cer">
 	    						<button type="button" class="button button--blue">编辑个人资料</button>
 	    					</span>
@@ -606,19 +541,7 @@
 	    		</div>
 	    	</div>
 	    	<div class="profile-sideColumn">
-	    		<div class="card wechat-follow-wrap">
-	   	 	     	<div class="wechat-follow-title">
-	   	 	     		<span>
-	   	 	     			<img class="wechat-icon" src="../../img/itour/common/wechat_icon.png" height="18" />
-	   	 	     			微信关注
-	   	 	     		</span>
-	   	 	     		
-	   	 	     	</div>
-	   	 	     	<div class="wechat-follow-con">
-	   	 	     		<img src="../../img/itour/common/qrcode.jpg" class="wechat-scan" width="96" />
-	   	 	     			"爱旅行SHOW",提供最优旅行攻略，让旅行变得简单,	 有趣！			   	 	     		
-	   	 	     	</div>
-	   	 	     </div>
+	    		 @include("../layout/public/wechat-follow.html"){}
 	    	</div>
 	    </div>
 	    <div>
@@ -643,5 +566,50 @@
 	    		</div>
 	    	</div>
 	    </div>
-	</body>
-</html>
+		<div class="modi_dialog upload-dialog" style="display:none">
+			<div class="vue-image-crop-upload">
+				<div class="vicp-wrap">
+					<div class="vicp-close"><i class="vicp-icon4 vic-icon">x</i></div>
+					<h3 class="upword">上传图像</h3>
+					<h3 class="upword" style="display: none;">修改图像</h3>
+					<div class="vicp-step1" >
+						<div class="vicp-drop-area">
+							<img src="${ctxPath}/img/common/upload.png" class="vicp-icon1" />
+							<span class="vicp-hint">点击或拖动图片至此处</span>
+								<input type="file" style="display: none;">
+						</div>
+						<div class="vicp-operate">
+							<a>取消</a>
+						</div>
+					</div>
+					<p class="img_tip1">图片宽度*高度至少为150*150像素，大小不超过2MB</p>
+					<div class="vicp-step2" style="display: none;" >
+						<div class="vicp-crop">
+							<div class="vicp-crop-left">
+								<div class="vicp-img-container">
+									<img src="../../img/itour/common/avatar-3.jpg"  class="vicp-img"  style="height: 184px;" />
+								</div>
+								<div class="vicp-range">
+									<input type="range" step="1" min="0" max="100" />
+									<i class="vicp-icon5"></i>
+									<i class="vicp-icon6">+</i>
+								</div>
+							</div>
+							<div class="vicp-crop-right">
+								<div class="vicp-preview">
+									<div class="vicp-preview-item vicp-preview-item-circle">
+										<img src="../../img/itour/common/avatar-3.jpg" style="width: 100px;height: 100px;">
+										<span>图像预览</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="vicp-operate">
+							<a>上一步</a>
+							<a class="vicp-operate-btn">上传并保存</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+@}
