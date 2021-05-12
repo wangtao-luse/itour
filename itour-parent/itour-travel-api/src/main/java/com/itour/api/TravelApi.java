@@ -532,6 +532,13 @@ ResponseMessage queryViewTravelColumnList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/selectRegionOne",produces = {"application/json;charset=UTF-8"})
 ResponseMessage selectRegionOne(RequestMessage requestMessage);
+/**
+ * 个人中心列表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryPersonCenterList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryPersonCenterList(RequestMessage requestMessage);
 
 
 }

@@ -32,4 +32,15 @@
        	update t_t_travel_info set pv=IFNULL(pv,0)+#{pv}  where id=#{id}     	
        </foreach>
     </update>
+    <select id="selectDynamicList" parameterType="Map" resultType="Map">
+    	SELECT  1 dynamic,c.*  FROM t_t_travel_info c WHERE c.UID=#{uid} 
+    	<if test="type == '1'">
+		UNION 
+		SELECT 2 dynamic,c.* FROM t_t_travel_info c WHERE c.id IN(SELECT TID FROM t_t_nice c WHERE c.UID=#{uid} and c.`STATUS`='1')
+		UNION
+		SELECT 3 dynamic,c.* FROM t_t_travel_info c WHERE  c.ID IN(SELECT TID FROM t_t_travel_comment c WHERE uid=#{uid} and c.`STATUS`='30')
+		UNION
+		SELECT 3 dynamic,c.* FROM t_t_travel_info c WHERE c.id IN(SELECT tid FROM t_t_travel_comment  c WHERE c.ID IN(SELECT c.comment_ID FROM t_t_comment_reply c WHERE c.from_uid=#{uid} and c.`STATUS`='30'))
+		</if>
+    </select>
 </mapper>

@@ -654,6 +654,14 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return regionService.selectRegionOne(requestMessage);
 	}
+	/**
+	 * 个人中心列表
+	 */
+	@Override
+	public ResponseMessage queryPersonCenterList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.travelInfoService.queryPersonCenterList(requestMessage);
+	}
 	
 	
 	

@@ -576,4 +576,15 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
 
 	return "/travel/info/updateMd";
 }
+/**
+ * 我的主页列表查询
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/queryPersonCenterList")
+public ResponseMessage queryPersonCenterList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage resp = this.travelConnector.queryPersonCenterList(jsonObject, request);
+	return resp;
+}
 }

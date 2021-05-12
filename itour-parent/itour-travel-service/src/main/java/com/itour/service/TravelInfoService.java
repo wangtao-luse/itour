@@ -3,8 +3,10 @@ package com.itour.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -31,6 +32,7 @@ import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.TravelTag;
 import com.itour.model.travel.TravelinfoColumn;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.vo.PageInfo;
 import com.itour.persist.TagMapper;
 import com.itour.persist.TravelColumnMapper;
 import com.itour.persist.TravelInfoMapper;
@@ -346,6 +348,30 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			 m.put(uid+"::"+tid, n);
 			 redisManager.hmSset(RedisKey.KEY_NICE, m);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return response;
+	}
+	/**
+	 * 个人中心
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage queryPersonCenterList(RequestMessage requestMessage) {
+		ResponseMessage response = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
+			String type = jsonObject.getString("type");
+			String uid = jsonObject.getString("uid");
+			Map map = new HashMap<String, Object>();
+			map.put("uid", uid);
+			map.put("type", type);			
+			Map selectDynamicList = this.baseMapper.selectDynamicList(page,map);
+			response.setReturnResult(selectDynamicList);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

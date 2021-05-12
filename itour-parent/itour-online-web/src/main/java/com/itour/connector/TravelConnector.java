@@ -376,6 +376,18 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.selectRegionOne(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 我的主页列表查询
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryPersonCenterList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryPersonCenterList(requestMessage);
+		return responseMessage;
+	}
 	
 	
 }
