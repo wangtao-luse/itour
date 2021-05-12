@@ -30,6 +30,8 @@ import org.springframework.web.context.WebApplicationContext;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.OnlienApp;
 import com.itour.common.vo.ExUsernamePasswordToken;
+import com.itour.constant.Constant;
+import com.itour.model.vo.PageInfo;
 
 /***https://blog.csdn.net/qq_35915384/article/details/80227297
  * 1.添加@RunWith(SpringRunner.class)
@@ -71,21 +73,22 @@ public class TestSpringboot {
         mockHttpServletRequest.setSession(mockHttpSession);
         SecurityUtils.setSecurityManager(securityManager);
 
-        login("1712854561@qq.com", "top958958");
+        //login("1712854561@qq.com", "top958958");
     }
 	private void login(String username, String password) {
 		//https://www.freesion.com/article/1793181827/
 	        subject = new WebSubject.Builder(mockHttpServletRequest, mockHttpServletResponse).buildWebSubject();
 	        String ip = mockHttpServletRequest.getLocalAddr();
 	        String cname=null;
-	        JSONObject jsonObject = new JSONObject();	        
+	        JSONObject jsonObject = new JSONObject();
+	        jsonObject.put("ip", "127.0.0.1");
 			ExUsernamePasswordToken token = new ExUsernamePasswordToken(username, password, ip,cname,jsonObject,mockHttpServletRequest);
 	        subject.login(token);
 	        ThreadContext.bind(subject);
 	}
 
 		
-	@Test
+	//@Test
 	public void testInsert() throws Exception {
 		//2.构建请求
 		String url ="/travel/inserTravelTag";
@@ -104,5 +107,21 @@ public class TestSpringboot {
 	        String result = mvcResult.getResponse().getContentAsString();
 	        System.out.println("客户端获得反馈数据:" + result);
 
+	}
+	@Test
+	public void testPersonCenterList() throws Exception {
+		String url ="/travel/queryPersonCenterList";
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("uid", "10000");
+		jsonObject.put("type", "1");
+		jsonObject.put(Constant.COMMON_KEY_PAGE, new PageInfo());
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(url)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
+						.content(jsonObject.toJSONString().getBytes())
+						.accept(MediaType.APPLICATION_JSON_VALUE);
+		ResultActions perform = mockMvc.perform(requestBuilder);
+		MvcResult mvcReturn = perform.andReturn();
+		String result = mvcReturn.getResponse().getContentAsString();
+		System.out.println("testPersonCenterList: "+result);
 	}
 }

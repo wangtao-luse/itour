@@ -370,7 +370,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			Map map = new HashMap<String, Object>();
 			map.put("uid", uid);
 			map.put("type", type);			
-			Map selectDynamicList = this.baseMapper.selectDynamicList(page,map);
+			Map selectDynamicList = this.baseMapper.selectDynamicList(map,page);
 			response.setReturnResult(selectDynamicList);
 		} catch (Exception e) {
 			// TODO: handle exception
