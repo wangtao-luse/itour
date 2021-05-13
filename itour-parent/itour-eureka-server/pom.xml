@@ -7,9 +7,7 @@
     <artifactId>itour-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.itour</groupId>
   <artifactId>itour-eureka-server</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>itour-eureka-server Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -17,7 +15,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -46,18 +43,18 @@
 			<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 			<!-- 指定标签 -->
 			<imageTags>
-				<imageTag>latest</imageTag>
+				<imageTag>${docker.imageTag}</imageTag>
 			</imageTags>
 			<!-- 基础镜像java 1.8 -->
 			<baseImage>java</baseImage>
 			<!-- 制作者提供本人信息 -->
-			<maintainer>wangtao wwangtaoc11@163.com</maintainer>
+			<maintainer>${docker.maintainer}</maintainer>
 			<!-- 切换到/root目录 -->
 			<workdir>/ROOT</workdir>
 			<cmd>["java","-version"]</cmd>
 			<entryPoint>["java","-jar","${project.build.finalName}.jar"]</entryPoint>
 			<!-- 指定远程docker api 地址 -->
-			<dockerHost>http://106.54.162.159:2375</dockerHost> 
+			<dockerHost>${docker.dockerHost}</dockerHost> 
 			<!-- 指定Dockerfile文件的位置
 			<dockerDirectory>src/main/docker</dockerDirectory> -->
 			<resources>

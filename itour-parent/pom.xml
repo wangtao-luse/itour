@@ -459,9 +459,13 @@
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
                 <!-- 文件上传相关 -->
                 <fileupload.path>D:\\temp\\upload\\</fileupload.path>
+                <!-- docker 相关-->
+                <docker.dockerHost>http://106.54.162.159:2375</docker.dockerHost>
+                <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
+                <docker.imageTag>latest</docker.imageTag>
             </properties>
         </profile>
-        <!--测试环境-->
+        <!--测试环境--> 
         <profile>
             <id>test</id>
             <activation>
@@ -519,6 +523,10 @@
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
                  <!-- 文件上传相关 -->
                 <fileupload.path>D:\\temp\\upload\\</fileupload.path>
+                 <!-- docker 相关-->
+                <docker.dockerHost>http://106.54.162.159:2375</docker.dockerHost>
+                <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
+                <docker.imageTag>latest</docker.imageTag>
             </properties>
         </profile>
          <!--模拟生产环境-->
@@ -579,6 +587,10 @@
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
                  <!-- 文件上传相关 -->
                 <fileupload.path>D:\\temp\\upload\\</fileupload.path>
+                 <!-- docker 相关-->
+                <docker.dockerHost>http://106.54.162.159:2375</docker.dockerHost>
+                <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
+                <docker.imageTag>latest</docker.imageTag>
             </properties>
         </profile>
         <!--生产环境 -->
@@ -638,6 +650,10 @@
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
                  <!-- 文件上传相关 -->
                 <fileupload.path>/itour/upload/</fileupload.path>
+                 <!-- docker 相关-->
+                <docker.dockerHost>http://1.116.226.147:2375</docker.dockerHost>
+                <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
+                <docker.imageTag>latest</docker.imageTag>
             </properties>
         </profile>
     </profiles>
