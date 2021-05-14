@@ -8,32 +8,25 @@
 3.itour-travel-service
   docker run -d --name itour-travel-service -p 9082:9082 ben/itour-travel-service  --restart=always
 
-4.itour-advert-service
-docker run -d --name itour-advert-service -p 9080:9080  ben/itour-advert-service  --restart=always
-
-5.itour-dictionary-service
+4.itour-dictionary-service
 docker run -d --name itour-dictionary-service -p 9099:9099  ben/itour-dictionary-service  --restart=always
 
-6.itour-msg-service
-docker run -d --name itour-msg-service -p 9097:9097  ben/itour-msg-service  --restart=always
 
-7.itour-quartz-service
+5.itour-quartz-service
 docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service --restart=always
 
-8.itour-member-service
+6.itour-member-service
 docker run -d --name itour-member-service -p 9098:9098  ben/itour-member-service --restart=always
 
-9.itour-online-manager-web
+7.itour-online-manager-web
 docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-manager-web --restart=always
 
-10.itour-online-web
+8.itour-online-web
 docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web --restart=always
 
-11.itour-work-service
+9.itour-work-service
 docker run -d --name itour-work-service -p 9083:9083 ben/itour-work-service --restart=always
 
-12.itour-demo-web
-docker run -d --name itour-demo-web -p 9096:9096 ben/itour-demo-web --restart=always
 
 Portainer
 docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer

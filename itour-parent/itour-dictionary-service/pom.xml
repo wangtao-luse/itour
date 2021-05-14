@@ -65,8 +65,8 @@
 			<maintainer>${docker.maintainer}</maintainer>
 			<!-- 切换到/root目录 -->
 			<workdir>/ROOT</workdir>
-			<cmd>["java","-version"]</cmd>
-			<entryPoint>["java","-jar","${project.build.finalName}.jar"]</entryPoint>
+			<cmd>${docker.cmd}</cmd>
+			<entryPoint>${docker.entryPoint}]</entryPoint>
 			<!-- 指定远程docker api 地址 -->
 			<dockerHost>${docker.dockerHost}</dockerHost> 
 			<!-- 指定Dockerfile文件的位置
