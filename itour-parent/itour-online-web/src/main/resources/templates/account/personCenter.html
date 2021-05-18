@@ -1,11 +1,10 @@
 @layout("/layout/template.html",{title:'爱旅行-搜索'}){
 <script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
-<script type="text/javascript" src="${ctxPath}/js/travel/person/personCenter.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/account/personCenter.js" ></script>
 	    <div class="userCenter">
 	    	<div class="infoMsgHead">
 	    		<div class="infoMsgHead-inner">
 	    			<div class="user-left">
-	    			    <label>
 	    				<div class="user-img">
 	    				   @if(isEmpty(user.avatar)){
 	    				   <img src="${ctxPath}/img/common/avatar-5.webp" />
@@ -15,10 +14,9 @@
 	    					
 	    					<p class="modify-img">上传头像</p>
 	    					<form id="form_upload" method="post"  enctype="multipart/form-data" >
-	    					<input type="file" name="file" class="input-fileUpload" onchange="upload_file()" >
+	    					<input type="file" name="file" class="uploadPicture-input"  >
 	    					</form>
 	    				</div>
-	    				</label>
 	    			</div>
 	    			<div class="user-info">
 	    				<p class="id-msg">
@@ -573,10 +571,10 @@
 					<h3 class="upword">上传图像</h3>
 					<h3 class="upword" style="display: none;">修改图像</h3>
 					<div class="vicp-step1" >
-						<div class="vicp-drop-area">
+						<div class="vicp-drop-area" id="drop_area">
 							<img src="${ctxPath}/img/common/upload.png" class="vicp-icon1" />
 							<span class="vicp-hint">点击或拖动图片至此处</span>
-								<input type="file" style="display: none;">
+							<input type="file" style="display: none;">
 						</div>
 						<div class="vicp-operate">
 							<a>取消</a>

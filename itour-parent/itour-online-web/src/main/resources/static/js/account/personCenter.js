@@ -1,3 +1,20 @@
+/**
+ * 1.文件上传(拖拽|点击)--预览--裁剪--上传
+ *  a.相关资料:
+ *    https://www.jb51.net/article/88803.htm
+ *    文件API
+ *     a.HTML5还提供了FileReader接口：用于将文件读入内存，并读取文件中的数据;
+ *     b.FileReader接口提供了四个方法和六个事件
+ *       方法：
+ *       1.readAsDataURL(file);读取文件DataURL
+ *       事件：
+ *       1.onload:读取文件成功时触发
+ *    拖放API
+ *     a.
+ *      
+ *       
+ * @returns
+ */
 $(function(){
 	
 	;(function($,undefined){
@@ -40,9 +57,7 @@ $(function(){
 	$(document).on("click",".modi_dialog .vicp-close,.vicp-step1 .vicp-operate a",function(){
 		$(".modi_dialog").hide();
 	});
-	
-	
-/*	$(".userCenter .user-img").click(function(){
+	$(".userCenter .user-img").click(function(){
 		$(".vicp-close").next().show();
 		$(".vicp-step1").prev().hide();
 		$(".vicp-step2").hide();
@@ -50,9 +65,26 @@ $(function(){
 		$(".modi_dialog").find(".vicp-wrap").removeClass("maxwrap");
 		$(".upload-dialog").show();
 	});
-	*/
-
-	
+	var dragArea = $(".vicp-drop-area").get(0);
+	//1.进入目标元素触发
+	dragArea.ondragenter = function(){
+		console.log("dragenter");
+	}
+	//2.进入目标、离开目标之间，连续触发
+	dragArea.ondragover = function(e){
+		 e.preventDefault();
+		console.log("dragover");
+	}
+	//3.离开目标元素触发
+	dragArea.ondragleave = function(){
+		console.log("dragleave");
+	}
+	//3.在目标元素上释放鼠标触发 
+	dragArea.ondrop = function(e){
+		 e.preventDefault();
+		 $(".vicp-drop-area").uploadFile({});
+		console.log("drop");	
+	}
 });
 function upload_file() {
     $('#form_upload').ajaxSubmit({            

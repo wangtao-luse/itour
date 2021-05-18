@@ -188,6 +188,9 @@ h1, h2, h3 {
 	z-index:10;
 	
 }
+.uploadPicture-input{
+	display: none;
+}
 @media (min-width: 690px)
 .richContent.is-collapsed {
     cursor: pointer;
