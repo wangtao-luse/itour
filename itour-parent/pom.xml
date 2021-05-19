@@ -447,6 +447,7 @@
                 <feign.client.config.default.read-timeout>90000</feign.client.config.default.read-timeout>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>debug</logging.level>
+                <logging.home>D:/dev/logs/questions</logging.home>
                 <!-- 图片滑动验证码 图片路径 -->
                 <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                  <!-- wechat第三方接口相关参数配置 -->
@@ -513,6 +514,7 @@
                 <feign.client.config.default.read-timeout>90000</feign.client.config.default.read-timeout>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>debug</logging.level>
+                <logging.home>/debug/itour/logs/</logging.home>
                 <!-- 图片滑动验证码 图片路径-->
                <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
@@ -579,6 +581,7 @@
                 <feign.client.config.default.read-timeout>90000</feign.client.config.default.read-timeout>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>debug</logging.level>
+                <logging.home>/debug/itour/logs/</logging.home>
                 <!-- 图片滑动验证码 图片路径-->
                <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
@@ -640,10 +643,11 @@
                 <ribbon.ReadTimeout>90000</ribbon.ReadTimeout>
                 <ribbon.MaxAutoRetries>0</ribbon.MaxAutoRetries>
                 <ribbon.MaxAutoRetriesNextServer>0</ribbon.MaxAutoRetriesNextServer>
-                 <feign.client.config.default.connect-timeout>90000</feign.client.config.default.connect-timeout>
+                <feign.client.config.default.connect-timeout>90000</feign.client.config.default.connect-timeout>
                 <feign.client.config.default.read-timeout>90000</feign.client.config.default.read-timeout>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
                 <logging.level>error</logging.level>
+                <logging.home>/debug/itour/logs/</logging.home>
                 <!-- 图片滑动验证码 图片路径-->
                <prefix.verificationImagePathPrefix>/debug/itour/imgs/</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
