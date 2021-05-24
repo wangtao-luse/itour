@@ -25,4 +25,7 @@ feign:
     config:
       default:
         connect-timeout: '@feign.client.config.default.connect-timeout@'
-        read-timeout: '@feign.client.config.default.read-timeout@'  
+        read-timeout: '@feign.client.config.default.read-timeout@' 
+#log    
+logging:
+  path: '@log.home@'

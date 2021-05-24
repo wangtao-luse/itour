@@ -23,12 +23,6 @@ eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@serv
 #mybatis plus
 mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.itour.model
-#log
-logging:
-  level:
-    com: 
-      itour:
-        persist: '@logging.level@'
 ribbon: 
   ConnectTimeout: '@ribbon.ConnectTimeout@'  #请求连接的超时时间 默认的时间为 1 秒
   ReadTimeout: '@ribbon.ReadTimeout@'     #请求处理的超时时间
@@ -40,4 +34,7 @@ feign:
     config:
       default:
         connect-timeout: '@feign.client.config.default.connect-timeout@'
-        read-timeout: '@feign.client.config.default.read-timeout@'         
+        read-timeout: '@feign.client.config.default.read-timeout@' 
+#log    
+logging:
+  path: '@log.home@'        
