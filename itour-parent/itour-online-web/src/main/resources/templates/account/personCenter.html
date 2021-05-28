@@ -1,6 +1,9 @@
 @layout("/layout/template.html",{title:'爱旅行-搜索'}){
 <script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/file/cropbox.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/file/jquery.qrcode.min.js" ></script>
 <script type="text/javascript" src="${ctxPath}/js/account/personCenter.js" ></script>
+
 	    <div class="userCenter">
 	    	<div class="infoMsgHead">
 	    		<div class="infoMsgHead-inner">
@@ -574,7 +577,7 @@
 						<div class="vicp-drop-area" id="drop_area" draggable="true">
 							<img src="${ctxPath}/img/common/upload.png" class="vicp-icon1" />
 							<span class="vicp-hint">点击或拖动图片至此处</span>
-							<input type="file" style="display: none;">
+							<input type="file" style="display: none;" class="inpuit-file-avatar">
 						</div>
 						<div class="vicp-operate">
 							<a>取消</a>
@@ -585,12 +588,15 @@
 						<div class="vicp-crop">
 							<div class="vicp-crop-left">
 								<div class="vicp-img-container">
-									<img src="../../img/itour/common/avatar-3.jpg"  class="vicp-img"  style="height: 184px;" />
+								    <div class="imageBox">
+									     <div class="thumbBox"></div>
+									     <div class="spinner" style="display: none;">Loading...</div>
+								    </div>
 								</div>
 								<div class="vicp-range">
 									<input type="range" step="1" min="0" max="100" />
-									<i class="vicp-icon5"></i>
-									<i class="vicp-icon6">+</i>
+									<i class="vicp-icon5" id="btnZoomOut"></i>
+									<i class="vicp-icon6" id="btnZoomIn">+</i>
 								</div>
 							</div>
 							<div class="vicp-crop-right">

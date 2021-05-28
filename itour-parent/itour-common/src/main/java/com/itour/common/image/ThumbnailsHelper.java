@@ -14,7 +14,7 @@ import net.coobird.thumbnailator.Thumbnails;
  * 
  */
 public class ThumbnailsHelper {
-
+public static final double SCALE_DEFUALT = 0.9;
 	 /**
      * 压缩图片
      *
@@ -24,8 +24,8 @@ public class ThumbnailsHelper {
      * @throws IOException the io exception
      */
     public static void thumbnail(String srcImagePath, String desImagePath, double scale) throws IOException {
-        Thumbnails.of(srcImagePath).scale(scale).toFile(desImagePath);
+        Thumbnails.of(srcImagePath)
+        		  .scale(scale)
+        		  .toFile(desImagePath);
     }
-
-
 }

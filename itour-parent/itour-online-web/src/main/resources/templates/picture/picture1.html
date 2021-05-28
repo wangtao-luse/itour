@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>图片缩放</title>
+</head>
+<body>
+  <div class="container">
+    <div class="file-box">
+    <form id="form_upload" method="post"  enctype="multipart/form-data" >
+      <input type="file" name="file" onchange="upload_file()">
+      </form>
+    </div>
+    <div class="picture-container">
+      <span class="pic original"><img alt="" src=""></span>
+      <span class="pic zoom1"><img alt="" src=""></span>
+      <span class="pic zoom2"><img alt="" src=""></span>
+    </div>
+
+  </div>
+</body>
+<script type="text/javascript" src="${ctxPath}/js/common/jquery-3.4.1.js.js"></script>
+<script type="text/javascript" src="${ctxPath}/js/common/tool.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
+<script type="text/javascript">
+function upload_file() {
+    $('#form_upload').ajaxSubmit({            
+        type: 'post',
+        url :"${ctxPath}/uploadPicture",
+        dataType:"json",
+        beforeSubmit:function(){
+        	
+        },
+        success: function(data) {
+        	var path = data.returnResult.result;
+        	$(".picture-container .original img").attr("src",path);
+        },
+        error:function(data){
+        	
+        }
+    });
+ 
+}
+
+</script>
+</html>

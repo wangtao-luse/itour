@@ -661,6 +661,7 @@
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
+                <!-- -Xms64m  -Xmx128m  -Xmn32m  -Xss256k  -XX:SurvivorRatio=8  -XX:+UseConcMarkSweepGC -->
                 <docker.entryPoint>["java","-XX:MetaspaceSize=128m","-XX:MaxMetaspaceSize=56m","-Xms64m","-Xmx128m","-Xmn32m","-Xss256k","-XX:SurvivorRatio=8","-XX:+UseConcMarkSweepGC","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
             </properties>
         </profile>

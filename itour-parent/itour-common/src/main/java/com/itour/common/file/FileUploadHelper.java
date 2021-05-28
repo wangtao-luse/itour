@@ -173,7 +173,7 @@ public  static String getPath() {
 	path+= File.separator+year+File.separator+month;
 	return path;
 }
-private static String getFileName(String suffix) {
+public static String getFileName(String suffix) {
 	return  UUID.randomUUID().toString().replaceAll("-", "")+suffix;
 }
 public static void main(String[] args) {
