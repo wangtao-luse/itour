@@ -235,6 +235,9 @@
 	    <version>${mail.version}</version>
 	</dependency>
 	
+	
+	
+	
 </dependencies>
   <!-- springCloud -->
   	<dependencyManagement>
