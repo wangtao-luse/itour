@@ -16,13 +16,14 @@
 			img_preview_wrap: ".pre-photo", //图片预览的标识 必须
 			zoomInButton: "#btnZoomIn", //放大 必须
 			zoomOutButton: "#btnZoomOut", //缩小 必须
-			upload_btn:".upload-btn",//上传按钮
+			drag_wrapper:".vicp-drop-area",
 			minheight: 184, //缩放时图片的最小高度
 			iwidth:150,//原图片最小宽度
 			iheight:150,//原图片最小高度
 			ratio: 1, //图片缩放比例
 			image: new Image(), //图片必须给一个图片路径
-			state: {},
+			state: {}
+			
 		}
 		
 		var currentOptions = $.extend(defaultOptions, options);
@@ -37,7 +38,41 @@
 		$(currentOptions.zoomOutButton).on("mousedown", zoomOutdown);
 		$(currentOptions.zoomInButton).on("mouseup", zoomInleave);
 		$(currentOptions.zoomOutButton).on("mouseup", zoomOutleave);
-		
+		var obj = {
+				position:{},
+				getPosition:function(){
+				var swidth = currentOptions.image.width,//原图w
+				    sheight = currentOptions.image.height,//原图h			    
+				    wRatio = ele.clientWidth / swidth,
+				    hRatio = ele.clientHeight / sheight,
+				    left = parseFloat(ele.style.left),//缩放后图片的向左的偏移量
+				    top = parseFloat(ele.style.top),//缩放后图片的向上的偏移量
+					dw = swidth * (currentOptions.minheight / sheight),//图片默认的宽
+					dleft =((el.clientWidth - dw) / 2),//默认偏移量
+				    sx = 0,//开始剪切的 x 坐标位置
+				    sy = 0,//开始剪切的 y 坐标位置			    
+				    width = swidth,
+				    height = sheight;
+				    var  sRatio = dw / swidth;
+				    var  dRatio = currentOptions.minheight / sheight;
+				   if(left<dleft &&left>0){
+				   	    sx = (left -dleft) /wRatio;
+				   	    sy = top / hRatio ;
+				   	    width = swidth - sx;
+				   	    height = sheight - sy;
+				   }else if(left<0){
+				   	    sx = left / wRatio;
+				    	sy = top / hRatio;
+				    	width = swidth - sx;
+				    	height = sheight - sy;
+				   }
+				  this.position.x=sx;
+				   this.position.y=sy;
+				   this.position.width=width;
+				   this.position.height=height;
+				   return this.position;
+				}
+		}
 		attachEvent(ele, "mousedown", mousedown);
 		attachEvent(ele, "mouseup", mouseup);
 		attachEvent(ele, "mouseleave", mouseup);
@@ -61,17 +96,17 @@
 	         }
 		}
 		//1.进入目标元素触发
-		$(currentOptions.drag_wrapper).ondragenter = function(){
-			console.log("dragenter");
+		$(currentOptions.drag_wrapper).get(0).ondragenter = function(){
+			//console.log("dragenter");
 		}
 		//2.进入目标、离开目标之间，连续触发
-		$(currentOptions.drag_wrapper).ondragover = function(e){
+		$(currentOptions.drag_wrapper).get(0).ondragover = function(e){
 			 e.preventDefault();
-			console.log("dragover");
+			//console.log("dragover");
 		}
 		//3.离开目标元素触发
-		$(currentOptions.drag_wrapper).ondragleave = function(){
-			console.log("dragleave");
+		$(currentOptions.drag_wrapper).get(0).ondragleave = function(){
+			//console.log("dragleave");
 		}
 		//4.在目标元素上释放鼠标触发 
 		$(currentOptions.drag_wrapper).get(0).ondrop = function(e){
@@ -84,18 +119,34 @@
 			  },false);
 			fr.readAsDataURL(files[0]);
 	    	fr.onload = function (e) {
-	    		currentOptions.imgSrc = e.target.result;
-	           
-	        var img = getDataURL();
-		    $(".vicp-crop-right .vicp-preview-item-circle img").attr("src",e.target.result);
-	   		//显示图片预览页面
-	   		//console.log(fs.length);
-			$(".vicp-close").next().hide();
-			$(".vicp-step1").prev().show();
-			$(".vicp-step1").hide();
-			$(".modi_dialog").find(".vicp-wrap").addClass("maxwrap");
-			$(".vicp-step2").show();
-			console.log("drop");
+	    		currentOptions.image.src = e.target.result;
+	    		var img = new Image();
+	    		 img.src = e.target.result;
+	    		 img.onload = function(){
+	    			//显示图片预览页面
+	 				$(".vicp-close").next().hide();
+	 				$(".vicp-step1").prev().show();
+	 				$(".vicp-step1").hide();
+	 				$(".modi_dialog").find(".vicp-wrap").addClass("maxwrap");
+	 				$(".vicp-step2").show();
+	 		    	var width = currentOptions.image.width;
+	 				var height = currentOptions.image.height;
+	 				var hRatio = currentOptions.minheight / height;
+	 				var w = width * hRatio; 
+	 				var h = height * hRatio;
+	 				var pw = (el.clientWidth - w) / 2;
+	 				ele.setAttribute('style',
+	 					'position: absolute; ' +
+	 					'height: ' +h+ 'px; ' +
+	 					'left: ' + pw + 'px; ' +
+	 					'top: ' + 0 + 'px; '
+	 				);
+	 				$(currentOptions.img_origin_wrap).attr("src", e.target.result);
+	 				$(currentOptions.img_preview_wrap).attr("src", e.target.result);
+	    		 }
+	    		
+		   		
+				//console.log("drop");
 		}
 		}
 		function previewFile() {
@@ -196,17 +247,7 @@
 			}
 			return false;
         }
-        function dataURLtoFile (dataurl, filename) { 
-	    var arr = dataurl.split(','),
-	        mime = arr[0].match(/:(.*?);/)[1],
-	        bstr = atob(arr[1]),
-	        n = bstr.length,
-	        u8arr = new Uint8Array(n);
-	    while (n--) {
-	        u8arr[n] = bstr.charCodeAt(n);
-	    }
-	    return new File([u8arr], filename, { type: mime });
-	}
+       
         
 		function setimg() {
 			//图上距离/实际距离=r
@@ -385,12 +426,10 @@
 			return false;
 		}
 		
-		
+		return obj;
         
 	}
 })(jQuery, window, document);
-
-
 
 $(function(){
 	$(".userCenter .user-img").click(function(){
@@ -423,225 +462,41 @@ $(function(){
 			minheight: 184, //缩放时图片的最小高度
 		}
 	 var upload = $(".vue-image-crop-upload").uploadFile(options);
-	function upload_file() {
-	    $('#form_upload').ajaxSubmit({            
-	        type: 'post',
-	        url :ctxPath+"/account/updateAvatar",
-	        dataType:"json",
-	        beforeSubmit:function(){
-	        	
-	        },
-	        success: function(data) {
-	        	var path = data.returnResult.result;
-	        	$(".userCenter .user-img img").attr("src",path);
-	        },
-	        error:function(data){
-	        	
-	        }
-	    });
-	 
-	}  
-		
+	   
+	 $(document).on("click",".vicp-operate .vicp-operate-btn",function(){
+		var dataurl,filename;
+		var pos = upload.getPosition();
+		console.log(pos);
+    	dataurl = $(".pre-photo").attr("src");
+    	filename ="itour.png"
+    	var file = dataURLtoFile (dataurl, filename);
+    	console.log(file);
+    	var form = new FormData();
+    	form.append("file",file);
+    	form.append("x",Math.abs(pos.x));
+    	form.append("y",Math.abs(pos.y));
+    	form.append("width",pos.width);
+    	form.append("height",pos.height);
+    	var url = "/account/updateAvatar";
+    	postAjax(url, form, function (result) {
+    		 window.location.reload();
+	    }, {errorFunction:function(result){
+	    	console.log(result);
+	    },cache: false, async: false,processData:false,contentType:false});
+	 });
+
 	});
-
-var dragArea = $(".vicp-drop-area").get(0);
-
-dragArea.ondragstart = function(e,item){
-      //判断当前浏览器是否为火狐浏览器
-	 let userAgent = navigator.userAgent;
-     let ifFirefox = userAgent.indexOf("Firefox");
-     if(ifFirefox){
-         e.dataTransfer.setData("text","Firefox");
-     }
-
-	 
-	 console.log("ondragstart");
-}
-//1.进入目标元素触发
-dragArea.ondragenter = function(){
-	console.log("dragenter");
-}
-//2.进入目标、离开目标之间，连续触发
-dragArea.ondragover = function(e){
-	 e.preventDefault();
-	console.log("dragover");
-}
-//3.离开目标元素触发
-dragArea.ondragleave = function(){
-	console.log("dragleave");
+function dataURLtoFile (dataurl, filename) { 
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*$(function(){
-	;(function($,undefined){
-		$.fn.uploadFile =function(options){
-			var defaultOptions = {
-				url:'/upload',
-				width:'100',
-				height:'100'
-			}
-			options = $.extend(defaultOptions, options);
-			console.log(options);
-			$('.vicp-drop-area input').on("change",upload);
-			function upload(){
-			var	fr = new FileReader();
-				var file = $(".upload-dialog .vicp-drop-area input")[0].files[0];
-				fr.readAsDataURL(file);
-		    	fr.onload = function (e) {
-		    		$(".vicp-img-container img").attr("src",e.target.result);
-		    		$(".vicp-crop-right .vicp-preview-item-circle img").attr("src",e.target.result);
-            		console.log(e.target.result)
-           		};
-           		$(".vicp-close").next().hide();
-				$(".vicp-step1").prev().show();
-				$(".vicp-step1").hide();
-				$(".modi_dialog").find(".vicp-wrap").addClass("maxwrap");
-				$(".vicp-step2").show();
-			}
-			
-		}				 
-	})(jQuery);
-	
-	var options ={
-	        imageBox: '.imageBox',
-	        thumbBox: '.thumbBox',
-	        spinner: '.spinner',
-	        imgSrc: 'tx.png'
-	}
-	var cropper = new cropbox(options);
-	
-	function upload(){
-		var	fr = new FileReader();
-			var file = $(".upload-dialog .vicp-drop-area input")[0].files[0];
-			fr.readAsDataURL(file);
-	    	fr.onload = function (e) {
-	    		options.imgSrc = e.target.result;
-	            cropper = new cropbox(options);
-	            var img = cropper.getDataURL();
-	    		$(".vicp-crop-right .vicp-preview-item-circle img").attr("src",e.target.result);
-	    		console.log(e.target.result)
-	   		};
-	   		$(".vicp-close").next().hide();
-			$(".vicp-step1").prev().show();
-			$(".vicp-step1").hide();
-			$(".modi_dialog").find(".vicp-wrap").addClass("maxwrap");
-			$(".vicp-step2").show();
-		}
-	
-	
-	var dragArea = $(".vicp-drop-area").get(0);
-	
-	dragArea.ondragstart = function(e,item){
-          //判断当前浏览器是否为火狐浏览器
-		 let userAgent = navigator.userAgent;
-         let ifFirefox = userAgent.indexOf("Firefox");
-         if(ifFirefox){
-             e.dataTransfer.setData("text","Firefox");
-         }
-
-		 
-		 console.log("ondragstart");
-	}
-	//1.进入目标元素触发
-	dragArea.ondragenter = function(){
-		console.log("dragenter");
-	}
-	//2.进入目标、离开目标之间，连续触发
-	dragArea.ondragover = function(e){
-		 e.preventDefault();
-		console.log("dragover");
-	}
-	//3.离开目标元素触发
-	dragArea.ondragleave = function(){
-		console.log("dragleave");
-	}
-	//3.在目标元素上释放鼠标触发 
-	dragArea.ondrop = function(e){
-		e.preventDefault();
-		var fr = new FileReader();
-		//var fs = e.dataTransfer.files;
-		var files = [];
-		  [].forEach.call(e.dataTransfer.files, function(file) {
-		    files.push(file);
-		  },false);
-		fr.readAsDataURL(files[0]);
-    	fr.onload = function (e) {
-    		options.imgSrc = e.target.result;
-            cropper = new cropbox(options);
-            var img = cropper.getDataURL();
-	    $(".vicp-crop-right .vicp-preview-item-circle img").attr("src",e.target.result);
-   		//显示图片预览页面
-   		//console.log(fs.length);
-		$(".vicp-close").next().hide();
-		$(".vicp-step1").prev().show();
-		$(".vicp-step1").hide();
-		$(".modi_dialog").find(".vicp-wrap").addClass("maxwrap");
-		$(".vicp-step2").show();
-		console.log("drop");
-	}
-	}
-	    
-	    document.querySelector('#btnCrop').addEventListener('click', function(){
-	        var img = cropper.getDataURL();
-	        document.querySelector('.cropped').innerHTML += '<img src="'+img+'">';
-	    })
-	    $(document).on("click","#btnZoomIn",function(){
-	    	 cropper.zoomIn();
-	    	 var img = cropper.getDataURL();
-	 	    $(".vicp-crop-right .vicp-preview-item-circle img").attr("src",img);
-	    })
-	    $(document).on("click","#btnZoomOut",function(){
-	    	cropper.zoomOut();
-	    	 var img = cropper.getDataURL();
-	 	    $(".vicp-crop-right .vicp-preview-item-circle img").attr("src",img);
-	    })
-	    document.querySelector('#btnZoomIn').addEventListener('click', function(){
-	        cropper.zoomIn();
-	    })
-	    document.querySelector('#btnZoomOut').addEventListener('click', function(){
-	        cropper.zoomOut();
-	    })
-	    $(document).on('mousewheel DOMMouseScroll',".thumbBox",function(event){ //on也可以 bind监听
-	    	var img = cropper.getDataURL();
-	 	    $(".vicp-crop-right .vicp-preview-item-circle img").attr("src",img);
-	    });	    
-	    $(".imageBox").mouseup(function(){
-	    	var img = cropper.getDataURL();
-	    	$(".vicp-crop-right .vicp-preview-item-circle img").attr("src",img);
-	    });
-	    
-	    $(document).on("click",".vicp-operate .vicp-operate-btn",function(){
-	    	var img = $(".vicp-crop-right .vicp-preview-item-circle img").attr("src");
-	    	console.log(img);
-	    })
-	
-});
-*/
 
 

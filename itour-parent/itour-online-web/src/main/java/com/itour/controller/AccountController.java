@@ -2,6 +2,9 @@ package com.itour.controller;
 
 
 
+import java.io.File;
+import java.io.InputStream;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -23,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.file.FileUploadHelper;
+import com.itour.common.image.ImageIOHelper;
+import com.itour.common.image.ThumbnailsHelper;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.common.vo.ExUsernamePasswordToken;
@@ -30,7 +35,6 @@ import com.itour.connector.AccountConnector;
 import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
-import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.SessionUtil;
@@ -236,17 +240,18 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
 		return checkRegName;
 	}
-	/** 检查用户是否 存在
+	/**修改图像
 	* @param email
 	* @param request
 	* @return
 	*/
 	@ResponseBody
 	@RequestMapping("/updateAvatar")
-	public ResponseMessage updateAvatar(MultipartFile file,HttpServletRequest request) {
+	public ResponseMessage updateAvatar(MultipartFile file,int x,int y,int width,int height,HttpServletRequest request) {
 		ResponseMessage upload = ResponseMessage.getSucess();
 		 try {
-			 upload = FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
+			 MultipartFile newFile = ImageIOHelper.cut(file, x, y, width, height);
+			 upload = FileUploadHelper.upload(newFile, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
 			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&!StringUtils.isEmpty(upload.getReturnResult())) {
 				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
 				AccountVo sessionUser = SessionUtil.getSessionUser();

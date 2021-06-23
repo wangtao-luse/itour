@@ -11,20 +11,9 @@ import org.im4java.core.IdentifyCmd;
 import org.im4java.process.ArrayListOutputConsumer;
 
 public class GraphicsMagickHelper {
-    /**  
-     * 根据坐标裁剪图片  
-     *  
-     * @param srcPath   要裁剪图片的路径  
-     * @param newPath   裁剪图片后的路径  
-     * @param x   起始横坐标  
-     * @param y   起始纵坐标  
-     * @param x1  结束横坐标  
-     * @param y1  结束纵坐标  
-     */    
-    public static void cutImage(String srcPath, String newPath, int x, int y, int x1,    
-            int y1)  throws Exception {    
-        int width = x1 - x;    
-        int height = y1 - y;    
+   
+    public static void cutImage(String srcPath, String newPath, int x, int y, int width,    
+            int height)  throws Exception {    
         IMOperation op = new IMOperation();    
         op.addImage(srcPath);    
         /**  width：裁剪的宽度    * height：裁剪的高度 * x：裁剪的横坐标 * y：裁剪纵坐标  */    
@@ -32,7 +21,9 @@ public class GraphicsMagickHelper {
         op.addImage(newPath);    
         ConvertCmd convert = new ConvertCmd();    
         convert.run(op);    
-    }	
+    }
+   
+	
 	
 	
 	
