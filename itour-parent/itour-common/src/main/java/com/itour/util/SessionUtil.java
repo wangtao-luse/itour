@@ -45,6 +45,7 @@ public class SessionUtil {
 		}
 		return currentUser;
 	}
+
 	
 	/**
 	 * 获取sessionId
