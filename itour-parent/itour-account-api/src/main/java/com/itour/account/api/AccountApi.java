@@ -254,5 +254,12 @@ public ResponseMessage insertIPAddr(@RequestBody RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/updateOAuthById",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage updateOAuthById(@RequestBody RequestMessage requestMessage);
+/**
+ * 查看认证信息表单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/selectOauthtOne",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage selectOauthtOne(@RequestBody RequestMessage requestMessage);
 }
 

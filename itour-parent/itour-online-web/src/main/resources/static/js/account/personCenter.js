@@ -479,6 +479,7 @@ $(function(){
     	form.append("height",pos.height);
     	var url = "/account/updateAvatar";
     	postAjax(url, form, function (result) {
+    		$(".modi_dialog").hide();
     		 window.location.reload();
 	    }, {errorFunction:function(result){
 	    	console.log(result);

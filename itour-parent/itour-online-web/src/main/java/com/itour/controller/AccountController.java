@@ -12,6 +12,8 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -265,6 +267,16 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 					return ResponseMessage.getFailed(updateOAuthById.getResultMessage());
 				}else {
 					sessionUser.setAvatar(avatar);
+					Subject subject = SecurityUtils.getSubject();
+					PrincipalCollection principals = subject.getPrincipals();
+					//realName认证信息的key，对应的value就是认证的user对象
+					String realName= principals.getRealmNames().iterator().next();
+					//创建一个PrincipalCollection对象，userDO是更新后的user对象
+					PrincipalCollection newPrincipalCollection = new SimplePrincipalCollection(sessionUser, realName);
+					//调用subject的runAs方法，把新的PrincipalCollection放到session里面
+					subject.runAs(newPrincipalCollection);
+					
+					
 				}
 				
 			}

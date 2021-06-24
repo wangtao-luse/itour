@@ -138,5 +138,16 @@ public ResponseMessage updateOAuthById(JSONObject jsonObject,HttpServletRequest 
 	ResponseMessage responseMessage = accountApi.updateOAuthById(postData);
 	return responseMessage;
 }
+/**
+ * 查看认证表单条
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage selectOauthtOne(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage postData = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.selectOauthtOne(postData);
+	return responseMessage;
+}
 
 }

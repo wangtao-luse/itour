@@ -27,7 +27,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
-import com.itour.model.travel.Location;
+import com.itour.model.account.Oauth;
 import com.itour.model.travel.Region;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
@@ -502,6 +502,12 @@ public String search(HttpServletRequest request,ModelMap model) {
 @RequestMapping("/personCenter")
 public String personCenter(HttpServletRequest request,ModelMap model) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
+	Oauth oauth = new Oauth();
+	oauth.setOauthId(sessionUser.getOauthId());
+	JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(oauth));
+    ResponseMessage selectOauthtOne = this.accountConnector.selectOauthtOne(jsonObject, request);
+	Oauth o = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
+	sessionUser.setAvatar(o.getAvatar());
 	model.addAttribute("account", sessionUser);
 	return "/account/personCenter";
 }

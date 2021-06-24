@@ -357,5 +357,13 @@ public ResponseMessage updateOAuthById(@RequestBody RequestMessage requestMessag
 	// TODO Auto-generated method stub
 	return this.oauthService.updateOAuthById(requestMessage);
 }
+/**
+ * 查看用户信息认证表单条
+ */
+@Override
+public ResponseMessage selectOauthtOne(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return this.oauthService.selectOauthtOne(requestMessage);
+}
 
 }

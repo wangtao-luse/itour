@@ -239,4 +239,26 @@ private IpaddrService ipaddrService;
 		}
 		return responseMessage;
     }
+    /**
+     * 查询认证表单条
+     * @param requestMessage
+     * @return
+     */
+    public ResponseMessage selectOauthtOne(RequestMessage requestMessage) {
+    	ResponseMessage responseMessage = ResponseMessage.getSucess();
+    	try {
+    		JSONObject jsonObject = requestMessage.getBody().getContent();
+			Oauth o = jsonObject.toJavaObject(Oauth.class);
+			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
+			queryWrapper.eq(!StringUtils.isEmpty(o.getOauthId()), "OAUTH_ID", o.getOauthId());
+			Oauth selectOne = this.baseMapper.selectOne(queryWrapper );
+			responseMessage.setReturnResult(selectOne);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+    	return responseMessage;
+    }
+    
 }
