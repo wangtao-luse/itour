@@ -19,14 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.AccountVo;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
-import com.itour.exception.BaseException;
-import com.itour.model.account.Group;
 import com.itour.model.account.Oauth;
-import com.itour.model.account.RightDetail;
-import com.itour.model.account.Role;
 import com.itour.util.FastJsonUtil;
 /**
  * 自定义的指定Shiro验证用户登录的类
@@ -50,7 +47,7 @@ public class LoginRealm extends AuthorizingRealm {
 		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
 		//3.创建SimpleAuthorizationInfo并设置roles属性	
 		//1.1获取登录用户的信息
-		Oauth primaryPrincipal =(Oauth) principals.getPrimaryPrincipal();
+		AccountVo primaryPrincipal =(AccountVo) principals.getPrimaryPrincipal();
 		Set<String> roles= new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
 		//2.1获取当前用户下的组
