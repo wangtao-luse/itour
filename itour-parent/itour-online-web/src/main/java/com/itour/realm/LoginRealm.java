@@ -47,7 +47,7 @@ public class LoginRealm extends AuthorizingRealm {
 		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
 		//3.创建SimpleAuthorizationInfo并设置roles属性	
 		//1.1获取登录用户的信息
-		AccountVo primaryPrincipal =(AccountVo) principals.getPrimaryPrincipal();
+		Oauth primaryPrincipal =(Oauth) principals.getPrimaryPrincipal();
 		Set<String> roles= new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
 		//2.1获取当前用户下的组
