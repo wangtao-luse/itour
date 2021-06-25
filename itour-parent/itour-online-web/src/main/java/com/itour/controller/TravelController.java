@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itour.common.HttpDataUtil;
 import com.itour.common.redis.RedisManager;
+import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.AccountConnector;
@@ -33,6 +35,7 @@ import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.model.travel.dto.ViewTravelComment;
@@ -502,12 +505,14 @@ public String search(HttpServletRequest request,ModelMap model) {
 @RequestMapping("/personCenter")
 public String personCenter(HttpServletRequest request,ModelMap model) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
-	Oauth oauth = new Oauth();
-	oauth.setOauthId(sessionUser.getOauthId());
-	JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(oauth));
-    ResponseMessage selectOauthtOne = this.accountConnector.selectOauthtOne(jsonObject, request);
-	Oauth o = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
-	sessionUser.setAvatar(o.getAvatar());
+	JSONObject jsonObject = new JSONObject();
+	jsonObject.put("uid", sessionUser.getuId());
+	jsonObject.put(Constant.COMMON_KEY_PAGE, new PageInfo());
+	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(responseMessage)) {
+		List<TravelInfoDto> mapToList = FastJsonUtil.mapToList(responseMessage.getReturnResult(), TravelInfoDto.class);
+		model.addAttribute("dList",mapToList );
+	}
 	model.addAttribute("account", sessionUser);
 	return "/account/personCenter";
 }

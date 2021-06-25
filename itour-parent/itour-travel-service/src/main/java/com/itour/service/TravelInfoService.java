@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +31,7 @@ import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.TravelTag;
 import com.itour.model.travel.TravelinfoColumn;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.vo.PageInfo;
 import com.itour.persist.TagMapper;
 import com.itour.persist.TravelColumnMapper;
@@ -369,8 +369,8 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			String uid = jsonObject.getString("uid");
 			Map map = new HashMap<String, Object>();
 			map.put("uid", uid);
-			map.put("type", type);			
-			Map selectDynamicList = this.baseMapper.selectDynamicList(map,page);
+			//map.put("type", type);			
+		    List<TravelInfoDto> selectDynamicList = this.baseMapper.selectDynamicList(map);
 			response.setReturnResult(selectDynamicList);
 		} catch (Exception e) {
 			// TODO: handle exception

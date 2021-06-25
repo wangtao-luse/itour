@@ -1,10 +1,14 @@
 package com.itour.persist;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itour.model.travel.TravelInfo;
+import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.vo.PageInfo;
 
 /**
@@ -17,5 +21,5 @@ import com.itour.model.vo.PageInfo;
  */
 public interface TravelInfoMapper extends BaseMapper<TravelInfo> {
 	 int updatePvBatch(Collection<TravelInfo> entityList);
-	 Map selectDynamicList(Map<String,Object> map,PageInfo pageInfo);
+	 List<TravelInfoDto> selectDynamicList(Map<String,Object> map);
 }
