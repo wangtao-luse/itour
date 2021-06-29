@@ -22,4 +22,5 @@ import com.itour.model.vo.PageInfo;
 public interface TravelInfoMapper extends BaseMapper<TravelInfo> {
 	 int updatePvBatch(Collection<TravelInfo> entityList);
 	 List<TravelInfoDto> selectDynamicList(Map<String,Object> map);
+	 List<TravelInfoDto> selectDynamicList(PageInfo page,Map<String,Object> map);
 }

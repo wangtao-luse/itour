@@ -1,5 +1,6 @@
 package com.itour.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,18 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.itour.common.HttpDataUtil;
 import com.itour.common.redis.RedisManager;
-import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.AccountConnector;
 import com.itour.connector.TravelConnector;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
-import com.itour.model.account.Oauth;
 import com.itour.model.travel.Region;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
@@ -505,14 +504,6 @@ public String search(HttpServletRequest request,ModelMap model) {
 @RequestMapping("/personCenter")
 public String personCenter(HttpServletRequest request,ModelMap model) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
-	JSONObject jsonObject = new JSONObject();
-	jsonObject.put("uid", sessionUser.getuId());
-	jsonObject.put(Constant.COMMON_KEY_PAGE, new PageInfo());
-	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonObject, request);
-	if(ResponseMessage.isSuccessResult(responseMessage)) {
-		List<TravelInfoDto> mapToList = FastJsonUtil.mapToList(responseMessage.getReturnResult(), TravelInfoDto.class);
-		model.addAttribute("dList",mapToList );
-	}
 	model.addAttribute("account", sessionUser);
 	return "/account/personCenter";
 }
@@ -594,8 +585,33 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
  * @return
  */
 @RequestMapping("/queryPersonCenterList")
-public ResponseMessage queryPersonCenterList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	ResponseMessage resp = this.travelConnector.queryPersonCenterList(jsonObject, request);
-	return resp;
+public String queryPersonCenterList(TravelInfoDto travelInfoDto,Page page,String ajaxCmd,ModelMap model,HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	JSONObject jsonObject = new JSONObject();
+	String mold = travelInfoDto.getMold();
+	if(StringUtils.isEmpty(mold)) {
+		jsonObject.put("mold", ConstAccount.PERSONCNTER_DYNAMIC);
+		mold="1";
+	}
+	jsonObject.put("uid", sessionUser.getuId());
+	jsonObject.put("oauthId", sessionUser.getOauthId());
+	jsonObject.put(Constant.COMMON_KEY_PAGE, new PageInfo());
+	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(responseMessage)) {
+		List<TravelInfoDto> mapToList = FastJsonUtil.mapToList(responseMessage.getReturnResult(), TravelInfoDto.class);
+		for (TravelInfoDto info : mapToList) {
+			try {
+				info.setCreateDateFmt(DateUtil.getDateStr(new Date(info.getPublishtime())));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				model.addAttribute("error",Constant.FAILED_SYSTEM_ERROR);
+			}
+		}
+		model.addAttribute("cList",mapToList);
+	}
+	model.addAttribute("mold",mold);
+	return "/account/personCenterList#"+ajaxCmd;
+			
 }
 }

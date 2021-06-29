@@ -365,11 +365,13 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
-			String type = jsonObject.getString("type");
+			String mold = jsonObject.getString("mold");
 			String uid = jsonObject.getString("uid");
+			String oauthId = jsonObject.getString("oauthId");
 			Map map = new HashMap<String, Object>();
 			map.put("uid", uid);
-			//map.put("type", type);			
+			map.put("mold", mold);			
+			map.put("oauthId", oauthId);			
 		    List<TravelInfoDto> selectDynamicList = this.baseMapper.selectDynamicList(map);
 			response.setReturnResult(selectDynamicList);
 		} catch (Exception e) {

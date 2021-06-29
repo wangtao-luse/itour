@@ -485,8 +485,18 @@ $(function(){
 	    	console.log(result);
 	    },cache: false, async: false,processData:false,contentType:false});
 	 });
-
+      
+	 queryInfo({});
 	});
+function queryInfo(postData){
+	var url="/travel/queryPersonCenterList?ajaxCmd=content";
+	postForm(url, postData, function(result){
+		if(result){
+			$("#profile-mainColumn").html(result);
+		}
+	},{});
+}
+
 function dataURLtoFile (dataurl, filename) { 
     var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],

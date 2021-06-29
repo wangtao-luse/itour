@@ -32,12 +32,21 @@
        	update t_t_travel_info set pv=IFNULL(pv,0)+#{pv}  where id=#{id}     	
        </foreach>
     </update>
-    <!-- 1:自己发布;2.点赞过的文章;3:评论过的文章 -->
-    <select id="selectDynamicList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="java.util.HashMap">
-	    	SELECT  1 dynamic,c.PUBLISHTIME time,c.*  FROM t_t_travel_info c WHERE c.UID=#{uid} 
-	    	<!-- UNION ALL
-		    SELECT 2 dynamic,t2.CREATEDATE time, * FROM
-				(SELECT * FROM  t_t_travel_info  c where c.uid=#{uid}) t1 LEFT JOIN  
-				(select d.TID,d.CREATEDATE from t_t_nice d WHERE d.UID=#{uid}) t2 on t1.id=t2.tid  -->
+    <!-- 
+    dynamic 1:自己发布;2.点赞过的文章;3:评论过的文章;4:收藏过的文章 
+    mold: 1:动态;2文章;
+    -->
+    <select id="selectDynamicList" parameterType="java.util.Map" resultType="com.itour.model.travel.dto.TravelInfoDto">
+           <if test='mold=="1"'>
+           SELECT 1 mold,1 dynamic, tmp1.PUBLISHTIME time,tmp2.AVATAR,tmp2.NICKNAME,tmp1.*  FROM 
+			(SELECT c.*  FROM t_t_travel_info c WHERE c.UID=#{uid}) tmp1 ,
+			(SELECT c.U_ID, c.AVATAR,c.NICKNAME FROM t_a_oauth c WHERE c.OAUTH_ID=#{oauthId} and c.oauth_type ='email') tmp2 WHERE tmp1.UID =tmp2.U_ID
+		  </if>
+		  <if test='mold =="2"'>
+		    select 2 mold,t1.PUBLISHTIME time,t2.AVATAR,t2.NICKNAME,t1.* from
+				(select  c.* from t_t_travel_info c where c.UID =#{uid}) t1 LEFT JOIN
+				(select c.U_ID ,c.AVATAR, c.NICKNAME from t_a_oauth c where c.U_ID=#{uid} and c.OAUTH_TYPE='email') t2 on t1.UID=t2.U_ID
+		  </if>
+		  
     </select>
 </mapper>

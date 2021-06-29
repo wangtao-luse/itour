@@ -26,6 +26,148 @@ public static long getlongDate(Date date) {
 	return time;
 }
 /**
+ * 计算给定时间和当前时间相差多少时间
+ * 
+ * @param sDate
+ * @return
+ * @throws ParseException 
+ */
+public static String getDateStr(Date sDate) throws ParseException  {
+	Date eDate = new Date();
+	long differOfSecond = getDifferOfSecond(sDate,eDate);
+	long differOfMinute = getDifferOfMinute(sDate,eDate);
+	long differOfHour = getDifferOfHour(sDate,eDate);
+	int differOfDay = getDifferOfDay(sDate,eDate);
+	int differOfMonth = getDifferOfMonth(sDate,eDate);
+	int differOfYear = getDifferOfYear(sDate,eDate);
+	if(differOfMinute<1) {
+		return differOfSecond+"秒前";
+	}else if(differOfMinute<60) {
+		return differOfMinute+"分钟前";
+	}else if(differOfMinute<60*24) {
+		return differOfHour+"小时前";
+	}else if(differOfMonth<1) {
+		return differOfDay+"天前";
+	}else if(differOfMonth<12) {
+		return differOfMonth+"个月前";
+	}else {
+		return differOfYear+"年前";
+	}
+}
+/**
+ * 计算两个日期之间相差多少秒
+ * @param sDate 较小日期
+ * @param eDate 较大日期
+ * @return
+ */
+public static long getDifferOfSecond(Date sDate,Date eDate){
+	Calendar sCalendar = Calendar.getInstance();
+	Calendar eCalendar = Calendar.getInstance();
+	eCalendar.setTime(eDate);
+	sCalendar.setTime(sDate);
+	return ((eCalendar.getTimeInMillis()-sCalendar.getTimeInMillis())/1000);
+}
+/**
+ * 计算两个日期之间相差多少分钟
+ * @param sDate 较小日期
+ * @param eDate 较大日期
+ * @return  
+ */
+public static long getDifferOfMinute(Date sDate,Date eDate){
+	Calendar sCalendar = Calendar.getInstance();
+	Calendar eCalendar = Calendar.getInstance();
+	eCalendar.setTime(eDate);
+	sCalendar.setTime(sDate);
+	return ((eCalendar.getTimeInMillis()-sCalendar.getTimeInMillis())/(1000*60));
+}
+/**
+ * 计算两个日期之间相差多少小时
+ * @param sDate 较小日期
+ * @param eDate 较大日期
+ * @return  
+ */
+public static long getDifferOfHour(Date sDate,Date eDate){
+	Calendar sCalendar = Calendar.getInstance();
+	Calendar eCalendar = Calendar.getInstance();
+	eCalendar.setTime(eDate);
+	sCalendar.setTime(sDate);
+	return ((eCalendar.getTimeInMillis()-sCalendar.getTimeInMillis())/(1000*60*60));
+}
+/**  
+ * 计算两个日期之间相差的天数  
+ * @param sDate 较小的时间 
+ * @param eDate  较大的时间 
+ * @return 相差天数 
+ * @throws ParseException  
+ */    
+public static int getDifferOfDay(Date sDate,Date eDate) throws ParseException  {    
+    Calendar cal = Calendar.getInstance();    
+    cal.setTime(sDate);    
+    long stime = cal.getTimeInMillis();                 
+    cal.setTime(eDate);    
+    long etime = cal.getTimeInMillis();         
+    long between_days=(etime-stime)/(1000*3600*24);  
+   return Integer.parseInt(String.valueOf(between_days));           
+} 
+/**
+ * 计算两个日期相差的月数
+ * @param sDate 较小的日期
+ * @param eDate 较大的日期
+ * @return
+ * @throws ParseException
+ */
+public static int getDifferOfMonth(Date sDate,Date eDate) throws ParseException  {    
+	Calendar sCalendar = Calendar.getInstance();
+	Calendar eCalendar = Calendar.getInstance();
+	sCalendar.setTime(sDate);
+	eCalendar.setTime(eDate);
+	int year =eCalendar.get(Calendar.YEAR)-sCalendar.get(Calendar.YEAR);
+	//开始日期若小月结束日期
+	if(year<0){
+	year=-year;
+	return year*12+sCalendar.get(Calendar.MONTH)-eCalendar.get(Calendar.MONTH);
+	}
+	return year*12+eCalendar.get(Calendar.MONTH)-sCalendar.get(Calendar.MONTH);
+} 
+/**
+ * 计算两个日期相差的年数
+ * @param sDate 较小日期
+ * @param eDate 较大日期
+ * @return 
+ * @throws ParseException
+ */
+public static int getDifferOfYear(Date sDate,Date eDate) throws ParseException  {    
+	Calendar cal1 = Calendar.getInstance();
+	Calendar cal2 = Calendar.getInstance();
+	cal2.setTime(eDate);
+	cal1.setTime(sDate);
+	int sYear = cal1.get(Calendar.YEAR);
+	int eYear = cal2.get(Calendar.YEAR);
+	int year = eYear - sYear;
+	return   year; 
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****--------------------------------------------------------------------------------为使用过的方法---------------------*/
+
+
+
+
+
+
+
+/**
  * 将Date型日期转为对应的pattern格式的日期
  * @param date
  * @param pattern
@@ -118,51 +260,8 @@ public static Date addSecond(Date date, int second) {
 	calender.add(Calendar.SECOND, second);
 	return calender.getTime();
 }
-/**
- * 计算两个日期之间相差多少秒
- * @param date1
- * @param date2
- * @return
- */
-public static long getDifferOfSecond(Date date1,Date date2){
-	Calendar cal1 = Calendar.getInstance();
-	Calendar cal2 = Calendar.getInstance();
-	cal2.setTime(date2);
-	cal1.setTime(date1);
-	return ((cal1.getTimeInMillis()-cal2.getTimeInMillis())/1000);
-}
-/**  
- * 计算两个日期之间相差的天数  
- * @param smdate 较小的时间 
- * @param bdate  较大的时间 
- * @return 相差天数 
- * @throws ParseException  
- */    
-public static int getDifferOfDay(Date smdate,Date bdate) throws ParseException  {    
-    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
-    smdate=sdf.parse(sdf.format(smdate));  
-    bdate=sdf.parse(sdf.format(bdate));  
-    Calendar cal = Calendar.getInstance();    
-    cal.setTime(smdate);    
-    long time1 = cal.getTimeInMillis();                 
-    cal.setTime(bdate);    
-    long time2 = cal.getTimeInMillis();         
-    long between_days=(time2-time1)/(1000*3600*24);  
-   return Integer.parseInt(String.valueOf(between_days));           
-} 
-/**
- * 计算两个日期之间相差多少分钟
- * @param date1
- * @param date2
- * @return
- */
-public static long getDifferOfMinute(Date date1,Date date2){
-	Calendar cal1 = Calendar.getInstance();
-	Calendar cal2 = Calendar.getInstance();
-	cal2.setTime(date2);
-	cal1.setTime(date1);
-	return ((cal1.getTimeInMillis()-cal2.getTimeInMillis())/(1000*60));
-}
+
+
 /**
  * 通过时间秒毫秒数判断两个时间的间隔
  * 直接通过计算两个日期的毫秒数，他们的差除以一天的毫秒数，即可得到我们想要的两个日期相差的天数。
@@ -295,7 +394,31 @@ public static long getMidnight() throws ParseException {
 	
 	
 }
-
+/**
+ * 获取本周的第一天
+ * @return String
+ * @throws ParseException 
+ * **/
+public static Date getWeekStart() throws ParseException{
+    Calendar cal=Calendar.getInstance();
+    cal.add(Calendar.WEEK_OF_MONTH, 0);
+    cal.set(Calendar.DAY_OF_WEEK, 2);
+    Date time=cal.getTime();
+    return time;
+}
+/**
+ * 获取本周的最后一天
+ * @return String
+ * @throws ParseException 
+ * **/
+public static Date getWeekEnd() throws ParseException{
+    Calendar cal=Calendar.getInstance();
+    cal.set(Calendar.DAY_OF_WEEK, cal.getActualMaximum(Calendar.DAY_OF_WEEK));
+    cal.add(Calendar.DAY_OF_WEEK, 1);
+    Date time=cal.getTime();
+   
+    return time;
+}
 
 public static void main(String[] args) throws ParseException {
 	//得到long类型的当前时间
@@ -310,9 +433,8 @@ public static void main(String[] args) throws ParseException {
 	Date parse = sdf.parse("2023-08-11 23:00");
 	long time = DateUtil.getlongDate(parse);
 	//System.out.println("指定日期的long格式"+time);
+	testDate();
 	
-	test();
-	getMidnight();
 }
 public static void test() {
 	//1.获取当前时间
@@ -322,5 +444,32 @@ public static void test() {
 	
 	
 }
-
+/**
+ * 测试连个日期之间的间隔
+ * @throws ParseException 
+ */
+public static void testDate() throws ParseException {
+	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
+	//1.当前时间
+	Date current = new Date();
+    //2.开始时间
+	Date stime = sdf1.parse("2016-07-25 08:30:00");
+	//3.结束时间 
+	Date etime = sdf1.parse("2022-06-30 23:00:00");
+	long differOfSecond = DateUtil.getDifferOfSecond(stime,etime);
+	System.out.println("相差 "+differOfSecond+"秒");
+	long differOfMinute = DateUtil.getDifferOfMinute(stime,etime);
+	System.out.println("相差 "+differOfMinute+"分钟");
+	long differOfHour = DateUtil.getDifferOfHour(stime, etime);
+	System.out.println("相差 "+differOfHour+"小时");
+	int differOfDay = DateUtil.getDifferOfDay(stime, etime);
+	System.out.println("相差 "+differOfDay+"天");
+	int differOfMonth = DateUtil.getDifferOfMonth(stime,etime);
+	System.out.println("相差 "+differOfMonth+"个月");
+	int differOfYear = DateUtil.getDifferOfYear(stime, etime);
+	System.out.println("相差 "+differOfYear+"年");
+	
+	String dateStr = DateUtil.getDateStr(stime);
+	System.out.println(dateStr);
+}
 }
