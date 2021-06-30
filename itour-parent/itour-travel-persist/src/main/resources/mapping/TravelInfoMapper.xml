@@ -38,13 +38,17 @@
     -->
     <select id="selectDynamicList" parameterType="java.util.Map" resultType="com.itour.model.travel.dto.TravelInfoDto">
            <if test='mold=="1"'>
-           SELECT 1 mold,1 dynamic, tmp1.PUBLISHTIME time,tmp2.AVATAR,tmp2.NICKNAME,tmp1.*  FROM 
-			(SELECT c.*  FROM t_t_travel_info c WHERE c.UID=#{uid}) tmp1 ,
-			(SELECT c.U_ID, c.AVATAR,c.NICKNAME FROM t_a_oauth c WHERE c.OAUTH_ID=#{oauthId} and c.oauth_type ='email') tmp2 WHERE tmp1.UID =tmp2.U_ID
+           select t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold,1 dynamic FROM
+			(SELECT * FROM t_t_travel_info c WHERE c.UID=#{uid} and c.`STATUS`='30') t1 LEFT JOIN
+			(SELECT c.U_ID,c.NICKNAME,c.AVATAR FROM t_a_oauth c WHERE c.OAUTH_ID=#{oauthId}) t2 on t1.UID=t2.U_ID
+			UNION ALL
+			SELECT t1.*,t2.CREATEDATE time,t3.NICKNAME,t3.AVATAR,1 mold,2 dynamic FROM t_t_travel_info t1 STRAIGHT_JOIN t_t_nice t2 on t1.ID =t2.TID and t1.STATUS='30' and t2.STATUS='1'
+			LEFT JOIN t_a_oauth t3 on t1.UID =t3.U_ID and t3.OAUTH_TYPE='eamil'
+			
 		  </if>
 		  <if test='mold =="2"'>
 		    select 2 mold,t1.PUBLISHTIME time,t2.AVATAR,t2.NICKNAME,t1.* from
-				(select  c.* from t_t_travel_info c where c.UID =#{uid}) t1 LEFT JOIN
+				(select  c.* from t_t_travel_info c where c.UID =#{uid} and c.`STATUS`='30') t1 LEFT JOIN
 				(select c.U_ID ,c.AVATAR, c.NICKNAME from t_a_oauth c where c.U_ID=#{uid} and c.OAUTH_TYPE='email') t2 on t1.UID=t2.U_ID
 		  </if>
 		  

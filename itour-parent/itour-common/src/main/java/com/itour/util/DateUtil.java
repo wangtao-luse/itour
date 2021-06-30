@@ -7,6 +7,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
+private static final String FMT_DATE ="yyyy-MM-dd";
+private static final String FMT_TIME ="HH:mm:ss";
+private static final String FMT_DATETIME ="yyyy-MM-dd HH:mm:ss";
+private static final String FMT_YEAR ="yyyy";
+private static final String FMT_MONTH ="MM";
+private static final String FMT_DAY ="dd";
+private static final String FMT_MONTH_DAY ="MM-dd";
 /**
  * 返回当前日期的long类型日期
  * @return long
@@ -44,12 +51,12 @@ public static String getDateStr(Date sDate) throws ParseException  {
 		return differOfSecond+"秒前";
 	}else if(differOfMinute<60) {
 		return differOfMinute+"分钟前";
-	}else if(differOfMinute<60*24) {
+	}else if(differOfHour<24) {
 		return differOfHour+"小时前";
-	}else if(differOfMonth<1) {
+	}else if(differOfDay<8) {
 		return differOfDay+"天前";
-	}else if(differOfMonth<12) {
-		return differOfMonth+"个月前";
+	}else if(differOfYear<1) {
+		return DateUtil.getStrDate(sDate, DateUtil.FMT_MONTH_DAY);
 	}else {
 		return differOfYear+"年前";
 	}
@@ -146,7 +153,17 @@ public static int getDifferOfYear(Date sDate,Date eDate) throws ParseException  
 	int year = eYear - sYear;
 	return   year; 
 } 
-
+/**
+ * 将Date型日期转为对应的pattern格式的日期
+ * @param date
+ * @param pattern
+ * @return
+ */
+public static String getStrDate(Date date,String pattern) {
+	SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+	  String format = sdf.format(date);
+	return format;
+}
 
 
 
@@ -167,17 +184,7 @@ public static int getDifferOfYear(Date sDate,Date eDate) throws ParseException  
 
 
 
-/**
- * 将Date型日期转为对应的pattern格式的日期
- * @param date
- * @param pattern
- * @return
- */
-public static String getStrDate(Date date,String pattern) {
-	SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-	  String format = sdf.format(date);
-	return format;
-}
+
 /**
  * 将日期转换为对应的毫秒数
  * @param date 日期
