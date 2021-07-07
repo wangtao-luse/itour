@@ -1,6 +1,7 @@
 package com.itour.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +45,7 @@ import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
 import com.itour.model.travel.dto.ViewTravelinfoOauth;
+import com.itour.model.vo.Orderby;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
@@ -508,6 +511,7 @@ public String search(HttpServletRequest request,ModelMap model) {
 public String personCenter(HttpServletRequest request,ModelMap model) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("account", sessionUser);
+	
 	return "/account/personCenter";
 }
 /**
@@ -588,32 +592,44 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
  * @return
  */
 @RequestMapping("/queryPersonCenterList")
-public String queryPersonCenterList(TravelInfoDto travelInfoDto,Page page,String ajaxCmd,ModelMap model,HttpServletRequest request) {
+public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	TravelInfoDto travelInfoDto = jsonObject.toJavaObject(TravelInfoDto.class);
+	PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
 	AccountVo sessionUser = SessionUtil.getSessionUser();
-	JSONObject jsonObject = new JSONObject();
+	JSONObject jsonTmp = new JSONObject();
 	String mold = travelInfoDto.getMold();
 	if(StringUtils.isEmpty(mold)) {
-		jsonObject.put("mold", ConstAccount.PERSONCNTER_DYNAMIC);
-		mold="1";
+		travelInfoDto.setMold("1");
 	}
-	jsonObject.put("uid", sessionUser.getuId());
-	jsonObject.put("oauthId", sessionUser.getOauthId());
-	jsonObject.put(Constant.COMMON_KEY_PAGE, new PageInfo());
-	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonObject, request);
+	travelInfoDto.setUid(sessionUser.getuId());
+	travelInfoDto.setOauthId( sessionUser.getOauthId());
+	jsonTmp.put(Constant.COMMON_KEY_VO, travelInfoDto);
+	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
+	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonTmp, request);
 	if(ResponseMessage.isSuccessResult(responseMessage)) {
-		List<TravelInfoDto> mapToList = FastJsonUtil.mapToList(responseMessage.getReturnResult(), TravelInfoDto.class);
-		for (TravelInfoDto info : mapToList) {
-			try {
-				info.setCreateDateFmt(DateUtil.getDateStr(new Date(info.getPublishtime())));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				model.addAttribute("error",Constant.FAILED_SYSTEM_ERROR);
-			}
+		PageInfo p = FastJsonUtil.mapToObject(responseMessage.getReturnResult(), PageInfo.class);
+		List<JSONObject> records = p.getRecords();
+		
+		List<TravelInfoDto> rList = new ArrayList<TravelInfoDto>();
+		for (JSONObject info : records) {
+			TravelInfoDto dto = info.toJavaObject(TravelInfoDto.class);
+				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
+				rList.add(dto);
 		}
-		model.addAttribute("cList",mapToList);
+		p.pageNav();
+		p.getPs();
+		JSONObject tmpJSon = new JSONObject();
+		TravelInfoDto dto = new TravelInfoDto();
+		dto.setUid(sessionUser.getuId());
+		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
+		ResponseMessage infoData = this.travelConnector.getInfoData(tmpJSon , request);
+		TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
+		model.addAttribute("dt", countInfo);
+		model.addAttribute("cList",rList);
+		model.addAttribute("page",p);
+		model.addAttribute("usr",sessionUser);
 	}
-	model.addAttribute("mold",mold);
+	model.addAttribute("mold",travelInfoDto.getMold());
 	return "/account/personCenterList#"+ajaxCmd;
 			
 }

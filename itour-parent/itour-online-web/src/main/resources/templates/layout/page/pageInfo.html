@@ -1,0 +1,30 @@
+	<!-- 当前页码 -->
+								    @var current=page.current;
+								    <!-- 每页条数 -->
+							        @var size=page.size;
+							        <!-- 总数据条数 -->
+							        @var total=page.total;
+							        <!-- 总页数 -->
+							        @var pages=page.ps;
+							        @if(pages>0){
+								    <div class="Pagination CommentsV2-pagination">
+								        @if(current>1){
+									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain" pageNo="${current-1}">上一页</button>
+									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain" pageNo="1">首页</button>
+									    @}
+									    @for(pageNo in page.navigatepageNums){	
+									       @if(current==pageNo){
+									       		<button type="button" disabled="" class="button PaginationButton PaginationButton--current button--plain" pageNo="${pageNo}">${pageNo}</button>
+									       @}else{
+									       <button type="button" class="button PaginationButton button--plain" pageNo="${pageNo}">${pageNo}</button>
+									       @}
+									       
+										@} 
+										
+									    @if(current < pages){
+									    <button type="button" class="button PaginationButton PaginationButton-next button--plain" pageNo="${current+1}">下一页</button>
+									     <button type="button" class="button PaginationButton PaginationButton-next button--plain" pageNo="${pages}">末页</button>
+								        @}
+								        共${pages}页
+								    </div>
+								    @}

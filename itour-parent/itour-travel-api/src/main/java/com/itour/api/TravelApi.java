@@ -539,6 +539,13 @@ ResponseMessage selectRegionOne(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/queryPersonCenterList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage queryPersonCenterList(RequestMessage requestMessage);
+/**
+ * 个人中心统计
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/getInfoData",produces = {"application/json;charset=UTF-8"})
+ResponseMessage getInfoData(RequestMessage requestMessage);
 
 
 }

@@ -388,6 +388,18 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.queryPersonCenterList(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 我的主页统计
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage getInfoData(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.getInfoData(requestMessage);
+		return responseMessage;
+	}
 	
 	
 }

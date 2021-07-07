@@ -486,16 +486,62 @@ $(function(){
 	    },cache: false, async: false,processData:false,contentType:false});
 	 });
       
-	 queryInfo({});
+	 queryInfo({"mold":"1","page":{"current":1,"size":10}});
+	 
+	 $(document).on("click","#dynamic-btn",function(){
+		 queryInfo({"mold":"1","page":{"current":1,"size":10}});
+	 })
+	 $(document).on("click","#article-btn",function(){
+		 var arr= new Array();
+		 var o1 ={"sortType":"time","sortRule":"0"};
+		 arr.push(o1);
+		 queryInfo({"mold":"2","page":{"current":"1","size":"10"}});
+	 })
+	 $(document).on("click","#draft-btn",function(){
+		 var arr= new Array();
+		 var o1 ={"sortType":"time","sortRule":"0"};
+		 arr.push(o1);
+		 queryInfo({"mold":"5","orderbyList":arr,"page":{"current":"1","size":"10"}});
+	 })
 	});
 function queryInfo(postData){
 	var url="/travel/queryPersonCenterList?ajaxCmd=content";
-	postForm(url, postData, function(result){
+	postForm(url, JSON.stringify(postData), function(result){
 		if(result){
 			$("#profile-mainColumn").html(result);
 		}
-	},{});
+	},{"contentType": "application/json; charset=utf-8"});
 }
+$(document).on("click",".Pagination.CommentsV2-pagination button",function(){
+	var pageNo = $(this).attr("pageNo");
+	var mold=$("#mold").val();
+	var data={"mold":mold,"page":{"current":pageNo,"size":"10"}};
+	var url="/travel/queryPersonCenterList?ajaxCmd=content";
+	postForm(url, JSON.stringify(data), function (result) {
+		if(result){
+			$("#profile-mainColumn").html(result);
+		}
+      }, {"contentType": "application/json; charset=utf-8"});
+})
+$(document).on("click","#percenter-nice-btn",function(){
+	var tid = $(this).attr("tid");
+	var has = $(this).hasClass("nice");
+	var status="";
+	if(has){
+		$(this).removeClass("nice");
+		status="0";
+	}else{
+		$(this).addClass("nice");
+		status="1";
+	}
+	
+	var data={tid:tid,status:status};
+	postAjax("/niceSub", JSON.stringify(data), function (result) {
+		console.log(tid);
+    }, {errorFunction:function(result){
+    	alert(result.resultMessage);
+    },cache: false, async: false});
+})	
 
 function dataURLtoFile (dataurl, filename) { 
     var arr = dataurl.split(','),

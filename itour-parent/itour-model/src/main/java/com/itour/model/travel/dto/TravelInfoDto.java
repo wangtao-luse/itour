@@ -1,6 +1,11 @@
 package com.itour.model.travel.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.itour.model.travel.TravelInfo;
+import com.itour.model.vo.Orderby;
 
 
 public class TravelInfoDto extends TravelInfo {
@@ -10,7 +15,35 @@ private String mold;
 private String createDateFmt;
 private String avatar;
 private String nickname;
+private String oauthId;
+private Long infoCount;
+private Long draffCount;
+private List<Orderby> orderbyList = new ArrayList<Orderby>();
 
+public Long getInfoCount() {
+	return infoCount;
+}
+public void setInfoCount(Long infoCount) {
+	this.infoCount = infoCount;
+}
+public Long getDraffCount() {
+	return draffCount;
+}
+public void setDraffCount(Long draffCount) {
+	this.draffCount = draffCount;
+}
+public List<Orderby> getOrderbyList() {
+	return orderbyList;
+}
+public void setOrderbyList(List<Orderby> orderbyList) {
+	this.orderbyList = orderbyList;
+}
+public String getOauthId() {
+	return oauthId;
+}
+public void setOauthId(String oauthId) {
+	this.oauthId = oauthId;
+}
 public String getNickname() {
 	return nickname;
 }
@@ -46,5 +79,10 @@ public Long getTime() {
 }
 public void setTime(Long time) {
 	this.time = time;
+}
+@Override
+public String toString() {
+	return "TravelInfoDto [dynamic=" + dynamic + ", time=" + time + ", mold=" + mold + ", createDateFmt="
+			+ createDateFmt + ", avatar=" + avatar + ", nickname=" + nickname + "]";
 }
 }

@@ -212,3 +212,11 @@ h1, h2, h3 {
     white-space: nowrap;
     border: 0;
 }
+.Pagination {
+    padding: 16px 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+.CommentsV2-pagination {
+    border-top: 1px solid #ebebeb;
+}

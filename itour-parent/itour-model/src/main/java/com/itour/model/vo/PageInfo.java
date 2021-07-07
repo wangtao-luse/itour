@@ -1,7 +1,9 @@
 package com.itour.model.vo;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.stereotype.Component;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+@Component
 public class PageInfo<T> extends Page<T> {
 
 	private static final long serialVersionUID = 1L;

@@ -39,27 +39,33 @@ public static long getlongDate(Date date) {
  * @return
  * @throws ParseException 
  */
-public static String getDateStr(Date sDate) throws ParseException  {
-	Date eDate = new Date();
-	long differOfSecond = getDifferOfSecond(sDate,eDate);
-	long differOfMinute = getDifferOfMinute(sDate,eDate);
-	long differOfHour = getDifferOfHour(sDate,eDate);
-	int differOfDay = getDifferOfDay(sDate,eDate);
-	int differOfMonth = getDifferOfMonth(sDate,eDate);
-	int differOfYear = getDifferOfYear(sDate,eDate);
-	if(differOfMinute<1) {
-		return differOfSecond+"秒前";
-	}else if(differOfMinute<60) {
-		return differOfMinute+"分钟前";
-	}else if(differOfHour<24) {
-		return differOfHour+"小时前";
-	}else if(differOfDay<8) {
-		return differOfDay+"天前";
-	}else if(differOfYear<1) {
-		return DateUtil.getStrDate(sDate, DateUtil.FMT_MONTH_DAY);
-	}else {
-		return differOfYear+"年前";
+public static String getDateStr(Date sDate) {
+	try {
+		Date eDate = new Date();
+		long differOfSecond = getDifferOfSecond(sDate,eDate);
+		long differOfMinute = getDifferOfMinute(sDate,eDate);
+		long differOfHour = getDifferOfHour(sDate,eDate);
+		int differOfDay = getDifferOfDay(sDate,eDate);
+		int differOfMonth = getDifferOfMonth(sDate,eDate);
+		int differOfYear = getDifferOfYear(sDate,eDate);
+		if(differOfMinute<1) {
+			return differOfSecond+"秒前";
+		}else if(differOfMinute<60) {
+			return differOfMinute+"分钟前";
+		}else if(differOfHour<24) {
+			return differOfHour+"小时前";
+		}else if(differOfDay<8) {
+			return differOfDay+"天前";
+		}else if(differOfYear<1) {
+			return DateUtil.getStrDate(sDate, DateUtil.FMT_MONTH_DAY);
+		}else {
+			return differOfYear+"年前";
+		}
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
 	}
+	return null;
 }
 /**
  * 计算两个日期之间相差多少秒
@@ -476,7 +482,9 @@ public static void testDate() throws ParseException {
 	int differOfYear = DateUtil.getDifferOfYear(stime, etime);
 	System.out.println("相差 "+differOfYear+"年");
 	
-	String dateStr = DateUtil.getDateStr(stime);
+	String dateStr = DateUtil.getDateStr(new Date(1620280532680L));
+   String dateStr1 = DateUtil.getDateStr(new Date(1617699915280L));
 	System.out.println(dateStr);
+	System.out.println(dateStr1);
 }
 }

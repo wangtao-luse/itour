@@ -1,6 +1,10 @@
 package com.itour.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -365,15 +369,24 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
-			String mold = jsonObject.getString("mold");
-			String uid = jsonObject.getString("uid");
-			String oauthId = jsonObject.getString("oauthId");
-			Map map = new HashMap<String, Object>();
-			map.put("uid", uid);
-			map.put("mold", mold);			
-			map.put("oauthId", oauthId);			
-		    List<TravelInfoDto> selectDynamicList = this.baseMapper.selectDynamicList(map);
-			response.setReturnResult(selectDynamicList);
+			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+		    List<TravelInfoDto> selectDynamicList = this.baseMapper.selectDynamicList(page,vo);
+		    page.setRecords(selectDynamicList);
+			response.setReturnResult(page);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return response;
+	}
+	public ResponseMessage getInfoData(RequestMessage requestMessage) {
+		ResponseMessage response = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+		    TravelInfoDto infoData = this.baseMapper.getInfoData(vo);
+			response.setReturnResult(infoData);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -2,7 +2,6 @@ package com.itour.persist;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -21,6 +20,7 @@ import com.itour.model.vo.PageInfo;
  */
 public interface TravelInfoMapper extends BaseMapper<TravelInfo> {
 	 int updatePvBatch(Collection<TravelInfo> entityList);
-	 List<TravelInfoDto> selectDynamicList(Map<String,Object> map);
-	 List<TravelInfoDto> selectDynamicList(PageInfo page,Map<String,Object> map);
+	 List<TravelInfoDto> selectDynamicList(@Param("vo")TravelInfoDto vo);
+	 List<TravelInfoDto> selectDynamicList(PageInfo page,@Param("vo")TravelInfoDto vo);
+	 TravelInfoDto getInfoData(@Param("vo")TravelInfoDto vo);
 }
