@@ -23,4 +23,5 @@ public interface TravelInfoMapper extends BaseMapper<TravelInfo> {
 	 List<TravelInfoDto> selectDynamicList(@Param("vo")TravelInfoDto vo);
 	 List<TravelInfoDto> selectDynamicList(PageInfo page,@Param("vo")TravelInfoDto vo);
 	 TravelInfoDto getInfoData(@Param("vo")TravelInfoDto vo);
+	 List<TravelInfoDto> searchTextList(@Param("vo")TravelInfoDto vo);
 }

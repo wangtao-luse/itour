@@ -394,4 +394,18 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		}
 		return response;
 	}
+	public ResponseMessage searchTextList(RequestMessage requestMessage) {
+		ResponseMessage response = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+			List<TravelInfoDto> infoData = this.baseMapper.searchTextList(vo);
+			response.setReturnResult(infoData);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return response;
+	}
 }

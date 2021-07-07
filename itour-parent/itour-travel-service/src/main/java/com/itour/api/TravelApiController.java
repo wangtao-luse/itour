@@ -670,8 +670,11 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return this.travelInfoService.getInfoData(requestMessage);
 	}
-	
-	
-	
-	
-}
+	/**
+	 * 搜索页
+	 */
+	@Override
+	public ResponseMessage searchTextList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.travelInfoService.searchTextList(requestMessage);
+	}}

@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -497,9 +499,21 @@ public ResponseMessage commentNice(@RequestBody JSONObject jsonObject,HttpServle
  */
 
 @RequestMapping("/search")
-public String search(HttpServletRequest request,ModelMap model) {
-	return "/travel/search";
+public String search(TravelInfoDto dto,HttpServletRequest request,ModelMap model,String ajaxCmd) {
+	JSONObject jsonObject = new JSONObject();
+	dto.setTitle("上海");
+	jsonObject.put(Constant.COMMON_KEY_VO, dto);
+	ResponseMessage searchTextList = this.travelConnector.searchTextList(jsonObject, request);
+	List<TravelInfoDto> toList = FastJsonUtil.mapToList(searchTextList.getReturnResult(), TravelInfoDto.class);
+	model.addAttribute("tList", toList);
+	if(StringUtils.isEmpty(ajaxCmd)) {
+		return "/travel/search";
+	}else {
+		return "/travel/search#"+ajaxCmd;
+	}
+	
 }
+
 /**
  * 个人中心
  * @param request
@@ -633,4 +647,5 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	return "/account/personCenterList#"+ajaxCmd;
 			
 }
+
 }

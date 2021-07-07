@@ -82,4 +82,12 @@
     	SELECT UID,STATUS,count(*) draffCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='10') t2
 		ON t1.UID=t2.UID
     </select>
+    <select id="searchTextList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
+      SELECT t1.*,t2.NICKNAME,1 mold FROM t_t_travel_info t1  INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID and t2.OAUTH_TYPE='email'
+		and (t1.TITLE like '%'||#{vo.title}||'%' or t1.SUMMARY LIKE '%'||#{vo.title}||'%')
+		<if test="vo.type==null and '' !=vo.type">
+		  and t1.type=#{vo.type}
+		</if>
+      
+    </select>
 </mapper>

@@ -546,6 +546,13 @@ ResponseMessage queryPersonCenterList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/getInfoData",produces = {"application/json;charset=UTF-8"})
 ResponseMessage getInfoData(RequestMessage requestMessage);
+/**
+ * 搜索页
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/searchTextList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage searchTextList(RequestMessage requestMessage);
 
 
 }
