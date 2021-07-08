@@ -67,6 +67,15 @@
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 2 mold
 		   FROM t_t_travel_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID
 				and t1.UID=#{vo.uid} and t1.`STATUS`='30' and t2.OAUTH_ID=#{vo.oauthId}
+				<foreach collection="vo.orderbyList" item="item" separator="," index="index">
+				 <if test="index==0">
+				  order by
+				 </if>
+				  ${item.sortType}
+				 <if test='item.sortRule=="0"'>
+				    desc
+				 </if>
+				</foreach>
 		  </if>
 		  <if test='vo.mold =="5"'>
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold
@@ -83,9 +92,10 @@
 		ON t1.UID=t2.UID
     </select>
     <select id="searchTextList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
-      SELECT t1.*,t2.NICKNAME,1 mold FROM t_t_travel_info t1  INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID and t2.OAUTH_TYPE='email'
-		and (t1.TITLE like '%'||#{vo.title}||'%' or t1.SUMMARY LIKE '%'||#{vo.title}||'%')
-		<if test="vo.type==null and '' !=vo.type">
+      SELECT t1.*,t2.NICKNAME,1 mold FROM t_t_travel_info t1  
+        INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID and t2.OAUTH_TYPE='email'
+		and (t1.TITLE like "%"#{vo.title}"%" or t1.SUMMARY LIKE "%"#{vo.title}"%")
+		<if test="vo.type!=null and '' !=vo.type">
 		  and t1.type=#{vo.type}
 		</if>
       

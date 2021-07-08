@@ -750,6 +750,7 @@ overflow: hidden;
 	display: inline;
 	color: #0084FF;
 	padding: 8px 0;
+	cursor: pointer;
 }
 .pager li a{
 	display: inline-block;

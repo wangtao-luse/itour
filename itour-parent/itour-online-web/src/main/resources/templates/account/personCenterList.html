@@ -38,8 +38,13 @@
 	    								<span class="profile-writePostsText">写文章</span>
 	    							</a>
 	    							<div class="popover">
-	    								<button  id="popover order-toggle"   type="button" class="button inputLike inputButton select-button select-plainButton button--plain">
-	    									按时间排序
+	    								<button  id="order-toggle"  isAsc="${isAsc!0}"  type="button" class="button inputLike inputButton select-button select-plainButton button--plain">
+	    								     @if(isAsc=="1"){
+	    								     <span class="orderText">按默认方式排序</span>
+	    								     @}else{
+	    								     <span class="orderText">按时间升序排序</span>
+	    								     @}
+	    									
 	    									<svg class="zi zi--Select select-arrow" fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M12 16.183l2.716-2.966a.757.757 0 0 1 1.064.001.738.738 0 0 1 0 1.052l-3.247 3.512a.758.758 0 0 1-1.064 0L8.22 14.27a.738.738 0 0 1 0-1.052.758.758 0 0 1 1.063 0L12 16.183zm0-9.365L9.284 9.782a.758.758 0 0 1-1.064 0 .738.738 0 0 1 0-1.052l3.248-3.512a.758.758 0 0 1 1.065 0L15.78 8.73a.738.738 0 0 1 0 1.052.757.757 0 0 1-1.063.001L12 6.818z" fill-rule="evenodd"></path></svg>
 	    										
 	    									</button>
@@ -79,11 +84,18 @@
 	    									</span>
 	    									<span>${c.createDateFmt}</span>
 	    								</div>
+	    								@}else if(mold=="2"){
+	    								   <div class="activityItem-meta">
+	    									<span class="activityItem-metaTitle">
+	    									     创作了文章
+	    									</span>
+	    									<span>${c.publishtime,dateFormat="yyyy-MM-dd HH:mm:ss"}</span>
+	    								</div>
 	    								@}
 	    							</div>
 	    							<div class="contentItem answerItem">
 	    								<h2 class="contentItem-title">
-	    									<a href="${ctxPath}/travel/detail?id=${c.id}" target="_blank">${c.title}</a>
+	    									<a href="${ctxPath}/travel/detail?id=${c.id}" target="_blank">${c.title}</span></a>
 	    								</h2>
 	    							</div>
 	    						    <div class="contentItem-meta">

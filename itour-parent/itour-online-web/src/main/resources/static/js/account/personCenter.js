@@ -495,7 +495,7 @@ $(function(){
 		 var arr= new Array();
 		 var o1 ={"sortType":"time","sortRule":"0"};
 		 arr.push(o1);
-		 queryInfo({"mold":"2","page":{"current":"1","size":"10"}});
+		 queryInfo({"mold":"2","orderbyList":arr,"page":{"current":"1","size":"10"}});
 	 })
 	 $(document).on("click","#draft-btn",function(){
 		 var arr= new Array();
@@ -542,7 +542,20 @@ $(document).on("click","#percenter-nice-btn",function(){
     	alert(result.resultMessage);
     },cache: false, async: false});
 })	
-
+$(document).on("click","#order-toggle",function(){
+	var isAsc =$(this).attr("isasc");
+	var sortRule ="0";
+	if("0"==isAsc){
+		sortRule="1";
+		isAsc="1";
+	}else{
+		isAsc="0";
+	}
+	 var arr= new Array();
+	 var o1 ={"sortType":"time","sortRule":sortRule};
+	 arr.push(o1);
+	 queryInfo({"isAsc":isAsc,"mold":"2","orderbyList":arr,"page":{"current":"1","size":"10"}});
+})
 function dataURLtoFile (dataurl, filename) { 
     var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],

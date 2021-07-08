@@ -399,8 +399,10 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
-			List<TravelInfoDto> infoData = this.baseMapper.searchTextList(vo);
-			response.setReturnResult(infoData);
+			PageInfo pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
+			List<TravelInfoDto> infoData = this.baseMapper.searchTextList(pageVo,vo);
+			Page setRecords = pageVo.setRecords(infoData);
+			response.setReturnResult(setRecords);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

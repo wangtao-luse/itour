@@ -499,13 +499,19 @@ public ResponseMessage commentNice(@RequestBody JSONObject jsonObject,HttpServle
  */
 
 @RequestMapping("/search")
-public String search(TravelInfoDto dto,HttpServletRequest request,ModelMap model,String ajaxCmd) {
+public String search(TravelInfoDto dto,PageInfo page,HttpServletRequest request,ModelMap model,String ajaxCmd) {
+	String parameter = request.getParameter("search");
 	JSONObject jsonObject = new JSONObject();
-	dto.setTitle("上海");
+	dto.setTitle(parameter);
 	jsonObject.put(Constant.COMMON_KEY_VO, dto);
+	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage searchTextList = this.travelConnector.searchTextList(jsonObject, request);
-	List<TravelInfoDto> toList = FastJsonUtil.mapToList(searchTextList.getReturnResult(), TravelInfoDto.class);
-	model.addAttribute("tList", toList);
+	PageInfo pageInfo = FastJsonUtil.mapToObject(searchTextList.getReturnResult(), PageInfo.class);
+	
+	List<TravelInfoDto> records = pageInfo.getRecords();
+	model.addAttribute("tList", records);
+	model.addAttribute("page", pageInfo);
+	model.addAttribute("search", parameter);
 	if(StringUtils.isEmpty(ajaxCmd)) {
 		return "/travel/search";
 	}else {
@@ -642,6 +648,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		model.addAttribute("cList",rList);
 		model.addAttribute("page",p);
 		model.addAttribute("usr",sessionUser);
+		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
 	}
 	model.addAttribute("mold",travelInfoDto.getMold());
 	return "/account/personCenterList#"+ajaxCmd;
