@@ -30,7 +30,7 @@ public class ShiroConfig {
 @Bean
 public SecurityManager securityManager() {//可配置缓存和Realm
     DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
-    defaultSecurityManager.setRealm(loginRealm());
+    defaultSecurityManager.setRealm(LoginRealm());
     return defaultSecurityManager;
 }
 /**
@@ -38,7 +38,7 @@ public SecurityManager securityManager() {//可配置缓存和Realm
  * @return
  */
 @Bean
-public LoginRealm loginRealm() {
+public LoginRealm LoginRealm() {
 	LoginRealm customRealm = new LoginRealm();
     customRealm.setCredentialsMatcher(credentialsMatcher());
     return customRealm;
@@ -98,15 +98,16 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 }
-//@Bean
+@Bean
 //https://www.cnblogs.com/ginponson/p/6217057.html
-	/*
-	 * public FilterRegistrationBean delegatingFilterProxy(){ FilterRegistrationBean
-	 * filterRegistrationBean = new FilterRegistrationBean(); DelegatingFilterProxy
-	 * proxy = new DelegatingFilterProxy(); proxy.setTargetFilterLifecycle(true);
-	 * proxy.setTargetBeanName("shiroFilter");
-	 * filterRegistrationBean.setFilter(proxy); return filterRegistrationBean; }
-	 */
+public FilterRegistrationBean delegatingFilterProxy(){
+  FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+  DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+  proxy.setTargetFilterLifecycle(true);
+  proxy.setTargetBeanName("shiroFilter");
+  filterRegistrationBean.setFilter(proxy);
+  return filterRegistrationBean;
+}
 
 
 
