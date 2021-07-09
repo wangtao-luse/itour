@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.WorkInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.work.WorkInfo">
+        <id column="ID" property="id" />
+        <result column="TITLE" property="title" />
+        <result column="URL" property="url" />
+        <result column="SUMMARY" property="summary" />
+        <result column="ARTICLE_TYPE" property="articleType" />
+        <result column="CRATEDATE" property="cratedate" />
+        <result column="UPDATEDATA" property="updatedata" />
+        <result column="SCOLUMN" property="scolumn" />
+        <result column="MODALITY" property="modality" />
+        <result column="UID" property="uid" />
+        <result column="READ_COUNT" property="readCount" />
+        <result column="COMMENT_COUNT" property="commentCount" />
+        <result column="NICE_COUNT" property="niceCount" />
+        <result column="PV" property="pv" />
+        <result column="STATUS" property="status" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, TITLE, URL, SUMMARY, ARTICLE_TYPE, CRATEDATE, UPDATEDATA, SCOLUMN, MODALITY, UID, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV, STATUS
+    </sql>
+
+</mapper>
