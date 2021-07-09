@@ -202,7 +202,8 @@ var postAjax = function (url, postData, successFunction, options) {
         type: "post",
         async: true,
         contentType: "application/json; charset=utf-8",
-        dataType: "json"
+        dataType: "json",
+        processData:true
     };
     var currentOptions = $.extend(defaultOptions, options);
     $.ajax({
@@ -212,6 +213,7 @@ var postAjax = function (url, postData, successFunction, options) {
         dataType: currentOptions.dataType,
         url: getContextPath() + url,
         async: currentOptions.async,
+        processData:currentOptions.processData,
         beforeSend: function () {
             parent.$.messager.progress({title: '提示', text: '数据处理中，请稍候....'});
         },

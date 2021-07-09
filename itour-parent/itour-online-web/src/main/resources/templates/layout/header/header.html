@@ -27,7 +27,7 @@
 					<div class="banner-serach itour-banner-fl">
 						<div class="banner-serach-container">
 							<input type="text" class="banner-search-input" maxlength="100" autocomplete="off" placeholder="上海有那些好玩的地方"/>
-						<button type="button" class="banner-search-button"></button>
+						<button type="button" class="banner-search-button button-search-banner"></button>
 						</div>
 						
 					</div>
@@ -66,8 +66,8 @@
 					   	 	@}
 					   	 </a>
 					   	 <div class="toolbar-subMenu">
-					   	 	<!-- <a href="${ctxPath}/travel/personCenter" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
-					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>
+					   	 	<a href="${ctxPath}/travel/personCenter" target="_blank"><i class="banner-icon banner-icon-profile"></i>我的主页</a>
+					   	 	<!--<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-blog"></i>我的博客</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-account"></i>设置</a> -->
 					   	 	<a href="${ctxPath}/shiro/logout" target="_blank"><i class="banner-icon banner-icon-logout"></i>退出</a>
@@ -85,8 +85,13 @@
 		</div>
 <script>
 $(function(){
-	/* $(".banner-search-button").click(function(){
-		location.href="${ctxPath}/travel/search";
-	}) */
+	 $(".button-search-banner").click(function(){
+		 var s = $(".banner-search-input").val();
+		 var data={"search":s};
+		 if(s){
+			 location.href="${ctxPath}/travel/search?search="+s;
+		 }
+		
+	}) 
 })
 </script>

@@ -19,14 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.AccountVo;
 import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
-import com.itour.exception.BaseException;
-import com.itour.model.account.Group;
 import com.itour.model.account.Oauth;
-import com.itour.model.account.RightDetail;
-import com.itour.model.account.Role;
 import com.itour.util.FastJsonUtil;
 /**
  * 自定义的指定Shiro验证用户登录的类

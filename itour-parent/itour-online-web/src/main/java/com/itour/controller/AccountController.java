@@ -2,6 +2,9 @@ package com.itour.controller;
 
 
 
+import java.io.File;
+import java.io.InputStream;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -9,6 +12,8 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.file.FileUploadHelper;
+import com.itour.common.image.ImageIOHelper;
+import com.itour.common.image.ThumbnailsHelper;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.common.vo.ExUsernamePasswordToken;
@@ -30,7 +37,6 @@ import com.itour.connector.AccountConnector;
 import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
-import com.itour.exception.BaseException;
 import com.itour.model.account.Oauth;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.SessionUtil;
@@ -236,17 +242,18 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
 		return checkRegName;
 	}
-	/** 检查用户是否 存在
+	/**修改图像
 	* @param email
 	* @param request
 	* @return
 	*/
 	@ResponseBody
 	@RequestMapping("/updateAvatar")
-	public ResponseMessage updateAvatar(MultipartFile file,HttpServletRequest request) {
+	public ResponseMessage updateAvatar(MultipartFile file,int x,int y,int width,int height,HttpServletRequest request) {
 		ResponseMessage upload = ResponseMessage.getSucess();
 		 try {
-			 upload = FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
+			 MultipartFile newFile = ImageIOHelper.cut(file, x, y, width, height);
+			 upload = FileUploadHelper.upload(newFile, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
 			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&!StringUtils.isEmpty(upload.getReturnResult())) {
 				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
 				AccountVo sessionUser = SessionUtil.getSessionUser();
@@ -259,7 +266,20 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 				if(Constant.FAILED_CODE.equals(updateOAuthById.getResultCode())) {
 					return ResponseMessage.getFailed(updateOAuthById.getResultMessage());
 				}else {
-					sessionUser.setAvatar(avatar);
+					
+					Object primaryPrincipal = SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+					Oauth currentOauth= JSONObject.parseObject(JSONObject.toJSONString(primaryPrincipal), Oauth.class);
+					currentOauth.setAvatar(avatar);
+					Subject subject = SecurityUtils.getSubject();
+					PrincipalCollection principals = subject.getPrincipals();
+					//realName认证信息的key，对应的value就是认证的user对象
+					String realName= principals.getRealmNames().iterator().next();
+					//创建一个PrincipalCollection对象，userDO是更新后的user对象
+					PrincipalCollection newPrincipalCollection = new SimplePrincipalCollection(currentOauth, realName);
+					//调用subject的runAs方法，把新的PrincipalCollection放到session里面
+					subject.runAs(newPrincipalCollection);
+					
+					
 				}
 				
 			}

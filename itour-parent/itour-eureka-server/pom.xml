@@ -17,6 +17,11 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>com.itour</groupId>
+    	<artifactId>itour-common</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
    <build>
     <finalName>${project.artifactId}</finalName> 

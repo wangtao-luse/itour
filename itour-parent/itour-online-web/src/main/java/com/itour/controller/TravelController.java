@@ -1,17 +1,25 @@
 package com.itour.controller;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,21 +31,23 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.AccountConnector;
 import com.itour.connector.TravelConnector;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
-import com.itour.model.travel.Location;
 import com.itour.model.travel.Region;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
 import com.itour.model.travel.dto.ViewTravelinfoOauth;
+import com.itour.model.vo.Orderby;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
@@ -489,9 +499,27 @@ public ResponseMessage commentNice(@RequestBody JSONObject jsonObject,HttpServle
  */
 
 @RequestMapping("/search")
-public String search(HttpServletRequest request,ModelMap model) {
-	return "/travel/search";
+public String search(TravelInfoDto dto,PageInfo page,HttpServletRequest request,ModelMap model,String ajaxCmd) {
+	String parameter = request.getParameter("search");
+	JSONObject jsonObject = new JSONObject();
+	dto.setTitle(parameter);
+	jsonObject.put(Constant.COMMON_KEY_VO, dto);
+	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
+	ResponseMessage searchTextList = this.travelConnector.searchTextList(jsonObject, request);
+	PageInfo pageInfo = FastJsonUtil.mapToObject(searchTextList.getReturnResult(), PageInfo.class);
+	
+	List<TravelInfoDto> records = pageInfo.getRecords();
+	model.addAttribute("tList", records);
+	model.addAttribute("page", pageInfo);
+	model.addAttribute("search", parameter);
+	if(StringUtils.isEmpty(ajaxCmd)) {
+		return "/travel/search";
+	}else {
+		return "/travel/search#"+ajaxCmd;
+	}
+	
 }
+
 /**
  * 个人中心
  * @param request
@@ -503,6 +531,7 @@ public String search(HttpServletRequest request,ModelMap model) {
 public String personCenter(HttpServletRequest request,ModelMap model) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("account", sessionUser);
+	
 	return "/account/personCenter";
 }
 /**
@@ -583,8 +612,47 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
  * @return
  */
 @RequestMapping("/queryPersonCenterList")
-public ResponseMessage queryPersonCenterList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	ResponseMessage resp = this.travelConnector.queryPersonCenterList(jsonObject, request);
-	return resp;
+public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	TravelInfoDto travelInfoDto = jsonObject.toJavaObject(TravelInfoDto.class);
+	PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	JSONObject jsonTmp = new JSONObject();
+	String mold = travelInfoDto.getMold();
+	if(StringUtils.isEmpty(mold)) {
+		travelInfoDto.setMold("1");
+	}
+	travelInfoDto.setUid(sessionUser.getuId());
+	travelInfoDto.setOauthId( sessionUser.getOauthId());
+	jsonTmp.put(Constant.COMMON_KEY_VO, travelInfoDto);
+	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
+	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonTmp, request);
+	if(ResponseMessage.isSuccessResult(responseMessage)) {
+		PageInfo p = FastJsonUtil.mapToObject(responseMessage.getReturnResult(), PageInfo.class);
+		List<JSONObject> records = p.getRecords();
+		
+		List<TravelInfoDto> rList = new ArrayList<TravelInfoDto>();
+		for (JSONObject info : records) {
+			TravelInfoDto dto = info.toJavaObject(TravelInfoDto.class);
+				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
+				rList.add(dto);
+		}
+		p.pageNav();
+		p.getPs();
+		JSONObject tmpJSon = new JSONObject();
+		TravelInfoDto dto = new TravelInfoDto();
+		dto.setUid(sessionUser.getuId());
+		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
+		ResponseMessage infoData = this.travelConnector.getInfoData(tmpJSon , request);
+		TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
+		model.addAttribute("dt", countInfo);
+		model.addAttribute("cList",rList);
+		model.addAttribute("page",p);
+		model.addAttribute("usr",sessionUser);
+		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
+	}
+	model.addAttribute("mold",travelInfoDto.getMold());
+	return "/account/personCenterList#"+ajaxCmd;
+			
 }
+
 }

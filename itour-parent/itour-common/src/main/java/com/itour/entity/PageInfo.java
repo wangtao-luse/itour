@@ -1,5 +1,7 @@
 package com.itour.entity;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 public class PageInfo<T> extends Page<T> {
@@ -74,5 +76,10 @@ public class PageInfo<T> extends Page<T> {
 	        }
 	        this.navigatepageNums= navs;
 	    }
-
+		 public List<T> getRecords() {
+			 List<T> records = super.getRecords();
+			  this.getPs();
+			  this.pageNav();
+		        return records;
+		    }
 }

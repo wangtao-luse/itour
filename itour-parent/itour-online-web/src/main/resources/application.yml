@@ -37,4 +37,6 @@ feign:
 upload:
   location: '@fileupload.path@'
   resourceHandler: /uploaded/**   #请求 url 中的资源映射
-  
+#log    
+logging:
+  path: '@log.home@'

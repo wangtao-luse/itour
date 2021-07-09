@@ -1,11 +1,37 @@
 @layout("/layout/template.html",{title:'爱旅行-搜索'}){
 <script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
-<script type="text/javascript" src="${ctxPath}/js/travel/person/personCenter.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/file/cropbox.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/file/jquery.qrcode.min.js" ></script>
+<script type="text/javascript" src="${ctxPath}/js/account/personCenter.js" ></script>
+<style>
+.imageBox {
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border: 1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor: move;
+}
+.imageBox .thumbBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+</style>
 	    <div class="userCenter">
 	    	<div class="infoMsgHead">
 	    		<div class="infoMsgHead-inner">
 	    			<div class="user-left">
-	    			    <label>
 	    				<div class="user-img">
 	    				   @if(isEmpty(user.avatar)){
 	    				   <img src="${ctxPath}/img/common/avatar-5.webp" />
@@ -15,10 +41,9 @@
 	    					
 	    					<p class="modify-img">上传头像</p>
 	    					<form id="form_upload" method="post"  enctype="multipart/form-data" >
-	    					<input type="file" name="file" class="input-fileUpload" onchange="upload_file()" >
+	    					<input type="file" name="file" class="uploadPicture-input"  >
 	    					</form>
 	    				</div>
-	    				</label>
 	    			</div>
 	    			<div class="user-info">
 	    				<p class="id-msg">
@@ -33,7 +58,7 @@
 	    	</div>
 	    </div>
 	    <div class="profile-main">
-	    	<div class="profile-mainColumn">
+	    	<div class="profile-mainColumn" id="profile-mainColumn">
 	    		<div class="card profileMain" id="profileMain">
 	    			<div class="profileMain-header">
 	    				<ul id="tablist" class="tabs profileMain-tabs">
@@ -556,7 +581,7 @@
 	    		</div>
 	    	</div>
 	    </div>
-	    <div>
+	   <!--  <div>
 	    	<div>
 	    		<div>
 	    			<div class="popover-content popover-content--top popover-content--arrowed popover-content-enter-done" id="popover10-content"style="left: 380.493px; top: 1900.333px;">
@@ -565,7 +590,7 @@
 	    			</div>
 	    		</div>
 	    	</div>
-	    </div>
+	    </div> -->
 		<div class="modi_dialog upload-dialog" style="display:none">
 			<div class="vue-image-crop-upload">
 				<div class="vicp-wrap">
@@ -573,10 +598,10 @@
 					<h3 class="upword">上传图像</h3>
 					<h3 class="upword" style="display: none;">修改图像</h3>
 					<div class="vicp-step1" >
-						<div class="vicp-drop-area">
+						<div class="vicp-drop-area" id="drop_area" draggable="true">
 							<img src="${ctxPath}/img/common/upload.png" class="vicp-icon1" />
 							<span class="vicp-hint">点击或拖动图片至此处</span>
-								<input type="file" style="display: none;">
+							<input type="file" style="display: none;" class="inpuit-file-avatar">
 						</div>
 						<div class="vicp-operate">
 							<a>取消</a>
@@ -586,19 +611,19 @@
 					<div class="vicp-step2" style="display: none;" >
 						<div class="vicp-crop">
 							<div class="vicp-crop-left">
-								<div class="vicp-img-container">
-									<img src="../../img/itour/common/avatar-3.jpg"  class="vicp-img"  style="height: 184px;" />
+								<div class="vicp-img-container container">
+								   <div class="photo-orgin-wrap"><img alt="原图" class="orgin-photo"></div>
 								</div>
 								<div class="vicp-range">
 									<input type="range" step="1" min="0" max="100" />
-									<i class="vicp-icon5"></i>
-									<i class="vicp-icon6">+</i>
+									<i class="vicp-icon5" id="btnZoomOut"></i>
+									<i class="vicp-icon6" id="btnZoomIn">+</i>
 								</div>
 							</div>
 							<div class="vicp-crop-right">
 								<div class="vicp-preview">
 									<div class="vicp-preview-item vicp-preview-item-circle">
-										<img src="../../img/itour/common/avatar-3.jpg" style="width: 100px;height: 100px;">
+									<div class="photo-preview-wrap"><img alt="图片预览" class="pre-photo" style="width: 100px;height: 100px;"></div>
 										<span>图像预览</span>
 									</div>
 								</div>

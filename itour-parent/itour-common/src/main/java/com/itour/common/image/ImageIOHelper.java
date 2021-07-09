@@ -12,6 +12,9 @@ import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
 
 public class ImageIOHelper {
 /**
@@ -22,7 +25,56 @@ public class ImageIOHelper {
  * Graphics
 	提供基本绘图和显示格式化文字的方法，画图用的坐标系原点在左上角，纵轴向下。主要有画线段、矩形、圆、椭圆、圆弧、多边形等各种颜色的图形、线条。
 	Graphics2D类提供更强大的绘图能力。
+	
+	ImageIO提供read()和write()静态方法，读写图片，比以往的InputStream读写更方便
+	方法：
+	ImageIO.read(File input)
+	ImageIO.read(InputStream stream)
+	ImageIO.read(ImageInputStream stream)
+	ImageIO.read(URL url)
  */
+	
+	public static void main(String[] args) {
+		
+	}
+public static MultipartFile cut(MultipartFile file,int x,int y,int w,int h) throws IOException {
+	BufferedImage image = ImageIO.read(file.getInputStream());
+	BufferedImage newImage = image.getSubimage(x, y, w, h);
+	ByteArrayOutputStream out = new ByteArrayOutputStream();
+	String fileName =file.getOriginalFilename();
+	String stuffix =  fileName.substring(fileName.indexOf(".")+1);
+    ImageIO.write(newImage,stuffix , out);
+    //ByteArrayOutputStream 转化为 byte[]
+    byte[] imageByte = out.toByteArray();
+    //将 byte[] 转为 MultipartFile
+    MultipartFile multipartFile = new  MockMultipartFile(file.getName(),file.getOriginalFilename(),file.getContentType(),imageByte);
+    return multipartFile;
+
+
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

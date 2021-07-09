@@ -3,10 +3,8 @@ package com.itour.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +30,7 @@ import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.TravelTag;
 import com.itour.model.travel.TravelinfoColumn;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.vo.PageInfo;
 import com.itour.persist.TagMapper;
 import com.itour.persist.TravelColumnMapper;
@@ -365,13 +364,40 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
-			String type = jsonObject.getString("type");
-			String uid = jsonObject.getString("uid");
-			Map map = new HashMap<String, Object>();
-			map.put("uid", uid);
-			map.put("type", type);			
-			Map selectDynamicList = this.baseMapper.selectDynamicList(map,page);
-			response.setReturnResult(selectDynamicList);
+			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+		    List<TravelInfoDto> selectDynamicList = this.baseMapper.selectDynamicList(page,vo);
+		    page.setRecords(selectDynamicList);
+			response.setReturnResult(page);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return response;
+	}
+	public ResponseMessage getInfoData(RequestMessage requestMessage) {
+		ResponseMessage response = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+		    TravelInfoDto infoData = this.baseMapper.getInfoData(vo);
+			response.setReturnResult(infoData);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return response;
+	}
+	public ResponseMessage searchTextList(RequestMessage requestMessage) {
+		ResponseMessage response = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+			PageInfo pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
+			List<TravelInfoDto> infoData = this.baseMapper.searchTextList(pageVo,vo);
+			Page setRecords = pageVo.setRecords(infoData);
+			response.setReturnResult(setRecords);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

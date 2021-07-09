@@ -2,6 +2,8 @@ package com.itour.model.vo;
 
 import java.io.Serializable;
 
+import org.springframework.stereotype.Component;
+@Component
 public class Orderby implements Serializable {
 	/**
 	 * 

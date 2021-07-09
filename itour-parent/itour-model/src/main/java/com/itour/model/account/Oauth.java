@@ -32,7 +32,7 @@ public class Oauth extends Model<Oauth> {
     private String uId;
 
     /**
-     * 第三方登录唯一ID
+     * 登录唯一ID
      */
     @TableField("OAUTH_ID")
     private String oauthId;

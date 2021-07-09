@@ -8,7 +8,8 @@ var postAjax = function(url,postData,successFunction,options){
 				successArguments: "",
 				errorArguments: "",
 				contentType:"application/json; charset=utf-8",/*传入数据类型*/
-				dataType:"json"/* 返回的数据类型*///https://www.cnblogs.com/likui-bookHouse/p/8399827.html
+				dataType:"json",/* 返回的数据类型*///https://www.cnblogs.com/likui-bookHouse/p/8399827.html
+				processData:true
 			};
 			//合并属性
 			var currentOptions = $.extend(defaultOptions, options);//https://www.runoob.com/jquery/misc-extend.html
@@ -19,6 +20,7 @@ var postAjax = function(url,postData,successFunction,options){
 				async:currentOptions.async,
 				contentType:currentOptions.contentType,//发送数据到服务器时所使用的内容类型。默认是："application/x-www-form-urlencoded"
 				dataTyp:currentOptions.dataType,//预期的服务器响应的数据类型
+				processData:currentOptions.processData,
 				beforeSend:function(){
 					//loading();
 				},

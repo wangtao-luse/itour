@@ -954,6 +954,7 @@ input[type="checkbox"], input[type="radio"] {
     color: #999!important;
     background: #fff!important;
     border-radius: 4px!important;
+    cursor:pointer;
 }
 .vue-image-crop-upload .vicp-wrap .vicp-step2 .vicp-crop .vicp-crop-left .vicp-range .vicp-icon5 {
     left: 84px;

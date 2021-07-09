@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.WorkColumnMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.work.WorkColumn">
+        <id column="ID" property="id" />
+        <result column="COLUMN" property="column" />
+        <result column="UID" property="uid" />
+        <result column="CREATEDATE" property="createdate" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, COLUMN, UID, CREATEDATE
+    </sql>
+
+</mapper>
