@@ -4,7 +4,7 @@ server:  port: '@server.work.port@'
 #项目名称
 spring:
   profiles:
-    active: '@profiles.active@'  application:    name: itour-msg-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
+    active: '@profiles.active@'  application:    name: itour-work-service  datasource: #mysql的配置    url: '@spring.datasource.url@'
     driver-class-name: '@spring.datasource.driverClassName@'
     username: '@spring.datasource.username@'
     password: '@spring.datasource.password@'  redis:     #reids相关配置
@@ -22,7 +22,7 @@ eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@serv
     prefer-ip-address: '@eureka.instance.prefer-ip-address@'
 #mybatis plus
 mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
-  type-aliases-package: com.itour.model
+  type-aliases-package: com.itour.model.work
 ribbon: 
   ConnectTimeout: '@ribbon.ConnectTimeout@'  #请求连接的超时时间 默认的时间为 1 秒
   ReadTimeout: '@ribbon.ReadTimeout@'     #请求处理的超时时间

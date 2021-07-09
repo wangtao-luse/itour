@@ -33,7 +33,7 @@ public class ShiroConfig {
 @Bean
 public SecurityManager securityManager() {//可配置缓存和Realm
     DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
-    defaultSecurityManager.setRealm(LoginRealm());
+    defaultSecurityManager.setRealm(loginRealm());
     return defaultSecurityManager;
 }
 /**
@@ -41,7 +41,7 @@ public SecurityManager securityManager() {//可配置缓存和Realm
  * @return
  */
 @Bean
-public LoginRealm LoginRealm() {
+public LoginRealm loginRealm() {
 	LoginRealm customRealm = new LoginRealm();
     customRealm.setCredentialsMatcher(credentialsMatcher());
     return customRealm;
