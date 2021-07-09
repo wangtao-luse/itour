@@ -16,7 +16,7 @@ USE ITOUR;
       #-alter table 表名 MODIFY 字段名 数据类型;
    #2.修改字段名称
       #-alter table 表名 CHANGE 字段名称 新的字段名称 数据类型;
-#######-用户模块############
+#######------------------------------------用户模块----------------------------------------############
 
 #1.用户表（T_A_ACCOUNT）
 DROP TABLE IF EXISTS T_A_ACCOUNT;
@@ -155,7 +155,7 @@ ORIGIN VARCHAR(2) COMMENT '消息来源(1:前台;2后台)',
 IP VARCHAR(32) COMMENT'ip地址'
 )COMMENT '消息发送记录表';
 
-#################旅行博客模块###############
+#################--------------------------------------------------旅行博客模块----------------------------------###############
 #1.旅行信息表(T_T_TRAVEL_INFO)
 CREATE TABLE IF NOT EXISTS T_T_TRAVEL_INFO(
 ID	INT PRIMARY KEY AUTO_INCREMENT COMMENT'编号(主键)',	
@@ -396,7 +396,7 @@ ALTER TABLE T_T_STYPE  ADD UNIQUE(TCODE);
 ALTER TABLE T_T_STYPE COMMENT'景点类型表';
 
 
-############-管理平台##-
+############--------------------------------------------------------------管理平台----------------------------------------------##-
 #1.用户表（T_M_ACCOUNT）
 DROP TABLE IF EXISTS T_M_ACCOUNT;
 CREATE TABLE IF NOT EXISTS T_M_ACCOUNT(
@@ -648,6 +648,22 @@ STATUS	VARCHAR(3)	COMMENT '状态	20:待审核状态;30:审核通过;40:审核�
 CREATE TABLE IF NOT EXISTS T_T_LIKE (
 ID	INT PRIMARY KEY AUTO_INCREMENT COMMENT'编号',
 WID	INT	COMMENT'旅行信息编号',
+UID	VARCHAR(10)	COMMENT'用户编号',
+CREATEDATE	BIGINT	COMMENT'点赞时间',
+STATUS VARCHAR(2) DEFAULT '1' COMMENT'状态（0:取消;1:有效）'
+);
+#6.1个人博客点赞评论点赞表(T_W_COMMENT_LIKE)
+CREATE TABLE IF NOT EXISTS T_W_COMMENT_LIKE (
+ID	INT PRIMARY KEY AUTO_INCREMENT COMMENT'编号',
+CID	INT	COMMENT'博文评论表编号',
+UID	VARCHAR(10)	COMMENT'用户编号',
+CREATEDATE	BIGINT	COMMENT'点赞时间',
+STATUS VARCHAR(2) DEFAULT '1' COMMENT'状态（0:取消;1:有效）'
+);
+#6.2个人博客点赞评论回复表(T_W_REPLY_LIKE)
+CREATE TABLE IF NOT EXISTS T_W_REPLY_LIKE (
+ID	INT PRIMARY KEY AUTO_INCREMENT COMMENT'编号',
+RID	INT	COMMENT'攻略评论回复表编号',
 UID	VARCHAR(10)	COMMENT'用户编号',
 CREATEDATE	BIGINT	COMMENT'点赞时间',
 STATUS VARCHAR(2) DEFAULT '1' COMMENT'状态（0:取消;1:有效）'
