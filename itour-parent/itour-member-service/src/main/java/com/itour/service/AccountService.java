@@ -56,8 +56,6 @@ private BaseService baseService;
 private AccountGroupMapper accountGroupMapper;
 	@Autowired
 private GroupMapper groupMapper;
-	@Autowired	
-private AccountApi accountApi;
 
 	/** 注册
 	 * 1.插入用户表(t_a_account)
@@ -113,8 +111,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		this.accountGroupMapper.insert(accountGroup);
 		//4.插入IP信息
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
-		//ipaddrService.insertIPAddr(postData);
-		accountApi.insertIPAddr(postData);
+		ipaddrService.insertIPAddr(postData);
 		
 	} catch (Exception e) {
 		// TODO: handle exception
