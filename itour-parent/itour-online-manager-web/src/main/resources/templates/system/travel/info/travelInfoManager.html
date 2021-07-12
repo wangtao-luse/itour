@@ -32,8 +32,8 @@
 					{field:'commentCount',title:'评论数',width:100},
 					{field:'niceCount',title:'点赞数',width:100},
 					{field:'pv',title:'浏览量',width:100},
-					{field:'publishtime',title:'发布时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}},
-					{field:'updatetime',title:'最后发布时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}}
+					{field:'publishtime',title:'发布时间',width:150,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm"):"";}},
+					{field:'updatetime',title:'最后发布时间',width:150,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm"):"";}}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){

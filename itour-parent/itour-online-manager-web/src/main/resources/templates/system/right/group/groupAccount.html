@@ -7,7 +7,7 @@
                 fitColumns:false,fit:true,singleSelect:false,
                 columns: [[{field:'',width:20,checkbox:true},
                     {field: 'uid', title: '用户唯一号', width: 90},
-                    {field: 'createdate', title: '注册日期', width: 90,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
+                    {field: 'createdate', title: '注册日期', width: 90,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd"):"";}},
                     {field: 'utypeStr', title: '类型', width: 120},
                     {field: 'statusStr', title: '状态', width: 120}
                     

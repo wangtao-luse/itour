@@ -47,7 +47,7 @@ public ResponseMessage queryLoginList(RequestMessage requestMessage) {
 		/**区间段查询**/
 	//	queryWrapper.ge(null!=loginList.getLoginDate()&&null!=loginList.getLoginDate().getLowerLimit(), "LOGIN_TIME", loginList.getLoginDate().getLowerLimit());
 	//	queryWrapper.le(null!=loginList.getLoginDate()&&null!=loginList.getLoginDate().getUpperLimit(), "LOGIN_TIME", loginList.getLoginDate().getUpperLimit());
-		
+		queryWrapper.orderByDesc("LOGIN_TIME");
 		if(pageJson!=null) {
 			Page page = pageJson.toJavaObject(Page.class);
 			Page selectPage = this.baseMapper.selectPage(page, queryWrapper);
