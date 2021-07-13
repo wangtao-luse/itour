@@ -2,6 +2,7 @@ package com.itour.controller;
 
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +23,7 @@ import com.itour.common.vo.AccountVo;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
 import com.itour.model.travel.TravelInfo;
+import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.SessionUtil;
 
@@ -42,23 +45,29 @@ private	RedisManager redisManager;
 	 * @return
 	 */
 @RequestMapping("/index")
-public String index(Page page,TravelInfo travelInfo, HttpServletRequest request,String ajaxCmd,ModelMap model) {
-		return indexPage(page, travelInfo, request, ajaxCmd, model);
+public String index(Page page,TravelInfoDto travelInfoDto, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+		return indexPage(page, travelInfoDto, request, ajaxCmd, model);
 	
 }
 //解决退出问题
 @RequestMapping("/")
-public String defaultPage(Page page,TravelInfo travelInfo, HttpServletRequest request,String ajaxCmd,ModelMap model) {
-	return indexPage(page, travelInfo, request, ajaxCmd, model);
+public String defaultPage(Page page,TravelInfoDto travelInfoDto, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+	return indexPage(page, travelInfoDto, request, ajaxCmd, model);
 }
-private String indexPage(Page page, TravelInfo travelInfo, HttpServletRequest request, String ajaxCmd, ModelMap model) {
+private String indexPage(Page page, TravelInfoDto travelInfoDto, HttpServletRequest request, String ajaxCmd, ModelMap model) {
 	JSONObject jsonObject = new JSONObject();
-	jsonObject.put("vo", travelInfo);
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	if(!StringUtils.isEmpty(sessionUser)) {
+		travelInfoDto.setLoginUid(sessionUser.getuId());
+	}
+	jsonObject.put("vo", travelInfoDto);
 	jsonObject.put("page", page);	
-	ResponseMessage queryTravelInfoList = this.travelConnector.queryViewTravelinfoOauthList(jsonObject, request);
+	ResponseMessage queryTravelInfoList = this.travelConnector.selectTravelInfoList(jsonObject, request);
 	Map<String, Object> returnResult = queryTravelInfoList.getReturnResult();
 	Page p = FastJsonUtil.mapToObject(returnResult, Page.class, Constant.COMMON_KEY_RESULT);
-	model.addAttribute("travel", p.getRecords());
+	List records = p.getRecords();
+	model.addAttribute("travel", records);
+	model.addAttribute("sessionUser", sessionUser);
 	if(ajaxCmd==null) {
 		return "index";
 	}else {

@@ -18,7 +18,6 @@ $(function(){
 		}
 		$(this).find("#comment_contentNew").addClass("open");
 		$(document).one("click",function(){
-			//$("#commentformNew").find("#comment_contentNew").removeClass("open");
 			$(".commentListV2 .comment-box.comment-edit-box").remove();
 		})
 		e.stopPropagation();

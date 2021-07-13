@@ -39,6 +39,18 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	/**
+	 * 旅行信息首页展示
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectTravelInfoList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectTravelInfoList(requestMessage);
+		return responseMessage;
+	}
+	/**
 	 * 旅行信息单条
 	 * @param jsonObject
 	 * @param request
@@ -59,6 +71,18 @@ private TravelApi travelApi;
 		// TODO Auto-generated method stub
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		ResponseMessage responseMessage = travelApi.selectViewTravelinfoOauthById(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 旅行信息单条(详情显示)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectTraveInfo(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectTraveInfo(requestMessage);
 		return responseMessage;
 	}
 	/**

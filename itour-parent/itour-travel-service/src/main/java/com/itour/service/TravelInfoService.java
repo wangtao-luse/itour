@@ -103,6 +103,33 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		
 		return responseMessage;
 }
+	/**
+	 * 前台使用
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage selectTravelInfoList(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+			JSONObject pageJson = jsonObject.getJSONObject("page");
+			if(pageJson!=null) {
+				Page page = pageJson.toJavaObject(Page.class);
+				List<TravelInfoDto> sList = this.baseMapper.selectTravelInfoList(page, vo);
+				page.setRecords(sList);
+				responseMessage.setReturnResult(page);
+			}else {
+				List<TravelInfoDto> sList = this.baseMapper.selectTravelInfoList(vo);
+				responseMessage.setReturnResult(sList);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
 	 /**
 	 * 获取旅行信息单条
 	 * @param requestMessage
@@ -410,4 +437,19 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 		}
 		return response;
 	}
+	
+   public ResponseMessage selectTraveInfo(RequestMessage requestMessage) {
+	   ResponseMessage responseMessage = ResponseMessage.getSucess();
+	   try {
+		   JSONObject jsonObject = requestMessage.getBody().getContent();
+		   TravelInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(TravelInfoDto.class);
+		   TravelInfoDto selectTraveInfo = this.baseMapper.selectTraveInfo(vo);
+		   responseMessage.setReturnResult(selectTraveInfo);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+	}
+	   return responseMessage;
+   }
 }

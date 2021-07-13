@@ -100,4 +100,47 @@
 		</if>
       
     </select>
+    <select id="selectTravelInfoList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
+       <choose>
+         <when test="vo.loginUid==null or ''==vo.loginUid">
+         SELECT 
+           c.*,a.NICKNAME,a.AVATAR 
+         FROM T_T_TRAVEL_INFO c, T_A_OAUTH a 
+         WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID AND c.`STATUS` ='30'
+         order by c.PUBLISHTIME DESC
+         </when>
+         <otherwise>
+           SELECT t1.*,t2.NICKNAME,t2.AVATAR,IFNULL(t3.STATUS,'0') niceStatus,t3.UID niceUid
+			FROM
+				T_T_TRAVEL_INFO t1 INNER JOIN
+				T_A_OAUTH t2 
+			ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' and t1.`STATUS` ='30'
+			LEFT JOIN 
+			 t_t_nice t3 ON t1.ID=t3.TID and t3.uid=#{vo.loginUid}  order by t1.PUBLISHTIME DESC
+         </otherwise>
+       </choose>
+    </select>
+    
+    <select id="selectTraveInfo" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
+    
+    <choose>
+      <when test="vo.loginUid==null or ''==vo.loginUid" >
+      	SELECT t1.*,t2.NICKNAME,t2.AVATAR
+	FROM
+		T_T_TRAVEL_INFO t1 INNER JOIN
+		T_A_OAUTH t2 
+	ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' and t1.STATUS='30' AND t1.ID=#{vo.id}
+      </when>
+      <otherwise>
+      SELECT t1.*,t2.NICKNAME,t2.AVATAR,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid
+	FROM
+		T_T_TRAVEL_INFO t1 INNER JOIN
+		T_A_OAUTH t2 
+	ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' and t1.STATUS='30' AND t1.ID=#{vo.id}
+	LEFT JOIN 
+	 t_t_nice t3 ON t1.ID=t3.TID and t3.uid=#{vo.loginUid} 
+      </otherwise>
+    </choose>
+    
+    </select>
 </mapper>

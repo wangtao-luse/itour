@@ -677,4 +677,20 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage searchTextList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return this.travelInfoService.searchTextList(requestMessage);
+	}
+	/**
+	 * 前台首页展示
+	 */
+	@Override
+	public ResponseMessage selectTravelInfoList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelInfoService.selectTravelInfoList(requestMessage);
+	}
+	/**
+	 * 前台详情展示
+	 */
+	@Override
+	public ResponseMessage selectTraveInfo(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return travelInfoService.selectTraveInfo(requestMessage);
 	}}

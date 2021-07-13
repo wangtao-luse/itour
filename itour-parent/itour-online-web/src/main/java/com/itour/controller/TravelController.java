@@ -221,8 +221,15 @@ public String commentList(@RequestBody JSONObject jsonObject,ModelMap model,Stri
 }
 private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
-	 jsonObject.put("id", id);
-	ResponseMessage resp = this.travelConnector.selectViewTravelinfoOauthById(jsonObject , request);
+	TravelInfoDto tmp = new TravelInfoDto();
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	model.addAttribute("sessionUser", sessionUser);
+	if(!StringUtils.isEmpty(sessionUser)) {
+		tmp.setLoginUid(sessionUser.getuId());
+	}
+	tmp.setId(id);
+	 jsonObject.put(Constant.COMMON_KEY_VO, tmp);
+	ResponseMessage resp = this.travelConnector.selectTraveInfo(jsonObject , request);
 	if(Constant.SUCCESS_CODE.equals(resp.getResultCode())&&null!=resp.getReturnResult()) {
 		ViewTravelinfoOauth travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), ViewTravelinfoOauth.class, Constant.COMMON_KEY_RESULT);			
 		 model.addAttribute("travelInfo", travelInfo);
