@@ -1,5 +1,24 @@
 $(function(){
 	query(new Array());
+	$(".contentItem-action.travel_nice_btn").click(function(){
+			var tid = $(this).attr("tid");
+	    	var has = $(this).hasClass("nice");
+	    	var status="";
+	    	if(has){
+	    		$(this).removeClass("nice");
+	    		status="0";
+	    	}else{
+	    		$(this).addClass("nice");
+	    		status="1";
+	    	}
+	    	
+	    	var data={tid:tid,status:status};
+	    	postAjax("/niceSub", JSON.stringify(data), function (result) {
+	    		console.log(tid);
+	        }, {errorFunction:function(result){
+	        	alert(result.resultMessage);
+	        },cache: false, async: false});
+	})
 	$(document).on("click","#comment-form",function(e){
 		var hasOpen =$("#comment_contentNew").hasClass("open");
 		if(hasOpen){
@@ -23,7 +42,7 @@ $(function(){
 		e.stopPropagation();
 		
 	});
-
+   
 	$(document).on("keyup","#comment_content",function(){
 		var len = $(this).val().length;
 		var commentLen = parseInt(1200)-parseInt(len);
@@ -35,7 +54,7 @@ $(function(){
 		$("#commentformNew .right-box em").text(commentLen);
 		
 	});
-	
+	//评论回复
 	$(document).on("click",".commentRely",function(){
 		var $this=$(this);
 		 var commentId = $(this).attr("comment_id");
@@ -59,7 +78,7 @@ $(function(){
 		$(this).closest(".nestComment").find(".nestComment--child").removeClass("hide");
 		$(this).hide();
 	});
-	
+	//删除评论
 	$(document).on("click",".commentItemV2-footer .delete_comment_btn",function(){
 		if(confirm("你确定要删除此评论吗？")){
 			var cid = $(this).attr("cid");
@@ -72,6 +91,7 @@ $(function(){
 		}
 		
 	})
+	//删除评论回复
 	$(document).on("click",".commentItemV2-footer .del-commentRely-btn",function(){
 		if(confirm("你确定要删除此评论吗？")){
 			var rid = $(this).attr("rid");
@@ -83,6 +103,7 @@ $(function(){
 			},cache: false, async: false});
 		}
 	});
+	//评论分页
 	$(document).on("click",".Pagination.CommentsV2-pagination button",function(){
 		var pageNo = $(this).attr("pageNo");
 		var id=$("#tid").val();
@@ -92,6 +113,7 @@ $(function(){
 			$("#comment-container").html(result);
 	      }, {"contentType": "application/json; charset=utf-8"});
 	})
+	//评论点赞
 	$(document).on("click",".commentItemV2-footer .comment-nice-btn",function(){
 		var cid = $(this).attr("cid");
 		var uid = $(this).attr("uid");
@@ -119,6 +141,7 @@ $(function(){
 			console.log(result);
 		},cache: false, async: false});
 	})
+	//评论回复点赞
 	$(document).on("click",".commentItemV2-footer .commentReply-nice-btn",function(){
 		var rid = $(this).attr("rid");
 		var uid = $(this).attr("uid");
@@ -145,10 +168,12 @@ $(function(){
 			console.log(result);
 		},cache: false, async: false});
 	})
+	//编辑信息
 	$(document).on("click",".travel_area .travel_edit_btn",function(){
 		var id = $("#tid").val();
 		location.href=ctxPath+"/travel/updateMd?id="+id;
 	})
+	//评论排序
 	$(document).on("click","#topbar-options-btn",function(){
 		var order = $("#order").val();
 		var arr = new Array();

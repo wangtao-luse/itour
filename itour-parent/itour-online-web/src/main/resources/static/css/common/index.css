@@ -510,13 +510,18 @@ overflow: hidden;
 	margin-left: 24px;
 	font-size: 14px;
 }
-
+.contentItem-action button:hover{
+	color:#0084FF;
+}
 .contentItem-action svg:hover
  {
 	fill: #0084FF;
 }
 .contentItem-action.nice svg{
 	fill:#0084FF;
+}
+.contentItem-action.nice {
+	color:#0084FF;
 }
 .contentItem-action svg:hover path.hover{
 	fill:  #0084FF;
