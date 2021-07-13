@@ -65,7 +65,7 @@
   	<opencv.version>4.0.1-1.4.4</opencv.version>
   	<thumbnailator.version>0.4.11</thumbnailator.version>
   	<hutool.version>5.3.10</hutool.version>
-  	<httpclient.version>4.5.12</httpclient.version>
+  	<httpclient.version>4.5.13</httpclient.version>
   	<commonmark.version>0.15.0</commonmark.version>
   	<druid.version>1.1.23</druid.version>
   	<!-- 在docker运行时要用的，只是一个前缀而已，就像包名一样,可自己任意定义此名称 -->
