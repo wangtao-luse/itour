@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
     	public static final String MODEL_DICTIONARY="itour-dictionary-service";
     	public static final String MODEL_ACCOUNT="itour-account-service";
     	public static final String MODEL_QUARTZ="itour-quartz-service";
+    	public static final String MODEL_WORK="itour-work-service";
     	
         public static void main(String[] args) throws InterruptedException, IOException {
         	/***
@@ -33,17 +34,22 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_QUARTZ;
+  			 String model=ItourMpGenerator.MODEL_WORK;
   			        
   			        
   			 /**
   			  * 是否为视图
   			  */
-  			 boolean isView =true;//视图
+  			 boolean isView =false;//视图
   			 /**
   			  * 需要生成的表名
   			  */
-  			 String [] include= new String[] {"view_m_messageinfo"};
+  			 String [] include= new String[] {
+  					 "t_w_work_info","t_w_work_column","t_w_info_column","t_w_label",
+  					 "t_w_info_column","t_w_comment","t_w_comment_reply","t_w_like",
+  					 "t_w_comment_like","t_w_reply_like"
+  			           		 
+  			 };
   			 /**
   			  * 需要忽略的表前缀
   			  */
@@ -113,7 +119,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 
             // 策略配置
             StrategyConfig strategy = new StrategyConfig();
-            String [] tablePrefix = new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_","t_d_","t_t_",""};
+            String [] tablePrefix = new String[] { "t_m_", "t_p_", "t_s_", "t_r_", "t_c_","t_a_","t_b_","t_d_","t_t_","t_w_"};
             tablePrefix =tableprefix.length<=0?tablePrefix:tableprefix;
             strategy.setTablePrefix(tablePrefix);// 此处可以修改为您的表前缀
             strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
