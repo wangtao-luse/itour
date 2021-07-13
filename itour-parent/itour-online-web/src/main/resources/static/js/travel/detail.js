@@ -203,6 +203,7 @@ function closeMask($this){
 	var mask = $($this).attr("id");
 	$("#"+mask).css("display","none");
 }
+//获取评论列表
 function query(list){
 	var pageNo =1;
 	var id=$("#tid").val();
