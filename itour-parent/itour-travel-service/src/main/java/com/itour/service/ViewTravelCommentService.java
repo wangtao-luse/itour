@@ -77,6 +77,7 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 			}
 		}
 		if(StringUtils.isEmpty(pageVo)) {//获取文章下的评论及回复
+			//获取文章下的评论
 			List<ViewTravelComment> commentList = this.baseMapper.selectList(queryWrapper);
 			//3.获取对应文章评论下的回复
 			Map<String, Object> cList = getCommentList(commentList,getuId);
@@ -88,13 +89,16 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 			Map<String, Object> commentList = getCommentList(selectPage.getRecords(),getuId);
 			List<ViewTravelComment> resultList = FastJsonUtil.mapToList(commentList, ViewTravelComment.class);
 			Page resultPage = selectPage.setRecords(resultList);
-			long total = selectPage.getTotal();
-			Integer  replaysize =(Integer)commentList.get(ConstantTravel.TRAVEL_REPLYSIZE);
 			responseMessage.setReturnResult(resultPage);
-			if(!StringUtils.isEmpty(replaysize)) {
-				responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total+replaysize);
+			long total = selectPage.getTotal();
+			if(total>0) {
+				Integer  replaysize =(Integer)commentList.get(ConstantTravel.TRAVEL_REPLYSIZE);
+				if(!StringUtils.isEmpty(replaysize)) {
+					responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total+replaysize);
+				}
+			}else {
+				responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total);
 			}
-			
 		}
 		
 	} catch (Exception e) {

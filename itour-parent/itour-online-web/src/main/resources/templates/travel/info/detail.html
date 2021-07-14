@@ -37,7 +37,7 @@
 	    						<div class="contentItem storyItem-isAnswer">
 	    							<div class="contentItem-meta">
 	    								<div class="authorInfo-wrap mb-1">
-	    									<a href="#" target="_blank" class="align-items-centers">
+	    									<a href="#" target="_blank" class="align-items-centers" id="toPersonCenter">
 	    										<span class="mr-2">
 	    										    @if(isEmpty(travelInfo.avatar)){
 	    										    <img class="high-rank-use" src="${ctxPath}/img/common/avatar-5.webp" width="32" height="32" />
@@ -83,18 +83,31 @@
 	    									
 	    								</div>
 	    								<div class="contentItem-actions sticky richContent-actions is-fixed is-bottom travel_area">
-	    									<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn" tid="${travelInfo.id}">
+										@if(travelInfo.niceUid==sessionUser.uId && travelInfo.niceStatus=='1'){
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn nice" tid="${travelInfo.id}">
 												<span style="display: inline-flex; align-items: center;">​
-												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
-												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	
+												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22" style="display: none;">
+												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" >	
 												</span>
 												赞
 												@if(travelInfo.niceCount>0){
 												  ${travelInfo.niceCount}
-												@}
+												@}												
+										    </button>
+										@}else{
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn" tid="${travelInfo.id}">
+											<span style="display: inline-flex; align-items: center;">​
+											<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
+											<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	
+											</span>
+											赞
+												@if(travelInfo.niceCount>0){
+												  ${travelInfo.niceCount}
+												@}												
+										    </button>
+										@}
 												
-											</button>
-											<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel link-btn">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarComment.png" width="22" height="22">
 												<img class="isactive" src="${ctxPath}/img/common/tobarCommentactive.png" width="22" height="22" style="display: none;">	
@@ -120,7 +133,7 @@
 											</button> -->
 											
 											@if(uid==travelInfo.uid){
-												<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_edit_btn">
+												<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_edit_btn link-btn">
 													<span style="display: inline-flex; align-items: center;">​
 													<img class="isdefault" src="${ctxPath}/img/common/edit.png" width="22" height="22">
 													<img class="isactive" src="${ctxPath}/img/common/editactive.png" width="22" height="22" style="display: none;">	

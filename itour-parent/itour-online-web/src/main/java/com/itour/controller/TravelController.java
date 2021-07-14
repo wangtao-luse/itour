@@ -231,7 +231,7 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 	 jsonObject.put(Constant.COMMON_KEY_VO, tmp);
 	ResponseMessage resp = this.travelConnector.selectTraveInfo(jsonObject , request);
 	if(Constant.SUCCESS_CODE.equals(resp.getResultCode())&&null!=resp.getReturnResult()) {
-		ViewTravelinfoOauth travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), ViewTravelinfoOauth.class, Constant.COMMON_KEY_RESULT);			
+		TravelInfoDto travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), TravelInfoDto.class);			
 		 model.addAttribute("travelInfo", travelInfo);
 		 //获取周末旅行攻略的内容
 		 if("2".equals(travelInfo.getType())) {

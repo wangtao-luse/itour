@@ -1,14 +1,51 @@
 $(function(){
 	query(new Array());
+	$(document).on("mouseenter","article .contentItem-action.button.link-btn",function(){
+		$(this).find(".isdefault").css("display","none");
+		$(this).find(".isactive").css("display","inline");
+		$(this).css("color","#0077E6");
+	});
+	$(document).on("mouseleave","article .contentItem-action.button.link-btn",function(){
+		$(this).find(".isdefault").css("display","inline");
+		$(this).css("color","#646464");
+		$(this).find(".isactive").css("display","none");
+	});
+	
+	$(".contentItem-action.travel_nice_btn").mouseout(function(){
+		var has = $(this).hasClass("nice");
+		if(!has){
+			$(this).find(".isactive").css("display","none");
+			$(this).find(".isdefault").css("display","inline");
+			$(this).css("color","#646464");
+			
+		}
+		
+	})
+	$(".contentItem-action.travel_nice_btn").mouseover(function(){
+		$(this).find(".isdefault").css("display","none");
+		$(this).find(".isactive").css("display","inline");
+		$(this).css("color","#0077E6");
+	})
 	$(".contentItem-action.travel_nice_btn").click(function(){
+		var has = $(this).hasClass("nice");
+		if(has){
+			$(this).find(".isactive").css("display","none");
+			$(this).find(".isdefault").css("display","inline");
+			$(this).css("color","#646464");
+			$(this).removeClass("nice");
+			return;
+		  }
+		   //样式调整
+			$(this).find(".isdefault").css("display","none");
+			$(this).find(".isactive").css("display","inline");
+			$(this).css("color","#0077E6");
+            $(this).addClass("nice");
+            var vi =  $(this).find(".isdefault").is(":visible");
 			var tid = $(this).attr("tid");
-	    	var has = $(this).hasClass("nice");
 	    	var status="";
-	    	if(has){
-	    		$(this).removeClass("nice");
+	    	if(vi){
 	    		status="0";
 	    	}else{
-	    		$(this).addClass("nice");
 	    		status="1";
 	    	}
 	    	
@@ -190,7 +227,8 @@ $(function(){
 			$(this).text("切换为时间升序排序");
 			query(arr);
 		}
-	})
+	});
+	
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);

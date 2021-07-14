@@ -1527,6 +1527,9 @@ border-radius: 2px;
 .hide {
     display: none;
 }
+.show-inline{
+	display: inline!important;
+}
 .login-form .msg-error {
     position: relative;
     background: #ffebeb;
