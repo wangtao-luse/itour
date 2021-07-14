@@ -25,6 +25,7 @@
 @var uid=user.uId!;
 	    <input type="hidden" id="tid" value="${id}">
 	    <input type="hidden" id="order" value="1">
+	     <input type="hidden" id="rpm" value="${travelInfo.uid}">
 		<div id="ct-out" style="width: 100%;position: fixed; left: 0;bottom: 10%;text-align: center;z-index: 9000;display: none">
 			<span id="ct-outContent" style="display: inline-block;background:rgb(67,116,240);color:rgb(255, 255, 255);max-width:80%;padding:8px 24px;border-radius: 4px;font-size: 16px;">请填写评论内容</span>
 		</div>
@@ -37,7 +38,7 @@
 	    						<div class="contentItem storyItem-isAnswer">
 	    							<div class="contentItem-meta">
 	    								<div class="authorInfo-wrap mb-1">
-	    									<a href="#" target="_blank" class="align-items-centers" id="toPersonCenter">
+	    									<a href="${ctxPath}/travel/personCenter?rpm=${travelInfo.uid}" target="_blank" class="align-items-centers">
 	    										<span class="mr-2">
 	    										    @if(isEmpty(travelInfo.avatar)){
 	    										    <img class="high-rank-use" src="${ctxPath}/img/common/avatar-5.webp" width="32" height="32" />

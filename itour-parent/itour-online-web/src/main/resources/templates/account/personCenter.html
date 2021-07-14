@@ -28,21 +28,24 @@
     background: none repeat scroll 0% 0% transparent;
 }
 </style>
+        <input  type="hidden" id="rpm" value="${rpm}">
 	    <div class="userCenter">
 	    	<div class="infoMsgHead">
 	    		<div class="infoMsgHead-inner">
 	    			<div class="user-left">
 	    				<div class="user-img">
-	    				   @if(isEmpty(user.avatar)){
+	    				   @if(isEmpty(account.avatar)){
 	    				   <img src="${ctxPath}/img/common/avatar-5.webp" />
 	    				   @}else{
 	    				   <img src="${account.avatar}" />
 	    				   @}
-	    					
+	    					@if(account.uId==sessionUser.uId){
 	    					<p class="modify-img">上传头像</p>
 	    					<form id="form_upload" method="post"  enctype="multipart/form-data" >
 	    					<input type="file" name="file" class="uploadPicture-input"  >
 	    					</form>
+	    					@}
+	    					
 	    				</div>
 	    			</div>
 	    			<div class="user-info">
