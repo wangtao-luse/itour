@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2021-07-15
  */
 @Service
-public class LikeService extends ServiceImpl<LikeMapper, Like> implements LikeService {
+public class LikeService extends ServiceImpl<LikeMapper, Like>  {
 
 }
