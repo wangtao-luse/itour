@@ -660,7 +660,7 @@ STATUS	VARCHAR(3)	COMMENT '状态	20:待审核状态;30:审核通过;40:审核�
 );
 
 #6.点赞表(T_W_LIKE)
-CREATE TABLE IF NOT EXISTS T_T_LIKE (
+CREATE TABLE IF NOT EXISTS T_W_LIKE (
 ID	INT PRIMARY KEY AUTO_INCREMENT COMMENT'编号',
 WID	INT	COMMENT'旅行信息编号',
 UID	VARCHAR(10)	COMMENT'用户编号',
