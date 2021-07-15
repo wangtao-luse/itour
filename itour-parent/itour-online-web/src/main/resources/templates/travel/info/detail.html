@@ -18,6 +18,10 @@
     transition: color .2s;
     padding: 0 15px;
 }
+.topstory-container{
+	margin: 10px auto 10px auto;
+	
+}
 </style>
 <script type="text/javascript" src="${ctxPath}/js/travel/detail.js" ></script>
 
@@ -83,8 +87,8 @@
 	    								   @}
 	    									
 	    								</div>
-	    								<div class="contentItem-actions sticky richContent-actions is-fixed is-bottom travel_area">
-										@if(travelInfo.niceUid==sessionUser.uId && travelInfo.niceStatus=='1'){
+	    								<div class="contentItem-actions  richContent-actions  is-bottom travel_area">
+										@if(travelInfo.niceUid==sessionUser.uId! && travelInfo.niceStatus=='1'){
 											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn nice" tid="${travelInfo.id}">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22" style="display: none;">
@@ -152,6 +156,7 @@
 											@}
 											
 	    								</div>
+	    								<div class="fixed-line"></div>
 	    							</article>
 	    						</div>
 	    				

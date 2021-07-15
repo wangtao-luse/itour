@@ -228,7 +228,44 @@ $(function(){
 			query(arr);
 		}
 	});
-	
+	//获取指定元素在y轴上偏移量
+	var offsetTop = $(".fixed-line").offset().top;
+	//获取浏览器可见高度
+	var wheight = $(window).height();
+	if(offsetTop>=wheight){
+		$(".contentItem-actions").addClass("is-fixed sticky");
+		$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
+		.css("left",$(".storyCard").offset().left+"px");
+		$(".is-fixed.sticky").css("bottom",0);
+	}
+	console.log("offsetTop: "+offsetTop);
+	$(document).scroll(function() {
+		//https://www.cnblogs.com/yuqiandoudou/p/4436368.html
+		//1.获取垂直滚动的距离
+		  //scrollTop()==0的时候就是顶端了;
+		  //scrollTop()>=$(document).height()-$(window).height()  就可以知道已经滚动到底端了
+		//获取垂直滚动的距离
+		var top = $(document).scrollTop();
+		
+		//获取整个页面的高度
+		var dheight = $(document).height();
+		//计算到底部滚动的距离
+		var b = dheight -wheight-90;
+		console.log("top: "+top);
+		if(top<offsetTop){
+			$(".contentItem-actions").removeClass("is-fixed sticky")
+		}else if(top>=offsetTop&&top<=b){
+			$(".contentItem-actions").addClass("is-fixed sticky");
+			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
+			.css("left",$(".storyCard").offset().left+"px");
+			$(".is-fixed.sticky").css("bottom",0);
+		}else if(top>b){
+			$(".contentItem-actions").addClass("is-fixed sticky");
+			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
+			.css("left",$(".storyCard").offset().left+"px");
+			$(".is-fixed.sticky").css("bottom","90px");
+		}
+	});
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);

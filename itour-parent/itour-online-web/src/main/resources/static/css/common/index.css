@@ -775,7 +775,28 @@ overflow: hidden;
 	background-size: 100%;
 	vertical-align: middle;
 }
+.sticky.is-fixed {
+	position: fixed;
+	z-index: 2;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
 
+.sticky.is-absolute,
+.sticky.is-fixed {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.contentItem-actions.is-fixed {
+	margin: 0;
+	-webkit-box-shadow: 0 -1px 3px rgba(18, 18, 18, .1);
+	box-shadow: 0 -1px 3px rgba(18, 18, 18, .1);
+}
+
+.richContent-actions.is-fixed {
+	-webkit-animation: slideInUp .2s;
+	animation: slideInUp .2s;
+}
 /**左边列表结束**/
 
 /**右边边列表开始**/
