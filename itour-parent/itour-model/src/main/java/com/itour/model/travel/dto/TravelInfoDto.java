@@ -19,8 +19,8 @@ private String oauthId;
 private Long infoCount;
 private Long draffCount;
 private List<Orderby> orderbyList = new ArrayList<Orderby>();
-private String niceStatus;
-private String niceUid;
+private String likeStatus;
+private String likeUid;
 private String loginUid;
 
 public String getLoginUid() {
@@ -29,17 +29,18 @@ public String getLoginUid() {
 public void setLoginUid(String loginUid) {
 	this.loginUid = loginUid;
 }
-public String getNiceStatus() {
-	return niceStatus;
+
+public String getLikeStatus() {
+	return likeStatus;
 }
-public void setNiceStatus(String niceStatus) {
-	this.niceStatus = niceStatus;
+public void setLikeStatus(String likeStatus) {
+	this.likeStatus = likeStatus;
 }
-public String getNiceUid() {
-	return niceUid;
+public String getLikeUid() {
+	return likeUid;
 }
-public void setNiceUid(String niceUid) {
-	this.niceUid = niceUid;
+public void setLikeUid(String likeUid) {
+	this.likeUid = likeUid;
 }
 public Long getInfoCount() {
 	return infoCount;

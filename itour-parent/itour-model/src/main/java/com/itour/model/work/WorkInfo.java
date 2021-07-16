@@ -51,22 +51,16 @@ public class WorkInfo extends Model<WorkInfo> {
     /**
      * 创建日期
      */
-    @TableField("CRATEDATE")
-    private Long cratedate;
+    @TableField("PUBLISHTIME")
+    private Long publishtime;
 
     /**
      * 最后修改日期
      */
-    @TableField("UPDATEDATA")
-    private Long updatedata;
+    @TableField("UPDATETIME")
+    private Long updatetime;
 
-    /**
-     * 所属栏目
-     */
-    @TableField("SCOLUMN")
-    private Integer scolumn;
-
-    /**
+   /**
      * 发布形式	(1:仅自己可见,2:公开)
      */
     @TableField("MODALITY")
@@ -93,8 +87,8 @@ public class WorkInfo extends Model<WorkInfo> {
     /**
      * 点赞数	默认0冗余字段
      */
-    @TableField("NICE_COUNT")
-    private Integer niceCount;
+    @TableField("LIKE_COUNT")
+    private Integer likeCount;
 
     /**
      * 浏览量 默认0冗余字段
@@ -148,31 +142,23 @@ public class WorkInfo extends Model<WorkInfo> {
         this.articleType = articleType;
     }
 
-    public Long getCratedate() {
-        return cratedate;
-    }
+    public Long getPublishtime() {
+		return publishtime;
+	}
 
-    public void setCratedate(Long cratedate) {
-        this.cratedate = cratedate;
-    }
+	public void setPublishtime(Long publishtime) {
+		this.publishtime = publishtime;
+	}
 
-    public Long getUpdatedata() {
-        return updatedata;
-    }
+	public Long getUpdatetime() {
+		return updatetime;
+	}
 
-    public void setUpdatedata(Long updatedata) {
-        this.updatedata = updatedata;
-    }
+	public void setUpdatetime(Long updatetime) {
+		this.updatetime = updatetime;
+	}
 
-    public Integer getScolumn() {
-        return scolumn;
-    }
-
-    public void setScolumn(Integer scolumn) {
-        this.scolumn = scolumn;
-    }
-
-    public Integer getModality() {
+	public Integer getModality() {
         return modality;
     }
 
@@ -204,15 +190,17 @@ public class WorkInfo extends Model<WorkInfo> {
         this.commentCount = commentCount;
     }
 
-    public Integer getNiceCount() {
-        return niceCount;
-    }
+  
 
-    public void setNiceCount(Integer niceCount) {
-        this.niceCount = niceCount;
-    }
+    public Integer getLikeCount() {
+		return likeCount;
+	}
 
-    public Integer getPv() {
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public Integer getPv() {
         return pv;
     }
 
@@ -241,14 +229,13 @@ public class WorkInfo extends Model<WorkInfo> {
         ", url=" + url +
         ", summary=" + summary +
         ", articleType=" + articleType +
-        ", cratedate=" + cratedate +
-        ", updatedata=" + updatedata +
-        ", scolumn=" + scolumn +
+        ", publishtime=" + publishtime +
+        ", updatetime=" + updatetime +
         ", modality=" + modality +
         ", uid=" + uid +
         ", readCount=" + readCount +
         ", commentCount=" + commentCount +
-        ", niceCount=" + niceCount +
+        ", likeCount=" + likeCount +
         ", pv=" + pv +
         ", status=" + status +
         "}";

@@ -45,7 +45,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			  * 需要生成的表名
   			  */
   			 String [] include= new String[] {
-  					 "t_w_like"
+  					 "t_w_info_label"
   			           		 
   			 };
   			 /**
