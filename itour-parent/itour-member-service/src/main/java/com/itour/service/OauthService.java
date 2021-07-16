@@ -95,8 +95,7 @@ private AccountApi accountApi;
 	        this.loginListMapper.insert(loginList);
 	      //4.插入IP信息
 			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
-			//ipaddrService.insertIPAddr(postData);
-			accountApi.insertIPAddr(postData);
+			ipaddrService.insertIPAddr(postData);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
