@@ -110,7 +110,7 @@ private AccountApi accountApi;
 	/**
 	   * 检查用户名、邮箱是否可用
 	 * @param requestMessage
-	 * @return 不可用：返回错误信息
+	 * @return 不可用：返回错误信息;可用返回认证信息;
 	 */
 	public ResponseMessage checkOauthId(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
