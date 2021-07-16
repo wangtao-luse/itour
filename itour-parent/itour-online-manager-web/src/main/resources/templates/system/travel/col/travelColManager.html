@@ -18,9 +18,9 @@
                 pageList:[10,40,80,200,500],
                 columns:[[
 					{field:'id',title:'编号',width:50},					
-					{field:'column',title:'专栏名称',width:100},
+					{field:'column',title:'专栏名称',width:200},
 					{field:'uid',title:'用户编号',width:100},
-					{field:'createdate',title:'创建时间',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}}
+					{field:'createdate',title:'创建时间',width:150,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm"):"";}}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){
@@ -74,7 +74,7 @@
 				
 			</form>
 	    </div>
-	    <div data-options="region:'center',title:'用户管理',border:false,split:true">
+	    <div data-options="region:'center',title:'旅行专栏管理',border:false,split:true">
 	    	<table id="dataGrid"></table>
 	    </div>
 	    <div id="toolbar">
