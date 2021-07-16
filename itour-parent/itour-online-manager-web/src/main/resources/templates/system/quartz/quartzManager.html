@@ -100,22 +100,22 @@
 	    <div data-options="region:'north',title:'查询条件',split:true" style="height:80px; overflow: hidden">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>jobClassName:</label>
-	    	   	        <input type="text" placeholder=""  name="id"/>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>jobClassName:</label>
+	    	   	        <input type="text" placeholder=""  name="id" class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>jobDescription:</label>
-	    	   	        <input type="text" placeholder=""  name="uid"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>jobDescription:</label>
+	    	   	        <input type="text" placeholder=""  name="uid" class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>triggerDescription</label>
-	    	   	        <select id="sex" name="sex"></select>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>triggerDescription</label>
+	    	   	        <select id="sex" name="sex" class="flex-item"></select>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/quartz/queryJobList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
-						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <a onclick="searchFun('/quartz/queryJobList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   	  </div>	    	   	  
 	    	   	 

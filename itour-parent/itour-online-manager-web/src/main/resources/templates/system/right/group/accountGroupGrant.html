@@ -56,21 +56,21 @@
          <input type="hidden" name="groupId" value="${groupId}">
          <input type="hidden" name="type" value="1">
             <div class="mTop10 mLeft20">
-                <div class="mTop10 line-handsome">
-                    <div class="fLeft label-handsome ">
-                        <label>用户唯一号：</label>
-                        <input  name="uid" class="textbox" autocomplete="off"/>
+                <div class="mTop10 line-handsome flex">
+                    <div class="fLeft label-handsome flex flex-item ">
+                        <label class="flex-item">用户唯一号：</label>
+                        <input  name="uid" class="textbox" autocomplete="off" class="flex-item"/>
                     </div>
-                    <div class="fLeft label-handsome ">
-                        <label>会员类型：</label>
-                        <select id="utype1" name="utype">
+                    <div class="fLeft label-handsome flex flex-item ">
+                        <label class="flex-item">会员类型：</label>
+                        <select id="utype1" name="utype" class="flex-item">
                         </select>
                     </div>
-                    <div class="pRightSearch">
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                    <div class="pRightSearch flex flex-item ">
+                        <a href="javascript:void(0);" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search'"
                            onclick="searchFunSpSub('/account/getViewAAccountGroupList', $('#dataGridHyDaSub'), getHySubDetailListOptions,
                            {'current': 1, 'size': 100,'k':'view'});">搜索</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton"
+                        <a href="javascript:void(0);" class="easyui-linkbutton flex-item"
                            data-options="iconCls:'brick_delete'"
                            onclick="clearFunction('searchFormSub');">清空搜索条件</a>
                     </div>

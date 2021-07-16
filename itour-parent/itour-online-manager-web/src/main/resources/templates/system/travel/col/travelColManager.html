@@ -36,38 +36,38 @@
 	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>组编号:</label>
-	    	   	        <input type="text" placeholder=""  name="id"/>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>组编号:</label>
+	    	   	        <input type="text" placeholder=""  name="id" class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>组名称:</label>
-	    	   	        <input type="text" placeholder=""  name="gName"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>组名称:</label>
+	    	   	        <input type="text" placeholder=""  name="gName" class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>组描述:</label>
-	    	   	        <input type="text" placeholder=""  name="gDesc"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item" class="flex-item">
+	    	   	        <label class="flex-item"><span></span>组描述:</label>
+	    	   	        <input type="text" placeholder=""  name="gDesc" class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>所属组:</label>
-	    	   	        <input type="text" placeholder=""  name="gParent"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>所属组:</label>
+	    	   	        <input type="text" placeholder=""  name="gParent" class="flex-item"/>
 	    	   	      </div>
 	    	   	  </div>
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span></label>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span></label>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span></label>
 	    	   	      </div>
 	    	   	     
-	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/travel/queryTravelColList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
-						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	       <div class="fLeft label-handsome flex flex-item">
+	    	   	        <a onclick="searchFun('/travel/queryTravelColList', $('#dataGrid'), getList,{'current': 1, 'size': 10,'k':'vo'});" href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
 			</div>	
