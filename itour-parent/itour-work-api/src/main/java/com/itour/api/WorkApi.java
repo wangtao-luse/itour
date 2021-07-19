@@ -1,12 +1,13 @@
-package com.itour.work.api;
+package com.itour.api;
 
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 
 
-
+@FeignClient(name = "itour-work-service")
 public interface WorkApi {
 	/**
 	 * 个人博客列表(前台使用)

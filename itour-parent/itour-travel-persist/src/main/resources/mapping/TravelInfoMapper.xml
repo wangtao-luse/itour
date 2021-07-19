@@ -16,13 +16,14 @@
         <result column="COMMENT_COUNT" property="commentCount" />
         <result column="NICE_COUNT" property="niceCount" />
         <result column="PV" property="pv" />
+        <result column="COLLECT_COUNT" property="collectCount" />
         <result column="STATUS" property="status" />
         <result column="PUBLISHTIME" property="publishtime" />
         <result column="UPDATETIME" property="updatetime" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TITLE, SUMMARY, URL, TYPE, ARTICLE_TYPE, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV,STATUS, PUBLISHTIME, UPDATETIME
+        ID, TITLE, SUMMARY, URL, TYPE, ARTICLE_TYPE, UID, CODE, READ_COUNT, COMMENT_COUNT, NICE_COUNT, PV,COLLECT_COUNT,STATUS, PUBLISHTIME, UPDATETIME
     </sql>
     <!-- 
        1.set 元素会动态地在行首插入 SET 关键字，并会删掉额外的逗号

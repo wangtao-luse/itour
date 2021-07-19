@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.api.WorkApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.work.api.WorkApi;
 
 @Service
 public class WorkConnector {
 @Autowired
-WorkApi workApi;
+private WorkApi workApi;
 /**
  * 个人博客列表(前台使用)
  * @param jsonObject

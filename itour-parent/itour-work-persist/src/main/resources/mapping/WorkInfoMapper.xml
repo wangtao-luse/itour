@@ -17,11 +17,12 @@
         <result column="COMMENT_COUNT" property="commentCount" />
         <result column="LIKE_COUNT" property="likeCount" />
         <result column="PV" property="pv" />
+        <result column="COLLECT_COUNT" property="collectCount" />
         <result column="STATUS" property="status" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, TITLE, URL, SUMMARY, ARTICLE_TYPE, PUBLISHTIME, UPDATETIME, MODALITY, UID, READ_COUNT, COMMENT_COUNT, LIKE_COUNT, PV, STATUS
+        ID, TITLE, URL, SUMMARY, ARTICLE_TYPE, PUBLISHTIME, UPDATETIME, MODALITY, UID, READ_COUNT, COMMENT_COUNT, LIKE_COUNT, PV,COLLECT_COUNT, STATUS
     </sql>
      <select id="selectWorkInfoList" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.dto.WorkInfoDto">
 	     <choose>

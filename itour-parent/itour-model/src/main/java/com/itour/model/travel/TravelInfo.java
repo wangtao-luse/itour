@@ -90,6 +90,8 @@ public class TravelInfo extends Model<TravelInfo> {
      */
     @TableField("PV")
     private Integer pv;
+    @TableField("COLLECT_COUNT")
+    private Integer collectCount;
     /**
      * 状态（10：草稿；20：待审核;30:审核通过；40：审核不通过；50：已删除）
      */
@@ -235,6 +237,14 @@ public class TravelInfo extends Model<TravelInfo> {
 		this.status = status;
 	}
 
+	public Integer getCollectCount() {
+		return collectCount;
+	}
+
+	public void setCollectCount(Integer collectCount) {
+		this.collectCount = collectCount;
+	}
+
 	@Override
     public String toString() {
         return "TravelInfo{" +
@@ -250,6 +260,7 @@ public class TravelInfo extends Model<TravelInfo> {
         ", commentCount=" + commentCount +
         ", niceCount=" + niceCount +
         ", pv=" + pv +
+        ", collectCount=" + collectCount +
         ", status=" + status +        
         ", publishtime=" + publishtime +
         ", updatetime=" + updatetime +
