@@ -57,14 +57,14 @@
 			    															${t.commentCount>0?t.commentCount:""}&nbsp;评论
 			    															</a>
 			    														</button>
-			    														<!-- <button class="button contentItem-action button--plain button--withIcon button--withLabel">
+			    														 <button class="button contentItem-action button--plain button--withIcon button--withLabel itour-favorites-btn" tid="${t.id}">
 			    															<a href="#">
 			    															<span style="display: inline-flex; align-items: center;">​
 			    																<svg t="1568705456499" class="zi zi--comment button-zi" fill="currentColor" viewBox="0 0 1088 1024" width="1.2em" height="1.2em"><path d="M384 446.656a64.064 64.064 0 0 1-96.32 56.512A64 64 0 1 1 384 446.656zM576 448a64 64 0 1 1-128 0 64 64 0 0 1 128 0z m192 0a64 64 0 1 1-128 0 64 64 0 0 1 128 0z" fill="" p-id="16737"></path><path d="M217.28 1008a99.392 99.392 0 0 1-99.072-99.072v-107.2A300.352 300.352 0 0 1 16 574.656V319.36A303.744 303.744 0 0 1 319.36 16h408.512a303.68 303.68 0 0 1 303.36 303.36v255.36a303.68 303.68 0 0 1-303.36 303.36H429.184L275.2 989.248a98.368 98.368 0 0 1-57.92 18.752z m102.08-896a207.552 207.552 0 0 0-207.36 207.36v255.36c0 65.856 30.272 126.336 82.944 165.952 12.096 9.088 19.2 23.232 19.2 38.4l3.072 132.992a2.88 2.88 0 0 0 1.728-0.576l166.592-120.32a48 48 0 0 1 28.096-9.088h314.24a207.552 207.552 0 0 0 207.36-207.36V319.36a207.552 207.552 0 0 0-207.36-207.36H319.36z" fill="" p-id="16738"></path></svg>
 			    															</span>
 			    															${t.collectCount>0?t.collectCount:""}&nbsp;收藏
 			    															</a>
-			    														</button> -->
+			    														</button> 
 			    													</div>
 			    												</div>
 			    							    			</div>
@@ -188,54 +188,6 @@
               <a id="backtop" class="border-bottom" href="#">回顶部</a>
         </div>
         <div class="modal-wrapper undefined Modal-enter-done article_add_collect" style="display: none;">
-		 	<div class="modal-backdrop"></div>
-		 	<div class="modal modal--large favlistsModal">
-		 		<div class="modal-inner">
-		 			<h3 class="modal-title">创建新收藏夹</h3>
-		 			<div class="modal-content">
-		 				<div class="favlists-content">
-		 					<form class="favlists-content">
-		 						<div class="favlists-addItems">
-		 							<div class="favlists-addItem">
-		 								<label class="favlists-descritionInput input-wrapper">
-		 									<input class="input" placeholder="收藏标题" value="">
-		 								</label>
-		 								<div class="favlists-inputTips">
-		 									<span class="maxLength is-error">还可以输入 10 个字</span>
-		 								</div>
-		 							</div>
-		 							<div class="favlists-addItem">
-		 								<label class="favlists-descritionInput input-wrapper input-wrapper--multiline">
-		 									<textarea rows="5" class="input" placeholder="收藏描述（可选）"></textarea>
-		 								</label>
-		 								<div class="favlists-inputTips">
-		 									<span class="maxLength">还可以输入 0 个字</span>
-		 								</div>
-		 							</div>
-		 							<div class="favlists-addItem">
-		 								<label class="favlists-privacyOption">
-		 									<input class="favlists-privacyOptionRadio" name="isPublic" type="radio" value="true" checked="">
-		 									<span>公开</span>
-		 									<span class="favlists-privacyOptionTips">有其他人关注此收藏夹时不可设置为私密</span>
-		 								</label>
-		 								<label class="favlists-privacyOption">
-		 									<input class="favlists-privacyOptionRadio" name="isPublic" type="radio" value="false">
-		 									<span>私密</span>
-		 									<span class="favlists-privacyOptionTips">只有你自己可以查看这个收藏夹</span>
-		 								</label>
-		 							</div>
-		 						</div>
-		 					    <div class="modalButtonGroup modalButtonGroup--horizontal">
-		 					      <button type="button" class="button">返回</button>
-		 					      <button type="submit" class="button button--primary button--blue" disabled>确认创建</button>
-		 					    </div>
-		 					</form> 
-		 				</div>
-		 			</div>
-		 		</div>
-		 		<button type="button" class="button modal-closeButton button--plain">
-		 			<svg class="Zi Zi--Close Modal-closeIcon" fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M13.486 12l5.208-5.207a1.048 1.048 0 0 0-.006-1.483 1.046 1.046 0 0 0-1.482-.005L12 10.514 6.793 5.305a1.048 1.048 0 0 0-1.483.005 1.046 1.046 0 0 0-.005 1.483L10.514 12l-5.208 5.207a1.048 1.048 0 0 0 .006 1.483 1.046 1.046 0 0 0 1.482.005L12 13.486l5.207 5.208a1.048 1.048 0 0 0 1.483-.006 1.046 1.046 0 0 0 .005-1.482L13.486 12z" fill-rule="evenodd"></path></svg>
-		 		</button>
-		 	</div>
+		 	
 		 </div>
 @}	

@@ -29,11 +29,13 @@ import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
 import com.itour.model.account.Oauth;
+import com.itour.model.travel.Favorites;
 import com.itour.model.travel.Region;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.FavoritesDto;
 import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelColumn;
@@ -679,5 +681,64 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	return "/account/personCenterList#"+ajaxCmd;
 			
 }
-
+/**
+ * 收藏页面
+ * @param model
+ * @param ajaxCmd
+ * @param request
+ * @return
+ */
+@RequestMapping("/collectListPage")
+public String collectListPage(@RequestBody JSONObject jsonObject, ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	FavoritesDto vo = new FavoritesDto();
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	Long tid = jsonObject.getLong("tid");
+	vo.setUid(sessionUser.getuId());
+	vo.setTid(tid);
+	JSONObject tmpJson = new JSONObject();
+	tmpJson.put(Constant.COMMON_KEY_VO, vo);
+	ResponseMessage resp = this.travelConnector.selectFavoritesList(tmpJson, request);
+	List<FavoritesDto> cList = FastJsonUtil.mapToList(resp.getReturnResult(), FavoritesDto.class);
+	model.addAttribute("cList", cList);
+	model.addAttribute("tid", tid);
+	return "/travel/info/collect#"+ajaxCmd;
+}
+/**
+ * 创建收藏夹
+ * @param model
+ * @param ajaxCmd
+ * @param request
+ * @return
+ */
+@RequestMapping("/insertFavorite")
+@ResponseBody
+public ResponseMessage insertFavorite(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
+   ResponseMessage insertFavorite = this.travelConnector.insertFavorite(jsonObject, request);
+	return insertFavorite;
+}
+/**
+ * 收藏
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/collectArticle")
+@ResponseBody
+public ResponseMessage collectArticle(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
+	
+	ResponseMessage collectArticle = this.travelConnector.collectArticle(jsonObject, request);
+	return collectArticle;
+}
+/**
+ * 创建收藏夹页面
+ * @param model
+ * @param ajaxCmd
+ * @param request
+ * @return
+ */
+@RequestMapping("/favoratiesPage")
+public String favoratiesPage(String tid,ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	model.addAttribute("tid", tid);
+	return "/travel/info/favoraties";
+}
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-09-10
  */
-@TableName("t_b_collect")
+@TableName("t_t_collect")
 public class Collect extends Model<Collect> {
 
     private static final long serialVersionUID = 1L;
@@ -22,19 +22,19 @@ public class Collect extends Model<Collect> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 博客编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     /**
      * 收藏时间
      */
     @TableField("CTIME")
-    private Integer ctime;
+    private Long ctime;
 
     /**
      * 收藏用户编号
@@ -46,7 +46,7 @@ public class Collect extends Model<Collect> {
      * 所属收藏夹
      */
     @TableField("FID")
-    private Integer fid;
+    private Long fid;
 
     /**
      * 状态(1:收藏;2:取消收藏)
@@ -54,55 +54,59 @@ public class Collect extends Model<Collect> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public Integer getTid() {
-        return tid;
-    }
+    
 
-    public void setTid(Integer tid) {
-        this.tid = tid;
-    }
+    public Long getId() {
+		return id;
+	}
 
-    public Integer getCtime() {
-        return ctime;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setCtime(Integer ctime) {
-        this.ctime = ctime;
-    }
+	public Long getTid() {
+		return tid;
+	}
 
-    public String getUid() {
-        return uid;
-    }
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+	public Long getCtime() {
+		return ctime;
+	}
 
-    public Integer getFid() {
-        return fid;
-    }
+	public void setCtime(Long ctime) {
+		this.ctime = ctime;
+	}
 
-    public void setFid(Integer fid) {
-        this.fid = fid;
-    }
+	public String getUid() {
+		return uid;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public Long getFid() {
+		return fid;
+	}
 
-    @Override
+	public void setFid(Long fid) {
+		this.fid = fid;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@Override
     protected Serializable pkVal() {
         return null;
     }

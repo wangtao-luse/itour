@@ -570,9 +570,10 @@ input[type="checkbox"], input[type="radio"] {
     background-color: rgba(0,132,255,0.06);
 }
 .favlists-addButton {
-    width: 220px;
+    width: 120px;
     color: #fff;
     background-color: #0084ff;
+    margin-right: 20px;
 }
 .modal-closeButton {
     position: absolute;
@@ -696,7 +697,13 @@ input[type="checkbox"], input[type="radio"] {
     opacity: 0.5;
     pointer-events: none;
 }
-
+.favlists-itemIcon {
+    margin-left: 6px;
+}
+.favlists-itemIcon .Zi{
+    fill: #8590a6;
+    vertical-align: middle;
+}
 
 /**popovercontent START***/
 .popover-content {

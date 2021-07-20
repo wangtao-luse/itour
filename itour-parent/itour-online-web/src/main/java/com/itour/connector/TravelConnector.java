@@ -182,6 +182,18 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	/**
+	 * 旅行信息收藏
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage collectArticle(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.collectArticle(requestMessage);
+		return responseMessage;
+	}
+	/**
 	 * 旅行信息收藏夹列表
 	 * @param jsonObject
 	 * @param request
@@ -434,6 +446,19 @@ private TravelApi travelApi;
 		// TODO Auto-generated method stub
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		ResponseMessage responseMessage = travelApi.searchTextList(requestMessage);
+		return responseMessage;
+	}
+	
+	/**
+	 * 收藏列表(前台展示)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectFavoritesList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectFavoritesList(requestMessage);
 		return responseMessage;
 	}
 	

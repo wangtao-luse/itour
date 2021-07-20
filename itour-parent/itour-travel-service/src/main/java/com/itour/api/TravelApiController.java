@@ -693,4 +693,20 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage selectTraveInfo(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return travelInfoService.selectTraveInfo(requestMessage);
+	}
+	/**
+	 * 收藏夹展示（前台）
+	 */
+	@Override
+	public ResponseMessage selectFavoritesList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return favoritesService.selectFavoritesList(requestMessage);
+	}
+	/**
+	 * 收藏旅行博客
+	 */
+	@Override
+	public ResponseMessage collectArticle(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return collectService.collectArticle(requestMessage);
 	}}

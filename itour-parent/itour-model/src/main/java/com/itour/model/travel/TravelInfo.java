@@ -90,6 +90,9 @@ public class TravelInfo extends Model<TravelInfo> {
      */
     @TableField("PV")
     private Integer pv;
+    /**
+     * 收藏数
+     */
     @TableField("COLLECT_COUNT")
     private Integer collectCount;
     /**

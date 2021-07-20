@@ -128,14 +128,14 @@
 												<img class="isactive" src="${ctxPath}/img/common/tobarShareactive.png" width="22" height="22" style="display: none;">	
 												</span>
 												分享
-											</button>
-											<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+											</button>-->
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel itour-favorites-btn" tid="${travelInfo.id}">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarCollect.png" width="22" height="22">
 												<img class="isactive" src="${ctxPath}/img/common/tobarCollectionActive.png" width="22" height="22" style="display: none;">	
 												</span>
-												收藏 600
-											</button> -->
+												收藏  ${travelInfo.collectCount>0?travelInfo.collectCount:''}
+											</button> 
 											
 											@if(uid==travelInfo.uid){
 												<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_edit_btn link-btn">
@@ -173,5 +173,7 @@
 	    		</div>
 		    </div>
 	    </div>	
-	    
+		<div class="modal-wrapper undefined Modal-enter-done article_add_collect" style="display: none;">
+		 	
+		 </div>	    
 @}

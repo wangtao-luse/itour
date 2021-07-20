@@ -566,6 +566,20 @@ ResponseMessage getInfoData(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/searchTextList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage searchTextList(RequestMessage requestMessage);
+/**
+ *  收藏夹列表前台展示
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectFavoritesList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selectFavoritesList(RequestMessage requestMessage);
+/**
+ *  收藏旅行攻略模块文章
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/collectArticle",produces = {"application/json;charset=UTF-8"})
+ResponseMessage collectArticle(RequestMessage requestMessage);
 
 
 }
