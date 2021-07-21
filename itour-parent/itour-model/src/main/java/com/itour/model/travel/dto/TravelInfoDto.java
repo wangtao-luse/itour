@@ -19,7 +19,68 @@ private String oauthId;
 private Long infoCount;
 private Long draffCount;
 private List<Orderby> orderbyList = new ArrayList<Orderby>();
+private String niceStatus;
+private String niceUid;
+private String queryUid;
+/**
+ * 收藏夹相关
+ */
+private String visual;
+private String favorite;
+private String subtitle;
+private Long createdate;
+private Long latestDate;
 
+
+public Long getLatestDate() {
+	return latestDate;
+}
+public void setLatestDate(Long latestDate) {
+	this.latestDate = latestDate;
+}
+public String getVisual() {
+	return visual;
+}
+public void setVisual(String visual) {
+	this.visual = visual;
+}
+public String getFavorite() {
+	return favorite;
+}
+public void setFavorite(String favorite) {
+	this.favorite = favorite;
+}
+public String getSubtitle() {
+	return subtitle;
+}
+public void setSubtitle(String subtitle) {
+	this.subtitle = subtitle;
+}
+public Long getCreatedate() {
+	return createdate;
+}
+public void setCreatedate(Long createdate) {
+	this.createdate = createdate;
+}
+
+public String getQueryUid() {
+	return queryUid;
+}
+public void setQueryUid(String queryUid) {
+	this.queryUid = queryUid;
+}
+public String getNiceStatus() {
+	return niceStatus;
+}
+public void setNiceStatus(String niceStatus) {
+	this.niceStatus = niceStatus;
+}
+public String getNiceUid() {
+	return niceUid;
+}
+public void setNiceUid(String niceUid) {
+	this.niceUid = niceUid;
+}
 public Long getInfoCount() {
 	return infoCount;
 }
@@ -82,7 +143,21 @@ public void setTime(Long time) {
 }
 @Override
 public String toString() {
-	return "TravelInfoDto [dynamic=" + dynamic + ", time=" + time + ", mold=" + mold + ", createDateFmt="
-			+ createDateFmt + ", avatar=" + avatar + ", nickname=" + nickname + "]";
+	return "TravelInfoDto {"+ 
+			"dynamic=" + dynamic +
+			", time=" + time + 
+			", mold=" + mold +
+			", createDateFmt="+ createDateFmt +
+			", avatar="	+ avatar +
+			", nickname=" + nickname + 
+			", oauthId=" +oauthId + 
+			", infoCount="+ infoCount + 
+			", draffCount=" + draffCount + 
+			", orderbyList=" + orderbyList + 
+			", niceStatus=" + niceStatus+ 
+			", niceUid=" + niceUid + 
+			", queryUid=" + queryUid + 
+			"}";
 }
+
 }

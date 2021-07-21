@@ -21,3 +21,9 @@
 .bold {
 	font-weight: bold
 }
+.flex{
+	   display: flex;
+}
+.flex-item{
+	   flex-shrink:1;
+}

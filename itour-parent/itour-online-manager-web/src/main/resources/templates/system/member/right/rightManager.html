@@ -40,36 +40,36 @@
 	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>编号:</label>
-	    	   	        <input type="text" placeholder=""  name="id"/>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>编号:</label>
+	    	   	        <input type="text" placeholder=""  name="id"class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单唯一号:</label>
-	    	   	        <input type="text" placeholder=""  name="menuNo"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>菜单唯一号:</label>
+	    	   	        <input type="text" placeholder=""  name="menuNo" class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单名称:</label>
-	    	   	        <input type="text" placeholder=""  name="menu"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>菜单名称:</label>
+	    	   	        <input type="text" placeholder=""  name="menu" class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>上级菜单编号:</label>
-	    	   	        <input type="text" placeholder=""  name="parentId"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>上级菜单编号:</label>
+	    	   	        <input type="text" placeholder=""  name="parentId" class="flex-item"/>
 	    	   	      </div>
 	    	   	  </div>	    	   	  
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单类型:</label>
-	    	   	        <select id="menuType" name="menuType"></select>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>菜单类型:</label>
+	    	   	        <select id="menuType" name="menuType" class="flex-item"></select>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>菜单链接:</label>
-	    	   	        <input type="text" placeholder=""  name="url"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>菜单链接:</label>
+	    	   	        <input type="text" placeholder=""  name="url" class="flex-item"/>
 	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/member/getViewRightList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'view'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
-						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	       <div class="fLeft label-handsome flex flex-item">
+	    	   	        <a onclick="searchFun('/member/getViewRightList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'view'});" href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
 			</div>	

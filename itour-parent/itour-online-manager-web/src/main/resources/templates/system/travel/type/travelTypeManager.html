@@ -18,7 +18,7 @@
                 columns:[[
 					{field:'id',title:'编号',width:100},					
 					{field:'tname',title:'类型名称',width:100},
-					{field:'createdate',title:'创建日期',width:150,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd hh:mm"):"";}}
+					{field:'createdate',title:'创建日期',width:150,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm"):"";}}
 				]],
                 toolbar: '#toolbar',
                 onSelect:function(rowIndex, rowData){

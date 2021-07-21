@@ -1,0 +1,49 @@
+<div class="modal-backdrop"></div>
+		 	<div class="modal modal--large favlistsModal">
+		 		<div class="modal-inner">
+		 			<h3 class="modal-title">创建新收藏夹</h3>
+		 			<div class="modal-content">
+		 				<div class="favlists-content">
+		 					<form class="favlists-content">
+		 						<div class="favlists-addItems">
+		 							<div class="favlists-addItem">
+		 								<label class="favlists-descritionInput input-wrapper">
+		 									<input class="input" placeholder="收藏标题" value="" name="favorite">
+		 								</label>
+		 								<div class="favlists-inputTips">
+		 									<span class="maxLength is-error" id="input-tip-favor"></span>
+		 								</div>
+		 							</div>
+		 							<div class="favlists-addItem">
+		 								<label class="favlists-descritionInput input-wrapper input-wrapper--multiline">
+		 									<textarea rows="5" class="input" placeholder="收藏描述（可选）" name="subtitle"></textarea>
+		 								</label>
+		 								<div class="favlists-inputTips">
+		 									<span class="maxLength" id="textarea-tip-favor"></span>
+		 								</div>
+		 							</div>
+		 							<div class="favlists-addItem">
+		 								<label class="favlists-privacyOption">
+		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="1" checked="">
+		 									<span>公开</span>
+		 									<span class="favlists-privacyOptionTips">有其他人关注此收藏夹时不可设置为私密</span>
+		 								</label>
+		 								<label class="favlists-privacyOption">
+		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="0">
+		 									<span>私密</span>
+		 									<span class="favlists-privacyOptionTips">只有你自己可以查看这个收藏夹</span>
+		 								</label>
+		 							</div>
+		 						</div>
+		 					    <div class="modalButtonGroup modalButtonGroup--horizontal">
+		 					      <button type="button" class="button back-btn-favoraties" tid=${tid}>返回</button>
+		 					      <button type="button" class="button button--primary button--blue create-btn" disabled >确认创建</button>
+		 					    </div>
+		 					</form> 
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<button type="button" class="button modal-closeButton button--plain">
+		 			<svg class="Zi Zi--Close Modal-closeIcon" fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M13.486 12l5.208-5.207a1.048 1.048 0 0 0-.006-1.483 1.046 1.046 0 0 0-1.482-.005L12 10.514 6.793 5.305a1.048 1.048 0 0 0-1.483.005 1.046 1.046 0 0 0-.005 1.483L10.514 12l-5.208 5.207a1.048 1.048 0 0 0 .006 1.483 1.046 1.046 0 0 0 1.482.005L12 13.486l5.207 5.208a1.048 1.048 0 0 0 1.483-.006 1.046 1.046 0 0 0 .005-1.482L13.486 12z" fill-rule="evenodd"></path></svg>
+		 		</button>
+		 	</div>

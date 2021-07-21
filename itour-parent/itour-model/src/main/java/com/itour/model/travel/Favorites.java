@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-09-10
  */
-@TableName("t_b_favorites")
+@TableName("t_t_favorites")
 public class Favorites extends Model<Favorites> {
 
     private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public class Favorites extends Model<Favorites> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 收藏夹名称
@@ -46,19 +46,24 @@ public class Favorites extends Model<Favorites> {
      * 创建时间
      */
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
 
     /**
      * 状态(0:已删除;1:正常)
      */
     @TableField("STATUS")
     private String status;
+    /**
+     * 是否公开(0:紧自己可见;1:公开)
+     */
+    @TableField("VISUAL")
+    private String visual;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -86,11 +91,11 @@ public class Favorites extends Model<Favorites> {
         this.uid = uid;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 
@@ -102,7 +107,15 @@ public class Favorites extends Model<Favorites> {
         this.status = status;
     }
 
-    @Override
+    public String getVisual() {
+		return visual;
+	}
+
+	public void setVisual(String visual) {
+		this.visual = visual;
+	}
+
+	@Override
     protected Serializable pkVal() {
         return null;
     }

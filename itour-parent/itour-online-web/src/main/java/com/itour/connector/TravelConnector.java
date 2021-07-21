@@ -39,6 +39,18 @@ private TravelApi travelApi;
 		return responseMessage;
 	}
 	/**
+	 * 旅行信息首页展示
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectTravelInfoList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectTravelInfoList(requestMessage);
+		return responseMessage;
+	}
+	/**
 	 * 旅行信息单条
 	 * @param jsonObject
 	 * @param request
@@ -59,6 +71,18 @@ private TravelApi travelApi;
 		// TODO Auto-generated method stub
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		ResponseMessage responseMessage = travelApi.selectViewTravelinfoOauthById(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 旅行信息单条(详情显示)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectTraveInfo(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectTraveInfo(requestMessage);
 		return responseMessage;
 	}
 	/**
@@ -155,6 +179,18 @@ private TravelApi travelApi;
 		// TODO Auto-generated method stub
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		ResponseMessage responseMessage = travelApi.insertFavorite(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 旅行信息收藏
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage collectArticle(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.collectArticle(requestMessage);
 		return responseMessage;
 	}
 	/**
@@ -410,6 +446,32 @@ private TravelApi travelApi;
 		// TODO Auto-generated method stub
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		ResponseMessage responseMessage = travelApi.searchTextList(requestMessage);
+		return responseMessage;
+	}
+	
+	/**
+	 * 收藏列表(前台收藏展示)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectFavoritesList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectFavoritesList(requestMessage);
+		return responseMessage;
+	}
+	
+	/**
+	 * 收藏列表(前台个人主页展示)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryfavList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryfavList(requestMessage);
 		return responseMessage;
 	}
 	

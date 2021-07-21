@@ -115,10 +115,6 @@ $(function(){
 	});
 	
 	
-	$(".favlists-addButton").click(function(){
-		$(this).closest(".modal-wrapper").hide();
-		$(".article_add_collect").show();
-	});
 	//验证码
 	$(".itour-close").click(function(){
 		$("#itour-wrap-loginsubmit").hide();

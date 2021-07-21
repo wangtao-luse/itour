@@ -12,5 +12,8 @@ public class ConstantTravel {
 	public static final String TRAVEL_REPLYSIZE="replySize";
 	public static final String TRAVEL_COMMENTSIZE="commentSize";
 	
+	public static final String TRAVEL_COLLECT_CANCEL_STATUS ="2";
+	public static final String TRAVEL_COLLECT_STATUS ="1";
+	
 	
 }

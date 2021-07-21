@@ -284,6 +284,12 @@
 			    <artifactId>shiro-spring</artifactId>
 			    <version>${shiro-spring.version}</version>
 		    </dependency>
+			<dependency>
+			    <groupId>org.apache.shiro</groupId>
+			    <artifactId>shiro-spring-boot-web-starter</artifactId>
+			    <version>${shiro-spring-boot-web-starter.version}</version>
+			</dependency>
+			
 			
 			<!-- 缓存相关 -->
 			<!-- JSR107  开发复杂性较大 -->

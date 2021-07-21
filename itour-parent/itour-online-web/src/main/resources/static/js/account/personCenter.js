@@ -485,24 +485,31 @@ $(function(){
 	    	console.log(result);
 	    },cache: false, async: false,processData:false,contentType:false});
 	 });
-      
-	 queryInfo({"mold":"1","page":{"current":1,"size":10}});
+      var rpm = $("#rpm").val();
+	 queryInfo({"mold":"1","rpm":rpm,"page":{"current":1,"size":10}});
 	 
 	 $(document).on("click","#dynamic-btn",function(){
-		 queryInfo({"mold":"1","page":{"current":1,"size":10}});
+		 queryInfo({"mold":"1","rpm":rpm,"page":{"current":1,"size":10}});
 	 })
 	 $(document).on("click","#article-btn",function(){
 		 var arr= new Array();
 		 var o1 ={"sortType":"time","sortRule":"0"};
 		 arr.push(o1);
-		 queryInfo({"mold":"2","orderbyList":arr,"page":{"current":"1","size":"10"}});
+		 queryInfo({"mold":"2","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
+	 })
+	 $(document).on("click","#collect-btn",function(){
+		 var arr= new Array();
+		 var o1 ={"sortType":"time","sortRule":"0"};
+		 arr.push(o1);
+		 queryInfo({"mold":"4","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
 	 })
 	 $(document).on("click","#draft-btn",function(){
 		 var arr= new Array();
 		 var o1 ={"sortType":"time","sortRule":"0"};
 		 arr.push(o1);
-		 queryInfo({"mold":"5","orderbyList":arr,"page":{"current":"1","size":"10"}});
+		 queryInfo({"mold":"5","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
 	 })
+	 
 	});
 function queryInfo(postData){
 	var url="/travel/queryPersonCenterList?ajaxCmd=content";
@@ -554,7 +561,8 @@ $(document).on("click","#order-toggle",function(){
 	 var arr= new Array();
 	 var o1 ={"sortType":"time","sortRule":sortRule};
 	 arr.push(o1);
-	 queryInfo({"isAsc":isAsc,"mold":"2","orderbyList":arr,"page":{"current":"1","size":"10"}});
+	 var rpm =$("#rpm").val();
+	 queryInfo({"isAsc":isAsc,"mold":"2","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
 })
 function dataURLtoFile (dataurl, filename) { 
     var arr = dataurl.split(','),

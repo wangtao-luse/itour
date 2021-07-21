@@ -41,6 +41,11 @@ public static final String COMMON_FUNCTION_DRAFT="draft";
 
 
 
+//正常
+public static final String COMMON_DELETE="1";
+//已删除
+public static final String COMMON_DELETED="0";
+
 
 
 

@@ -45,10 +45,8 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			  * 需要生成的表名
   			  */
   			 String [] include= new String[] {
-  					 "t_w_work_info","t_w_work_column","t_w_info_column","t_w_label",
-  					 "t_w_info_label","t_w_comment","t_w_comment_reply","t_w_like",
-  					 "t_w_comment_like","t_w_reply_like"
-  					 
+  					 "t_w_info_label"
+  			           		 
   			 };
   			 /**
   			  * 需要忽略的表前缀

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2021-07-09
+ * @since 2021-07-13
  */
 @TableName("t_w_comment_like")
 public class CommentLike extends Model<CommentLike> {
@@ -22,7 +22,7 @@ public class CommentLike extends Model<CommentLike> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
      * 博文评论表编号
@@ -48,11 +48,11 @@ public class CommentLike extends Model<CommentLike> {
     @TableField("STATUS")
     private String status;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

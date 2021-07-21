@@ -1,12 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-   
-</head>
-<body>
-<div class="nav-bar">
+<style>
+.top-header{padding:0;height:50px;background-color:#f21b0b}
+ #operateArea a.l-btn{color:#FFF;height:30px;-moz-border-radius:3px 3px 0 0;-webkit-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0}
+    #operateArea a.m-btn-plain-active{border-bottom:none;color:#000;z-index:99999999}
+    #operateArea a.m-btn-plain-active .icon-refresh{background:url('${ctxPath}/img/icon-refresh.png') no-repeat left center}
+    #operateArea a.m-btn-plain-active .icon-set{background:url('${ctxPath}/img/extjs_icons/icon-set.png') no-repeat left center}
+    #operateArea a.m-btn-plain-active .icon-dropOut{background:url('${ctxPath}/img/extjs_icons/icon-dropOut.png') no-repeat left center}
+    #operateArea a.m-btn-plain-active .m-btn-downarrow{background:url('${ctxPath}/img/extjs_icons/menu_arrows.png') no-repeat 2px center}
+    #operateArea a:hover.l-btn-plain{background:#FFF;border:1px solid #FFF}
+    #operateArea .m-btn-downarrow{background:url('${ctxPath}/img/extjs_icons/menu_arrows.png') no-repeat -14px center}
+     .top-loginInfo{position:absolute;right:180px;bottom:8px;padding:0px 20px;background-color:#fff;margin:0 16px;border-radius:3px;color:#666666; } 
+    .login-man{width:18px;height:18px;display:inline-block;padding:0 4px 0 0;background:url(${ctxPath}/img/common/icon-set4.png) no-repeat;vertical-align: middle;}
+    #layout_north_kzmbMenu .menu-text,#layout_north_ztMenu .menu-text,#layout_north_zxMenu .menu-text{line-height:30px}
+    #layout_north_kzmbMenu .menu-item,#layout_north_ztMenu .menu-item,#layout_north_zxMenu .menu-item{height:30px!important}
+    #layout_north_kzmbMenu .menu-line,#layout_north_ztMenu .menu-line,#layout_north_zxMenu .menu-line{border-left:0;border-right:0}
+    .menu{border:0}
+    #layout_north_kzmbMenu,#layout_north_ztMenu,#layout_north_zxMenu{margin-top:-2px}
+</style>   
+<div class="nav-bar top-header">
+ <div style="position:absolute;top:0;left:0;background: #95B8E7;width:100%;height:50px"></div>
    <div id="sessionInfoDiv" class="top-loginInfo">
         <span class="login-man">&nbsp;</span>
         <span>[wangtao]</span>
@@ -133,5 +144,3 @@
                 </div>
             </div>
         </div> -->
-</body>
-</html>

@@ -251,6 +251,10 @@ private IpaddrService ipaddrService;
 			Oauth o = jsonObject.toJavaObject(Oauth.class);
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq(!StringUtils.isEmpty(o.getOauthId()), "OAUTH_ID", o.getOauthId());
+			if(!StringUtils.isEmpty(o.getuId())) {
+				queryWrapper.eq("U_ID", o.getuId());
+				queryWrapper.eq("OAUTH_TYPE", StringUtils.isEmpty(o.getOauthType())?ConstAccount.EMAIL:o.getOauthType());
+			}
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper );
 			responseMessage.setReturnResult(selectOne);
 		} catch (Exception e) {

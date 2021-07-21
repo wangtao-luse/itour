@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.model.travel.TravelInfo;
+import com.itour.model.travel.dto.FavoritesDto;
 import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.vo.PageInfo;
 
@@ -26,4 +28,10 @@ public interface TravelInfoMapper extends BaseMapper<TravelInfo> {
 	 
 	 List<TravelInfoDto> searchTextList(@Param("vo")TravelInfoDto vo);
 	 List<TravelInfoDto> searchTextList(PageInfo page,@Param("vo")TravelInfoDto vo);
+	 
+	 List<TravelInfoDto> selectTravelInfoList(@Param("vo")TravelInfoDto vo);
+	 List<TravelInfoDto> selectTravelInfoList(Page page,@Param("vo")TravelInfoDto vo);
+	 
+	 TravelInfoDto selectTraveInfo(@Param("vo")TravelInfoDto vo);
+	
 }

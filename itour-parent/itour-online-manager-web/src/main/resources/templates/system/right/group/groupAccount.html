@@ -7,7 +7,7 @@
                 fitColumns:false,fit:true,singleSelect:false,
                 columns: [[{field:'',width:20,checkbox:true},
                     {field: 'uid', title: '用户唯一号', width: 90},
-                    {field: 'createdate', title: '注册日期', width: 90,formatter: function (value, row, index){return value? new Date(value*1000).Format("yyyy-MM-dd"):"";}},
+                    {field: 'createdate', title: '注册日期', width: 90,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd"):"";}},
                     {field: 'utypeStr', title: '类型', width: 120},
                     {field: 'statusStr', title: '状态', width: 120}
                     
@@ -64,21 +64,21 @@
         <form id="searchFunSp" class="searchForm">
             <input type="hidden" name="groupId" value="${groupId}">
             <div class="mTop10 mLeft20">
-                <div class="mTop10 line-handsome">
-                    <div class="fLeft label-handsome ">
-                        <label>用户唯一号：</label>
-                        <input  name="uid" class="textbox" autocomplete="off"/>
+                <div class="mTop10 line-handsome flex">
+                    <div class="fLeft label-handsome flex flex-item ">
+                        <label class="flex-item">用户唯一号：</label>
+                        <input  name="uid" class="textbox" autocomplete="off" class="flex-item"/>
                     </div>
-                    <div class="fLeft label-handsome ">
-                        <label>类型：</label>
-                       <select id="utype" name="utype"></select>
+                    <div class="fLeft label-handsome flex flex-item ">
+                        <label class="flex-item">类型：</label>
+                       <select id="utype" name="utype" class="flex-item"></select>
                     </div>
 
-                    <div class="pRightSearch">
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                    <div class="pRightSearch flex flex-item ">
+                        <a href="javascript:void(0);" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search'"
                            onclick="searchFunSp('/account/getViewAAccountGroupList', $('#dataGridHyDa'), getHyDetailListOptions,
                            {'current': 1, 'size': 100,'k':'view'});">搜索</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton"
+                        <a href="javascript:void(0);" class="easyui-linkbutton flex-item"
                            data-options="iconCls:'brick_delete'"
                            onclick="clearFunction('searchFunSp');">清空搜索条件</a>
                     </div>

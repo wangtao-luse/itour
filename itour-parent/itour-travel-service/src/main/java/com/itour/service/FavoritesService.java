@@ -1,25 +1,25 @@
 package com.itour.service;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.Favorites;
+import com.itour.model.travel.dto.FavoritesDto;
+import com.itour.model.vo.PageInfo;
 import com.itour.persist.FavoritesMapper;
-import com.itour.service.FavoritesService;
-
-
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -60,6 +60,57 @@ public ResponseMessage queryFavoriteList(RequestMessage requestMessage) {
 	return responseMessage;
 }
 /**
+ * 前台收藏展示使用
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage selectFavoritesList(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		FavoritesDto favortieVo = jsonObject.getJSONObject("vo").toJavaObject(FavoritesDto.class);
+		JSONObject pageVo = jsonObject.getJSONObject("page");
+		if(null!=pageVo) {
+			PageInfo page = pageVo.toJavaObject(PageInfo.class);
+			 List<FavoritesDto> selectFavoritesList = this.baseMapper.selectFavoritesList(page, favortieVo);
+			 page.setRecords(selectFavoritesList);
+			responseMessage.setReturnResult(page);
+		}else {
+			List<FavoritesDto> selectList = this.baseMapper.selectFavoritesList(favortieVo);
+			responseMessage.setReturnResult(selectList);
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+/**
+ * 前台收藏展示使用
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage queryfavList(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		FavoritesDto favortieVo = jsonObject.getJSONObject("vo").toJavaObject(FavoritesDto.class);
+		JSONObject pageVo = jsonObject.getJSONObject("page");
+		if(null!=pageVo) {
+			PageInfo page = pageVo.toJavaObject(PageInfo.class);
+			List<FavoritesDto> selectFavoritesList = this.baseMapper.queryfavList(page, favortieVo);
+			page.setRecords(selectFavoritesList);
+			responseMessage.setReturnResult(page);
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+/**
  * 收藏夹新增
  * @param requestMessage
  * @return
@@ -70,6 +121,9 @@ public ResponseMessage insertFavorite(RequestMessage requestMessage) {
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		Favorites favoriteVo = jsonObject.getJSONObject("vo").toJavaObject(Favorites.class);
+		favoriteVo.setCreatedate(DateUtil.currentLongDate());
+		favoriteVo.setUid(requestMessage.getBody().getuId());
+		favoriteVo.setStatus(Constant.COMMON_DELETE);
 		String favorite = favoriteVo.getFavorite();
 		if(StringUtils.isEmpty(favorite)) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_FAVORITE);

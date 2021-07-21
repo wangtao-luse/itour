@@ -9,7 +9,7 @@
                     {field: 'oauthTypeStr', title: '账号类型', width: 150},
                     {field: 'nickname', title: '昵称', width: 100},
                     {field: 'avatar', title: '图像', width: 100},
-                    {field: 'createdate', title: '绑定日期', width: 100,formatter: function (value, row, index){return value?new Date(value*1000).Format("yyyy-MM-dd"):"";}},
+                    {field: 'createdate', title: '绑定日期', width: 100,formatter: function (value, row, index){return value?new Date(value).Format("yyyy-MM-dd"):"";}},
                 ]],
                 toolbar: ''
             };
@@ -47,21 +47,21 @@
     <div data-options="region:'north',title:'查询条件',border:false" style="height: 75px; overflow: hidden;">
         <form id="searchForm">
             <div class="mTop10 mLeft20">
-                <div class="mTop10 line-handsome">
+                <div class="mTop10 line-handsome flex">
 
-                    <div class="fLeft label-handsome ">
-                        <label>账号：</label>
-                        <input id="oauthId" name="oauthId" class="textbox" autocomplete="off"/>
+                    <div class="fLeft label-handsome flex flex-item">
+                        <label class="flex-item">账号：</label>
+                        <input id="oauthId" name="oauthId" class="textbox" autocomplete="off" class="flex-item"/>
                     </div>
-                    <div class="fLeft label-handsome ">
-                        <label>账号类型：</label>
-                        <select id="oauthType" name="oauthType"></select>
+                    <div class="fLeft label-handsome flex flex-item">
+                        <label class="flex-item">账号类型：</label>
+                        <select id="oauthType" name="oauthType" class="flex-item"></select>
                     </div>
-                    <div class="pRightSearch">
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                    <div class="pRightSearch flex flex-item">
+                        <a href="javascript:void(0);" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search'"
                            onclick="mysearchFun('/account/getViewOauthList', $('#dataGridmn'), getOauthList,
                            {'c': 1, 's': 10,'k':'view'});">搜索</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton"
+                        <a href="javascript:void(0);" class="easyui-linkbutton flex-item"
                            data-options="iconCls:'brick_delete'"
                            onclick="clearFunction('searchForm');">清空搜索条件</a>
                     </div>

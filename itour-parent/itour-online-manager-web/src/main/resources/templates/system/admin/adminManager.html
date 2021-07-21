@@ -31,7 +31,7 @@
 					{field:'sexStr',title:'性别',width:60},
 					{field:'createdate',title:'注册日期',width:150,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm"):"";}},
 					{field:'createip',title:'注册IP地址',width:150},
-					{field:'lasttime',title:'上次登录时间',width:150,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm"):"";}},
+					{field:'lasttime',title:'最近一次登录时间',width:150,formatter: function (value, row, index){return value? new Date(value).Format("yyyy-MM-dd hh:mm"):"";}},
 					{field:'statusStr',title:'状态',width:100},
 					{field:'utypeStr',title:'类型',width:100}
 				]],
@@ -60,59 +60,59 @@
 	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px; overflow: hidden">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>编号:</label>
-	    	   	        <input type="text" placeholder=""  name="id"/>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>编号:</label>
+	    	   	        <input type="text" placeholder=""  name="id"class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>用户唯一号:</label>
-	    	   	        <input type="text" placeholder=""  name="uid"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>用户唯一号:</label>
+	    	   	        <input type="text" placeholder=""  name="uid"class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>性&nbsp;别:</label>
-	    	   	        <select id="sex" name="sex"></select>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>性&nbsp;别:</label>
+	    	   	        <select id="sex" name="sex"class="flex-item"></select>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>注册日期:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>注册日期:</label>
+	    	   	        <input type="text" placeholder=""  name="company"class="flex-item"/>
 	    	   	      </div>
 	    	   	  </div>	    	   	  
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>注册IP地址:</label>
-	    	   	        <input type="text" placeholder=""  name="createip"/>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>注册IP地址:</label>
+	    	   	        <input type="text" placeholder=""  name="createip"class="flex-item"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>上次登录时间:</label>
-	    	   	        <input type="text" placeholder=""  name="company"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>上次登录时间:</label>
+	    	   	        <input type="text" placeholder=""  name="company"class="flex-item"/>
 	    	   	      </div>
-	    	   	        <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>状&nbsp;态:</label>
-	    	   	        <select id="status" name="status"></select>
+	    	   	        <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>状&nbsp;态:</label>
+	    	   	        <select id="status" name="status"class="flex-item"></select>
 	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>类型:</label>
-	    	   	        <select id="utype" name="utype"></select>
+	    	   	       <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span>类型:</label>
+	    	   	        <select id="utype" name="utype"class="flex-item"></select>
 	    	   	      </div>
 	    	   	       
 	    	   </div>
-	    	    <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
-	    	   	        <!-- <input type="text" placeholder=""  name="gDesc"/> -->
+	    	    <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span></label>
+	    	   	        <!-- <input type="text" placeholder=""  name="gDesc"class="flex-item"/> -->
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
-	    	   	        <!-- <input type="text" placeholder=""  name="company"/> -->
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span></label>
+	    	   	        <!-- <input type="text" placeholder=""  name="company" class="flex-item"/> -->
 	    	   	      </div>
-	    	   	        <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
-	    	   	      <!--   <input type="text" placeholder=""  name="company"/> -->
+	    	   	        <div class="fLeft label-handsome flex flex-item">
+	    	   	        <label class="flex-item"><span></span></label>
+	    	   	      <!--   <input type="text" placeholder=""  name="company"class="flex-item"/> -->
 	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
-						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	       <div class="fLeft label-handsome flex flex-item">
+	    	   	        <a onclick="searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
 			</div>	

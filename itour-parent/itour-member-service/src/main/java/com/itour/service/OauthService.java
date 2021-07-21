@@ -48,7 +48,8 @@ private LoginListMapper loginListMapper;
 private AccountMapper accountMapper;
 	@Autowired
 private IpaddrService ipaddrService;
-
+	@Autowired
+private AccountApi accountApi;
 	/**
 	 * 登录
 	 * 1.校验用户名和密码(t_m_oauth)
@@ -95,7 +96,6 @@ private IpaddrService ipaddrService;
 	      //4.插入IP信息
 			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
 			ipaddrService.insertIPAddr(postData);
-			//accountApi.insertIPAddr(postData);
 		}catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -110,7 +110,7 @@ private IpaddrService ipaddrService;
 	/**
 	   * 检查用户名、邮箱是否可用
 	 * @param requestMessage
-	 * @return 不可用：返回错误信息
+	 * @return 不可用：返回错误信息;可用返回认证信息;
 	 */
 	public ResponseMessage checkOauthId(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();

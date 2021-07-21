@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author wangtao
- * @since 2021-07-09
+ * @since 2021-07-13
  */
 public interface ReplyLikeMapper extends BaseMapper<ReplyLike> {
 

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2021-07-09
+ * @since 2021-07-16
  */
 @TableName("t_w_info_label")
 public class InfoLabel extends Model<InfoLabel> {

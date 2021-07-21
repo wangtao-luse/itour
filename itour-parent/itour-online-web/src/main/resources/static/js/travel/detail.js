@@ -1,5 +1,61 @@
 $(function(){
 	query(new Array());
+	$(document).on("mouseenter","article .contentItem-action.button.link-btn",function(){
+		$(this).find(".isdefault").css("display","none");
+		$(this).find(".isactive").css("display","inline");
+		$(this).css("color","#0077E6");
+	});
+	$(document).on("mouseleave","article .contentItem-action.button.link-btn",function(){
+		$(this).find(".isdefault").css("display","inline");
+		$(this).css("color","#646464");
+		$(this).find(".isactive").css("display","none");
+	});
+	
+	$(".contentItem-action.travel_nice_btn").mouseout(function(){
+		var has = $(this).hasClass("nice");
+		if(!has){
+			$(this).find(".isactive").css("display","none");
+			$(this).find(".isdefault").css("display","inline");
+			$(this).css("color","#646464");
+			
+		}
+		
+	})
+	$(".contentItem-action.travel_nice_btn").mouseover(function(){
+		$(this).find(".isdefault").css("display","none");
+		$(this).find(".isactive").css("display","inline");
+		$(this).css("color","#0077E6");
+	})
+	$(".contentItem-action.travel_nice_btn").click(function(){
+		var has = $(this).hasClass("nice");
+		if(has){
+			$(this).find(".isactive").css("display","none");
+			$(this).find(".isdefault").css("display","inline");
+			$(this).css("color","#646464");
+			$(this).removeClass("nice");
+			return;
+		  }
+		   //样式调整
+			$(this).find(".isdefault").css("display","none");
+			$(this).find(".isactive").css("display","inline");
+			$(this).css("color","#0077E6");
+            $(this).addClass("nice");
+            var vi =  $(this).find(".isdefault").is(":visible");
+			var tid = $(this).attr("tid");
+	    	var status="";
+	    	if(vi){
+	    		status="0";
+	    	}else{
+	    		status="1";
+	    	}
+	    	
+	    	var data={tid:tid,status:status};
+	    	postAjax("/niceSub", JSON.stringify(data), function (result) {
+	    		console.log(tid);
+	        }, {errorFunction:function(result){
+	        	alert(result.resultMessage);
+	        },cache: false, async: false});
+	})
 	$(document).on("click","#comment-form",function(e){
 		var hasOpen =$("#comment_contentNew").hasClass("open");
 		if(hasOpen){
@@ -18,13 +74,12 @@ $(function(){
 		}
 		$(this).find("#comment_contentNew").addClass("open");
 		$(document).one("click",function(){
-			//$("#commentformNew").find("#comment_contentNew").removeClass("open");
 			$(".commentListV2 .comment-box.comment-edit-box").remove();
 		})
 		e.stopPropagation();
 		
 	});
-
+   
 	$(document).on("keyup","#comment_content",function(){
 		var len = $(this).val().length;
 		var commentLen = parseInt(1200)-parseInt(len);
@@ -36,7 +91,7 @@ $(function(){
 		$("#commentformNew .right-box em").text(commentLen);
 		
 	});
-	
+	//评论回复
 	$(document).on("click",".commentRely",function(){
 		var $this=$(this);
 		 var commentId = $(this).attr("comment_id");
@@ -60,7 +115,7 @@ $(function(){
 		$(this).closest(".nestComment").find(".nestComment--child").removeClass("hide");
 		$(this).hide();
 	});
-	
+	//删除评论
 	$(document).on("click",".commentItemV2-footer .delete_comment_btn",function(){
 		if(confirm("你确定要删除此评论吗？")){
 			var cid = $(this).attr("cid");
@@ -73,6 +128,7 @@ $(function(){
 		}
 		
 	})
+	//删除评论回复
 	$(document).on("click",".commentItemV2-footer .del-commentRely-btn",function(){
 		if(confirm("你确定要删除此评论吗？")){
 			var rid = $(this).attr("rid");
@@ -84,6 +140,7 @@ $(function(){
 			},cache: false, async: false});
 		}
 	});
+	//评论分页
 	$(document).on("click",".Pagination.CommentsV2-pagination button",function(){
 		var pageNo = $(this).attr("pageNo");
 		var id=$("#tid").val();
@@ -93,6 +150,7 @@ $(function(){
 			$("#comment-container").html(result);
 	      }, {"contentType": "application/json; charset=utf-8"});
 	})
+	//评论点赞
 	$(document).on("click",".commentItemV2-footer .comment-nice-btn",function(){
 		var cid = $(this).attr("cid");
 		var uid = $(this).attr("uid");
@@ -120,6 +178,7 @@ $(function(){
 			console.log(result);
 		},cache: false, async: false});
 	})
+	//评论回复点赞
 	$(document).on("click",".commentItemV2-footer .commentReply-nice-btn",function(){
 		var rid = $(this).attr("rid");
 		var uid = $(this).attr("uid");
@@ -146,10 +205,12 @@ $(function(){
 			console.log(result);
 		},cache: false, async: false});
 	})
+	//编辑信息
 	$(document).on("click",".travel_area .travel_edit_btn",function(){
 		var id = $("#tid").val();
 		location.href=ctxPath+"/travel/updateMd?id="+id;
 	})
+	//评论排序
 	$(document).on("click","#topbar-options-btn",function(){
 		var order = $("#order").val();
 		var arr = new Array();
@@ -166,7 +227,45 @@ $(function(){
 			$(this).text("切换为时间升序排序");
 			query(arr);
 		}
-	})
+	});
+	//获取指定元素在y轴上偏移量
+	var offsetTop = $(".fixed-line").offset().top;
+	//获取浏览器可见高度
+	var wheight = $(window).height();
+	if(offsetTop>=wheight){
+		$(".contentItem-actions").addClass("is-fixed sticky");
+		$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
+		.css("left",$(".storyCard").offset().left+"px");
+		$(".is-fixed.sticky").css("bottom",0);
+	}
+	console.log("offsetTop: "+offsetTop);
+	$(document).scroll(function() {
+		//https://www.cnblogs.com/yuqiandoudou/p/4436368.html
+		//1.获取垂直滚动的距离
+		  //scrollTop()==0的时候就是顶端了;
+		  //scrollTop()>=$(document).height()-$(window).height()  就可以知道已经滚动到底端了
+		//获取垂直滚动的距离
+		var top = $(document).scrollTop();
+		
+		//获取整个页面的高度
+		var dheight = $(document).height();
+		//计算到底部滚动的距离
+		var b = dheight -wheight-90;
+		console.log("top: "+top);
+		if(top<offsetTop){
+			$(".contentItem-actions").removeClass("is-fixed sticky")
+		}else if(top>=offsetTop&&top<=b){
+			$(".contentItem-actions").addClass("is-fixed sticky");
+			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
+			.css("left",$(".storyCard").offset().left+"px");
+			$(".is-fixed.sticky").css("bottom",0);
+		}else if(top>b){
+			$(".contentItem-actions").addClass("is-fixed sticky");
+			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
+			.css("left",$(".storyCard").offset().left+"px");
+			$(".is-fixed.sticky").css("bottom","90px");
+		}
+	});
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);
@@ -204,6 +303,7 @@ function closeMask($this){
 	var mask = $($this).attr("id");
 	$("#"+mask).css("display","none");
 }
+//获取评论列表
 function query(list){
 	var pageNo =1;
 	var id=$("#tid").val();

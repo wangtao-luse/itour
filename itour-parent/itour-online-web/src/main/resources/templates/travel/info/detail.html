@@ -18,6 +18,10 @@
     transition: color .2s;
     padding: 0 15px;
 }
+.topstory-container{
+	margin: 10px auto 10px auto;
+	
+}
 </style>
 <script type="text/javascript" src="${ctxPath}/js/travel/detail.js" ></script>
 
@@ -25,6 +29,7 @@
 @var uid=user.uId!;
 	    <input type="hidden" id="tid" value="${id}">
 	    <input type="hidden" id="order" value="1">
+	     <input type="hidden" id="rpm" value="${travelInfo.uid}">
 		<div id="ct-out" style="width: 100%;position: fixed; left: 0;bottom: 10%;text-align: center;z-index: 9000;display: none">
 			<span id="ct-outContent" style="display: inline-block;background:rgb(67,116,240);color:rgb(255, 255, 255);max-width:80%;padding:8px 24px;border-radius: 4px;font-size: 16px;">请填写评论内容</span>
 		</div>
@@ -37,7 +42,7 @@
 	    						<div class="contentItem storyItem-isAnswer">
 	    							<div class="contentItem-meta">
 	    								<div class="authorInfo-wrap mb-1">
-	    									<a href="#" target="_blank" class="align-items-centers">
+	    									<a href="${ctxPath}/travel/personCenter?rpm=${travelInfo.uid}" target="_blank" class="align-items-centers">
 	    										<span class="mr-2">
 	    										    @if(isEmpty(travelInfo.avatar)){
 	    										    <img class="high-rank-use" src="${ctxPath}/img/common/avatar-5.webp" width="32" height="32" />
@@ -82,19 +87,32 @@
 	    								   @}
 	    									
 	    								</div>
-	    								<div class="contentItem-actions sticky richContent-actions is-fixed is-bottom travel_area">
-	    									<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    								<div class="contentItem-actions  richContent-actions  is-bottom travel_area">
+										@if(travelInfo.niceUid==sessionUser.uId! && travelInfo.niceStatus=='1'){
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn nice" tid="${travelInfo.id}">
 												<span style="display: inline-flex; align-items: center;">​
-												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
-												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	
+												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22" style="display: none;">
+												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" >	
 												</span>
 												赞
 												@if(travelInfo.niceCount>0){
 												  ${travelInfo.niceCount}
-												@}
+												@}												
+										    </button>
+										@}else{
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn" tid="${travelInfo.id}">
+											<span style="display: inline-flex; align-items: center;">​
+											<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
+											<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	
+											</span>
+											赞
+												@if(travelInfo.niceCount>0){
+												  ${travelInfo.niceCount}
+												@}												
+										    </button>
+										@}
 												
-											</button>
-											<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel link-btn">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarComment.png" width="22" height="22">
 												<img class="isactive" src="${ctxPath}/img/common/tobarCommentactive.png" width="22" height="22" style="display: none;">	
@@ -110,17 +128,17 @@
 												<img class="isactive" src="${ctxPath}/img/common/tobarShareactive.png" width="22" height="22" style="display: none;">	
 												</span>
 												分享
-											</button>
-											<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+											</button>-->
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel itour-favorites-btn" tid="${travelInfo.id}">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarCollect.png" width="22" height="22">
 												<img class="isactive" src="${ctxPath}/img/common/tobarCollectionActive.png" width="22" height="22" style="display: none;">	
 												</span>
-												收藏 600
-											</button> -->
+												收藏  ${travelInfo.collectCount>0?travelInfo.collectCount:''}
+											</button> 
 											
 											@if(uid==travelInfo.uid){
-												<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_edit_btn">
+												<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_edit_btn link-btn">
 													<span style="display: inline-flex; align-items: center;">​
 													<img class="isdefault" src="${ctxPath}/img/common/edit.png" width="22" height="22">
 													<img class="isactive" src="${ctxPath}/img/common/editactive.png" width="22" height="22" style="display: none;">	
@@ -138,6 +156,7 @@
 											@}
 											
 	    								</div>
+	    								<div class="fixed-line"></div>
 	    							</article>
 	    						</div>
 	    				
@@ -154,5 +173,7 @@
 	    		</div>
 		    </div>
 	    </div>	
-	    
+		<div class="modal-wrapper undefined Modal-enter-done article_add_collect" style="display: none;">
+		 	
+		 </div>	    
 @}

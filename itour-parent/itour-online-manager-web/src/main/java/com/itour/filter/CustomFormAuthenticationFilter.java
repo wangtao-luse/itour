@@ -1,5 +1,6 @@
 package com.itour.filter;
 
+
 import java.io.IOException;
 import java.net.URLEncoder;
 
@@ -60,7 +61,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 			 */
 			
 			  if (!isAjax(httpServletRequest)) { 
-				  super.saveRequestAndRedirectToLogin(request, response);
+				  this.saveRequestAndRedirectToLogin(request, response);
 			  
 			  } else {
 				  //Session是否失效			

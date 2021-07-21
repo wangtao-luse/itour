@@ -1,25 +1,18 @@
 package com.itour.controller;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,18 +29,19 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.entity.PageInfo;
+import com.itour.model.account.Oauth;
+import com.itour.model.travel.Favorites;
 import com.itour.model.travel.Region;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelColumn;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.WeekInfo;
+import com.itour.model.travel.dto.FavoritesDto;
 import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
-import com.itour.model.travel.dto.ViewTravelinfoOauth;
-import com.itour.model.vo.Orderby;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
@@ -221,10 +215,17 @@ public String commentList(@RequestBody JSONObject jsonObject,ModelMap model,Stri
 }
 private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
-	 jsonObject.put("id", id);
-	ResponseMessage resp = this.travelConnector.selectViewTravelinfoOauthById(jsonObject , request);
+	TravelInfoDto tmp = new TravelInfoDto();
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	model.addAttribute("sessionUser", sessionUser);
+	if(!StringUtils.isEmpty(sessionUser)) {
+		tmp.setQueryUid(sessionUser.getuId());
+	}
+	tmp.setId(id);
+	 jsonObject.put(Constant.COMMON_KEY_VO, tmp);
+	ResponseMessage resp = this.travelConnector.selectTraveInfo(jsonObject , request);
 	if(Constant.SUCCESS_CODE.equals(resp.getResultCode())&&null!=resp.getReturnResult()) {
-		ViewTravelinfoOauth travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), ViewTravelinfoOauth.class, Constant.COMMON_KEY_RESULT);			
+		TravelInfoDto travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), TravelInfoDto.class);			
 		 model.addAttribute("travelInfo", travelInfo);
 		 //获取周末旅行攻略的内容
 		 if("2".equals(travelInfo.getType())) {
@@ -529,8 +530,22 @@ public String search(TravelInfoDto dto,PageInfo page,HttpServletRequest request,
 
 @RequestMapping("/personCenter")
 public String personCenter(HttpServletRequest request,ModelMap model) {
+	String uid = request.getParameter("rpm");
 	AccountVo sessionUser = SessionUtil.getSessionUser();
-	model.addAttribute("account", sessionUser);
+	if(!StringUtils.isEmpty(uid)) {
+		Oauth o = new Oauth();
+	       o.setuId(uid);
+	JSONObject parseObject = JSONObject.parseObject(JSONObject.toJSONString(o));
+	ResponseMessage selectOauthtOne = accountConnector.selectOauthtOne(parseObject, request);
+	Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
+	    model.addAttribute("account", oa);
+	}else {
+		model.addAttribute("account", sessionUser);
+	}
+	
+	model.addAttribute("sessionUser", sessionUser);
+	model.addAttribute("rpm", uid);
+	
 	
 	return "/account/personCenter";
 }
@@ -621,8 +636,21 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	if(StringUtils.isEmpty(mold)) {
 		travelInfoDto.setMold("1");
 	}
-	travelInfoDto.setUid(sessionUser.getuId());
-	travelInfoDto.setOauthId( sessionUser.getOauthId());
+	String uid = jsonObject.getString("rpm");
+	if(StringUtils.isEmpty(uid)) {
+		travelInfoDto.setUid(sessionUser.getuId());
+		travelInfoDto.setOauthId( sessionUser.getOauthId());
+		travelInfoDto.setQueryUid(sessionUser.getuId());
+	}else {
+		  Oauth o = new Oauth();
+		       o.setuId(uid);
+		JSONObject parseObject = JSONObject.parseObject(JSONObject.toJSONString(o));
+		ResponseMessage selectOauthtOne = accountConnector.selectOauthtOne(parseObject, request);
+		Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
+		travelInfoDto.setUid(uid);
+		travelInfoDto.setOauthId(oa.getOauthId());
+		travelInfoDto.setQueryUid(sessionUser.getuId());
+	}
 	jsonTmp.put(Constant.COMMON_KEY_VO, travelInfoDto);
 	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonTmp, request);
@@ -634,25 +662,98 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		for (JSONObject info : records) {
 			TravelInfoDto dto = info.toJavaObject(TravelInfoDto.class);
 				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
-				rList.add(dto);
+			rList.add(dto);	
 		}
 		p.pageNav();
 		p.getPs();
 		JSONObject tmpJSon = new JSONObject();
 		TravelInfoDto dto = new TravelInfoDto();
-		dto.setUid(sessionUser.getuId());
+		dto.setUid(travelInfoDto.getUid());
 		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
 		ResponseMessage infoData = this.travelConnector.getInfoData(tmpJSon , request);
-		TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
-		model.addAttribute("dt", countInfo);
+		boolean b = ResponseMessage.resultIsEmpty(infoData);
+		if(!b) {
+			TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
+			model.addAttribute("dt", countInfo);	
+		}
+		
 		model.addAttribute("cList",rList);
 		model.addAttribute("page",p);
 		model.addAttribute("usr",sessionUser);
 		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
 	}
+	
 	model.addAttribute("mold",travelInfoDto.getMold());
-	return "/account/personCenterList#"+ajaxCmd;
+	  return "/account/personCenterList#"+ajaxCmd;
+	
 			
 }
-
+public String favlistPage(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	ResponseMessage queryfavList = this.travelConnector.queryfavList(jsonObject, request);
+	if(!ResponseMessage.resultIsEmpty(queryfavList)) {
+		List<FavoritesDto> fList = FastJsonUtil.mapToList(queryfavList.getReturnResult(), FavoritesDto.class);
+		model.addAttribute("fList", fList);
+	}
+	return "/account/favoratiesList#"+ajaxCmd;
+}
+/**
+ * 收藏页面
+ * @param model
+ * @param ajaxCmd
+ * @param request
+ * @return
+ */
+@RequestMapping("/collectListPage")
+public String collectListPage(@RequestBody JSONObject jsonObject, ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	FavoritesDto vo = new FavoritesDto();
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	Long tid = jsonObject.getLong("tid");
+	vo.setUid(sessionUser.getuId());
+	vo.setTid(tid);
+	JSONObject tmpJson = new JSONObject();
+	tmpJson.put(Constant.COMMON_KEY_VO, vo);
+	ResponseMessage resp = this.travelConnector.selectFavoritesList(tmpJson, request);
+	List<FavoritesDto> cList = FastJsonUtil.mapToList(resp.getReturnResult(), FavoritesDto.class);
+	model.addAttribute("cList", cList);
+	model.addAttribute("tid", tid);
+	return "/travel/info/collect#"+ajaxCmd;
+}
+/**
+ * 创建收藏夹
+ * @param model
+ * @param ajaxCmd
+ * @param request
+ * @return
+ */
+@RequestMapping("/insertFavorite")
+@ResponseBody
+public ResponseMessage insertFavorite(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
+   ResponseMessage insertFavorite = this.travelConnector.insertFavorite(jsonObject, request);
+	return insertFavorite;
+}
+/**
+ * 收藏
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/collectArticle")
+@ResponseBody
+public ResponseMessage collectArticle(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
+	
+	ResponseMessage collectArticle = this.travelConnector.collectArticle(jsonObject, request);
+	return collectArticle;
+}
+/**
+ * 创建收藏夹页面
+ * @param model
+ * @param ajaxCmd
+ * @param request
+ * @return
+ */
+@RequestMapping("/favoratiesPage")
+public String favoratiesPage(String tid,ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	model.addAttribute("tid", tid);
+	return "/travel/info/favoraties";
+}
 }

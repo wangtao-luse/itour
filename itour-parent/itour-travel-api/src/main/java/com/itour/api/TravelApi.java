@@ -1,7 +1,6 @@
 package com.itour.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itour.common.req.RequestMessage;
@@ -16,6 +15,13 @@ public interface TravelApi {
 @RequestMapping(value = "/travel/queryTravelInfoList",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage queryTravelInfoList( RequestMessage requestMessage);
 /**
+ * 旅行信息列表前台使用
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectTravelInfoList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage selectTravelInfoList( RequestMessage requestMessage);
+/**
  * 旅行信息列表（视图）
  * @param requestMessage
  * @return
@@ -29,6 +35,13 @@ ResponseMessage queryViewTravelinfoOauthList( RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/selectTravelInfoOne",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage selectTravelInfoOne( RequestMessage requestMessage);
+/**
+ * 旅行信息查询单条(前台使用)
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectTraveInfo",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage selectTraveInfo( RequestMessage requestMessage);
 /**
  * 旅行信息单条（视图）
  * @param requestMessage
@@ -553,6 +566,27 @@ ResponseMessage getInfoData(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/searchTextList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage searchTextList(RequestMessage requestMessage);
+/**
+ *  收藏夹列表前台展示
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectFavoritesList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selectFavoritesList(RequestMessage requestMessage);
+/**
+ *  收藏旅行攻略模块文章
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/collectArticle",produces = {"application/json;charset=UTF-8"})
+ResponseMessage collectArticle(RequestMessage requestMessage);
+/**
+ *  收藏列表前台使用
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryfavList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryfavList(RequestMessage requestMessage);
 
 
 }
