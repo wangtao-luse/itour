@@ -102,7 +102,7 @@
 		  
     </select>
     <select id="getInfoData" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
-    SELECT t1.articleCount,t2.draffCount FROM(
+    SELECT t1.articleCount,t2.draffCount,t3.collectCount FROM(
     	SELECT UID,STATUS,count(*) articleCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
     	INNER JOIN (
     	SELECT UID,STATUS,count(*) draffCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='10') t2
