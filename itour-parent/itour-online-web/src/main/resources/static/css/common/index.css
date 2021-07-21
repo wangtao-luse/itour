@@ -2221,6 +2221,117 @@ border-radius: 2px;
 font-size: 15px;
 color: #646464;
 }
+.collectionsHeader {
+    margin-bottom: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.collectionsHeader-mainContent {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1;
+    flex: 1 1;
+    border-bottom: 1px solid #f6f6f6;
+}
+.collectionsHeader-main, .collectionsHeader-tabs {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.collectionsHeader-tabs {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1;
+    flex: 1 1;
+    height: 58px;
+}
+.collectionsHeader-tabsLink {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 16px;
+    margin: 0 22px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+.collectionsHeader-addFavlistButton {
+    color: #06f;
+    margin-right: 22px;
+}
+.button--withIcon.button--link, .button--withIcon.button--plain {
+    padding: 0;
+}
+.button--link, .button--plain {
+    height: auto;
+    padding: 0;
+    line-height: inherit;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+.collectionsHeader-tabsLink.is-active:after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: #06f;
+}
+.selfCollectionItem {
+    padding: 0 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.selfCollectionItem-innerContainer {
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f2f7;
+}
+.selfCollectionItem-title {
+    font-size: 18px;
+    font-weight: 600;
+    font-synthesis: style;
+    line-height: 22px;
+    color: #121212;
+}
+.selfCollectionItem-actions {
+    margin-top: 16px;
+    color: #999;
+    font-size: 14px;
+}
+.selfCollectionItem-actions .button {
+    margin-left: 20px;
+}
+.selfCollectionItem-title svg {
+    width: 18px;
+    margin-left: 3px;
+    fill: #8590a6;
+}
+.button--withIcon.button--withLabel .Button-zi {
+    margin-right: 4px;
+}
 /****我的主页end***/
 /***创作中心start**/
 .appConsole .creator-container{

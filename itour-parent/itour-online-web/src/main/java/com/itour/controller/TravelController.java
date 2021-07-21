@@ -24,6 +24,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.AccountConnector;
 import com.itour.connector.TravelConnector;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
@@ -218,7 +219,7 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("sessionUser", sessionUser);
 	if(!StringUtils.isEmpty(sessionUser)) {
-		tmp.setLoginUid(sessionUser.getuId());
+		tmp.setQueryUid(sessionUser.getuId());
 	}
 	tmp.setId(id);
 	 jsonObject.put(Constant.COMMON_KEY_VO, tmp);
@@ -639,7 +640,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	if(StringUtils.isEmpty(uid)) {
 		travelInfoDto.setUid(sessionUser.getuId());
 		travelInfoDto.setOauthId( sessionUser.getOauthId());
-		travelInfoDto.setLoginUid(sessionUser.getuId());
+		travelInfoDto.setQueryUid(sessionUser.getuId());
 	}else {
 		  Oauth o = new Oauth();
 		       o.setuId(uid);
@@ -648,7 +649,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
 		travelInfoDto.setUid(uid);
 		travelInfoDto.setOauthId(oa.getOauthId());
-		travelInfoDto.setLoginUid(sessionUser.getuId());
+		travelInfoDto.setQueryUid(sessionUser.getuId());
 	}
 	jsonTmp.put(Constant.COMMON_KEY_VO, travelInfoDto);
 	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
@@ -661,7 +662,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		for (JSONObject info : records) {
 			TravelInfoDto dto = info.toJavaObject(TravelInfoDto.class);
 				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
-				rList.add(dto);
+			rList.add(dto);	
 		}
 		p.pageNav();
 		p.getPs();
@@ -681,9 +682,19 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		model.addAttribute("usr",sessionUser);
 		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
 	}
+	
 	model.addAttribute("mold",travelInfoDto.getMold());
-	return "/account/personCenterList#"+ajaxCmd;
+	  return "/account/personCenterList#"+ajaxCmd;
+	
 			
+}
+public String favlistPage(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	ResponseMessage queryfavList = this.travelConnector.queryfavList(jsonObject, request);
+	if(!ResponseMessage.resultIsEmpty(queryfavList)) {
+		List<FavoritesDto> fList = FastJsonUtil.mapToList(queryfavList.getReturnResult(), FavoritesDto.class);
+		model.addAttribute("fList", fList);
+	}
+	return "/account/favoratiesList#"+ajaxCmd;
 }
 /**
  * 收藏页面

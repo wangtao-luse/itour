@@ -60,7 +60,7 @@ public ResponseMessage queryFavoriteList(RequestMessage requestMessage) {
 	return responseMessage;
 }
 /**
- * 前台使用
+ * 前台收藏展示使用
  * @param requestMessage
  * @return
  */
@@ -78,6 +78,30 @@ public ResponseMessage selectFavoritesList(RequestMessage requestMessage) {
 		}else {
 			List<FavoritesDto> selectList = this.baseMapper.selectFavoritesList(favortieVo);
 			responseMessage.setReturnResult(selectList);
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+/**
+ * 前台收藏展示使用
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage queryfavList(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		FavoritesDto favortieVo = jsonObject.getJSONObject("vo").toJavaObject(FavoritesDto.class);
+		JSONObject pageVo = jsonObject.getJSONObject("page");
+		if(null!=pageVo) {
+			PageInfo page = pageVo.toJavaObject(PageInfo.class);
+			List<FavoritesDto> selectFavoritesList = this.baseMapper.queryfavList(page, favortieVo);
+			page.setRecords(selectFavoritesList);
+			responseMessage.setReturnResult(page);
 		}
 	} catch (Exception e) {
 		// TODO: handle exception

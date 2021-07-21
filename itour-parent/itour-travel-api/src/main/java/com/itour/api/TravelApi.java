@@ -580,6 +580,13 @@ ResponseMessage selectFavoritesList(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/collectArticle",produces = {"application/json;charset=UTF-8"})
 ResponseMessage collectArticle(RequestMessage requestMessage);
+/**
+ *  收藏列表前台使用
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/queryfavList",produces = {"application/json;charset=UTF-8"})
+ResponseMessage queryfavList(RequestMessage requestMessage);
 
 
 }

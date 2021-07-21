@@ -7,6 +7,15 @@ private static final long serialVersionUID = 1L;
 private String checked;
 private Long tid;
 private Integer collectCount;
+private Long latestDate;
+public Long getLatestDate() {
+	return latestDate;
+}
+
+public void setLatestDate(Long latestDate) {
+	this.latestDate = latestDate;
+}
+
 public Integer getCollectCount() {
 	return collectCount;
 }

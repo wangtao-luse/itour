@@ -58,7 +58,7 @@ private String indexPage(Page page, TravelInfoDto travelInfoDto, HttpServletRequ
 	JSONObject jsonObject = new JSONObject();
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	if(!StringUtils.isEmpty(sessionUser)) {
-		travelInfoDto.setLoginUid(sessionUser.getuId());
+		travelInfoDto.setQueryUid(sessionUser.getuId());
 	}
 	jsonObject.put("vo", travelInfoDto);
 	jsonObject.put("page", page);	

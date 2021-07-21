@@ -709,4 +709,12 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage collectArticle(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return collectService.collectArticle(requestMessage);
+	}
+	/**
+	 * 会员中心(收藏)
+	 */
+	@Override
+	public ResponseMessage queryfavList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return favoritesService.queryfavList(requestMessage);
 	}}

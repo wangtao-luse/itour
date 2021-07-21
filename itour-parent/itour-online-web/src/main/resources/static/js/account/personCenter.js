@@ -497,12 +497,19 @@ $(function(){
 		 arr.push(o1);
 		 queryInfo({"mold":"2","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
 	 })
+	 $(document).on("click","#collect-btn",function(){
+		 var arr= new Array();
+		 var o1 ={"sortType":"time","sortRule":"0"};
+		 arr.push(o1);
+		 queryInfo({"mold":"4","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
+	 })
 	 $(document).on("click","#draft-btn",function(){
 		 var arr= new Array();
 		 var o1 ={"sortType":"time","sortRule":"0"};
 		 arr.push(o1);
 		 queryInfo({"mold":"5","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
 	 })
+	 
 	});
 function queryInfo(postData){
 	var url="/travel/queryPersonCenterList?ajaxCmd=content";

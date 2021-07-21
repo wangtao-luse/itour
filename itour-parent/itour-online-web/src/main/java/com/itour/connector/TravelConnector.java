@@ -450,7 +450,7 @@ private TravelApi travelApi;
 	}
 	
 	/**
-	 * 收藏列表(前台展示)
+	 * 收藏列表(前台收藏展示)
 	 * @param jsonObject
 	 * @param request
 	 * @return
@@ -459,6 +459,19 @@ private TravelApi travelApi;
 		// TODO Auto-generated method stub
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		ResponseMessage responseMessage = travelApi.selectFavoritesList(requestMessage);
+		return responseMessage;
+	}
+	
+	/**
+	 * 收藏列表(前台个人主页展示)
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage queryfavList(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.queryfavList(requestMessage);
 		return responseMessage;
 	}
 	
