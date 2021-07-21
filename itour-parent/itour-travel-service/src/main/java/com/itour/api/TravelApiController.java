@@ -714,7 +714,7 @@ public class TravelApiController implements TravelApi {
 	 * 会员中心(收藏)
 	 */
 	@Override
-	public ResponseMessage queryfavList(RequestMessage requestMessage) {
+	public ResponseMessage queryfavList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return favoritesService.queryfavList(requestMessage);
 	}}

@@ -501,7 +501,8 @@ $(function(){
 		 var arr= new Array();
 		 var o1 ={"sortType":"time","sortRule":"0"};
 		 arr.push(o1);
-		 queryInfo({"mold":"4","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
+		 var data={"mold":"4","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}};
+		 queryInfo(data);
 	 })
 	 $(document).on("click","#draft-btn",function(){
 		 var arr= new Array();
@@ -516,6 +517,14 @@ function queryInfo(postData){
 	postForm(url, JSON.stringify(postData), function(result){
 		if(result){
 			$("#profile-mainColumn").html(result);
+		}
+	},{"contentType": "application/json; charset=utf-8"});
+}
+function queryFavListList(postData){
+	var url="/travel/favlistPage?ajaxCmd=favaritescontent";
+	postForm(url, JSON.stringify(postData), function(result){
+		if(result){
+			$(".selfCollectionItem").html(result);
 		}
 	},{"contentType": "application/json; charset=utf-8"});
 }

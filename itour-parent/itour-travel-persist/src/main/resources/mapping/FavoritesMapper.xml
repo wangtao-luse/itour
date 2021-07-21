@@ -30,9 +30,9 @@
     </select>
       <!-- 会员中心使用 -->
      <select id="queryfavList" parameterType="com.itour.model.travel.dto.FavoritesDto" resultType="com.itour.model.travel.dto.FavoritesDto">
-    SELECT t1.*,IFNULL(t2.time ,t1.CREATEDATE)latestDate,IFNULL(t2.infoCount,0)infoCount FROM (SELECT * FROM t_t_favorites c WHERE c.UID=#{vo.uid} and `STATUS`='1' ) t1 
+    SELECT t1.*,IFNULL(t2.time ,t1.CREATEDATE)latestDate,IFNULL(t2.articleCount,0)articleCount FROM (SELECT * FROM t_t_favorites c WHERE c.UID=#{vo.uid} and `STATUS`='1' ) t1 
 		 LEFT JOIN
-		 (SELECT Max(CTIME) time ,count(*) infoCount, FID FROM t_t_collect c WHERE c.UID=#{vo.uid} and  `STATUS`='1' GROUP BY FID) t2 ON t1.id=t2.FID
+		 (SELECT Max(CTIME) time ,count(*) articleCount, FID FROM t_t_collect c WHERE c.UID=#{vo.uid} and  `STATUS`='1' GROUP BY FID) t2 ON t1.id=t2.FID
  		  <where>
 	 		  <if test="vo.visual!=null and ''!=vo.visual">
 			      visual= #{vo.visual}

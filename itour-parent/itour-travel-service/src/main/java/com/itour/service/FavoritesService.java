@@ -95,8 +95,8 @@ public ResponseMessage queryfavList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
-		FavoritesDto favortieVo = jsonObject.getJSONObject("vo").toJavaObject(FavoritesDto.class);
-		JSONObject pageVo = jsonObject.getJSONObject("page");
+		FavoritesDto favortieVo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(FavoritesDto.class);
+		JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 		if(null!=pageVo) {
 			PageInfo page = pageVo.toJavaObject(PageInfo.class);
 			List<FavoritesDto> selectFavoritesList = this.baseMapper.queryfavList(page, favortieVo);

@@ -10,7 +10,7 @@
 	    						<a class="tabs-link ${mold=='1'?'is-active':''}" href="#">动态</a>
 	    					</li>
 	    					<li class="tabs-item tabs-item--noMeta" id="article-btn">
-	    						<a class="tabs-link ${mold=='2'?'is-active':''}" href="#">文章<span class="tabs-meta">${dt.infoCount!0}</span></a>
+	    						<a class="tabs-link ${mold=='2'?'is-active':''}" href="#">文章<span class="tabs-meta">${dt.articleCount!0}</span></a>
 	    					</li>
 	    					<!-- <li class="tabs-item tabs-item--noMeta" id="column-btn">
 	    						<a class="tabs-link ${mold=='3'?'is-active':''}" href="#">专栏<span class="tabs-meta">1</span></a>
@@ -27,8 +27,8 @@
     				  <div class="card collectionsHeader">
 	    				<div class="collectionsHeader-mainContent">
 	    					<div class="collectionsHeader-tabs">
-	    						<a class="collectionsHeader-tabsLink is-active">我创建的收藏夹</a>
-	    						<a class="collectionsHeader-tabsLink">我关注的收藏夹</a>
+	    						<a class="collectionsHeader-tabsLink is-active" href="#">我创建的收藏夹</a>
+	    						<a class="collectionsHeader-tabsLink" href="#">我关注的收藏夹</a>
 	    					</div>
 	    					<button type="button" class="button collectionsHeader-addFavlistButton button--link button--withIcon button--withLabel">
 	    						<span style="display: inline-flex; align-items: center;">​
@@ -271,7 +271,7 @@
 	    			@}else if(mold=='4'){
 	    			  <div>
 	    				<div class="card selfCollectionItem">
-	    				   @for(c in cList!){
+	    				   @for(c in fList!){
 	    					<div class="selfCollectionItem-innerContainer">
 	    						<a class="selfCollectionItem-title">
 	    							${c.favorite}
@@ -283,7 +283,7 @@
 	    						</a>
 	    						<div class="selfCollectionItem-actions">
 	    						
-	    							${c.latestDate,dateFormat='yyyy-MM-dd'} 更新 · ${c.infoCount}条内容 <!-- · 0 人关注 -->
+	    							${c.latestDate,dateFormat='yyyy-MM-dd'} 更新 · ${c.articleCount}条内容 <!-- · 0 人关注 -->
 	    							<button type="button" class="button button--plain button--withIcon button--withLabel">
 	    								<span style="display: inline-flex; align-items: center;">​
 	    									<svg class="Zi Zi--EditSurround Button-zi" fill="currentColor" viewBox="0 0 24 24" width="1.2em" height="1.2em"><path d="M4 6a2 2 0 0 1 2-2h5.75a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 0-.25.25v11.5c0 .138.112.25.25.25h11.5a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M18.293 1.293a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1 0 1.414l-10 10A1 1 0 0 1 12 16H9a1 1 0 0 1-1-1v-3a1 1 0 0 1 .293-.707l10-10zm-8.22 11.048a.25.25 0 0 0-.073.177v1.232c0 .138.112.25.25.25h1.232a.25.25 0 0 0 .177-.073l8.75-8.75a.25.25 0 0 0 0-.354l-1.232-1.232a.25.25 0 0 0-.354 0l-8.75 8.75z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>

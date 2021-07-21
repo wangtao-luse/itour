@@ -82,7 +82,16 @@
 				</foreach>
 		  </if>
 		  <if test='vo.mold =="4"'>
-		 
+		       SELECT t1.*,IFNULL(t2.time ,t1.CREATEDATE)latestDate,IFNULL(t2.articleCount,0)articleCount FROM (SELECT * FROM t_t_favorites c WHERE c.UID=#{vo.uid} and `STATUS`='1' ) t1 
+		 LEFT JOIN
+		 (SELECT Max(CTIME) time ,count(*) articleCount, FID FROM t_t_collect c WHERE c.UID=#{vo.uid} and  `STATUS`='1' GROUP BY FID) t2 ON t1.id=t2.FID
+ 		  <where>
+	 		  <if test="vo.visual!=null and ''!=vo.visual">
+			      visual= #{vo.visual}
+			   </if>
+			   
+ 		  </where>
+ 		  ORDER BY latestDate DESC
 		  </if>
 		  <if test='vo.mold =="5"'>
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid
@@ -93,8 +102,8 @@
 		  
     </select>
     <select id="getInfoData" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
-    SELECT t1.infoCount,t2.draffCount FROM(
-    	SELECT UID,STATUS,count(*) infoCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
+    SELECT t1.articleCount,t2.draffCount FROM(
+    	SELECT UID,STATUS,count(*) articleCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
     	INNER JOIN (
     	SELECT UID,STATUS,count(*) draffCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='10') t2
 		ON t1.UID=t2.UID

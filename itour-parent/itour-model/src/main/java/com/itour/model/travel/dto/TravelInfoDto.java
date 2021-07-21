@@ -16,7 +16,7 @@ private String createDateFmt;
 private String avatar;
 private String nickname;
 private String oauthId;
-private Long infoCount;
+private Long articleCount;
 private Long draffCount;
 private List<Orderby> orderbyList = new ArrayList<Orderby>();
 private String niceStatus;
@@ -32,6 +32,12 @@ private Long createdate;
 private Long latestDate;
 
 
+public Long getArticleCount() {
+	return articleCount;
+}
+public void setArticleCount(Long articleCount) {
+	this.articleCount = articleCount;
+}
 public Long getLatestDate() {
 	return latestDate;
 }
@@ -81,12 +87,7 @@ public String getNiceUid() {
 public void setNiceUid(String niceUid) {
 	this.niceUid = niceUid;
 }
-public Long getInfoCount() {
-	return infoCount;
-}
-public void setInfoCount(Long infoCount) {
-	this.infoCount = infoCount;
-}
+
 public Long getDraffCount() {
 	return draffCount;
 }
@@ -151,7 +152,6 @@ public String toString() {
 			", avatar="	+ avatar +
 			", nickname=" + nickname + 
 			", oauthId=" +oauthId + 
-			", infoCount="+ infoCount + 
 			", draffCount=" + draffCount + 
 			", orderbyList=" + orderbyList + 
 			", niceStatus=" + niceStatus+ 

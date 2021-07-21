@@ -661,11 +661,12 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		List<TravelInfoDto> rList = new ArrayList<TravelInfoDto>();
 		for (JSONObject info : records) {
 			TravelInfoDto dto = info.toJavaObject(TravelInfoDto.class);
+			if(!ConstAccount.PERSONCNTER_COLLECT.equals(mold)) {
 				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
+			}
 			rList.add(dto);	
 		}
-		p.pageNav();
-		p.getPs();
+		//统计
 		JSONObject tmpJSon = new JSONObject();
 		TravelInfoDto dto = new TravelInfoDto();
 		dto.setUid(travelInfoDto.getUid());
@@ -676,7 +677,18 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 			TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
 			model.addAttribute("dt", countInfo);	
 		}
-		
+		//收藏
+		JSONObject tmpJson = new JSONObject();
+		FavoritesDto fdto = new FavoritesDto();
+		fdto.setUid(sessionUser.getuId());
+		tmpJson.put(Constant.COMMON_KEY_VO, fdto);
+		tmpJson.put(Constant.COMMON_KEY_PAGE,page );
+		ResponseMessage queryfavList = this.travelConnector.queryfavList(tmpJson, request);
+		if(!ResponseMessage.resultIsEmpty(queryfavList)) {
+			PageInfo pageInfo = FastJsonUtil.mapToObject(queryfavList.getReturnResult(), PageInfo.class);
+			List<FavoritesDto> fList = pageInfo.getRecords();
+			model.addAttribute("fList", fList);		
+		}		
 		model.addAttribute("cList",rList);
 		model.addAttribute("page",p);
 		model.addAttribute("usr",sessionUser);
@@ -688,12 +700,22 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	
 			
 }
+@RequestMapping("/favlistPage")
 public String favlistPage(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
-	ResponseMessage queryfavList = this.travelConnector.queryfavList(jsonObject, request);
+	JSONObject tmpJson = new JSONObject();
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	FavoritesDto dto = new FavoritesDto();
+	dto.setUid(sessionUser.getuId());
+	tmpJson.put(Constant.COMMON_KEY_VO, dto);
+	PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
+	tmpJson.put(Constant.COMMON_KEY_PAGE,page );
+	ResponseMessage queryfavList = this.travelConnector.queryfavList(tmpJson, request);
 	if(!ResponseMessage.resultIsEmpty(queryfavList)) {
-		List<FavoritesDto> fList = FastJsonUtil.mapToList(queryfavList.getReturnResult(), FavoritesDto.class);
-		model.addAttribute("fList", fList);
+		PageInfo pageInfo = FastJsonUtil.mapToObject(queryfavList.getReturnResult(), PageInfo.class);
+		List<FavoritesDto> fList = pageInfo.getRecords();
+		model.addAttribute("fList", fList);		
 	}
+	model.addAttribute("mold", jsonObject.getString("mold"));
 	return "/account/favoratiesList#"+ajaxCmd;
 }
 /**
