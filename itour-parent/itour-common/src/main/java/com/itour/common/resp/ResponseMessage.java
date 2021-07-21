@@ -98,5 +98,11 @@ public final class ResponseMessage implements Serializable {
 		Map<String, Object> map = resp.getReturnResult();
 		return Constant.FAILED_CODE.equals(resp.getResultCode())||StringUtils.isEmpty(map)||StringUtils.isEmpty(map.get(Constant.COMMON_KEY_RESULT));
 	}
+	public static boolean resultIsEmpty(ResponseMessage resp) {
+		Map<String, Object> result = resp.getReturnResult();
+		Object object = result.get(Constant.COMMON_KEY_RESULT);
+		return object == null ||"".equals(object);
+		
+	}
 
 }

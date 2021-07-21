@@ -670,8 +670,12 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		dto.setUid(travelInfoDto.getUid());
 		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
 		ResponseMessage infoData = this.travelConnector.getInfoData(tmpJSon , request);
-		TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
-		model.addAttribute("dt", countInfo);
+		boolean b = ResponseMessage.resultIsEmpty(infoData);
+		if(!b) {
+			TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
+			model.addAttribute("dt", countInfo);	
+		}
+		
 		model.addAttribute("cList",rList);
 		model.addAttribute("page",p);
 		model.addAttribute("usr",sessionUser);

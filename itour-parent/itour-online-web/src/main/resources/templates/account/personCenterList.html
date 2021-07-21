@@ -9,7 +9,7 @@
 	    						<a class="tabs-link ${mold=='1'?'is-active':''}" href="#">动态</a>
 	    					</li>
 	    					<li class="tabs-item tabs-item--noMeta" id="article-btn">
-	    						<a class="tabs-link ${mold=='2'?'is-active':''}" href="#">文章<span class="tabs-meta">${dt.infoCount}</span></a>
+	    						<a class="tabs-link ${mold=='2'?'is-active':''}" href="#">文章<span class="tabs-meta">${dt.infoCount!}</span></a>
 	    					</li>
 	    					<!-- <li class="tabs-item tabs-item--noMeta" id="column-btn">
 	    						<a class="tabs-link ${mold=='3'?'is-active':''}" href="#">专栏<span class="tabs-meta">1</span></a>
@@ -18,7 +18,7 @@
 	    						<a class="tabs-link ${mold=='4'?'is-active':''}" href="#">收藏<span class="tabs-meta">3</span></a>
 	    					</li> -->
 	    					<li class="tabs-item tabs-item--noMeta" id="draft-btn">
-	    						<a class="tabs-link ${mold=='5'?'is-active':''}" href="#">草稿<span class="tabs-meta">${dt.draffCount}</span></a>
+	    						<a class="tabs-link ${mold=='5'?'is-active':''}" href="#">草稿<span class="tabs-meta">${dt.draffCount!}</span></a>
 	    					</li>
 	    				</ul>
 	    			</div>
@@ -187,6 +187,27 @@
 										</div>  
 											</div>
 	    						        						    
+	    						</div>
+	    						@}elsefor{
+	    						<div class="css-1g5evo1">
+	    							<div class="css-1jfwu0r">
+	    								<div class="css-sumlaa">
+	    									<svg width="150" height="120" viewBox="0 0 150 120" fill="currentColor">
+	    									<g fill="none" fill-rule="evenodd">
+	    									<path fill="#EBEEF5" d="M102 30.998A2.996 2.996 0 0098.998 28H50.002A2.996 2.996 0 0047 30.998v58.147l.193-.125c1.453-.94 3.473-.94 4.927 0l2.537 1.64 2.536-1.64c1.453-.94 3.473-.94 4.927 0l2.537 1.64 2.536-1.64c1.453-.94 3.473-.94 4.927 0l2.537 1.64 2.536-1.64c1.453-.94 3.473-.94 4.927 0l2.537 1.64 2.536-1.64c1.453-.94 3.473-.94 4.927 0l2.537 1.64 2.536-1.64c1.413-.913 3.363-.94 4.807-.075V30.998zm-1.508 60.542c-.464-.3-1.21-.298-1.67 0l-4.165 2.692-4.165-2.692c-.464-.3-1.21-.298-1.67 0l-4.165 2.692-4.165-2.692c-.464-.3-1.21-.298-1.67 0l-4.165 2.692-4.165-2.692c-.464-.3-1.21-.298-1.67 0l-4.165 2.692-4.165-2.692c-.464-.3-1.21-.298-1.67 0l-4.165 2.692-4.165-2.692c-.464-.3-1.21-.298-1.67 0l-4.316 2.79A1.99 1.99 0 0144 93V30.997C44 27.687 46.68 25 50.002 25h48.996A5.996 5.996 0 01105 30.998v62c0 .45-.147.866-.396 1.2l-4.112-2.658z" fill-rule="nonzero"></path><path fill="#F7F8FA" d="M55 39c0-.553.44-1 1-1h19c.553 0 1 .44 1 1v19c0 .553-.44 1-1 1H56c-.553 0-1-.44-1-1V39zm25 .5c0-.828.675-1.5 1.498-1.5h11.004c.827 0 1.498.666 1.498 1.5 0 .828-.675 1.5-1.498 1.5H81.498A1.495 1.495 0 0180 39.5zm0 9c0-.828.675-1.5 1.498-1.5h11.004c.827 0 1.498.666 1.498 1.5 0 .828-.675 1.5-1.498 1.5H81.498A1.495 1.495 0 0180 48.5zm0 9c0-.828.675-1.5 1.498-1.5h11.004c.827 0 1.498.666 1.498 1.5 0 .828-.675 1.5-1.498 1.5H81.498A1.495 1.495 0 0180 57.5zm-25 9c0-.828.677-1.5 1.505-1.5h35.99a1.5 1.5 0 110 3h-35.99A1.5 1.5 0 0155 66.5zm0 9c0-.828.665-1.5 1.505-1.5h24.99a1.5 1.5 0 110 3h-24.99A1.5 1.5 0 0155 75.5z"></path></g></svg>
+	    									  @if(mold=='1'){
+	    									  <div>还没有动态</div>
+	    									  @}else if(mold=='2'){
+	    									  <div>还没有文章</div>
+	    									  @}else if(mold=='3'){
+	    									  <div>还没有专栏</div>
+	    									  @}else if(mold=='4'){
+	    									  <div>还没有收藏夹</div>
+	    									  @}else if(mold=='5'){
+	    									  <div>还没有收草稿</div>
+	    									  @}
+	    							   </div>
+	    							</div>
 	    						</div>
 	    						@}
 	    					    <!-- <div class="list-item">
