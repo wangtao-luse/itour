@@ -789,6 +789,77 @@ input[type="checkbox"], input[type="radio"] {
     left: 50%;
     top: -8px;
 }
+.css-comfirm{
+	overflow: hidden;
+    max-width: 96vw;
+}
+.css-comfirm .modal-content{
+	padding: 0px;
+	margin: 0px;
+}
+.css-confirm-ctn{
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    padding: 24px 36px;
+}
+.css-title-cofirm{
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 600;
+    text-align: center;
+}
+.css-comfirm-tip{
+    box-sizing: border-box;
+    margin: 16px -10px 0px 0px;
+    min-width: 0px;
+    font-size: 14px;
+    line-height: normal;
+    color: rgb(68, 68, 68);
+    max-height: calc(67vh - 100px);
+    word-break: break-all;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.css-comfirm-bottom{
+	box-sizing: border-box;
+    margin: 16px 0px 0px;
+    min-width: 0px;
+    font-weight: 600;
+    display: flex;
+}
+.css-comfirm-bottom button {
+    padding: 0px;
+    flex: 1 1 0%;
+    height: 36px;
+    line-height: 1;
+    font-size: 15px;
+    border-radius: 4px;
+}
+.css-mr4 {
+    margin-right: 4px;
+}
+.collectionsDeleteButton {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 14px;
+}
+.collectionsDeleteButton-hint {
+    margin-top: 6px;
+    color: #999;
+}
 /**popovercontent END***/
 /**上传图像start***/
 .modi_dialog *{
