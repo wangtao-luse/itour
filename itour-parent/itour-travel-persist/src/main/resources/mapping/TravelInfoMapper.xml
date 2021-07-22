@@ -103,12 +103,17 @@
     </select>
     <select id="getInfoData" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
     SELECT t1.articleCount,t2.draffCount,t3.collectCount FROM(
-    	SELECT UID,STATUS,count(*) articleCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
+    	SELECT ${vo.uid} UID,STATUS,count(*) articleCount FROM t_t_travel_info c  WHERE  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
     	INNER JOIN (
-    	SELECT UID,STATUS,count(*) draffCount FROM t_t_travel_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='10') t2
+    	SELECT ${vo.uid} UID,STATUS,count(*) draffCount FROM t_t_travel_info c  WHERE  c.UID=#{vo.uid} and c.`STATUS`='10') t2
 		ON t1.UID=t2.UID
 		INNER JOIN(
-		SELECT c.uid,STATUS,count(*) collectCount FROM t_t_collect c GROUP BY c.uid,`STATUS`  HAVING c.uid=#{vo.uid} AND c.`STATUS`='1') t3 
+		SELECT ${vo.uid} uid,count(1) collectCount FROM t_t_collect c,t_t_favorites c1 WHERE c.FID=c1.ID AND c.uid=#{vo.uid} AND c.`STATUS`='1'
+		<if test="vo.visual!=null and ''!=vo.visual">
+		 AND c1.visual=${vo.visual}
+		</if>
+		 
+		 ) t3 
 		ON t1.UID = t3.UID
     </select>
     <select id="searchTextList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">

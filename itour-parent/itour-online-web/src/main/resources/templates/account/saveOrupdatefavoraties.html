@@ -1,14 +1,22 @@
 <div class="modal-backdrop"></div>
 		 	<div class="modal modal--large favlistsModal">
 		 		<div class="modal-inner">
-		 			<h3 class="modal-title">创建新收藏夹</h3>
+		 			<h3 class="modal-title">
+		 			  @if(isEmpty(favorites.id)){
+		 			       创建新收藏夹
+		 			  @}else{
+		 			     编辑收藏夹
+		 			  @}
+		 			
+		 			</h3>
 		 			<div class="modal-content">
 		 				<div class="favlists-content">
 		 					<form class="favlists-content">
+		 					  <input type="hidden" name="id" value="${favorites.id!}">
 		 						<div class="favlists-addItems">
 		 							<div class="favlists-addItem">
 		 								<label class="favlists-descritionInput input-wrapper">
-		 									<input class="input" placeholder="收藏标题" value="" name="favorite">
+		 									<input class="input" placeholder="收藏标题" value="${favorites.favorite!}" name="favorite">
 		 								</label>
 		 								<div class="favlists-inputTips">
 		 									<span class="maxLength is-error" id="input-tip-favor"></span>
@@ -16,7 +24,7 @@
 		 							</div>
 		 							<div class="favlists-addItem">
 		 								<label class="favlists-descritionInput input-wrapper input-wrapper--multiline">
-		 									<textarea rows="5" class="input" placeholder="收藏描述（可选）" name="subtitle"></textarea>
+		 									<textarea rows="5" class="input" placeholder="收藏描述（可选）" name="subtitle">${favorites.subtitle!}</textarea>
 		 								</label>
 		 								<div class="favlists-inputTips">
 		 									<span class="maxLength" id="textarea-tip-favor"></span>
@@ -24,20 +32,30 @@
 		 							</div>
 		 							<div class="favlists-addItem">
 		 								<label class="favlists-privacyOption">
-		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="1" checked="">
+		 								    @if(isEmpty(favorites.visual)||"1"==favorites.visual){
+		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="1" checked>
+		 									@}else{
+		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="1">
+		 									@}
 		 									<span>公开</span>
 		 									<span class="favlists-privacyOptionTips">有其他人关注此收藏夹时不可设置为私密</span>
 		 								</label>
 		 								<label class="favlists-privacyOption">
-		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="0">
+		 								   @if(isEmpty(favorites.visual)||"1"==favorites.visual){
+		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="0" >
+		 									@}else{
+		 									<input class="favlists-privacyOptionRadio" name="visual" type="radio" value="0" checked>
+		 									@}
 		 									<span>私密</span>
 		 									<span class="favlists-privacyOptionTips">只有你自己可以查看这个收藏夹</span>
 		 								</label>
 		 							</div>
 		 						</div>
 		 					    <div class="modalButtonGroup modalButtonGroup--horizontal">
-		 					      <button type="button" class="button back-btn-favoraties" tid=${tid}>返回</button>
-		 					      <button type="button" class="button favlist-btn button--primary button--blue create-btn" disabled >确认创建</button>
+		 					      <button type="button" class="button cacel-favoraties" >返回</button>
+		 					      <button type="button" class="button favlist-btn button--primary button--blue createOrUpdate-collect-btn" disabled cid="${id!}">
+		 					      		   确认          
+		 					      </button>
 		 					    </div>
 		 					</form> 
 		 				</div>

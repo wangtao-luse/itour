@@ -511,6 +511,22 @@ $(function(){
 		 queryInfo({"mold":"5","rpm":rpm,"orderbyList":arr,"page":{"current":"1","size":"10"}});
 	 })
 	 
+	 $(document).on("click",".collectionsHeader-addFavlistButton",function(){
+		 var url =ctxPath+"/travel/svaeOrUpdateFavoritesP";
+		 $(".personCenter_add_collect").load(url,function(result){
+			 $(this).show();
+			 console.log(result);
+		 });
+	 })
+	 $(document).on("click",".modify-favlist-btn",function(){
+		 var id = $(this).attr("cid");
+		 var url = ctxPath+"/travel/svaeOrUpdateFavoritesP?id="+id;
+		 $(".personCenter_add_collect").load(url,function(result){
+			 $(this).show();
+			 $(".favlists-descritionInput.input-wrapper input").trigger("keyup");
+			 $("#input-tip-favor").hide();
+		 });
+	 })
 	});
 function queryInfo(postData){
 	var url="/travel/queryPersonCenterList?ajaxCmd=content";
@@ -584,6 +600,30 @@ function dataURLtoFile (dataurl, filename) {
     }
     return new File([u8arr], filename, { type: mime });
 }
-
+$(document).on("click",".cacel-favoraties",function(){
+	   $(this).closest(".modal-wrapper").hide();
+})
+$(document).on("click",".createOrUpdate-collect-btn",function(){
+	var id = $(this).attr("cid");
+	if($.isEmpty(id)){//新增
+		 var formData = $.serializeObject($(".favlists-content"));
+	     var data ={"vo":formData}
+		  postAjax("/travel/insertFavorite", JSON.stringify(data), function (result) {
+			  $("#collect-btn").trigger("click");
+			  $(".cacel-favoraties").trigger("click");
+	      }, {errorFunction:function(result){
+	      	alert(result.resultMessage);
+	      },cache: false, async: false});
+	}else{//修改
+		 var formData = $.serializeObject($(".favlists-content"));
+	     var data ={"vo":formData}
+		  postAjax("/travel/updateFavortie", JSON.stringify(data), function (result) {
+			  $("#collect-btn").trigger("click");
+			  $(".cacel-favoraties").trigger("click");
+	      }, {errorFunction:function(result){
+	      	alert(result.resultMessage);
+	      },cache: false, async: false});
+	}
+})
 
 

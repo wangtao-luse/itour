@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.RepaintManager;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -633,21 +634,24 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	JSONObject jsonTmp = new JSONObject();
 	String mold = travelInfoDto.getMold();
+	//默认查询动态
 	if(StringUtils.isEmpty(mold)) {
 		travelInfoDto.setMold("1");
 	}
-	String uid = jsonObject.getString("rpm");
-	if(StringUtils.isEmpty(uid)) {
+	//queryUid有值说明是查看别人主页
+	String queryUid = jsonObject.getString("rpm");
+	if(StringUtils.isEmpty(queryUid)) {//查看自己的的主页
 		travelInfoDto.setUid(sessionUser.getuId());
 		travelInfoDto.setOauthId( sessionUser.getOauthId());
 		travelInfoDto.setQueryUid(sessionUser.getuId());
-	}else {
+	}else {//查看别人的主页
+		  //查看目标用户的用户信息
 		  Oauth o = new Oauth();
-		       o.setuId(uid);
+		       o.setuId(queryUid);
 		JSONObject parseObject = JSONObject.parseObject(JSONObject.toJSONString(o));
 		ResponseMessage selectOauthtOne = accountConnector.selectOauthtOne(parseObject, request);
 		Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
-		travelInfoDto.setUid(uid);
+		travelInfoDto.setUid(queryUid);
 		travelInfoDto.setOauthId(oa.getOauthId());
 		travelInfoDto.setQueryUid(sessionUser.getuId());
 	}
@@ -661,7 +665,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		List<TravelInfoDto> rList = new ArrayList<TravelInfoDto>();
 		for (JSONObject info : records) {
 			TravelInfoDto dto = info.toJavaObject(TravelInfoDto.class);
-			if(!ConstAccount.PERSONCNTER_COLLECT.equals(mold)) {
+			if(!ConstAccount.PERSONCENTER_COLLECT.equals(mold)) {
 				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
 			}
 			rList.add(dto);	
@@ -670,6 +674,9 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		JSONObject tmpJSon = new JSONObject();
 		TravelInfoDto dto = new TravelInfoDto();
 		dto.setUid(travelInfoDto.getUid());
+		if(!StringUtils.isEmpty(queryUid)) {
+		dto.setVisual(ConstAccount.PERSONCENTER_VISUAL_SHOW);
+		}
 		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
 		ResponseMessage infoData = this.travelConnector.getInfoData(tmpJSon , request);
 		boolean b = ResponseMessage.resultIsEmpty(infoData);
@@ -680,7 +687,14 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		//收藏
 		JSONObject tmpJson = new JSONObject();
 		FavoritesDto fdto = new FavoritesDto();
-		fdto.setUid(sessionUser.getuId());
+		if(StringUtils.isEmpty(queryUid)) {
+			fdto.setUid(sessionUser.getuId());
+			
+		}else {
+			fdto.setUid(queryUid);
+			fdto.setVisual(ConstAccount.PERSONCENTER_VISUAL_SHOW);
+		}
+		
 		tmpJson.put(Constant.COMMON_KEY_VO, fdto);
 		tmpJson.put(Constant.COMMON_KEY_PAGE,page );
 		ResponseMessage queryfavList = this.travelConnector.queryfavList(tmpJson, request);
@@ -694,7 +708,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		model.addAttribute("usr",sessionUser);
 		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
 	}
-	
+	model.addAttribute("travelInfoDto",travelInfoDto);
 	model.addAttribute("mold",travelInfoDto.getMold());
 	  return "/account/personCenterList#"+ajaxCmd;
 	
@@ -777,5 +791,48 @@ public ResponseMessage collectArticle(@RequestBody JSONObject jsonObject, HttpSe
 public String favoratiesPage(String tid,ModelMap model,String ajaxCmd,HttpServletRequest request) {
 	model.addAttribute("tid", tid);
 	return "/travel/info/favoraties";
+}
+/**
+ * 会员中心创建收藏夹
+ * @param id
+ * @param model
+ * @return
+ */
+@RequestMapping("/svaeOrUpdateFavoritesP")
+public String svaeOrUpdateFavoritesP(Long id,ModelMap model,HttpServletRequest request) {
+	if(null!=id) {
+		JSONObject jsonObject = new JSONObject();
+		Favorites f = new Favorites();
+		f.setId(id);
+		jsonObject.put(Constant.COMMON_KEY_VO, f);
+		ResponseMessage selectOneFavortie = this.travelConnector.selectOneFavortie(jsonObject, request);
+		if(!ResponseMessage.resultIsEmpty(selectOneFavortie)) {
+			Favorites favorites = FastJsonUtil.mapToObject(selectOneFavortie.getReturnResult(), Favorites.class);
+			model.addAttribute("favorites", favorites);
+		}
+		
+	}
+	
+	model.addAttribute("id", id);
+	return "/account/saveOrupdatefavoraties";
+}
+@RequestMapping("/updateFavortie")
+@ResponseBody
+public ResponseMessage updateFavortie(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
+	ResponseMessage updateFavorite = this.travelConnector.updateFavorite(jsonObject, request);
+	return updateFavorite;
+	
+}
+@RequestMapping("/delFavortie")
+@ResponseBody
+public ResponseMessage delFavortie(Long id, HttpServletRequest request) {
+	JSONObject jsonObject = new JSONObject();
+	Favorites favorite = new Favorites();
+	favorite.setId(id);
+	favorite.setDeleteDate(DateUtil.currentLongDate());
+	jsonObject.put(Constant.COMMON_KEY_VO, favorite);
+	ResponseMessage updateFavorite = this.travelConnector.updateFavorite(jsonObject, request);
+	return updateFavorite;
+	
 }
 }

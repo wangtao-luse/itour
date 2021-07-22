@@ -58,6 +58,11 @@ public class Favorites extends Model<Favorites> {
      */
     @TableField("VISUAL")
     private String visual;
+    /**
+     * 删除日期
+     */
+    @TableField("DELETE_DATE")
+    private Long deleteDate;
 
     public Long getId() {
         return id;
@@ -113,6 +118,14 @@ public class Favorites extends Model<Favorites> {
 
 	public void setVisual(String visual) {
 		this.visual = visual;
+	}
+
+	public Long getDeleteDate() {
+		return deleteDate;
+	}
+
+	public void setDeleteDate(Long deleteDate) {
+		this.deleteDate = deleteDate;
 	}
 
 	@Override

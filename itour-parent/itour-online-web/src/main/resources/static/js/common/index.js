@@ -100,16 +100,20 @@ $(function(){
 	   var len = 18;
 	   $("#input-tip-favor").removeClass("maxLength is-error");
 	   if(v.length>0){
-		   $(".modalButtonGroup .create-btn").prop("disabled",false);
+		   $(".modalButtonGroup .favlist-btn").prop("disabled",false);
+		   $("#input-tip-favor").show();
 		   if(v.length<=18){
 			   var tip = "还可以输入"+ (len-v.length) +"个字"; 
 			   $("#input-tip-favor").addClass("maxLength").text(tip);
 		   }else{
 			   var tip = "收藏标题已超过 "+(v.length-len)+"个字";
 			   $("#input-tip-favor").addClass("maxLength is-error").text(tip);
+			   $(".modalButtonGroup .favlist-btn").prop("disabled",true); 
 		   }
 	   }else{
-		   $(".modalButtonGroup .create-btn").prop("disabled",true); 
+		   $(".modalButtonGroup .favlist-btn").prop("disabled",true); 
+		   $("#input-tip-favor").hide();
+		   
 	   }
    })
    $(document).on("keyup",".favlists-descritionInput.input-wrapper textarea",function(){
@@ -117,13 +121,16 @@ $(function(){
 	   var len = 80;
 	   $("#textarea-tip-favor").removeClass("maxLength is-error");
 	   if(v.length>0){
+		   $("#textarea-tip-favor").show();
 		   if(v.length<=len){
 			   var tip = "还可以输入"+ (len-v.length) +"个字"; 
 			   $("#textarea-tip-favor").addClass("maxLength").text(tip);
 		   }else{
-			   var tip = "收藏标题已超过 "+(v.length-len)+"个字";
+			   var tip = "收藏描述已超过 "+(v.length-len)+"个字";
 			   $("#textarea-tip-favor").addClass("maxLength is-error").text(tip);
 		   }
+	   }else{
+		   $("#textarea-tip-favor").hide();
 	   }
    })
    
@@ -137,4 +144,5 @@ $(function(){
 	      	alert(result.resultMessage);
 	      },cache: false, async: false});
    });
+   
 })

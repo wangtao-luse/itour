@@ -87,7 +87,7 @@ public ResponseMessage selectFavoritesList(RequestMessage requestMessage) {
 	return responseMessage;
 }
 /**
- * 前台收藏展示使用
+ * 前台个人主页展示使用
  * @param requestMessage
  * @return
  */
@@ -155,7 +155,14 @@ public ResponseMessage updateFavorite(RequestMessage requestMessage) {
 		if(StringUtils.isEmpty(favorite)) {
 			throw new BaseException(ExceptionInfo.EXCEPTION_FAVORITE);
 		}
-		this.baseMapper.updateById(favoriteVo);
+		Favorites fav = this.baseMapper.selectById(favoriteVo.getId());
+		//检查该文件夹是否为自己创建
+		if(fav.getUid().equals(requestMessage.getBody().getuId())) {
+			this.baseMapper.updateById(favoriteVo);
+		}else {
+			throw new BaseException(ExceptionInfo.EXCEPTION_FAVORITE_NOAUTH);
+		}
+		
 	} catch (BaseException e) {
 		// TODO: handle exception
 		e.printStackTrace();
@@ -167,6 +174,29 @@ public ResponseMessage updateFavorite(RequestMessage requestMessage) {
 	}
 	return responseMessage;
 }
+
+/**
+ * 查询单条
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage selectOneFavortie(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		JSONObject jsonObject = requestMessage.getBody().getContent();
+		Favorites vo = jsonObject.getJSONObject("vo").toJavaObject(Favorites.class);
+		QueryWrapper<Favorites> queryWrapper = new  QueryWrapper<Favorites>();
+		queryWrapper.eq(null!=vo.getId(),"id", vo.getId());
+		Favorites selectOne = this.baseMapper.selectOne(queryWrapper);
+		responseMessage.setReturnResult(selectOne);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	}
+	return responseMessage;
+}
+
 /**
  * 收藏夹物理删除
  * @param requestMessage

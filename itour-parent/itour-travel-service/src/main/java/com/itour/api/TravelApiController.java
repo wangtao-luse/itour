@@ -717,4 +717,12 @@ public class TravelApiController implements TravelApi {
 	public ResponseMessage queryfavList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return favoritesService.queryfavList(requestMessage);
+	}
+	/**
+	 * 收藏夹查询单条
+	 */
+	@Override
+	public ResponseMessage selectOneFavortie(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return favoritesService.selectOneFavortie(requestMessage);
 	}}

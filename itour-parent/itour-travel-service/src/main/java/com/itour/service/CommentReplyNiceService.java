@@ -6,7 +6,6 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
-import com.itour.model.travel.CommentNice;
 import com.itour.model.travel.CommentReplyNice;
 import com.itour.persist.CommentReplyNiceMapper;
 import com.itour.service.CommentReplyNiceService;

@@ -11,22 +11,22 @@
         <result column="CREATEDATE" property="createdate" />
         <result column="STATUS" property="status" />
         <result column="VISUAL" property="visual" />
+        <result column="DELETE_DATE" property="deleteDate" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, FAVORITE, SUBTITLE, UID, CREATEDATE, STATUS, VISUAL
+        ID, FAVORITE, SUBTITLE, UID, CREATEDATE, STATUS, VISUAL,DELETE_DATE
     </sql>
     <!-- 收藏夹列表(收藏时使用) -->
     <select id="selectFavoritesList" parameterType="com.itour.model.travel.dto.FavoritesDto" resultType="com.itour.model.travel.dto.FavoritesDto">
-      SELECT 
-        t1.*,IFNULL(t2.collectCount,0) collectCount FROM(
-	        SELECT 
-	          c1.*,IFNULL(c2.`STATUS`,'2') checked
-			    FROM t_t_favorites c1 LEFT JOIN t_t_collect  c2 
-			    ON c1.ID= c2.FID AND c1.UID=#{vo.uid} AND c2.`STATUS`='1' AND c1.`STATUS`='1' AND c2.TID=#{vo.tid}) t1
-		        LEFT JOIN 
-		        (SELECT count(c.TID) collectCount, FID FROM t_t_collect c WHERE UID=#{vo.uid} AND c.STATUS='1' GROUP BY c.FID) t2
-			    ON t1.ID= t2.FID ORDER BY t1. CREATEDATE DESC  
+    	SELECT 
+    	t1.*,IFNULL(t2.`STATUS`,'2') checked,IFNULL(t3.collectCount,0) collectCount 
+    	FROM (
+		  SELECT *FROM t_t_favorites c1 WHERE c1.UID=#{vo.uid} and c1.`STATUS`='1') t1
+		  		LEFT JOIN  
+		  	t_t_collect  t2 ON t1.id =t2.fid and t2.tid=#{vo.tid}
+				LEFT JOIN
+		 	(SELECT c.fid ,count(*) collectCount FROM t_t_collect c WHERE c.uid=#{vo.uid} and c.STATUS='1'GROUP BY c.fid) t3 ON t1.id=t3.fid
     </select>
       <!-- 会员中心使用 -->
      <select id="queryfavList" parameterType="com.itour.model.travel.dto.FavoritesDto" resultType="com.itour.model.travel.dto.FavoritesDto">

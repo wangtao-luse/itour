@@ -2332,6 +2332,33 @@ color: #646464;
 .button--withIcon.button--withLabel .Button-zi {
     margin-right: 4px;
 }
+.collectionEmptyState {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #8590a6;
+}
+.collectionEmptyState-imageContainer {
+    width: 170px;
+    height: 106px;
+    margin-bottom: 20px;
+    background: 50% url(../../img/common/placeholder.87249539.png);
+    background-size: contain;
+}
+.collectionEmptyState {
+    font-size: 14px;
+    height: 600px;
+}
 /****我的主页end***/
 /***创作中心start**/
 .appConsole .creator-container{

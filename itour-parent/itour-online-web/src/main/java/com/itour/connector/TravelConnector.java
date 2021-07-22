@@ -474,6 +474,30 @@ private TravelApi travelApi;
 		ResponseMessage responseMessage = travelApi.queryfavList(requestMessage);
 		return responseMessage;
 	}
+	/**
+	 * 收藏夹单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectOneFavortie(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.selectOneFavortie(requestMessage);
+		return responseMessage;
+	}
+	/**
+	 * 收藏夹修改
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage updateFavorite(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		ResponseMessage responseMessage = travelApi.updateFavorite(requestMessage);
+		return responseMessage;
+	}
 	
 	
 }

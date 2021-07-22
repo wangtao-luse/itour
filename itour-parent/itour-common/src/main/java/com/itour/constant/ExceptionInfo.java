@@ -15,6 +15,8 @@ public class ExceptionInfo {
 	
 	public static final String EXCEPTION_FAVORITE="收藏夹名称不能为空";
 	
+	public static final String EXCEPTION_FAVORITE_NOAUTH="改收藏夹不是你创建的";
+	
 	public static final String EXCEPTION_TAG="改话题标签已经存在";
 	
 	public static final String EXCEPTION_DEL_FAIL="删除失败";

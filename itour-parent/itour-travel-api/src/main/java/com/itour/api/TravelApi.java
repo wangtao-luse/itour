@@ -587,6 +587,13 @@ ResponseMessage collectArticle(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/queryfavList",produces = {"application/json;charset=UTF-8"})
 ResponseMessage queryfavList(RequestMessage requestMessage);
+/**
+ *  收藏夹单条
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/travel/selectOneFavortie",produces = {"application/json;charset=UTF-8"})
+ResponseMessage selectOneFavortie(RequestMessage requestMessage);
 
 
 }
