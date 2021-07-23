@@ -266,6 +266,16 @@ $(function(){
 			$(".is-fixed.sticky").css("bottom","90px");
 		}
 	});
+	$(".contentItem-action.itour-favorites-btn").mouseout(function(){
+			$(this).find(".isactive").css("display","none");
+			$(this).find(".isdefault").css("display","inline");
+			$(this).css("color","#646464");
+	})
+	$(".contentItem-action.itour-favorites-btn").mouseover(function(){
+		$(this).find(".isdefault").css("display","none");
+		$(this).find(".isactive").css("display","inline");
+		$(this).css("color","#0077E6");
+	})
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);
