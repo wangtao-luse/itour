@@ -1,3 +1,7 @@
+.search-box{
+	overflow: auto;
+	min-width: 1px;
+}
 input,select,textarea{font-family:微软雅黑!important}
 .searchForm label, #searchForm label{
 	display:inline-block;
@@ -304,4 +308,17 @@ input[readonly]{background-color:#efefef}
 .disAText {
     text-decoration: none;
     color: #000;
+}
+/**默认js调整**/
+.textbox .textbox-text {
+    font-size: 13px;
+    vertical-align: baseline;
+    margin: 0;
+}
+.combo-arrow{
+	width: 18px!important;
+	height:20px!important;
+}
+.tree-file:before {
+    content: "";
 }

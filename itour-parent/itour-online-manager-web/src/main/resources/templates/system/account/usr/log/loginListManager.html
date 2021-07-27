@@ -51,44 +51,44 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px;">
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px;"class="search-box">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>用户唯一号:</label>
-	    	   	        <input type="text" placeholder=""  name="uId"/>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	       <label><span></span>用户唯一号:</label>
+	    	   	        <input type="text" placeholder=""  name="uId" class=""/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>账号:</label>
-	    	   	        <input type="text" placeholder=""  name="oauthId"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	       <label><span></span>账号:</label>
+	    	   	        <input type="text" placeholder=""  name="oauthId"class=""/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>账号类型:</label>
-	    	   	        <select id="sex" name="oauthType"></select>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	       <label><span></span>账号类型:</label>
+	    	   	        <select id="sex" name="oauthType" class=""></select>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
 	    	   	        <label><span></span>登录日期:</label>
-	    	   	        <input class="easyui-datebox"  name="" style="width:100px" data-options="editable:false" />
+	    	   	        <input class="easyui-datebox "  name="" style="width:100px" data-options="editable:false" />
 	    	   	        -
-                        <input class="easyui-datebox" name="" style="width:100px" data-options="editable:false"/>
+                        <input class="easyui-datebox " name="" style="width:100px" data-options="editable:false"/>
 	    	   	      </div>
 	    	   	  </div>
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>登录IP地址:</label>
-	    	   	        <input type="text" placeholder=""  name="loginIp"/>
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	       <label><span></span>登录IP地址:</label>
+	    	   	        <input type="text" placeholder=""  name="loginIp" class=""/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span>登录地址:</label>
-	    	   	        <input type="text" placeholder=""  name="loginIpLookup"/>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	       <label><span></span>登录地址:</label>
+	    	   	        <input type="text" placeholder=""  name="loginIpLookup" class=""/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
-	    	   	        <label><span></span></label>
+	    	   	      <div class="fLeft label-handsome flex flex-item">
+	    	   	       <label><span></span></label>
 	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
-	    	   	        <a onclick="searchFun('/account/queryLoginList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
-						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	       <div class="fLeft label-handsome flex">
+	    	   	        <a onclick="searchFun('/account/queryLoginList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton " data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton " data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   	       
 	    	   </div>
