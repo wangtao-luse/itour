@@ -1,10 +1,34 @@
 input,select,textarea{font-family:微软雅黑!important}
-.searchForm label, #searchForm label{display:inline-block;width:90px}
-.searchForm input,#searchForm input{padding:0 0 0 3px;line-height:22px;height:22px;width:192px;border-radius:2px;border:1px solid RGB(169,169,169)}
+.searchForm label, #searchForm label{
+	display:inline-block;
+	/* width:90px */
+	width:35%;
+	min-width: 90px;
+	}
+.searchForm input,#searchForm input{
+	padding:0 0 0 3px;
+	line-height:22px;
+	height:22px;
+	/* width:192px; */
+	width:50%;
+	max-width:192px;
+	min-width:98px;
+	border-radius:2px;
+	border:1px solid RGB(169,169,169)
+	}
 .searchForm input[type=checkbox],#searchForm input[type=checkbox],#searchForm-small input[type=checkbox]{border:0}
-.searchForm select,#searchForm select{padding:0 0 0 3px;line-height:22px;height:22px;width:192px;border-radius:2px;border:1px solid RGB(169,169,169)}
+.searchForm select,#searchForm select{
+	padding:0 0 0 3px;
+	line-height:22px;
+	height:22px;
+	/* width:192px; */
+	width:50%;
+	max-width:192px;
+	min-width:98px;
+	border-radius:2px;
+	border:1px solid RGB(169,169,169)}
 .searchForm select,#searchForm select{height:24px}
-.searchForm .label-handsome,#searchForm .label-handsome{width:310px}
+.searchForm .label-handsome,#searchForm .label-handsome{/* width:310px */width:25%}
 .searchForm,#searchForm{padding-left:10px}
 .searchForm .line-handsome,#searchForm .line-handsome{height:26px}
 #searchForm-small label{display:inline-block;width:100px}
