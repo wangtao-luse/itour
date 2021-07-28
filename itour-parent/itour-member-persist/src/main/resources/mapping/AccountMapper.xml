@@ -19,7 +19,7 @@
         ID, UID, SEX, CREATEDATE, CREATEIP, LASTTIME, STATUS, UTYPE
     </sql>
 <select id="getMaxId" resultType="Integer">
-      SELECT MAX(ID) FROM T_A_ACCOUNT
+      SELECT MAX(ID) FROM T_M_ACCOUNT
     </select>
 
 </mapper>

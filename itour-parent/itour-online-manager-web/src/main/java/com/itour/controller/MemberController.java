@@ -517,4 +517,24 @@ public class MemberController {
 		ResponseMessage regSub = this.memberConnector.regSub(jsonObject, request);
 		return regSub;
 	}
+	@RequestMapping("/checkEmail")
+	@ResponseBody
+	public ResponseMessage checkOauthId(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		Oauth oaauthVo = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
+		JSONObject tmpJson = new JSONObject();
+		tmpJson.put("type", ConstAccount.EMAIL);
+		tmpJson.put("regName",oaauthVo.getOauthId());
+		ResponseMessage checkOauthId = this.memberConnector.checkOauthId(tmpJson, request);
+		return checkOauthId;
+	}
+	@RequestMapping("/checkusrName")
+	@ResponseBody
+	public ResponseMessage checkusrName(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		Oauth oaauthVo = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
+		JSONObject tmpJson = new JSONObject();
+		tmpJson.put("type", ConstAccount.UNAME);
+		tmpJson.put("regName",oaauthVo.getOauthId());
+		ResponseMessage checkOauthId = this.memberConnector.checkOauthId(tmpJson, request);
+		return checkOauthId;
+	}
 }

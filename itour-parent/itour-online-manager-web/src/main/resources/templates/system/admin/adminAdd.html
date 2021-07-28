@@ -60,13 +60,13 @@
             <table class="table table-hover table-condensed" style="margin:20px auto 0 auto; ">
                 <tr>
                     <td><span class="redSharp">* </span>邮箱:</td>
-                    <td><input  name="oauthId" data-options="required:true" style="width:125px"/></td>
+                    <td><input  name="oauthId" class="easyui-validatebox" data-options="required:true" style="width:125px" id="oauthId" validType="email" /></td>
                 </tr>
                 <tr>
                  <td ><span class="redSharp">* </span>用户名：</td>
                     <td>
-                        <input name="nickname"  type="text" class="span2" autocomplete="off"
-                               data-options="required:true" value="" style="width:125px"></td>
+                        <input name="nickname"  id="nickname" type="text" class="easyui-validatebox span2" autocomplete="off"
+                               data-options="required:true,validType:['length[3,18]','loginname']" value="" style="width:125px"></td>
                 </tr>
                 <tr>
                  <td ><span class="redSharp">* </span>类型：</td>
@@ -77,15 +77,15 @@
                  <tr>
                     <td><span class="redSharp">* </span>密码:</td>
                     <td>
-                    <input name="credential"  type="password" class="span2" autocomplete="off"
-                               data-options="required:true" value="" style="width:125px">
+                    <input name="credential"  type="password" class="easyui-validatebox span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px" validType="password">
                     <td>
                 </td>
                 </tr>
                  <tr>
                     <td><span class="redSharp">* </span>确认密码:</td>
-                    <td> <input name="password"  type="password" class="span2" autocomplete="off"
-                               data-options="required:true" value="" style="width:125px">
+                    <td> <input name="password"  type="password" class="easyui-validatebox span2" autocomplete="off"
+                               data-options="required:true" value="" style="width:125px" validType="eqPassword['#form input[name=credential]']">
                     </td>
                 </tr>
                  <tr>
@@ -95,7 +95,7 @@
                  </td>
                 </tr>
                 <tr>
-                 <td ><span class="redSharp">* </span>图像：</td>
+                 <td ><span class="redSharp">  </span>图像：</td>
                     <td>
                         <input name="avatar"  type="file" class="span2" autocomplete="off"
                                data-options="required:true" value="" style="width:125px"></td>
@@ -114,9 +114,64 @@ $(function(){
 	$("#addFunction").click(function(){
 		var url="/member/regSub";
 		var postData=$.serializeObject($("#form"));
-		postAjax(url,JSON.stringify({"vo":postData}),closeDialogCallBack,{async: false});
+		 $('#form').form('validate') &&postAjax(url,JSON.stringify({"vo":postData}),closeDialogCallBack,{async: false});
 	});	
+
 	
+	$.extend($.fn.validatebox.defaults.rules, {
+		   email:{
+			   validator:function(value,param){
+				       var oauthId = $("#oauthId").val();
+				       var data = {'vo': {"oauthId":oauthId}};
+			            var errorReturnObj;
+			            var bl=true;
+			            var flag =postAjax("/member/checkEmail", JSON.stringify(data), function (result) {
+			            	bl=true;
+			            },{cache:false,async:false,errorFunction:function(result){
+			            	
+	                     $.fn.validatebox.defaults.rules.email.message = result.resultMessage;
+			            	bl=false;
+			            }});
+			            return bl;
+			   },
+
+		   },
+		   loginname:{
+			   validator:function(value,param){
+				        var nickname = $("#nickname").val();
+				        var data = {'vo': {"oauthId":nickname}};
+			            var errorReturnObj;
+			            var bl=true;
+			            var flag =postAjax("/member/checkusrName", JSON.stringify(data), function (result) {
+			            	bl=true;
+			            },{cache:false,async:false,errorFunction:function(result){
+	                     $.fn.validatebox.defaults.rules.loginname.message = result.resultMessage;
+			            	bl=false;
+			            }});
+			            return bl;
+			   },
+
+		   },
+		   length: { validator: function (value, param) {
+	        var len = $.trim(value).length;
+	        return len >= param[0] && len <= param[1];
+	    },
+	        message: "输入内容长度必须介于{0}和{1}之间!"
+	    },
+	    password: { 
+	        validator: function(value, param){
+	         return /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,12}$/.test(value);
+	        },   
+	        message: '请输入8~12位 \"数字\" + \"字母\" 组合密码！'  
+	    },
+		   eqPassword : { validator : function(value, param) {  
+	    		return value == $(param[0]).val();   
+	    	},   
+	    	message : '密码不一致！'   
+	    	}
+		   
+		      
+		});
 });
 function loadDataHysh(obj,pNode) {
     var key, value, tagName, type, arr;
@@ -141,4 +196,5 @@ function loadDataHysh(obj,pNode) {
         })
     }
 }
+
 </script>

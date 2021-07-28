@@ -36,7 +36,7 @@ public class DefaultExceptionHandler {
 		logger.error("DefaultExceptionHandler:", ex);
 		String accept = request.getHeader("accept");
 		String width = request.getHeader("X-Requested-With");
-		if(StringUtils.isEmpty(width)) {//非ajax请求根据错误跳转页面
+		if(!isAjax(request)&&!isAcceptJson(request)) {//非ajax请求根据错误跳转页面
 			ResponseEntity responseEntity = ResponseEntity.from(ex);
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("error", responseEntity);

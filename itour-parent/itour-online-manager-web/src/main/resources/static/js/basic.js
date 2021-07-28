@@ -468,7 +468,7 @@ function initSelect(selectNode, key, flag, title) {
 	    data: JSON.stringify(data),
 	    contentType: "application/json",
 	    dataType: "json",
-	    url: "/dictionary/getDictData",
+	    url: getContextPath()+"/dictionary/getDictData",
 	    success: function (resultData) {
 	    	var showTitle = title ? title : "请选择";
 	    	var str = flag ? "<option value=''>" + showTitle + "</option>" : "";

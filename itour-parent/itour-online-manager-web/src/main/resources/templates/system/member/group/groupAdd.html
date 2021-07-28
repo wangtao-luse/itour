@@ -39,7 +39,7 @@ $(function(){
 	    data: JSON.stringify(data),
 	    contentType: "application/json",
 	    dataType: "json",
-	    url: "/member/getGroupList",
+	    url: "${ctxPath}/member/getGroupList",
 	    success: function (resultData) {
 	    	    var data = resultData.returnResult.result;
 	    	    var str = "<option value='0'>请选择</option>" ;

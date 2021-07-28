@@ -1,11 +1,8 @@
 package com.itour.service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -13,13 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.itour.account.api.AccountApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
@@ -28,6 +22,7 @@ import com.itour.exception.BaseException;
 import com.itour.model.member.Account;
 import com.itour.model.member.AccountGroup;
 import com.itour.model.member.Group;
+import com.itour.model.member.Ipaddr;
 import com.itour.model.member.Oauth;
 import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
@@ -72,13 +67,13 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		JSONObject jsonObject = requestMesage.getBody().getContent();
 		//1.插入用户表
 		Account account = jsonObject.getJSONObject("vo").toJavaObject(Account.class);
+		Ipaddr addr = jsonObject.getJSONObject("vo").toJavaObject(Ipaddr.class);
 		//生成uid
 		String uid = baseService.getUid();
 		account.setUid(uid);
 		account.setUtype(StringUtils.isEmpty(account.getUtype())?"0":account.getUtype());
 		account.setStatus("1");
-		account.setSex("1");
-		account.setCreateip(jsonObject.getString("ip"));
+		account.setCreateip(addr.getIp());
 		//注册日期		
 		account.setCreatedate(DateUtil.currentLongDate());
 		this.baseMapper.insert(account);
@@ -101,7 +96,11 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		oauth.setOauthId(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		//3.插入用户组表
-		Group selectOne = groupMapper.selectOne(new QueryWrapper<Group>().eq("G_NAME", "Gnormal"));
+		String gName="Gnormal";
+		if("1".equals(account.getUtype())) {
+			gName="GSAdmin";
+		}
+		Group selectOne = groupMapper.selectOne(new QueryWrapper<Group>().eq("G_NAME", gName));
 		if(null==selectOne) {
 			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
@@ -110,6 +109,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		accountGroup.setuId(uid);		
 		this.accountGroupMapper.insert(accountGroup);
 		//4.插入IP信息
+		jsonObject.put("ipaddr", addr);
 		RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
 		ipaddrService.insertIPAddr(postData);
 		

@@ -68,7 +68,8 @@ public class DictionaryController {
 	@RequestMapping("/getDictData")
 	@ResponseBody
 	public ResponseMessage getDictData(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		return dictionaryConnetor.getDictData(jsonObject, request);
+		ResponseMessage dictData = dictionaryConnetor.getDictData(jsonObject, request);
+		return dictData;
 	}
 	/**
 	 * 字典表查询
