@@ -319,5 +319,16 @@ public class MemberConnector {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 		return memberApi.regSub(requestMessage);
 	}
+	/**
+	 * 管理员查询单条
+	 * @param jsonObject
+	 * @param request
+	 * @return
+	 */
+	public ResponseMessage selectViewOAuthOne(JSONObject jsonObject, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+		return memberApi.selectViewOAuthOne(requestMessage);
+	}
 	
 }

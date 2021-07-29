@@ -96,16 +96,8 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		oauth.setOauthId(oauth.getNickname());
 		oauthMapper.insert(oauth);
 		//3.插入用户组表
-		String gName="Gnormal";
-		if("1".equals(account.getUtype())) {
-			gName="GSAdmin";
-		}
-		Group selectOne = groupMapper.selectOne(new QueryWrapper<Group>().eq("G_NAME", gName));
-		if(null==selectOne) {
-			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
-		}
 		AccountGroup accountGroup = new AccountGroup();
-		accountGroup.setGroupId(selectOne.getId());
+		accountGroup.setGroupId(jsonObject.getLong("gParent"));
 		accountGroup.setuId(uid);		
 		this.accountGroupMapper.insert(accountGroup);
 		//4.插入IP信息

@@ -1,6 +1,8 @@
 package com.itour.model.member.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-10
  */
+@TableName("view_m_oauth")
 public class ViewMOauth extends Model<ViewMOauth> {
 
     private static final long serialVersionUID = 1L;
@@ -18,7 +21,7 @@ public class ViewMOauth extends Model<ViewMOauth> {
      * 编号标识	主键,自动增长
      */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
     /**
      * 用户唯一号	外键来源于用户表中的UID
@@ -61,11 +64,11 @@ public class ViewMOauth extends Model<ViewMOauth> {
     @TableField("CREATEDATE")
     private Long createdate;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

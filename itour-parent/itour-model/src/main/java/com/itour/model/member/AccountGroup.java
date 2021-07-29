@@ -22,7 +22,7 @@ public class AccountGroup extends Model<AccountGroup> {
      *  编号(主键,自动增长)
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 用户唯一号	来源于用户标准的UID
@@ -34,13 +34,13 @@ public class AccountGroup extends Model<AccountGroup> {
      * 组编号	来源于用户组表中的ID
      */
     @TableField("GROUP_ID")
-    private Integer groupId;
+    private Long groupId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class AccountGroup extends Model<AccountGroup> {
         this.uId = uId;
     }
 
-    public Integer getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 

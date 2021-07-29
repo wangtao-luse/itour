@@ -473,8 +473,8 @@ public class MemberController {
 	@RequestMapping("/getAccount")
 	@ResponseBody
 	public ResponseMessage getAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		ResponseMessage insertMember = this.memberConnector.getViewOauthList(jsonObject, request);
-		return insertMember;
+		ResponseMessage getAccount = this.memberConnector.selectViewOAuthOne(jsonObject, request);
+		return getAccount;
 	}
 	/**
 	 *  管理员修改
@@ -485,7 +485,7 @@ public class MemberController {
 	@RequestMapping("/updateAccount")
 	@ResponseBody
 	public ResponseMessage updateAccount(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		ResponseMessage insertMember = this.memberConnector.getViewOauthList(jsonObject, request);
+		ResponseMessage insertMember = this.memberConnector.updateAccount(jsonObject, request);
 		return insertMember;
 	}
 	/**

@@ -54,10 +54,11 @@ $(function(){
 	 initSelect($("#utype"), "UTYPE",false,"全部");
 	 initSelect($("#status"), "ACCOUNT_STATUS",false,"全部");
 	   var action=$("#action").text();
-		var postData={'vo':{"id":action}};
+		var postData={'view':{"id":action}};
+		console.log("show")
 		postAjax('/member/getAccount',JSON.stringify(postData),function(data){
 		    var dt=data.returnResult.result;      
-		       console.log(data);
+		       console.log(dt);
 		    loadContainerWrapperData(dt,$(".container-wrapper"));
 		       
 		   });

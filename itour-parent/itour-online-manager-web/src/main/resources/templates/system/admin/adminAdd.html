@@ -71,7 +71,7 @@
                 <tr>
                  <td ><span class="redSharp">* </span>类型：</td>
                  <td>
-                    <select id="utype" name="utype"></select>
+                    <select id="utype" name="utype" data-options="required:true" class="easyui-validatebox"></select>
                  </td>
                 </tr>
                  <tr>
@@ -94,6 +94,12 @@
                     <select id="sex" name="sex"></select>
                  </td>
                 </tr>
+                  <tr>
+                 <td ><span class="redSharp">* </span>所属组：</td>
+                 <td>
+                    <select id="gParent" name="gParent" data-options="required:true" class="easyui-validatebox"></select>
+                 </td>
+                </tr>
                 <tr>
                  <td ><span class="redSharp">  </span>图像：</td>
                     <td>
@@ -109,8 +115,24 @@
 
 <script>
 $(function(){
+	var data = {"vo":{}};
+	$.ajax({
+	    type: "POST",
+	    data: JSON.stringify(data),
+	    contentType: "application/json",
+	    dataType: "json",
+	    url: "${ctxPath}/member/getGroupList",
+	    success: function (resultData) {
+	    	    var data = resultData.returnResult.result;
+	    	    var str = "<option value=''>请选择</option>" ;
+	    	    for(var o in data){
+	    	        str += "<option value='" + data[o].id + "' >" + data[o].gDesc + "</option>";
+	    	    }
+	    	    $("#gParent").html(str);
+	    }
+	});
 	 initSelect($("#sex"), "SEX",false,"全部");
-	 initSelect($("#utype"), "UTYPE",false,"全部");
+	 initSelect($("#utype"), "UTYPE",true,"请选择");
 	$("#addFunction").click(function(){
 		var url="/member/regSub";
 		var postData=$.serializeObject($("#form"));
