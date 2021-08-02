@@ -87,9 +87,9 @@ var postAjax = function(url,postData,successFunction,options){
     	complete: function(XMLHttpRequest,textStatus){
     		var sessionstatus=XMLHttpRequest.getResponseHeader("session-status");
             if(sessionstatus=="timeout"){
-            	showInfoMsg("登录超时,请重新登录");
+            	alert("登录超时,请重新登录");
                 //如果超时就处理 ，指定要跳转的页面(比如登陆页)
-                window.location.replace(getContextPath()+"/member/login");
+               top.location.replace(getContextPath()+"/member/login");
             }
     	},
     	error:function(resultData){
