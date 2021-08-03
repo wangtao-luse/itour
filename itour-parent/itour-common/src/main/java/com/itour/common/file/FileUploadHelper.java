@@ -176,9 +176,9 @@ public  static String getPath(String prefix) {
 	path+=prefix;
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	if(null!=sessionUser) {
-		path = File.separator+sessionUser.getuId();
+		path+= File.separator+sessionUser.getuId();
 	}else {
-		path = File.separator+"public";
+		path+= File.separator+"public";
 	}
 	Calendar instance = Calendar.getInstance();
 	int y=instance.get(Calendar.YEAR);
