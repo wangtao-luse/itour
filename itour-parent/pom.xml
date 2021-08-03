@@ -409,7 +409,7 @@
             <id>dev</id>
             <activation>
                 <!--默认激活：如果在不指定profile时默认是开发环境-->
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
@@ -541,7 +541,7 @@
         <profile>
             <id>spro</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>spro</profiles.active>
@@ -557,16 +557,16 @@
                 <server.quartz.port>9081</server.quartz.port>
                 <server.travel.port>9082</server.travel.port>
                 <server.work.port>9083</server.work.port>
-                <eureka.host>106.54.162.159</eureka.host>
+                <eureka.host>192.168.1.88</eureka.host>
                 <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
-                <spring.datasource.url>jdbc:mysql://106.54.162.159:3306/itour?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.url>jdbc:mysql://192.168.1.88:3306/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>mysql@958958</spring.datasource.password>
                  <!-- redis相关 -->
                 <spring.redis.database>2</spring.redis.database>
-                <spring.redis.host>106.54.162.159</spring.redis.host>
+                <spring.redis.host>192.168.1.88</spring.redis.host>
                 <spring.redis.port>6379</spring.redis.port>
                 <spring.redis.password>redis@958958</spring.redis.password>
                 <spring.redis.timeout>30000</spring.redis.timeout>
@@ -582,7 +582,7 @@
                 <feign.client.config.default.connect-timeout>90000</feign.client.config.default.connect-timeout>
                 <feign.client.config.default.read-timeout>90000</feign.client.config.default.read-timeout>
                 <!-- 日志 trace < debug < info < warn < error < fatal 默认级别为info，即默认打印info及其以上级别的日志-->
-                <log.home>D:/dev/logs/questions</log.home>
+                <log.home>/root/logs/questions</log.home>
                 <!-- 图片滑动验证码 图片路径-->
                <prefix.verificationImagePathPrefix>D:\\temp\\imgs\\</prefix.verificationImagePathPrefix>
                 <!-- wechat第三方接口相关参数配置 -->
@@ -594,9 +594,9 @@
                 <baidu.api.client_id>S3EKgVjpcmwBBQInE6VMTrHo</baidu.api.client_id>
                 <baidu.api.client_secret>qKtWQ4x1YEPlxtMf97BbSQV3uGb8d085</baidu.api.client_secret>
                  <!-- 文件上传相关 -->
-                <fileupload.path>D:\\temp\\upload\\</fileupload.path>
+                <fileupload.path>/root/img/upload/</fileupload.path>
                  <!-- docker 相关-->
-                <docker.dockerHost>http://106.54.162.159:2375</docker.dockerHost>
+                <docker.dockerHost>http://192.168.1.88:2375</docker.dockerHost>
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
