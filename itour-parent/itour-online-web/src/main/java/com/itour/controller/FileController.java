@@ -67,9 +67,9 @@ public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file
 			// 文件访问路径
 			// http://localhost:9093/itour/upload/189ec6990e554471b15631816d371066.JPG
 			String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/"))
-					+ FileUploadHelper.getPath() + File.separator + fileName;
+					+ FileUploadHelper.getPath(FileUploadHelper.IMG_PREFIX_ONLINE) + File.separator + fileName;
 			//文件保存的路径
-			String savePath = uploadFileLocation + File.separator + FileUploadHelper.getPath();
+			String savePath = uploadFileLocation + File.separator + FileUploadHelper.getPath(FileUploadHelper.IMG_PREFIX_ONLINE);
 			//如果目录不能存在创建目录
 			File realPath = new File(savePath);
 			boolean exists = realPath.exists();
@@ -107,7 +107,7 @@ public JSONObject multipartFileUpload(@RequestParam(value = "editormd-image-file
 		// https://www.cnblogs.com/zhaoyan001/p/10953711.html
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
-			responseMessage =FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request);
+			responseMessage =FileUploadHelper.upload(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.IMG_PREFIX_ONLINE);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
