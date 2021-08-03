@@ -432,7 +432,7 @@
 })(jQuery, window, document);
 
 $(function(){
-	$(".userCenter .user-img").click(function(){
+	$(".userCenter .user-img-upload").click(function(){
 		$(".vicp-close").next().show();
 		$(".vicp-step1").prev().hide();
 		$(".vicp-step2").hide();

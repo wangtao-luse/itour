@@ -18,9 +18,11 @@
 	    					<li class="tabs-item tabs-item--noMeta" id="collect-btn">
 	    						<a class="tabs-link ${mold=='4'?'is-active':''}" href="#">收藏<span class="tabs-meta">${dt.collectCount!0}</span></a>
 	    					</li>
+	    					@if(isEmpty(qUid)){
 	    					<li class="tabs-item tabs-item--noMeta" id="draft-btn">
 	    						<a class="tabs-link ${mold=='5'?'is-active':''}" href="#">草稿<span class="tabs-meta">${dt.draffCount!0}</span></a>
 	    					</li>
+	    					@}
 	    				</ul>
 	    			</div>
 	    			@if(mold=='4'){

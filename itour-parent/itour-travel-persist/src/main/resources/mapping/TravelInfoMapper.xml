@@ -149,6 +149,7 @@
     <select id="selectTraveInfo" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
     
     <choose>
+      <!-- 未登录的情况根据ID查询对应的文章 -->
       <when test="vo.queryUid==null or ''==vo.queryUid" >
       	SELECT t1.*,t2.NICKNAME,t2.AVATAR
 	FROM
@@ -156,14 +157,13 @@
 		T_A_OAUTH t2 
 	ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' and t1.STATUS='30' AND t1.ID=#{vo.id}
       </when>
+      <!-- 登录情况 -->
       <otherwise>
-      SELECT t1.*,t2.NICKNAME,t2.AVATAR,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid
-	FROM
-		T_T_TRAVEL_INFO t1 INNER JOIN
+		SELECT t1.*, t2.NICKNAME,t2.AVATAR,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid FROM T_T_TRAVEL_INFO t1 INNER JOIN
 		T_A_OAUTH t2 
-	ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' and t1.STATUS='30' AND t1.ID=#{vo.id}
+	ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' AND t1.ID=#{vo.id} 
 	LEFT JOIN 
-	 t_t_nice t3 ON t1.ID=t3.TID and t3.uid=#{vo.queryUid} 
+	 t_t_nice t3 ON t1.ID=t3.TID and t3.uid=#{vo.queryUid}
       </otherwise>
     </choose>
     

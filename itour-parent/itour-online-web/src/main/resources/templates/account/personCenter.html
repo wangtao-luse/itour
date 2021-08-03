@@ -34,7 +34,7 @@
 	    	<div class="infoMsgHead">
 	    		<div class="infoMsgHead-inner">
 	    			<div class="user-left">
-	    				<div class="user-img">
+	    				<div class="user-img ${account.uId==sessionUser.uId?'user-img-upload' :''}">
 	    				   @if(isEmpty(account.avatar)){
 	    				   <img src="${ctxPath}/img/common/avatar-5.webp" />
 	    				   @}else{
@@ -46,7 +46,6 @@
 	    					<input type="file" name="file" class="uploadPicture-input"  >
 	    					</form>
 	    					@}
-	    					
 	    				</div>
 	    			</div>
 	    			<div class="user-info">
