@@ -706,8 +706,9 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		model.addAttribute("cList",rList);
 		model.addAttribute("page",p);
 		model.addAttribute("usr",sessionUser);
-		model.addAttribute("qUid",queryUid);
+		model.addAttribute("qUid",travelInfoDto.getQueryUid());
 		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
+		
 	}
 	model.addAttribute("travelInfoDto",travelInfoDto);
 	model.addAttribute("mold",travelInfoDto.getMold());

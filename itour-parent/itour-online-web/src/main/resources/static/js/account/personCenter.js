@@ -527,6 +527,10 @@ $(function(){
 			 $("#input-tip-favor").hide();
 		 });
 	 })
+	 $(document).on("click",".travel_person_edit_btn",function(){
+		var id = $(this).attr("tid");
+		location.href=ctxPath+"/travel/updateMd?id="+id;
+	})
 	});
 function queryInfo(postData){
 	var url="/travel/queryPersonCenterList?ajaxCmd=content";
