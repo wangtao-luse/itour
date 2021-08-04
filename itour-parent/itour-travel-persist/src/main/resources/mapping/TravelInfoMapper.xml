@@ -48,18 +48,20 @@
 	-->
     <select id="selectDynamicList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
            <if test='vo.mold=="1"'>
+            <!-- 发布的文章 -->
             SELECT * FROM(
 	            SELECT * FROM (
 		            SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold,1 dynamic,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid
 				   FROM t_t_travel_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID
-						and t1.UID=#{vo.uid} and t1.`STATUS`='30' and t2.OAUTH_ID=#{vo.oauthId}
+						and t1.UID=#{vo.queryUid} and t1.`STATUS`='30' and t2.OAUTH_ID=#{vo.oauthId}
 						LEFT JOIN t_t_nice t3 ON t1.ID= t3.TID and t3.UID=#{vo.queryUid}
 				) c1
+				<!-- 点赞过的文章 -->
 				  UNION ALL				
 				SELECT * FROM (
 					SELECT t1.*,t2.CREATEDATE time,t3.NICKNAME,t3.AVATAR, 1 mold,2 dynamic,IFNULL(t4.`STATUS`,'0') niceStatus,t4.UID niceUid
 					FROM t_t_travel_info t1 INNER JOIN t_t_nice t2 ON t1.ID = t2.TID 
-						and t1.`STATUS`='30' and  t2.UID=#{vo.uid} and t2.STATUS='1'
+						and t1.`STATUS`='30' and  t2.UID=#{vo.queryUid} and t2.STATUS='1'
 					INNER JOIN t_a_oauth t3 on t1.UID =t3.U_ID 
 						and t3.OAUTH_TYPE='email'
 					LEFT JOIN t_t_nice t4 ON t1.ID= t4.TID and t4.UID=#{vo.queryUid}
@@ -76,9 +78,10 @@
 			)c4 ORDER BY time DESC
 		  </if>
 		  <if test='vo.mold =="2"'>
+		    <!-- 发布的文章 -->
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 2 mold,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid
 		   FROM t_t_travel_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID
-				and t1.UID=#{vo.uid} and t1.`STATUS`='30' and t2.OAUTH_ID=#{vo.oauthId}
+				and t1.UID=#{vo.queryUid} and t1.`STATUS`='30' and t2.OAUTH_ID=#{vo.oauthId}
 				LEFT JOIN t_t_nice t3 ON t1.ID= t3.TID and t3.UID=#{vo.queryUid}
 				<foreach collection="vo.orderbyList" item="item" separator="," index="index">
 				 <if test="index==0">
@@ -90,10 +93,11 @@
 				 </if>
 				</foreach>
 		  </if>
+		  <!-- 收藏 -->
 		  <if test='vo.mold =="4"'>
-		       SELECT t1.*,IFNULL(t2.time ,t1.CREATEDATE)latestDate,IFNULL(t2.articleCount,0)articleCount FROM (SELECT * FROM t_t_favorites c WHERE c.UID=#{vo.uid} and `STATUS`='1' ) t1 
+		       SELECT t1.*,IFNULL(t2.time ,t1.CREATEDATE)latestDate,IFNULL(t2.articleCount,0)articleCount FROM (SELECT * FROM t_t_favorites c WHERE c.UID=#{vo.queryUid} and `STATUS`='1' ) t1 
 		 LEFT JOIN
-		 (SELECT Max(CTIME) time ,count(*) articleCount, FID FROM t_t_collect c WHERE c.UID=#{vo.uid} and  `STATUS`='1' GROUP BY FID) t2 ON t1.id=t2.FID
+		 (SELECT Max(CTIME) time ,count(*) articleCount, FID FROM t_t_collect c WHERE c.UID=#{vo.queryUid} and  `STATUS`='1' GROUP BY FID) t2 ON t1.id=t2.FID
  		  <where>
 	 		  <if test="vo.visual!=null and ''!=vo.visual">
 			      visual= #{vo.visual}
@@ -102,29 +106,31 @@
  		  </where>
  		  ORDER BY latestDate DESC
 		  </if>
-		  <if test='vo.mold =="5"'>
+		  <if test='vo.mold =="5"'><!-- 草稿 -->
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid
 		   FROM t_t_travel_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID
 				and t1.UID=#{vo.uid} and t1.`STATUS`='10' and t2.OAUTH_ID=#{vo.oauthId}
-				LEFT JOIN t_t_nice t3 ON t1.ID= t3.TID and t3.UID=#{vo.queryUid}
+				LEFT JOIN t_t_nice t3 ON t1.ID= t3.TID and t3.UID=#{vo.uid}
 		  </if>
 		  
     </select>
+    <!--会员中心统计 -->
     <select id="getInfoData" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
     SELECT t1.articleCount,t2.draffCount,t3.collectCount FROM(
-    	SELECT ${vo.uid} UID,STATUS,count(*) articleCount FROM t_t_travel_info c  WHERE  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
+    	SELECT ${vo.queryUid} UID,STATUS,count(*) articleCount FROM t_t_travel_info c  WHERE  c.UID = #{vo.queryUid} and c.`STATUS`='30')t1 
     	INNER JOIN (
-    	SELECT ${vo.uid} UID,STATUS,count(*) draffCount FROM t_t_travel_info c  WHERE  c.UID=#{vo.uid} and c.`STATUS`='10') t2
+    	SELECT ${vo.queryUid} UID,STATUS,count(*) draffCount FROM t_t_travel_info c  WHERE  c.UID = #{vo.queryUid} and c.`STATUS`='10') t2
 		ON t1.UID=t2.UID
-		INNER JOIN(
-		SELECT ${vo.uid} uid,count(1) collectCount FROM t_t_collect c,t_t_favorites c1 WHERE c.FID=c1.ID AND c.uid=#{vo.uid} AND c.`STATUS`='1'
+		INNER JOIN(	
+		SELECT ${vo.queryUid} UID, COUNT(*) collectCount FROM  t_t_favorites c  WHERE c .`STATUS`='1' AND c.UID = #{vo.queryUid}  
 		<if test="vo.visual!=null and ''!=vo.visual">
-		 AND c1.visual=${vo.visual}
+		 AND c.visual=${vo.visual}
 		</if>
 		 
 		 ) t3 
 		ON t1.UID = t3.UID
     </select>
+    <!-- 网站搜索 -->
     <select id="searchTextList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
       SELECT t1.*,t2.NICKNAME,1 mold FROM t_t_travel_info t1  
         INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID and t2.OAUTH_TYPE='email'
@@ -134,6 +140,7 @@
 		</if>
       
     </select>
+    <!-- 旅行攻略列表 -->
     <select id="selectTravelInfoList" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
        <choose>
          <when test="vo.queryUid==null or ''==vo.queryUid">
@@ -154,7 +161,7 @@
          </otherwise>
        </choose>
     </select>
-    
+    <!-- 详情页面 -->
     <select id="selectTraveInfo" parameterType="com.itour.model.travel.dto.TravelInfoDto" resultType="com.itour.model.travel.dto.TravelInfoDto">
     
     <choose>
@@ -175,7 +182,6 @@
 	 t_t_nice t3 ON t1.ID=t3.TID and t3.uid=#{vo.queryUid}
       </otherwise>
     </choose>
-    
     </select>
     
    
