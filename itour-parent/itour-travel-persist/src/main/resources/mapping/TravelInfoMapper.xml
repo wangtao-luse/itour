@@ -63,8 +63,17 @@
 					INNER JOIN t_a_oauth t3 on t1.UID =t3.U_ID 
 						and t3.OAUTH_TYPE='email'
 					LEFT JOIN t_t_nice t4 ON t1.ID= t4.TID and t4.UID=#{vo.queryUid}
-				) c2				
-			)c3 ORDER BY time DESC
+				) c2
+				<!-- 收藏的文章 -->
+				 UNION ALL	
+				SELECT * FROM(
+					 SELECT t1.* ,t2.CTIME time, t3.NICKNAME,t3.AVATAR, 1 mold,4 dynamic,IFNULL(t4.`STATUS`,'0') niceStatus,t4.UID niceUid 
+					 FROM t_t_travel_info t1 
+					INNER JOIN (SELECT * FROM t_t_collect c WHERE c.UID=#{vo.queryUid} and c.`STATUS`='1') t2 ON t1.ID =t2.TID
+					INNER JOIN t_a_oauth t3 ON t1.UID =t3.U_ID AND t3.OAUTH_TYPE='email'
+					LEFT JOIN t_t_nice t4  ON t1.ID =t4.tid and t4.uid=#{vo.queryUid}
+					)c3				
+			)c4 ORDER BY time DESC
 		  </if>
 		  <if test='vo.mold =="2"'>
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 2 mold,IFNULL(t3.`STATUS`,'0') niceStatus,t3.UID niceUid
