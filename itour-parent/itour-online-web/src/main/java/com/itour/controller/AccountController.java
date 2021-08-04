@@ -254,7 +254,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 		ResponseMessage upload = ResponseMessage.getSucess();
 		 try {
 			 MultipartFile newFile = ImageIOHelper.cut(file, x, y, width, height);
-			 upload = FileUploadHelper.upload(newFile, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT);
+			 upload = FileUploadHelper.upload(newFile, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT,FileUploadHelper.IMG_PREFIX_ONLINE);
 			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&!StringUtils.isEmpty(upload.getReturnResult())) {
 				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
 				AccountVo sessionUser = SessionUtil.getSessionUser();

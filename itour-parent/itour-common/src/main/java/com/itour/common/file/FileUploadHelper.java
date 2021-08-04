@@ -29,6 +29,15 @@ public static final long FILESIZE_300MB = 314572800;//300MB
 public static final long FILESIZE_500MB = 524288000;//500MB
 public static final long FILESIZE_600MB = 629145600;//600MB
 public static final long FILESIZE_1024MB = 1073741824;//1024MB
+
+public static final String IMG_PREFIX_ONLINE = File.separator+"online"+File.separator+"img";
+public static final String VIDEO_PREFIX_ONLINE = File.separator+"online"+File.separator+"video";
+public static final String PDF_PREFIX_ONLINE = File.separator+"online"+File.separator+"pdf";
+public static final String DOC_PREFIX_ONLINE = File.separator+"online"+File.separator+"doc";
+public static final String IMG_PREFIX_MANAGER = File.separator+"manager"+File.separator+"img";
+public static final String VIDEO_PREFIX_MANAGER = File.separator+"manager"+File.separator+"video";
+public static final String PDF_PREFIX_MANAGER = File.separator+"manager"+File.separator+"pdf";
+public static final String DOC_PREFIX_MANAGER = File.separator+"manager"+File.separator+"doc";
 /**
  * 图片上传
  * 1.获取前台上传的文件
@@ -45,12 +54,13 @@ public static final long FILESIZE_1024MB = 1073741824;//1024MB
 	 * @param resourceHandler   文件访问的地址映射目录
 	 * @param request      请求对象
 	 * @param fileSize      上传文件的最大大小
+	 * @param prefix      文件前缀必须
 	 * @return  文件的访问地址 
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-public static ResponseMessage upload(MultipartFile file,String uploadFileLocation,String resourceHandler,HttpServletRequest request,long fileSize) throws IllegalStateException, IOException {
-	ResponseMessage responseMessage = uploadFile(file, uploadFileLocation, resourceHandler, request, fileSize);
+public static ResponseMessage upload(MultipartFile file,String uploadFileLocation,String resourceHandler,HttpServletRequest request,long fileSize,String prefix) throws IllegalStateException, IOException {
+	ResponseMessage responseMessage = uploadFile(file, uploadFileLocation, resourceHandler, request, fileSize,prefix);
 	return responseMessage;
 }
 /**
@@ -63,8 +73,8 @@ public static ResponseMessage upload(MultipartFile file,String uploadFileLocatio
  * @throws IllegalStateException
  * @throws IOException
  */
-public static ResponseMessage upload(MultipartFile file,String uploadFileLocation,String resourceHandler,HttpServletRequest request) throws IllegalStateException, IOException {
-	ResponseMessage responseMessage = uploadFile(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_10MB );
+public static ResponseMessage upload(MultipartFile file,String uploadFileLocation,String resourceHandler,HttpServletRequest request,String prefix) throws IllegalStateException, IOException {
+	ResponseMessage responseMessage = uploadFile(file, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_10MB ,prefix);
 	return responseMessage;
 }
 /**
@@ -78,7 +88,7 @@ public static ResponseMessage upload(MultipartFile file,String uploadFileLocatio
  * @throws IOException
  */
 private static ResponseMessage uploadFile(MultipartFile file, String uploadFileLocation, String resourceHandler,
-		HttpServletRequest request, long fileSize) throws IOException {
+		HttpServletRequest request, long fileSize,String prefix) throws IOException {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	//1.1获取上传源文件
 	String originName = file.getOriginalFilename();// IMG_3903.JPG	
@@ -89,13 +99,14 @@ private static ResponseMessage uploadFile(MultipartFile file, String uploadFileL
 	if(!checkSuffix) {
 		return ResponseMessage.getFailed(ConstantFile.ERROR_SUFFIX_IMG);
 	}
+	//2.2检查文件的大小
 	boolean checkLen = checkFileLen(file.getSize(), fileSize);
 	if(checkLen) {
 		return ResponseMessage.getFailed(ConstantFile.ERROR_FILE_LENGTH);
 	}
 	
 	//2.2文件管理
-	String savePath =uploadFileLocation+File.separator+getPath();
+	String savePath =uploadFileLocation+File.separator+getPath(prefix);
 	//如果目录不能存在创建目录
 	File realPath = new File(savePath);
 	boolean exists = realPath.exists();
@@ -110,7 +121,7 @@ private static ResponseMessage uploadFile(MultipartFile file, String uploadFileL
 	// http://localhost:9093/itour
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+ request.getContextPath();
 	// http://localhost:9093/itour/upload/189ec6990e554471b15631816d371066.JPG
-	String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/"))+ getPath() + File.separator + fileName;
+	String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/"))+ getPath(prefix) + File.separator + fileName;
 	responseMessage.setReturnResult(fileServerPath);
 	return responseMessage;
 }
@@ -130,9 +141,9 @@ public static boolean checkFileSuffix(String suffix) {
 }
 /**
  * 
- * @param file 文件
- * @param fileSize bytes 文件大小限制
- * @return 在限制以内 true,超出限制返回false
+ * @param len 文件的大小 bytes
+ * @param fileSize bytes
+ * @return
  */
 public static boolean checkFileLen(long len,long  fileSize) {
 	//https://www.bejson.com/convert/filesize/
@@ -152,18 +163,22 @@ public static boolean checkFileLen(long len,long  fileSize) {
 }
 
 /**
+ * @para prefix 前缀
  * 文件上传文件管理(每个用户创建一个文件夹)
  * 登录情况下的文件上传，返回 /用户唯一号/y+年份+月份英文缩写;
  * 没有登录的情况下的文件上传 返回/public/y+年份+/月份英文缩写
  * @return  /10000/y2021/Mar or /public/y2021/Mar
+ *  
+ *  
  */
-public  static String getPath() {
+public  static String getPath(String prefix) {
 	String path="";
+	path+=prefix;
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	if(null!=sessionUser) {
-		path = File.separator+sessionUser.getuId();
+		path+= File.separator+sessionUser.getuId();
 	}else {
-		path = File.separator+"public";
+		path+= File.separator+"public";
 	}
 	Calendar instance = Calendar.getInstance();
 	int y=instance.get(Calendar.YEAR);
@@ -173,6 +188,11 @@ public  static String getPath() {
 	path+= File.separator+year+File.separator+month;
 	return path;
 }
+/**
+ * 文件名
+ * @param suffix
+ * @return
+ */
 public static String getFileName(String suffix) {
 	return  UUID.randomUUID().toString().replaceAll("-", "")+suffix;
 }

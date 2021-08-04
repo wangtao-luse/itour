@@ -653,7 +653,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
 		travelInfoDto.setUid(queryUid);
 		travelInfoDto.setOauthId(oa.getOauthId());
-		travelInfoDto.setQueryUid(sessionUser.getuId());
+		travelInfoDto.setQueryUid(queryUid);
 	}
 	jsonTmp.put(Constant.COMMON_KEY_VO, travelInfoDto);
 	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
@@ -673,8 +673,8 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		//统计
 		JSONObject tmpJSon = new JSONObject();
 		TravelInfoDto dto = new TravelInfoDto();
-		dto.setUid(travelInfoDto.getUid());
-		if(!StringUtils.isEmpty(queryUid)) {
+		dto.setQueryUid(travelInfoDto.getQueryUid());
+		if(!StringUtils.isEmpty(queryUid)) {//统计可见收藏夹个数
 		dto.setVisual(ConstAccount.PERSONCENTER_VISUAL_SHOW);
 		}
 		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
@@ -706,7 +706,9 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		model.addAttribute("cList",rList);
 		model.addAttribute("page",p);
 		model.addAttribute("usr",sessionUser);
+		model.addAttribute("qUid",travelInfoDto.getQueryUid());
 		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
+		
 	}
 	model.addAttribute("travelInfoDto",travelInfoDto);
 	model.addAttribute("mold",travelInfoDto.getMold());

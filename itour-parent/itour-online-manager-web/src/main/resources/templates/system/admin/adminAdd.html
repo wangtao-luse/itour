@@ -104,7 +104,9 @@
                  <td ><span class="redSharp">  </span>图像：</td>
                     <td>
                         <input name="avatar"  type="file" class="span2" autocomplete="off"
-                               data-options="required:true" value="" style="width:125px"></td>
+                               data-options="required:true" value="" style="width:125px">
+                        <a style="display: none">查看</a>
+                               </td>
                 </tr>
             </table>
             </div>
@@ -218,5 +220,29 @@ function loadDataHysh(obj,pNode) {
         })
     }
 }
-
+function upSfzPicSH(th) {
+    var now = new Date().getTime();
+    var that = $(th);
+    if (!that.val()) {
+        alert("请选择上传图片");
+        return;
+    }
+    $(that.closest("form[method='post']")).ajaxSubmit(
+        {
+            "beforeSubmit":function(){
+                parent.$.messager.progress({title: '提示', text: '数据处理中，请稍候....'});
+            },
+            "success":function(data){
+                parent.$.messager.progress('close');
+                if (data.resultcode == "10") {
+                } else {
+                    showErrorMsg(data.description);
+                }
+            },
+            "error":function(){
+                parent.$.messager.progress('close');
+                showErrorMsg("上传失败，系统错误");
+            }
+        });
+}
 </script>
