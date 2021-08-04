@@ -57,62 +57,62 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px; overflow: hidden">
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:150px;" class="search-box">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
 	    	   	  <div class="mTop10 line-handsome flex">
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>编号:</label>
-	    	   	        <input type="text" placeholder=""  name="id"class="flex-item"/>
+	    	   	       <label><span></span>编号:</label>
+	    	   	        <input type="text" placeholder=""  name="id"class=""/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>用户唯一号:</label>
-	    	   	        <input type="text" placeholder=""  name="uid"class="flex-item"/>
+	    	   	       <label><span></span>用户唯一号:</label>
+	    	   	        <input type="text" placeholder=""  name="uid"class=""/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>性&nbsp;别:</label>
-	    	   	        <select id="sex" name="sex"class="flex-item"></select>
+	    	   	       <label><span></span>性&nbsp;别:</label>
+	    	   	        <select id="sex" name="sex"class=""></select>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>注册日期:</label>
-	    	   	        <input type="text" placeholder=""  name="company"class="flex-item"/>
+	    	   	       <label><span></span>注册日期:</label>
+	    	   	        <input type="text" placeholder=""  name="company"class=""/>
 	    	   	      </div>
 	    	   	  </div>	    	   	  
 	    	   	  <div class="mTop10 line-handsome flex">
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>注册IP地址:</label>
-	    	   	        <input type="text" placeholder=""  name="createip"class="flex-item"/>
+	    	   	       <label><span></span>注册IP地址:</label>
+	    	   	        <input type="text" placeholder=""  name="createip"class=""/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>上次登录时间:</label>
-	    	   	        <input type="text" placeholder=""  name="company"class="flex-item"/>
+	    	   	       <label><span></span>上次登录时间:</label>
+	    	   	        <input type="text" placeholder=""  name="company"class=""/>
 	    	   	      </div>
 	    	   	        <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>状&nbsp;态:</label>
-	    	   	        <select id="status" name="status"class="flex-item"></select>
+	    	   	       <label><span></span>状&nbsp;态:</label>
+	    	   	        <select id="status" name="status"class=""></select>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>类型:</label>
-	    	   	        <select id="utype" name="utype"class="flex-item"></select>
+	    	   	       <label><span></span>类型:</label>
+	    	   	        <select id="utype" name="utype"class=""></select>
 	    	   	      </div>
 	    	   	       
 	    	   </div>
 	    	    <div class="mTop10 line-handsome flex">
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span></label>
-	    	   	        <!-- <input type="text" placeholder=""  name="gDesc"class="flex-item"/> -->
+	    	   	       <label><span></span></label>
+	    	   	        <!-- <input type="text" placeholder=""  name="gDesc"class=""/> -->
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span></label>
-	    	   	        <!-- <input type="text" placeholder=""  name="company" class="flex-item"/> -->
+	    	   	       <label><span></span></label>
+	    	   	        <!-- <input type="text" placeholder=""  name="company" class=""/> -->
 	    	   	      </div>
 	    	   	        <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span></label>
-	    	   	      <!--   <input type="text" placeholder=""  name="company"class="flex-item"/> -->
+	    	   	       <label><span></span></label>
+	    	   	      <!--   <input type="text" placeholder=""  name="company"class=""/> -->
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome flex flex-item">
-	    	   	        <a onclick="searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search',plain:true">搜索</a>
-						<a href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	        <a onclick="searchFunTotal('/member/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton " data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton " data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
 			</div>	
@@ -128,7 +128,7 @@
           </div>
       </div>
 	    <div id="toolbar">	      
-	      <a href="#" onclick="addFun('新增', '/member/adminAddP', $('#dataGrid'), {});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
+	      <a href="#" onclick="addFun('新增', '/member/adminAddP', $('#dataGrid'), {height:320});" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>	
 	      <a href="#" onclick="editFun('编辑','/member/adminUpdateP?id=',$('#dataGrid'),{'key':'id'})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a> 
 	       @if(shiro.hasPermission("/member/adminDetailP")){        
 	      	<a href="#" onclick="editFun('查看详情','/member/adminDetailP?uid=',$('#dataGrid'),{buttons: [],'key':'uid','height':400,'width':1200})" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">查看详情</a>

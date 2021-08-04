@@ -230,6 +230,7 @@ $(function(){
 	});
 	//获取指定元素在y轴上偏移量
 	var offsetTop = $(".fixed-line").offset().top;
+	var footerTop = $("#footer").offset().top;
 	//获取浏览器可见高度
 	var wheight = $(window).height();
 	if(offsetTop>=wheight){
@@ -251,10 +252,16 @@ $(function(){
 		var dheight = $(document).height();
 		//计算到底部滚动的距离
 		var b = dheight -wheight-90;
+		var h = offsetTop - wheight;
 		console.log("top: "+top);
-		if(top<offsetTop){
+		if(top<=h){
+			$(".contentItem-actions").addClass("is-fixed sticky");
+			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
+			.css("left",$(".storyCard").offset().left+"px");
+			$(".is-fixed.sticky").css("bottom",0);
+		}else {
 			$(".contentItem-actions").removeClass("is-fixed sticky")
-		}else if(top>=offsetTop&&top<=b){
+		}/*else if(top>=offsetTop&&top<=b){
 			$(".contentItem-actions").addClass("is-fixed sticky");
 			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
 			.css("left",$(".storyCard").offset().left+"px");
@@ -264,8 +271,18 @@ $(function(){
 			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
 			.css("left",$(".storyCard").offset().left+"px");
 			$(".is-fixed.sticky").css("bottom","90px");
-		}
+		}*/
 	});
+	$(".contentItem-action.itour-favorites-btn").mouseout(function(){
+			$(this).find(".isactive").css("display","none");
+			$(this).find(".isdefault").css("display","inline");
+			$(this).css("color","#646464");
+	})
+	$(".contentItem-action.itour-favorites-btn").mouseover(function(){
+		$(this).find(".isdefault").css("display","none");
+		$(this).find(".isactive").css("display","inline");
+		$(this).css("color","#0077E6");
+	})
 });
 function outMsg(msg,ele){
 	$("#ct-out span").text(msg);

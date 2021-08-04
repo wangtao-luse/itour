@@ -1,6 +1,8 @@
 package com.itour.model.member.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-15
  */
+@TableName("view_m_account_group")
 public class ViewMAccountGroup extends Model<ViewMAccountGroup> {
 
     private static final long serialVersionUID = 1L;

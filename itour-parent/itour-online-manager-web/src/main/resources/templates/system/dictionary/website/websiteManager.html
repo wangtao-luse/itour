@@ -34,35 +34,35 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;">
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:120px;" class="search-box">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
 	    	   	        <label><span></span>编号:</label>
 	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
 	    	   	        <label><span></span>字典目录:</label>
 	    	   	        <input type="text" placeholder=""  name="codeSet"/>
 	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
+	    	   	       <div class="fLeft label-handsome flex flex-item">
 	    	   	        <label><span></span>字典值:</label>
 	    	   	        <input type="text" placeholder=""  name="cname"/>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
 	    	   	        <label><span></span>状态:</label>
 	    	   	        <select id="status" name="status"></select>
 	    	   	      </div>
 	    	   	  </div>
-	    	   	  <div class="mTop10 line-handsome">
-	    	   	      <div class="fLeft label-handsome ">
+	    	   	  <div class="mTop10 line-handsome flex">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
 	    	   	        <label><span></span></label>
 	    	   	      </div>
-	    	   	      <div class="fLeft label-handsome ">
+	    	   	      <div class="fLeft label-handsome flex flex-item">
 	    	   	        <label><span></span></label>
 	    	   	      </div>
-	    	   	       <div class="fLeft label-handsome ">
+	    	   	       <div class="fLeft label-handsome flex flex-item">
 	    	   	        <a onclick="searchFun('/dictionary/queryWebsiteList', $('#dataGrid'), getList,{'current': 1, 'size': 40,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>

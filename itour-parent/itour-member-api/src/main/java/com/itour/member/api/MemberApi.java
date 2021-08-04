@@ -221,6 +221,13 @@ public interface MemberApi {
 	 */
 	@RequestMapping(value = "member/regSub",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage regSub(@RequestBody RequestMessage requestMessage);
+	/**
+	 * 后台管理员单条
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "member/selectViewOAuthOne",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage selectViewOAuthOne(@RequestBody RequestMessage requestMessage);
 	
 	
 

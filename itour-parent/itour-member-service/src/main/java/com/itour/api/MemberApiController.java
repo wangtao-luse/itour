@@ -2,13 +2,11 @@ package com.itour.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.member.api.MemberApi;
-import com.itour.model.account.Right;
 import com.itour.service.AccountGroupService;
 import com.itour.service.AccountService;
 import com.itour.service.GroupRoleService;
@@ -55,7 +53,6 @@ private ViewMAccountGroupService viewMAccountGroupService;
 	/**
 	 * 平台管理左侧菜单
 	 */
-    @RequestMapping("/menu/getMenuList")
 	@Override
 	public ResponseMessage getMenuList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -64,7 +61,6 @@ private ViewMAccountGroupService viewMAccountGroupService;
     /**
 	 * 登录提交
 	 */
-	@RequestMapping("/member/loginSub")
 	@Override
 	public ResponseMessage loginSub(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -73,7 +69,6 @@ private ViewMAccountGroupService viewMAccountGroupService;
 	/**
 	 * 后台管理员注册
 	 */
-	@RequestMapping("/member/adminSub")
 	@Override
 	public ResponseMessage adminSub(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -82,7 +77,6 @@ private ViewMAccountGroupService viewMAccountGroupService;
 	/**
 	 * 后台管理员注册列表
 	 */
-	@RequestMapping("/member/selectAccountList")
 	@Override
 	public ResponseMessage selectAccountList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -91,7 +85,6 @@ private ViewMAccountGroupService viewMAccountGroupService;
 	/**
 	 * 后台管理员注册列表
 	 */
-	@RequestMapping("/member/selectViewAccountList")
 	@Override
 	public ResponseMessage selectViewAccountList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -301,6 +294,14 @@ private ViewMAccountGroupService viewMAccountGroupService;
 	public ResponseMessage regSub(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return accountService.regiesterSub(requestMessage);
+	}
+	/**
+	 *  后台管理员单条
+	 */
+	@Override
+	public ResponseMessage selectViewOAuthOne(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewMAccountService.selectViewAccountOne(requestMessage);
 	}
 	
 	

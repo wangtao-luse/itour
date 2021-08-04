@@ -3459,3 +3459,14 @@
 .sidemenu-tooltip .tooltip-arrow {
   display: none;
 }
+/**默认样式调整 wangtao**/
+/**默认js调整**/
+.textbox .textbox-text {
+    font-size: 13px;
+    vertical-align: baseline;
+    margin: 0;
+}
+.combo-arrow{
+	width: 18px!important;
+	height:20px!important;
+}

@@ -59,62 +59,62 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true,border:false" >
-	    <div data-options="region:'north',title:'查询条件',split:true" style="height:160px;">
+	    <div data-options="region:'north',title:'查询条件',split:true" style="height:160px;" class="search-box">
 	    	<form id="searchForm">
 	    	   <div class="mTop10 mLeft20">
 	    	   	  <div class="mTop10 line-handsome flex">
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>编号:</label>
-	    	   	        <input type="text" placeholder=""  name="id"class="flex-item"/>
+	    	   	       <label><span></span>编号:</label>
+	    	   	        <input type="text" placeholder=""  name="id"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>用户唯一号:</label>
-	    	   	        <input type="text" placeholder=""  name="gName" class="flex-item"/>
+	    	   	       <label><span></span>用户唯一号:</label>
+	    	   	        <input type="text" placeholder=""  name="gName" />
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>性别:</label>
-	    	   	        <select id="sex" name="sex" class="flex-item"></select>
+	    	   	       <label><span></span>性别:</label>
+	    	   	        <select id="sex" name="sex"></select>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>注册日期:</label>
-	    	   	        <input class="easyui-datebox flex-item"  name="" style="width:100px" data-options="editable:false" />
+	    	   	       <label><span></span>注册日期:</label>
+	    	   	        <input class="easyui-datebox"  name="" style="width:100px" data-options="editable:false" />
 	    	   	        -
-                        <input class="easyui-datebox flex-item" name="" style="width:100px" data-options="editable:false"/>
+                        <input class="easyui-datebox" name="" style="width:100px" data-options="editable:false"/>
 	    	   	      </div>
 	    	   	  </div>
 	    	   	  <div class="mTop10 line-handsome flex">
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>注册IP地址:</label>
-	    	   	        <input type="text" placeholder=""  name="gDesc" class="flex-item"/>
+	    	   	       <label><span></span>注册IP地址:</label>
+	    	   	        <input type="text" placeholder=""  name="gDesc" />
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>上次登录时间:</label>
-	    	   	        <input type="text" placeholder=""  name="company" class="flex-item"/>
+	    	   	       <label><span></span>上次登录时间:</label>
+	    	   	        <input type="text" placeholder=""  name="company"/>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>状态:</label>
-	    	   	       <select id="status" name="status"class="flex-item"></select>
+	    	   	       <label><span></span>状态:</label>
+	    	   	       <select id="status" name="status"></select>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span>类型:</label>
-	    	   	       <select id="utype" name="utype" class="flex-item"></select>
+	    	   	       <label><span></span>类型:</label>
+	    	   	       <select id="utype" name="utype" ></select>
 	    	   	      </div>
 	    	   	       
 	    	   </div>
 	    	   <div class="mTop10 line-handsome flex">
 	    	   	     
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span></label>
+	    	   	       <label><span></span></label>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span></label>
+	    	   	       <label><span></span></label>
 	    	   	      </div>
 	    	   	      <div class="fLeft label-handsome flex flex-item">
-	    	   	        <label class="flex-item"><span></span></label>
+	    	   	       <label><span></span></label>
 	    	   	      </div>
 	    	   	       <div class="fLeft label-handsome flex flex-item">
-	    	   	        <a onclick="searchFunTotal('/account/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-search',plain:true">搜索</a>
-						<a href="#" class="easyui-linkbutton flex-item" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
+	    	   	        <a onclick="searchFunTotal('/account/selectViewAccountList', $('#dataGrid'), getList,{'c': 1, 's': 10,'k':'vo'});" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="clearFunction('searchForm');">清空搜索条件</a>
 	    	   	     </div>
 	    	   </div>
 			</div>	

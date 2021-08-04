@@ -1,3 +1,7 @@
+.search-box{
+	overflow: auto;
+	min-width: 1px;
+}
 input,select,textarea{font-family:微软雅黑!important}
 .searchForm label, #searchForm label{
 	display:inline-block;
@@ -28,7 +32,7 @@ input,select,textarea{font-family:微软雅黑!important}
 	border-radius:2px;
 	border:1px solid RGB(169,169,169)}
 .searchForm select,#searchForm select{height:24px}
-.searchForm .label-handsome,#searchForm .label-handsome{/* width:310px */width:25%}
+.searchForm .label-handsome,#searchForm .label-handsome{/* width:310px */width:25%;min-width:200px}
 .searchForm,#searchForm{padding-left:10px}
 .searchForm .line-handsome,#searchForm .line-handsome{height:26px}
 #searchForm-small label{display:inline-block;width:100px}
@@ -305,3 +309,4 @@ input[readonly]{background-color:#efefef}
     text-decoration: none;
     color: #000;
 }
+

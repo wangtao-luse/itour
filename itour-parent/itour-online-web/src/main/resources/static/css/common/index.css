@@ -517,6 +517,11 @@ overflow: hidden;
  {
 	fill: #0084FF;
 }
+.contentItem-action .itour-favorites-btn svg:hover
+ {
+	stroke:#0084FF;
+	fill:none;
+}
 .contentItem-action.nice svg{
 	fill:#0084FF;
 }

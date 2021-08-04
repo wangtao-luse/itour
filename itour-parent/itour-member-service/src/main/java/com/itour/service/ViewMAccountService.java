@@ -26,6 +26,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ViewMAccountService extends ServiceImpl<ViewMAccountMapper, ViewMAccount> {
+	/**
+	 *  后台管理员列表
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage selectViewAccountList(RequestMessage requestMessage) {
 		ResponseMessage resposeMessage = ResponseMessage.getSucess();
 		try {
@@ -37,6 +42,7 @@ public class ViewMAccountService extends ServiceImpl<ViewMAccountMapper, ViewMAc
 			ViewMAccount accountVo = jsonObject.getJSONObject("vo").toJavaObject(ViewMAccount.class);
 			Page pageVo = jsonObject.getJSONObject("page").toJavaObject(Page.class);
 			QueryWrapper queryWrapper = new QueryWrapper<ViewMAccount>();
+			queryWrapper.orderByDesc("CREATEDATE");
 			if(null!=pageVo) {			
 				Page selectPage = this.baseMapper.selectPage(pageVo, queryWrapper);
 				result.put(Constant.COMMON_KEY_PAGE, selectPage);
@@ -48,6 +54,7 @@ public class ViewMAccountService extends ServiceImpl<ViewMAccountMapper, ViewMAc
 				Map<String, Object> totalAccount = this.baseMapper.totalAccount(queryWrapper);
 				result.put(Constant.COMMON_KEY_SUM, totalAccount);
 			}
+			
 			resposeMessage.setReturnResult(result);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -55,5 +62,26 @@ public class ViewMAccountService extends ServiceImpl<ViewMAccountMapper, ViewMAc
 			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return resposeMessage;
+	}
+	/**
+	 * 后台管理员单条
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage selectViewAccountOne(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			ViewMAccount oauthVo = jsonObject.getJSONObject("view").toJavaObject(ViewMAccount.class);
+			QueryWrapper<ViewMAccount> queryWrapper = new QueryWrapper<ViewMAccount>();			
+			queryWrapper.eq(null!=oauthVo.getId(),"ID", oauthVo.getId());
+			ViewMAccount selectOne = this.baseMapper.selectOne(queryWrapper);
+			responseMessage.setReturnResult(selectOne);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
 	}
 }

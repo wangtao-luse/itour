@@ -21,9 +21,10 @@
 .bold {
 	font-weight: bold
 }
-.flex{
-	   display: flex;
+
+.mtop{
+  		margin-top: 10px;
 }
-.flex-item{
-	   flex-shrink:1;
+.flex{
+	display: flex;
 }
