@@ -16,20 +16,20 @@ $(function(){
     		 });
 	 }
 	//选中的的checkbox
-	var tags =$("#tag-container .dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
+	var tags =$("#tag-container .weui-desktop-wrp").find(".article_tags_history_bd .weui-desktop-form__checkbox:checked");
 	//未选中的的checkbox
-	 var disTags =$("#tag-container .dialog-wrapper").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
+	 var disTags =$("#tag-container .weui-desktop-wrp").find(".article_tags_history_bd .weui-desktop-form__checkbox:not(:checked)");
 	 if(tags.length>=3){//未选择的禁用
 	     	disTags.prop("disabled","disabled");
-	     	$("#tag-container .dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","");
+	     	$("#tag-container .weui-desktop-wrp").find(".weui-desktop-form-tag__input").attr("placeholder","");
      }else{
      	disTags.prop("disabled","");
-     	$("#tag-container .dialog-wrapper").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
+     	$("#tag-container .weui-desktop-wrp").find(".weui-desktop-form-tag__input").attr("placeholder","请输入话题，按回车分割");
      }
 	}
 })
 </script>
- <div class="dialog-wrapper">
+ <div class="weui-desktop-wrp">
 		 	<div class="weui-desktop-dialog__wrp article_tags_dialog js_article_tags_dialog">
 		 		<div class="weui-desktop-dialog" style="width: 600px;">
 		 			<div class="weui-desktop-dialog__hd">

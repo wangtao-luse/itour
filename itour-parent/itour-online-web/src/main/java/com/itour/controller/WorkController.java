@@ -6,5 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/work")
 public class WorkController {
-
+@RequestMapping("/workMd")
+public String workMd() {
+	return "/work/info/workinfoMd";
+}
 }

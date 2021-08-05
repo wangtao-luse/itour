@@ -1340,3 +1340,95 @@ input[type="checkbox"], input[type="radio"] {
 	width:158px;
 }
 /***注册页面end***/
+/**工作日志开始***/
+.layou-panel{
+	position: relative;
+	width: 100%;
+	height: 56px;
+	overflow: hidden;
+}
+.layou-panel * {
+    box-sizing: border-box;
+}
+.article-bar {
+    height: 100%;
+}
+.layout__panel--articletitle-bar {
+    background-color: #f3f3f3;
+}
+.flex{
+	display: flex;
+}
+.flex--row{
+	flex-direction: row;
+}
+.flex--align-center {
+    align-items: center;
+}
+.article-bar__link-box {
+    padding-left: 24px;
+}
+.article-bar__link-box a.btn-goback {
+    display: block;
+    width: 88px;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+}
+.article-bar__input-box {
+    display: flex;
+    width: 100%;
+    margin: 8px 16px 8px 8px;
+    border: 1px solid #ccc;
+    border-radius: 21px;
+    background-color: #fff;
+    position: relative;
+}
+.article-bar__input-box .article-bar__title--input {
+    width: 100%;
+    margin-left: 4px;
+    border-radius: 18px;
+    padding: 8px;
+    padding-right: 88px;
+    font-size: 18px;
+    line-height: 24px;
+    background-color: #fff;
+}
+.article-bar__input-box .article-bar__number {
+    line-height: 36px;
+    font-size: 20px;
+    margin-right: 8px;
+    position: absolute;
+    right: 0;
+}
+.article-bar__user-box {
+    padding: 8px 32px 8px 0;
+}
+.article-bar__user-box .btn-save {
+    margin-right: 16px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #0084FF;
+    border: 1px solid #0084FF;
+    border-radius: 18px;
+    white-space: nowrap;
+    background-color: #fff;
+}
+.article-bar__user-box .btn-save:hover {
+    background-color: rgba(0,132,255,0.06);
+}
+.article-bar__user-box .btn-publish {
+	height: 32px;
+	line-height: 32px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    white-space: nowrap;
+    background: linear-gradient(92deg,#22D3FF,#39A2E9 37%,#0084FF 81%,#0077E6);
+}
+.article-bar__user-box .btn-publish:active, .article-bar__user-box .btn-publish:hover {
+    background: linear-gradient(90deg,#22D3FF,#39A2E9 34%,#0084FF 66%,#0077E6 );
+}
+/**工作日志结束***/

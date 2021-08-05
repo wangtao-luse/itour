@@ -23,7 +23,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 /**话题标签start**/
-.dialog-wrapper{
+.weui-desktop-wrp{
 	display: none;
 }
 .weui-desktop-dialog__wrp{
