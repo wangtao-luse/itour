@@ -22,7 +22,7 @@ public class Advert extends Model<Advert> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 广告的logo
@@ -78,11 +78,11 @@ public class Advert extends Model<Advert> {
     @TableField("STATUS")
     private Integer status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

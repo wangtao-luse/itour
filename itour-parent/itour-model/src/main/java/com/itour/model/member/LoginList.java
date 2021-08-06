@@ -22,7 +22,7 @@ public class LoginList extends Model<LoginList> {
      * 编号标识 主键,自动增长
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     @TableField("U_ID")
     private String uId;
@@ -51,11 +51,11 @@ public class LoginList extends Model<LoginList> {
     @TableField("LOGIN_IP_LOOKUP")
     private String loginIpLookup;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

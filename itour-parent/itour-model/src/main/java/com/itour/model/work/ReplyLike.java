@@ -22,19 +22,19 @@ public class ReplyLike extends Model<ReplyLike> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 攻略评论回复表编号
      */
     @TableField("RID")
-    private Integer rid;
+    private Long rid;
 
     /**
      * 用户编号
      */
     @TableField("UID")
-    private String uid;
+    private Long uid;
 
     /**
      * 点赞时间
@@ -48,31 +48,32 @@ public class ReplyLike extends Model<ReplyLike> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
-        return id;
-    }
+    
+    public Long getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Integer getRid() {
-        return rid;
-    }
+	public Long getRid() {
+		return rid;
+	}
 
-    public void setRid(Integer rid) {
-        this.rid = rid;
-    }
+	public void setRid(Long rid) {
+		this.rid = rid;
+	}
 
-    public String getUid() {
-        return uid;
-    }
+	public Long getUid() {
+		return uid;
+	}
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+	public void setUid(Long uid) {
+		this.uid = uid;
+	}
 
-    public Long getCreatedate() {
+	public Long getCreatedate() {
         return createdate;
     }
 

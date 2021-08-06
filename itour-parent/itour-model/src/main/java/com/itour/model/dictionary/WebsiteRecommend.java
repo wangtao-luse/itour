@@ -22,7 +22,7 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 网站名称
@@ -108,11 +108,11 @@ public class WebsiteRecommend extends Model<WebsiteRecommend> {
     @TableField("STATUS")
     private Integer status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

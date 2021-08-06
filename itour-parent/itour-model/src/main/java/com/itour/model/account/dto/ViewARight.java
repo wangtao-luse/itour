@@ -18,7 +18,7 @@ public class ViewARight extends Model<ViewARight> {
      * 编号
      */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
     /**
      * 菜单唯一号
@@ -64,11 +64,11 @@ public class ViewARight extends Model<ViewARight> {
     @TableField("MENU_TYPE_STR")
     private String menuTypeStr;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

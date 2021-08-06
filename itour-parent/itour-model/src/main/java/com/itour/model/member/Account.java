@@ -22,7 +22,7 @@ public class Account extends Model<Account> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 用户唯一号	唯一(从10000开始)
@@ -66,11 +66,11 @@ public class Account extends Model<Account> {
     @TableField("UTYPE")
     private String utype;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

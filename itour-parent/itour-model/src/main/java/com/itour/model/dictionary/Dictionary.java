@@ -22,7 +22,7 @@ public class Dictionary extends Model<Dictionary> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 字典的目录
@@ -48,11 +48,11 @@ public class Dictionary extends Model<Dictionary> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

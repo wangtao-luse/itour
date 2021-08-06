@@ -22,7 +22,7 @@ public class Group extends Model<Group> {
      * 组编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 组名称
@@ -34,7 +34,7 @@ public class Group extends Model<Group> {
      * 所属组编号
      */
     @TableField("G_PARENT")
-    private Integer gParent;
+    private Long gParent;
 
     /**
      * 组描述
@@ -42,11 +42,11 @@ public class Group extends Model<Group> {
     @TableField("G_DESC")
     private String gDesc;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,11 +58,11 @@ public class Group extends Model<Group> {
         this.gName = gName;
     }
 
-    public Integer getgParent() {
+    public Long getgParent() {
         return gParent;
     }
 
-    public void setgParent(Integer gParent) {
+    public void setgParent(Long gParent) {
         this.gParent = gParent;
     }
 

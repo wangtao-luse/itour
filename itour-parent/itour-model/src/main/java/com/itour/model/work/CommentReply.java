@@ -22,7 +22,7 @@ public class CommentReply extends Model<CommentReply> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 评论的ID	
@@ -66,11 +66,11 @@ public class CommentReply extends Model<CommentReply> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

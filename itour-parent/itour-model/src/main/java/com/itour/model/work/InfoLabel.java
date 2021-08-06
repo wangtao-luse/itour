@@ -22,13 +22,13 @@ public class InfoLabel extends Model<InfoLabel> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 博客编号
      */
     @TableField("WID")
-    private Integer wid;
+    private Long wid;
 
     /**
      * 标签编号
@@ -36,19 +36,19 @@ public class InfoLabel extends Model<InfoLabel> {
     @TableField("TID")
     private Integer tid;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getWid() {
+    public Long getWid() {
         return wid;
     }
 
-    public void setWid(Integer wid) {
+    public void setWid(Long wid) {
         this.wid = wid;
     }
 

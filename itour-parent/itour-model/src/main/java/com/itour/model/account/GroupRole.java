@@ -22,7 +22,7 @@ public class GroupRole extends Model<GroupRole> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 角色编号
@@ -36,11 +36,11 @@ public class GroupRole extends Model<GroupRole> {
     @TableField("GROUP_ID")
     private Integer groupId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

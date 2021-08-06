@@ -22,41 +22,41 @@ public class RoleRight extends Model<RoleRight> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 角色编号
      */
     @TableField("ROLE_ID")
-    private Integer roleId;
+    private Long roleId;
 
     /**
      * 权限编号
      */
     @TableField("RIGHT_ID")
-    private Integer rightId;
+    private Long rightId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Integer getRightId() {
+    public Long getRightId() {
         return rightId;
     }
 
-    public void setRightId(Integer rightId) {
+    public void setRightId(Long rightId) {
         this.rightId = rightId;
     }
 

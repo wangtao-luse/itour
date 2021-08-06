@@ -16,7 +16,7 @@ public class ViewAAccount extends Model<ViewAAccount> {
     private static final long serialVersionUID = 1L;
 
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
     @TableField("UID")
     private String uid;
@@ -62,11 +62,11 @@ public class ViewAAccount extends Model<ViewAAccount> {
     /**最近一次登录日期***/
     @TableField(exist = false)
     private LongRange lasttimeRange = new LongRange();
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

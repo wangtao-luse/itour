@@ -22,13 +22,13 @@ public class Worktext extends Model<Worktext> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 博文编号
      */
     @TableField("WID")
-    private Integer wid;
+    private Long wid;
 
     /**
      * 工作博客文本
@@ -36,23 +36,25 @@ public class Worktext extends Model<Worktext> {
     @TableField("WCONTENT")
     private String wcontent;
 
-    public Integer getId() {
-        return id;
-    }
+    
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public Long getId() {
+		return id;
+	}
 
-    public Integer getWid() {
-        return wid;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setWid(Integer wid) {
-        this.wid = wid;
-    }
+	public Long getWid() {
+		return wid;
+	}
 
-    public String getWcontent() {
+	public void setWid(Long wid) {
+		this.wid = wid;
+	}
+
+	public String getWcontent() {
         return wcontent;
     }
 

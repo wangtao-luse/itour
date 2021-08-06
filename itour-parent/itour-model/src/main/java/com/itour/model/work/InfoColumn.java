@@ -22,7 +22,7 @@ public class InfoColumn extends Model<InfoColumn> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 博客编号
@@ -36,11 +36,11 @@ public class InfoColumn extends Model<InfoColumn> {
     @TableField("CID")
     private Integer cid;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

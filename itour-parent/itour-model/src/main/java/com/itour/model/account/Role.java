@@ -22,7 +22,7 @@ public class Role extends Model<Role> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 角色名称
@@ -36,11 +36,11 @@ public class Role extends Model<Role> {
     @TableField("ROLE_DESC")
     private String roleDesc;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

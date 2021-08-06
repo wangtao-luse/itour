@@ -22,7 +22,7 @@ public class Ipaddr extends Model<Ipaddr> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * IP地址
@@ -84,11 +84,11 @@ public class Ipaddr extends Model<Ipaddr> {
     @TableField("LONGITUDE")
     private String longitude;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

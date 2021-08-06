@@ -22,7 +22,7 @@ public class CommentLike extends Model<CommentLike> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 博文评论表编号
@@ -48,11 +48,11 @@ public class CommentLike extends Model<CommentLike> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

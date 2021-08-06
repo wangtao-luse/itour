@@ -22,7 +22,7 @@ public class Right extends Model<Right> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 菜单唯一号
@@ -78,7 +78,7 @@ public class Right extends Model<Right> {
 		this.sOrder = sOrder;
 	}
 
-	public Integer getId() {
+	public Long getId() {
         return id;
     }
 
@@ -90,7 +90,7 @@ public class Right extends Model<Right> {
 		this.url = url;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
         this.id = id;
     }
 

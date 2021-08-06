@@ -22,7 +22,7 @@ public class WorkInfo extends Model<WorkInfo> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 标题
@@ -64,7 +64,7 @@ public class WorkInfo extends Model<WorkInfo> {
      * 发布形式	(1:仅自己可见,2:公开)
      */
     @TableField("MODALITY")
-    private Integer modality;
+    private String modality;
 
     /**
      * 用户唯一号
@@ -106,11 +106,11 @@ public class WorkInfo extends Model<WorkInfo> {
     @TableField("STATUS")
     private String status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -162,11 +162,11 @@ public class WorkInfo extends Model<WorkInfo> {
 		this.updatetime = updatetime;
 	}
 
-	public Integer getModality() {
+	public String getModality() {
         return modality;
     }
 
-    public void setModality(Integer modality) {
+    public void setModality(String modality) {
         this.modality = modality;
     }
 

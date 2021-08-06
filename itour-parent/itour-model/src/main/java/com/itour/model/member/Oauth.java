@@ -22,7 +22,7 @@ public class Oauth extends Model<Oauth> {
      * 编号标识	主键,自动增长
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 用户唯一号	外键来源于用户表中的UID
@@ -66,11 +66,11 @@ public class Oauth extends Model<Oauth> {
     @TableField("PWD")
     private String pwd;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
