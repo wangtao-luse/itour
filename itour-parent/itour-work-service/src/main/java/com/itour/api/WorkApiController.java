@@ -12,6 +12,15 @@ import com.itour.service.WorkInfoService;
 public class WorkApiController implements WorkApi {
 	@Autowired
 	WorkInfoService workInfoService;
+	/**
+	 *  新增或修改工作日志
+	 */
+	@Override
+	public ResponseMessage savaOrUpdateWorkInfo(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.workInfoService.saveOrUpdateWorkInfo(requestMessage);
+	}
+
 	@Override
 	public ResponseMessage selectWorkInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -48,4 +57,5 @@ public class WorkApiController implements WorkApi {
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
 
+	
 }

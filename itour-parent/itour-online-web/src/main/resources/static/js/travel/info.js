@@ -156,7 +156,7 @@ var mdEditer;
 		    	if(disaled_btn.length>0){
 		    	    $("#tag-container .weui-desktop-btn.weui-desktop-btn_primary").removeClass("weui-desktop-btn_disabled");
 		    	}
-		    	$("#tag-container .dialog-wrapper").show();  
+		    	$("#tag-container .weui-desktop-wrp").show();  
 		    });
 	});
 	//话题标签提交
@@ -231,7 +231,7 @@ var mdEditer;
 	    	if(disabled_text.length>0){
 	    		 $("#column-container .weui-desktop-btn.weui-desktop-btn_primary").removeClass("weui-desktop-btn_disabled");
 	    	}
-			$("#column-container .dialog-wrapper").show();
+			$("#column-container .weui-desktop-wrp").show();
 		});
 	});
 	//分类专栏提交
@@ -299,7 +299,7 @@ var mdEditer;
 	$("#js_article_city_area .frm_checkbox_label .allow_click_opr").click(function(){
 		var dxUrl = ctxPath+"/travel/cityPage";
 		$("#city-container").load(dxUrl,function(){
-			$("#city-container .dialog-wrapper").show();
+			$("#city-container .weui-desktop-wrp").show();
 			
 		});
 	});
@@ -310,7 +310,7 @@ var mdEditer;
 		$("#js_article_city_area .lbl_content_desc").text(cityName);
 		$("#js_article_city_area #cityCode").val(cityCode);
 		$("#js_article_city_area .frm_checkbox_label").addClass("selected");
-		$("#city-container .dialog-wrapper").hide();
+		$("#city-container .weui-desktop-wrp").hide();
 	});
 });
 	
