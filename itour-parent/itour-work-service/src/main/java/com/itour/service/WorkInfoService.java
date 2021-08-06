@@ -215,12 +215,12 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			//2.插入工作博客内容信息表
 			 WorkInfo info = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
 				String text = jsonObject.getString("markdown");
-				if(StringUtils.isEmpty(info.getId())) {
+				if(StringUtils.isEmpty(info.getId())) {//新增
 					Worktext entity = new Worktext();
 					entity.setWid(workInfo.getId());
 					entity.setWcontent(text);
 					worktextMapper.insert(entity);
-				}else {
+				}else {//修改
 					QueryWrapper<Worktext> queryWrapper = new QueryWrapper<Worktext>();
 					queryWrapper.eq("TID", workInfo.getId());
 					Worktext selectOne = worktextMapper.selectOne(queryWrapper );
@@ -229,22 +229,26 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				}
 				
 			//3.插入标签中间表	
+			   //3.1删除该文章的中间关系
 			QueryWrapper<InfoLabel> wrapper = new QueryWrapper<InfoLabel>();
 			wrapper.eq("WID", workInfo.getId());
 			this.infoLabelMapper.delete(wrapper);
-			String join = String.join(",",tagArr.stream().map(String::valueOf).collect(Collectors.toList()));
-			QueryWrapper<Label> queryWrapper = new QueryWrapper<Label>();
-			queryWrapper.in("TAG", tagArr);
-			queryWrapper.eq("UID", body.getuId());
-			
-			List<Label> selectList = this.labelMapper.selectList(queryWrapper);			
+			   //3.2将该文章和标签关系批量插入中间表
 			List<InfoLabel> tagList = new ArrayList<InfoLabel>(); 
-			for (Label t : selectList) {
-				InfoLabel tag = new InfoLabel();
-				tag.setWid(workInfo.getId());
-				tag.setTid(t.getId());
-				tagList.add(tag);				  
+			if(tagArr.size()>0) {
+				QueryWrapper<Label> queryWrapper = new QueryWrapper<Label>();
+				queryWrapper.in("TAG", tagArr);
+				queryWrapper.eq("UID", body.getuId());
+				List<Label> selectList = this.labelMapper.selectList(queryWrapper);			
+				
+				for (Label t : selectList) {
+					InfoLabel tag = new InfoLabel();
+					tag.setWid(workInfo.getId());
+					tag.setTid(t.getId());
+					tagList.add(tag);				  
+				}
 			}
+			//3.3批量插入工作日志-标签表关系表
 			if(tagList.size()>0) {
 				infoLabelService.saveBatch(tagList, tagList.size());
 			}
@@ -255,17 +259,20 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			QueryWrapper<InfoColumn> ew = new QueryWrapper<InfoColumn>();
 			ew.eq("WID", workInfo.getId());
 			this.infoColumnMapper.delete(ew);
-			QueryWrapper<InfoColumn> qw = new QueryWrapper<InfoColumn>();
-			String colStr = String.join(",", colArr.stream().map(String::valueOf).collect(Collectors.toList()));
-			qw.in("`COLUMN`", colArr);
-			qw.eq("UID",body.getuId());
-			List<InfoColumn> selectColList = this.infoColumnMapper.selectList(qw);
+			//4.2将分类专栏插入中间表
 			List<InfoColumn> colList = new ArrayList<InfoColumn>();
-			for (InfoColumn c : selectColList) {
-				InfoColumn col = new InfoColumn();	
-				col.setWid(workInfo.getId());
-				col.setCid(c.getId());
-				colList.add(col);
+			if(colArr.size()>0) {
+				QueryWrapper<InfoColumn> qw = new QueryWrapper<InfoColumn>();
+				qw.in("`COLUMN`", colArr);
+				qw.eq("UID",body.getuId());
+				List<InfoColumn> selectColList = this.infoColumnMapper.selectList(qw);
+				
+				for (InfoColumn c : selectColList) {
+					InfoColumn col = new InfoColumn();	
+					col.setWid(workInfo.getId());
+					col.setCid(c.getId());
+					colList.add(col);
+				}
 			}
 			if(colList.size()>0) {
 				infoColumnService.saveBatch(colList, colList.size());

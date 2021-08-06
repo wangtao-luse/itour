@@ -9,6 +9,18 @@ import com.itour.common.resp.ResponseMessage;
 
 @FeignClient(name = "itour-work-service")
 public interface WorkApi {
+	/***
+	 *  新增或修改工作日志
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/savaOrUpdateWorkInfo",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage savaOrUpdateWorkInfo(RequestMessage requestMessage);		
+	
+	
+	
+	
+	
 	/**
 	 * 个人博客列表(前台使用)
 	 * @param requestMessage

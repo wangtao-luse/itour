@@ -16,25 +16,13 @@ public class WorkConnector {
 @Autowired
 private WorkApi workApi;
 /**
- * 个人博客列表(前台使用)
+ * 新增或修改工作日志
  * @param jsonObject
  * @param request
  * @return
  */
-public ResponseMessage selectWorkInfoList(JSONObject jsonObject,HttpServletRequest request) {
+public ResponseMessage savaOrUpdateWorkInfo(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage responseMessage = workApi.selectWorkInfoList(requestMessage);
-	return responseMessage;
-}
-/**
- * 个人博客单条(前台使用)
- * @param jsonObject
- * @param request
- * @return
- */
-public ResponseMessage selectWorkInfo(JSONObject jsonObject,HttpServletRequest request) {
-	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-	ResponseMessage responseMessage = workApi.selectWorkInfo(requestMessage);
-	return responseMessage;
+	return workApi.savaOrUpdateWorkInfo(requestMessage);
 }
 }
