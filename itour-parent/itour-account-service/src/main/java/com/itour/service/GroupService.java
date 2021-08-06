@@ -170,7 +170,7 @@ public ResponseMessage authorizeRoleList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
 		//1.获取当前组
-		Integer id = requestMessage.getBody().getContent().getInteger("id");
+		Long id = requestMessage.getBody().getContent().getLong("id");
 		Group group = this.baseMapper.selectById(id);
 		//2.获取当前组下的所有的组及子组
 		List<Group> glist = new ArrayList<Group>();
@@ -229,7 +229,7 @@ public ResponseMessage authorizeRoleList(RequestMessage requestMessage) {
  * @param list
  * @param id
  */
-public void getNextGroup(List<Group> list,Integer id){
+public void getNextGroup(List<Group> list,Long id){
 	QueryWrapper<Group> queryWrapper = new QueryWrapper<Group>();
 	queryWrapper.eq("G_PARENT", id);
 	List<Group> selectList = this.baseMapper.selectList(queryWrapper);

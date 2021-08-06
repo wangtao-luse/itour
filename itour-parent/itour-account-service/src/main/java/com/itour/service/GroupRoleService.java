@@ -34,14 +34,14 @@ public class GroupRoleService extends ServiceImpl<GroupRoleMapper,GroupRole> {
     		JSONObject jsonObject = requestMessage.getBody().getContent();		
     	    JSONArray jsonArray = jsonObject.getJSONArray("arr");
     	    List<GroupRole> insertList = new ArrayList<GroupRole>();
-    	    List<Integer> deleteList = new ArrayList<Integer>();
+    	    List<Long> deleteList = new ArrayList<Long>();
     	    for (Object jsonArr : jsonArray) {
     	    	GroupRole gr = new GroupRole();
     	    	JSONObject arr = JSONObject.parseObject(JSONObject.toJSONString(jsonArr));
-    	    	Integer groupId = arr.getInteger("groupId");
-    	    	Integer roleId = arr.getInteger("roleId");
+    	    	Long groupId = arr.getLong("groupId");
+    	    	Long roleId = arr.getLong("roleId");
     	    	boolean checked = arr.getBoolean("checked");
-    	    	Integer grNo = arr.getInteger("grNo");    	    	
+    	    	Long grNo = arr.getLong("grNo");    	    	
     	    	if(checked) {//选中
     	    		gr.setGroupId(groupId);
     	    		gr.setRoleId(roleId);    	    		

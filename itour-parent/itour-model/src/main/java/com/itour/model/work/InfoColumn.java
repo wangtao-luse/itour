@@ -28,13 +28,13 @@ public class InfoColumn extends Model<InfoColumn> {
      * 博客编号
      */
     @TableField("WID")
-    private Integer wid;
+    private Long wid;
 
     /**
      * 专栏ID
      */
     @TableField("CID")
-    private Integer cid;
+    private Long cid;
 
     public Long getId() {
         return id;
@@ -44,23 +44,24 @@ public class InfoColumn extends Model<InfoColumn> {
         this.id = id;
     }
 
-    public Integer getWid() {
-        return wid;
-    }
+    
+    public Long getWid() {
+		return wid;
+	}
 
-    public void setWid(Integer wid) {
-        this.wid = wid;
-    }
+	public void setWid(Long wid) {
+		this.wid = wid;
+	}
 
-    public Integer getCid() {
-        return cid;
-    }
+	public Long getCid() {
+		return cid;
+	}
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
-    }
+	public void setCid(Long cid) {
+		this.cid = cid;
+	}
 
-    @Override
+	@Override
     protected Serializable pkVal() {
         return null;
     }

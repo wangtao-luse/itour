@@ -34,12 +34,12 @@ public class RoleRightService extends ServiceImpl<RoleRightMapper, RoleRight>  {
         	JSONObject jsonObject = requestMessage.getBody().getContent();
     		JSONArray jsonArray = jsonObject.getJSONArray("arr");
     		List<RoleRight> insert =new ArrayList<RoleRight>();
-    		List<Integer> delete =new ArrayList<Integer>();
+    		List<Long> delete =new ArrayList<Long>();
     		for (Object arrVo : jsonArray) {
     			JSONObject object = JSONObject.parseObject(JSONObject.toJSONString(arrVo));	
-    			Integer id = object.getInteger("rrid");
-    			Integer roleId = jsonObject.getInteger("roleId");
-    			Integer rightId = object.getInteger("rightId");
+    			Long id = object.getLong("rrid");
+    			Long roleId = jsonObject.getLong("roleId");
+    			Long rightId = object.getLong("rightId");
     			Boolean checked = object.getBoolean("checked");
     			if(checked) {
     				RoleRight roleRight = new RoleRight();

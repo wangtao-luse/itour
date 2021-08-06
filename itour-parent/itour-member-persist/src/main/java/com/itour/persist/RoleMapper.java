@@ -17,7 +17,7 @@ import com.itour.model.member.Role;
  * @since 2020-06-23
  */
 public interface RoleMapper extends BaseMapper<Role> {
-	List<Map<String, Object>> queryGroupRole(@Param("gid") Integer gid);
+	List<Map<String, Object>> queryGroupRole(@Param("gid") Long gid);
 	/**
 	 * 获取当前用户下的所有拥有的角色名称
 	 * @param uid

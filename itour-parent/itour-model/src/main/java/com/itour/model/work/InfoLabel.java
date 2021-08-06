@@ -34,7 +34,7 @@ public class InfoLabel extends Model<InfoLabel> {
      * 标签编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class InfoLabel extends Model<InfoLabel> {
         this.wid = wid;
     }
 
-    public Integer getTid() {
+    public Long getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(Long tid) {
         this.tid = tid;
     }
 

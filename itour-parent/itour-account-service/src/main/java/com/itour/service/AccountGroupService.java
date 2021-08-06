@@ -40,7 +40,7 @@ public class AccountGroupService extends ServiceImpl<AccountGroupMapper, Account
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
-		Integer groupId = jsonObject.getInteger("groupId");
+		Long groupId = jsonObject.getLong("groupId");
 		JSONArray jsonArray = jsonObject.getJSONArray("uidArr");
 		List<AccountGroup>  list = new ArrayList<AccountGroup>();
 		for (Object uid : jsonArray) {
@@ -66,13 +66,13 @@ public class AccountGroupService extends ServiceImpl<AccountGroupMapper, Account
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Integer groupId = jsonObject.getInteger("groupId");
+			Long groupId = jsonObject.getLong("groupId");
 			JSONArray jsonArray = jsonObject.getJSONArray("uidArr");
 			QueryWrapper<AccountGroup> queryWrapper = new QueryWrapper<AccountGroup>();
 			queryWrapper.in("U_ID", jsonArray);
 			queryWrapper.eq("GROUP_ID", groupId);
 			List<AccountGroup> selectList = this.baseMapper.selectList(queryWrapper);
-			List<Integer> collect = selectList.stream().map(p->p.getId()).collect(Collectors.toList());
+			List<Long> collect = selectList.stream().map(p->p.getId()).collect(Collectors.toList());
 			this.removeByIds(collect);
 		} catch (Exception e) {
 			// TODO: handle exception
