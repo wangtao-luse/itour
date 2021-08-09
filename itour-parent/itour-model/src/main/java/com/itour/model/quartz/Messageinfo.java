@@ -39,13 +39,13 @@ public class Messageinfo extends Model<Messageinfo> {
     /**
      * 发送者
      */
-    @TableField("FROM")
+    @TableField("`FROM`")
     private String from;
 
     /**
      * 接受者
      */
-    @TableField("TO")
+    @TableField("`TO`")
     private String to;
 
     /**
