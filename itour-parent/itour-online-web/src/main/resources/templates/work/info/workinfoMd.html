@@ -74,46 +74,479 @@ button {
 				<span class="notice">文章内容不能为空</span>
 			</div>
 		</div>	
-		<div class="modal" style="display: none;">
-			<div class="modal__inner-1 modal__publish-article">
-				<div class="modal__inner-2">
-					<button class="modal__close-button button not-tabbable">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
-					</button>
-					<div class="modal__content">
-						<h3>发布文章</h3>
-						<div class="form-native">
-							<svg t="1552465022197" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8301" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" class="icon icon-error"><path d="M512.874667 938.474667c-235.434667 0-426.261333-190.848-426.261334-426.261334 0-235.434667 190.848-426.261333 426.261334-426.261333s426.261333 190.848 426.261333 426.261333c-0.021333 235.413333-190.848 426.261333-426.261333 426.261334z m0-85.248c188.352 0 341.013333-152.682667 341.013333-341.013334 0-188.352-152.661333-341.013333-341.013333-341.013333S171.861333 323.861333 171.861333 512.213333c0 188.330667 152.661333 341.013333 341.013334 341.013334z m-42.645334-511.530667a42.624 42.624 0 1 1 85.290667 0v204.586667a42.666667 42.666667 0 0 1-85.290667 0v-204.586667zM512.874667 725.333333a42.666667 42.666667 0 1 1 0.042666-85.290666A42.666667 42.666667 0 0 1 512.874667 725.333333z" fill="" p-id="8302"></path></svg>
-							<span>请勿发布涉及政治、广告、营销、翻墙、违反国家法律法规等内容</span>
+	<div class="modal-dialog-wrapper modal-article-pushlish-wrp">
+			<div class="modal-dialog-mask"></div>
+			<div class="mod-dialog mod-dialog-large">
+				<div class="modal-dialog-inner">
+					<div class="modal-dialog-content">
+						<div class="article-content">
+							<button type="button"class="mod-dialog-close" >
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
+							</button>
+							<h3 class="modal-dialog-title">发布文章</h3>
+							<div class="form-native">
+								<svg t="1552465022197" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8301" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" class="icon icon-error"><path d="M512.874667 938.474667c-235.434667 0-426.261333-190.848-426.261334-426.261334 0-235.434667 190.848-426.261333 426.261334-426.261333s426.261333 190.848 426.261333 426.261333c-0.021333 235.413333-190.848 426.261333-426.261333 426.261334z m0-85.248c188.352 0 341.013333-152.682667 341.013333-341.013334 0-188.352-152.661333-341.013333-341.013333-341.013333S171.861333 323.861333 171.861333 512.213333c0 188.330667 152.661333 341.013333 341.013334 341.013334z m-42.645334-511.530667a42.624 42.624 0 1 1 85.290667 0v204.586667a42.666667 42.666667 0 0 1-85.290667 0v-204.586667zM512.874667 725.333333a42.666667 42.666667 0 1 1 0.042666-85.290666A42.666667 42.666667 0 0 1 512.874667 725.333333z" fill="" p-id="8302"></path></svg>
+								<span>请勿发布涉及政治、广告、营销、翻墙、违反国家法律法规等内容</span>
+							</div>
+							<div class="form-entry flex flex-col form-cover-desc-box">
+								<div class="cover-desc-title setting-group__title">封面和摘要</div>
+								<div class="cover-desc-cont cover-desc-cont-main">
+									<div class="form-cover-box setting-group__cover">
+										<div class=" form-cover_btn_area">
+											<i class="icon-add_css"></i>
+											<span class="btn-text">选择封面</span>
+											<form id="form_upload" method="post"  enctype="multipart/form-data" >
+											<input type="file" name="file" class="input-fileUpload" onchange="upload_file()">
+											</form>
+										</div>
+										 <!-- 封面加载之前的loading状态 -->
+										<div class="select-cover__loading__mask js_cover_loading">
+				                          <i class="select-cover__loading weui-desktop-loading"></i>
+				                        </div>
+				                        <!-- 默认隐藏,选择图片后显示 -->
+				                        <div class="select-cover__preview js_cover_preview first_appmsg_cover" style="display: none;">
+				                        	<div class="select-cover__preview__mask js_cover_btn_area" >
+				                                <a href="javascript:;" class="icon20_common edit_media_white js_modifyCover" onclick="return false;">修改</a>
+				                            </div>
+				                            <input type="hidden" id="input-fileUpload-path">
+				                        </div>
+									</div>
+									<div class="form-dsc-box setting-group__abstract">
+										<span class="frm_textarea_box form-texarea-box">
+											<textarea  class="frm_textarea" id="js_description" placeholder="必填，摘要会在订阅号消息、转发链接等文章外的场景显露，帮助读者快速了解内容" maxlength="120"></textarea>
+											<em class="frm_input_append frm_counter">1/120</em>
+										</span>
+									</div>
+									<div class="frm_msg fail js_cover_error js_error_msg" style="display: none;">必须插入一张图片</div>
+								</div>
+							</div>
+							<div class="form-entry flex form-tag-box">
+								<label class="form-entry__label">文章标签:</label>
+								<div>
+									<div class="mark_selection">
+										<div class="mark_selection_title_el_tag">
+											<button class="tag__btn-tag">
+												<svg width="200px" height="200.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon"><path fill="currentColor" d="M464.32 464.341333V178.368a47.658667 47.658667 0 1 1 95.338667 0v285.973333h285.952a47.658667 47.658667 0 0 1 0 95.317334H559.658667v285.952a47.68 47.68 0 0 1-95.338667 0V559.658667H178.368a47.658667 47.658667 0 1 1 0-95.317334h285.952z"></path></svg>
+												 添加文章标签        
+											</button>
+										</div>
+										<div class="mark_selection_box" style="display: none;">
+											<div class="tag__options-content">
+											<div class="mark_title">标签</div>
+											<div class="mark_selection_box_header">
+												<input type="text"autocomplete="off" placeholder="请输入文字搜索，Enter键入可添加自定义标签" class="el-input__inner" />
+											</div>
+											<div class="tag__options-txt">
+												<span style="margin-right: 11px;">最多选择5个标签</span>
+											</div>
+											<div class="tag-option-hd">
+												<h3>历史标签</h3>
+											</div>
+											<div class="tag__options-list">
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">数据库</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">fasjson</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">数据库</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">fasjson</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">数据库</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">fasjson</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">数据库</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">fasjson</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">数据库</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">fasjson</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">数据库</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">fasjson</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">linux文件管理</span>
+													</label>
+												</div>
+												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">项目打包</span>
+													</label>
+												</div>
+											</div>
+											
+											<button type="button" class="modal__close-button button tag-close-btn">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
+											</button>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-entry flex form-tag-box">
+								<label class="form-entry__label">分类专栏:</label>
+								<div class="form-entry__field">
+									<div class="tag__box">
+										<input type="hidden" name="categories">
+										<div class="flex-box">
+											<div class="tag__item-list">
+												<button class="tag__btn-tag">
+													<svg width="200px" height="200.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon"><path fill="currentColor" d="M464.32 464.341333V178.368a47.658667 47.658667 0 1 1 95.338667 0v285.973333h285.952a47.658667 47.658667 0 0 1 0 95.317334H559.658667v285.952a47.68 47.68 0 0 1-95.338667 0V559.658667H178.368a47.658667 47.658667 0 1 1 0-95.317334h285.952z"></path></svg>
+													 新建分类专栏
+												</button>
+											</div>
+										</div>
+										<div class="tag__options-content">
+											<div class="tag__options-txt">
+												<span style="margin-right: 11px;">最多选择3个分类专栏</span>
+												<font>#为二级分类</font>
+											</div>
+											<div class="tag__options-list">
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">Java</span>
+													</label>
+												</div>												
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">JavaScript</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">Linux</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">jquery</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">PS学习笔记</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">Java虚拟机</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">MYSQL</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">Docker</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">HTML</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">git工具</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">eclipse</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">idea使用</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">maven</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">springboot</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">springCloud</span>
+													</label>
+												</div>
+												<div class="tag__option-box">
+													<label class="tag__option-label">
+														<input type="checkbox" class="tag__option-chk" value="Java"> 
+														<i for="chk01" class="tag__option-icon"></i>
+														<span class="spanIsAgree">python笔记</span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="inline-box">
+								<div class="form-entry flex">
+									<label  class="form-entry__label">文章类型：</label> 
+									<div class="form-entry__field">
+										<select class="textfield">
+											<option value="0" selected="selected">请选择</option>
+											<option value="original">原创</option> 
+											<option value="repost">非原创</option>
+										</select>
+									</div>
+									<span class="notice">*</span>
+								</div>
+							</div>
+						    <div class="form-entry flex form-entry__field-switch-box overflow-unset form-entry-marginBottom plan">
+						    	<label class="form-entry__label">发布形式：</label>
+						    	<div class="form-entry__field">
+						    		<div class="switch-box">
+						    			<input type="radio" name="status" id="public" value="public" checked class="form-control form-control-sm chk-switch">
+						    			<label for="public" class="lab-switch">公开</label>
+						    			<input type="radio" name="status" id="private" value="private" class="form-control form-control-sm chk-switch">
+						    			<label for="private" class="lab-switch">私密</label>
+						    		</div>
+						    	</div>
+						    </div>
+						    <div class="modal__button-bar">
+						    	<button class="button btn-cancel">取消</button>
+						    	<button class="button btn-b-blue pulish-article-btn">发布文章</button>
+						    </div>
 						</div>
-						<div class="flex form-tag-box">
-							
-						</div>
-						<div class="form-entry flex form-tag-box"></div>
-						<div class="form-entry flex form-tag-box"></div>
 					</div>
 				</div>
-				<div class="mark-mask-box-div"></div>
 			</div>
 		</div>
-		<div id="article_setting_area" class="appsmg-editor__after-area" style="display: none;">
-			<div id="js_cover_description_area" class="appmsg-editor__setting-group">
-				<div class="setting-group__title">封面和摘要</div>
-				<div class="setting-group__content setting-group__content_main">
-					<div class="js_cover_area" class="setting-group__cover setting-group__cover_primary">
-						<div class="select-cover__btn js_cover_btn_area">
-							<i class="icon-add_css"></i>
-							<span class="btn-text"></span>
-						</div>
-					</div>
-					<div id="js_description_area" class="setting-group__abstract js_desc_area">
-						<span id="js_description_span" class="frm_textarea_box with_counter counter_in append count">
-							<textarea id="js_description" placeholder="选填，摘要会在订阅号消息、转发链接等文章外的场景显露，帮助读者快速了解内容，如不填写则默认抓取正文前80字" maxlength="120"></textarea>
-							<em class="frm_input_append frm_counter">1/120</em>
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		
 @}
