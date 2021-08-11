@@ -4,14 +4,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itour.api.WorkApi;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.service.LabelService;
+import com.itour.service.WorkColumnService;
 import com.itour.service.WorkInfoService;
 @RestController
 public class WorkApiController implements WorkApi {
 	@Autowired
 	WorkInfoService workInfoService;
+	@Autowired
+	LabelService labelService;
+	@Autowired
+	WorkColumnService workColumnService;
+	/**
+	 * 日志标签列表查询
+	 */
+	@Override
+	public ResponseMessage queryLabelList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return labelService.queryLabelList(requestMessage);
+	}
+   /**
+    * 日志分类专栏查询
+    */
+	@Override
+	public ResponseMessage queryColumnList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workColumnService.queryColumnList(requestMessage);
+	}
 	/**
 	 *  新增或修改工作日志
 	 */
@@ -21,6 +42,29 @@ public class WorkApiController implements WorkApi {
 		return this.workInfoService.saveOrUpdateWorkInfo(requestMessage);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public ResponseMessage selectWorkInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
@@ -56,6 +100,8 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+
+	
 
 	
 }

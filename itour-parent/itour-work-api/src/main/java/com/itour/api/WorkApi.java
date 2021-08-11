@@ -9,6 +9,21 @@ import com.itour.common.resp.ResponseMessage;
 
 @FeignClient(name = "itour-work-service")
 public interface WorkApi {
+	
+	/**
+	 * 日志标签查询
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/queryLabelList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryLabelList(RequestMessage requestMessage);		
+	/**
+	 * 日志标签查询
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/queryColumnList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryColumnList(RequestMessage requestMessage);		
 	/***
 	 *  新增或修改工作日志
 	 * @param requestMessage

@@ -3,7 +3,6 @@ package com.itour.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +24,7 @@ import com.itour.model.vo.PageInfo;
 import com.itour.model.work.InfoColumn;
 import com.itour.model.work.InfoLabel;
 import com.itour.model.work.Label;
+import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
 import com.itour.model.work.dto.WorkInfoDto;
@@ -57,6 +57,10 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 	InfoLabelService infoLabelService;
 	@Autowired
 	InfoColumnService infoColumnService;
+	@Autowired
+	LabelService labelService;
+	@Autowired
+	WorkColumnService workColumnService;
 	
 	/**
 	 * 前台使用
@@ -174,6 +178,12 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 	}
 	/**
 	 * 新增或修改旅行信息
+	 * 1.插入工作日志表
+	 * 2.插入工作日志内容表
+	 * 3.插入标签表
+	 * 4.插入工作日志-标签表
+	 * 5.插入分类专栏表
+	 * 6.插入工作日志-分类专栏表
 	 * @param requestMessage
 	 * @return
 	 */
@@ -188,7 +198,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			JSONArray tagArr = jsonObject.getJSONArray("tag_arr");
 			JSONArray colArr = jsonObject.getJSONArray("col_arr");
 			String function = jsonObject.getString(Constant.COMMOM_FUNCTION);
-			//1.插入旅行旅行信息表
+			//1.插入工作日志表
 			WorkInfo workInfo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
 			if(!StringUtils.isEmpty(workInfo.getId())) {//修改
 				//1.检查该用户是否有权限修改此攻略
@@ -212,7 +222,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			}
              
 			 this.saveOrUpdate(workInfo);
-			//2.插入工作博客内容信息表
+			//2.插入工作日志内容表
 			 WorkInfo info = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
 				String text = jsonObject.getString("markdown");
 				if(StringUtils.isEmpty(info.getId())) {//新增
@@ -227,13 +237,18 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 					selectOne.setWcontent(text);
 					this.worktextMapper.updateById(selectOne);
 				}
+		     //3.插入标签表
+				List<Label> labelList = tagArr.toJavaList(Label.class);
+				if(labelList.size()>0) {
+					labelService.saveOrUpdateBatch(labelList, labelList.size());
+				}
 				
-			//3.插入标签中间表	
-			   //3.1删除该文章的中间关系
+			//4.插入标签中间表	
+			   //4.1删除该文章的中间关系
 			QueryWrapper<InfoLabel> wrapper = new QueryWrapper<InfoLabel>();
 			wrapper.eq("WID", workInfo.getId());
 			this.infoLabelMapper.delete(wrapper);
-			   //3.2将该文章和标签关系批量插入中间表
+			   //4.2将该文章和标签关系批量插入中间表
 			List<InfoLabel> tagList = new ArrayList<InfoLabel>(); 
 			if(tagArr.size()>0) {
 				QueryWrapper<Label> queryWrapper = new QueryWrapper<Label>();
@@ -248,18 +263,21 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 					tagList.add(tag);				  
 				}
 			}
-			//3.3批量插入工作日志-标签表关系表
+			//4.3批量插入工作日志-标签表关系表
 			if(tagList.size()>0) {
 				infoLabelService.saveBatch(tagList, tagList.size());
 			}
-			
-			
-			//4.插入分类专栏表中间表
-			 //4.1 删除该文章下的中间表关系
+			 //5.插入分类专栏表
+			List<WorkColumn> columnList = colArr.toJavaList(WorkColumn.class);
+			if(columnList.size()>0) {
+				workColumnService.saveOrUpdateBatch(columnList, columnList.size());
+			}
+			//6.插入分类专栏表中间表
+			 //6.1 删除该文章下的中间表关系
 			QueryWrapper<InfoColumn> ew = new QueryWrapper<InfoColumn>();
 			ew.eq("WID", workInfo.getId());
 			this.infoColumnMapper.delete(ew);
-			//4.2将分类专栏插入中间表
+			//6.2将分类专栏插入中间表
 			List<InfoColumn> colList = new ArrayList<InfoColumn>();
 			if(colArr.size()>0) {
 				QueryWrapper<InfoColumn> qw = new QueryWrapper<InfoColumn>();

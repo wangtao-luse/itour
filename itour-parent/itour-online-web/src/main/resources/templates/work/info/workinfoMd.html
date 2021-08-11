@@ -97,6 +97,8 @@ button {
 											<span class="btn-text">选择封面</span>
 											<form id="form_upload" method="post"  enctype="multipart/form-data" >
 											<input type="file" name="file" class="input-fileUpload" onchange="upload_file()">
+											<input type="hidden" id="input-fileUpload-path">
+											
 											</form>
 										</div>
 										 <!-- 封面加载之前的loading状态 -->
@@ -518,8 +520,8 @@ button {
 								<div class="form-entry flex">
 									<label  class="form-entry__label">文章类型：</label> 
 									<div class="form-entry__field">
-										<select class="textfield">
-											<option value="0" selected="selected">请选择</option>
+										<select class="textfield" name="articleType" id="articleType">
+											<option value="" selected="selected">请选择</option>
 											<option value="original">原创</option> 
 											<option value="repost">非原创</option>
 										</select>
@@ -531,9 +533,9 @@ button {
 						    	<label class="form-entry__label">发布形式：</label>
 						    	<div class="form-entry__field">
 						    		<div class="switch-box">
-						    			<input type="radio" name="status" id="public" value="public" checked class="form-control form-control-sm chk-switch">
+						    			<input type="radio" name="modality" id="public" value="public" checked class="form-control form-control-sm chk-switch">
 						    			<label for="public" class="lab-switch">公开</label>
-						    			<input type="radio" name="status" id="private" value="private" class="form-control form-control-sm chk-switch">
+						    			<input type="radio" name="modality" id="private" value="private" class="form-control form-control-sm chk-switch">
 						    			<label for="private" class="lab-switch">私密</label>
 						    		</div>
 						    	</div>
