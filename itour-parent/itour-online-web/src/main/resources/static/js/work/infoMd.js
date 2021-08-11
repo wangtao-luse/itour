@@ -48,23 +48,75 @@ $(function(){
 		if(ev.keyCode==13) {
 			var tag =$(this).val();
 			var chlid_len = $(".mark_selection .mark_selection_title_el_tag span>span").length;
+			
 			if(chlid_len<5){
 				$(".mark_selection .tag__btn-tag").show();
 				appendTag(tag,$(this));
+				$(".mark_selection .tag__option-label").each(function(i,item){
+					var text = $(this).find(".spanIsAgree").text().trim();
+					if(tag==text){
+						$(this).find(".tag__option-chk").prop("checked","checked");
+					}
+				})
 			}
 			if(chlid_len>=4){
+				var uncheked = $(".mark_selection_box .tag__option-chk:not(:checked)");
+				uncheked.prop("disabled","disabled");
 				$(".mark_selection .tag__btn-tag").hide();
 			}
 			
 		}
 	}); 
+	//关闭标签
 	$(document).on("click",".mark_selection .el-tag__close.el-icon-close",function(){
 		$(this).parent().remove();
 		var chlid_len = $(".mark_selection .mark_selection_title_el_tag span>span").length;
+		var text = $(this).parent().text().trim();
+		var uncheked = $(".mark_selection_box .tag__option-chk:not(:checked)");
 		if(chlid_len<5){
 			$(".mark_selection .tag__btn-tag").show();
+			uncheked.prop("disabled","");
+			$(".mark_selection .tag__option-label").each(function(i,item){
+				var tag = $(this).find(".spanIsAgree").text().trim();
+				if(tag==text){
+					$(this).find(".tag__option-chk").prop("checked","");
+				}
+			})
 		}
 	})
+	//标签checkbox检查
+	$(document).on("change",".mark_selection_box .tag__option-label",function(e){
+				  var checked = $(".mark_selection_box .tag__option-chk:checked");
+				  var uncheked = $(".mark_selection_box .tag__option-chk:not(:checked)");
+				  var check = $(this).find(".tag__option-chk").is(':checked')
+				  var clen =checked.length;
+				  var ulen =uncheked.length;
+				  var text = $(this).find(".spanIsAgree").text();
+				  var tagList = $(".mark_selection .mark_selection_title_el_tag .el-tag");
+				  if(clen>=5){				  	
+				  	uncheked.prop("disabled","disabled");
+				  }else{
+				  	uncheked.prop("disabled","");
+				  }
+				  if(tagList.length<5 && check){
+				  	 appendTag(text,$(this));
+				  }
+				  if(!check){
+				  	tagList.each(function(i,item){
+				  		var tag =$(this).text().trim();
+				  		if(tag==text){
+				  			$(this).remove();
+				  		}
+				  	})
+				  }
+				 var nlen = $(".mark_selection .mark_selection_title_el_tag .el-tag");
+				 if(nlen.length>4){
+				  	 uncheked.prop("disabled","disabled");
+				  	 $(".mark_selection .tag__btn-tag").hide();
+				  }else{
+				  	$(".mark_selection .tag__btn-tag").show();
+				  }
+				});
 	//专栏相关
 	//新建分类专栏
 	$(".tag__box .tag__btn-tag").click(function(){
@@ -76,12 +128,21 @@ $(function(){
 	})
 	//专栏删除
 	$(document).on("click",".tag__item-box .tag__btn-tag-delete",function(){
-	   $(this).parent().remove();
-	   var tlen = $(".tag__box .tag__item-list .tag__item-box").length;
-		if(tlen<3){
-			$(".tag__box .tag__btn-tag").show();
-		}
-	})
+		   var text = $(this).parent().find(".tag__name").text().trim();
+		   $(this).parent().remove();
+		   var tlen = $(".tag__box .tag__item-list .tag__item-box").length;
+		    var uncheked = $(".tag__box .tag__option-chk:not(:checked)");
+			if(tlen<3){
+				$(".tag__box .tag__btn-tag").show();
+				uncheked.prop("disabled","");
+				$(".tag__box .tag__option-label").each(function(i,item){
+					var tag = $(this).find(".spanIsAgree").text().trim();
+					if(text==tag){
+						$(this).find(".tag__option-chk").prop("checked","");
+					}
+				})
+			}
+		});
 	//新建专栏文本框样式
 	$(document).on("keyup",".input-text-box .tag-input-text",function(){
 		var v = $(this).val();
@@ -98,14 +159,53 @@ $(function(){
 		if(!v){
 		 $(this).closest(".tag__item-box").remove();	
 		}
+		//checkbox控制
+		$(".tag__box .tag__option-label").each(function(i,item){
+			var text = $(this).find(".spanIsAgree").text().trim();
+			if(v==text){
+				$(this).find(".tag__option-chk").prop("checked","checked");
+			}
+		});
+		
 		$(this).parent().remove();
 		var tlen = $(".tag__box .tag__item-list .tag__item-box").length;
 		if(tlen>=3){
+			var uncheked = $(".tag__box .tag__option-chk:not(:checked)");
+				uncheked.prop("disabled","disabled");
 			$(".tag__box .tag__btn-tag").hide();
+			
 		}
 	});
 	//专栏多选框检查
-	
+	$(document).on("change",".tag__box .tag__option-label",function(e){
+		  var checked = $(".tag__box .tag__option-chk:checked");
+		  var uncheked = $(".tag__box .tag__option-chk:not(:checked)");
+		  var check = $(this).find(".tag__option-chk").is(':checked')
+		  var clen =checked.length;
+		  var ulen =uncheked.length;
+		  var text = $(this).find(".spanIsAgree").text();
+		  var tagList = $(".tag__box .tag__item-list .tag__item-box");
+		  if(clen>=3){				  	
+		  	uncheked.prop("disabled","disabled");
+		  }else{
+		  	uncheked.prop("disabled","");
+		  }
+		  if(tagList.length<3 && check){
+		  	 appendCheckboxCol(text);
+		  }
+		  if(!check){
+		  	tagList.each(function(i,item){
+		  		var tag =$(this).find(".tag__name").text().trim();
+		  		if(tag==text){
+		  			$(this).remove();
+		  		}
+		  	})
+		  }
+		 var nlen= $(".tag__box .tag__item-list .tag__item-box").length;
+		 if(nlen>2){
+		  	 uncheked.prop("disabled","disabled");
+		  }
+		});
 	//发布文章
 	$(".modal__button-bar .pulish-article-btn").click(function(){
 		console.log("click");
@@ -143,6 +243,19 @@ function appendinitcol(){
 					+"</svg>"
 				+"</button>"
 			+"</div>";
+$(".tag__box .tag__btn-tag").before(html);
+}
+//追加专栏
+function appendCheckboxCol(text){
+	var html="<div class='tag__item-box'>"
+	            +"<span contenteditable='false' class='tag__name' style='display:block'>"+text+"</span>"
+				+"<button class='tag__btn-tag-delete'>"
+					+"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='icon'>"
+						+"<path d='M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z'></path>"
+					+"</svg>"
+				+"</button>"
+			+"</div>";
+
 $(".tag__box .tag__btn-tag").before(html);
 }
 function upload_file() {
