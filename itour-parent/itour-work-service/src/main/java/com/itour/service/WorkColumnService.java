@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -33,6 +34,8 @@ public class WorkColumnService extends ServiceImpl<WorkColumnMapper, WorkColumn>
 			WorkColumn vo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(WorkColumn.class);
 			JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 			QueryWrapper queryWrapper = new QueryWrapper<WorkColumn>();
+			queryWrapper.eq(StringUtils.isEmpty(vo.getUid()), "UID", vo.getUid());
+			queryWrapper.orderByDesc("CREATEDATE");
 			if(pageVo!=null) {	
 				PageInfo page = pageVo.toJavaObject(PageInfo.class);
 				IPage selectPage = this.baseMapper.selectPage(page, queryWrapper );

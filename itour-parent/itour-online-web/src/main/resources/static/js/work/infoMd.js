@@ -49,9 +49,9 @@ $(function(){
 		    tagArr.push(v);
 	   });
 		var colArr=[];
-		$(".tag__box .tag__option-label").each(function(i,item){
-		    var v = $(this).find(".spanIsAgree").text().trim();
-		    tagArr.push(v);
+		$(".tag__box .tag__item-box").each(function(i,item){
+		    var v = $(this).find(".tag__name").text().trim();
+		    colArr.push(v);
 	   });
 		var data={"vo":{
 			 			"title":title,
@@ -85,8 +85,15 @@ $(function(){
 		if(ev.keyCode==13) {
 			var tag =$(this).val();
 			var chlid_len = $(".mark_selection .mark_selection_title_el_tag span>span").length;
-			
-			if(chlid_len<5){
+			var check_repeat =true;
+			$(".mark_selection .el-tag").each(function(){
+				var v =$(this).text().trim();
+				if(tag==v){
+					check_repeat=false;
+				}
+				
+			})
+			if(chlid_len<5 &&check_repeat){
 				$(".mark_selection .tag__btn-tag").show();
 				appendTag(tag,$(this));
 				$(".mark_selection .tag__option-label").each(function(i,item){
@@ -130,6 +137,7 @@ $(function(){
 				  var ulen =uncheked.length;
 				  var text = $(this).find(".spanIsAgree").text();
 				  var tagList = $(".mark_selection .mark_selection_title_el_tag .el-tag");
+				 
 				  if(clen>=5){				  	
 				  	uncheked.prop("disabled","disabled");
 				  }else{
@@ -190,9 +198,21 @@ $(function(){
 	});
 	//新建专栏文本框样式
 	$(document).on("blur",".input-text-box .tag-input-text",function(){
+		var v =$(this).val();
+		var check_repeat = 0;
+		$(".tag__box .tag__item-box").each(function(i,item){
+			var tname = $(this).find(".tag__name").text();
+			if(tname==v){
+				check_repeat += 1;
+			}
+		});
+		if(check_repeat>1){
+			$(this).val('');
+			$(this).focus();
+			return;
+		}
 		$(this).hide();
 		$(this).parent().prev().css("display","block");
-		var v =$(this).val();
 		if(!v){
 		 $(this).closest(".tag__item-box").remove();	
 		}
@@ -241,8 +261,44 @@ $(function(){
 		 var nlen= $(".tag__box .tag__item-list .tag__item-box").length;
 		 if(nlen>2){
 		  	 uncheked.prop("disabled","disabled");
+		  	$(" .tag__box .tag__btn-tag").hide();
+		  }else{
+			  $(" .tag__box .tag__btn-tag").show();
 		  }
 		});
+	$(document).on("keyup",".modal-article-pushlish-wrp #js_description",function(){
+		var len =$(this).val().length;
+		$(".modal-article-pushlish-wrp .frm_counter").text(len+"/120");
+		if(len>120){
+			$(".modal-article-pushlish-wrp .frm_counter").addClass("error");
+		}else{
+			$(".modal-article-pushlish-wrp .frm_counter").removeClass("error");
+		}
+	});
+	$(document).on("keyup",".mark_selection .mark_selection_box_header .el-input__inner",function(){
+		var len =$(this).val().length;
+		$(".mark_selection .mark-frm-counter").text(len+"/16");
+		if(len>16){
+			$(".mark_selection .mark-frm-counter").addClass("error");
+		}else{
+			$(".mark_selection .mark-frm-counter").removeClass("error");
+		}
+	});
+	$(document).on("keyup",".article-bar__input-box .article-bar__title--input",function(){
+		var len =$(this).val().length;
+		if(len<5){
+			$(this).parent().find(".article-bar__number.default").hide();
+			$(this).parent().find(".article-bar__number.tip").text("还需要输入"+(5-len)+"个字").show();
+		}else{
+			$(this).parent().find(".article-bar__number.tip").hide();
+			if(len>100){
+				$(this).next().find("span").addClass("error");	
+			}
+			$(this).next().find("span").text(len);
+			$(this).parent().find(".article-bar__number.default").show();
+		}
+		
+	});
 	//发布文章
 	$(".modal__button-bar .pulish-article-btn").click(function(){
 		console.log("click");

@@ -3,9 +3,9 @@ package com.itour.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -26,6 +26,11 @@ import com.itour.persist.LabelMapper;
  */
 @Service
 public class LabelService extends ServiceImpl<LabelMapper, Label> {
+	/**
+	 * 列表查询
+	 * @param requestMessage
+	 * @return
+	 */
 public ResponseMessage queryLabelList(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {
@@ -33,6 +38,8 @@ public ResponseMessage queryLabelList(RequestMessage requestMessage) {
 		Label vo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(Label.class);
 		JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 		QueryWrapper queryWrapper = new QueryWrapper<Label>();
+		queryWrapper.eq(StringUtils.isEmpty(vo.getUid()),"UID", vo.getUid());
+		queryWrapper.orderByDesc("CREATEDATE");
 		if(pageVo!=null) {	
 			PageInfo page = pageVo.toJavaObject(PageInfo.class);
 			IPage selectPage = this.baseMapper.selectPage(page, queryWrapper );

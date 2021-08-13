@@ -1,0 +1,161 @@
+@layout("/layout/template-log.html",{title:'爱旅行-搜索'}){
+<script type="text/javascript" src="${ctxPath}/js/travel/search.js" ></script>
+		<div class="itour-main" >
+			<div class="searchTabs searchTab-bottomShadow">
+				<div class="searchTabs-inner">
+					<div class="searchTabs-actions">
+						<ul class="tabs">									
+							<li class="tabs-item tabs-item--noMeta">
+								<a href="#" class="tabs-link is-active">综合</a>
+							</li>
+							<li class="tabs-item tabs-item--noMeta" type="1">
+								<a href="#" class="tabs-link">旅行攻略</a>
+							</li>
+							<li class="tabs-item tabs-item--noMeta" type="2">
+								<a href="#" class="tabs-link">周末攻略</a>
+							</li>
+							<!-- <li class="tabs-item tabs-item--noMeta">
+								<a href="#" class="tabs-link">旅行专栏</a>
+							</li> -->									
+							
+							
+						</ul>
+					</div>
+				</div>
+		   </div>
+		    <div class="search-container">
+				<div class="searchMain">
+					<div>
+					    <input type="hidden" class="searchInput" value="${search!}">
+		     			<input type="hidden" class="pages" value="${page.ps!}">
+						<div class="listShortcut">
+							<div class="list">
+								<div class="searchResultList">
+								 <div class="card searchResult-Card">
+								@#ajax searchcontent:{									 
+									@for(c in tList!){
+										<div class="list-item">
+											<div class="ContentItem AnswerItem">
+												<div class="contentItem-title">
+												<a href="${ctxPath}/travel/detail?id=${c.id}" target="_blank">${c.title}</a>
+												</div>
+												<div class="richContent Highlight is-collapsed">
+												    <a href="${ctxPath}/travel/detail?id=${c.id}" target="_blank">
+														<div class="richContent-cover">
+		    							    					<div class="richContent-cover-inner">
+		    							    						<img src="${c.url}" />
+		    							    					</div>
+		    							    				</div>
+														<div class="richContent-inner">
+														<span class="richText ztext copyrightRichText-richText">
+															${c.nickname}： ${c.summary}
+														</span>
+														<button type="button" class="button contentItem-more button--plain">阅读全文</button>
+													</div>
+												    </a>
+													<div class="contentItem-actions">
+														<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--thumb button-zi" fill="currentColor" viewBox="0 0 1024 1024"width="1.2em" height="1.2em"><path d="M724.928 976.384H339.712a143.04 143.04 0 0 1-141.888-131.008L165.76 444.544a141.44 141.44 0 0 1 33.536-103.616 141.696 141.696 0 0 1 108.288-50.048h39.296c129.856 0 164.16-107.392 164.16-164.224C511.04 63.552 560.832 16 626.944 16c44.992 0 87.296 22.4 113.152 59.904 29.76 43.072 48.576 120.896 20.992 214.976h88.256a142.528 142.528 0 0 1 140.544 164.992l-54.656 341.056a211.968 211.968 0 0 1-210.304 179.456z m-417.28-589.504c-16 1.152-27.264 6.848-35.264 16.32a46.208 46.208 0 0 0-10.944 33.728l32.064 400.832c1.92 23.872 22.208 42.624 46.208 42.624h385.216a116.48 116.48 0 0 0 115.584-98.56l54.656-341.312a46.4 46.4 0 0 0-45.76-53.632h-159.168a48.128 48.128 0 0 1-42.752-69.952c48.064-93.44 29.952-162.88 13.632-186.56a41.92 41.92 0 0 0-34.112-18.368c-13.184 0-19.904 4.928-19.904 14.656C607.104 256 517.76 386.88 346.944 386.88h-39.296zM111.104 976.384a48.064 48.064 0 0 1-47.808-44.16l-47.168-589.44a48 48 0 0 1 44.032-51.712 48.512 48.512 0 0 1 51.648 44.032l47.168 589.44a48.064 48.064 0 0 1-44.032 51.712l-3.84 0.128z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															${c.niceCount>0?c.niceCount:''}&nbsp;赞
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg class="zi zi--eye button-zi" fill="currentColor"viewBox="0 0 1433 1024"  width="1.4em" height="1.4em"><path d="M720.69629629 932.6176963c-213.05768889 0-407.36918519-120.58848889-582.93448888-361.67534074-23.88337036-32.71571111-23.88337036-85.169 0-117.88471112C313.32711111 211.97079259 507.63860741 91.3823037 720.69629629 91.3823037s407.36918519 120.58848889 582.9344889 361.67534074c23.88337036 32.71571111 23.88337036 85.169 0 117.88471112C1128.06548147 812.02920741 933.75398519 932.6176963 720.69629629 932.6176963z m0-721.00740741C542.51734074 211.61028889 377.85727408 309.39691852 222.48017777 512 377.85727408 714.60308148 542.4272148 812.38971111 720.69629629 812.38971111c178.17895556 0 342.83902223-97.78662964 498.21611851-300.38971111C1063.53531852 309.39691852 898.96537777 211.61028889 720.69629629 211.61028889z m0 495.69259259a195.30288148 195.30288148 0 1 1 0-390.60576296 195.30288148 195.30288148 0 0 1 0 390.60576296zM720.69629629 602.12592592a90.12592592 90.12592592 0 1 0 0-180.25185184 90.12592592 90.12592592 0 0 0 0 180.25185184z" fill-rule="evenodd"></path></svg>
+	    															</span>
+	    															${c.readCount>0?c.readCount:''}&nbsp;阅读
+	    														</button>
+	    														<button class="button contentItem-action button--plain button--withIcon button--withLabel">
+	    															<span style="display: inline-flex; align-items: center;">​
+	    																<svg t="1568705456499" class="zi zi--comment button-zi" fill="currentColor" viewBox="0 0 1088 1024" width="1.2em" height="1.2em"><path d="M384 446.656a64.064 64.064 0 0 1-96.32 56.512A64 64 0 1 1 384 446.656zM576 448a64 64 0 1 1-128 0 64 64 0 0 1 128 0z m192 0a64 64 0 1 1-128 0 64 64 0 0 1 128 0z" fill="" p-id="16737"></path><path d="M217.28 1008a99.392 99.392 0 0 1-99.072-99.072v-107.2A300.352 300.352 0 0 1 16 574.656V319.36A303.744 303.744 0 0 1 319.36 16h408.512a303.68 303.68 0 0 1 303.36 303.36v255.36a303.68 303.68 0 0 1-303.36 303.36H429.184L275.2 989.248a98.368 98.368 0 0 1-57.92 18.752z m102.08-896a207.552 207.552 0 0 0-207.36 207.36v255.36c0 65.856 30.272 126.336 82.944 165.952 12.096 9.088 19.2 23.232 19.2 38.4l3.072 132.992a2.88 2.88 0 0 0 1.728-0.576l166.592-120.32a48 48 0 0 1 28.096-9.088h314.24a207.552 207.552 0 0 0 207.36-207.36V319.36a207.552 207.552 0 0 0-207.36-207.36H319.36z" fill="" p-id="16738"></path></svg>
+	    															</span>
+	    															${c.commentCount>0?c.commentCount:''}&nbsp;评论
+	    														</button>
+	    													</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									@}
+								@}
+									  </div>
+									<!-- <div class="card searchResult-Card">
+										<div class="list-item">
+											<div class="contentItem">
+												<div class="contentItem-main">
+													<div class="contentItem-image">
+														<div class="searchItem-avatarWrapper">
+															<a href="#" class="columnLink">
+																<img class="avatar" src="../img/itour/common/col-avatar.jpg" width="60" height="60" />
+															</a>
+														</div>
+													</div>
+													<div class="contentItem-head">
+														<h2 class="contentItem-title">上海旅行</h2>
+														<div class="contentItem-meta">
+															<div class="contentItem-status">
+																<span class="search-statusLink">创建者：
+																 <a href="#">旅游的乐乐君</a>
+																</span>
+																<span class="bull"> · </span>
+																<a href="#" class="search-statusLink" target="_blank">29 关注</a>
+																<span class="bull"> · </span>
+																<a href="#" class="search-statusLink" target="_blank">5 文章</a>
+															</div>
+														</div>
+													</div>
+												    <div class="contentItem-extra">
+												    	<button type="button" class="button followButton button--primary button--blue">关注专栏</button>
+												    </div>
+												</div>
+											</div>
+										</div>
+									</div>-->
+									@if(tList.~size<=0){
+									<div class="card searchNoContent-wrapper">
+									   <div class="searchNoContent-content">
+									   	  <svg width="150" height="120" viewBox="0 0 150 120" fill="currentColor"><g fill="none" fill-rule="evenodd"><path fill="#EBEEF5" d="M107.221 83.6l8.886 8.885a1.5 1.5 0 0 1-2.122 2.122l-8.924-8.925A18.922 18.922 0 0 1 93 90c-10.493 0-19-8.507-19-19s8.507-19 19-19 19 8.507 19 19c0 4.834-1.805 9.247-4.779 12.6zM70 89.085a1.5 1.5 0 0 1 0 2.83V92H46.003A6.003 6.003 0 0 1 40 85.995v-55.99A6.005 6.005 0 0 1 46.003 24h53.994A6.003 6.003 0 0 1 106 30.005V48h-.085a1.5 1.5 0 0 1-2.83 0H103V30.005A3.003 3.003 0 0 0 99.997 27H46.003A3.005 3.005 0 0 0 43 30.005v55.99A3.003 3.003 0 0 0 46.003 89H70v.085zM93 87c8.837 0 16-7.163 16-16s-7.163-16-16-16-16 7.163-16 16 7.163 16 16 16z" fill-rule="nonzero"></path><path fill="#F7F8FA" d="M49 39.5c0-.828.677-1.5 1.495-1.5h39.01c.826 0 1.495.666 1.495 1.5 0 .828-.677 1.5-1.495 1.5h-39.01A1.494 1.494 0 0 1 49 39.5zm0 9c0-.828.667-1.5 1.501-1.5H71.5c.829 0 1.501.666 1.501 1.5 0 .828-.667 1.5-1.501 1.5H50.5C49.672 50 49 49.334 49 48.5zm0 9c0-.828.675-1.5 1.498-1.5h11.004c.827 0 1.498.666 1.498 1.5 0 .828-.675 1.5-1.498 1.5H50.498A1.495 1.495 0 0 1 49 57.5z"></path></g></svg>
+									   	  <div class="searchNoContent-description">暂无搜索结果</div>
+									   </div>
+									</div>
+									@} 
+								    <div class="text-center load-more" style="display: none">
+	    							    	<ul class="pager">
+	    							    		<li id="btn-load-more">
+	    							    			点击载入更多
+	    							    		</li>
+	    							    		<li id="btn-loading" class="hidden">
+	    							    			<a href="#">
+	    							    			<i class="fa fa-spinner fa-spin"></i> 载入中
+	    							    			</a>
+	    							    		</li>
+	    							    	</ul>
+	    							    </div>
+	    							    <div class="text-center nothing" style="display: none">
+		    							    <span style="display: inline-flex; align-items: center;">​
+		    							    	<svg width="18" height="2" viewBox="0 0 18 2" fill="none" style="margin-right: 16px;"><circle cx="17" cy="1" r="1" fill="#BEBEBE"></circle><rect width="13" height="1" y=".5" fill="url(#paint0_linear)" rx=".5"></rect><defs><linearGradient id="paint0_linear" x1="13" x2="0" y1="1" y2="1" gradientUnits="userSpaceOnUse"><stop stop-color="#BEBEBE"></stop><stop offset="1" stop-color="#BEBEBE" stop-opacity="0"></stop></linearGradient></defs></svg>
+		    							    </span>
+		    							    	没有更多了
+		    							    <span style="display: inline-flex; align-items: center;">​
+		    							    	<svg width="18" height="2" viewBox="0 0 18 2" fill="none" style="margin-left: 16px; transform: rotate(180deg);"><circle cx="17" cy="1" r="1" fill="#BEBEBE"></circle><rect width="13" height="1" y=".5" fill="url(#paint0_linear)" rx=".5"></rect><defs><linearGradient id="paint0_linear" x1="13" x2="0" y1="1" y2="1" gradientUnits="userSpaceOnUse"><stop stop-color="#BEBEBE"></stop><stop offset="1" stop-color="#BEBEBE" stop-opacity="0"></stop></linearGradient></defs></svg>
+		    							    </span>
+	    							  </div>
+	    							 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="searchSideBar">
+					 @include("../layout/public/wechat-follow.html"){}
+				</div>
+			</div>
+			
+		</div>
+	
+	    <div id="fixedTools" class="hidden-xs hidden-sm">
+              <a id="backtop" class="border-bottom" href="#">回顶部</a>
+        </div>
+@}

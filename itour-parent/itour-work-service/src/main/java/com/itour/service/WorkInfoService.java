@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.persist.InfoColumnMapper;
 import com.itour.persist.InfoLabelMapper;
 import com.itour.persist.LabelMapper;
+import com.itour.persist.WorkColumnMapper;
 import com.itour.persist.WorkInfoMapper;
 import com.itour.persist.WorktextMapper;
 import com.itour.util.DateUtil;
@@ -61,6 +63,8 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 	LabelService labelService;
 	@Autowired
 	WorkColumnService workColumnService;
+	@Autowired
+	WorkColumnMapper workColumnMapper;
 	
 	/**
 	 * 前台使用
@@ -195,8 +199,18 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			//获取参数
 			RequestBody body = requestMessage.getBody();
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			JSONArray tagArr = jsonObject.getJSONArray("tag_arr");
+			JSONArray tagArr = jsonObject.getJSONArray("tag_arr");			
 			JSONArray colArr = jsonObject.getJSONArray("col_arr");
+			LinkedHashSet<String> hs_col = new LinkedHashSet<String>();
+			LinkedHashSet<String> hs_tag = new LinkedHashSet<String>();
+			for (Object object : colArr) {
+				hs_col.add(String.valueOf(object));
+			}
+			for (Object object : tagArr) {
+				hs_tag.add(String.valueOf(object));
+			}
+			
+			
 			String function = jsonObject.getString(Constant.COMMOM_FUNCTION);
 			//1.插入工作日志表
 			WorkInfo workInfo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
@@ -238,19 +252,44 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 					this.worktextMapper.updateById(selectOne);
 				}
 		     //3.插入标签表
-				List<Label> labelList = tagArr.toJavaList(Label.class);
-				if(labelList.size()>0) {
-					labelService.saveOrUpdateBatch(labelList, labelList.size());
+				if(tagArr.size()>0) {
+					//1.组装数据
+					List<Label> lList = new ArrayList<Label>();
+					for (Object object : tagArr) {
+						Label label = new Label();
+						label.setTag(String.valueOf(object));
+						label.setUid(body.getuId());
+						label.setCreatedate(DateUtil.currentLongDate());
+						lList.add(label);
+					}
+					QueryWrapper<Label> queryWrapper = new QueryWrapper<Label>();
+					queryWrapper.in("TAG", hs_tag);
+					queryWrapper.eq("UID",body.getuId());
+					//2.查询是否已经存在该标签
+					List<Label> labelList = this.labelMapper.selectList(queryWrapper );
+				    //3.如果已经存在组装id
+					for (Label label : labelList) {
+						for (Label label2 : lList) {
+							if(label.getTag().equals(label2.getTag())) {
+								label2.setId(label.getId());
+							}
+						}
+					}
+					labelService.saveOrUpdateBatch(lList, lList.size());
+					
 				}
 				
-			//4.插入标签中间表	
-			   //4.1删除该文章的中间关系
-			QueryWrapper<InfoLabel> wrapper = new QueryWrapper<InfoLabel>();
-			wrapper.eq("WID", workInfo.getId());
-			this.infoLabelMapper.delete(wrapper);
-			   //4.2将该文章和标签关系批量插入中间表
+			//4.插入标签中间表				  
+		     if(null!=workInfo.getId()) {
+		    	 //4.1删除该文章的中间关系
+		    	 QueryWrapper<InfoLabel> wrapper = new QueryWrapper<InfoLabel>();
+					wrapper.eq("WID", workInfo.getId());
+					this.infoLabelMapper.delete(wrapper);
+		     }			
+			//4.2将该文章和标签关系批量插入中间表
 			List<InfoLabel> tagList = new ArrayList<InfoLabel>(); 
 			if(tagArr.size()>0) {
+				//4.3检查该标签
 				QueryWrapper<Label> queryWrapper = new QueryWrapper<Label>();
 				queryWrapper.in("TAG", tagArr);
 				queryWrapper.eq("UID", body.getuId());
@@ -268,10 +307,34 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				infoLabelService.saveBatch(tagList, tagList.size());
 			}
 			 //5.插入分类专栏表
-			List<WorkColumn> columnList = colArr.toJavaList(WorkColumn.class);
-			if(columnList.size()>0) {
-				workColumnService.saveOrUpdateBatch(columnList, columnList.size());
+			if(colArr.size()>0) {
+				//1.组装数据
+				List<WorkColumn> cList = new ArrayList<WorkColumn>();
+				for (Object object : tagArr) {
+					WorkColumn col = new WorkColumn();
+					col.setColumn(String.valueOf(object));
+					col.setUid(body.getuId());
+					col.setCreatedate(DateUtil.currentLongDate());
+					cList.add(col);
+				}
+				QueryWrapper<WorkColumn> queryWrapper = new QueryWrapper<WorkColumn>();
+				queryWrapper.in("`COLUMN`", hs_col);
+				queryWrapper.eq("UID",body.getuId());
+				//2.查询是否已经存在该标签
+				List<WorkColumn> columnList = this.workColumnMapper.selectList(queryWrapper );
+			    //3.如果已经存在组装id
+				for (WorkColumn col : columnList) {
+					for (WorkColumn col2 : cList) {
+						if(col.getColumn().equals(col2.getColumn())) {
+							col2.setId(col.getId());
+						}
+					}
+				}
+				workColumnService.saveOrUpdateBatch(cList, cList.size());
+				
 			}
+			
+			
 			//6.插入分类专栏表中间表
 			 //6.1 删除该文章下的中间表关系
 			QueryWrapper<InfoColumn> ew = new QueryWrapper<InfoColumn>();
@@ -280,12 +343,12 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			//6.2将分类专栏插入中间表
 			List<InfoColumn> colList = new ArrayList<InfoColumn>();
 			if(colArr.size()>0) {
-				QueryWrapper<InfoColumn> qw = new QueryWrapper<InfoColumn>();
+				QueryWrapper<WorkColumn> qw = new QueryWrapper<WorkColumn>();
 				qw.in("`COLUMN`", colArr);
 				qw.eq("UID",body.getuId());
-				List<InfoColumn> selectColList = this.infoColumnMapper.selectList(qw);
+				List<WorkColumn> selectColList = this.workColumnMapper.selectList(qw);
 				
-				for (InfoColumn c : selectColList) {
+				for (WorkColumn c : selectColList) {
 					InfoColumn col = new InfoColumn();	
 					col.setWid(workInfo.getId());
 					col.setCid(c.getId());

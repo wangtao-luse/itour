@@ -27,7 +27,7 @@ public class WorkColumn extends Model<WorkColumn> {
     /**
      * 专栏名称
      */
-    @TableField("COLUMN")
+    @TableField("`COLUMN`")
     private String column;
 
     /**

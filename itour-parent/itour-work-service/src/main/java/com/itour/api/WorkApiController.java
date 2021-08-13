@@ -21,7 +21,7 @@ public class WorkApiController implements WorkApi {
 	 * 日志标签列表查询
 	 */
 	@Override
-	public ResponseMessage queryLabelList(RequestMessage requestMessage) {
+	public ResponseMessage queryLabelList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return labelService.queryLabelList(requestMessage);
 	}
@@ -29,7 +29,7 @@ public class WorkApiController implements WorkApi {
     * 日志分类专栏查询
     */
 	@Override
-	public ResponseMessage queryColumnList(RequestMessage requestMessage) {
+	public ResponseMessage queryColumnList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return workColumnService.queryColumnList(requestMessage);
 	}
