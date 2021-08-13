@@ -137,3 +137,11 @@ SELECT 	c.ID,	c.`STATUS`,	d.WEEK_CONTENT FROM 	T_T_TRAVEL_INFO c,t_t_week_info d
 CREATE OR REPLACE VIEW view_travel_column AS
 SELECT c.ID,c.`COLUMN`,c.UID,c.CREATEDATE,d.TID FROM t_t_travel_column c,t_t_travelinfo_column d
  where c.ID=d.CID;  
+ 
+ 
+#工作日志模块---------------------------------------------------------------
+#工作日志审核视图
+CREATE OR REPLACE VIEW view_workInfo_worktext AS
+SELECT 	c.ID,	c.`STATUS`,	d.WCONTENT FROM 	t_w_work_info c,t_w_worktext d	WHERE c.ID = d.wid  AND c.`STATUS`='20';
+ 
+ 

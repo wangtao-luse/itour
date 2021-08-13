@@ -40,12 +40,12 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否为视图
   			  */
-  			 boolean isView =false;//视图
+  			 boolean isView =true;//视图
   			 /**
   			  * 需要生成的表名
   			  */
   			 String [] include= new String[] {
-  					 "t_w_info_label"
+  					 "view_workInfo_worktext"
   			           		 
   			 };
   			 /**

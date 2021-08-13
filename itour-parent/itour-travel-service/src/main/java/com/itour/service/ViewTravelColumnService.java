@@ -3,7 +3,7 @@ package com.itour.service;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.entity.PageInfo;
+import com.itour.entity.PageInfo1;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.persist.ViewTravelColumnMapper;
@@ -37,7 +37,7 @@ public ResponseMessage queryViewTravelColumnList(RequestMessage requestMessage) 
 		QueryWrapper queryWrapper = new QueryWrapper<ViewTravelColumn>();
 		queryWrapper.eq(!StringUtils.isEmpty(vo.getTid()), "TID", vo.getTid());
 		if(!StringUtils.isEmpty(pageVo)) {
-			PageInfo page = pageVo.toJavaObject(PageInfo.class);			
+			PageInfo1 page = pageVo.toJavaObject(PageInfo1.class);			
 			this.baseMapper.selectPage(page, queryWrapper );
 			responseMessage.setReturnResult(page);
 		}else {

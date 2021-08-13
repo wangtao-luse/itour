@@ -28,7 +28,7 @@ public interface WorkInfoMapper extends BaseMapper<WorkInfo> {
 List<WorkInfoDto> selectWorkInfoList(Page page,@Param("vo")WorkInfoDto workInfoDto);
 List<WorkInfoDto> selectWorkInfoList(@Param("vo")WorkInfoDto workInfoDto);
 /**
- * 个人博客单条(前台详情页面使用)
+ * 个人博客单条(前台详情页面使用用户信息(图像，昵称))
  * @param workInfoDto
  * @return
  */

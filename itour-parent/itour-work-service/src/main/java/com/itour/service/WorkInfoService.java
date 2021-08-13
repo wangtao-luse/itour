@@ -21,6 +21,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.exception.BaseException;
+import com.itour.model.travel.TravelInfo;
 import com.itour.model.vo.PageInfo;
 import com.itour.model.work.InfoColumn;
 import com.itour.model.work.InfoLabel;
@@ -67,7 +68,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 	WorkColumnMapper workColumnMapper;
 	
 	/**
-	 * 前台使用
+	 * 前台使用（包含了用户图像，昵称等信息）
 	 * @param requestMessage
 	 * @return
 	 */
@@ -93,6 +94,32 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		}
 		return responseMessage;
 	}
+	/**
+	 *   查询工作日志单条
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage selectWorkInfoOne(RequestMessage requestMessage) {
+		   ResponseMessage responseMessage = ResponseMessage.getSucess();
+		   try {
+			   JSONObject jsonObject = requestMessage.getBody().getContent();
+			   WorkInfo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
+			   QueryWrapper<WorkInfo> queryWrapper = new QueryWrapper<WorkInfo>();
+			   queryWrapper.eq(null!=vo.getId(), "ID", vo.getId());
+			   WorkInfo selectTraveInfo = this.baseMapper.selectOne(queryWrapper );
+			   responseMessage.setReturnResult(selectTraveInfo);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		   return responseMessage;
+	   }
+	/**
+	 * 工作日志单条查询(保护用户昵称，图像等信息)
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage selectWorkInfo(RequestMessage requestMessage) {
 		   ResponseMessage responseMessage = ResponseMessage.getSucess();
 		   try {
@@ -107,6 +134,11 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		}
 		   return responseMessage;
 	   }
+	/**
+	 * 工作日志查询
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage searchTextList(RequestMessage requestMessage) {
 		ResponseMessage response = ResponseMessage.getSucess();
 		try {
@@ -223,6 +255,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				if(StringUtils.isEmpty(selectOne)) {
 					throw new BaseException(ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
 				}
+				
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
 					workInfo.setUpdatetime(DateUtil.currentLongDate());
@@ -231,6 +264,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				}
 				
 			}else {
+				workInfo.setUid(body.getuId());
 				workInfo.setPublishtime(DateUtil.currentLongDate());	
 				workInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 			}
@@ -365,6 +399,27 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			e.printStackTrace();
 			throw new BaseException(e.getMessage());
 		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 批量修改旅行信息
+	 * @param requestMessage
+	 * @return
+	 */
+	@Transactional
+	public ResponseMessage updateWorkInfoBatch(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			List<WorkInfo> workinfo = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(WorkInfo.class);
+			if(workinfo.size()>0) {
+				this.updateBatchById(workinfo, workinfo.size());
+			}
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);

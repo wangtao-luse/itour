@@ -14,6 +14,7 @@ public class ArticleCheck extends QuartzJobBean {
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		// TODO Auto-generated method stub
 		articleCheckService.checkTravel();
+		articleCheckService.checkWorkInfo();
 		
 	}
 	

@@ -3,7 +3,7 @@ package com.itour.service;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.entity.PageInfo;
+import com.itour.entity.PageInfo1;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.CommentReply;
 import com.itour.persist.CommentReplyMapper;
@@ -44,8 +44,8 @@ public class CommentReplyService extends ServiceImpl<CommentReplyMapper, Comment
 			QueryWrapper<CommentReply> queryWrapper = new QueryWrapper<CommentReply>();
 			queryWrapper.eq(!StringUtils.isEmpty(travelComment.getStatus()), "STATUS", travelComment.getStatus());
 			if(!StringUtils.isEmpty(pageVo)) {
-				PageInfo page = pageVo.toJavaObject(PageInfo.class);
-				PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
+				PageInfo1 page = pageVo.toJavaObject(PageInfo1.class);
+				PageInfo1 selectPage = this.baseMapper.selectPage(page, queryWrapper);
 				responseMessage.setReturnResult(selectPage);
 			}else {
 				List<CommentReply> selectList = this.baseMapper.selectList(queryWrapper);

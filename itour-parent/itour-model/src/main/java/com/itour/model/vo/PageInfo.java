@@ -1,5 +1,7 @@
 package com.itour.model.vo;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -76,5 +78,10 @@ public class PageInfo<T> extends Page<T> {
 	        }
 	        this.navigatepageNums= navs;
 	    }
-
+		 public List<T> getRecords() {
+			 List<T> records = super.getRecords();
+			  this.getPs();
+			  this.pageNav();
+		        return records;
+		    }
 }

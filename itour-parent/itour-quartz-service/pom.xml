@@ -57,6 +57,11 @@
 		<artifactId>itour-travel-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-work-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>  <build>
     <finalName>${project.artifactId}</finalName> 
     <plugins>

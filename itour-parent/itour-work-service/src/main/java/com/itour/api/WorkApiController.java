@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.LabelService;
+import com.itour.service.ViewWorkinfoWorktextService;
 import com.itour.service.WorkColumnService;
 import com.itour.service.WorkInfoService;
 @RestController
@@ -17,6 +18,8 @@ public class WorkApiController implements WorkApi {
 	LabelService labelService;
 	@Autowired
 	WorkColumnService workColumnService;
+	@Autowired
+	ViewWorkinfoWorktextService viewWorkinfoWorktextService;
 	/**
 	 * 日志标签列表查询
 	 */
@@ -41,10 +44,25 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.saveOrUpdateWorkInfo(requestMessage);
 	}
-
-	
-	
-	
+    /**
+            *工作日志查询单条
+     */
+	@Override
+	public ResponseMessage selectWorkInfoOne(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workInfoService.selectWorkInfoOne(requestMessage);
+	}
+	@Override
+	public ResponseMessage queryViewWorkInfoList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return viewWorkinfoWorktextService.queryViewWorkInfoList(requestMessage);
+	}
+	//批量修改工作日志
+	@Override
+	public ResponseMessage updateWorkInfoBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workInfoService.updateWorkInfoBatch(requestMessage);
+	}
 	
 	
 	
@@ -100,6 +118,9 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+	
+	
+	
 
 	
 

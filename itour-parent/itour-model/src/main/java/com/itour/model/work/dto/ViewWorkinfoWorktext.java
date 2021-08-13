@@ -1,4 +1,4 @@
-package com.itour.model.travel.dto;
+package com.itour.model.work.dto;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -10,27 +10,30 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2021-05-02
+ * @since 2021-08-13
  */
-@TableName("view_travelinfo_weekinfo")
-public class ViewTravelinfoWeekinfo extends Model<ViewTravelinfoWeekinfo> {
+@TableName("view_workInfo_worktext")
+public class ViewWorkinfoWorktext extends Model<ViewWorkinfoWorktext> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 编号(主键)
+     * 编号
      */
     @TableField("ID")
     private Long id;
 
+    /**
+     * 状态(10：草稿；20：待审核;30:审核通过；40：审核不通过；50：已删除)
+     */
     @TableField("STATUS")
     private String status;
 
     /**
-     * 周末攻略文章内容
+     * 工作博客文本
      */
-    @TableField("WEEK_CONTENT")
-    private String weekContent;
+    @TableField("WCONTENT")
+    private String wcontent;
 
     public Long getId() {
         return id;
@@ -48,12 +51,12 @@ public class ViewTravelinfoWeekinfo extends Model<ViewTravelinfoWeekinfo> {
         this.status = status;
     }
 
-    public String getWeekContent() {
-        return weekContent;
+    public String getWcontent() {
+        return wcontent;
     }
 
-    public void setWeekContent(String weekContent) {
-        this.weekContent = weekContent;
+    public void setWcontent(String wcontent) {
+        this.wcontent = wcontent;
     }
 
     @Override
@@ -63,10 +66,10 @@ public class ViewTravelinfoWeekinfo extends Model<ViewTravelinfoWeekinfo> {
 
     @Override
     public String toString() {
-        return "ViewTravelinfoWeekinfo{" +
+        return "ViewWorkinfoWorktext{" +
         ", id=" + id +
         ", status=" + status +
-        ", weekContent=" + weekContent +
+        ", wcontent=" + wcontent +
         "}";
     }
 }

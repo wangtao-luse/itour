@@ -31,18 +31,51 @@ public interface WorkApi {
 	 */
 	@RequestMapping(value = "work/savaOrUpdateWorkInfo",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage savaOrUpdateWorkInfo(RequestMessage requestMessage);		
-	
-	
-	
-	
-	
+	/***
+	 *  工作日志
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/selectWorkInfoOne",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage selectWorkInfoOne(RequestMessage requestMessage);		
 	/**
-	 * 个人博客列表(前台使用)
+	 * 个人博客列表(前台使用包含用户图像，昵称等信息)
 	 * @param requestMessage
 	 * @return
 	 */
 	@RequestMapping(value = "work/selectWorkInfoList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage selectWorkInfoList(RequestMessage requestMessage);	
+	
+	/**
+	 * 工作日志审核列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/queryViewWorkInfoList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryViewWorkInfoList(RequestMessage requestMessage);	
+	
+	/**
+	 * 工作日志修改(审核修改状态)
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/updateWorkInfoBatch",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage updateWorkInfoBatch(RequestMessage requestMessage);	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 个人博客单条(前台使用)
 	 * @param requestMessage
@@ -50,6 +83,18 @@ public interface WorkApi {
 	 */
 	@RequestMapping(value = "work/selectWorkInfo",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage selectWorkInfo(RequestMessage requestMessage);	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 个人博客搜索页列表
 	 * @param requestMessage

@@ -45,4 +45,43 @@ public ResponseMessage savaOrUpdateWorkInfo(JSONObject jsonObject,HttpServletReq
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.savaOrUpdateWorkInfo(requestMessage);
 }
+/**
+ * 工作日志查询单条
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage selectWorkInfoOne(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.selectWorkInfoOne(requestMessage);
+}
+/**
+ * 个人博客列表(前台使用包含用户图像，昵称等信息)
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage selectWorkInfoList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.selectWorkInfoList(requestMessage);
+}
+
+
+
+
+
+
+
+
+
+/**
+ * 个人博客单条(前台（详情）使用带用户信息(图像，昵称))
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage selectWorkInfo(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.selectWorkInfo(requestMessage);
+}
 }

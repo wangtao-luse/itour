@@ -9,7 +9,7 @@
 	    						<div class="topstory-recommend">
 	    							<div>
 	    							  @#ajax content:{
-	    							     @for(t in travel!){
+	    							     @for(t in workInfo!){
 			    								<div class="card topstoryItem topstoryItem-isRecommend">
 			    							    	<div class="feed">
 			    							    		<div class="contentItem answerItem">
@@ -159,7 +159,7 @@
 	    							    </div>
 	    							    
 	    							</div>
-	    							@if(travel.~size>10){
+	    							@if(workInfo.~size>10){
 	    							<div class="text-center">
     							    	<ul class="pager">
     							    		<li id="btn-load-more">
@@ -178,7 +178,7 @@
 	    				</div>
 	    			</div>
 	    			<div class="globalSideBar">
-			   	 	     @include("layout/public/wechat-follow.html"){}
+			   	 	     @include("../layout/public/wechat-follow.html"){}
 	    			</div>
 	    		</div>
 		    </div>

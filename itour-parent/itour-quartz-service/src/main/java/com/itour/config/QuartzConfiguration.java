@@ -8,13 +8,13 @@ import org.quartz.TriggerBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.itour.quartz.job.CommentCheckJob;
+import com.itour.quartz.job.ArticleCheck;
 
 @Configuration
 public class QuartzConfiguration {
 	   @Bean
 	    public JobDetail travelJobDetail(){
-	        JobDetail jobDetail = JobBuilder.newJob(CommentCheckJob.class).storeDurably().build();
+	        JobDetail jobDetail = JobBuilder.newJob(ArticleCheck.class).storeDurably().build();
 	        return jobDetail;
 	    }
 	    @Bean

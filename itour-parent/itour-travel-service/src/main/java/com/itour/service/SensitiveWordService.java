@@ -3,7 +3,7 @@ package com.itour.service;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.entity.PageInfo;
+import com.itour.entity.PageInfo1;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.SensitiveWord;
 import com.itour.persist.SensitiveWordMapper;
@@ -36,9 +36,9 @@ public  ResponseMessage querySensitiveWordList(RequestMessage requestMessage) {
 		JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 		QueryWrapper queryWrapper = new QueryWrapper<SensitiveWord>();
 		if(!StringUtils.isEmpty(pageVo)) {
-			PageInfo page = pageVo.toJavaObject(PageInfo.class);
+			PageInfo1 page = pageVo.toJavaObject(PageInfo1.class);
 			
-			PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
+			PageInfo1 selectPage = this.baseMapper.selectPage(page, queryWrapper);
 			responseMessage.setReturnResult(selectPage);
 		}else {
 			List selectList = this.baseMapper.selectList(queryWrapper);

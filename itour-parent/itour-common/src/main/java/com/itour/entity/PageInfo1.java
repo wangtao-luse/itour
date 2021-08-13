@@ -4,16 +4,16 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
-public class PageInfo<T> extends Page<T> {
+public class PageInfo1<T> extends Page<T> {
 
 	private static final long serialVersionUID = 1L;
 	private long[] navigatepageNums;
 	private long navSize = 5;
 	private long ps;
-	public PageInfo() {
+	public PageInfo1() {
 		super();
 	}
-	public PageInfo(long navSize, long ps) {
+	public PageInfo1(long navSize, long ps) {
 		super();
 		this.navSize = navSize;
 		this.ps = ps;
