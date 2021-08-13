@@ -39,7 +39,6 @@ public class ViewTravelinfoWeekinfoService extends ServiceImpl<ViewTravelinfoWee
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			QueryWrapper<ViewTravelinfoWeekinfo> queryWrapper = new QueryWrapper<ViewTravelinfoWeekinfo>();
 			queryWrapper.eq(!StringUtils.isEmpty(weekinfo.getStatus()), "STATUS", weekinfo.getStatus());
-			queryWrapper.orderByDesc("PUBLISHTIME");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
 				Page selectPage = this.baseMapper.selectPage(page, queryWrapper);

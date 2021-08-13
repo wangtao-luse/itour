@@ -9,30 +9,14 @@ $(function(){
 				
 			});
 	
-	/**
-	 * 保存草稿
-	 */		
-	$(".article-bar__user-box .btn-save").click(function(){
-		var title = $(".article-bar__input-box .article-bar__title").val();
-		var text = mdEditer.getMarkdown();
-		if($.isEmpty(title)){showTip("标题不能为空！");return;}
-		if($.isEmpty(text)){showTip("内容不能为空！");return;}
-		var url="/work/savaOrUpdateWorkInfo";
-		var tagArr=[];
-		var colArr=[];
-		var data={"vo":{
-			 			"title":title
-						},
-				   "markdown":text,
-				   "tag_arr":tagArr,
-				   "col_arr":colArr
-		};
-		postAjax(url,JSON.stringify(data),function(){
-			showTip("已保存为草稿！");
-		},{errorFunction:function(){}})
-	});
-	//发布文章
-	$(".pulish-article-btn").click(function(){
+
+	//发布文章,保存草稿
+	$(".pulish-article-btn,.article-bar__user-box .btn-save").click(function(){
+		var has = $(this).hasClass("pulish-article-btn");
+		var fun="10";
+		if(has){
+			fun="20";
+		}
 		var title = $(".article-bar__input-box .article-bar__title").val();
 		var text = mdEditer.getMarkdown();
 		var articleType = $("#articleType").val();
@@ -41,7 +25,7 @@ $(function(){
 		var summary = $("#js_description").val();
 		if($.isEmpty(title)){showTip("标题不能为空！");return;}
 		if($.isEmpty(text)){showTip("内容不能为空！");return;}
-		if($.isEmpty(articleType)){showTip("请选择文章类型！");return;}
+		if($.isEmpty(articleType)&&has){showTip("请选择文章类型！");return;}
 		var url="/work/savaOrUpdateWorkInfo";
 		var tagArr=[];
 		$(".mark_selection .el-tag").each(function(i,item){
@@ -62,10 +46,16 @@ $(function(){
 						},
 				   "markdown":text,
 				   "tag_arr":tagArr,
-				   "col_arr":colArr
+				   "col_arr":colArr,
+				   "function":fun
 		};
 		postAjax(url,JSON.stringify(data),function(){
-			showTip("发布成功！");
+			if(has){
+				showTip("发布成功！");
+			}else{
+				showTip("已保存为草稿！");
+			}
+			
 		},{errorFunction:function(){}})
 	});
 	$(".layou-panel .btn-publish").click(function(){

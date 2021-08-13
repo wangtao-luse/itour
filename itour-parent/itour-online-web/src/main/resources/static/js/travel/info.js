@@ -24,7 +24,9 @@ var mdEditer;
 			var len =mdEditer.getMarkdown().length;
 			$("#bottom_main .fold_tips_value").text(len);
 		});
-	//保存草稿,预览，保存
+		
+		
+	//保存草稿,预览，保存		
 	$("#js_send,#js_submit,#js_preview").click(function(){
 		var $this = $(this);
 		var text = mdEditer.getMarkdown();
@@ -66,6 +68,13 @@ var mdEditer;
 	    	},5000);
         	
 		}
+		var btn = $(this).attr("id");
+		var fun="";
+		if(btn=="js_submit"){
+			fun="20";
+		}else if(btn=="js_send"){
+			fun="10";
+		}
 	    var data= {
 	    		"vo":{
 	    			"id":tid,
@@ -78,7 +87,8 @@ var mdEditer;
 	    		"markdown":text,
 	    		"tag_arr":tag_arr,
 	    		"col_arr":col_arr,
-	    		"preview":preview
+	    		"preview":preview,
+	    		"function":fun
 	    		
 	    };
 	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.api.TravelApi;
@@ -19,7 +20,7 @@ import com.itour.model.work.WorkInfo;
 import com.itour.model.work.dto.ViewWorkinfoWorktext;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
-
+@Service
 public class ArticleCheckService {
 	@Autowired
 	private TravelApi travelApi;
