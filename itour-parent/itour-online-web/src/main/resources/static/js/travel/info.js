@@ -27,7 +27,7 @@ var mdEditer;
 		
 		
 	//保存草稿,预览，保存		
-	$("#js_send,#js_submit,#js_preview").click(function(){
+	$("#js_send,#js_submit").click(function(){
 		var $this = $(this);
 		var text = mdEditer.getMarkdown();
 		var tid = $("#tid").val();
@@ -71,9 +71,9 @@ var mdEditer;
 		var btn = $(this).attr("id");
 		var fun="";
 		if(btn=="js_submit"){
-			fun="20";
+			fun="save";
 		}else if(btn=="js_send"){
-			fun="10";
+			fun="draft";
 		}
 	    var data= {
 	    		"vo":{
