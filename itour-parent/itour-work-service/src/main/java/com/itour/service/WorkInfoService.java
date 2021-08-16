@@ -265,7 +265,6 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				
 			}else {
 				workInfo.setUid(body.getuId());
-				workInfo.setPublishtime(DateUtil.currentLongDate());	
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
 					workInfo.setPublishtime(DateUtil.currentLongDate());

@@ -13,19 +13,23 @@ $(function(){
 	//发布文章,保存草稿
 	$(".pulish-article-btn,.article-bar__user-box .btn-save").click(function(){
 		var has = $(this).hasClass("pulish-article-btn");
-		var fun="10";
+		var fun="draft";
 		if(has){
-			fun="20";
+			fun="save";
 		}
+		var id = $("#article-value").val();
 		var title = $(".article-bar__input-box .article-bar__title").val();
 		var text = mdEditer.getMarkdown();
 		var articleType = $("#articleType").val();
 		var modality = $("input[name='modality']").val();
-		var url = $("#input-fileUpload-path").val();
+		var path = $("#input-fileUpload-path").val();
 		var summary = $("#js_description").val();
 		if($.isEmpty(title)){showTip("标题不能为空！");return;}
+		if(title.length<5){showTip("标题长度必须大于等于5！");return;}
 		if($.isEmpty(text)){showTip("内容不能为空！");return;}
+		if($.isEmpty(summary)&&has){showTip("请编写摘要！");return;}
 		if($.isEmpty(articleType)&&has){showTip("请选择文章类型！");return;}
+		
 		var url="/work/savaOrUpdateWorkInfo";
 		var tagArr=[];
 		$(".mark_selection .el-tag").each(function(i,item){
@@ -41,15 +45,17 @@ $(function(){
 			 			"title":title,
 			 			"modality":modality,
 			 			"articleType":articleType,
-			 			"url":url,
-			 			"summary":summary
+			 			"url":path,
+			 			"summary":summary,
+			 			 "id":id
 						},
 				   "markdown":text,
 				   "tag_arr":tagArr,
 				   "col_arr":colArr,
 				   "function":fun
 		};
-		postAjax(url,JSON.stringify(data),function(){
+		postAjax(url,JSON.stringify(data),function(data){
+			$("#article-value").val(data.returnResult.id);
 			if(has){
 				showTip("发布成功！");
 			}else{
