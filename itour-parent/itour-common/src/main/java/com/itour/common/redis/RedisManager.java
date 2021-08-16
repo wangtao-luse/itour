@@ -15,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 //https://www.jianshu.com/p/8e71737a1101
 @Component
 public class RedisManager {
+	public static final long MINUTE_10 =60 *10;
 	/**
 	* 注入自定义的RedisTemplate
 	* 注意:泛型的类型一定要一致,否则会注入失败
@@ -24,7 +25,6 @@ private RedisTemplate<String, Object> redisTemplate;
 
 	@Autowired
 private StringRedisTemplate  stringRedisTemplate;
-
 	/**
 	 * 1.Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
 	 * 2.redisTemplate.opsForValue();　　//操作字符串
@@ -32,6 +32,14 @@ private StringRedisTemplate  stringRedisTemplate;
 		 redisTemplate.opsForList();　　 //操作list
 		 redisTemplate.opsForSet();　　  //操作set
 		 redisTemplate.opsForZSet();　 　//操作有序set
+	   3.实际中的使用:
+	     string:
+	         a.适用于常规计数: 微博数, 粉丝数;
+	         b.如果是对象不建议使用string类型;
+	     hash:
+	         a.hash 特别适合用于存储对象;
+		 
+		 
 	 */
 	/**
 	 * 缓存放入 string（字符串)

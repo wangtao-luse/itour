@@ -2,12 +2,12 @@ package com.itour.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.RepaintManager;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +43,13 @@ import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
+import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
+import com.itour.util.StringHelper;
 
 @Controller
 @RequestMapping("/travel")
@@ -180,19 +182,24 @@ public ResponseMessage thumbUp(@RequestBody JSONObject jsonObject) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 return responseMessage;	
 }
-@RequestMapping("/pageview")
-@ResponseBody
-public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
-	ResponseMessage responseMessage = ResponseMessage.getSucess();
-	return responseMessage;	
-}
 
-
+/**
+ * 创作攻略页面
+ * @return
+ */
 @RequestMapping("/mdEdit")
 @RequiresPermissions("/travel/mdEdit")
 public String md() {
 	return "/travel/info/md";
 }
+/**
+ * 攻略详情页面
+ * @param id
+ * @param model
+ * @param page
+ * @param request
+ * @return
+ */
 @RequestMapping("/detail")
 public String detail(Long id,ModelMap model,Page page,HttpServletRequest request ) {
 		//1.独立IP访问数作为显示的浏览量（浏览量功能相关）
@@ -836,5 +843,38 @@ public ResponseMessage delFavortie(Long id, HttpServletRequest request) {
 	ResponseMessage updateFavorite = this.travelConnector.updateFavorite(jsonObject, request);
 	return updateFavorite;
 	
+}
+/**
+ * 攻略预览
+ * @param jsonObject
+ * @return
+ */
+@RequestMapping("/pageview")
+@ResponseBody
+public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	//将对象保存到redis中
+	String id = jsonObject.getString("id");
+	//如果编号为空key为uuid,否则key为攻略编号;
+	String key = StringHelper.getUuid();
+	if(!StringUtils.isEmpty(id)) {
+		key = id;
+	}
+	TravelInfoDto travelInfo = new TravelInfoDto();
+	HashMap<String, Object> m = new HashMap<String, Object>();
+	m.put(key, travelInfo);
+	redisManager.hmset(key, m, RedisManager.MINUTE_10);
+	responseMessage.add("key", key);
+	return responseMessage;	
+}
+//预览页面
+@RequestMapping("/pageViewP")
+public String pageViewP(String key,ModelMap model) {
+	Map<Object, Object> hget = this.redisManager.hget(key);
+   JSONObject objToJSONObject = FastJsonUtil.objToJSONObject(hget);
+   TravelInfoDto workinfo = objToJSONObject.toJavaObject(TravelInfoDto.class);
+   model.addAttribute("travelInfo", workinfo);
+   model.addAttribute("id", key);
+	return "/travel/info/pageview";
 }
 }

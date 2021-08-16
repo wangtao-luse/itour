@@ -307,22 +307,23 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			QueryWrapper<TravelTag> wrapper = new QueryWrapper<TravelTag>();
 			wrapper.eq("TID", travelInfo.getId());
 			this.travelTagMapper.delete(wrapper);
-			String join = String.join(",",tagArr.stream().map(String::valueOf).collect(Collectors.toList()));
-			QueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>();
-			queryWrapper.in("TAG", tagArr);
-			queryWrapper.eq("UID", body.getuId());
+			if(tagArr.size()>0) {
+				String join = String.join(",",tagArr.stream().map(String::valueOf).collect(Collectors.toList()));
+				QueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>();
+				queryWrapper.in("TAG", tagArr);
+				queryWrapper.eq("UID", body.getuId());
+				
+				List<Tag> selectList = this.tagMapper.selectList(queryWrapper);			
+				List<TravelTag> tagList = new ArrayList<TravelTag>(); 
+				for (Tag t : selectList) {
+					TravelTag tag = new TravelTag();
+					tag.setTid(travelInfo.getId());
+					tag.setTagId(t.getId());
+					tagList.add(tag);				  
+				}
+					travelTagService.saveBatch(tagList, tagList.size());
+			}
 			
-			List<Tag> selectList = this.tagMapper.selectList(queryWrapper);			
-			List<TravelTag> tagList = new ArrayList<TravelTag>(); 
-			for (Tag t : selectList) {
-				TravelTag tag = new TravelTag();
-				tag.setTid(travelInfo.getId());
-				tag.setTagId(t.getId());
-				tagList.add(tag);				  
-			}
-			if(tagList.size()>0) {
-				travelTagService.saveBatch(tagList, tagList.size());
-			}
 			
 			
 			//4.插入分类专栏表中间表
@@ -330,21 +331,22 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			QueryWrapper<TravelinfoColumn> ew = new QueryWrapper<TravelinfoColumn>();
 			ew.eq("TID", travelInfo.getId());
 			this.travelinfoColumnMapper.delete(ew  );
-			QueryWrapper<TravelColumn> qw = new QueryWrapper<TravelColumn>();
-			String colStr = String.join(",", colArr.stream().map(String::valueOf).collect(Collectors.toList()));
-			qw.in("`COLUMN`", colArr);
-			qw.eq("UID",body.getuId());
-			List<TravelColumn> selectColList = this.travelColumnMapper.selectList(qw);
-			List<TravelinfoColumn> colList = new ArrayList<TravelinfoColumn>();
-			for (TravelColumn c : selectColList) {
-				TravelinfoColumn col = new TravelinfoColumn();	
-				col.setTid(travelInfo.getId());
-				col.setCid(c.getId());
-				colList.add(col);
+			if(colArr.size()>0) {
+				QueryWrapper<TravelColumn> qw = new QueryWrapper<TravelColumn>();
+				String colStr = String.join(",", colArr.stream().map(String::valueOf).collect(Collectors.toList()));
+				qw.in("`COLUMN`", colArr);
+				qw.eq("UID",body.getuId());
+				List<TravelColumn> selectColList = this.travelColumnMapper.selectList(qw);
+				List<TravelinfoColumn> colList = new ArrayList<TravelinfoColumn>();
+				for (TravelColumn c : selectColList) {
+					TravelinfoColumn col = new TravelinfoColumn();	
+					col.setTid(travelInfo.getId());
+					col.setCid(c.getId());
+					colList.add(col);
+				}
+					travelinfoColumnService.saveBatch(colList, colList.size());
 			}
-			if(colList.size()>0) {
-				travelinfoColumnService.saveBatch(colList, colList.size());
-			}
+			
 			result.put("id", travelInfo.getId());
 			responseMessage.setReturnResult(result);
 		} catch (BaseException e) {
@@ -453,4 +455,5 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 	}
 	   return responseMessage;
    }
+   
 }

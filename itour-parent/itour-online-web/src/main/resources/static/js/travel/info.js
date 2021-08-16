@@ -25,9 +25,21 @@ var mdEditer;
 			$("#bottom_main .fold_tips_value").text(len);
 		});
 		
+	$("#js_preview").click(function(){
+		var title = $(".article-title-text").val();
+		var text = mdEditer.getMarkdown();
+		if($.isEmpty(title)||$.isEmpty(text)){
+			$("#js_editor_area").css("display","block");
+			$(document).scrollTop(0);
+			return;
+		}else{
+			$("#js_editor_area").css("display","none");
+		}
 		
-	//保存草稿,预览，保存		
-	$("#js_send,#js_submit").click(function(){
+		
+	});
+	//预览	
+	$("#js_preview").click(function(){
 		var $this = $(this);
 		var text = mdEditer.getMarkdown();
 		var tid = $("#tid").val();
@@ -36,7 +48,6 @@ var mdEditer;
 		var url = $("#input-fileUpload-path").val();
 		var articleType = $("#ori-setting").val();
 		var cityCode=$("#cityCode").val();
-		var preview = $(this).attr("fun");
         var tag_arr=[];
 		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
 		tags.each(function(i,item){
@@ -54,27 +65,6 @@ var mdEditer;
 			$(document).scrollTop(0);
 			return;
 		}
-		if($.isEmpty(url)){
-			var target = $("#js_cover_description_area").offset().top;
-			$(document).scrollTop(target);
-			$("#js_cover_description_area .js_error_msg").css("display","block").text("必须上传一张图片");
-			return;
-		}
-		if($.isEmpty(cityCode)){
-			$("#js_save_fail .inner").text("请选择攻略的所在城市");
-			$("#js_save_fail").css("display","block");
-			setTimeout(function(){
-	    		$("#js_save_fail").css("display","none");
-	    	},5000);
-        	
-		}
-		var btn = $(this).attr("id");
-		var fun="";
-		if(btn=="js_submit"){
-			fun="save";
-		}else if(btn=="js_send"){
-			fun="draft";
-		}
 	    var data= {
 	    		"vo":{
 	    			"id":tid,
@@ -86,35 +76,105 @@ var mdEditer;
 	    		}, 
 	    		"markdown":text,
 	    		"tag_arr":tag_arr,
-	    		"col_arr":col_arr,
-	    		"preview":preview,
-	    		"function":fun
+	    		"col_arr":col_arr
 	    		
 	    };
-	    checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
-	    	var data = result.returnResult;
-	    	$("#tid").val(data.id);
-	    	var v = $($this).attr("id");
-	    	if(v=="js_preview"){
-	    		var url = ctxPath+"/travel/detail?id="+data.id;
-	    		$("#link-preview").attr("href",url);
-	    		$('#preview-link').trigger("click");
-	    	}else{
-	    		$("#js_save_success").css("display","block");
-		    	$("#js_save_success .inner");
-	    	}
-	    	
-	    	setTimeout(function(){
-	    		$("#js_save_success").css("display","none");
-	    	},3000);
+	    checkWeekTravel()&&postAjax("/travel/pageview", JSON.stringify(data), function (result) {
+	      window.open(ctxPath+"/travel/pageViewP?key="+result.returnResult.key);
         }, {errorFunction:function(result){
-        	$("#js_save_fail").css("display","block");
-        	$("#js_save_fail .inner").text(result.resultMessage);
-	    	setTimeout(function(){
-	    		$("#js_save_fail").css("display","none");
-	    	},5000);
+        	
         },cache: false, async: false,"contentType": "application/json; charset=utf-8"});
 
+	});
+	//保存草稿,保存		
+	$("#js_send,#js_submit").click(function(){
+		var $this = $(this);
+		var text = mdEditer.getMarkdown();
+		var tid = $("#tid").val();
+		var title = $(".article-title-text").val();
+		var summary = $("#js_description").val();
+		var url = $("#input-fileUpload-path").val();
+		var articleType = $("#ori-setting").val();
+		var cityCode=$("#cityCode").val();
+		var preview = $(this).attr("fun");
+		var tag_arr=[];
+		var tags = $("#tag-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
+		tags.each(function(i,item){
+			var v = $(this).text().trim();
+			tag_arr.push(v);
+		});
+		var col_arr=[];		
+		var cols = $("#column-container .weui-desktop-form-tag-control .weui-desktop-form-tag .weui-desktop-form-tag__name");
+		cols.each(function(i,item){
+			var c = $(this).text().trim();
+			col_arr.push(c);
+		});
+		if($.isEmpty(title)||$.isEmpty(text)){
+			$("#js_editor_area").css("display","block");
+			$(document).scrollTop(0);
+			return;
+		}
+		if($.isEmpty(url)){
+			var target = $("#js_cover_description_area").offset().top;
+			$(document).scrollTop(target);
+			$("#js_cover_description_area .js_error_msg").css("display","block").text("必须上传一张图片");
+			return;
+		}
+		if($.isEmpty(cityCode)){
+			$("#js_save_fail .inner").text("请选择攻略的所在城市");
+			$("#js_save_fail").css("display","block");
+			setTimeout(function(){
+				$("#js_save_fail").css("display","none");
+			},5000);
+			
+		}
+		var btn = $(this).attr("id");
+		var fun="";
+		if(btn=="js_submit"){
+			fun="save";
+		}else if(btn=="js_send"){
+			fun="draft";
+		}
+		var data= {
+				"vo":{
+					"id":tid,
+					"title":title,
+					"summary":summary,	    			
+					"url":url,
+					"articleType":articleType,
+					"code":cityCode
+				}, 
+				"markdown":text,
+				"tag_arr":tag_arr,
+				"col_arr":col_arr,
+				"preview":preview,
+				"function":fun
+				
+		};
+		checkWeekTravel()&&postAjax("/travel/insertweekTravel", JSON.stringify(data), function (result) {
+			var data = result.returnResult;
+			$("#tid").val(data.id);
+			var v = $($this).attr("id");
+			if(v=="js_preview"){
+				var url = ctxPath+"/travel/detail?id="+data.id;
+				$("#link-preview").attr("href",url);
+				$('#preview-link').trigger("click");
+			}else{
+				$("#js_save_success").css("display","block");
+				$("#js_save_success .inner");
+			}
+			
+			setTimeout(function(){
+				$("#js_save_success").css("display","none");
+			},3000);
+		}, {errorFunction:function(result){
+			$("#js_save_fail").css("display","block");
+			$("#js_save_fail .inner").text(result.resultMessage);
+			setTimeout(function(){
+				$("#js_save_fail").css("display","none");
+			},5000);
+		},cache: false, async: false,"contentType": "application/json; charset=utf-8"});
+		
 	});
 	//点击话题标签checkbox图标
 	$("#js_article_tags_area .frm_checkbox_label .icon_checkbox").click(function(){
