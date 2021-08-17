@@ -64,15 +64,15 @@
 	    									
 	    								</div>
 	    								<div class="text-secondary">
-	    									阅读 
-	    									@if(travelInfo.readCount>0){
-	    									  ${travelInfo.readCount}
+	    									@if((travelInfo.readCount!0)>0){
+	    									 阅读  ${travelInfo.readCount}
+	    									 <span class="split-dot"></span>
 	    									@}
-	    									<span class="split-dot"></span>
+	    									
 	    									<span class="datePublished">
 	    									 @if(isNotEmpty(travelInfo.updatetime)){
 	    									        最后发布于 ${travelInfo.updatetime,dateFormat='yyyy-MM-dd HH:mm'}
-	    									 @}else{
+	    									 @}else if(isNotEmpty(travelInfo.publishtime)){
 	    									         发布于 ${travelInfo.publishtime,dateFormat='yyyy-MM-dd HH:mm'}
 	    									 @}
 	    									</span>
@@ -82,10 +82,7 @@
 	    							</div>
 	    							<article class="richContent">
 	    								<div class="richContent-inner">
-	    								   @if(travelInfo.type=='2'){
-	    								   ${weekinfo.weekContent!}
-	    								   @}
-	    									
+	    								   ${travelInfo.markdown!}
 	    								</div>
 	    								<div class="contentItem-actions  richContent-actions  is-bottom travel_area">
 										@if(travelInfo.niceUid==sessionUser.uId! && travelInfo.niceStatus=='1'){
@@ -95,7 +92,7 @@
 												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" >	
 												</span>
 												赞
-												@if(travelInfo.niceCount>0){
+												@if((travelInfo.niceCount!0)>0){
 												  ${travelInfo.niceCount}
 												@}												
 										    </button>
@@ -106,7 +103,7 @@
 											<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	
 											</span>
 											赞
-												@if(travelInfo.niceCount>0){
+												@if((travelInfo.niceCount!0)>0){
 												  ${travelInfo.niceCount}
 												@}												
 										    </button>
@@ -118,7 +115,7 @@
 												<img class="isactive" src="${ctxPath}/img/common/tobarCommentactive.png" width="22" height="22" style="display: none;">	
 												</span>
 												评论
-												@if(travelInfo.commentCount>0){
+												@if((travelInfo.commentCount!0)>0){
 												 ${travelInfo.commentCount}
 												 @}
 											</button>
@@ -134,7 +131,7 @@
 												<img class="isdefault" src="${ctxPath}/img/common/tobarCollect.png" width="22" height="22">
 												<img class="isactive" src="${ctxPath}/img/common/tobarCollectionActive.png" width="22" height="22" style="display: none;">	
 												</span>
-												收藏  ${travelInfo.collectCount>0?travelInfo.collectCount:''}
+												收藏  ${(travelInfo.collectCount!0)>0?travelInfo.collectCount:''}
 											</button> 
 											
 											@if(uid==travelInfo.uid){

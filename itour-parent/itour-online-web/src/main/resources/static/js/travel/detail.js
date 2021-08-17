@@ -324,6 +324,8 @@ function closeMask($this){
 function query(list){
 	var pageNo =1;
 	var id=$("#tid").val();
+	var id_reg=/^\d$/;
+	if(!id_reg.test(id)){return;}
 	var arr = new Array();
 	var orderby = {};
 	    orderby.sortType="CTIME";

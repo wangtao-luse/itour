@@ -31,7 +31,32 @@ private String subtitle;
 private Long createdate;
 private Long latestDate;
 
+/**
+ * 
+ * 预览相关
+ */
+private String [] tag_arr;
+private String  [] col_arr;
+private String markdown;
 
+public String[] getTag_arr() {
+	return tag_arr;
+}
+public void setTag_arr(String[] tag_arr) {
+	this.tag_arr = tag_arr;
+}
+public String[] getCol_arr() {
+	return col_arr;
+}
+public void setCol_arr(String[] col_arr) {
+	this.col_arr = col_arr;
+}
+public String getMarkdown() {
+	return markdown;
+}
+public void setMarkdown(String markdown) {
+	this.markdown = markdown;
+}
 public Long getArticleCount() {
 	return articleCount;
 }

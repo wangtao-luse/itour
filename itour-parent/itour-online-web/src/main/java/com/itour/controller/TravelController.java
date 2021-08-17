@@ -860,7 +860,7 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 	if(!StringUtils.isEmpty(id)) {
 		key = id;
 	}
-	TravelInfoDto travelInfo = new TravelInfoDto();
+	TravelInfoDto travelInfo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(TravelInfoDto.class);
 	HashMap<String, Object> m = new HashMap<String, Object>();
 	m.put(key, travelInfo);
 	redisManager.hmset(key, m, RedisManager.MINUTE_10);
@@ -871,9 +871,9 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 @RequestMapping("/pageViewP")
 public String pageViewP(String key,ModelMap model) {
 	Map<Object, Object> hget = this.redisManager.hget(key);
-   JSONObject objToJSONObject = FastJsonUtil.objToJSONObject(hget);
-   TravelInfoDto workinfo = objToJSONObject.toJavaObject(TravelInfoDto.class);
-   model.addAttribute("travelInfo", workinfo);
+   JSONObject objToJSONObject = FastJsonUtil.objToJSONObject(hget.get(key));
+   TravelInfoDto travelInfo = objToJSONObject.toJavaObject(TravelInfoDto.class);
+   model.addAttribute("travelInfo", travelInfo);
    model.addAttribute("id", key);
 	return "/travel/info/pageview";
 }

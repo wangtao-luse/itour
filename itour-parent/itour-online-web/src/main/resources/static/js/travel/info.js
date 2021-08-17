@@ -24,20 +24,7 @@ var mdEditer;
 			var len =mdEditer.getMarkdown().length;
 			$("#bottom_main .fold_tips_value").text(len);
 		});
-		
-	$("#js_preview").click(function(){
-		var title = $(".article-title-text").val();
-		var text = mdEditer.getMarkdown();
-		if($.isEmpty(title)||$.isEmpty(text)){
-			$("#js_editor_area").css("display","block");
-			$(document).scrollTop(0);
-			return;
-		}else{
-			$("#js_editor_area").css("display","none");
-		}
-		
-		
-	});
+	
 	//预览	
 	$("#js_preview").click(function(){
 		var $this = $(this);
@@ -72,11 +59,14 @@ var mdEditer;
 	    			"summary":summary,	    			
 	    			"url":url,
 	    			"articleType":articleType,
-	    			"code":cityCode
-	    		}, 
-	    		"markdown":text,
-	    		"tag_arr":tag_arr,
-	    		"col_arr":col_arr
+	    			"code":cityCode,
+	    			"markdown":text,
+	    			"tag_arr":tag_arr,
+		    		"col_arr":col_arr,
+		    		"type":"2"
+	    		}
+	    		
+	    		
 	    		
 	    };
 	    checkWeekTravel()&&postAjax("/travel/pageview", JSON.stringify(data), function (result) {
