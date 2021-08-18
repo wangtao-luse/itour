@@ -5,7 +5,14 @@ $(function(){
 	var mdEditer=editormd("md-container",{
 				autoHeight : false,
 				path: ctxPath+"/md/lib/",
-				watch:true//关闭实时预览
+				watch:true,
+				saveHTMLToTextarea : true, // 保存 HTML 到 Textarea
+				emoji:true,
+				imageUpload : true,
+		        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp",
+		        				"JPG", "JPEG", "GIF", "PNG", "BMP", "WEBP"
+		        			   ],
+		        imageUploadURL : ctxPath+"/upload/multipartFileUpload"
 				
 			});
 	

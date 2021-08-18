@@ -1,5 +1,5 @@
-@layout("/layout/template-log.html",{title:'爱旅行-首页'}){
-<script type="text/javascript" src="${ctxPath}/js/travel/index.js" ></script>		
+@layout("/layout/template-log.html",{title:'爱旅行-日志'}){
+<script type="text/javascript" src="${ctxPath}/js/work/index.js1" ></script>		
 	    <div id="itour-main">
 	    	<div class="topstory">
 	    		<div class="topstory-container">
@@ -13,14 +13,16 @@
 			    								<div class="card topstoryItem topstoryItem-isRecommend">
 			    							    	<div class="feed">
 			    							    		<div class="contentItem answerItem">
-			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/travel/detail?id=${t.id}" target="_blank">${t.title}</a></h2>
+			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">${t.title}</a></h2>
 			    							    			<div class="richContent is-collapsed" >
-			    							    			  <a href="${ctxPath}/travel/detail?id=${t.id}" target="_blank">
+			    							    			  <a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">
+			    							    			    @if(isNotEmpty(t.url)){
 			    							    				<div class="richContent-cover" tid=${t.id}>
 			    							    					<div class="richContent-cover-inner">
 			    							    						<img src="${t.url}" />
 			    							    					</div>
 			    							    				</div>
+			    							    				@}
 			    							    				<div class="richContent-inner" tid=${t.id}>
 			    							    					<span class="richText ztext copyrightRichText-richText">
 			    							    					${t.nickname}：

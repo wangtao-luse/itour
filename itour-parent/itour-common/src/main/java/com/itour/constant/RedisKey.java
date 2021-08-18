@@ -1,6 +1,7 @@
 package com.itour.constant;
 
 public class RedisKey {
+/***旅行模块**/	
 /**
  * 旅行文章点赞
  */
@@ -61,4 +62,16 @@ public static String KEY_ITOUR_PVS="itour_pvs";
 
 //超时时间2小时
 public static long TIMEOUT=60*60*2;
+
+
+/**工作日志部分**/
+/**
+ * 所有浏览日志的IP
+ */
+public static String KEY_WORK_IPS="work_ips";
+/**
+ * 工作日志独立IP统计
+ */
+public static String KEY_WORK_IP_COUNT="work_ip_count";
+
 }

@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itour.model.work.Label;
+import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.dto.WorkInfoDto;
 
@@ -34,6 +36,39 @@ List<WorkInfoDto> selectWorkInfoList(@Param("vo")WorkInfoDto workInfoDto);
  */
 WorkInfoDto selectWorkInfo(@Param("vo")WorkInfoDto workInfoDto);
 /**
+ * 个人博客标签查询
+ * @param id
+ * @return
+ */
+List<Label> workTagList(@Param("id") Long id);
+
+/**
+ * 个人博客分类专栏
+ * @param id
+ * @return
+ */
+List<WorkColumn> workColList(@Param("id") Long id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
  * 搜索页面使用
  * @param workInfoDto
  * @return
@@ -58,4 +93,6 @@ List<WorkInfoDto> selectDynamicList(Page page,@Param("vo")WorkInfoDto workInfoDt
  * @return
  */
 int updatePvBatch(Collection<WorkInfo> entityList);
+
+
 }

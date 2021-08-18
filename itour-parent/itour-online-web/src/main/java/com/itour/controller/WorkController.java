@@ -1,28 +1,38 @@
 package com.itour.controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.WorkConnector;
 import com.itour.constant.Constant;
+import com.itour.constant.ConstantTravel;
+import com.itour.constant.RedisKey;
 import com.itour.model.vo.PageInfo;
 import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
+import com.itour.model.work.Worktext;
 import com.itour.model.work.dto.WorkInfoDto;
+import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
+import com.itour.util.IpUtil;
+import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
 
 
@@ -31,6 +41,8 @@ import com.itour.util.SessionUtil;
 public class WorkController {
 	@Autowired
 	WorkConnector workConnector;
+	@Autowired
+private RedisManager redisManager;
 /**
  * 日志页面
  * @return
@@ -65,21 +77,61 @@ public String workMd(ModelMap model,HttpServletRequest request) {
  */
 @RequestMapping("/workUpdateMd")
 public String workUpdateMd(Long id,ModelMap model,HttpServletRequest request) {
-	workInfoData(model, request);
-	//查询单条日志信息
+	//判断该用户是否有对该日志修改的权限
+	AccountVo sessionUser = SessionUtil.getSessionUser();
 	JSONObject jsonObject = new JSONObject();
-	WorkInfo info = new WorkInfo();
-	info.setId(id);
-	jsonObject.put(Constant.COMMON_KEY_VO, info);
-	ResponseMessage selectWorkInfo = this.workConnector.selectWorkInfoOne(jsonObject, request);
-	if(ResponseMessage.isSuccessResult(selectWorkInfo)) {
-		WorkInfoDto workInfo = FastJsonUtil.mapToObject(selectWorkInfo.getReturnResult(), WorkInfoDto.class);
-		model.addAttribute("workInfo", workInfo);
+	jsonObject.put("id", id);
+	jsonObject.put("uid", sessionUser.getuId());
+	ResponseMessage selectWorkInfoOne = this.workConnector.selectWorkInfoOne(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(selectWorkInfoOne)) {
+		Map<String, Object> returnResult = selectWorkInfoOne.getReturnResult();
+		if(StringUtils.isEmpty(returnResult.get(Constant.COMMON_KEY_RESULT))) {
+			//提示没有权限操作该文章
+			model.addAttribute("error", ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
+		}
+	}else {
+		workInfoData(model, request);
+		//查询单条日志信息
+		jsonObject.clear();
+		WorkInfo info = new WorkInfo();
+		info.setId(id);
+		jsonObject.put(Constant.COMMON_KEY_VO, info);
+		ResponseMessage selectWorkInfo = this.workConnector.selectWorkInfoOne(jsonObject, request);
+		if(ResponseMessage.isSuccessResult(selectWorkInfo)) {
+			WorkInfoDto workInfo = FastJsonUtil.mapToObject(selectWorkInfo.getReturnResult(), WorkInfoDto.class);
+			model.addAttribute("workInfo", workInfo);
+		}
+		 jsonObject.clear();
+		 jsonObject.put("wid", id);	
+		ResponseMessage textMsg =  this.workConnector.selecWorktextOne(jsonObject, request);
+		if(ResponseMessage.isSuccessResult(textMsg)) {
+			Worktext workText = FastJsonUtil.mapToObject(textMsg.getReturnResult(), Worktext.class);
+			model.addAttribute("workText", workText);
+		}
+		//获取对应日志的标签
+		jsonObject.clear();
+		jsonObject.put("id", id);
+		ResponseMessage workTagList = this.workConnector.workTagList(jsonObject, request);
+		if(ResponseMessage.isSuccessResult(workTagList)) {
+			List<Label> labelList = FastJsonUtil.mapToList(workTagList.getReturnResult(), Label.class);
+			model.addAttribute("lList", labelList);
+		}
+		//获取对应日志的分类专栏
+		jsonObject.clear();
+		jsonObject.put("id", id);
+		ResponseMessage workColList = this.workConnector.workColList(jsonObject, request);
+		if(ResponseMessage.isSuccessResult(workColList)) {
+			List<WorkColumn> colList = FastJsonUtil.mapToList(workColList.getReturnResult(), WorkColumn.class);
+			model.addAttribute("cList", colList);
+		}
+		
 	}
-	return "/work/info/workUpdateMd";
+	
+	
+	return "/work/info/workinfoUpdateMd";
 }
 /**
- * 标签和专栏
+ * 获取指定用户创建的标签和专栏
  * @param model
  * @param request
  */
@@ -126,5 +178,64 @@ public String search() {
 public ResponseMessage savaOrUpdateWorkInfo(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage resp = this.workConnector.savaOrUpdateWorkInfo(jsonObject, request);
 	return resp;
+}
+/**
+ * 日志详情页面
+ * @return
+ */
+@RequestMapping("/detail")
+public String detail(Long id,ModelMap model,HttpServletRequest request) {
+	 //1.独立IP访问数作为显示的浏览量（浏览量功能相关）
+	  ip(request,String.valueOf(id));
+     //2.获取旅行信息
+      workInfo(id, model, request);
+    model.addAttribute("id", id);
+	return "/work/info/detail";
+}
+private void ip(HttpServletRequest request,String id) {
+	 //1.组装key
+	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	 String ipAddr = IpUtil.getIpAddr(request);
+	 String key=ipAddr+"::"+strDate+"::"+id;
+		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_WORK_IPS, key);		 
+		 if(!isMember) {//缓存中没有则添加到缓存
+		 	this.redisManager.sAdd(RedisKey.KEY_WORK_IPS,key);
+			this.redisManager.incr(RedisKey.KEY_WORK_IP_COUNT, 1);
+		 }
+}
+private void workInfo(Long id, ModelMap model, HttpServletRequest request) {
+	JSONObject jsonObject = new JSONObject();
+	WorkInfoDto tmp = new WorkInfoDto();
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	model.addAttribute("sessionUser", sessionUser);
+	if(!StringUtils.isEmpty(sessionUser)) {
+		tmp.setQueryUid(sessionUser.getuId());
+	}
+	tmp.setId(id);
+	 jsonObject.put(Constant.COMMON_KEY_VO, tmp);
+	ResponseMessage resp = this.workConnector.selectWorkInfo(jsonObject , request);
+	if(ResponseMessage.isSuccessResult(resp)) {
+		WorkInfoDto travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), WorkInfoDto.class);			
+		 model.addAttribute("workInfo", travelInfo);
+		 //获取周末旅行攻略的内容
+			 jsonObject.clear();
+			 jsonObject.put("wid", id);
+			
+			ResponseMessage weekinfo =  this.workConnector.selecWorktextOne(jsonObject, request);
+			if(Constant.SUCCESS_CODE.equals(weekinfo.getResultCode())) {
+				Worktext worktext = FastJsonUtil.mapToObject(weekinfo.getReturnResult(), Worktext.class, Constant.COMMON_KEY_RESULT);
+				String markdownToHtml = MarkdownUtils.markdownToHtml(worktext.getWcontent());
+				worktext.setWcontent(markdownToHtml);
+				model.addAttribute("worktext", worktext);
+			}
+		 //获取旅行攻略的标签列表
+		 jsonObject.clear();
+		 jsonObject.put("id", id);
+		 ResponseMessage tagResp = this.workConnector.workTagList(jsonObject, request);
+		 if(Constant.SUCCESS_CODE.equals(tagResp.getResultCode())) {
+			 List<Label> labelList = FastJsonUtil.mapToList(tagResp.getReturnResult(), Label.class, Constant.COMMON_KEY_RESULT);
+			 model.addAttribute("labelList", labelList);
+		 }
+	}
 }
 }

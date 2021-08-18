@@ -33,8 +33,8 @@ public class InfoLabel extends Model<InfoLabel> {
     /**
      * 标签编号
      */
-    @TableField("TID")
-    private Long tid;
+    @TableField("LABEL_ID")
+    private Long labelId;
 
     public Long getId() {
         return id;
@@ -51,16 +51,15 @@ public class InfoLabel extends Model<InfoLabel> {
     public void setWid(Long wid) {
         this.wid = wid;
     }
+    public Long getLabelId() {
+		return labelId;
+	}
 
-    public Long getTid() {
-        return tid;
-    }
+	public void setLabelId(Long labelId) {
+		this.labelId = labelId;
+	}
 
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
-
-    @Override
+	@Override
     protected Serializable pkVal() {
         return null;
     }
@@ -70,7 +69,7 @@ public class InfoLabel extends Model<InfoLabel> {
         return "InfoLabel{" +
         ", id=" + id +
         ", wid=" + wid +
-        ", tid=" + tid +
+        ", labelId=" + labelId +
         "}";
     }
 }

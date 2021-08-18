@@ -106,6 +106,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			   WorkInfo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
 			   QueryWrapper<WorkInfo> queryWrapper = new QueryWrapper<WorkInfo>();
 			   queryWrapper.eq(null!=vo.getId(), "ID", vo.getId());
+			   queryWrapper.eq(!StringUtils.isEmpty(vo.getUid()), "UID", vo.getUid());
 			   WorkInfo selectTraveInfo = this.baseMapper.selectOne(queryWrapper );
 			   responseMessage.setReturnResult(selectTraveInfo);
 		} catch (Exception e) {
@@ -336,7 +337,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				for (Label t : selectList) {
 					InfoLabel tag = new InfoLabel();
 					tag.setWid(workInfo.getId());
-					tag.setTid(t.getId());
+					tag.setLabelId(t.getId());
 					tagList.add(tag);				  
 				}
 			}
@@ -423,6 +424,44 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			if(workinfo.size()>0) {
 				this.updateBatchById(workinfo, workinfo.size());
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 博客的标签
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage workTagList(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Long id = jsonObject.getLong("id");
+			List<Label> workTagList = this.baseMapper.workTagList(id);
+			responseMessage.setReturnResult(workTagList);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
+	}
+	/**
+	 * 博客的专栏
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage workColList(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Long id = jsonObject.getLong("id");
+			List<WorkColumn> workColList = this.baseMapper.workColList(id);
+			responseMessage.setReturnResult(workColList);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -4,7 +4,17 @@
 		<script type="text/javascript" src="${ctxPath}/js/common/jquery.form.js" ></script>
 		<script type="text/javascript" src="${ctxPath}/js/work/infoMd.js" ></script>
 		<script>
-		
+		$(function(){
+			var path="${workInfo.url}";
+			if(path){
+				$(".form-cover-desc-box .select-cover__preview").css("background-image","url("+path.replace(/\\/g,"/")+")").css("display","block");
+			}
+			var articleType="${workInfo.articleType}";
+			var modality="${workInfo.modality}";
+			$("#articleType").val(articleType);
+			$("input[name='modality']").val(modality);
+			
+		})
 		</script>
 		<style>
 		html,body{
@@ -55,7 +65,7 @@ button {
 					</a>
 				</div>
 				<div class="article-bar__input-box">
-					<input maxlength="100" placeholder="请输入文章标题（5~100个字）" class="article-bar__title article-bar__title--input text-input">
+					<input maxlength="100" placeholder="请输入文章标题（5~100个字）" class="article-bar__title article-bar__title--input text-input" value="${workInfo.title}">
 				    <span class="article-bar__number default"><span class="">0</span>/100</span>
 				    <span class="article-bar__number tip"  style="display: none;">还需要输入-1个字</span>
 				</div>
@@ -66,7 +76,10 @@ button {
 			</div>
 		</div>
 		<div class="md-editor">
-			<div id="md-container" ></div>
+			<div id="md-container">
+			    <textarea id="htmlContent" style="display: none;">${workText.wcontent!}</textarea>
+			    <textarea id="textContent"></textarea>
+		    </div>
 		</div>
 		<div class="notice-box" style="display: none;">
 			<div>
@@ -115,7 +128,7 @@ button {
 									</div>
 									<div class="form-dsc-box setting-group__abstract">
 										<span class="frm_textarea_box form-texarea-box">
-											<textarea  class="frm_textarea" id="js_description" placeholder="必填，摘要是文章主体内容的介绍和总结，能帮助读者快速了解内容"  maxlength="120"></textarea>
+											<textarea  class="frm_textarea" id="js_description" placeholder="必填，摘要是文章主体内容的介绍和总结，能帮助读者快速了解内容"  maxlength="120">${workInfo.summary}</textarea>
 											<em class="frm_input_append frm_counter">1/120</em>
 										</span>
 									</div>
@@ -127,6 +140,19 @@ button {
 								<div>
 									<div class="mark_selection">
 										<div class="mark_selection_title_el_tag">
+										   @for(l in lList!){
+											    @if(lLP.first ){
+											    <span>
+											    @}
+										     <span class="el-tag el-tag--light mark_selection_box_el_tag ">
+										        ${l.tag}
+										        <i class="el-tag__close el-icon-close"></i>
+										     </span>
+											   @if(lLP.last){
+											   </span>
+											   @}
+										   @}
+										    
 											<button class="tag__btn-tag">
 												<svg width="200px" height="200.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon"><path fill="currentColor" d="M464.32 464.341333V178.368a47.658667 47.658667 0 1 1 95.338667 0v285.973333h285.952a47.658667 47.658667 0 0 1 0 95.317334H559.658667v285.952a47.68 47.68 0 0 1-95.338667 0V559.658667H178.368a47.658667 47.658667 0 1 1 0-95.317334h285.952z"></path></svg>
 												 添加文章标签        
@@ -173,6 +199,14 @@ button {
 										<input type="hidden" name="categories">
 										<div class="flex-box">
 											<div class="tag__item-list">
+											  @for(c in cList!){
+												  <div class="tag__item-box">
+												  	<span contenteditable="false" class="tag__name" style="display: block;">${c.column}</span>
+												  	<button class="tag__btn-tag-delete">
+												  		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
+												  	</button>
+												   </div>
+											  @}
 												<button class="tag__btn-tag">
 													<svg width="200px" height="200.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon"><path fill="currentColor" d="M464.32 464.341333V178.368a47.658667 47.658667 0 1 1 95.338667 0v285.973333h285.952a47.658667 47.658667 0 0 1 0 95.317334H559.658667v285.952a47.68 47.68 0 0 1-95.338667 0V559.658667H178.368a47.658667 47.658667 0 1 1 0-95.317334h285.952z"></path></svg>
 													 新建分类专栏

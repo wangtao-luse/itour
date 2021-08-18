@@ -10,6 +10,7 @@ import com.itour.service.LabelService;
 import com.itour.service.ViewWorkinfoWorktextService;
 import com.itour.service.WorkColumnService;
 import com.itour.service.WorkInfoService;
+import com.itour.service.WorktextService;
 @RestController
 public class WorkApiController implements WorkApi {
 	@Autowired
@@ -20,6 +21,8 @@ public class WorkApiController implements WorkApi {
 	WorkColumnService workColumnService;
 	@Autowired
 	ViewWorkinfoWorktextService viewWorkinfoWorktextService;
+	@Autowired
+	WorktextService worktextService;
 	/**
 	 * 日志标签列表查询
 	 */
@@ -63,12 +66,24 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return workInfoService.updateWorkInfoBatch(requestMessage);
 	}
-	
-	
-	
-	
-	
-	
+	//个人博客内容查询
+	@Override
+	public ResponseMessage selecWorktextOne(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return worktextService.selecWorktextOne(requestMessage);
+	}
+	//个人博客标签查询
+	@Override
+	public ResponseMessage workTagList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workInfoService.workTagList(requestMessage);
+	}
+	//个人博客专栏查询
+	@Override
+	public ResponseMessage workColList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workInfoService.workColList(requestMessage);
+	}
 	
 	
 	
@@ -118,6 +133,8 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+	
+	
 	
 	
 	

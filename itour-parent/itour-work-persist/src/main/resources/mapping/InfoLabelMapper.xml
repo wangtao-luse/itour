@@ -6,11 +6,11 @@
     <resultMap id="BaseResultMap" type="com.itour.model.work.InfoLabel">
         <id column="ID" property="id" />
         <result column="WID" property="wid" />
-        <result column="TID" property="tid" />
+        <result column="LABEL_ID" property="LABEL_ID" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID, WID, TID
+        ID, WID, LABEL_ID
     </sql>
 
 </mapper>

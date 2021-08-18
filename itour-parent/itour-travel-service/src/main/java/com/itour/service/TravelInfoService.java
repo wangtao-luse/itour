@@ -312,8 +312,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 				QueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>();
 				queryWrapper.in("TAG", tagArr);
 				queryWrapper.eq("UID", body.getuId());
-				
-				List<Tag> selectList = this.tagMapper.selectList(queryWrapper);			
+				List<Tag> selectList = this.tagMapper.selectList(queryWrapper);				
 				List<TravelTag> tagList = new ArrayList<TravelTag>(); 
 				for (Tag t : selectList) {
 					TravelTag tag = new TravelTag();

@@ -29,7 +29,6 @@ import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
-import com.itour.entity.PageInfo1;
 import com.itour.model.account.Oauth;
 import com.itour.model.travel.Favorites;
 import com.itour.model.travel.Region;
@@ -43,7 +42,7 @@ import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelColumn;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.travel.dto.ViewTravelTag;
-import com.itour.model.work.dto.WorkInfoDto;
+import com.itour.model.vo.PageInfo;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
@@ -201,7 +200,7 @@ public String md() {
  * @return
  */
 @RequestMapping("/detail")
-public String detail(Long id,ModelMap model,Page page,HttpServletRequest request ) {
+public String detail(Long id,ModelMap model,HttpServletRequest request ) {
 		//1.独立IP访问数作为显示的浏览量（浏览量功能相关）
 		 ip(request,String.valueOf(id));
 	   //2.获取旅行信息
@@ -266,7 +265,7 @@ private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest 
 	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
 	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StringUtils.isEmpty(respMsg.getReturnResult())) {
 		Map<String, Object> returnResult = respMsg.getReturnResult();
-		PageInfo1 resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo1.class, Constant.COMMON_KEY_RESULT);
+		PageInfo resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
 		resultPage.pageNav();
 		resultPage.getPs();
 		List<ViewTravelComment> commentList = resultPage.getRecords();
@@ -508,14 +507,14 @@ public ResponseMessage commentNice(@RequestBody JSONObject jsonObject,HttpServle
  */
 
 @RequestMapping("/search")
-public String search(TravelInfoDto dto,PageInfo1 page,HttpServletRequest request,ModelMap model,String ajaxCmd) {
+public String search(TravelInfoDto dto,PageInfo page,HttpServletRequest request,ModelMap model,String ajaxCmd) {
 	String parameter = request.getParameter("search");
 	JSONObject jsonObject = new JSONObject();
 	dto.setTitle(parameter);
 	jsonObject.put(Constant.COMMON_KEY_VO, dto);
 	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage searchTextList = this.travelConnector.searchTextList(jsonObject, request);
-	PageInfo1 pageInfo = FastJsonUtil.mapToObject(searchTextList.getReturnResult(), PageInfo1.class);
+	PageInfo pageInfo = FastJsonUtil.mapToObject(searchTextList.getReturnResult(), PageInfo.class);
 	
 	List<TravelInfoDto> records = pageInfo.getRecords();
 	model.addAttribute("tList", records);
@@ -637,7 +636,7 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
 @RequestMapping("/queryPersonCenterList")
 public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
 	TravelInfoDto travelInfoDto = jsonObject.toJavaObject(TravelInfoDto.class);
-	PageInfo1 page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo1.class);
+	PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	JSONObject jsonTmp = new JSONObject();
 	String mold = travelInfoDto.getMold();
@@ -666,7 +665,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage responseMessage = travelConnector.queryPersonCenterList(jsonTmp, request);
 	if(ResponseMessage.isSuccessResult(responseMessage)) {
-		PageInfo1 p = FastJsonUtil.mapToObject(responseMessage.getReturnResult(), PageInfo1.class);
+		PageInfo p = FastJsonUtil.mapToObject(responseMessage.getReturnResult(), PageInfo.class);
 		List<JSONObject> records = p.getRecords();
 		
 		List<TravelInfoDto> rList = new ArrayList<TravelInfoDto>();
@@ -706,7 +705,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		tmpJson.put(Constant.COMMON_KEY_PAGE,page );
 		ResponseMessage queryfavList = this.travelConnector.queryfavList(tmpJson, request);
 		if(!ResponseMessage.resultIsEmpty(queryfavList)) {
-			PageInfo1 pageInfo = FastJsonUtil.mapToObject(queryfavList.getReturnResult(), PageInfo1.class);
+			PageInfo pageInfo = FastJsonUtil.mapToObject(queryfavList.getReturnResult(), PageInfo.class);
 			List<FavoritesDto> fList = pageInfo.getRecords();
 			model.addAttribute("fList", fList);		
 		}		
@@ -730,11 +729,11 @@ public String favlistPage(@RequestBody JSONObject jsonObject,ModelMap model,Stri
 	FavoritesDto dto = new FavoritesDto();
 	dto.setUid(sessionUser.getuId());
 	tmpJson.put(Constant.COMMON_KEY_VO, dto);
-	PageInfo1 page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo1.class);
+	PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
 	tmpJson.put(Constant.COMMON_KEY_PAGE,page );
 	ResponseMessage queryfavList = this.travelConnector.queryfavList(tmpJson, request);
 	if(!ResponseMessage.resultIsEmpty(queryfavList)) {
-		PageInfo1 pageInfo = FastJsonUtil.mapToObject(queryfavList.getReturnResult(), PageInfo1.class);
+		PageInfo pageInfo = FastJsonUtil.mapToObject(queryfavList.getReturnResult(), PageInfo.class);
 		List<FavoritesDto> fList = pageInfo.getRecords();
 		model.addAttribute("fList", fList);		
 	}

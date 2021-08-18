@@ -1,0 +1,177 @@
+@layout("/layout/template-log.html",{title:'日志-详情'}){
+   <style>
+	   .richContent .richContent-inner {
+	     max-height: none;
+	   }
+  </style>
+<style>
+ .Pagination {
+    padding: 16px 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+.CommentsV2-pagination {
+    border-top: 1px solid #ebebeb;
+}
+.PaginationButton {
+    color: #121212;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+    padding: 0 15px;
+}
+.topstory-container{
+	margin: 10px auto 10px auto;
+	
+}
+</style>
+<script type="text/javascript" src="${ctxPath}/js/work/detail.js" ></script>
+
+
+@var uid=user.uId!;
+	    <input type="hidden" id="tid" value="${id}">
+	    <input type="hidden" id="order" value="1">
+	     <input type="hidden" id="rpm" value="${workInfo.uid}">
+		<div id="ct-out" style="width: 100%;position: fixed; left: 0;bottom: 10%;text-align: center;z-index: 9000;display: none">
+			<span id="ct-outContent" style="display: inline-block;background:rgb(67,116,240);color:rgb(255, 255, 255);max-width:80%;padding:8px 24px;border-radius: 4px;font-size: 16px;">请填写评论内容</span>
+		</div>
+		<div id="itour-main">
+	    	<div class="topstory">
+	    		<div class="topstory-container">
+	    			<div class="topstory-mainColunm">
+	    				<div class="topstory-content topstory-mainColumnCard">
+	    					<div class="card storyCard">
+	    						<div class="contentItem storyItem-isAnswer">
+	    							<div class="contentItem-meta">
+	    								<div class="authorInfo-wrap mb-1">
+	    									<a href="${ctxPath}/travel/personCenter?rpm=${workInfo.uid}" target="_blank" class="align-items-centers">
+	    										<span class="mr-2">
+	    										    @if(isEmpty(workInfo.avatar)){
+	    										    <img class="high-rank-use" src="${ctxPath}/img/common/avatar-5.webp" width="32" height="32" />
+	    										    @}else{
+	    										    <img class="high-rank-use" src="${workInfo.avatar}" width="32" height="32" />
+	    										    @}
+	    										</span>
+		    									
+		    									<storng>${workInfo.nickname}</storng>
+	    									</a>
+	    								</div>	    								
+	    							</div>
+	    							<h1 class="mb-1 h1">${workInfo.title}</h1>
+	    							<div class="article_tags">
+	    								<div class="tags">
+	    								   @for(tag in labelList){
+	    								   <a href="#" class="tag article_tag">${tag.tag}</a>
+	    								   @}
+	    									
+	    								</div>
+	    								<div class="text-secondary">
+	    									阅读 
+	    									@if(workInfo.readCount>0){
+	    									  ${workInfo.readCount}
+	    									@}
+	    									<span class="split-dot"></span>
+	    									<span class="datePublished">
+	    									 @if(isNotEmpty(workInfo.updatetime)){
+	    									        最后发布于 ${workInfo.updatetime,dateFormat='yyyy-MM-dd HH:mm'}
+	    									 @}else{
+	    									         发布于 ${workInfo.publishtime,dateFormat='yyyy-MM-dd HH:mm'}
+	    									 @}
+	    									</span>
+	    								</div>
+	    								
+	    								
+	    							</div>
+	    							<article class="richContent">
+	    								<div class="richContent-inner">
+	    								   ${worktext.wcontent!}
+	    								</div>
+	    								<div class="contentItem-actions  richContent-actions  is-bottom travel_area">
+										@if(workInfo.niceUid==sessionUser.uId! && workInfo.niceStatus=='1'){
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn nice" tid="${workInfo.id}">
+												<span style="display: inline-flex; align-items: center;">​
+												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22" style="display: none;">
+												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" >	
+												</span>
+												赞
+												@if(workInfo.likeCount>0){
+												  ${workInfo.likeCount}
+												@}												
+										    </button>
+										@}else{
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn" tid="${workInfo.id}">
+											<span style="display: inline-flex; align-items: center;">​
+											<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
+											<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	
+											</span>
+											赞
+												@if(workInfo.likeCount>0){
+												  ${workInfo.likeCount}
+												@}												
+										    </button>
+										@}
+												
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel link-btn">
+												<span style="display: inline-flex; align-items: center;">​
+												<img class="isdefault" src="${ctxPath}/img/common/tobarComment.png" width="22" height="22">
+												<img class="isactive" src="${ctxPath}/img/common/tobarCommentactive.png" width="22" height="22" style="display: none;">	
+												</span>
+												评论
+												@if(workInfo.commentCount>0){
+												 ${workInfo.commentCount}
+												 @}
+											</button>
+											<!-- <button class="button contentItem-action button--plain button--withIcon button--withLabel">
+												<span style="display: inline-flex; align-items: center;">​
+												<img class="isdefault" src="${ctxPath}/img/common/tobarShare.png" width="22" height="22">
+												<img class="isactive" src="${ctxPath}/img/common/tobarShareactive.png" width="22" height="22" style="display: none;">	
+												</span>
+												分享
+											</button>-->
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel itour-favorites-btn" tid="${workInfo.id}">
+												<span style="display: inline-flex; align-items: center;">​
+												<img class="isdefault" src="${ctxPath}/img/common/tobarCollect.png" width="22" height="22">
+												<img class="isactive" src="${ctxPath}/img/common/tobarCollectionActive.png" width="22" height="22" style="display: none;">	
+												</span>
+												收藏  ${workInfo.collectCount>0?workInfo.collectCount:''}
+											</button> 
+											
+											@if(uid==workInfo.uid){
+												<button class="button contentItem-action button--plain button--withIcon button--withLabel work_edit_btn link-btn">
+													<span style="display: inline-flex; align-items: center;">​
+													<img class="isdefault" src="${ctxPath}/img/common/edit.png" width="22" height="22">
+													<img class="isactive" src="${ctxPath}/img/common/editactive.png" width="22" height="22" style="display: none;">	
+													</span>
+													  编辑
+												</button>
+											@}else{
+												<!-- <button class="button contentItem-action button--plain button--withIcon button--withLabel">
+													<span style="display: inline-flex; align-items: center;">​
+													<img class="isdefault" src="${ctxPath}/img/common/tobarReport.png" width="22" height="22">
+													<img class="isactive" src="${ctxPath}/img/common/tobarReportactive.png" width="22" height="22" style="display: none;">	
+													</span>
+													举报
+												</button> -->
+											@}
+											
+	    								</div>
+	    								<div class="fixed-line"></div>
+	    							</article>
+	    						</div>
+	    				
+	    					</div>
+	    				
+	    				</div>
+	    			    <div  id="comment-container">
+							
+						</div>
+	    			</div>
+	    			<div class="globalSideBar">
+	    				 @include("/layout/public/wechat-follow.html"){}
+	    			</div>
+	    		</div>
+		    </div>
+	    </div>	
+		<div class="modal-wrapper undefined Modal-enter-done article_add_collect" style="display: none;">
+		 	
+		 </div>	    
+@}

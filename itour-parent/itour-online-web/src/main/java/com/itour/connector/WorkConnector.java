@@ -65,15 +65,6 @@ public ResponseMessage selectWorkInfoList(JSONObject jsonObject,HttpServletReque
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.selectWorkInfoList(requestMessage);
 }
-
-
-
-
-
-
-
-
-
 /**
  * 个人博客单条(前台（详情）使用带用户信息(图像，昵称))
  * @param jsonObject
@@ -83,5 +74,35 @@ public ResponseMessage selectWorkInfoList(JSONObject jsonObject,HttpServletReque
 public ResponseMessage selectWorkInfo(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.selectWorkInfo(requestMessage);
+}
+/**
+ * 个人博客内容单条查询
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage selecWorktextOne(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.selecWorktextOne(requestMessage);
+}
+/**
+ * 个人博客标签列表查询
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage workTagList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.workTagList(requestMessage);
+}
+/**
+ * 个人博客专栏列表查询
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage workColList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.workColList(requestMessage);
 }
 }

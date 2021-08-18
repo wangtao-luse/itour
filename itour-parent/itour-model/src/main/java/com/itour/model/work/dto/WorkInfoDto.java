@@ -20,6 +20,13 @@ public class WorkInfoDto extends WorkInfo {
 	private String niceStatus;
 	private String niceUid;
 	private String loginUid;
+	private String queryUid;
+	public String getQueryUid() {
+		return queryUid;
+	}
+	public void setQueryUid(String queryUid) {
+		this.queryUid = queryUid;
+	}
 	public String getDynamic() {
 		return dynamic;
 	}
