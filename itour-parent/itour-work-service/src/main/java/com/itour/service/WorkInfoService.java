@@ -15,17 +15,19 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.redis.RedisManager;
 import com.itour.common.req.RequestBody;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
+import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
-import com.itour.model.travel.TravelInfo;
 import com.itour.model.vo.PageInfo;
 import com.itour.model.work.InfoColumn;
 import com.itour.model.work.InfoLabel;
 import com.itour.model.work.Label;
+import com.itour.model.work.Like;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
@@ -66,6 +68,8 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 	WorkColumnService workColumnService;
 	@Autowired
 	WorkColumnMapper workColumnMapper;
+	@Autowired
+	RedisManager redisManager;
 	
 	/**
 	 * 前台使用（包含了用户图像，昵称等信息）
@@ -468,5 +472,34 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return responseMessage;
+	}
+	/**
+	   * 工作日志点赞功能
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage likeSub(RequestMessage requestMessage) {
+		ResponseMessage response = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			Long tid = jsonObject.getLong("tid");
+			String status = jsonObject.getString("status");
+			String uid = jsonObject.getString("uid");
+			Like n = new Like();
+			 n.setStatus(status);
+			 n.setWid(tid);
+			 n.setUid(uid);
+			 n.setCreatedate(DateUtil.currentLongDate());
+			//将点赞对象放入缓存并设置缓存超时时间
+			//key 不存在直接放入缓存
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			 m.put(uid+"::"+tid, n);
+			 redisManager.hmSset(RedisKey.KEY_WORK_NICE, m);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return response;
 	}
 }

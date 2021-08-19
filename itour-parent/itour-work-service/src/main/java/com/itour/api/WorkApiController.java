@@ -84,7 +84,12 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return workInfoService.workColList(requestMessage);
 	}
-	
+	//个人博客点赞提交
+		@Override
+		public ResponseMessage likeSub(@RequestBody RequestMessage requestMessage) {
+			// TODO Auto-generated method stub
+			return workInfoService.likeSub(requestMessage);
+		}
 	
 	
 	
@@ -133,6 +138,7 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+	
 	
 	
 	

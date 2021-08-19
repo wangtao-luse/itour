@@ -239,4 +239,22 @@ private void workInfo(Long id, ModelMap model, HttpServletRequest request) {
 		 }
 	}
 }
+//点赞
+
+@RequestMapping("/likeSub")
+@ResponseBody
+public ResponseMessage likeSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		AccountVo sessionUser = SessionUtil.getSessionUser();
+		jsonObject.put("uid", sessionUser.getuId());
+		responseMessage = this.workConnector.likeSub(jsonObject, request);
+		
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
+	
+return responseMessage;	
+}
 }

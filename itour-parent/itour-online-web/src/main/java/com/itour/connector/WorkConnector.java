@@ -105,4 +105,14 @@ public ResponseMessage workColList(JSONObject jsonObject,HttpServletRequest requ
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.workColList(requestMessage);
 }
+/**
+ * 个人博客点赞提交
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage likeSub(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.likeSub(requestMessage);
+}
 }

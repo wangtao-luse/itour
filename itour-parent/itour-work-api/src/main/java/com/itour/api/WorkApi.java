@@ -91,6 +91,13 @@ public interface WorkApi {
 	 */
 	@RequestMapping(value = "work/workColList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage workColList(RequestMessage requestMessage);	
+	/**
+	 * 个人博客点赞提交
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/likeSub",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage likeSub(RequestMessage requestMessage);	
 	
 	
 	

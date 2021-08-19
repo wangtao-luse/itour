@@ -42,7 +42,7 @@ public class TravelNiceService {
 	public void insertNice() {
 		try {
 			// 1.从Redis缓存中取出点赞的数据;
-			Map<Object, Object> map = redisManager.hget(RedisKey.KEY_NICE);
+			Map<Object, Object> map = redisManager.hget(RedisKey.KEY_ITOUR_NICE);
 			// 2.查看该用户是否已经点赞
 			List<Nice> saveOrupdateList = new ArrayList<Nice>();
 			List<String> tidList = new ArrayList<String>();
@@ -111,7 +111,7 @@ public class TravelNiceService {
 					//4.3清楚缓存
 					saveOrupdateList.forEach(key->{
 						String hashKey=key.getUid()+"::"+key.getTid();
-						boolean hdel = this.redisManager.hdel(RedisKey.KEY_NICE, hashKey);	
+						boolean hdel = this.redisManager.hdel(RedisKey.KEY_ITOUR_NICE, hashKey);	
 					});
 				}
 			}

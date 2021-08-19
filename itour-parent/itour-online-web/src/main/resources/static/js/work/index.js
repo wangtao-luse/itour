@@ -1,5 +1,5 @@
 $(function(){
-	 $("#topstoryContent").on("click","button.itour_nice_btn",function(){
+	 $("#topstoryContent").on("click","button.work_like_btn",function(){
 	    	var tid = $(this).attr("tid");
 	    	var has = $(this).hasClass("nice");
 	    	var status="";
@@ -12,7 +12,7 @@ $(function(){
 	    	}
 	    	
 	    	var data={tid:tid,status:status};
-	    	postAjax("/niceSub", JSON.stringify(data), function (result) {
+	    	postAjax("/work/likeSub", JSON.stringify(data), function (result) {
 	    		console.log(tid);
 	        }, {errorFunction:function(result){
 	        	alert(result.resultMessage);

@@ -5,7 +5,7 @@ public class RedisKey {
 /**
  * 旅行文章点赞
  */
-public static String KEY_NICE="itour_nice";
+public static String KEY_ITOUR_NICE="itour_nice";
 /**
  * 旅行文章评论点赞
  */
@@ -73,5 +73,9 @@ public static String KEY_WORK_IPS="work_ips";
  * 工作日志独立IP统计
  */
 public static String KEY_WORK_IP_COUNT="work_ip_count";
+/**
+ * 工作日志点赞
+ */
+public static String KEY_WORK_NICE="work_nice";
 
 }
