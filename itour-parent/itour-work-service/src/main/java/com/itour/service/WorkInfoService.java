@@ -285,7 +285,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 					worktextMapper.insert(entity);
 				}else {//修改
 					QueryWrapper<Worktext> queryWrapper = new QueryWrapper<Worktext>();
-					queryWrapper.eq("TID", workInfo.getId());
+					queryWrapper.eq("WID", workInfo.getId());
 					Worktext selectOne = worktextMapper.selectOne(queryWrapper );
 					selectOne.setWcontent(text);
 					this.worktextMapper.updateById(selectOne);

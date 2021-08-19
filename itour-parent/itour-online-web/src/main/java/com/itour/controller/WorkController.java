@@ -80,54 +80,55 @@ public String workUpdateMd(Long id,ModelMap model,HttpServletRequest request) {
 	//判断该用户是否有对该日志修改的权限
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	JSONObject jsonObject = new JSONObject();
-	jsonObject.put("id", id);
-	jsonObject.put("uid", sessionUser.getuId());
+	WorkInfo work = new WorkInfo();
+	work.setId(id);
+	work.setUid(sessionUser.getuId());
+	jsonObject.put(Constant.COMMON_KEY_VO, work);
 	ResponseMessage selectWorkInfoOne = this.workConnector.selectWorkInfoOne(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(selectWorkInfoOne)) {
 		Map<String, Object> returnResult = selectWorkInfoOne.getReturnResult();
 		if(StringUtils.isEmpty(returnResult.get(Constant.COMMON_KEY_RESULT))) {
 			//提示没有权限操作该文章
 			model.addAttribute("error", ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
+		}else {
+			workInfoData(model, request);
+			//查询单条日志信息
+			jsonObject.clear();
+			WorkInfo info = new WorkInfo();
+			info.setId(id);
+			jsonObject.put(Constant.COMMON_KEY_VO, info);
+			ResponseMessage selectWorkInfo = this.workConnector.selectWorkInfoOne(jsonObject, request);
+			if(ResponseMessage.isSuccessResult(selectWorkInfo)) {
+				WorkInfoDto workInfo = FastJsonUtil.mapToObject(selectWorkInfo.getReturnResult(), WorkInfoDto.class);
+				model.addAttribute("workInfo", workInfo);
+			}
+			 jsonObject.clear();
+			 jsonObject.put("wid", id);	
+			ResponseMessage textMsg =  this.workConnector.selecWorktextOne(jsonObject, request);
+			if(ResponseMessage.isSuccessResult(textMsg)) {
+				Worktext workText = FastJsonUtil.mapToObject(textMsg.getReturnResult(), Worktext.class);
+				model.addAttribute("workText", workText);
+			}
+			//获取对应日志的标签
+			jsonObject.clear();
+			jsonObject.put("id", id);
+			ResponseMessage workTagList = this.workConnector.workTagList(jsonObject, request);
+			if(ResponseMessage.isSuccessResult(workTagList)) {
+				List<Label> labelList = FastJsonUtil.mapToList(workTagList.getReturnResult(), Label.class);
+				model.addAttribute("lList", labelList);
+			}
+			//获取对应日志的分类专栏
+			jsonObject.clear();
+			jsonObject.put("id", id);
+			ResponseMessage workColList = this.workConnector.workColList(jsonObject, request);
+			if(ResponseMessage.isSuccessResult(workColList)) {
+				List<WorkColumn> colList = FastJsonUtil.mapToList(workColList.getReturnResult(), WorkColumn.class);
+				model.addAttribute("cList", colList);
+			}
+			
 		}
-	}else {
-		workInfoData(model, request);
-		//查询单条日志信息
-		jsonObject.clear();
-		WorkInfo info = new WorkInfo();
-		info.setId(id);
-		jsonObject.put(Constant.COMMON_KEY_VO, info);
-		ResponseMessage selectWorkInfo = this.workConnector.selectWorkInfoOne(jsonObject, request);
-		if(ResponseMessage.isSuccessResult(selectWorkInfo)) {
-			WorkInfoDto workInfo = FastJsonUtil.mapToObject(selectWorkInfo.getReturnResult(), WorkInfoDto.class);
-			model.addAttribute("workInfo", workInfo);
-		}
-		 jsonObject.clear();
-		 jsonObject.put("wid", id);	
-		ResponseMessage textMsg =  this.workConnector.selecWorktextOne(jsonObject, request);
-		if(ResponseMessage.isSuccessResult(textMsg)) {
-			Worktext workText = FastJsonUtil.mapToObject(textMsg.getReturnResult(), Worktext.class);
-			model.addAttribute("workText", workText);
-		}
-		//获取对应日志的标签
-		jsonObject.clear();
-		jsonObject.put("id", id);
-		ResponseMessage workTagList = this.workConnector.workTagList(jsonObject, request);
-		if(ResponseMessage.isSuccessResult(workTagList)) {
-			List<Label> labelList = FastJsonUtil.mapToList(workTagList.getReturnResult(), Label.class);
-			model.addAttribute("lList", labelList);
-		}
-		//获取对应日志的分类专栏
-		jsonObject.clear();
-		jsonObject.put("id", id);
-		ResponseMessage workColList = this.workConnector.workColList(jsonObject, request);
-		if(ResponseMessage.isSuccessResult(workColList)) {
-			List<WorkColumn> colList = FastJsonUtil.mapToList(workColList.getReturnResult(), WorkColumn.class);
-			model.addAttribute("cList", colList);
-		}
-		
 	}
-	
-	
+	 model.addAttribute("id", id);
 	return "/work/info/workinfoUpdateMd";
 }
 /**

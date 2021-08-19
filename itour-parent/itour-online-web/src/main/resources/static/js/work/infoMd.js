@@ -68,8 +68,11 @@ $(function(){
 			}else{
 				showTip("已保存为草稿！");
 			}
+			$(".modal-article-pushlish-wrp").hide();
 			
-		},{errorFunction:function(){}})
+		},{errorFunction:function(data){
+			showTip(data.resultMessage);
+		}})
 	});
 	$(".layou-panel .btn-publish").click(function(){
 		$(".modal-article-pushlish-wrp").show();
