@@ -1,23 +1,20 @@
 package com.itour.service;
 
-import com.itour.common.req.RequestMessage;
-import com.itour.common.resp.ResponseMessage;
-import com.itour.constant.Constant;
-import com.itour.entity.PageInfo1;
-import com.itour.exception.BaseException;
-import com.itour.model.travel.SensitiveWord;
-import com.itour.persist.SensitiveWordMapper;
-import com.itour.service.SensitiveWordService;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.req.RequestMessage;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
+import com.itour.model.travel.SensitiveWord;
+import com.itour.model.vo.PageInfo;
+import com.itour.persist.SensitiveWordMapper;
 
 /**
  * <p>
@@ -36,9 +33,9 @@ public  ResponseMessage querySensitiveWordList(RequestMessage requestMessage) {
 		JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 		QueryWrapper queryWrapper = new QueryWrapper<SensitiveWord>();
 		if(!StringUtils.isEmpty(pageVo)) {
-			PageInfo1 page = pageVo.toJavaObject(PageInfo1.class);
+			PageInfo page = pageVo.toJavaObject(PageInfo.class);
 			
-			PageInfo1 selectPage = this.baseMapper.selectPage(page, queryWrapper);
+			PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
 			responseMessage.setReturnResult(selectPage);
 		}else {
 			List selectList = this.baseMapper.selectList(queryWrapper);

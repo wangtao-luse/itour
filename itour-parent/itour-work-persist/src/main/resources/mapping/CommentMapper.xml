@@ -16,5 +16,22 @@
     <sql id="Base_Column_List">
         ID, COMMENT, CTIME, UID, TID, NICE_COUNT, STATUS
     </sql>
-
+    <select id="commentList" parameterType="com.itour.model.work.dto.CommentDto" resultType="com.itour.model.work.dto.CommentDto">
+      SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_w_COMMENT c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp WHERE c.UID=tmp.U_ID
+       
+       <if test="vo.tid!=null">
+         and c.STATUS='30' and  c.TID =#{vo.tid}
+       </if>
+       <if test="vo.uid!=null and ''!=vo.uid">
+         or (c.STATUS='20' and c.uid=#{vo.uid} and c.TID=#{vo.tid}) 
+       </if>
+       <foreach collection="vo.orderbyList" index="index" item="item" open="order by">
+         ${item.sortType}
+         <choose>
+            <when test="0==item.sortRule">desc</when>
+            <otherwise>asc</otherwise>
+         </choose>
+         
+       </foreach>
+    </select>
 </mapper>

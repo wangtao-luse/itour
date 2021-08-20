@@ -115,4 +115,14 @@ public ResponseMessage likeSub(JSONObject jsonObject,HttpServletRequest request)
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.likeSub(requestMessage);
 }
+/**
+ * 个人博客评论列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryCommentList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.queryCommentList(requestMessage);
+}
 }

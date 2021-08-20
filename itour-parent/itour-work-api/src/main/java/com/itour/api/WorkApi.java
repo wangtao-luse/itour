@@ -100,6 +100,15 @@ public interface WorkApi {
 	public ResponseMessage likeSub(RequestMessage requestMessage);	
 	
 	
+	/**
+	 * 个人博客评论列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/queryCommentList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryCommentList(RequestMessage requestMessage);	
+	
+	
 	
 	
 	

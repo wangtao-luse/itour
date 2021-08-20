@@ -46,7 +46,7 @@ public class Comment extends Model<Comment> {
      * 文章信息编号	博客的编号
      */
     @TableField("TID")
-    private Integer tid;
+    private Long tid;
 
     /**
      * 评论点赞数
@@ -92,11 +92,11 @@ public class Comment extends Model<Comment> {
         this.uid = uid;
     }
 
-    public Integer getTid() {
+    public Long getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(Long tid) {
         this.tid = tid;
     }
 

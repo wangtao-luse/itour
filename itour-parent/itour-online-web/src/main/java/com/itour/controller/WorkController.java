@@ -28,6 +28,7 @@ import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
+import com.itour.model.work.dto.CommentDto;
 import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
@@ -256,5 +257,37 @@ public ResponseMessage likeSub(@RequestBody JSONObject jsonObject,HttpServletReq
 	}
 	
 return responseMessage;	
+}
+
+@RequestMapping("/commentList")
+public String commentList(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request ) {
+	Long id = jsonObject.getLong("id");
+	Page pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(Page.class);
+	//1.获取旅行信息
+	workInfo(id, model, request);
+	//2.获取评论信息;
+	commentList(jsonObject, model, request,pageVo);
+	 model.addAttribute("id", id);
+	 model.addAttribute("order", jsonObject.getString("order"));	 
+	return "/travel/info/commentList#"+ajaxCmd;	
+}
+private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest request,Page page) {
+	JSONObject jsonObject = new JSONObject();
+	 jsonObject.put("tid", jsonTmp.getLong("id"));
+	 jsonObject.put("orderbyList", jsonTmp.getJSONArray("orderbyList"));
+	 page.setSize(10);
+	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
+	ResponseMessage respMsg = this.workConnector.queryCommentList(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(respMsg)) {
+		Map<String, Object> returnResult = respMsg.getReturnResult();
+		PageInfo resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
+		resultPage.pageNav();
+		resultPage.getPs();
+		List<CommentDto> commentList = resultPage.getRecords();
+		model.addAttribute("commentList", commentList);
+		model.addAttribute(Constant.COMMON_KEY_PAGE, resultPage);
+		model.addAttribute(ConstantTravel.TRAVEL_COMMENTSIZE, returnResult.get(ConstantTravel.TRAVEL_COMMENTSIZE));
+	}
+	
 }
 }

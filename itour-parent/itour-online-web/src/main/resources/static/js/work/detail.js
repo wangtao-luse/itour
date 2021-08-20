@@ -145,7 +145,7 @@ $(function(){
 		var pageNo = $(this).attr("pageNo");
 		var id=$("#tid").val();
 		var data={"id":id,"page":{"current":pageNo}};
-		var url="/travel/commentList?ajaxCmd=commentList";
+		var url="/work/commentList?ajaxCmd=commentList";
 		postForm(url, JSON.stringify(data), function (result) {
 			$("#comment-container").html(result);
 	      }, {"contentType": "application/json; charset=utf-8"});
@@ -324,7 +324,7 @@ function closeMask($this){
 function query(list){
 	var pageNo =1;
 	var id=$("#tid").val();
-	var id_reg=/^\d$/;
+	var id_reg=/^\d+$/;
 	if(!id_reg.test(id)){return;}
 	var arr = new Array();
 	var orderby = {};
@@ -336,7 +336,7 @@ function query(list){
 	}  
 	var order =$("#order").val();
 	var data={"id":id,"order":order,"orderbyList":arr,"page":{"current":pageNo}};
-	var url="/travel/commentList?ajaxCmd=commentList";
+	var url="/work/commentList?ajaxCmd=commentList";
 	postForm(url, JSON.stringify(data), function (result) {
 		$("#comment-container").html(result);
       }, {"contentType": "application/json; charset=utf-8"});	

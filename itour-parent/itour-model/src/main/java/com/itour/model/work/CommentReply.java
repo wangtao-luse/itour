@@ -28,7 +28,7 @@ public class CommentReply extends Model<CommentReply> {
      * 评论的ID	
      */
     @TableField("COMMENT_ID")
-    private Integer commentId;
+    private Long commentId;
 
     /**
      * 回复的内容	
@@ -74,11 +74,11 @@ public class CommentReply extends Model<CommentReply> {
         this.id = id;
     }
 
-    public Integer getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Integer commentId) {
+    public void setCommentId(Long commentId) {
         this.commentId = commentId;
     }
 

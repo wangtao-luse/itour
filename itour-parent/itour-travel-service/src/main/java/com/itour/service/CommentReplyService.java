@@ -1,23 +1,22 @@
 package com.itour.service;
 
-import com.itour.common.req.RequestMessage;
-import com.itour.common.resp.ResponseMessage;
-import com.itour.constant.Constant;
-import com.itour.entity.PageInfo1;
-import com.itour.exception.BaseException;
-import com.itour.model.travel.CommentReply;
-import com.itour.persist.CommentReplyMapper;
-import com.itour.service.CommentReplyService;
-import com.itour.util.DateUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.req.RequestMessage;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
+import com.itour.model.travel.CommentReply;
+import com.itour.model.vo.PageInfo;
+import com.itour.persist.CommentReplyMapper;
+import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -44,8 +43,8 @@ public class CommentReplyService extends ServiceImpl<CommentReplyMapper, Comment
 			QueryWrapper<CommentReply> queryWrapper = new QueryWrapper<CommentReply>();
 			queryWrapper.eq(!StringUtils.isEmpty(travelComment.getStatus()), "STATUS", travelComment.getStatus());
 			if(!StringUtils.isEmpty(pageVo)) {
-				PageInfo1 page = pageVo.toJavaObject(PageInfo1.class);
-				PageInfo1 selectPage = this.baseMapper.selectPage(page, queryWrapper);
+				PageInfo page = pageVo.toJavaObject(PageInfo.class);
+				PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
 				responseMessage.setReturnResult(selectPage);
 			}else {
 				List<CommentReply> selectList = this.baseMapper.selectList(queryWrapper);

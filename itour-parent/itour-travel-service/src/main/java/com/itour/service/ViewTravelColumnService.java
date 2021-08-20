@@ -1,22 +1,20 @@
 package com.itour.service;
 
-import com.itour.common.req.RequestMessage;
-import com.itour.common.resp.ResponseMessage;
-import com.itour.constant.Constant;
-import com.itour.entity.PageInfo1;
-import com.itour.exception.BaseException;
-import com.itour.model.travel.dto.ViewTravelColumn;
-import com.itour.persist.ViewTravelColumnMapper;
-import com.itour.service.ViewTravelColumnService;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.req.RequestMessage;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
+import com.itour.model.travel.dto.ViewTravelColumn;
+import com.itour.model.vo.PageInfo;
+import com.itour.persist.ViewTravelColumnMapper;
 
 /**
  * <p>
@@ -37,7 +35,7 @@ public ResponseMessage queryViewTravelColumnList(RequestMessage requestMessage) 
 		QueryWrapper queryWrapper = new QueryWrapper<ViewTravelColumn>();
 		queryWrapper.eq(!StringUtils.isEmpty(vo.getTid()), "TID", vo.getTid());
 		if(!StringUtils.isEmpty(pageVo)) {
-			PageInfo1 page = pageVo.toJavaObject(PageInfo1.class);			
+			PageInfo page = pageVo.toJavaObject(PageInfo.class);			
 			this.baseMapper.selectPage(page, queryWrapper );
 			responseMessage.setReturnResult(page);
 		}else {

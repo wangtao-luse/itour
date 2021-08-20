@@ -19,11 +19,11 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
-import com.itour.entity.PageInfo1;
 import com.itour.exception.BaseException;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.vo.Orderby;
+import com.itour.model.vo.PageInfo;
 import com.itour.persist.ViewCommentReplyMapper;
 import com.itour.persist.ViewTravelCommentMapper;
 import com.itour.util.FastJsonUtil;
@@ -83,8 +83,8 @@ public ResponseMessage queryCommentList(RequestMessage requestMessage) {
 			Map<String, Object> cList = getCommentList(commentList,getuId);
 			responseMessage.setReturnResult(cList);
 		}else {
-			PageInfo1 page = pageVo.toJavaObject(PageInfo1.class);
-			PageInfo1 selectPage = this.baseMapper.selectPage(page, queryWrapper);
+			PageInfo page = pageVo.toJavaObject(PageInfo.class);
+			PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
 			//3.获取对应文章评论下的回复
 			Map<String, Object> commentList = getCommentList(selectPage.getRecords(),getuId);
 			List<ViewTravelComment> resultList = FastJsonUtil.mapToList(commentList, ViewTravelComment.class);

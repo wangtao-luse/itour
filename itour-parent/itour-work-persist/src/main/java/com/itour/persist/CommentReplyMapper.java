@@ -1,7 +1,12 @@
 package com.itour.persist;
 
-import com.itour.model.work.CommentReply;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.work.CommentReply;
+import com.itour.model.work.dto.CommentReplyDto;
 
 /**
  * <p>
@@ -12,5 +17,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-07-13
  */
 public interface CommentReplyMapper extends BaseMapper<CommentReply> {
+	List<CommentReplyDto> queryCommentReplyList(@Param("vo") CommentReplyDto vo);
 
 }

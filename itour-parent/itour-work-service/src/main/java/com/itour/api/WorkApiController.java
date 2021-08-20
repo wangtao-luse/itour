@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.service.CommentService;
 import com.itour.service.LabelService;
 import com.itour.service.ViewWorkinfoWorktextService;
 import com.itour.service.WorkColumnService;
@@ -23,6 +24,8 @@ public class WorkApiController implements WorkApi {
 	ViewWorkinfoWorktextService viewWorkinfoWorktextService;
 	@Autowired
 	WorktextService worktextService;
+	@Autowired
+	CommentService commentService;
 	/**
 	 * 日志标签列表查询
 	 */
@@ -85,12 +88,17 @@ public class WorkApiController implements WorkApi {
 		return workInfoService.workColList(requestMessage);
 	}
 	//个人博客点赞提交
-		@Override
-		public ResponseMessage likeSub(@RequestBody RequestMessage requestMessage) {
-			// TODO Auto-generated method stub
-			return workInfoService.likeSub(requestMessage);
-		}
-	
+	@Override
+	public ResponseMessage likeSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workInfoService.likeSub(requestMessage);
+	}
+	//获取评论列表
+	@Override
+	public ResponseMessage queryCommentList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentService.queryCommentList(requestMessage);
+	}
 	
 	
 	
@@ -138,6 +146,7 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+	
 	
 	
 	
