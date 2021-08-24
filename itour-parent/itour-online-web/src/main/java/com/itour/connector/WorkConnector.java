@@ -121,8 +121,39 @@ public ResponseMessage likeSub(JSONObject jsonObject,HttpServletRequest request)
  * @param request
  * @return
  */
-public ResponseMessage queryCommentList(JSONObject jsonObject,HttpServletRequest request) {
+public ResponseMessage queryWorkCommentList(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
-	return workApi.queryCommentList(requestMessage);
+	return workApi.queryWorkCommentList(requestMessage);
 }
+/**
+ * 个人博客评论新增
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage insertComment(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.insertComment(requestMessage);
+}
+/**
+ * 个人博客评论删除
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage delComment(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.delComment(requestMessage);
+}
+/**
+ * 个人博客评论点赞
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage commentLikeSub(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.commentLikeSub(requestMessage);
+}
+
 }

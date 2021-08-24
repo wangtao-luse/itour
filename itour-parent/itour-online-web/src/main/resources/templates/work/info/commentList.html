@@ -1,0 +1,258 @@
+@#ajax commentList:{
+@var uid=user.uId!;
+						<div class="comments-container comment-container">
+							<div class="commentsV2 commentsV2--withEditor commentsV2-withPagination">
+								<div class="topbar commentTopbar">
+									<div class="topbar-title">
+										<h2 class="commentTopbar-tile">
+										@if(commentSize>0){
+										  ${commentSize!}条评论
+										@}else{
+										  还没有评论
+										@}
+										</h2>
+									</div>
+									@if(commentSize>0){
+									<div class="topbar-options">
+										<button type="button" class="button button--plain button--withIcon button--withLabel">
+											<span style="display: inline-flex;align-items: center;">
+												<svg class="Zi Zi--Switch button-zi" fill="currentColor" viewBox="0 0 24 24" width="1.2em" height="1.2em"><path d="M13.004 7V4.232c0-.405.35-.733.781-.733.183 0 .36.06.501.17l6.437 5.033c.331.26.376.722.1 1.033a.803.803 0 0 1-.601.264H2.75a.75.75 0 0 1-.75-.75V7.75A.75.75 0 0 1 2.75 7h10.254zm-1.997 9.999v2.768c0 .405-.35.733-.782.733a.814.814 0 0 1-.5-.17l-6.437-5.034a.702.702 0 0 1-.1-1.032.803.803 0 0 1 .6-.264H21.25a.75.75 0 0 1 .75.75v1.499a.75.75 0 0 1-.75.75H11.007z" fill-rule="evenodd"></path></svg>
+											</span>
+											@if(order=="0"){
+											  <span id="topbar-options-btn">切换为默认的排序方式</span>
+											@}else{
+											<span id="topbar-options-btn">切换为时间升序排序</span>
+											@}
+										</button>
+									</div>
+									@}
+								</div>
+								<div>
+									<div class="comment-box comment-edit-box">
+										<div class="user-img">
+										 @if(isEmpty(user.avatar)){
+   										    <img class="avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
+   										 @}else{
+   										    <img class="avatar" src="${user.avatar}" width="24" height="24" />
+   										 @}
+											
+										</div>
+									    <form id="comment-form">
+									        <div id="ct-mask" onclick="closeMask(this)" style="width: 100%;height: 100%;background: rgba(0, 0, 0, 0.4);position: fixed;left: 0;top: 0;z-index: 8999;display: none" ></div>
+									    	<textarea class="comment-content" id="comment_content" maxlength="1200"placeholder="快来写下你的评论..."></textarea>
+									    	<div class="opt-box">
+									    		<input type="hidden" id="comment_replyId" />
+									    		<input type="hidden" id="article_id" value="${id}"/>
+									    		<input type="hidden" id="comment_userId" value="${uid!}"/>
+									    		<input type="hidden" id="commentId" />
+									    		<div class="right-box">
+									    			<span id="tip_comment" class="tip">
+									    				还能输入
+									    				<em>1200</em>
+									    				个字符
+									    			</span>									    			
+									    			<a href="javascript:void(0);">
+									    				<input type="button" class="btn btn-sm btn-comment" value="发表评论" onclick="comment()" >
+									    			</a>
+									    		</div>
+									    		
+									    	</div>
+									    </form>
+									</div>
+								</div>
+								<div>
+								  
+									<div class="commentListV2">
+										@for(c in commentList!){
+										<ul class="nestComment">
+											<li class="nestComment--rootComment">
+												<div class="commentItemV2">
+													<div>
+														<div class="commentItemV2-meta">
+															<span class="userLink commentItemV2-avatar">
+																<div class="popover">
+																	<div id="popover35-toggle">
+																		<a class="userLink-link">
+																		@if(isEmpty(c.avatar)){
+								   										    <img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
+								   										 @}else{
+								   										    <img class="avatar userLink-avatar" src="${c.avatar}" width="24" height="24" />
+								   										 @}
+																			
+																		</a>
+																	</div>
+																</div>
+															</span>
+														    <span class="userLink">
+														    	<a  class="userLink-link" href="#">${c.nickname}</a>
+														    </span>
+														    <span class="commentItemV2-time">${c.ctime,dateFormat='yyyy-MM-dd'}</span>
+														</div>
+														<div class="commentItemV2-metaSibling">
+															<div class="commentRichText commentItemV2-content">
+																<div class="richText ztext">
+																	${c.comment}
+																</div>
+															</div>
+															<div class="commentItemV2-footer">
+																<button type="button" class="button commentItemV2-likeBtn button--plain comment-nice-btn" cid="${c.id}" uid="${uid!}">
+																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
+																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
+																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
+																	</span>
+																	<span class="nice-count">
+																	@if(c.niceCount!0>0){
+																	   ${c.niceCount!}
+																	  @}
+																	</span>
+																	
+																</button>
+																@if(uid!=c.uid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely" comment_id="${c.id}" from_uid="${uid!}" to_uid="${c.uid}" to_nickName="${c.nickname}">
+																	<span>
+																	</span>
+																	回复
+																</button>
+																@}
+																@if(uid==c.uid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain delete_comment_btn" cid="${c.id}">
+																	<span>
+																	</span>
+																	删除
+																</button>
+																@}
+																@if(uid!=c.uid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain">
+																	<span>
+																	</span>
+																	举报
+																</button>
+																@}
+															</div>
+														  
+														</div>
+													</div>
+												</div>
+											</li>
+											@for(r in c.commentReplyList!){
+											@var index=rLP.index;
+										    <li class="nestComment--child ${index>2?'hide':''}">
+										    	<div class="commentItemV2">
+										    		<div>
+										    			<div class="commentItemV2-meta">
+										    				<span class="userLink commentItemV2-avatar">
+										    					<div class="popover">
+										    						<div id="popover36-toggle">
+										    							<a href="#" class="userLink-link">
+										    							    @if(isEmpty(r.fromAvatar)){
+									   										    <img class="avatar userLink-avatar" src="${ctxPath}/img/common/avatar-5.webp" width="24" height="24" />
+									   										 @}else{
+									   										    <img class="avatar userLink-avatar" src="${r.fromAvatar}" width="24" height="24"/>
+									   										 @}
+										    								
+										    							</a>
+										    						</div>
+										    					</div>
+										    				</span>
+										    				<span class="userLink">
+										    					<a  class="userLink-link" href="#">${r.fromNickname}</a>
+										    				</span>
+										    				<span class="commentItemV2-reply">回复</span>
+										    				<span class="userLink">
+										    					<a  class="userLink-link" href="#">${r.toNickname}</a>
+										    				</span>
+										    				<span class="commentItemV2-time">${r.rtime,dateFormat='yyyy-MM-dd'}</span>
+										    			</div>
+										    			<div class="commentItemV2-metaSibling">
+										    				<div class="commentRichText commentItemV2-content">
+										    					<div class="richText ztext">${r.reply}</div>
+										    				</div>
+										    				<div class="commentItemV2-footer">
+										    					<button type="button" class="button commentItemV2-likeBtn button--plain commentReply-nice-btn" rid="${r.id}" uid="${uid!}">
+																	<span style="display: inline-flex; align-items: center;vertical-align: top;">
+																		<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
+																		<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">
+																	</span>
+																	 <span class="nice-count">
+																	 @if(r.niceCount>0){
+																	  ${r.niceCount}
+																	 @}
+																	 </span>	
+																	
+																</button>
+																@if(uid!=r.fromUid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain commentRely" comment_id="${r.commentId}" from_uid="${uid!}" to_uid="${r.fromUid}" to_nickName="${r.fromNickname}">
+																	<span>
+																	</span>
+																	回复
+																</button>
+																@}
+																@if(uid==r.fromUid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain del-commentRely-btn" rid="${r.id}">
+																	<span>
+																	</span>
+																	删除
+																</button>
+																@}
+																@if(uid!=r.fromUid){
+																<button type="button" class="button commentItemV2-likeBtn button--plain">
+																	<span>
+																	</span>
+																	举报
+																</button>
+																@}
+										    				</div>
+										    			</div>
+										    		</div>
+										    	</div>
+										    </li>
+										    @}
+										    @if((c.commentReplyList.~size!0)>2){
+										    <div>
+										    	<div class="commentMoreReplyButton">
+										    		<button type="button" class="button button--plain commentMore_btn">查看全部 ${c.vCommentReplyList.~size} 条回复</button>
+										    	</div>
+										    </div>
+										    @}
+										</ul>
+										@}
+										
+									</div>
+									<!-- 当前页码 -->
+								    @var current=page.current;
+								    <!-- 每页条数 -->
+							        @var size=page.size;
+							        <!-- 总数据条数 -->
+							        @var total=page.total;
+							        <!-- 总页数 -->
+							        @var pages=page.ps;
+							        @if(pages>0){
+								    <div class="Pagination CommentsV2-pagination">
+								        @if(current>1){
+									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain" pageNo="${current-1}">上一页</button>
+									    <button type="button" class="button PaginationButton PaginationButton-prev button--plain" pageNo="1">首页</button>
+									    @}
+									    @for(pageNo in page.navigatepageNums){	
+									       @if(current==pageNo){
+									       		<button type="button" disabled="" class="button PaginationButton PaginationButton--current button--plain" pageNo="${pageNo}">${pageNo}</button>
+									       @}else{
+									       <button type="button" class="button PaginationButton button--plain" pageNo="${pageNo}">${pageNo}</button>
+									       @}
+									       
+										@} 
+										
+									    @if(current < pages){
+									    <button type="button" class="button PaginationButton PaginationButton-next button--plain" pageNo="${current+1}">下一页</button>
+									     <button type="button" class="button PaginationButton PaginationButton-next button--plain" pageNo="${pages}">末页</button>
+								        @}
+								        共${pages}页
+								    </div>
+								    @}
+								   
+								</div>
+								
+							</div>
+							
+						</div>
+
+					@}

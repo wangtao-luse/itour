@@ -77,5 +77,13 @@ public static String KEY_WORK_IP_COUNT="work_ip_count";
  * 工作日志点赞
  */
 public static String KEY_WORK_NICE="work_nice";
+/**
+ * 工作日志评论点赞
+ */
+public static String KEY_WORK_COMMENT_NICE="work_comment_nice";
+/**
+ * 公作日志评论回复点赞
+ */
+public static String KEY_WORK_COMMENTREPLY_NICE="work_commentReply_nice";
 
 }

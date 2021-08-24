@@ -2284,6 +2284,9 @@ color: #646464;
     border: none;
     border-radius: 0;
 }
+.commentItemV2-likeBtn {
+    padding-right: 24px;
+}
 .collectionsHeader-tabsLink.is-active:after {
     content: "";
     position: absolute;

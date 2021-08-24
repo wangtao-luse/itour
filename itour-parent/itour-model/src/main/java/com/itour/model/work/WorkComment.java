@@ -1,10 +1,11 @@
 package com.itour.model.work;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 /**
  * <p>
  * 
@@ -13,8 +14,8 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2021-07-13
  */
-@TableName("t_w_comment")
-public class Comment extends Model<Comment> {
+@TableName("t_w_work_comment")
+public class WorkComment extends Model<WorkComment> {
 
     private static final long serialVersionUID = 1L;
 
@@ -59,7 +60,7 @@ public class Comment extends Model<Comment> {
      */
     @TableField("STATUS")
     private String status;
-
+    
     public Long getId() {
         return id;
     }

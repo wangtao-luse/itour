@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.service.CommentService;
+import com.itour.service.CommentLikeService;
 import com.itour.service.LabelService;
 import com.itour.service.ViewWorkinfoWorktextService;
 import com.itour.service.WorkColumnService;
+import com.itour.service.WorkCommentReplyService;
+import com.itour.service.WorkCommentService;
 import com.itour.service.WorkInfoService;
 import com.itour.service.WorktextService;
 @RestController
@@ -25,7 +27,11 @@ public class WorkApiController implements WorkApi {
 	@Autowired
 	WorktextService worktextService;
 	@Autowired
-	CommentService commentService;
+	WorkCommentService workCommentService;
+	@Autowired
+	CommentLikeService commentLikeService;
+	@Autowired
+	WorkCommentReplyService workCommentReplyService;
 	/**
 	 * 日志标签列表查询
 	 */
@@ -95,13 +101,46 @@ public class WorkApiController implements WorkApi {
 	}
 	//获取评论列表
 	@Override
-	public ResponseMessage queryCommentList(@RequestBody RequestMessage requestMessage) {
+	public ResponseMessage queryWorkCommentList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return commentService.queryCommentList(requestMessage);
+		return workCommentService.queryWorkCommentList(requestMessage);
 	}
-	
-	
-	
+   //评论新增
+	@Override
+	public ResponseMessage insertComment(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentService.insertComment(requestMessage);
+	}
+    //评论删除
+	@Override
+	public ResponseMessage delComment(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentService.delComment(requestMessage);
+	}
+	 //评论点赞
+	@Override
+	public ResponseMessage commentLikeSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentLikeService.commentLikeSub(requestMessage);
+	}
+	//评论批量修改
+	@Override
+	public ResponseMessage updateWorkCommentBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentService.updateWorkCommentBatch(requestMessage);
+	}
+	//评论回复列表
+	@Override
+	public ResponseMessage queryWorkCommentReplyList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentReplyService.queryWorkCommentReplyList(requestMessage);
+	}
+	//评论回复批量修改
+	@Override
+	public ResponseMessage updateWorkCommentReplyBatch(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentReplyService.updateCommentReplyBatch(requestMessage);
+	}
 	
 	
 	
@@ -146,6 +185,9 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+	
+	
+	
 	
 	
 	

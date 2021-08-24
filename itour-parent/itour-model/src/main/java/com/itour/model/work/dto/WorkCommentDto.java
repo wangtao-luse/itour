@@ -1,15 +1,17 @@
 package com.itour.model.work.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.itour.model.vo.Orderby;
-import com.itour.model.work.Comment;
+import com.itour.model.work.WorkComment;
 
-public class CommentDto extends Comment {
+public class WorkCommentDto extends WorkComment {
 private String avatar;
 private String nickname;
 private List<Orderby> orderbyList;
-private List<CommentReplyDto> commentReplyList;
+private List<WorkCommentReplyDto> commentReplyList;
+
 public String getAvatar() {
 	return avatar;
 }
@@ -28,10 +30,10 @@ public List<Orderby> getOrderbyList() {
 public void setOrderbyList(List<Orderby> orderbyList) {
 	this.orderbyList = orderbyList;
 }
-public List<CommentReplyDto> getCommentReplyList() {
+public List<WorkCommentReplyDto> getCommentReplyList() {
 	return commentReplyList;
 }
-public void setCommentReplyList(List<CommentReplyDto> commentReplyList) {
+public void setCommentReplyList(List<WorkCommentReplyDto> commentReplyList) {
 	this.commentReplyList = commentReplyList;
 }
 

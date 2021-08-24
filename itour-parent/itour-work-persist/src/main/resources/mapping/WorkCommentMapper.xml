@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itour.persist.CommentMapper">
+<mapper namespace="com.itour.persist.WorkCommentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.work.Comment">
+    <resultMap id="BaseResultMap" type="com.itour.model.work.WorkComment">
         <id column="ID" property="id" />
         <result column="COMMENT" property="comment" />
         <result column="CTIME" property="ctime" />
@@ -16,22 +16,26 @@
     <sql id="Base_Column_List">
         ID, COMMENT, CTIME, UID, TID, NICE_COUNT, STATUS
     </sql>
-    <select id="commentList" parameterType="com.itour.model.work.dto.CommentDto" resultType="com.itour.model.work.dto.CommentDto">
-      SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM T_w_COMMENT c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp WHERE c.UID=tmp.U_ID
-       
+    <select id="commentList" parameterType="com.itour.model.work.dto.WorkCommentDto" resultType="com.itour.model.work.dto.WorkCommentDto">
+     SELECT * FROM(
+        SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM t_w_work_comment c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp WHERE c.UID=tmp.U_ID
+      ) c 
+         <where>         
        <if test="vo.tid!=null">
-         and c.STATUS='30' and  c.TID =#{vo.tid}
+          c.STATUS='30' and  c.TID =#{vo.tid}
        </if>
+       <!-- uid 查询当前用户自己发布的未审核的评论 -->
        <if test="vo.uid!=null and ''!=vo.uid">
          or (c.STATUS='20' and c.uid=#{vo.uid} and c.TID=#{vo.tid}) 
        </if>
-       <foreach collection="vo.orderbyList" index="index" item="item" open="order by">
-         ${item.sortType}
-         <choose>
-            <when test="0==item.sortRule">desc</when>
-            <otherwise>asc</otherwise>
-         </choose>
-         
-       </foreach>
+	       <foreach collection="vo.orderbyList" index="index" item="item" open="order by">
+	         ${item.sortType}
+	         <choose>
+	            <when test="0==item.sortRule">desc</when>
+	            <otherwise>asc</otherwise>
+	         </choose>
+	         
+	       </foreach>
+       </where>
     </select>
 </mapper>

@@ -23,12 +23,13 @@ import com.itour.connector.WorkConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
+import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.vo.PageInfo;
 import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
-import com.itour.model.work.dto.CommentDto;
+import com.itour.model.work.dto.WorkCommentDto;
 import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
@@ -269,7 +270,7 @@ public String commentList(@RequestBody JSONObject jsonObject,ModelMap model,Stri
 	commentList(jsonObject, model, request,pageVo);
 	 model.addAttribute("id", id);
 	 model.addAttribute("order", jsonObject.getString("order"));	 
-	return "/travel/info/commentList#"+ajaxCmd;	
+	return "/work/info/commentList#"+ajaxCmd;	
 }
 private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest request,Page page) {
 	JSONObject jsonObject = new JSONObject();
@@ -277,17 +278,57 @@ private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest 
 	 jsonObject.put("orderbyList", jsonTmp.getJSONArray("orderbyList"));
 	 page.setSize(10);
 	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
-	ResponseMessage respMsg = this.workConnector.queryCommentList(jsonObject, request);
+	ResponseMessage respMsg = this.workConnector.queryWorkCommentList(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(respMsg)) {
 		Map<String, Object> returnResult = respMsg.getReturnResult();
 		PageInfo resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
 		resultPage.pageNav();
 		resultPage.getPs();
-		List<CommentDto> commentList = resultPage.getRecords();
+		List<WorkCommentDto> commentList = resultPage.getRecords();
 		model.addAttribute("commentList", commentList);
 		model.addAttribute(Constant.COMMON_KEY_PAGE, resultPage);
 		model.addAttribute(ConstantTravel.TRAVEL_COMMENTSIZE, returnResult.get(ConstantTravel.TRAVEL_COMMENTSIZE));
 	}
 	
+}
+/**
+ * 添加评论
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/insertComment")
+@ResponseBody
+public ResponseMessage insertComment(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	jsonObject.put("uid", sessionUser.getuId());
+	ResponseMessage insertComment = this.workConnector.insertComment(jsonObject, request);
+	return insertComment;
+	
+}
+/**
+ * 删除评论
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/delComment")
+@ResponseBody
+public ResponseMessage delComment(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	ResponseMessage delComment = this.workConnector.delComment(jsonObject, request);
+	return delComment;
+}
+/**
+ * 旅行攻略评论回复html
+ * @param jsonObject
+ * @param ajaxCmd
+ * @param model
+ * @return
+ */
+@RequestMapping("/commentReply")
+public String commentReply(@RequestBody JSONObject jsonObject,String ajaxCmd,ModelMap model ) {
+	ViewCommentReply reply = jsonObject.toJavaObject(ViewCommentReply.class);
+	model.addAttribute("commentReply", reply);
+	return "/work/info/commentReply#"+ajaxCmd;
 }
 }

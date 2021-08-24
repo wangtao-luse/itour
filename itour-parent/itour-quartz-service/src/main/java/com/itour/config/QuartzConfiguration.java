@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.itour.quartz.job.ArticleCheck;
+import com.itour.quartz.job.CommentCheckJob;
 
 @Configuration
 public class QuartzConfiguration {
@@ -26,6 +27,22 @@ public class QuartzConfiguration {
 	                .withSchedule(cronSchedule)
 	                .build();
 	        return trigger;
+	    }
+	    
+	    @Bean
+	    public JobDetail workJobDetail(){
+	    	JobDetail jobDetail = JobBuilder.newJob(CommentCheckJob.class).storeDurably().build();
+	    	return jobDetail;
+	    }
+	    @Bean
+	    public Trigger workTrigger(){
+	    	//构建
+	    	CronScheduleBuilder cronSchedule = CronScheduleBuilder.cronSchedule("0/30 * * * * ?");
+	    	Trigger trigger = TriggerBuilder.newTrigger()
+	    			.forJob(workJobDetail())
+	    			.withSchedule(cronSchedule)
+	    			.build();
+	    	return trigger;
 	    }
 
 }

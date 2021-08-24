@@ -38,7 +38,6 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 	 * @param requestMessage
 	 * @return
 	 */
-	@Transactional
 	public ResponseMessage queryTravelCommentList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
@@ -68,6 +67,7 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 	 * @param requestMessage
 	 * @return
 	 */
+	@Transactional
 	public ResponseMessage insertComment(RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		ResponseMessage responseMessage = ResponseMessage.getSucess();

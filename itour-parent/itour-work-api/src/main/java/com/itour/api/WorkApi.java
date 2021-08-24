@@ -105,8 +105,51 @@ public interface WorkApi {
 	 * @param requestMessage
 	 * @return
 	 */
-	@RequestMapping(value = "work/queryCommentList",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage queryCommentList(RequestMessage requestMessage);	
+	@RequestMapping(value = "work/queryWorkCommentList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryWorkCommentList(RequestMessage requestMessage);	
+	/**
+	 * 个人博客添加评论
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/insertComment",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage insertComment(RequestMessage requestMessage);	
+	
+	/**
+	 * 个人博客评论删除
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/delComment",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage delComment(RequestMessage requestMessage);	
+	
+	
+	/**
+	 * 个人博客评论点赞
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/commentLikeSub",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage commentLikeSub(RequestMessage requestMessage);	
+	
+	
+	/**
+	 * 个人博客评论批量修改
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/updateWorkCommentBatch",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage updateWorkCommentBatch(RequestMessage requestMessage);	
+	/**
+	 * 个人博客评论回复列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/queryWorkCommentReplyList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryWorkCommentReplyList(RequestMessage requestMessage);	
+	
+	@RequestMapping(value = "work/updateWorkCommentReplyBatch",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage updateWorkCommentReplyBatch(RequestMessage requestMessage);	
 	
 	
 	

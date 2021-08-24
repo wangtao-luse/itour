@@ -1,10 +1,14 @@
 package com.itour.model.work;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.vo.Orderby;
 /**
  * <p>
  * 
@@ -13,8 +17,8 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2021-07-13
  */
-@TableName("t_w_comment_reply")
-public class CommentReply extends Model<CommentReply> {
+@TableName("t_w_work_comment_reply")
+public class WorkCommentReply extends Model<WorkCommentReply> {
 
     private static final long serialVersionUID = 1L;
 
@@ -65,6 +69,8 @@ public class CommentReply extends Model<CommentReply> {
      */
     @TableField("STATUS")
     private String status;
+    @TableField(exist = false)
+    private List<Orderby> orderbyList = new ArrayList<Orderby>();
 
     public Long getId() {
         return id;
@@ -130,7 +136,15 @@ public class CommentReply extends Model<CommentReply> {
         this.status = status;
     }
 
-    @Override
+    public List<Orderby> getOrderbyList() {
+		return orderbyList;
+	}
+
+	public void setOrderbyList(List<Orderby> orderbyList) {
+		this.orderbyList = orderbyList;
+	}
+
+	@Override
     protected Serializable pkVal() {
         return null;
     }

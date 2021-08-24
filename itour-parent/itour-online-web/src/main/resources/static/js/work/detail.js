@@ -99,7 +99,7 @@ $(function(){
 		 var fromUid = $(this).attr("from_uid");
 		 var toUid = $(this).attr("to_uid");
 		var data={commentId:commentId,toNickname:toNickname,fromUid:fromUid,toUid:toUid};
-		var url="/travel/commentReply?ajaxCmd=commentReply";
+		var url="/work/commentReply?ajaxCmd=commentReply";
 		postForm(url, JSON.stringify(data), function (result) {
 			$(".commentListV2 .comment-box.comment-edit-box").remove();
 		    $($this).closest(".commentItemV2-footer").after(result);
@@ -120,7 +120,7 @@ $(function(){
 		if(confirm("你确定要删除此评论吗？")){
 			var cid = $(this).attr("cid");
 			var data={id:cid};
-			postAjax("/travel/delComment", JSON.stringify(data), function (result) {
+			postAjax("/work/delComment", JSON.stringify(data), function (result) {
 				query(new Array());
 		    }, {errorFunction:function(result){
 		    	console.log(result);
@@ -173,7 +173,7 @@ $(function(){
 			$(this).find(".nice-count").text(v>0?v:"");
 		}
 		var data={"cid":cid,"uid":uid,"status":status};
-		postAjax("/travel/commentNice", JSON.stringify(data), function (result) {
+		postAjax("/work/commentLikeSub", JSON.stringify(data), function (result) {
 		}, {errorFunction:function(result){
 			console.log(result);
 		},cache: false, async: false});
@@ -307,7 +307,7 @@ function comment(){
 	}
        
 	var data={"tid":tid,"uid":comment_userId,"comment":comment_content};
-	postAjax("/travel/insertComment", JSON.stringify(data), function (result) {
+	postAjax("/work/insertComment", JSON.stringify(data), function (result) {
 		$("#comment_content").val("");
 		outMsg("评论成功,审核后显示","#ct-mask");
 		query(new Array());

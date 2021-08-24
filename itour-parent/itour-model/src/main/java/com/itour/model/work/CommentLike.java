@@ -28,7 +28,7 @@ public class CommentLike extends Model<CommentLike> {
      * 博文评论表编号
      */
     @TableField("CID")
-    private Integer cid;
+    private Long cid;
 
     /**
      * 用户编号
@@ -56,11 +56,11 @@ public class CommentLike extends Model<CommentLike> {
         this.id = id;
     }
 
-    public Integer getCid() {
+    public Long getCid() {
         return cid;
     }
 
-    public void setCid(Integer cid) {
+    public void setCid(Long cid) {
         this.cid = cid;
     }
 

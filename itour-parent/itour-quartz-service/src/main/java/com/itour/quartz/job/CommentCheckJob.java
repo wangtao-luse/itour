@@ -13,7 +13,12 @@ public class CommentCheckJob extends QuartzJobBean{
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		// TODO Auto-generated method stub
+		/**
+		 * 旅行攻略评论审核
+		 */
 		commentCheckService.updateCommentStatus();
+		//工作日志评论审核
+		commentCheckService.updateWorkCommentStatus();
 	}
 
 }

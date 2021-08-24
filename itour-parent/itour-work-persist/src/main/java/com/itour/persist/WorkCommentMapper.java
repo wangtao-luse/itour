@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.itour.model.work.Comment;
-import com.itour.model.work.dto.CommentDto;
+import com.itour.model.work.WorkComment;
+import com.itour.model.work.dto.WorkCommentDto;
 
 /**
  * <p>
@@ -19,7 +19,7 @@ import com.itour.model.work.dto.CommentDto;
  * @author wangtao
  * @since 2021-07-13
  */
-public interface CommentMapper extends BaseMapper<Comment> {
-List<CommentDto> commentList(@Param("vo") CommentDto vo);
-List<CommentDto> commentList(Page page,@Param("vo") CommentDto vo);
+public interface WorkCommentMapper extends BaseMapper<WorkComment> {
+List<WorkCommentDto> commentList(@Param("vo") WorkCommentDto vo);
+List<WorkCommentDto> commentList(Page page,@Param("vo") WorkCommentDto vo);
 }
