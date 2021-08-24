@@ -21,6 +21,7 @@ import com.itour.model.travel.TravelComment;
 import com.itour.model.vo.Orderby;
 import com.itour.model.work.WorkComment;
 import com.itour.model.work.WorkCommentReply;
+import com.itour.model.work.dto.WorkCommentDto;
 import com.itour.util.FastJsonUtil;
 
 @Service
@@ -144,7 +145,10 @@ public void updateCommentStatus() {
 		//1.查看评论表
 		//2.批量修改评论表的状态
 		JSONObject jsonObject = new JSONObject();
-		WorkComment comment = new WorkComment();
+		WorkCommentDto comment = new WorkCommentDto();
+		List<Orderby> olist = new ArrayList<Orderby>();
+		olist.add(new Orderby(Orderby.DESC, "ctime"));
+		comment.setOrderbyList(olist);
 		comment.setStatus(Constant.COMMON_STATUS_CHECKING);
 		jsonObject.put(Constant.COMMON_KEY_VO, comment);
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
