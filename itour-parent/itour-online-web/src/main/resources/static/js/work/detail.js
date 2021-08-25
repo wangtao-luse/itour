@@ -133,7 +133,7 @@ $(function(){
 		if(confirm("你确定要删除此评论吗？")){
 			var rid = $(this).attr("rid");
 			var data={id:rid};
-			postAjax("/travel/delCommentReply", JSON.stringify(data), function (result) {
+			postAjax("/work/delWorkCommentReply", JSON.stringify(data), function (result) {
 				query(new Array());
 			}, {errorFunction:function(result){
 				console.log(result);
@@ -200,7 +200,7 @@ $(function(){
 			$(this).find(".nice-count").text(txt>0?txt:"");
 		}
 		var data={"rid":rid,"uid":uid,"status":status};
-		postAjax("/travel/commentReplyNice", JSON.stringify(data), function (result) {
+		postAjax("/work/workCommentReplyLikeSub", JSON.stringify(data), function (result) {
 		}, {errorFunction:function(result){
 			console.log(result);
 		},cache: false, async: false});

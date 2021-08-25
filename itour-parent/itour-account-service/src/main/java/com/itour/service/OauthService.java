@@ -240,6 +240,26 @@ private IpaddrService ipaddrService;
 		return responseMessage;
     }
     /**
+     * 修改用户认证表
+     * @param requestMessage
+     * @return
+     */
+    public ResponseMessage updateOAuth(RequestMessage requestMessage) {
+    	ResponseMessage responseMessage = ResponseMessage.getSucess();
+    	try {
+    		JSONObject jsonObject = requestMessage.getBody().getContent();
+    		Oauth o = jsonObject.toJavaObject(Oauth.class);
+    		QueryWrapper<Oauth> updateWrapper = new QueryWrapper<Oauth>();
+    		updateWrapper.eq(!StringUtils.isEmpty(o.getuId()), "U_ID", o.getuId());
+			this.baseMapper.update(o, updateWrapper );
+    	} catch (Exception e) {
+    		// TODO: handle exception
+    		e.printStackTrace();
+    		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+    	}
+    	return responseMessage;
+    }
+    /**
      * 查询认证表单条
      * @param requestMessage
      * @return

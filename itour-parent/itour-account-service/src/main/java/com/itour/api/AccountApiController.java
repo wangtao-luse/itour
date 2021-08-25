@@ -365,5 +365,10 @@ public ResponseMessage selectOauthtOne(@RequestBody RequestMessage requestMessag
 	// TODO Auto-generated method stub
 	return this.oauthService.selectOauthtOne(requestMessage);
 }
+@Override
+public ResponseMessage updateOAuth(@RequestBody RequestMessage requestMessage) {
+	// TODO Auto-generated method stub
+	return oauthService.updateOAuth(requestMessage);
+}
 
 }

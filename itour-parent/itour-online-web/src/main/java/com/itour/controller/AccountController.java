@@ -259,11 +259,10 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
 				AccountVo sessionUser = SessionUtil.getSessionUser();
 				Oauth o = new Oauth();
-				o.setId(sessionUser.getId());
 				o.setuId(sessionUser.getuId());
 				o.setAvatar(avatar);
 				JSONObject jsonObject = FastJsonUtil.objToJSONObject(o);
-				ResponseMessage updateOAuthById = this.accountConnector.updateOAuthById(jsonObject, request);
+				ResponseMessage updateOAuthById = this.accountConnector.updateOAuth(jsonObject, request);
 				if(Constant.FAILED_CODE.equals(updateOAuthById.getResultCode())) {
 					return ResponseMessage.getFailed(updateOAuthById.getResultMessage());
 				}else {

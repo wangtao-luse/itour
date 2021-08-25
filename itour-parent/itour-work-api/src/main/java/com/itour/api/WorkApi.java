@@ -147,9 +147,35 @@ public interface WorkApi {
 	 */
 	@RequestMapping(value = "work/queryWorkCommentReplyList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage queryWorkCommentReplyList(RequestMessage requestMessage);	
-	
+	/**
+	 * 批量修改评论回复
+	 * @param requestMessage
+	 * @return
+	 */
 	@RequestMapping(value = "work/updateWorkCommentReplyBatch",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage updateWorkCommentReplyBatch(RequestMessage requestMessage);	
+	/**
+	 * 评论回复新增
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/insertWorkCommentReply",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage insertWorkCommentReply(RequestMessage requestMessage);	
+	/**
+	 * 评论回复逻辑删除
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/delWorkCommentReply",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage delWorkCommentReply(RequestMessage requestMessage);	
+	
+	/**
+	 * 评论回复点赞
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/workCommentReplyLikeSub",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage workCommentReplyLikeSub(RequestMessage requestMessage);	
 	
 	
 	

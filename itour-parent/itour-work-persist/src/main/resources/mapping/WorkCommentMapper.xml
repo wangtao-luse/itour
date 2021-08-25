@@ -28,6 +28,7 @@
        <if test="vo.uid!=null and ''!=vo.uid">
          or (c.STATUS='20' and c.uid=#{vo.uid} and c.TID=#{vo.tid}) 
        </if>
+         <if test="null!=vo.orderbyList">
 	       <foreach collection="vo.orderbyList" index="index" item="item" open="order by">
 	         ${item.sortType}
 	         <choose>
@@ -36,6 +37,7 @@
 	         </choose>
 	         
 	       </foreach>
+	       </if>
        </where>
     </select>
 </mapper>

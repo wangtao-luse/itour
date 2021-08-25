@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 
+ * 评论回复
  * </p>
  *
  * @author wangtao
@@ -34,7 +34,7 @@ public class ReplyLike extends Model<ReplyLike> {
      * 用户编号
      */
     @TableField("UID")
-    private Long uid;
+    private String uid;
 
     /**
      * 点赞时间
@@ -65,11 +65,11 @@ public class ReplyLike extends Model<ReplyLike> {
 		this.rid = rid;
 	}
 
-	public Long getUid() {
+	public String getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
 	}
 

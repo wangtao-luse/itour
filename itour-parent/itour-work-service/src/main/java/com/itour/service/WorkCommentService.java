@@ -20,6 +20,8 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.exception.BaseException;
+import com.itour.model.travel.dto.ViewCommentReply;
+import com.itour.model.travel.dto.ViewTravelComment;
 import com.itour.model.vo.PageInfo;
 import com.itour.model.work.WorkComment;
 import com.itour.model.work.WorkCommentReply;
@@ -66,20 +68,23 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
 		}else {
 			 PageInfo page = pageVo.toJavaObject(PageInfo.class);
 			 List<WorkCommentDto> cList = this.baseMapper.commentList(page, vo);
-			//3.获取对应文章评论下的回复
-			Map<String, Object> commentList = getCommentList(cList,getuId);
-			List<WorkCommentDto> resultList = FastJsonUtil.mapToList(commentList, WorkCommentDto.class);
-			Page resultPage = page.setRecords(resultList);
-			responseMessage.setReturnResult(resultPage);
-			long total = page.getTotal();
-			if(total>0) {
-				Integer  replaysize =(Integer)commentList.get(ConstantTravel.TRAVEL_REPLYSIZE);
-				if(!StringUtils.isEmpty(replaysize)) {
-					responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total+replaysize);
-				}
-			}else {
-				responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total);
-			}
+			 if(cList.size()>0) {
+				//3.获取对应文章评论下的回复
+					Map<String, Object> commentList = getCommentList(cList,getuId);
+					List<WorkCommentDto> resultList = FastJsonUtil.mapToList(commentList, WorkCommentDto.class);
+					Page resultPage = page.setRecords(resultList);
+					responseMessage.setReturnResult(resultPage);
+					long total = page.getTotal();
+					if(total>0) {
+						Integer  replaysize =(Integer)commentList.get(ConstantTravel.TRAVEL_REPLYSIZE);
+						if(!StringUtils.isEmpty(replaysize)) {
+							responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total+replaysize);
+						}
+					}else {
+						responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total);
+					} 
+			 }
+			
 		}
 		
 	} catch (Exception e) {
@@ -98,7 +103,10 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
  */
 public Map<String,Object> getCommentList(List<WorkCommentDto> commentList,String uid) {
 	Map<String,Object> result = new HashMap<String, Object>();
+	List<Long> collect = commentList.stream().map(WorkCommentDto::getId).collect(Collectors.toList());
 	WorkCommentReplyDto vo = new WorkCommentReplyDto();
+    vo.setIdList(collect);
+    vo.setFromUid(uid);
 	List<WorkCommentReplyDto> replyList = workCommentReplyMapper.queryCommentReplyList(vo);
 	//4.组装评论下的回复信息
 	for (WorkCommentDto vComment : commentList) {

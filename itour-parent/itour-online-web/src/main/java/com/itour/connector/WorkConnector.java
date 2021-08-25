@@ -10,6 +10,8 @@ import com.itour.api.WorkApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+import com.itour.common.vo.AccountVo;
+import com.itour.util.SessionUtil;
 
 @Service
 public class WorkConnector {
@@ -155,5 +157,36 @@ public ResponseMessage commentLikeSub(JSONObject jsonObject,HttpServletRequest r
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.commentLikeSub(requestMessage);
 }
+/**
+ * 个人博客评论回复新增
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage insertWorkCommentReply(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.insertWorkCommentReply(requestMessage);
+}
+/**
+ * 个人博客评论回复新增
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage delWorkCommentReply(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.delWorkCommentReply(requestMessage);
+}
+/**
+ * 个人博客评论回复点赞
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage workCommentReplyLikeSub(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.workCommentReplyLikeSub(requestMessage);
+}
+
 
 }

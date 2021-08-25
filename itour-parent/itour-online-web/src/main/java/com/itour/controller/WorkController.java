@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itour.common.HttpDataUtil;
 import com.itour.common.redis.RedisManager;
+import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.WorkConnector;
@@ -318,6 +320,7 @@ public ResponseMessage delComment(@RequestBody JSONObject jsonObject,HttpServlet
 	ResponseMessage delComment = this.workConnector.delComment(jsonObject, request);
 	return delComment;
 }
+
 /**
  * 旅行攻略评论回复html
  * @param jsonObject
@@ -330,5 +333,33 @@ public String commentReply(@RequestBody JSONObject jsonObject,String ajaxCmd,Mod
 	ViewCommentReply reply = jsonObject.toJavaObject(ViewCommentReply.class);
 	model.addAttribute("commentReply", reply);
 	return "/work/info/commentReply#"+ajaxCmd;
+}
+//评论回复新增
+@RequestMapping("/insertWorkCommentReply")
+@ResponseBody
+public ResponseMessage insertWorkCommentReply(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	jsonObject.put("fromUid", sessionUser.getuId());
+	ResponseMessage resp = this.workConnector.insertWorkCommentReply(jsonObject, request);
+	return resp;
+}
+//评论回复删除
+@RequestMapping("/delWorkCommentReply")
+@ResponseBody
+public ResponseMessage delWorkCommentReply(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+   ResponseMessage delCommentRely = this.workConnector.delWorkCommentReply(jsonObject, request);
+	return delCommentRely;
+}
+/**
+ * 工作日志评论回复点赞数
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+@RequestMapping("/workCommentReplyLikeSub")
+@ResponseBody
+public ResponseMessage workCommentReplyLikeSub(JSONObject jsonObject, HttpServletRequest request) {
+	ResponseMessage responseMessage = this.workConnector.workCommentReplyLikeSub(jsonObject, request);
+	return responseMessage;
 }
 }

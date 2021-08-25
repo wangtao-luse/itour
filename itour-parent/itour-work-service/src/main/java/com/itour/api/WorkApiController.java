@@ -1,9 +1,13 @@
 package com.itour.api;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
+import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.CommentLikeService;
@@ -141,9 +145,24 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return workCommentReplyService.updateCommentReplyBatch(requestMessage);
 	}
-	
-	
-	
+	//评论回复新增
+	@Override
+	public ResponseMessage insertWorkCommentReply(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentReplyService.insertWorkCommentReply(requestMessage);
+	}
+	//评论回复删除
+	@Override
+	public ResponseMessage delWorkCommentReply(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentReplyService.delWorkCommentReply(requestMessage);
+	}
+	//评论回复点赞
+	@Override
+	public ResponseMessage workCommentReplyLikeSub(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workCommentReplyService.workCommentReplyLikeSub(requestMessage);
+	}
 	
 	
 	
@@ -185,6 +204,9 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+	
+	
+	
 	
 	
 	

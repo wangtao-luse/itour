@@ -63,6 +63,7 @@ public class CommentReplyService extends ServiceImpl<CommentReplyMapper, Comment
  * @param requestMessage
  * @return
  */
+@Transactional
 public ResponseMessage insertCommentReply(RequestMessage requestMessage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {

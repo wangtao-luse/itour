@@ -255,6 +255,13 @@ public ResponseMessage insertIPAddr(@RequestBody RequestMessage requestMessage);
 @RequestMapping(value = "/account/updateOAuthById",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage updateOAuthById(@RequestBody RequestMessage requestMessage);
 /**
+ * 修改认证信息表
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/updateOAuth",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage updateOAuth(@RequestBody RequestMessage requestMessage);
+/**
  * 查看认证信息表单条
  * @param requestMessage
  * @return

@@ -35,7 +35,7 @@ function commentRely(){
 		return;
 	}
 	var data={"commentId":commentId,"toUid":toUid,"reply":comment_content};
-	postAjax("/travel/insertCommentReply", JSON.stringify(data), function (result) {
+	postAjax("/work/insertWorkCommentReply", JSON.stringify(data), function (result) {
 		$("#comment_contentNew").val("");
 		outMsg("回复成功,审核后显示","#ctn-mask");
 		query();
