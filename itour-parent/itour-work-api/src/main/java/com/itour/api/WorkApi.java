@@ -176,6 +176,61 @@ public interface WorkApi {
 	 */
 	@RequestMapping(value = "work/workCommentReplyLikeSub",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage workCommentReplyLikeSub(RequestMessage requestMessage);	
+	/**
+	 * 点赞信息单条
+	 */
+	@RequestMapping(value = "work/getLike",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getLike(RequestMessage requestMessage);	
+	
+	/**
+	 * 点赞新数据增或修改
+	 */
+	@RequestMapping(value = "work/saveOrUpdateBatchLike",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage saveOrUpdateBatchLike(RequestMessage requestMessage);	
+	
+	/**
+	 * 个人日志统计点赞数
+	 */
+	@RequestMapping(value = "work/countLikeList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage countLikeList(RequestMessage requestMessage);	
+	/**
+	 * 个人日志统计点赞数
+	 */
+	@RequestMapping(value = "work/getCommentLike",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getCommentLike(RequestMessage requestMessage);	
+	/**
+	 * 个人日志统计点赞数
+	 */
+	@RequestMapping(value = "work/saveOrUpdateBatchCommentLike",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage saveOrUpdateBatchCommentLike(RequestMessage requestMessage);	
+	
+	/**
+	 * 个人日志统计点赞数
+	 */
+	@RequestMapping(value = "work/countCommentNiceList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage countCommentNiceList(RequestMessage requestMessage);	
+	
+	
+	
+	
+	/**
+	 * 个人日志回复点赞表单条
+	 */
+	@RequestMapping(value = "work/getReplyLike",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getReplyLike(RequestMessage requestMessage);	
+	
+	/**
+	 * 批量修改或保存评论回复点赞信息
+	 */
+	@RequestMapping(value = "work/saveOrUpdateBatchReplyLike",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage saveOrUpdateBatchReplyLike(RequestMessage requestMessage);	
+	
+	
+	/**
+	 *统计评论回复点赞数
+	 */
+	@RequestMapping(value = "work/countReplyLikeList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage countReplyLikeList(RequestMessage requestMessage);	
 	
 	
 	

@@ -1,17 +1,15 @@
 package com.itour.api;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
-import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.service.CommentLikeService;
 import com.itour.service.LabelService;
+import com.itour.service.LikeService;
+import com.itour.service.ReplyLikeService;
 import com.itour.service.ViewWorkinfoWorktextService;
 import com.itour.service.WorkColumnService;
 import com.itour.service.WorkCommentReplyService;
@@ -36,6 +34,10 @@ public class WorkApiController implements WorkApi {
 	CommentLikeService commentLikeService;
 	@Autowired
 	WorkCommentReplyService workCommentReplyService;
+	@Autowired
+	LikeService likeService;
+	@Autowired
+	ReplyLikeService replyLikeService;
 	/**
 	 * 日志标签列表查询
 	 */
@@ -143,7 +145,7 @@ public class WorkApiController implements WorkApi {
 	@Override
 	public ResponseMessage updateWorkCommentReplyBatch(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
-		return workCommentReplyService.updateCommentReplyBatch(requestMessage);
+		return workCommentReplyService.updateWorkCommentReplyBatch(requestMessage);
 	}
 	//评论回复新增
 	@Override
@@ -163,10 +165,30 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return workCommentReplyService.workCommentReplyLikeSub(requestMessage);
 	}
-	
-	
-	
-	
+	//点赞信息单条
+	@Override
+	public ResponseMessage getLike(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return likeService.getLike(requestMessage);
+	}
+	//点赞信息修改或新增
+	@Override
+	public ResponseMessage saveOrUpdateBatchLike(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return likeService.saveOrUpdateBatchLike(requestMessage);
+	}
+	//统计指定文章点赞量
+	@Override
+	public ResponseMessage countLikeList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return likeService.countLikeList(requestMessage);
+	}
+	//统计指定文章点赞量
+	@Override
+	public ResponseMessage getCommentLike(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return commentLikeService.getCommentLike(requestMessage);
+	}
 	
 	
 	@Override
@@ -204,6 +226,39 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return this.workInfoService.updatePvBatch(requestMessage);
 	}
+	@Override
+	public ResponseMessage saveOrUpdateBatchCommentLike(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.commentLikeService.saveOrUpdateBatchCommentLike(requestMessage);
+	}
+	
+	/**
+	 * 统计评论点赞信息
+	 */
+	@Override
+	public ResponseMessage countCommentNiceList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return this.commentLikeService.countCommentNiceList(requestMessage);
+	}
+	@Override
+	public ResponseMessage getReplyLike(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return replyLikeService.getReplyLike(requestMessage);
+	}
+	/**
+	 * 批量修改或保存评论回复点赞信息
+	 */
+	@Override
+	public ResponseMessage saveOrUpdateBatchReplyLike(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return replyLikeService.saveOrUpdateBatchReplyLike(requestMessage);
+	}
+	@Override
+	public ResponseMessage countReplyLikeList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return replyLikeService.countReplyLikeList(requestMessage);
+	}
+	
 	
 	
 	

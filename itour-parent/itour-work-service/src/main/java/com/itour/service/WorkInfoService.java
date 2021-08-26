@@ -23,6 +23,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.model.travel.TravelInfo;
 import com.itour.model.vo.PageInfo;
 import com.itour.model.work.InfoColumn;
 import com.itour.model.work.InfoLabel;
@@ -502,4 +503,5 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		}
 		return response;
 	}
+
 }

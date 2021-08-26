@@ -12,13 +12,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.itour.quartz.service.TravelCommentNiceService;
+import com.itour.quartz.service.TravelCommentReplyService;
 import com.itour.quartz.service.TravelNiceService;
+import com.itour.quartz.service.WorkCommentLikeService;
+import com.itour.quartz.service.WorkCommentReplyService;
+import com.itour.quartz.service.WorkLikeService;
 public class TravelNiceJob extends QuartzJobBean {
 private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 @Autowired
 TravelNiceService travelNiceService;
 @Autowired
 TravelCommentNiceService travelCommentNiceService;
+@Autowired
+TravelCommentReplyService travelCommentReplyService;
+@Autowired
+WorkLikeService workLikeService;
+@Autowired
+WorkCommentLikeService workCommentLikeService;
+@Autowired
+WorkCommentReplyService workCommentReplyService;
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		// TODO Auto-generated method stub
@@ -28,6 +40,29 @@ TravelCommentNiceService travelCommentNiceService;
 		//3.同步数据到数据库
 		//5.每5分钟执行一次
 		/**
+		 * 攻略模块
+		 */
+		travelNice();
+		
+		/**
+		 * 日志模块
+		 */
+		workLike();
+		
+	}
+
+	private void workLike() {
+		/***
+		 * 工作日志文章点赞数刷新
+		 * 
+		 */
+		workLikeService.insertLike();
+		workCommentLikeService.insertCommentLike();
+		workCommentReplyService.insertCommentReplyLike();
+	}
+
+	private void travelNice() {
+		/**
 		 * 旅行攻略文章点赞数刷新
 		 */
 		travelNiceService.insertNice();
@@ -35,7 +70,10 @@ TravelCommentNiceService travelCommentNiceService;
 		 * 旅行攻略文章评论点赞数刷新
 		 */
 		travelCommentNiceService.insertCommentNice();
-		
+		/**
+		 * 旅行攻略文章评论回复点赞数刷新
+		 */
+		travelCommentReplyService.insertCommentReplyNice();
 	}
 
 public static void main(String[] args) {

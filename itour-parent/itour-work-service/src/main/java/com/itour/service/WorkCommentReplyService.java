@@ -35,13 +35,14 @@ import com.itour.util.DateUtil;
 public class WorkCommentReplyService extends ServiceImpl<WorkCommentReplyMapper, WorkCommentReply> {
 	@Autowired
 	RedisManager redisManager;
+	
 	/**
 	* 批量修改评论信息
 	* @param requestMessage
 	* @return
 	*/
 	@Transactional
-	public ResponseMessage updateCommentReplyBatch(RequestMessage requestMessage) {
+	public ResponseMessage updateWorkCommentReplyBatch(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
