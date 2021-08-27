@@ -40,3 +40,5 @@ upload:
 #log    
 logging:
   path: '@log.home@'
+swagger:
+  enable:'@swagger.enable@'

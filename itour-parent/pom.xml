@@ -73,7 +73,8 @@
   	<org.redisson.version>3.14.1</org.redisson.version>
   	<axis2.version>1.6.2</axis2.version>
   	<fastdfs-client.version>1.27.2</fastdfs-client.version>
-  	<springfox-swagger.version>3.0.0</springfox-swagger.version>
+  	<springfox.version>3.0.0</springfox.version>
+  	<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -238,16 +239,14 @@
 	</dependency>
 	<!-- 整合swagger API管理工具 -->
 	<dependency>
-	    <groupId>io.springfox</groupId>
-	    <artifactId>springfox-swagger2</artifactId>
-	    <scope>provided</scope>
-	    <version>${springfox-swagger.version}</version>
+	  <groupId>io.springfox</groupId>
+	  <artifactId>springfox-boot-starter</artifactId>
+	  <version>${springfox.version}</version>
 	</dependency>
 	<dependency>
-	    <groupId>io.springfox</groupId>
-	    <artifactId>springfox-swagger-ui</artifactId>
-	    <scope>provided</scope>
-	    <version>${springfox-swagger.version}</version>
+	    <groupId>com.github.xiaoymin</groupId>
+	    <artifactId>swagger-bootstrap-ui</artifactId>
+	    <version>${swagger-bootstrap-ui.version}</version>
 	</dependency>
 	
 
@@ -492,6 +491,8 @@
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"</docker.entryPoint>
+                <!-- swagger 相关 -->
+                <swagger.enable>true</swagger.enable>
             </properties>
         </profile>
         <!--测试环境--> 
@@ -558,6 +559,8 @@
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"</docker.entryPoint>
+                <!-- swagger 相关 -->
+                <swagger.enable>true</swagger.enable>
             </properties>
         </profile>
          <!--模拟生产环境-->
@@ -624,6 +627,8 @@
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"</docker.entryPoint>
+                <!-- swagger 相关 -->
+                <swagger.enable>false</swagger.enable>
             </properties>
         </profile>
         <!--生产环境 --> 
@@ -690,6 +695,8 @@
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <!-- -Xms64m  -Xmx128m  -Xmn32m  -Xss256k  -XX:SurvivorRatio=8  -XX:+UseConcMarkSweepGC -->
                 <docker.entryPoint>["java","-XX:MetaspaceSize=128m","-XX:MaxMetaspaceSize=56m","-Xms64m","-Xmx128m","-Xmn32m","-Xss256k","-XX:SurvivorRatio=8","-XX:+UseConcMarkSweepGC","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
+                <!-- swagger 相关 -->
+                <swagger.enable>false</swagger.enable>
             </properties>
         </profile>
     </profiles>
