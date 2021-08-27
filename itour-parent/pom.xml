@@ -72,6 +72,8 @@
   	<docker.image.prefix>ben</docker.image.prefix> 
   	<org.redisson.version>3.14.1</org.redisson.version>
   	<axis2.version>1.6.2</axis2.version>
+  	<fastdfs-client.version>1.27.2</fastdfs-client.version>
+  	<springfox-swagger.version>3.0.0</springfox-swagger.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -210,7 +212,7 @@
 	    <version>${hutool.version}</version>
 	</dependency>
 	
-	<!-- redis -->
+	<!-- redis缓存 -->
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-redis</artifactId>
@@ -234,14 +236,28 @@
 	    <artifactId>mail</artifactId>
 	    <version>${mail.version}</version>
 	</dependency>
+	<!-- 整合swagger API管理工具 -->
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <scope>provided</scope>
+	    <version>${springfox-swagger.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <scope>provided</scope>
+	    <version>${springfox-swagger.version}</version>
+	</dependency>
 	
+
 	
 	
 	
 </dependencies>
-  <!-- springCloud -->
   	<dependencyManagement>
 		<dependencies>
+		 <!-- springCloud核心包 -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -279,6 +295,7 @@
 			    <artifactId>beetl-framework-starter</artifactId>
 			    <version>${beetl.version}</version>
 			</dependency>
+			<!-- shiro相关包 -->
 			<dependency>
 			    <groupId>org.apache.shiro</groupId>
 			    <artifactId>shiro-spring</artifactId>
@@ -384,6 +401,12 @@
 		            <artifactId>axis2-kernel</artifactId>
 		            <version>${axis2.version}</version>
 		        </dependency>
+		        <!-- 整合FastDFS分布式文件系统 -->
+		        <dependency>
+				    <groupId>com.github.tobato</groupId>
+				    <artifactId>fastdfs-client</artifactId>
+				    <version>${fastdfs-client.version}</version>
+				</dependency>
 				
 		</dependencies>
 		

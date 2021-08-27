@@ -81,5 +81,10 @@
         <artifactId>spring-test</artifactId>
         <scope>compile</scope>
     </dependency>
+    <!-- 整合FastDFS分布式文件系统 -->
+        <dependency>
+		    <groupId>com.github.tobato</groupId>
+		    <artifactId>fastdfs-client</artifactId>
+		</dependency>
   </dependencies>
 </project>
