@@ -7,13 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
-private static final String FMT_DATE ="yyyy-MM-dd";
-private static final String FMT_TIME ="HH:mm:ss";
-private static final String FMT_DATETIME ="yyyy-MM-dd HH:mm:ss";
-private static final String FMT_YEAR ="yyyy";
-private static final String FMT_MONTH ="MM";
-private static final String FMT_DAY ="dd";
-private static final String FMT_MONTH_DAY ="MM-dd";
+public static final String FMT_DATE ="yyyy-MM-dd";
+public static final String FMT_TIME ="HH:mm:ss";
+public static final String FMT_DATETIME ="yyyy-MM-dd HH:mm:ss";
+public static final String FMT_DATETIME_SHORT ="yyyy-MM-dd HH:mm";
+public static final String FMT_YEAR ="yyyy";
+public static final String FMT_MONTH ="MM";
+public static final String FMT_DAY ="dd";
+public static final String FMT_MONTH_DAY ="MM-dd";
 /**
  * 返回当前日期的long类型日期
  * @return long

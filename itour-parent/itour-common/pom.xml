@@ -86,5 +86,18 @@
 		    <groupId>com.github.tobato</groupId>
 		    <artifactId>fastdfs-client</artifactId>
 		</dependency>
+		<!-- JAVA对Excel的处理 -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-beans</artifactId>
+		</dependency>
   </dependencies>
 </project>

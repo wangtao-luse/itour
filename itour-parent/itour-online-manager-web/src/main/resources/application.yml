@@ -19,7 +19,7 @@ ribbon:
   MaxAutoRetries: '@ribbon.MaxAutoRetries@'      #解决fegin超时重试多条数据插入数据库问题
   MaxAutoRetriesNextServer: '@ribbon.MaxAutoRetriesNextServer@'  #解决fegin超时重试多条数据插入数据库问题
 
-  
+ #feign 
 feign:
   client:
     config:

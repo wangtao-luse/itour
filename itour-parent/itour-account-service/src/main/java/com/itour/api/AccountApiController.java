@@ -24,6 +24,8 @@ import com.itour.service.ViewAAccountService;
 import com.itour.service.ViewAOauthService;
 import com.itour.service.ViewARightService;
 
+
+
 @RestController
 public class AccountApiController implements AccountApi {
 @Autowired

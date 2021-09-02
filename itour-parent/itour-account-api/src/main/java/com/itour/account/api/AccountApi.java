@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
+
 @FeignClient(name = "itour-account-service")
 public interface AccountApi {
 /**

@@ -14,7 +14,8 @@ import com.itour.entity.ShiroExt;
 @Configuration
 public class BeetlConf {
 
-        @Value("${beetl.templatesPath}") String templatesPath;//模板根目录 ，比如 "templates"
+        @Value("${beetl.templatesPath}")
+        private String templatesPath;//模板根目录 ，比如 "templates"
         @Bean(name = "beetlConfig")
         public BeetlGroupUtilConfiguration getBeetlGroupUtilConfiguration() {
                 BeetlGroupUtilConfiguration beetlGroupUtilConfiguration = new BeetlGroupUtilConfiguration();

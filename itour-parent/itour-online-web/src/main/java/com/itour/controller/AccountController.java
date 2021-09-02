@@ -2,8 +2,6 @@ package com.itour.controller;
 
 
 
-import java.io.File;
-import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.common.file.FileUploadHelper;
 import com.itour.common.image.ImageIOHelper;
-import com.itour.common.image.ThumbnailsHelper;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.common.vo.ExUsernamePasswordToken;

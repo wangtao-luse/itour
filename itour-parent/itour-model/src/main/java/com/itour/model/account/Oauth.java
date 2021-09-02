@@ -1,6 +1,8 @@
 package com.itour.model.account;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -14,7 +16,6 @@ import java.io.Serializable;
  * @since 2020-05-03
  */
 @TableName("t_a_oauth")
-
 public class Oauth extends Model<Oauth> {
 
     private static final long serialVersionUID = 1L;
@@ -62,7 +63,7 @@ public class Oauth extends Model<Oauth> {
     private String avatar;
 
     /**
-     * 密码
+     * 用户的盐
      */
     @TableField("PWD")
     private String pwd;

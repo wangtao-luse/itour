@@ -40,4 +40,7 @@ feign:
         read-timeout: '@feign.client.config.default.read-timeout@' 
 #log    
 logging:
-  path: '@log.home@'           
+  path: '@log.home@'  
+#swagger
+swagger:
+  enable: '@swagger.enable@'         
