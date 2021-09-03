@@ -4,14 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -24,21 +25,22 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.streaming.SXSSFCell;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xssf.usermodel.extensions.XSSFCellBorder.BorderSide;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.util.StringUtils;
 
+import com.itour.constant.ExceptionInfo;
 import com.itour.entity.Excel;
 import com.itour.entity.Person;
+import com.itour.exception.BaseException;
 
 public class ExcelUtil {
 /**
@@ -54,10 +56,9 @@ public class ExcelUtil {
  *    SXSSF:是在XSSF基础上，POI3.8版本开始提供的支持低内存占用的操作方式，扩展名为.xlsx
  *   2.jxl
  *   3.EasyExcel
- * @throws IOException 
- * @throws FileNotFoundException 
+ * 
  */
-	
+
 	public static void main(String[] args) throws Exception {
 		//POI写实例
 		//testPOI();
@@ -85,32 +86,42 @@ public class ExcelUtil {
 			workbook.write(fileOutputStream);
 			fileOutputStream.close();
 			List<Excel> fList = new ArrayList<Excel>();
-			fList.add(new Excel("用户数据", 0, 0, 0, 3));
-			fList.add(new Excel("攻略数据", 0, 0, 4, 7));
-			fList.add(new Excel("客户来源", 0, 0, 8, 10));
+			fList.add(new Excel("日期",0,1,0,0,IndexedColors.CORNFLOWER_BLUE.getIndex()));
+			fList.add(new Excel("用户数据", 0, 0, 1, 4,IndexedColors.PALE_BLUE.getIndex()));
+			fList.add(new Excel("攻略数据", 0, 0, 5, 8,IndexedColors.CORNFLOWER_BLUE.getIndex()));
+			fList.add(new Excel("客户来源", 0, 0, 9, 11,IndexedColors.SKY_BLUE.getIndex()));
 			
 			List<Excel> slist = new ArrayList<Excel>();
-			slist.add(new Excel("本周新增用户数","id"));
-			slist.add(new Excel("本月新增用户数","id"));
-			slist.add(new Excel("本月活跃用户数","id"));
-			slist.add(new Excel("总用户数","id"));
+			slist.add(new Excel("日期","birthday",IndexedColors.CORNFLOWER_BLUE.getIndex()));
 			
-			slist.add(new Excel("文章总数","id"));
-			slist.add(new Excel("本月新增文章数","id"));
-			slist.add(new Excel("本周浏览量","id"));
-			slist.add(new Excel("当天浏览量","id"));
+			slist.add(new Excel("本周新增用户数","id",IndexedColors.PALE_BLUE.getIndex()));
+			slist.add(new Excel("本月新增用户数","id",IndexedColors.PALE_BLUE.getIndex()));
+			slist.add(new Excel("本月活跃用户数","id",IndexedColors.PALE_BLUE.getIndex()));
+			slist.add(new Excel("总用户数","id",IndexedColors.PALE_BLUE.getIndex()));
 			
-			slist.add(new Excel("微信","id"));
-			slist.add(new Excel("QQ","id"));
-			slist.add(new Excel("微博","id"));
-			poiWriteExcel("用户统计表",fList,slist,aList);	
+			slist.add(new Excel("文章总数","id",IndexedColors.CORNFLOWER_BLUE.getIndex()));
+			slist.add(new Excel("本月新增文章数","id",IndexedColors.CORNFLOWER_BLUE.getIndex()));
+			slist.add(new Excel("本周浏览量","id",IndexedColors.CORNFLOWER_BLUE.getIndex()));
+			slist.add(new Excel("当天浏览量","id",IndexedColors.CORNFLOWER_BLUE.getIndex()));
+			
+			slist.add(new Excel("微信","id",IndexedColors.SKY_BLUE.getIndex()));
+			slist.add(new Excel("QQ","id",IndexedColors.SKY_BLUE.getIndex()));
+			slist.add(new Excel("微博","id",IndexedColors.SKY_BLUE.getIndex()));
+			Workbook poiWriteExcel = poiWriteExcel("用户统计表",fList,slist,aList);	
+			FileOutputStream fileOutputStream1 = new FileOutputStream(new File("D:\\dev\\excel\\test2.xlsx"));
+			poiWriteExcel.write(fileOutputStream1);
+			fileOutputStream1.close();
+			
+			
+			
+			
 			
 	}
 private static void testPOI() throws FileNotFoundException, IOException {
 	//1.创建一个工作簿
 	Workbook workbook = new SXSSFWorkbook();
 	//2.创建一个工作表
-	Sheet sheet = workbook.createSheet("用户表");
+	SXSSFSheet sheet =(SXSSFSheet) workbook.createSheet("用户表");
 	     
 	//3.创建行  rownum从0开始
 	Row row = sheet.createRow(0);
@@ -118,55 +129,184 @@ private static void testPOI() throws FileNotFoundException, IOException {
 	Cell c1 = row.createCell(0);
 	//设置值
 	c1.setCellValue("编号");
+	
+	
+	Sheet sheetAt = workbook.getSheetAt(0);
+	      Row r = sheetAt.getRow(0);
+	      int lastRowNum = sheetAt.getLastRowNum();
+	      if(null==r) {
+	    	  System.out.println("Excel没有数据！");
+	      }
+	      if(1000>lastRowNum) {
+	    	  System.out.println("最多支持1000条数据"); 
+	      }
+	String [] t = new String[] {"合同号","是否计算提成"};
+	for (int i = 0; i < t.length; i++) {
+		SXSSFCell cell = getCell(sheet, 0, i);
+		String stringCellValue = cell.getStringCellValue();
+		if(!stringCellValue.equals(t[i])) {
+		System.out.println("请下载对应模板");
+		  break;
+		}
+	}
+	
+	
 	//写入
 	FileOutputStream fileOutputStream = new FileOutputStream(new File("D:\\dev\\excel\\test1.xlsx"));
 	workbook.write(fileOutputStream);
 	fileOutputStream.close();
 	
 }
+/**
+ *    读取单个工作表  *    
+ * @param <T>
+ * @param is 输入流
+ * @param fileName 文件名称
+ * @param template  模板文件检查(表头是否正确)
+ * @param clazz  需要转换的类
+ * @param collist 表头和实体类 的对应关系(collist中的对象的顺序必须和表头中的一致)
+ * @return List<JavaBean>
+ * @throws Exception
+ */
+public static <T> List<T> poiReadExcel(InputStream is,String fileName,String []template,Class<T> clazz,List<Excel> collist) throws Exception {
+	Workbook workbook = getWorkbook(is, fileName);
+	//获取工作簿中的电子表格数
+    int numberOfSheets = workbook.getNumberOfSheets();
+    Sheet sheetAt = workbook.getSheetAt(0);
+    int lastRowNum = sheetAt.getLastRowNum();
+    
+    //检查Excel是否有数据
+    if(lastRowNum==0) {
+    	throw new BaseException(ExceptionInfo.EXCEPTION_EXCEL_ROW_FAIL);
+    }
+    //检查模板是否正确
+    if(template.length>0) {
+    	for (int i = 0; i < template.length; i++) {
+			Cell cell = getCell(sheetAt, 0, i);
+			if(template[i] == cell.getStringCellValue()) {
+				throw new BaseException(ExceptionInfo.EXCEPTION_EXCEL_TEMPLATE_FAIL);
+			}
+		}
+    }
+    //数据转换
+    List<T> rList = new ArrayList<T>();
+    for (int i = 1; i < lastRowNum; i++) {
+    	Row row = sheetAt.getRow(i);
+    	for (int j = 0; j < collist.size(); j++) {
+    		Cell cell = row.getCell(j);
+    		String value = cell.getStringCellValue();
+    		//通过反射创建对象
+            T newInstance = clazz.newInstance();
+            //获取指定类中所有"公有方法"；（包含了父类的方法也包含Object类)
+        	Method[] methods = clazz.getMethods();
+            //获取该类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段。
+            Field[] fileds = clazz.getDeclaredFields();
+            for (Field field : fileds) {
+            	//1.获取指定类字段的名称
+            	String name = field.getName();
+            	//根据字段名称获取指定类中指定字段的set方法的方法名称
+        		String setMethodName = MethodUtils.setMethodName(name);
+        		//调用字段对应的set方法
+        		Method method = clazz.getMethod(fileName, clazz);
+        		method.invoke(value);
+        		
+        	}
+            rList.add(newInstance);
 
+		}
+    	    	
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+	
+	
+	//单个获取方法 name:方法名;parameterTypes:形参的Class类型对象
+	//clazz.getMethod(name, parameterTypes);
+    //迭代行
+    for (int i = 1; i < lastRowNum; i++) {
+    	
+    	
+	}
+    
+    return rList;
+	
+}
+
+/**
+ * 根据不同的Excel版本初始化Workbook
+ * @param is  输入流
+ * @param fileName  文件名
+ * @return   
+ * @throws IOException
+ */
+private static Workbook getWorkbook(InputStream is, String fileName) throws IOException {
+	Workbook workbook =null;
+	String name = fileName.toLowerCase();
+    if(name.endsWith(".xls")) {
+    	 workbook = new HSSFWorkbook(is);
+    }else if(name.endsWith(".xlsx")) {
+    	workbook = new XSSFWorkbook(is);
+    }else {
+    	throw new BaseException(ExceptionInfo.EXCEPTION_EXCEL_SUFFIX_FAIL);
+    }
+	return workbook;
+}
+   /**
+          * 创建两列表头的Excel
+    * @param sheetName 表名
+    * @param firstList  第一行数据
+    * @param sList     第二行数据
+    * @param listRows  数据源
+    * @return 
+    * @throws Exception
+    */
     public static Workbook poiWriteExcel(String sheetName,List<Excel>firstList,List<Excel> sList,List listRows) throws Exception {
     	int rownum = 0;
     	//1.创建一个工作簿
 		SXSSFWorkbook workbook = new SXSSFWorkbook();
 		//2.创建一个工作表
 		SXSSFSheet sheet = workbook.createSheet(sheetName);
-		
 		//表头第一行
 		for (int i = 0; i < firstList.size();i++) {
 			Excel excel = firstList.get(i);
-			int firstRow = excel.getFirstRow();//开始行号 从0开始
-			int lastRow = excel.getLastRow();//终止行号 从0开始
-			int firstCol = excel.getFirstCol();//开始列号 从0开始
-			int lastCol = excel.getLastCol();//终止列号 从0开始
+			Integer firstRow = excel.getFirstRow();//开始行号 从0开始
+			Integer lastRow = excel.getLastRow();//终止行号 从0开始
+			Integer firstCol = excel.getFirstCol();//开始列号 从0开始
+			Integer lastCol = excel.getLastCol();//终止列号 从0开始
 			String value= excel.getShowName();
-			
-			CellRangeAddress cra = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
-			sheet.addMergedRegion(cra);
-			SXSSFRow row = sheet.getRow(rownum);
-			if(null == row) {
-				 row = sheet.createRow(rownum);
-			}			
-			SXSSFCell cell = row.getCell(firstCol );
-			if(null == cell) {
-				cell = row.createCell(firstCol);
-			}
-			cell.setCellValue(value);
-			
+			Short foregroundColor = excel.getForegroundColor();
+				CellRangeAddress cra = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
+				sheet.addMergedRegion(cra);
+				//解决边框显示不全
+				RegionUtil.setBorderBottom(BorderStyle.THIN, cra, sheet); // 下边框
+			    RegionUtil.setBorderLeft(BorderStyle.THIN, cra, sheet); // 左边框
+				RegionUtil.setBorderRight(BorderStyle.THIN, cra, sheet); // 有边框
+				RegionUtil.setBorderTop(BorderStyle.THIN, cra, sheet); // 上边框
+				SXSSFCell cell =getCell(sheet, rownum, firstCol);
+				cell.setCellValue(value);
+				cell.setCellStyle(setBorderStyle(workbook, foregroundColor,0));
 		}
-		
-		
 		rownum++;
 		//第二行
 		for (int i = 0; i < sList.size(); i++) {
+			Excel excel = sList.get(i);
+			Short foregroundColor = excel.getForegroundColor();
 			SXSSFRow row = sheet.getRow(rownum);
 			if(null == row) {
 				 row = sheet.createRow(rownum);
 			}	
 			SXSSFCell cell = row.createCell(i);
 			cell.setCellValue(sList.get(i).getShowName());
-			cell.setCellStyle(setBorderStyle(workbook, 0));
+			cell.setCellStyle(setBorderStyle(workbook,foregroundColor, 0));
+			
 		}
+		
 		rownum++;
 		//4.组装数据
 				for (int i = 0; i < listRows.size(); i++) {
@@ -177,15 +317,20 @@ private static void testPOI() throws FileNotFoundException, IOException {
 					//创建单元格
 					for (int j = 0; j < sList.size(); j++) {
 						Object value = bw.getPropertyValue(sList.get(j).getColName());
+						SXSSFRow row = sheet.getRow(1);
+						short foregroundColor = row.getCell(j).getCellStyle().getFillForegroundColor();
 						if(null!=value) {
 							if(value instanceof Number) {
 								//设置单元格数据
 								double v = Double.valueOf(value.toString());
-								setCellValue(j,v , sRow,null);
+								Cell cell = setCellValue(j,v , sRow,null);
+								cell.setCellStyle(setBorderStyle(workbook,foregroundColor, 0));
 							}else if(value instanceof Date) {
-								setCellValue(j, value, sRow,null);
+								Cell cell = setCellValue(j, value, sRow,null);
+								cell.setCellStyle(setBorderStyle(workbook,foregroundColor, 0));
 							}else if(value instanceof String) {
-								setCellValue(j, String.valueOf(value), sRow);
+								Cell cell = setCellValue(j, String.valueOf(value), sRow);
+								cell.setCellStyle(setBorderStyle(workbook,foregroundColor, 0));
 							}
 						}
 						
@@ -193,12 +338,38 @@ private static void testPOI() throws FileNotFoundException, IOException {
 					}
 					rownum++;
 				}
-		setSizeColumn(sheet, sList.size());
-		 FileOutputStream fileOutputStream = new FileOutputStream(new File("D:\\dev\\excel\\test2.xlsx"));
-			workbook.write(fileOutputStream);
-			fileOutputStream.close();
-    	return null;
+		setSizeColumn(sheet, sList.size());		 
+    	return workbook;
     }
+    /**
+              * 获取指定行的指定的单元格
+     * @param sheet  SXSSFSheet对象
+     * @param rownum  行号
+     * @param colnum  列号
+     * @return  指定行的指定单元格对象
+     */
+	private static SXSSFCell getCell(SXSSFSheet sheet,int rownum,int colnum) {
+		SXSSFRow row = sheet.getRow(rownum);
+		if(null == row) {
+			 row = sheet.createRow(rownum);
+		}
+		SXSSFCell cell = row.getCell(colnum );
+		if(null == cell) {
+			cell = row.createCell(colnum);
+		}
+		return cell;
+	}
+	private static Cell getCell(Sheet sheet,int rownum,int colnum) {
+		Row row = sheet.getRow(rownum);
+		if(null == row) {
+			row = sheet.createRow(rownum);
+		}
+		Cell cell = row.getCell(colnum );
+		if(null == cell) {
+			cell = row.createCell(colnum);
+		}
+		return cell;
+	}
     
 
     /**
@@ -304,7 +475,7 @@ private static void testPOI() throws FileNotFoundException, IOException {
 	 * @param value 单元格的值
 	 * @param row  行对象
 	 */
-	public static void setCellValue(int column,double value,Row row,String pattern) {
+	public static Cell setCellValue(int column,double value,Row row,String pattern) {
 		 Cell cell = row.createCell(column);
 		  if(!StringUtils.isEmpty(pattern)) {
 			String v = DecimalUtil.numberFormat(value, pattern);
@@ -314,7 +485,7 @@ private static void testPOI() throws FileNotFoundException, IOException {
 		  }
 		 
 		
-		
+		return cell;
 		
 	}
 	/**
@@ -323,9 +494,10 @@ private static void testPOI() throws FileNotFoundException, IOException {
 	 * @param value 单元格的值
 	 * @param row  行对象
 	 */
-	public static void setCellValue(int column,String value,Row row) {
+	public static Cell setCellValue(int column,String value,Row row) {
 		Cell cell = row.createCell(column);
 		cell.setCellValue(value);
+		return cell;
 	}
 	/**
 	 * 创建单元格
@@ -333,7 +505,7 @@ private static void testPOI() throws FileNotFoundException, IOException {
 	 * @param value 单元格的值
 	 * @param row  行对象
 	 */
-	public static void setCellValue(int column,Object value,Row row,String pattern) {
+	public static Cell setCellValue(int column,Object value,Row row,String pattern) {
 		Cell cell = row.createCell(column);
 		if(StringUtils.isEmpty(value)) {
 			cell.setCellValue("");
@@ -345,6 +517,7 @@ private static void testPOI() throws FileNotFoundException, IOException {
 			String v = sdf.format((Date)value);
 			cell.setCellValue(v);
 		}
+		return cell;
 	}
 	/**
      * @Description:表格自适应宽度(中文支持)
@@ -375,6 +548,8 @@ private static void testPOI() throws FileNotFoundException, IOException {
             sheet.setColumnWidth(columnNum, (columnWidth+1) * 256);
         }
     }
+
+
     /**
      * 
      * @param wb
@@ -382,14 +557,15 @@ private static void testPOI() throws FileNotFoundException, IOException {
      * @param backWidth
      * @return
      */
-    private static  CellStyle setBorderStyle(SXSSFWorkbook wb,int cellIndex){
+    private static  CellStyle setBorderStyle(SXSSFWorkbook wb,Short foregroundColor,int cellIndex){
     	XSSFCellStyle cellStyle = (XSSFCellStyle)wb.createCellStyle();
         XSSFFont font = null;
         switch (cellIndex){
             case 0:
             	 font = (XSSFFont) wb.createFont(); // 创建字体对象
             	 font.setFontHeightInPoints((short) 10); // 设置字体大小
-        		 font.setFontName("宋体");            	
+        		 font.setFontName("宋体");
+        		 font.setBold(true);
         		 cellStyle.setFont(font);
         		 //垂直对齐位于单元高度的中心
         		 cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -399,138 +575,21 @@ private static void testPOI() throws FileNotFoundException, IOException {
         		 cellStyle.setBorderRight(BorderStyle.THIN);//右边框
         		 cellStyle.setBorderBottom(BorderStyle.THIN); //下边框
         		 cellStyle.setBorderLeft(BorderStyle.THIN);//左边框
-        		 
+        		 if(null!=foregroundColor) {
+        		 cellStyle.setFillForegroundColor(foregroundColor);
+        		 cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        		 } 
                 break;
             case 1:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.MEDIUM_DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.MEDIUM_DASHED);//右边框
-                cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);//设置前景填充样式
-                cellStyle.setFillForegroundColor(IndexedColors.BLACK.index);//前景填充色
-                break;
-            case 2:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                break;
-            case 3:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                font = (XSSFFont) wb.createFont();
-                font.setFontName("宋体");
-			/*
-			 * if("20".equals(backWidth)){ font.setFontHeightInPoints((short) 14);//设置字体大小
-			 * }else if("30".equals(backWidth)){ font.setFontHeightInPoints((short)
-			 * 16);//设置字体大小 }else if("40".equals(backWidth)){
-			 * font.setFontHeightInPoints((short) 18);//设置字体大小 }else
-			 * if("50".equals(backWidth)){ font.setFontHeightInPoints((short) 20);//设置字体大小
-			 * }else if("60".equals(backWidth)){ font.setFontHeightInPoints((short)
-			 * 22);//设置字体大小 }else{ font.setFontHeightInPoints((short) 14);//设置字体大小 }
-			 */
-                cellStyle.setFont(font);//选择需要用到的字体格式
-                cellStyle.setAlignment(HorizontalAlignment.CENTER);//水平居中
-                cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直居中
-                break;
-            case 4:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                font = (XSSFFont) wb.createFont();
-                font.setFontName("宋体");
-                font.setFontHeightInPoints((short) 14);//设置字体大小
-                cellStyle.setFont(font);//选择需要用到的字体格式
-                cellStyle.setAlignment(HorizontalAlignment.CENTER);//水平居中
-                cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直居中
-                cellStyle.setWrapText(true);//设置自动换行
-                break;
-            case 5:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                font = (XSSFFont) wb.createFont();
-                font.setFontName("宋体");
-			/*
-			 * if("20".equals(backWidth)){ font.setFontHeightInPoints((short) 12);//设置字体大小
-			 * }else if("30".equals(backWidth)){ font.setFontHeightInPoints((short)
-			 * 14);//设置字体大小 }else if("40".equals(backWidth)){
-			 * font.setFontHeightInPoints((short) 16);//设置字体大小 }else
-			 * if("50".equals(backWidth)){ font.setFontHeightInPoints((short) 18);//设置字体大小
-			 * }else if("60".equals(backWidth)){ font.setFontHeightInPoints((short)
-			 * 20);//设置字体大小 }else { font.setFontHeightInPoints((short) 12);//设置字体大小 }
-			 */
-                cellStyle.setFont(font);//选择需要用到的字体格式
-                cellStyle.setAlignment(HorizontalAlignment.CENTER);//水平居中
-                cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直居中
-                break;
-            case 6:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                font = (XSSFFont) wb.createFont();
-                font.setFontName("宋体");
-			/*
-			 * if(StringUtils.isEmpty(backWidth) || "20".equals(backWidth)){
-			 * font.setFontHeightInPoints((short) 14);//设置字体大小 }else{
-			 * font.setFontHeightInPoints((short) 16);//设置字体大小 }
-			 */
-                cellStyle.setFont(font);//选择需要用到的字体格式
-                cellStyle.setAlignment(HorizontalAlignment.CENTER);//水平居中
-                cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直居中
-                cellStyle.setWrapText(true);//设置自动换行
-                cellStyle.setRotation((short)255); //设置文字竖向排列
-                break;
-            case 7:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                break;
-            case 8:
-                cellStyle.setBorderBottom(BorderStyle.MEDIUM); //下边框
-                cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //下边框颜色
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.MEDIUM);//上边框
-                cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex()); //上边框颜色
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);//设置前景填充样式
-                cellStyle.setFillForegroundColor(IndexedColors.BLACK.index);//前景填充色
-                
-                break;
-            case 9:
-                cellStyle.setBorderBottom(BorderStyle.DASHED); //下边框
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.DASHED);//上边框
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
-                break;
+              
+                break;            
             default:
-                cellStyle.setBorderBottom(BorderStyle.DASHED); //下边框
-                cellStyle.setBorderLeft(BorderStyle.DASHED);//左边框
-                cellStyle.setBorderTop(BorderStyle.DASHED);//上边框
-                cellStyle.setBorderRight(BorderStyle.DASHED);//右边框
+               
                 break;
   
         }
         return cellStyle;
     }
+   
+
 }

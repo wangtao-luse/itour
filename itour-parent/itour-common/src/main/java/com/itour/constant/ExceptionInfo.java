@@ -21,5 +21,11 @@ public class ExceptionInfo {
 	
 	public static final String EXCEPTION_DEL_FAIL="删除失败";
 	
+	public static final String EXCEPTION_EXCEL_SUFFIX_FAIL="Excel格式错误！";
+	
+	public static final String EXCEPTION_EXCEL_ROW_FAIL="Excel没有数据,请添加数据后操作!";
+	
+	public static final String EXCEPTION_EXCEL_TEMPLATE_FAIL="请下载正确的模板操作！";
+	
 	
 }
