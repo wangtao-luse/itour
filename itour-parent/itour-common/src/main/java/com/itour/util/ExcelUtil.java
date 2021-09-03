@@ -207,7 +207,7 @@ public static <T> List<T> poiReadExcel(InputStream is,String fileName,String []t
             	//根据字段名称获取指定类中指定字段的set方法的方法名称
         		String setMethodName = MethodUtils.setMethodName(name);
         		//调用字段对应的set方法
-        		Method method = clazz.getMethod(fileName, clazz);
+        		Method method = clazz.getMethod(setMethodName, clazz);
         		method.invoke(value);
         		
         	}
