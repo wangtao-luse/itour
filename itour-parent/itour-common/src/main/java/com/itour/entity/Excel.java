@@ -56,7 +56,7 @@ public Excel(String showName, String colName) {
 	this.colName = colName;
 }
 /**
- * 需要设置背景色
+ * 需要设置背景色时使用
  * @param showName
  * @param colName
  * @param foregroundColor
