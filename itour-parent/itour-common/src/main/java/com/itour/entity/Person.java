@@ -52,4 +52,8 @@ public Date getUpdateDate() {
 public void setUpdateDate(Date updateDate) {
 	this.updateDate = updateDate;
 }
+@Override
+public String toString() {
+	return "Person [id=" + id + ", name=" + name + ", birthday=" + birthday + ", updateDate=" + updateDate + "]";
+}
 }
