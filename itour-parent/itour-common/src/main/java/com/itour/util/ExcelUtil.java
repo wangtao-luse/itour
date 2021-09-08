@@ -1,6 +1,8 @@
 package com.itour.util;
 
+import java.awt.Checkbox;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,6 +27,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.streaming.SXSSFCell;
 import org.apache.poi.xssf.streaming.SXSSFRow;
@@ -81,6 +84,8 @@ public class ExcelUtil {
 		list.add(new Excel("姓名", "name"));
 		list.add(new Excel("生日", "birthday"));
 		list.add(new Excel("最后修改日期", "updateDate",DateUtil.FMT_DATETIME_SHORT));
+		
+		
 		 Workbook workbook = poiWriteExcel("用户表",list,aList);
 		 FileOutputStream fileOutputStream = new FileOutputStream(new File("D:\\dev\\excel\\test.xlsx"));
 			workbook.write(fileOutputStream);
@@ -111,8 +116,12 @@ public class ExcelUtil {
 			FileOutputStream fileOutputStream1 = new FileOutputStream(new File("D:\\dev\\excel\\test2.xlsx"));
 			poiWriteExcel.write(fileOutputStream1);
 			fileOutputStream1.close();
-			
-			
+			FileInputStream is = new FileInputStream(new File("D:\\dev\\excel\\test3.xlsx"));
+			List<Person> poiReadExcel = poiReadExcel(is, "test3.xlsx", Person.class, list);
+			System.out.println("Excel解析完成");
+			for (Person person : poiReadExcel) {
+				System.out.println(person);
+			}
 			
 			
 			
@@ -129,28 +138,6 @@ private static void testPOI() throws FileNotFoundException, IOException {
 	Cell c1 = row.createCell(0);
 	//设置值
 	c1.setCellValue("编号");
-	
-	
-	Sheet sheetAt = workbook.getSheetAt(0);
-	      Row r = sheetAt.getRow(0);
-	      int lastRowNum = sheetAt.getLastRowNum();
-	      if(null==r) {
-	    	  System.out.println("Excel没有数据！");
-	      }
-	      if(1000>lastRowNum) {
-	    	  System.out.println("最多支持1000条数据"); 
-	      }
-	String [] t = new String[] {"合同号","是否计算提成"};
-	for (int i = 0; i < t.length; i++) {
-		SXSSFCell cell = getCell(sheet, 0, i);
-		String stringCellValue = cell.getStringCellValue();
-		if(!stringCellValue.equals(t[i])) {
-		System.out.println("请下载对应模板");
-		  break;
-		}
-	}
-	
-	
 	//写入
 	FileOutputStream fileOutputStream = new FileOutputStream(new File("D:\\dev\\excel\\test1.xlsx"));
 	workbook.write(fileOutputStream);
@@ -158,82 +145,100 @@ private static void testPOI() throws FileNotFoundException, IOException {
 	
 }
 /**
- *    读取单个工作表  *    
+ *    读取表头只有一行单个工作表  *    
  * @param <T>
  * @param is 输入流
  * @param fileName 文件名称
- * @param template  模板文件检查(表头是否正确)
  * @param clazz  需要转换的类
  * @param collist 表头和实体类 的对应关系(collist中的对象的顺序必须和表头中的一致)
- * @return List<JavaBean>
+ * @return List<JavaBean> 
  * @throws Exception
  */
-public static <T> List<T> poiReadExcel(InputStream is,String fileName,String []template,Class<T> clazz,List<Excel> collist) throws Exception {
+public static <T> List<T> poiReadExcel(InputStream is,String fileName,Class<T> clazz,List<Excel> collist) throws Exception {
 	Workbook workbook = getWorkbook(is, fileName);
 	//获取工作簿中的电子表格数
     int numberOfSheets = workbook.getNumberOfSheets();
+    //获取工作表
     Sheet sheetAt = workbook.getSheetAt(0);
     int lastRowNum = sheetAt.getLastRowNum();
+   
     
     //检查Excel是否有数据
     if(lastRowNum==0) {
     	throw new BaseException(ExceptionInfo.EXCEPTION_EXCEL_ROW_FAIL);
     }
     //检查模板是否正确
-    if(template.length>0) {
-    	for (int i = 0; i < template.length; i++) {
+    if(collist.size()>0) {
+    	for (int i = 0; i < collist.size(); i++) {
 			Cell cell = getCell(sheetAt, 0, i);
-			if(template[i] == cell.getStringCellValue()) {
+			if(collist.get(i).getShowName() == cell.getStringCellValue()) {
 				throw new BaseException(ExceptionInfo.EXCEPTION_EXCEL_TEMPLATE_FAIL);
 			}
 		}
     }
-    //数据转换
-    List<T> rList = new ArrayList<T>();
-    for (int i = 1; i < lastRowNum; i++) {
-    	Row row = sheetAt.getRow(i);
-    	for (int j = 0; j < collist.size(); j++) {
-    		Cell cell = row.getCell(j);
-    		String value = cell.getStringCellValue();
-    		//通过反射创建对象
-            T newInstance = clazz.newInstance();
-            //获取指定类中所有"公有方法"；（包含了父类的方法也包含Object类)
-        	Method[] methods = clazz.getMethods();
-            //获取该类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段。
-            Field[] fileds = clazz.getDeclaredFields();
-            for (Field field : fileds) {
-            	//1.获取指定类字段的名称
-            	String name = field.getName();
-            	//根据字段名称获取指定类中指定字段的set方法的方法名称
-        		String setMethodName = MethodUtils.setMethodName(name);
-        		//调用字段对应的set方法
-        		Method method = clazz.getMethod(setMethodName, clazz);
-        		method.invoke(value);
-        		
-        	}
-            rList.add(newInstance);
-
-		}
-    	    	
-	}
-    
-    
-    
-    
-    
-    
-    
-    
-	
-	
-	//单个获取方法 name:方法名;parameterTypes:形参的Class类型对象
-	//clazz.getMethod(name, parameterTypes);
+    //数据转换  
     //迭代行
-    for (int i = 1; i < lastRowNum; i++) {
-    	
-    	
+    List<T> rList = new ArrayList<T>();
+    for (int i = 1; i <= lastRowNum; i++) {
+    	//获取行
+    	 Row row = sheetAt.getRow(i);
+    	 T newInstance = clazz.getDeclaredConstructor().newInstance();
+    	 //迭代列
+    	for (int j = 0; j < collist.size(); j++) {
+    		//获取Excel工作标准单元格的值
+			Cell cell = row.getCell(j);
+			String regex = collist.get(j).getRegex();
+			if(cell.getCellType() == CellType.STRING) {
+				boolean check = Excel.check(regex, cell.getStringCellValue());
+				if(!check) {
+					String message = "请检查"+collist.get(j).getShowName()+"第"+i+"行的值,"+collist.get(j).getMsg();
+				 throw new BaseException(message);
+				}
+			}else if(cell.getCellType() == CellType.NUMERIC) {
+				String text = NumberToTextConverter.toText(cell.getNumericCellValue());
+				boolean check = Excel.check(regex,text );
+				if(!check) {
+					String message = "请检查"+collist.get(j).getShowName()+"第"+i+"行的值,"+collist.get(j).getMsg();
+				 throw new BaseException(message);
+				}
+			}
+			
+			//获取对应的字段名称
+			String colName = collist.get(j).getColName();
+			//获取指定类中的指定字段
+			Field field = clazz.getDeclaredField(colName);
+			//获取字段的类型
+			String name = field.getType().getSimpleName();
+			field.setAccessible(true);
+			if("String".equals(name)) {
+				field.set(newInstance, cell.getStringCellValue());
+			}else if("Date".equals(name)) {
+				String pattern = collist.get(i).getPattern();
+				if(StringUtils.isEmpty(pattern)) {
+					pattern=DateUtil.FMT_DATE;
+				}
+				SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+				String dateCellValue = cell.getStringCellValue();
+				Date parse = sdf.parse(dateCellValue);
+				field.set(newInstance, parse);	
+			}else if("Double".equals(name)) {
+				double numericCellValue = cell.getNumericCellValue();
+				field.set(newInstance, numericCellValue);	
+			}else if("Integer".equals(name)) {
+				double value = cell.getNumericCellValue();
+				String text = NumberToTextConverter.toText(value);
+				field.set(newInstance, Integer.valueOf(text));	
+			}else if("Long".equals(name)) {
+				double value = cell.getNumericCellValue();
+				String text = NumberToTextConverter.toText(value);
+				field.set(newInstance, Long.valueOf(text));	
+			}
+		    
+		}
+    	rList.add(newInstance);
+		
 	}
-    
+   
     return rList;
 	
 }

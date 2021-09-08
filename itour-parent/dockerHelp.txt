@@ -1,4 +1,12 @@
 项目模块容器Docker命令
+docker [options] IMAGE [COMMAND]
+-d:创建一个守护式容器在后台一直运行
+-i:表示运行容器;
+-t:表示容器启动后会进入命令行,加上这个参数后，容器创建就能登录进去，即分配了一个伪终端.
+--name:指定容器名字,后续可以通过名字进行容器管理
+-p:端口映射
+-v:给容器挂载存储卷，挂载到容器的某个目录 宿主机目录：容器目录 (将宿主机的目录挂载到容器中)
+--restart=always:重启docker时，自动启动相关容器
 1.itour-eureka-server
   docker run -d --name itour-eureka-server -p 9090:9090 ben/itour-eureka-server --restart=always
 
@@ -40,5 +48,5 @@ Redis
 docker run -itd --restart=always --name ben-pro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 
-
+ 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
 
