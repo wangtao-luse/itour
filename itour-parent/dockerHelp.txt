@@ -48,5 +48,9 @@ Redis
 docker run -itd --restart=always --name ben-pro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 
+nginx
+docker run  -d --restart=always --name nginx -p 8090:80 -v /etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /var/log/nginx:/var/log/nginx  -v /usr/share/nginx/html:/usr/share/nginx/html -v /etc/nginx/conf.d:/etc/nginx/conf.d nginx --privileged=true 
+ 
+ 
  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
 
