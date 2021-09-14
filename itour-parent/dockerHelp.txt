@@ -48,12 +48,7 @@ Redis
 docker run -itd --restart=always --name ben-pro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 
-<<<<<<< HEAD
-nginx
-docker run  -d --restart=always --name nginx -p 8090:80 -v /etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /var/log/nginx:/var/log/nginx  -v /usr/share/nginx/html:/usr/share/nginx/html -v /etc/nginx/conf.d:/etc/nginx/conf.d nginx --privileged=true 
- 
- 
-=======
+
 Nginx 
 1.创建挂载目录;
   mkdir -p ./nginx/{html,log,conf.d}
@@ -70,7 +65,7 @@ docker run -d --name test-nginx -p 8082:80 -v /etc/nginx/nginx.conf:/etc/nginx/n
 
 
 
->>>>>>> 2908abd732ed4e952a0deab7fe297b0e109a56c1
- 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
+
+ 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
  https://www.cnblogs.com/qiqiloved/p/13470064.html
 
