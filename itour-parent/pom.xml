@@ -515,7 +515,7 @@
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
-                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"</docker.entryPoint>
+                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                 <!-- FastDFS相关 -->
                 <fdfs.so-timeout>1500</fdfs.so-timeout>
                 <fdfs.connect-timeout>600 </fdfs.connect-timeout>
@@ -587,7 +587,7 @@
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
-                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"</docker.entryPoint>
+                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                  <!-- FastDFS相关 -->
                 <fdfs.so-timeout>1500</fdfs.so-timeout>
                 <fdfs.connect-timeout>600 </fdfs.connect-timeout>
@@ -659,7 +659,7 @@
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
-                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"</docker.entryPoint>
+                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                  <!-- FastDFS相关 -->
                 <fdfs.so-timeout>1500</fdfs.so-timeout>
                 <fdfs.connect-timeout>600 </fdfs.connect-timeout>
