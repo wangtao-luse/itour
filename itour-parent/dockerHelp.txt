@@ -65,4 +65,38 @@ docker run -d --name test-nginx -p 8082:80 -v /etc/nginx/nginx.conf:/etc/nginx/n
 
 
  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
+ 
+ 
+ 
+ 
+ 1.查找镜像
+   docker search fastdfs
+ 2.拉取镜像
+   docker pull delron/fastdfs
+ 3.查看镜像
+   docker images
+ 4.构建容器
+   tracker
+   
+    docker run -itd --name trakcer -v /fastdfs/tracker/data:/fastdfs/tracker/data --net=host season/fastdfs tracker
+       
+   storage
+    
+    docker run -tid --name storage -v /fastdfs/storage/data:/fastdfs/storage/data -v /fastdfs/store_path:/fastdfs/store_path --net=host -e TRACKER_SERVER:106.54.162.159:22122 season/fastdfs storage
+   
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
