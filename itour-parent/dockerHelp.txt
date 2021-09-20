@@ -82,5 +82,6 @@ docker run -d --name test-nginx -p 8082:80 -v /etc/nginx/nginx.conf:/etc/nginx/n
    
  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
  https://www.cnblogs.com/qiqiloved/p/13470064.html
+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
 
 
