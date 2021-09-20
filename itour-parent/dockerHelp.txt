@@ -80,8 +80,7 @@ docker run -d --name test-nginx -p 8082:80 -v /etc/nginx/nginx.conf:/etc/nginx/n
     docker run -tid --name storage -v /fastdfs/storage/data:/fastdfs/storage/data -v /fastdfs/store_path:/fastdfs/store_path --net=host -e TRACKER_SERVER:106.54.162.159:22122 season/fastdfs storage
    
    
- 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
- https://www.cnblogs.com/qiqiloved/p/13470064.html
-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
+https://www.cnblogs.com/qiqiloved/p/13470064.html
+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
 
 
