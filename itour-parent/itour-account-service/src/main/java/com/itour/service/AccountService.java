@@ -31,6 +31,8 @@ import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
 import com.itour.util.StringHelper;
 
+import io.swagger.annotations.ApiOperation;
+
 
 
 @Service
@@ -55,6 +57,7 @@ private GroupMapper groupMapper;
 	 * @param requestMesage
 	 * @return
 	 */
+@ApiOperation(value = "注册")
 @Transactional	
 public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
