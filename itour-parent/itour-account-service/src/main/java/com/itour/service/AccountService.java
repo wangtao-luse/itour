@@ -31,10 +31,11 @@ import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
 import com.itour.util.StringHelper;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-
+@Api(tags = {"用户模块API"})
 @Service
 public class AccountService extends ServiceImpl<AccountMapper, Account>{
 	@Autowired
@@ -57,7 +58,7 @@ private GroupMapper groupMapper;
 	 * @param requestMesage
 	 * @return
 	 */
-@ApiOperation(value = "注册")
+@ApiOperation(value = "注册",notes = "用户前台注册")
 @Transactional	
 public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
