@@ -1,7 +1,7 @@
 package com.itour.persist;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.account.dto.ViewARight;
+import com.itour.model.account.vo.ViewARight;
 
 /**
  * <p>

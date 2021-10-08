@@ -8,7 +8,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.member.dto.ViewMAccount;
+import com.itour.model.member.vo.ViewMAccount;
 import com.itour.persist.ViewMAccountMapper;
 
 import java.util.List;

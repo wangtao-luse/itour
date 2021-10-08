@@ -5,7 +5,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.itour.model.vo.Orderby;
+import com.itour.model.dto.Orderby;
 /**
  * <p>
  * VIEW

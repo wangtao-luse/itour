@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
-import com.itour.model.work.dto.WorkInfoDto;
+import com.itour.model.work.vo.WorkInfoVo;
 
 /**
  * <p>
@@ -27,14 +27,14 @@ public interface WorkInfoMapper extends BaseMapper<WorkInfo> {
  * @param workInfoDto
  * @return
  */
-List<WorkInfoDto> selectWorkInfoList(Page page,@Param("vo")WorkInfoDto workInfoDto);
-List<WorkInfoDto> selectWorkInfoList(@Param("vo")WorkInfoDto workInfoDto);
+List<WorkInfoVo> selectWorkInfoList(Page page,@Param("vo")WorkInfoVo workInfoDto);
+List<WorkInfoVo> selectWorkInfoList(@Param("vo")WorkInfoVo workInfoDto);
 /**
  * 个人博客单条(前台详情页面使用用户信息(图像，昵称))
  * @param workInfoDto
  * @return
  */
-WorkInfoDto selectWorkInfo(@Param("vo")WorkInfoDto workInfoDto);
+WorkInfoVo selectWorkInfo(@Param("vo")WorkInfoVo workInfoDto);
 /**
  * 个人博客标签查询
  * @param id
@@ -73,20 +73,20 @@ List<WorkColumn> workColList(@Param("id") Long id);
  * @param workInfoDto
  * @return
  */
-List<WorkInfoDto> searchTextList(Page page,@Param("vo")WorkInfoDto workInfoDto);
+List<WorkInfoVo> searchTextList(Page page,@Param("vo")WorkInfoVo workInfoDto);
 /**
  * 个人中心统计
  * @param workInfoDto
  * @return
  */
-WorkInfoDto getInfoData(@Param("vo")WorkInfoDto workInfoDto);
+WorkInfoVo getInfoData(@Param("vo")WorkInfoVo workInfoDto);
 /**
  * 个人中心列表
  * @param page
  * @param workInfoDto
  * @return
  */
-List<WorkInfoDto> selectDynamicList(Page page,@Param("vo")WorkInfoDto workInfoDto);
+List<WorkInfoVo> selectDynamicList(Page page,@Param("vo")WorkInfoVo workInfoDto);
 /**
  * 修改浏览量
  * @param entityList

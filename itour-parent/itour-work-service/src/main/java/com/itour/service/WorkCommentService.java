@@ -20,13 +20,13 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.exception.BaseException;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.dto.ViewCommentReply;
 import com.itour.model.travel.dto.ViewTravelComment;
-import com.itour.model.vo.PageInfo;
 import com.itour.model.work.WorkComment;
 import com.itour.model.work.WorkCommentReply;
-import com.itour.model.work.dto.WorkCommentDto;
-import com.itour.model.work.dto.WorkCommentReplyDto;
+import com.itour.model.work.vo.WorkCommentDto;
+import com.itour.model.work.vo.WorkCommentReplyVo;
 import com.itour.persist.WorkCommentMapper;
 import com.itour.persist.WorkCommentReplyMapper;
 import com.itour.util.DateUtil;
@@ -104,14 +104,14 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
 public Map<String,Object> getCommentList(List<WorkCommentDto> commentList,String uid) {
 	Map<String,Object> result = new HashMap<String, Object>();
 	List<Long> collect = commentList.stream().map(WorkCommentDto::getId).collect(Collectors.toList());
-	WorkCommentReplyDto vo = new WorkCommentReplyDto();
+	WorkCommentReplyVo vo = new WorkCommentReplyVo();
     vo.setIdList(collect);
     vo.setFromUid(uid);
-	List<WorkCommentReplyDto> replyList = workCommentReplyMapper.queryCommentReplyList(vo);
+	List<WorkCommentReplyVo> replyList = workCommentReplyMapper.queryCommentReplyList(vo);
 	//4.组装评论下的回复信息
 	for (WorkCommentDto vComment : commentList) {
-		List<WorkCommentReplyDto> rList = new ArrayList<WorkCommentReplyDto>();
-		for (WorkCommentReplyDto vReply : replyList) {
+		List<WorkCommentReplyVo> rList = new ArrayList<WorkCommentReplyVo>();
+		for (WorkCommentReplyVo vReply : replyList) {
 			Long id = vComment.getId();
 			Long rid = vReply.getCommentId();
 			if(id==rid) {

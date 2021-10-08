@@ -13,7 +13,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.account.dto.ViewARight;
+import com.itour.model.account.vo.ViewARight;
 import com.itour.persist.ViewARightMapper;
 
 

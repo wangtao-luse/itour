@@ -1,4 +1,4 @@
-package com.itour.model.dictionary.dto;
+package com.itour.model.dictionary.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;

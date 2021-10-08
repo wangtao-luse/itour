@@ -14,7 +14,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.account.dto.ViewAOauth;
+import com.itour.model.account.vo.ViewAOauth;
 import com.itour.persist.ViewAOauthMapper;
 
 /**

@@ -13,8 +13,8 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.CommentReply;
-import com.itour.model.vo.PageInfo;
 import com.itour.persist.CommentReplyMapper;
 import com.itour.util.DateUtil;
 

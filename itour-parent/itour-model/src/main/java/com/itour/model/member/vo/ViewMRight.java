@@ -1,6 +1,8 @@
-package com.itour.model.account.dto;
+package com.itour.model.member.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,7 +12,8 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-09
  */
-public class ViewARight extends Model<ViewARight> {
+ @TableName("view_m_right")
+public class ViewMRight extends Model<ViewMRight> {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +21,7 @@ public class ViewARight extends Model<ViewARight> {
      * 编号
      */
     @TableField("ID")
-    private Long id;
+    private Integer id;
 
     /**
      * 菜单唯一号
@@ -36,39 +39,43 @@ public class ViewARight extends Model<ViewARight> {
      * 上级菜单编号(0:顶级菜单)
      */
     @TableField("PARENT_ID")
-    private String parentId;
+    private Integer parentId;
 
     /**
      * 菜单类型(1:菜单;2:按钮)
      */
     @TableField("MENU_TYPE")
     private String menuType;
+
     /**
      * 菜单url
      */
     @TableField("URL")
     private String url;
+
     /**
-     * 一级菜单顺序
+     * 一级菜单的顺序
      */
     @TableField("M_ORDER")
     private String mOrder;
+
     /**
-     * 二级菜单顺序
+     * 二级菜单的顺序
      */
     @TableField("S_ORDER")
     private String sOrder;
+
     /**
      * 字典值
      */
     @TableField("MENU_TYPE_STR")
     private String menuTypeStr;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -88,11 +95,11 @@ public class ViewARight extends Model<ViewARight> {
         this.menu = menu;
     }
 
-    public String getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
@@ -102,6 +109,30 @@ public class ViewARight extends Model<ViewARight> {
 
     public void setMenuType(String menuType) {
         this.menuType = menuType;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getmOrder() {
+        return mOrder;
+    }
+
+    public void setmOrder(String mOrder) {
+        this.mOrder = mOrder;
+    }
+
+    public String getsOrder() {
+        return sOrder;
+    }
+
+    public void setsOrder(String sOrder) {
+        this.sOrder = sOrder;
     }
 
     public String getMenuTypeStr() {
@@ -117,33 +148,9 @@ public class ViewARight extends Model<ViewARight> {
         return null;
     }
 
-    public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getmOrder() {
-		return mOrder;
-	}
-
-	public void setmOrder(String mOrder) {
-		this.mOrder = mOrder;
-	}
-
-	public String getsOrder() {
-		return sOrder;
-	}
-
-	public void setsOrder(String sOrder) {
-		this.sOrder = sOrder;
-	}
-
-	@Override
+    @Override
     public String toString() {
-        return "ViewARight{" +
+        return "ViewMRight{" +
         ", id=" + id +
         ", menuNo=" + menuNo +
         ", menu=" + menu +

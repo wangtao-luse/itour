@@ -1,8 +1,6 @@
-package com.itour.model.member.dto;
+package com.itour.model.account.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
 /**
  * <p>
@@ -12,63 +10,36 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-15
  */
-@TableName("view_m_account_group")
-public class ViewMAccountGroup extends Model<ViewMAccountGroup> {
+public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 编号
-     */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
-    /**
-     * 用户唯一号	唯一(从10000开始)
-     */
     @TableField("UID")
     private String uid;
 
-    /**
-     * 性别(0：女；1：男)
-     */
     @TableField("SEX")
     private String sex;
 
-    /**
-     * 注册时间
-     */
     @TableField("CREATEDATE")
     private Integer createdate;
 
-    /**
-     * 注册IP	
-     */
     @TableField("CREATEIP")
     private String createip;
 
-    /**
-     * 上次登录时间
-     */
     @TableField("LASTTIME")
     private Integer lasttime;
 
-    /**
-     * 状态	0：禁用；1：正常
-     */
     @TableField("STATUS")
     private String status;
 
-    /**
-     * 用户类型	0:普通用户;1:管理员
-     */
     @TableField("UTYPE")
     private String utype;
-    /**
-     * 组编号
-     */
     @TableField("GROUP_ID")
     private String groupId;
+
     /**
      * 字典值
      */
@@ -81,11 +52,11 @@ public class ViewMAccountGroup extends Model<ViewMAccountGroup> {
     @TableField("UTYPE_STR")
     private String utypeStr;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -176,7 +147,7 @@ public class ViewMAccountGroup extends Model<ViewMAccountGroup> {
 
     @Override
     public String toString() {
-        return "ViewMAccountGroup{" +
+        return "ViewAAccountGroup{" +
         ", id=" + id +
         ", uid=" + uid +
         ", sex=" + sex +

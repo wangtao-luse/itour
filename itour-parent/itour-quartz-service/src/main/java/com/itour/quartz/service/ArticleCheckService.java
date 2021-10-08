@@ -17,7 +17,7 @@ import com.itour.init.SensitiveWordFilter;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.dto.ViewTravelinfoWeekinfo;
 import com.itour.model.work.WorkInfo;
-import com.itour.model.work.dto.ViewWorkinfoWorktext;
+import com.itour.model.work.vo.ViewWorkinfoWorktext;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 @Service

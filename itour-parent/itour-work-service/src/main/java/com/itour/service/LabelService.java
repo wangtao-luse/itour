@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.model.vo.PageInfo;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.work.Label;
 import com.itour.persist.LabelMapper;
 

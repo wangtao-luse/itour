@@ -1,9 +1,7 @@
-package com.itour.model.member.dto;
+package com.itour.model.account.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.itour.model.vo.LongRange;
+import com.itour.model.dto.LongRange;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
 /**
  * <p>
@@ -13,56 +11,31 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-08
  */
-@TableName("view_m_account")
-public class ViewMAccount extends Model<ViewMAccount> {
+public class ViewAAccount extends Model<ViewAAccount> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 编号
-     */
     @TableField("ID")
-    private Integer id;
+    private Long id;
 
-    /**
-     * 用户唯一号	唯一(从10000开始)
-     */
     @TableField("UID")
     private String uid;
 
-    /**
-     * 性别(0：女；1：男)
-     */
     @TableField("SEX")
     private String sex;
 
-    /**
-     * 注册时间
-     */
     @TableField("CREATEDATE")
     private Long createdate;
 
-    /**
-     * 注册IP	
-     */
     @TableField("CREATEIP")
     private String createip;
 
-    /**
-     * 上次登录时间
-     */
     @TableField("LASTTIME")
     private Long lasttime;
 
-    /**
-     * 状态	0：禁用；1：正常
-     */
     @TableField("STATUS")
     private String status;
 
-    /**
-     * 用户类型	0:普通用户;1:管理员
-     */
     @TableField("UTYPE")
     private String utype;
 
@@ -85,15 +58,15 @@ public class ViewMAccount extends Model<ViewMAccount> {
     private String statusStr;
     /**注册日期***/
     @TableField(exist = false)
-    private LongRange createdateRange;
+    private LongRange createdateRange = new LongRange();
     /**最近一次登录日期***/
     @TableField(exist = false)
-    private LongRange lasttimeRange;
-    public Integer getId() {
+    private LongRange lasttimeRange = new LongRange();
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -200,7 +173,7 @@ public class ViewMAccount extends Model<ViewMAccount> {
 
 	@Override
     public String toString() {
-        return "ViewMAccount{" +
+        return "ViewAAccount{" +
         ", id=" + id +
         ", uid=" + uid +
         ", sex=" + sex +

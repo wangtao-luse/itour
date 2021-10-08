@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.itour.model.dto.Orderby;
 import com.itour.model.travel.TravelInfo;
-import com.itour.model.vo.Orderby;
 
 
 public class TravelInfoDto extends TravelInfo {

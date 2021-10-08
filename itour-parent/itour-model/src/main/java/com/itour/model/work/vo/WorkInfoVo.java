@@ -1,12 +1,12 @@
-package com.itour.model.work.dto;
+package com.itour.model.work.vo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.itour.model.vo.Orderby;
+import com.itour.model.dto.Orderby;
 import com.itour.model.work.WorkInfo;
 
-public class WorkInfoDto extends WorkInfo {
+public class WorkInfoVo extends WorkInfo {
 	private String dynamic;
 	private Long time;
 	private String mold;

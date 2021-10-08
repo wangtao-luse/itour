@@ -1,4 +1,4 @@
-package com.itour.model.work.dto;
+package com.itour.model.work.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

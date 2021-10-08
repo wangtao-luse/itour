@@ -16,23 +16,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.itour.common.HttpDataUtil;
 import com.itour.common.redis.RedisManager;
-import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.WorkConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.dto.ViewCommentReply;
-import com.itour.model.vo.PageInfo;
 import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
-import com.itour.model.work.dto.WorkCommentDto;
-import com.itour.model.work.dto.WorkInfoDto;
+import com.itour.model.work.vo.WorkCommentVo;
+import com.itour.model.work.vo.WorkInfoVo;
 import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
@@ -54,13 +52,13 @@ private RedisManager redisManager;
 @RequestMapping("/index")
 public String index(Page page,ModelMap model,HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
-	WorkInfoDto vo = new WorkInfoDto();
+	WorkInfoVo vo = new WorkInfoVo();
 	jsonObject.put(Constant.COMMON_KEY_VO, vo);
 	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage selectWorkInfoList = this.workConnector.selectWorkInfoList(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(selectWorkInfoList)) {
 		PageInfo pageInfo = FastJsonUtil.mapToObject(selectWorkInfoList.getReturnResult(), PageInfo.class);
-		List<WorkInfoDto> records = pageInfo.getRecords();
+		List<WorkInfoVo> records = pageInfo.getRecords();
 		model.addAttribute("page", pageInfo);
 		model.addAttribute("workInfo", records);
 	}
@@ -103,7 +101,7 @@ public String workUpdateMd(Long id,ModelMap model,HttpServletRequest request) {
 			jsonObject.put(Constant.COMMON_KEY_VO, info);
 			ResponseMessage selectWorkInfo = this.workConnector.selectWorkInfoOne(jsonObject, request);
 			if(ResponseMessage.isSuccessResult(selectWorkInfo)) {
-				WorkInfoDto workInfo = FastJsonUtil.mapToObject(selectWorkInfo.getReturnResult(), WorkInfoDto.class);
+				WorkInfoVo workInfo = FastJsonUtil.mapToObject(selectWorkInfo.getReturnResult(), WorkInfoVo.class);
 				model.addAttribute("workInfo", workInfo);
 			}
 			 jsonObject.clear();
@@ -210,7 +208,7 @@ private void ip(HttpServletRequest request,String id) {
 }
 private void workInfo(Long id, ModelMap model, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
-	WorkInfoDto tmp = new WorkInfoDto();
+	WorkInfoVo tmp = new WorkInfoVo();
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("sessionUser", sessionUser);
 	if(!StringUtils.isEmpty(sessionUser)) {
@@ -220,7 +218,7 @@ private void workInfo(Long id, ModelMap model, HttpServletRequest request) {
 	 jsonObject.put(Constant.COMMON_KEY_VO, tmp);
 	ResponseMessage resp = this.workConnector.selectWorkInfo(jsonObject , request);
 	if(ResponseMessage.isSuccessResult(resp)) {
-		WorkInfoDto travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), WorkInfoDto.class);			
+		WorkInfoVo travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), WorkInfoVo.class);			
 		 model.addAttribute("workInfo", travelInfo);
 		 //获取周末旅行攻略的内容
 			 jsonObject.clear();
@@ -286,7 +284,7 @@ private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest 
 		PageInfo resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
 		resultPage.pageNav();
 		resultPage.getPs();
-		List<WorkCommentDto> commentList = resultPage.getRecords();
+		List<WorkCommentVo> commentList = resultPage.getRecords();
 		model.addAttribute("commentList", commentList);
 		model.addAttribute(Constant.COMMON_KEY_PAGE, resultPage);
 		model.addAttribute(ConstantTravel.TRAVEL_COMMENTSIZE, returnResult.get(ConstantTravel.TRAVEL_COMMENTSIZE));

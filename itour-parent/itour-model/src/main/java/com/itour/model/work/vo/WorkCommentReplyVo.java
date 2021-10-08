@@ -1,10 +1,10 @@
-package com.itour.model.work.dto;
+package com.itour.model.work.vo;
 
 import java.util.List;
 
 import com.itour.model.work.WorkCommentReply;
 
-public class WorkCommentReplyDto extends WorkCommentReply {
+public class WorkCommentReplyVo extends WorkCommentReply {
 	private String fromAvatar;
 	private String fromNickname;
 	private String toAvatar;

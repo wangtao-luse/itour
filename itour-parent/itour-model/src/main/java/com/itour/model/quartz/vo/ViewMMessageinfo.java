@@ -1,4 +1,4 @@
-package com.itour.model.quartz.dto;
+package com.itour.model.quartz.vo;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;

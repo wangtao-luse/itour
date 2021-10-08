@@ -16,12 +16,12 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.init.SensitiveWordFilter;
+import com.itour.model.dto.Orderby;
 import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.TravelComment;
-import com.itour.model.vo.Orderby;
 import com.itour.model.work.WorkComment;
 import com.itour.model.work.WorkCommentReply;
-import com.itour.model.work.dto.WorkCommentDto;
+import com.itour.model.work.vo.WorkCommentVo;
 import com.itour.util.FastJsonUtil;
 
 @Service
@@ -145,7 +145,7 @@ public void updateCommentStatus() {
 		//1.查看评论表
 		//2.批量修改评论表的状态
 		JSONObject jsonObject = new JSONObject();
-		WorkCommentDto comment = new WorkCommentDto();
+		WorkCommentVo comment = new WorkCommentVo();
 		List<Orderby> olist = new ArrayList<Orderby>();
 		olist.add(new Orderby(Orderby.DESC, "ctime"));
 		comment.setOrderbyList(olist);

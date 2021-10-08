@@ -1,8 +1,6 @@
-package com.itour.model.member.dto;
+package com.itour.model.account.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
 /**
  * <p>
@@ -12,31 +10,30 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-10
  */
-@TableName("view_m_oauth")
-public class ViewMOauth extends Model<ViewMOauth> {
+public class ViewAOauth extends Model<ViewAOauth> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 编号标识	主键,自动增长
+     * 编号
      */
     @TableField("ID")
     private Long id;
 
     /**
-     * 用户唯一号	外键来源于用户表中的UID
+     * 用户唯一号
      */
     @TableField("U_ID")
     private String uId;
 
     /**
-     * 第三方登录唯一ID	站内保存手机号码;用户名，邮箱;
+     * 第三方登录唯一ID
      */
     @TableField("OAUTH_ID")
     private String oauthId;
 
     /**
-     * 第三方登录平台标识(手机号，邮箱，用户名，第三方应用名称（微信，QQ，微博…）)	手机：phone;邮箱：email;QQ:qq;微信：wechat;用户名：uid;微博:weibo
+     * 第三方登录平台标识(手机号，邮箱，用户名，第三方应用名称（微信，QQ，微博…）)	手机：PHONE;邮箱：EMAIL;QQ:QQ;微信：WECHAT;用户名：UID;微博:WEIBO
      */
     @TableField("OAUTH_TYPE")
     private String oauthType;
@@ -59,11 +56,10 @@ public class ViewMOauth extends Model<ViewMOauth> {
     @TableField("OAUTH_TYPE_STR")
     private String oauthTypeStr;
     /**
-     * 注册时间
+     * 注册日期
      */
     @TableField("CREATEDATE")
     private Long createdate;
-
     public Long getId() {
         return id;
     }
@@ -125,9 +121,17 @@ public class ViewMOauth extends Model<ViewMOauth> {
         return null;
     }
 
-    @Override
+    public Long getCreatedate() {
+		return createdate;
+	}
+
+	public void setCreatedate(Long createdate) {
+		this.createdate = createdate;
+	}
+
+	@Override
     public String toString() {
-        return "ViewMOauth{" +
+        return "ViewAOauth{" +
         ", id=" + id +
         ", uId=" + uId +
         ", oauthId=" + oauthId +

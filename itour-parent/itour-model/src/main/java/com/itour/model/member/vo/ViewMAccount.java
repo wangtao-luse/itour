@@ -1,6 +1,9 @@
-package com.itour.model.account.dto;
+package com.itour.model.member.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.itour.model.dto.LongRange;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -8,43 +11,66 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangtao
- * @since 2020-07-15
+ * @since 2020-07-08
  */
-public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
+@TableName("view_m_account")
+public class ViewMAccount extends Model<ViewMAccount> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 编号
+     */
     @TableField("ID")
-    private Long id;
+    private Integer id;
 
+    /**
+     * 用户唯一号	唯一(从10000开始)
+     */
     @TableField("UID")
     private String uid;
 
+    /**
+     * 性别(0：女；1：男)
+     */
     @TableField("SEX")
     private String sex;
 
+    /**
+     * 注册时间
+     */
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
 
+    /**
+     * 注册IP	
+     */
     @TableField("CREATEIP")
     private String createip;
 
+    /**
+     * 上次登录时间
+     */
     @TableField("LASTTIME")
-    private Integer lasttime;
+    private Long lasttime;
 
+    /**
+     * 状态	0：禁用；1：正常
+     */
     @TableField("STATUS")
     private String status;
 
+    /**
+     * 用户类型	0:普通用户;1:管理员
+     */
     @TableField("UTYPE")
     private String utype;
-    @TableField("GROUP_ID")
-    private String groupId;
 
     /**
      * 字典值
      */
-    @TableField("STATUS_STR")
-    private String statusStr;
+    @TableField("SEX_STR")
+    private String sexStr;
 
     /**
      * 字典值
@@ -52,11 +78,22 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
     @TableField("UTYPE_STR")
     private String utypeStr;
 
-    public Long getId() {
+    /**
+     * 字典值
+     */
+    @TableField("STATUS_STR")
+    private String statusStr;
+    /**注册日期***/
+    @TableField(exist = false)
+    private LongRange createdateRange;
+    /**最近一次登录日期***/
+    @TableField(exist = false)
+    private LongRange lasttimeRange;
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,11 +113,11 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
         this.sex = sex;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 
@@ -92,11 +129,11 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
         this.createip = createip;
     }
 
-    public Integer getLasttime() {
+    public Long getLasttime() {
         return lasttime;
     }
 
-    public void setLasttime(Integer lasttime) {
+    public void setLasttime(Long lasttime) {
         this.lasttime = lasttime;
     }
 
@@ -116,20 +153,12 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
         this.utype = utype;
     }
 
-    public String getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
-
-	public String getStatusStr() {
-        return statusStr;
+    public String getSexStr() {
+        return sexStr;
     }
 
-    public void setStatusStr(String statusStr) {
-        this.statusStr = statusStr;
+    public void setSexStr(String sexStr) {
+        this.sexStr = sexStr;
     }
 
     public String getUtypeStr() {
@@ -140,14 +169,38 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
         this.utypeStr = utypeStr;
     }
 
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
     @Override
     protected Serializable pkVal() {
         return null;
     }
 
-    @Override
+    public LongRange getCreatedateRange() {
+		return createdateRange;
+	}
+
+	public void setCreatedateRange(LongRange createdateRange) {
+		this.createdateRange = createdateRange;
+	}
+
+	public LongRange getLasttimeRange() {
+		return lasttimeRange;
+	}
+
+	public void setLasttimeRange(LongRange lasttimeRange) {
+		this.lasttimeRange = lasttimeRange;
+	}
+
+	@Override
     public String toString() {
-        return "ViewAAccountGroup{" +
+        return "ViewMAccount{" +
         ", id=" + id +
         ", uid=" + uid +
         ", sex=" + sex +
@@ -156,9 +209,9 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
         ", lasttime=" + lasttime +
         ", status=" + status +
         ", utype=" + utype +
-        ", groupId=" + groupId +
-        ", statusStr=" + statusStr +
+        ", sexStr=" + sexStr +
         ", utypeStr=" + utypeStr +
+        ", statusStr=" + statusStr +
         "}";
     }
 }

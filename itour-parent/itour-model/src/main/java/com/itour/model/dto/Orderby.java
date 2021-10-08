@@ -1,4 +1,4 @@
-package com.itour.model.vo;
+package com.itour.model.dto;
 
 import java.io.Serializable;
 
