@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.common.dto.VerifyImage;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.common.vo.VerifyImage;
 import com.itour.constant.Constant;
 import com.itour.util.DateUtil;
 import com.itour.util.StringHelper;

@@ -15,7 +15,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import com.itour.common.vo.VerifyImage;
+import com.itour.common.dto.VerifyImage;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

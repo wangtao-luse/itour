@@ -1,4 +1,4 @@
-package com.itour.common.vo;
+package com.itour.common.dto;
 
 import javax.servlet.http.HttpServletRequest;
 
