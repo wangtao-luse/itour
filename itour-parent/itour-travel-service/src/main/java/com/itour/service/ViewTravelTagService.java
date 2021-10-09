@@ -4,7 +4,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.travel.dto.ViewTravelTag;
+import com.itour.model.travel.vo.ViewTravelTag;
 import com.itour.persist.ViewTravelTagMapper;
 import com.itour.service.ViewTravelTagService;
 import com.alibaba.fastjson.JSONObject;

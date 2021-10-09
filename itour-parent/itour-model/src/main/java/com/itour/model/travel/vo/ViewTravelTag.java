@@ -1,4 +1,4 @@
-package com.itour.model.travel.dto;
+package com.itour.model.travel.vo;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;

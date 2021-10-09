@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.model.work.WorkComment;
-import com.itour.model.work.vo.WorkCommentDto;
+import com.itour.model.work.vo.WorkCommentVo;
 
 /**
  * <p>
@@ -20,6 +20,6 @@ import com.itour.model.work.vo.WorkCommentDto;
  * @since 2021-07-13
  */
 public interface WorkCommentMapper extends BaseMapper<WorkComment> {
-List<WorkCommentDto> commentList(@Param("vo") WorkCommentDto vo);
-List<WorkCommentDto> commentList(Page page,@Param("vo") WorkCommentDto vo);
+List<WorkCommentVo> commentList(@Param("vo") WorkCommentVo vo);
+List<WorkCommentVo> commentList(Page page,@Param("vo") WorkCommentVo vo);
 }

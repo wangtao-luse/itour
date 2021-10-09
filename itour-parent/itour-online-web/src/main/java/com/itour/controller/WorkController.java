@@ -24,7 +24,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.model.dto.PageInfo;
-import com.itour.model.travel.dto.ViewCommentReply;
+import com.itour.model.travel.vo.ViewCommentReply;
 import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;

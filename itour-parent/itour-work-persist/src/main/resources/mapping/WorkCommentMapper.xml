@@ -16,7 +16,7 @@
     <sql id="Base_Column_List">
         ID, COMMENT, CTIME, UID, TID, NICE_COUNT, STATUS
     </sql>
-    <select id="commentList" parameterType="com.itour.model.work.dto.WorkCommentDto" resultType="com.itour.model.work.dto.WorkCommentDto">
+    <select id="commentList" parameterType="com.itour.model.work.vo.WorkCommentVo" resultType="com.itour.model.work.vo.WorkCommentVo">
      SELECT * FROM(
         SELECT c.*,tmp.AVATAR,tmp.NICKNAME FROM t_w_work_comment c,(SELECT * FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp WHERE c.UID=tmp.U_ID
       ) c 

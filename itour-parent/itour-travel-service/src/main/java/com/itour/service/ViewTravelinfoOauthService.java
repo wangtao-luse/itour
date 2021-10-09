@@ -4,7 +4,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.travel.dto.ViewTravelinfoOauth;
+import com.itour.model.travel.vo.ViewTravelinfoOauth;
 import com.itour.persist.ViewTravelinfoOauthMapper;
 import com.itour.service.ViewTravelinfoOauthService;
 import com.alibaba.fastjson.JSONObject;

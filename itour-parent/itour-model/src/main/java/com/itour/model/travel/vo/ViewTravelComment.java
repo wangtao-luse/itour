@@ -1,4 +1,4 @@
-package com.itour.model.travel.dto;
+package com.itour.model.travel.vo;
 import java.io.Serializable;
 import java.util.List;
 

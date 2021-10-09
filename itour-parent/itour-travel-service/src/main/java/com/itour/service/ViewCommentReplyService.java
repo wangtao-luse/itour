@@ -1,6 +1,6 @@
 package com.itour.service;
 
-import com.itour.model.travel.dto.ViewCommentReply;
+import com.itour.model.travel.vo.ViewCommentReply;
 import com.itour.persist.ViewCommentReplyMapper;
 import com.itour.service.ViewCommentReplyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

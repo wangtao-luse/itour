@@ -3,7 +3,7 @@
 <mapper namespace="com.itour.persist.ViewTravelTagMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.travel.dto.ViewTravelTag">
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.vo.ViewTravelTag">
         <result column="id" property="id" />
         <result column="tid" property="tid" />
         <result column="tag_id" property="tagId" />

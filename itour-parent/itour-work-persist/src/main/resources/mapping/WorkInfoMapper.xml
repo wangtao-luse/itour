@@ -24,7 +24,7 @@
     <sql id="Base_Column_List">
         ID, TITLE, URL, SUMMARY, ARTICLE_TYPE, PUBLISHTIME, UPDATETIME, MODALITY, UID, READ_COUNT, COMMENT_COUNT, LIKE_COUNT, PV,COLLECT_COUNT, STATUS
     </sql>
-     <select id="selectWorkInfoList" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.dto.WorkInfoDto">
+     <select id="selectWorkInfoList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
 	     <choose>
 	         <when test="vo.loginUid==null or ''==vo.loginUid">
 	         SELECT 
@@ -45,7 +45,7 @@
 	    </choose>
      </select>
      
-     <select id="selectWorkInfo" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.dto.WorkInfoDto">
+     <select id="selectWorkInfo" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
     
     <choose>
       <when test="vo.loginUid==null or ''==vo.loginUid" >
@@ -68,7 +68,7 @@
     
     </select>
     
-        <select id="searchTextList" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.dto.WorkInfoDto">
+        <select id="searchTextList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
       SELECT t1.*,t2.NICKNAME,1 mold FROM t_w_work_info t1  
         INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID and t2.OAUTH_TYPE='email'
 		and (t1.TITLE like "%"#{vo.title}"%" or t1.SUMMARY LIKE "%"#{vo.title}"%")
@@ -77,14 +77,14 @@
 		</if>
       
     </select>
-     <select id="getInfoData" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.dto.WorkInfoDto">
+     <select id="getInfoData" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
     SELECT t1.infoCount,t2.draffCount FROM(
     	SELECT UID,STATUS,count(*) infoCount FROM t_w_work_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
     	INNER JOIN (
     	SELECT UID,STATUS,count(*) draffCount FROM t_w_work_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='10') t2
 		ON t1.UID=t2.UID
     </select>
-    <select id="selectDynamicList" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.dto.WorkInfoDto">
+    <select id="selectDynamicList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
            <if test='vo.mold=="1"'>
             SELECT * FROM(
 	            SELECT * FROM (
