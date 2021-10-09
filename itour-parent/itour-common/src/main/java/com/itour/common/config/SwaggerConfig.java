@@ -1,14 +1,12 @@
 package com.itour.common.config;
 
 
-import org.apache.el.stream.Optional;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -27,7 +25,7 @@ public class SwaggerConfig {
 	        return new Docket(DocumentationType.OAS_30)
 	                .apiInfo(apiInfo())
 	                .select()
-	                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+	                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
 	                .paths(PathSelectors.any())
 	                .build();
 	    }
@@ -35,8 +33,8 @@ public class SwaggerConfig {
 	        return new ApiInfoBuilder()
 	                .title("Swagger3接口文档")
 	                .description("爱旅行API文档")
-	                .contact(new Contact("wangtao", "www.wangtao.club", "wwangtaoc11@gmail.com"))
-	                .version("springboot version:"+SpringBootVersion.getVersion())
+	                .contact(new Contact("Wangtao", "", "wwangtaoc11@gmail.com"))
+	                .version("Springboot Version:"+SpringBootVersion.getVersion())
 	                .build();
 	    }
 	   
