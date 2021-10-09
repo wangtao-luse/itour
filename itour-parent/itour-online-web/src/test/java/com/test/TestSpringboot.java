@@ -29,7 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.OnlienApp;
-import com.itour.common.vo.ExUsernamePasswordToken;
+import com.itour.common.dto.ExUsernamePasswordToken;
 import com.itour.constant.Constant;
 import com.itour.model.dto.PageInfo;
 
