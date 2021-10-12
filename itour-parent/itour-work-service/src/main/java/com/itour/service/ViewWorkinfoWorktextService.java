@@ -4,7 +4,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.work.dto.ViewWorkinfoWorktext;
+import com.itour.model.work.vo.ViewWorkinfoWorktext;
 import com.itour.persist.ViewWorkinfoWorktextMapper;
 import com.itour.service.ViewWorkinfoWorktextService;
 import com.alibaba.fastjson.JSONObject;

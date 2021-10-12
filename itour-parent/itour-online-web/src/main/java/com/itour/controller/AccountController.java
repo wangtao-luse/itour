@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.common.dto.ExUsernamePasswordToken;
 import com.itour.common.file.FileUploadHelper;
 import com.itour.common.image.ImageIOHelper;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
-import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.member.dto.ViewMOauth;
+import com.itour.model.member.vo.ViewMOauth;
 
 /**
  * <p>

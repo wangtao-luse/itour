@@ -19,8 +19,8 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itour.common.dto.ExUsernamePasswordToken;
 import com.itour.common.resp.ResponseMessage;
-import com.itour.common.vo.ExUsernamePasswordToken;
 import com.itour.connector.MemberConnector;
 import com.itour.constant.Constant;
 import com.itour.model.account.Oauth;

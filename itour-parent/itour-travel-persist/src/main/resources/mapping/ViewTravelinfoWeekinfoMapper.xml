@@ -3,7 +3,7 @@
 <mapper namespace="com.itour.persist.ViewTravelinfoWeekinfoMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.travel.dto.ViewTravelinfoWeekinfo">
+    <resultMap id="BaseResultMap" type="com.itour.model.travel.vo.ViewTravelinfoWeekinfo">
         <result column="ID" property="id" />
         <result column="STATUS" property="status" />
         <result column="WEEK_CONTENT" property="weekContent" />

@@ -29,9 +29,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itour.OnlienApp;
-import com.itour.common.vo.ExUsernamePasswordToken;
+import com.itour.common.dto.ExUsernamePasswordToken;
 import com.itour.constant.Constant;
-import com.itour.model.vo.PageInfo;
+import com.itour.model.dto.PageInfo;
 
 /***https://blog.csdn.net/qq_35915384/article/details/80227297
  * 1.添加@RunWith(SpringRunner.class)

@@ -4,7 +4,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.quartz.dto.ViewMMessageinfo;
+import com.itour.model.quartz.vo.ViewMMessageinfo;
 import com.itour.persist.ViewMMessageinfoMapper;
 import com.itour.service.ViewMMessageinfoService;
 import com.alibaba.fastjson.JSONObject;

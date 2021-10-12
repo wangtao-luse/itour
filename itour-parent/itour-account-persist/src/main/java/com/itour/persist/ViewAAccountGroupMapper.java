@@ -1,7 +1,7 @@
 package com.itour.persist;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.account.dto.ViewAAccountGroup;
+import com.itour.model.account.vo.ViewAAccountGroup;
 
 /**
  * <p>

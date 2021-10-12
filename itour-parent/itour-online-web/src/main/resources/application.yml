@@ -43,12 +43,6 @@ logging:
 #FastDFS
 #fdfs:#  so-timeout: '@fdfs.so-timeout@' #socket连接超时时长
 #  connect-timeout: '@fdfs.connect-timeout@' #连接tracker服务器超时时长
-<<<<<<< HEAD
-#  thumb-image: #   width: '@fdfs.thumb-image.width@'
- #   height: '@fdfs.thumb-image.height@'
-  #etracker-list: '@fdfs.tracker-list@' 
-=======
-#  thumb-image:#    width: '@fdfs.thumb-image.width@'
-#    height: '@fdfs.thumb-image.height@'
-#  tracker-list: '@fdfs.tracker-list@' 
->>>>>>> 9fbc470a86b7e6db23c51ee3ef91d857b148702c
+#  thumb-image:#   width: '@fdfs.thumb-image.width@'
+#   height: '@fdfs.thumb-image.height@'
+#   etracker-list: '@fdfs.tracker-list@'

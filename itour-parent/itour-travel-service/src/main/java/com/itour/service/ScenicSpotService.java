@@ -12,8 +12,8 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
+import com.itour.model.dto.Orderby;
 import com.itour.model.travel.ScenicSpot;
-import com.itour.model.vo.Orderby;
 import com.itour.persist.ScenicSpotMapper;
 
 /**

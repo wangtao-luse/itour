@@ -15,9 +15,9 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.Favorites;
 import com.itour.model.travel.dto.FavoritesDto;
-import com.itour.model.vo.PageInfo;
 import com.itour.persist.FavoritesMapper;
 import com.itour.util.DateUtil;
 

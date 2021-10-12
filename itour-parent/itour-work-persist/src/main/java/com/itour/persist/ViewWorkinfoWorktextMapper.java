@@ -1,7 +1,7 @@
 package com.itour.persist;
 
-import com.itour.model.work.dto.ViewWorkinfoWorktext;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.work.vo.ViewWorkinfoWorktext;
 
 /**
  * <p>

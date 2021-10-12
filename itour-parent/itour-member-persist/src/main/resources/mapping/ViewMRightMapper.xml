@@ -5,7 +5,7 @@
     <!-- 开启二级缓存 -->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.member.dto.ViewMRight">
+    <resultMap id="BaseResultMap" type="com.itour.model.member.vo.ViewMRight">
         <result column="ID" property="id" />
         <result column="MENU_NO" property="menuNo" />
         <result column="MENU" property="menu" />

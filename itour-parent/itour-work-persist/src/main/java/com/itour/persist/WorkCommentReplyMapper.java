@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itour.model.work.WorkCommentReply;
-import com.itour.model.work.dto.WorkCommentReplyDto;
+import com.itour.model.work.vo.WorkCommentReplyVo;
 
 /**
  * <p>
@@ -17,6 +17,6 @@ import com.itour.model.work.dto.WorkCommentReplyDto;
  * @since 2021-07-13
  */
 public interface WorkCommentReplyMapper extends BaseMapper<WorkCommentReply> {
-	List<WorkCommentReplyDto> queryCommentReplyList(@Param("vo") WorkCommentReplyDto vo);
+	List<WorkCommentReplyVo> queryCommentReplyList(@Param("vo") WorkCommentReplyVo vo);
 
 }

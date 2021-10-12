@@ -25,6 +25,8 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
     	public static final String MODEL_ACCOUNT="itour-account-service";
     	public static final String MODEL_QUARTZ="itour-quartz-service";
     	public static final String MODEL_WORK="itour-work-service";
+    	public static final String MODEL_FOLLOW="itour-follow-service";
+    	public static final String MODEL_FIND="itour-find-service";
     	
         public static void main(String[] args) throws InterruptedException, IOException {
         	/***

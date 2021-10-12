@@ -20,13 +20,11 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.exception.BaseException;
-import com.itour.model.travel.dto.ViewCommentReply;
-import com.itour.model.travel.dto.ViewTravelComment;
-import com.itour.model.vo.PageInfo;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.work.WorkComment;
 import com.itour.model.work.WorkCommentReply;
-import com.itour.model.work.dto.WorkCommentDto;
-import com.itour.model.work.dto.WorkCommentReplyDto;
+import com.itour.model.work.vo.WorkCommentReplyVo;
+import com.itour.model.work.vo.WorkCommentVo;
 import com.itour.persist.WorkCommentMapper;
 import com.itour.persist.WorkCommentReplyMapper;
 import com.itour.util.DateUtil;
@@ -54,24 +52,24 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
 	try {
 		//1.获取参数
 		JSONObject jsonObject = requestMessage.getBody().getContent();
-		WorkCommentDto vo = jsonObject.toJavaObject(WorkCommentDto.class);
+		WorkCommentVo vo = jsonObject.toJavaObject(WorkCommentVo.class);
 		JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 		String getuId = requestMessage.getBody().getuId();
 		vo.setUid(getuId);
 		//2.获取对应文章评论		
 		if(StringUtils.isEmpty(pageVo)) {//获取文章下的评论及回复
 			//获取文章下的评论
-			 List<WorkCommentDto> commentList = this.baseMapper.commentList(vo);
+			 List<WorkCommentVo> commentList = this.baseMapper.commentList(vo);
 			//3.获取对应文章评论下的回复
 			Map<String, Object> cList = getCommentList(commentList,getuId);
 			responseMessage.setReturnResult(cList);
 		}else {
 			 PageInfo page = pageVo.toJavaObject(PageInfo.class);
-			 List<WorkCommentDto> cList = this.baseMapper.commentList(page, vo);
+			 List<WorkCommentVo> cList = this.baseMapper.commentList(page, vo);
 			 if(cList.size()>0) {
 				//3.获取对应文章评论下的回复
 					Map<String, Object> commentList = getCommentList(cList,getuId);
-					List<WorkCommentDto> resultList = FastJsonUtil.mapToList(commentList, WorkCommentDto.class);
+					List<WorkCommentVo> resultList = FastJsonUtil.mapToList(commentList, WorkCommentVo.class);
 					Page resultPage = page.setRecords(resultList);
 					responseMessage.setReturnResult(resultPage);
 					long total = page.getTotal();
@@ -101,17 +99,17 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
  * @param uid
  * @return
  */
-public Map<String,Object> getCommentList(List<WorkCommentDto> commentList,String uid) {
+public Map<String,Object> getCommentList(List<WorkCommentVo> commentList,String uid) {
 	Map<String,Object> result = new HashMap<String, Object>();
-	List<Long> collect = commentList.stream().map(WorkCommentDto::getId).collect(Collectors.toList());
-	WorkCommentReplyDto vo = new WorkCommentReplyDto();
+	List<Long> collect = commentList.stream().map(WorkCommentVo::getId).collect(Collectors.toList());
+	WorkCommentReplyVo vo = new WorkCommentReplyVo();
     vo.setIdList(collect);
     vo.setFromUid(uid);
-	List<WorkCommentReplyDto> replyList = workCommentReplyMapper.queryCommentReplyList(vo);
+	List<WorkCommentReplyVo> replyList = workCommentReplyMapper.queryCommentReplyList(vo);
 	//4.组装评论下的回复信息
-	for (WorkCommentDto vComment : commentList) {
-		List<WorkCommentReplyDto> rList = new ArrayList<WorkCommentReplyDto>();
-		for (WorkCommentReplyDto vReply : replyList) {
+	for (WorkCommentVo vComment : commentList) {
+		List<WorkCommentReplyVo> rList = new ArrayList<WorkCommentReplyVo>();
+		for (WorkCommentReplyVo vReply : replyList) {
 			Long id = vComment.getId();
 			Long rid = vReply.getCommentId();
 			if(id==rid) {

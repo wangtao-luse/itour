@@ -1,7 +1,7 @@
 package com.itour.persist;
 
-import com.itour.model.quartz.dto.ViewMMessageinfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.quartz.vo.ViewMMessageinfo;
 
 /**
  * <p>

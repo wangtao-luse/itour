@@ -3,7 +3,7 @@
 <mapper namespace="com.itour.persist.ViewWorkinfoWorktextMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.work.dto.ViewWorkinfoWorktext">
+    <resultMap id="BaseResultMap" type="com.itour.model.work.vo.ViewWorkinfoWorktext">
         <result column="ID" property="id" />
         <result column="STATUS" property="status" />
         <result column="WCONTENT" property="wcontent" />

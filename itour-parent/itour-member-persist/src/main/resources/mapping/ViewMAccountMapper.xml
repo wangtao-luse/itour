@@ -5,7 +5,7 @@
     <!-- 开启二级缓存 -->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.persist.ViewMAccountMapper">
+    <resultMap id="BaseResultMap" type="com.itour.model.member.vo.ViewMAccount">
         <result column="ID" property="id" />
         <result column="UID" property="uid" />
         <result column="SEX" property="sex" />

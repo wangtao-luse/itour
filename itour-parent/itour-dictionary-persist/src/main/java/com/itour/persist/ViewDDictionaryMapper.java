@@ -1,7 +1,7 @@
 package com.itour.persist;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itour.model.dictionary.dto.ViewDDictionary;
+import com.itour.model.dictionary.vo.ViewDDictionary;
 
 /**
  * <p>

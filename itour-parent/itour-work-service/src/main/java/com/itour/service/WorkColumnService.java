@@ -3,7 +3,7 @@ package com.itour.service;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.model.vo.PageInfo;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.work.WorkColumn;
 import com.itour.persist.WorkColumnMapper;
 import com.itour.service.WorkColumnService;

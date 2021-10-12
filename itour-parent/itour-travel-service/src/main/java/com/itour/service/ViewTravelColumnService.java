@@ -12,8 +12,8 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
-import com.itour.model.travel.dto.ViewTravelColumn;
-import com.itour.model.vo.PageInfo;
+import com.itour.model.dto.PageInfo;
+import com.itour.model.travel.vo.ViewTravelColumn;
 import com.itour.persist.ViewTravelColumnMapper;
 
 /**

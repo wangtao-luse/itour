@@ -98,6 +98,12 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");
 		filterChainDefinitionMap.put("/uploaded/**","anon");
+		//swagger相关
+		filterChainDefinitionMap.put("/swagger-ui/**", "anon");
+		filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+		filterChainDefinitionMap.put("/v2/api-docs", "anon");
+		filterChainDefinitionMap.put("/webjars/**", "anon");
+	
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/shiro/logout", "logout");
 		ResponseMessage accountRightAnon = accountConnector.getAccountRightAnon(null, null);

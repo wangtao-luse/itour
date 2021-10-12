@@ -23,8 +23,8 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.TravelInfo;
-import com.itour.model.vo.PageInfo;
 import com.itour.model.work.InfoColumn;
 import com.itour.model.work.InfoLabel;
 import com.itour.model.work.Label;
@@ -32,7 +32,7 @@ import com.itour.model.work.Like;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
-import com.itour.model.work.dto.WorkInfoDto;
+import com.itour.model.work.vo.WorkInfoVo;
 import com.itour.persist.InfoColumnMapper;
 import com.itour.persist.InfoLabelMapper;
 import com.itour.persist.LabelMapper;
@@ -81,15 +81,15 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			WorkInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoDto.class);
+			WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
 			JSONObject pageJson = jsonObject.getJSONObject("page");
 			if(pageJson!=null) {
 				Page page = pageJson.toJavaObject(Page.class);
-				List<WorkInfoDto> sList = this.baseMapper.selectWorkInfoList(page, vo);
+				List<WorkInfoVo> sList = this.baseMapper.selectWorkInfoList(page, vo);
 				page.setRecords(sList);
 				responseMessage.setReturnResult(page);
 			}else {
-				List<WorkInfoDto> sList = this.baseMapper.selectWorkInfoList(vo);
+				List<WorkInfoVo> sList = this.baseMapper.selectWorkInfoList(vo);
 				responseMessage.setReturnResult(sList);
 			}
 		} catch (Exception e) {
@@ -130,8 +130,8 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		   ResponseMessage responseMessage = ResponseMessage.getSucess();
 		   try {
 			   JSONObject jsonObject = requestMessage.getBody().getContent();
-			   WorkInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoDto.class);
-			   WorkInfoDto selectTraveInfo = this.baseMapper.selectWorkInfo(vo);
+			   WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
+			   WorkInfoVo selectTraveInfo = this.baseMapper.selectWorkInfo(vo);
 			   responseMessage.setReturnResult(selectTraveInfo);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -149,9 +149,9 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		ResponseMessage response = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			WorkInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoDto.class);
+			WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
 			PageInfo pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
-			List<WorkInfoDto> infoData = this.baseMapper.searchTextList(pageVo,vo);
+			List<WorkInfoVo> infoData = this.baseMapper.searchTextList(pageVo,vo);
 			Page setRecords = pageVo.setRecords(infoData);
 			response.setReturnResult(setRecords);
 		} catch (Exception e) {
@@ -171,8 +171,8 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
-			WorkInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoDto.class);
-		    List<WorkInfoDto> selectDynamicList = this.baseMapper.selectDynamicList(page,vo);
+			WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
+		    List<WorkInfoVo> selectDynamicList = this.baseMapper.selectDynamicList(page,vo);
 		    page.setRecords(selectDynamicList);
 			response.setReturnResult(page);
 		} catch (Exception e) {
@@ -186,8 +186,8 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		ResponseMessage response = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			WorkInfoDto vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoDto.class);
-			WorkInfoDto infoData = this.baseMapper.getInfoData(vo);
+			WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
+			WorkInfoVo infoData = this.baseMapper.getInfoData(vo);
 			response.setReturnResult(infoData);
 		} catch (Exception e) {
 			// TODO: handle exception

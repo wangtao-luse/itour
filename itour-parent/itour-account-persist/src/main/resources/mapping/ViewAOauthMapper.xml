@@ -5,7 +5,7 @@
     <!-- 开启二级缓存 -->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.account.dto.ViewAOauth">
+    <resultMap id="BaseResultMap" type="com.itour.model.account.vo.ViewAOauth">
         <result column="ID" property="id" />
         <result column="U_ID" property="uId" />
         <result column="OAUTH_ID" property="oauthId" />
