@@ -29,14 +29,4 @@ feign:
 #log    
 logging:
   path: '@log.home@'
-<<<<<<< HEAD
-#FastDFS
-#fdfs:
-#  so-timeout: '@fdfs.so-timeout@' #socket连接超时时长
-#  connect-timeout: '@fdfs.connect-timeout@' #连接tracker服务器超时时长
-#  thumb-image:
-#    width: '@fdfs.thumb-image.width@'
-#    height: '@fdfs.thumb-image.height@'
-#  tracker-list: '@fdfs.tracker-list@'
-=======
->>>>>>> 93a012a55c29b51e086561c61881dad9fd00c195
+
