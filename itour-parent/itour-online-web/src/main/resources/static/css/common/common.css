@@ -220,3 +220,15 @@ h1, h2, h3 {
 .CommentsV2-pagination {
     border-top: 1px solid #ebebeb;
 }
+
+article.richContent img{
+	display: block;
+	margin: 0 auto;
+}
+article.richContent p img{
+margin-bottom: 10px;	
+}	
+article.richContent p{
+	text-indent:2em;
+	
+}
