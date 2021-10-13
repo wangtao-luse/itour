@@ -5,7 +5,7 @@
     <!-- 开启二级缓存 -->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.dictionary.dto.ViewDDictionary">
+    <resultMap id="BaseResultMap" type="com.itour.model.dictionary.vo.ViewDDictionary">
         <result column="ID" property="id" />
         <result column="CODE_SET" property="codeSet" />
         <result column="CODE" property="code" />
