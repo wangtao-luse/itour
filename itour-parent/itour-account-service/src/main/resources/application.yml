@@ -16,8 +16,7 @@ spring:
   
 #eureka
 eureka:  client:    service-url:      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
-    instance:      prefer-ip-address: '@eureka.instance.prefer-ip-address@'
-#mybatis plus
+  instance:    prefer-ip-address: '@eureka.instance.prefer-ip-address@'#mybatis plus
 mybatis-plus:  mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.itour.model.account
   configuration:    map-underscore-to-camel-case: true

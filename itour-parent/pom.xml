@@ -85,6 +85,7 @@
   	<poi.version>5.0.0</poi.version>
     <itextpdf.version>5.5.13.2</itextpdf.version>
     <itext-asian.version>5.2.0</itext-asian.version>
+    <minio.version>8.3.1</minio.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
@@ -252,6 +253,12 @@
 	    <groupId>io.springfox</groupId>
 	    <artifactId>springfox-boot-starter</artifactId>
 	    <version>${springfox.version}</version>
+	</dependency>
+	<!-- minio -->
+	<dependency>
+	    <groupId>io.minio</groupId>
+	    <artifactId>minio</artifactId>
+	    <version>${minio.version}</version>
 	</dependency>
 	
 	

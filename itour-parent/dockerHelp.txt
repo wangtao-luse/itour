@@ -19,22 +19,20 @@ docker [options] IMAGE [COMMAND]
 4.itour-dictionary-service
 docker run -d --name itour-dictionary-service -p 9099:9099  ben/itour-dictionary-service  --restart=always
 
-
-5.itour-quartz-service
-docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service --restart=always
+5.itour-work-service
+docker run -d --name itour-work-service -p 9083:9083 ben/itour-work-service --restart=always
 
 6.itour-member-service
 docker run -d --name itour-member-service -p 9098:9098  ben/itour-member-service --restart=always
 
-7.itour-online-manager-web
+7.itour-quartz-service
+docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service --restart=always
+
+8.itour-online-manager-web
 docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-manager-web --restart=always
 
-8.itour-online-web
+9.itour-online-web
 docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web --restart=always
-
-9.itour-work-service
-docker run -d --name itour-work-service -p 9083:9083 ben/itour-work-service --restart=always
-
 
 Portainer
 docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
@@ -48,6 +46,8 @@ Redis
 docker run -itd --restart=always --name ben-pro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 
+Minio
+docker run -d -p 9800:9800 --name minio-service -v /mnt/data:/data  -v /mnt/config:/root/.minio  minio/minio server /data
 
 Nginx 
 1.创建挂载目录;
