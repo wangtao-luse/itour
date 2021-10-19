@@ -34,3 +34,4 @@ minio:
   endpoint: '@minio.endpoint@'
   accessKey: '@minio.accessKey@'
   secretKey: '@minio.secretKey@'
+

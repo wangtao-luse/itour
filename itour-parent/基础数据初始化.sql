@@ -685,7 +685,7 @@ VALUES
 ('红志'),
 ('车库'),
 ('车仑'),
-('经文')
+('经文');
 INSERT INTO T_C_SENSITIVE_WORD ( WORD_CONTENT )
 VALUES
 ('福音会'),
@@ -1424,7 +1424,7 @@ VALUES
 ('中共洗脑'),
 ('中共邪教'),
 ('中共邪毒素'),
-('中共政治游戏')
+('中共政治游戏');
 INSERT INTO T_C_SENSITIVE_WORD ( WORD_CONTENT )
 VALUES
 ('穴海'),
@@ -1584,7 +1584,7 @@ VALUES
 ('zhuanfalu'),
 ('zhuanfalun'),
 ('八九'),
-('八老')
+('八老');
 
 INSERT INTO T_C_SENSITIVE_WORD ( WORD_CONTENT )
 VALUES
@@ -2516,7 +2516,7 @@ VALUES
 ('xiao77'),
 ('xing伴侣'),
 ('tokyohot'),
-('yin荡')
+('yin荡');
 INSERT INTO T_C_SENSITIVE_WORD ( WORD_CONTENT )
 VALUES
 ('腐败'),
@@ -2762,4 +2762,4 @@ VALUES
 ('肖怀枢'),
 ('刘广智 空军'),
 ('姬胜德 总参'),
-('廖伯年 北京')
+('廖伯年 北京');
