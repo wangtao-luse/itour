@@ -12,6 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
@@ -30,47 +33,37 @@ import io.minio.errors.XmlParserException;
 import io.minio.messages.Bucket;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-/**
- * 
+/**参考文档
+ * https://www.cnblogs.com/zgwjava/p/13652164.html
+ * https://www.jianshu.com/p/d8552e5050eb
  * 
  *
  */
 @Slf4j
 public class MinioUtil {
-/**
- * minio地址+端口号
- */
-private static final String URL = null;
-/**
- * minio用户名
- */
-private static final String accessKey = null;
-/**
- *  minio密码
- */
-private static final String secretKey = null;
-/**
- *  文件桶的名称
- */
-private static final String bucketName = null;
+	@Value("${minio.endpoint}")
+    private static String endpoint;
+    @Value("${minio.accessKey}")
+    private static String accessKey;
+    @Value("${minio.secretKey}")
+    private static String secretKey;
+@Autowired
 private static MinioClient minioClient;
 /**
  * 初始化minio配置
  */
-@PostConstruct
-public static void init() {
-	try {
-		log.info("Minio Initialize........................");
-		minioClient = MinioClient.builder().endpoint(URL).credentials(accessKey, secretKey).build();
-		createBucket(bucketName);
-		log.info("Minio Initialize........................successful");
-	} catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-		log.error(e.getMessage());
-	}
 	
-}
+	@PostConstruct
+	public static void init() {
+		try {
+			minioClient = MinioClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
+		} catch (Exception e) { // TODO: handle exception
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+
+	}
+	 
 /**
  * 创建 bucket
  * @param bucketName
@@ -90,18 +83,29 @@ public static void createBucket(String bucketName) {
 	}
 }
 /**
- * 长传文件
+ * 上传文件
+ * @param file
  * @param bucketName
+ * @return
  */
-public void upload(String bucketName) {
+public boolean upload(MultipartFile file,String bucketName) {
 	try {
-		minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).build());
+		PutObjectArgs build = PutObjectArgs.builder()
+		             .object(file.getOriginalFilename())
+		             .bucket(bucketName)
+		             .contentType(file.getContentType())
+		             .stream(file.getInputStream(), file.getSize(), -1)
+		             .build();
+		minioClient.putObject(build);
+
 	} catch (InvalidKeyException | ErrorResponseException | InsufficientDataException | InternalException
 			| InvalidResponseException | NoSuchAlgorithmException | ServerException | XmlParserException
 			| IllegalArgumentException | IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+		return false;
 	}
+	return true;
 }
 /**
  * 删除文件

@@ -40,9 +40,8 @@ upload:
 #log    
 logging:
   path: '@log.home@'
-#FastDFS
-#fdfs:#  so-timeout: '@fdfs.so-timeout@' #socket连接超时时长
-#  connect-timeout: '@fdfs.connect-timeout@' #连接tracker服务器超时时长
-#  thumb-image:#   width: '@fdfs.thumb-image.width@'
-#   height: '@fdfs.thumb-image.height@'
-#   etracker-list: '@fdfs.tracker-list@'
+#minio
+minio:
+  endpoint: '@minio.endpoint@'
+  accessKey: '@minio.accessKey@'
+  secretKey: '@minio.secretKey@'
