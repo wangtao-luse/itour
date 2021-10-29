@@ -74,7 +74,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 			String xml_path=location+"/"+mod+"-persist"+"/src/main/resources/mapping";
 			String subStr = mod.substring(mod.indexOf("-")+1);
 			String sub=subStr.contains("-")==true?subStr.substring(0, subStr.indexOf("-")):subStr;
-			String v =isView==true?"/dto":"";
+			String v =isView==true?"/vo":"";
 			String model_path=location+"/itour-model/src/main/java/com/itour/model/"+sub+v;
 		
 			AutoGenerator mpg = new AutoGenerator();

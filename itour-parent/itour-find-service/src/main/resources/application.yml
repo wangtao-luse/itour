@@ -1,0 +1,58 @@
+#端口
+server:
+  port: '@server.find.port@'
+#项目名称
+spring:
+  profiles:
+    active: '@profiles.active@'   
+  application:
+    name: itour-find-service
+  datasource: #mysql的配置
+    url: '@spring.datasource.url@'
+    driver-class-name: '@spring.datasource.driverClassName@'
+    username: '@spring.datasource.username@'
+    password: '@spring.datasource.password@'
+  redis:     #reids相关配置
+    database: '@spring.redis.database@'
+    host: '@spring.redis.host@'
+    port: '@spring.redis.port@'
+    password: '@spring.redis.password@'
+    jedis:
+      pool:
+        max-active: '@spring.redis.pool.max-active@'
+        max-wait: '@spring.redis.pool.max-wait@'
+        max-idle: '@spring.redis.pool.max-idle@'
+        min-idle: '@spring.redis.pool.min-idle@'
+    timeout: '@spring.redis.timeout@'
+  
+#eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://@eureka.host@:@server.eureka.port@/eureka
+  instance:
+    prefer-ip-address: '@eureka.instance.prefer-ip-address@'
+#mybatis plus
+mybatis-plus:
+  mapper-locations: classpath*:mapping/*.xml
+  type-aliases-package: com.itour.model.find
+  configuration:
+    map-underscore-to-camel-case: true
+
+#ribbon
+ribbon: 
+  ConnectTimeout: '@ribbon.ConnectTimeout@'  #请求连接的超时时间 
+  ReadTimeout: '@ribbon.ReadTimeout@'     #请求处理的超时时间
+  MaxAutoRetries: '@ribbon.MaxAutoRetries@'      #同一台实例的最大重试次数，但是不包括首次调用，默认为1次(解决fegin超时重试多条数据插入数据库问题)
+  MaxAutoRetriesNextServer: '@ribbon.MaxAutoRetriesNextServer@'  #重试负载均衡其他实例的最大重试次数，不包括首次调用(解决fegin超时重试多条数据插入数据库问题)
+#feign
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: '@feign.client.config.default.connect-timeout@'
+        read-timeout: '@feign.client.config.default.read-timeout@'
+#log    
+logging:
+  path: '@log.home@'
+      
