@@ -47,6 +47,7 @@ docker run -itd --restart=always --name ben-pro-redis -p 6379:6379 -v /var/myred
 docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 
 Minio
+单点模式
 docker run -d -p 9800:9800 --name minio-service -v /mnt/data:/data  -v /mnt/config:/root/.minio  minio/minio server /data
 
 Nginx 

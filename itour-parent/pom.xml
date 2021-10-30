@@ -531,7 +531,7 @@
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                 <!-- minio相关 -->
-                <minio.endpoint>http://106.54.162.159:9800</minio.endpoint>
+                <minio.endpoint>http://1.116.226.147:9800</minio.endpoint>
                 <minio.accessKey>admin</minio.accessKey>
                 <minio.secretKey>[pwd@888]</minio.secretKey>
             </properties>

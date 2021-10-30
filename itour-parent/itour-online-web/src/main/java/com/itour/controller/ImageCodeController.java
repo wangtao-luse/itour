@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,10 @@ import com.itour.util.VerifyImageUtil;
 public class ImageCodeController {
 private	static final String  default_url  = "/static/img/code";
 private	static final String  small_url  = "/static/img/code/login";
+private static final String  default_location = File.separator+"itour"+File.separator+"img"+File.separator+"code";
+private static final String  small_location = File.separator+"itour"+File.separator+"img"+File.separator+"code"+File.separator+"login";
+@Value("${spring.profiles.active}")
+private String active;
 	/**
 	 * @param @return 参数说明
 	 * @return BaseRestResult 返回类型
@@ -44,17 +49,32 @@ private	static final String  small_url  = "/static/img/code/login";
 	public ResponseMessage verifyImage(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 		String p = jsonObject.getString("small");
 		Map<String, Object> resultMap = new HashMap<>();
-		try {		
-		    //读取本地路径下的图片,随机选一条
-			//https://www.guitu18.com/post/2019/02/23/28.html
-			String url=default_url;
-			if("small".equals(p)) {
-				url=small_url;
+		try {
+			String url = null;
+			String path =null;
+			if("dev".equals(active)||"test".equals(active)) {
+			    //读取本地路径下的图片,随机选一条
+				//https://www.guitu18.com/post/2019/02/23/28.html
+				 url=default_url;
+				if("small".equals(p)) {
+					url=small_url;
+				}
+				  path = this.getClass().getResource(url).getPath();
+					InputStream resourceAsStream = this.getClass().getResourceAsStream("/static/img/code/login");
+			}else {
+				path = default_location;
+					if("small".equals(p)) {
+						path = small_location;
+					}
 			}
-		    String path = this.getClass().getResource(url).getPath();
-			InputStream resourceAsStream = this.getClass().getResourceAsStream("/static/img/code/login");
-			
 		    File file = new File(path);
+		    boolean directory = file.isDirectory();
+		    System.out.println("------------------------------------------------------------------->");
+		    System.out.println("path: "+path);
+		    System.out.println("directory: "+directory);
+		    System.out.println("isFile: "+file.isFile());
+		    System.out.println("exists: "+file.exists());
+		    System.out.println("------------------------------------------------------------------->");
 		    File[] files = file.listFiles();
 		    int n = new Random().nextInt(files.length);
 		    File imageUrl = files[n];
@@ -149,5 +169,13 @@ public static void main(String[] args) {
   System.out.println(t1);
    Date addSecond = DateUtil.addSecond(d1, 120);
    System.out.println(addSecond.getTime());
+ String  small_location = File.separator+"itour"+File.separator+"img"+File.separator+"code"+File.separator+"login";
+ small_location ="d:"+File.separator+"temp";
+ File f = new File(small_location);
+ File[] listFiles = f.listFiles();
+ for (File file : listFiles) {
+	System.out.println(file.getName());
+}
+ System.out.println(small_location);
 }
 }
