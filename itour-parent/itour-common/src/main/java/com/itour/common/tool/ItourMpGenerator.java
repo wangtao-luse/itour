@@ -133,7 +133,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             pc.setParent("com.itour");
             //model的包名
             if(isView) {
-            	   pc.setEntity("model."+subStr+".dto");
+            	   pc.setEntity("model."+subStr+".vo");
             }else {
             	   pc.setEntity("model."+subStr);	
             }
