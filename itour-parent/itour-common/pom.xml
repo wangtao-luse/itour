@@ -36,7 +36,6 @@
 	<dependency>
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-spring</artifactId>
-	    <version>${shiro-spring.version}</version>
     </dependency>
 	<!-- httpClient -->
 	<dependency>
@@ -81,11 +80,6 @@
         <artifactId>spring-test</artifactId>
         <scope>compile</scope>
     </dependency>
-    <!-- 整合FastDFS分布式文件系统 -->
-        <dependency>
-		    <groupId>com.github.tobato</groupId>
-		    <artifactId>fastdfs-client</artifactId>
-		</dependency>
 		<!-- JAVA对Excel的处理 -->
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
