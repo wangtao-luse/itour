@@ -72,31 +72,8 @@ docker run -d --name test-nginx -p 8082:80 -v /etc/nginx/nginx.conf:/etc/nginx/n
 默认首页html文件目录：/usr/share/nginx/html
 日志目录:/var/log/nginx
 
-nginx+ssh实现内网穿透
-1.安装Nginx
-2.配置Nginx
-erver {
-  listen 8888; #这里监听的为后续访问的云服务器端口，可以设置为任意一个服务器上还不存在的端口号
-  server_name xx.xx.cn; # 这里填你的域名，如果没有域名则填localhost
-  
-  location / {
-    proxy_set_header  X-Real-IP  $remote_addr;
-    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
-    proxy_redirect off;
-    
-    proxy_pass http://localhost:8899; 
-    # 这里的8899相当于一个标识，和后面在本地创建通道相关，可以任意设置一个值
-  }
-}
-相关资料：https://blog.csdn.net/qq_43592800/article/details/111479278
-3.重启Nginx
-docker restart Container_id/name
-4.在本地终端中配置ssh
-ssh -vnNt -R 8899:localhost:8082 user@ip
-8899为我们nginx配置的标识，localhost:8082为我们本地项目的访问地址，user为云服务器用户名，ip为云服务器公网地址
-
-
+frp:
+docker run -d   --restart=always  -p 8081:8081 -p 8082:8082 -p 8083:8083 -p 8084:8084 --name frp-server  -v /mnt/frp/frps.ini:/conf/frps.ini --restart=always cloverzrg/frps-docker
 
 
 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
