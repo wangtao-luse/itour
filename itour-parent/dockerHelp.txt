@@ -6,7 +6,9 @@ docker [options] IMAGE [COMMAND]
 --name:指定容器名字,后续可以通过名字进行容器管理
 -p:端口映射
 -v:给容器挂载存储卷，挂载到容器的某个目录 宿主机目录：容器目录 (将宿主机的目录挂载到容器中)
+   (将主机目录与容器目录之间进行共享)
 --restart=always:重启docker时，自动启动相关容器
+--privileged=true 容器内部对挂载的目录拥有读写等特权
 1.itour-eureka-server
   docker run -d --name itour-eureka-server -p 9090:9090 ben/itour-eureka-server --restart=always
 
@@ -32,7 +34,7 @@ docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service
 docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-manager-web --restart=always
 
 9.itour-online-web
-docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web --restart=always
+docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web --restart=always -v /itour/img/code:/itour/img/code
 
 docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web --restart=always -v /itour/img/code :/itour/img/code
 
@@ -53,7 +55,8 @@ Minio
 docker run -d -p 9800:9800 --name minio-service -v /mnt/data:/data  -v /mnt/config:/root/.minio  minio/minio server /data
 
 Nginx 
-1.创建挂载目录;
+Nginx  https://www.cnblogs.com/qiqiloved/p/13470064.html
+1.在/mnt目录,创建挂载目录;
   mkdir -p ./nginx/{html,log,conf}
 2.运行nginx
   docker run -d --name nginx -p 81:81 nginx
@@ -62,26 +65,19 @@ Nginx
    docker cp c10d0b833743:/etc/nginx/nginx.conf  ./
    docker cp c10d0b833743:/etc/nginx/conf.d/default.conf ./conf/
 4.移除运行的nginx
- docker rm c10d0b833743
+ docker stop contrainer_id
+ docker rm contrainer_id
+ contrainer_id:容器ID
 5.运行nginx 
 docker run -d --name spro-nginx -p 80:80  -v /mnt/nginx/nginx.conf:/etc/nginx/nginx.conf -v /mnt/nginx/log:/var/log/nginx -v /mnt/nginx/html:/usr/share/nginx/html -v /mnt/nginx/conf:/etc/nginx/conf.d  --restart=always  --privileged=true nginx
- 1.查找镜像
-   docker search fastdfs
- 2.拉取镜像
-   docker pull delron/fastdfs
- 3.查看镜像
-   docker images
- 4.构建容器
-   tracker
-   
-    docker run -itd --name trakcer -v /fastdfs/tracker/data:/fastdfs/tracker/data --net=host season/fastdfs tracker
-       
-   storage
-    
-    docker run -tid --name storage -v /fastdfs/storage/data:/fastdfs/storage/data -v /fastdfs/store_path:/fastdfs/store_path --net=host -e TRACKER_SERVER:106.54.162.159:22122 season/fastdfs storage
-   
-   
-https://www.cnblogs.com/qiqiloved/p/13470064.html
-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
+配置文件目录：/etc/nginx
+默认首页html文件目录：/usr/share/nginx/html
+日志目录:/var/log/nginx
+
+frp:
+docker run -d   --restart=always  -p 8081:8081 -p 8082:8082 -p 8083:8083 -p 8084:8084 --name frp-server  -v /mnt/frp/frps.ini:/conf/frps.ini --restart=always cloverzrg/frps-docker
+
+
+
 
 

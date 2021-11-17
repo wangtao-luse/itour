@@ -480,7 +480,8 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>                
+                <server.demo.port>9096</server.demo.port>
+                <server.follow.port>9097</server.follow.port>                
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
@@ -489,13 +490,13 @@
                 <eureka.host>127.0.0.1</eureka.host>
                 <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
-                <spring.datasource.url><![CDATA[jdbc:mysql://106.54.162.159:3308/itour?serverTimezone=UTC]]></spring.datasource.url>
+                <spring.datasource.url><![CDATA[jdbc:mysql://1.116.226.147:3307/itour?serverTimezone=UTC]]></spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
                 <!-- redis相关 -->
                 <spring.redis.database>0</spring.redis.database>
-                <spring.redis.host>106.54.162.159</spring.redis.host>
+                <spring.redis.host>1.116.226.147</spring.redis.host>
                 <spring.redis.port>6380</spring.redis.port>
                 <spring.redis.password>redis@958958</spring.redis.password>
                 <spring.redis.timeout>30000</spring.redis.timeout>
@@ -525,7 +526,7 @@
                 <!-- 文件上传相关 -->
                 <fileupload.path>D:\\temp\\upload\\</fileupload.path>
                 <!-- docker 相关-->
-                <docker.dockerHost>http://106.54.162.159:2375</docker.dockerHost>
+                <docker.dockerHost>http://192.168.1.88:2375</docker.dockerHost>
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
@@ -550,7 +551,8 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>                
+                <server.demo.port>9096</server.demo.port> 
+                <server.follow.port>9097</server.follow.port>               
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
@@ -559,13 +561,13 @@
                 <eureka.host>106.54.162.159</eureka.host>
                 <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
-                <spring.datasource.url>jdbc:mysql://106.54.162.159:3307/itour?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.url>jdbc:mysql://1.116.226.147:3307/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
                  <!-- redis相关 -->
                 <spring.redis.database>1</spring.redis.database>
-                <spring.redis.host>106.54.162.159</spring.redis.host>
+                <spring.redis.host>1.116.226.147</spring.redis.host>
                 <spring.redis.port>6380</spring.redis.port>
                 <spring.redis.password>redis@958958</spring.redis.password>
                 <spring.redis.timeout>30000</spring.redis.timeout>
@@ -595,13 +597,13 @@
                  <!-- 文件上传相关 -->
                 <fileupload.path>/root/test/itour/upload\\</fileupload.path>
                  <!-- docker 相关-->
-                <docker.dockerHost>http://106.54.162.159:2375</docker.dockerHost>
+                <docker.dockerHost>http://192.168.1.88:2375</docker.dockerHost>
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                 <!-- minio相关 -->
-                <minio.endpoint>http://106.54.162.159:9800</minio.endpoint>
+                <minio.endpoint>http://1.116.226.147:9800</minio.endpoint>
                 <minio.accessKey>admin</minio.accessKey>
                 <minio.secretKey>[pwd@888]</minio.secretKey>
             </properties>
@@ -620,7 +622,8 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>                
+                <server.demo.port>9096</server.demo.port>
+                <server.follow.port>9097</server.follow.port>                
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
@@ -629,14 +632,14 @@
                 <eureka.host>192.168.1.88</eureka.host>
                 <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
-                <spring.datasource.url>jdbc:mysql://192.168.1.88:3308/itour?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.url>jdbc:mysql://1.116.226.147:3306/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>root</spring.datasource.password>
                  <!-- redis相关 -->
                 <spring.redis.database>2</spring.redis.database>
-                <spring.redis.host>192.168.1.88</spring.redis.host>
-                <spring.redis.port>6379</spring.redis.port>
+                <spring.redis.host>1.116.226.147</spring.redis.host>
+                <spring.redis.port>6397</spring.redis.port>
                 <spring.redis.password>redis@958958</spring.redis.password>
                 <spring.redis.timeout>30000</spring.redis.timeout>
                 <spring.redis.pool.max-active>8</spring.redis.pool.max-active>
@@ -671,7 +674,7 @@
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                  <!-- minio相关 -->
-                <minio.endpoint>http://192.168.1.88:9800</minio.endpoint>
+                <minio.endpoint>http://1.116.226.147:9800</minio.endpoint>
                 <minio.accessKey>admin</minio.accessKey>
                 <minio.secretKey>[pwd@888]</minio.secretKey>
             </properties>
@@ -690,7 +693,8 @@
                 <server.online.port>9093</server.online.port>
                 <server.wechat.port>9094</server.wechat.port>
                 <server.online-manager.port>9095</server.online-manager.port>
-                <server.demo.port>9096</server.demo.port>                
+                <server.demo.port>9096</server.demo.port> 
+                <server.follow.port>9097</server.follow.port>               
                 <server.member.port>9098</server.member.port>
                 <server.dictionary.port>9099</server.dictionary.port>                
                 <server.quartz.port>9081</server.quartz.port>
@@ -734,7 +738,7 @@
                  <!-- 文件上传相关 -->
                 <fileupload.path>/root/pro/itour/upload/</fileupload.path>
                  <!-- docker 相关-->
-                <docker.dockerHost>http://1.116.226.147:2375</docker.dockerHost>
+                <docker.dockerHost>http://192.168.1.88:2375</docker.dockerHost>
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
