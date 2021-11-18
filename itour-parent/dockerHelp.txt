@@ -77,8 +77,10 @@ docker run -d --name spro-nginx -p 80:80  -v /mnt/nginx/nginx.conf:/etc/nginx/ng
 默认首页html文件目录：/usr/share/nginx/html
 日志目录:/var/log/nginx
 
-frp:
+frps:
 docker run -d   --restart=always  -p 8081:8081 -p 8082:8082 -p 8083:8083 -p 8084:8084 --name frp-server  -v /mnt/frp/frps.ini:/conf/frps.ini --restart=always cloverzrg/frps-docker
+frpc:
+docker run -d -p 8085:8085 --restart=always --name frp-client -v /root/mnt/frpc/conf:/conf cloverzrg/frpc-docker
 
 
 
