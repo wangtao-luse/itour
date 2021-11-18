@@ -285,7 +285,7 @@ background-position-x: 0;
 	width: 1000px;
 	padding: 0 16px;
 	margin: 10px auto 180px auto;
-	min-height:560px;
+	/* min-height:560px; */
 	height:100%
 	
 }
@@ -843,8 +843,8 @@ overflow: hidden;
     line-height: 1.6;
     vertical-align: top;
     background: #FFF;
-   /*  position:fixed;
-    bottom:0; */
+    position:fixed;
+    bottom:0; 
     width:100%
     
 }
