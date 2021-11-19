@@ -1,5 +1,5 @@
 @layout("/layout/template-css.html",{title:'爱旅行-注册'}){
-<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript" src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script type="text/javascript" src="${ctxPath}/js/account/account.js"></script>
 <script type="text/javascript">    
     $(function(){
@@ -7,32 +7,8 @@
     	var cname = returnCitySN.cname;
     	   if(cname){    		   
        	       $("#city").val(cname); 
-    	   }    	    
-    	var url="http://ip-api.com/json/?lang=zh-CN";    	
-    	 $.ajax({
-    	        type: "get",
-    	        dataType: "json",
-    	        url:  url,
-    	        async:true ,
-    	        beforeSend: function () {
-    	        },
-    	        success: function (resultData) {
-    	        	$("#area").val(resultData.city);
-    	        	$("#country").val(resultData.country);
-    	        	$("#countryCode").val(resultData.countryCode);
-    	        	$("#latitude").val(resultData.lat);
-    	        	$("#longitude").val(resultData.lon);
-    	        	$("#regionName").val(resultData.regionName);
-    	        	$("#region").val(resultData.region);
-    	        	$("#isp").val(resultData.isp);
-    	        	$("#ip").val(resultData.query);
-    	        },
-    	        error: function (result) {
-    	            
-    	        }
-    	    });
-    	
-    	
+       	       $("#ip").val(cip);
+    	   } 
     })
 </script>
 		<div class="auth-container">
@@ -77,15 +53,7 @@
 		    			
 		    			<input type="hidden" name="uuid" id="uuid" value="${uuid}">
 	                    <input type="hidden" name="ip" id="ip">  
-	                    <input type="hidden" name="country" id="country">  
-	                    <input type="hidden" name="countrycode" id="countryCode">  
 	                    <input type="hidden" name="city" id="city">  
-	                    <input type="hidden" name="latitude" id="latitude">  
-	                    <input type="hidden" name="longitude" id="longitude">  
-	                    <input type="hidden" name="isp" id="isp">  
-	                    <input type="hidden" name="region" id="region">  
-	                    <input type="hidden" name="regionname" id="regionName">  
-	                    <input type="hidden" name="area" id="area">
 	                    <input type="hidden"  id="key-email-code">
 	                    <input type="hidden"  id="key-verify">
 	                      
