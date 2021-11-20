@@ -10,15 +10,16 @@
 }
 </style>
 <script src="${ctxPath}/js/account/login.js"></script>
-<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript" src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script type="text/javascript">    
     $(function(){
     	var cip = returnCitySN.cip;
     	var cname = returnCitySN.cname;
     	   if(cname){    		   
        	       $("#city").val(cname); 
+       	       $("#ip").val(cip);
     	   }    	    
-    	var url="http://ip-api.com/json/?lang=zh-CN";    	
+    	/* var url="http://ip-api.com/json/?lang=zh-CN";    	
     	 $.ajax({
     	        type: "get",
     	        dataType: "json",
@@ -40,7 +41,7 @@
     	        error: function (result) {
     	            
     	        }
-    	    });
+    	    }); */
     
     	
     })

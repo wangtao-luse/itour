@@ -3,7 +3,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">    
     $(function(){
-    	var url="http://pv.sohu.com/cityjson?ie=utf-8";    	
+    	var url="https://pv.sohu.com/cityjson?ie=utf-8";    	
     	 $.ajax({
     	        type: "get",
     	        dataType: "script",
@@ -12,11 +12,13 @@
     	    }).done(function(){
     	    	console.log("cname:"+returnCitySN.cname);
     	    	var cname=returnCitySN.cname;
+    	    	var cip=returnCitySN.cip;
     	    	if(cname){
     	       	       $("#area").val(cname.substr(cname.indexOf("市")+1)); 
     	    	} 
+    	    	$("#ip").val(cip);
     	    });
-    	var url="http://ip-api.com/json/?lang=zh-CN";    	
+    	/* var url="http://ip-api.com/json/?lang=zh-CN";    	
     	 $.ajax({
     	        type: "get",
     	        dataType: "json",
@@ -38,7 +40,7 @@
     	        error: function (result) {
     	            
     	        }
-    	    });
+    	    }); */
     	
     	
     })
