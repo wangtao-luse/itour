@@ -804,6 +804,8 @@ overflow: hidden;
     line-height: 1.6;
     vertical-align: top;
     background: #FFF;
+    position:fixed;
+    bottom:0; 
 }
 
 #footer .container{
