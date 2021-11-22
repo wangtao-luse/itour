@@ -493,7 +493,7 @@
                 <spring.datasource.url><![CDATA[jdbc:mysql://1.116.226.147:3307/itour?serverTimezone=UTC]]></spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
-                <spring.datasource.password>root</spring.datasource.password>
+                <spring.datasource.password>mysql@958958</spring.datasource.password>
                 <!-- redis相关 -->
                 <spring.redis.database>0</spring.redis.database>
                 <spring.redis.host>1.116.226.147</spring.redis.host>
@@ -526,7 +526,7 @@
                 <!-- 文件上传相关 -->
                 <fileupload.path>D:\\temp\\upload\\</fileupload.path>
                 <!-- docker 相关-->
-                <docker.dockerHost>http://192.168.1.88:2375</docker.dockerHost>
+                <docker.dockerHost>http://127.0.0.1:2375</docker.dockerHost>
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>

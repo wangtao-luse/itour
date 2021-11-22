@@ -844,7 +844,8 @@ overflow: hidden;
     background: #FFF;
     position:fixed;
     bottom:0; 
-    width:100%
+    width:100%;
+    z-index:100;
     
 }
 
@@ -2659,6 +2660,7 @@ color: #646464;
 }
 .css-1g5evo1 {
     padding: 70px 0px;
+    background: #fff;
 }
 .css-1jfwu0r {
     box-sizing: border-box;

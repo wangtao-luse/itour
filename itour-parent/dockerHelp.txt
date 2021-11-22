@@ -34,9 +34,7 @@ docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service
 docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-manager-web --restart=always
 
 9.itour-online-web
-docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web --restart=always -v /itour/img/code:/itour/img/code
-
-docker run -d --name itour-online-web -p 9093:9093  ben/itour-online-web --restart=always -v /itour/img/code :/itour/img/code
+docker run -d --name itour-online-web -p 9093:9093 -v /itour/img/code:/itour/img/code ben/itour-online-web --restart=always 
 
 Portainer
 docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
@@ -78,7 +76,7 @@ docker run -d --name spro-nginx -p 80:80  -v /mnt/nginx/nginx.conf:/etc/nginx/ng
 日志目录:/var/log/nginx
 
 frps:
-docker run -d   --restart=always  -p 8081:8081 -p 8082:8082 -p 8083:8083 -p 8084:8084 --name frp-server  -v /mnt/frp/frps.ini:/conf/frps.ini --restart=always cloverzrg/frps-docker
+docker run -d   --restart=always  -p 8081:8081 -p 8082:8082 -p 8083:8083 -p 8084:8084 -p 8085:8085 --name frp-server  -v /mnt/frp/frps.ini:/conf/frps.ini --restart=always cloverzrg/frps-docker
 frpc:
 docker run -d -p 8085:8085 --restart=always --name frp-client -v /root/mnt/frpc/conf:/conf cloverzrg/frpc-docker
 
