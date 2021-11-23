@@ -3,7 +3,7 @@ $(function(){
 	console.log("inittree");
 	var url="/menu/getMenuList";
 	initWestTree(url,$("#layout_west_tree"),{});
-	var folderNodeAll = $('#layout_west_tree ul>li>.tree-node>.tree-folder').parent();
+	var folderNodeAll = $('ul>li>.tree-node>.tree-folder').parent();
 	folderNodeAll.css('border-top','1px solid #E6EEF8').css('border-bottom','1px solid #E6EEF8')
 			.css('background-color','#fae2e2')
 			.find('.tree-title').css('font-size','16px');
