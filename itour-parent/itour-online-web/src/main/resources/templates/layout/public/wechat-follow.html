@@ -1,3 +1,4 @@
+  @if(isEmpty(mold)){
 	<div class="card wechat-follow-wrap">
 			   	 	     	<div class="wechat-follow-title">
 			   	 	     		<span>
@@ -11,3 +12,19 @@
 			   	 	     			"爱旅行SHOW",提供最优旅行攻略，让旅行变得简单,	 有趣！			   	 	     		
 			   	 	     	</div>
 			   	 	     </div>
+@}else{
+<div class="card wechat-follow-wrap">
+			   	 	     	<div class="wechat-follow-title">
+			   	 	     	<span>
+			   	 	     			<img class="wechat-icon" src="${ctxPath}/img/common/qq.png" height="18"  style="border-radius: 50%"/>
+			   	 	     			联系我们
+			   	 	     		</span>
+			   	 	     		
+			   	 	     	</div>
+			   	 	     	<div class="wechat-follow-con">
+			   	 	     		<img src="${ctxPath}/img/common/qq-group.png" class="wechat-scan" width="96" />
+			   	 	     			如果你在阅读后，任然无法解决您的问题,可加QQ群,联系我们。	   	 	     		
+			   	 	     	</div>
+			   	 	     </div>
+@}
+			   	 	     
