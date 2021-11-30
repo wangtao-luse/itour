@@ -160,6 +160,8 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 			String cname = jsonObject.getString("city");
 			//获取当前的 Subject
 			Subject currentUser = SecurityUtils.getSubject();
+			System.out.println("------------------获取当前的 Subject currentUser:"+currentUser+"---------------");
+			System.out.println("获取当前的 Subject currentUser:"+currentUser);
 			//currentUser.getSession().setTimeout(1000*30);
 			if(!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
 				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, ip,cname,jsonObject,request);

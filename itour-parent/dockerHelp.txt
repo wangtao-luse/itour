@@ -40,13 +40,24 @@ Portainer
 docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
 docker run -d -p 9000:9000 --restart=always -v /mnt/portainer/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
 MYSQL
+192.168.1.88
 docker run  -d  --restart=always  --name ben-dev-mysql -e MYSQL_ROOT_PASSWORD=root -p 3308:3306 -v /var/dev/mysqldata:/var/lib/mysql -v /var/dev/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
 docker run  -d  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -v /var/test/mysqldata:/var/lib/mysql -v /var/test/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
 docker run  -d  --restart=always  --name ben-pro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /var/pro/mysqldata:/var/lib/mysql  -v /var/pro/mysql/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
+1.116.226.147
+docker run  -d  --restart=always  --name ben-spro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /mnt/mysql/spro/mysqldata:/var/lib/mysql  -v /mnt/mysql/spro/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
+docker run  -d  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -v /mnt/mysql/test/mysqldata:/var/lib/mysql  -v /mnt/mysql/test/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
+
+
 
 Redis 
-docker run -itd --restart=always --name ben-pro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
+192.168.1.88
+docker run -itd --restart=always --name ben-spro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
+1.116.226.147
+docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /mnt/redis/test/data:/data  -v /mnt/redis/test/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
+docker run -itd --restart=always --name ben-spro-redis -p 6397:6379 -v /mnt/redis/spro/data:/data  -v /mnt/redis/spro/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
+
 
 Minio
 单点模式

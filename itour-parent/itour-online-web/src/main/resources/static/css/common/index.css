@@ -837,12 +837,12 @@ overflow: hidden;
 /*#footer部分开始*/
 #footer {
     border-top: 1px solid #EEE;
-    padding: 40px 0;
+    padding: 10px 0;
     color: #888;
     line-height: 1.6;
     vertical-align: top;
     background: #FFF;
-    position:fixed;
+    position:absolute;
     bottom:0; 
     width:100%;
     z-index:100;
