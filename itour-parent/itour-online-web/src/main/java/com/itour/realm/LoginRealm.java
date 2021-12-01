@@ -47,6 +47,7 @@ public class LoginRealm extends AuthorizingRealm {
 		//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
 		//3.创建SimpleAuthorizationInfo并设置roles属性	
 		//1.1获取登录用户的信息
+		System.out.println("------------------------------------进入资源权限授权-------------------------------》");
 		Oauth primaryPrincipal =(Oauth) principals.getPrimaryPrincipal();
 		Set<String> roles= new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
@@ -70,8 +71,10 @@ public class LoginRealm extends AuthorizingRealm {
 		ResponseMessage queryAccountRight = accountConnector.getAccountRightDetial(jsonObject, null);
 		Map<String, Object> map = queryAccountRight.getReturnResult();
 		List<Map<String, Object>> rightDetailList =(List<Map<String, Object>>) map.get(Constant.COMMON_KEY_RESULT);
+		System.out.println("------------------------------------资源权限-------------------------------》");
 		for (Map<String, Object> rightDetail : rightDetailList) {
 			permissions.add(String.valueOf(rightDetail.get("URL")));
+			System.out.println(rightDetail.get("URL"));
 		}
 		//3.创建SimpleAuthorizationInfo
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

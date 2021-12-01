@@ -30,7 +30,10 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-
+		 System.out.println("-----------------登录拦截--------------------------");
+         System.out.println("getContextPath: "+httpServletRequest.getRequestURL());
+         System.out.println("isLoginRequest: "+isLoginRequest(httpServletRequest, httpServletResponse));
+         
 		if (isLoginRequest(httpServletRequest, httpServletResponse)) {
 			if (isLoginSubmission(httpServletRequest, httpServletResponse)) {
 				if (log.isTraceEnabled()) {

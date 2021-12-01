@@ -32,12 +32,17 @@ public class SessionUtil {
 		AccountVo currentUser = null;
 		try {
 			Subject subject = SecurityUtils.getSubject();
+			System.out.println("SessionUtil getSessionUser---------------------------------------------------------------------");
+			System.out.println("SessionUtil getSessionUser subject ");
 			if (null!=subject ) {
 				PrincipalCollection principalCollection = subject.getPrincipals();
 				if ( null!=principalCollection && !principalCollection.isEmpty()) {
 					 Object primaryPrincipal = principalCollection.getPrimaryPrincipal();
+					 System.out.println("SessionUtil primaryPrincipal"+primaryPrincipal);
 					 String jsonString = JSONObject.toJSONString(primaryPrincipal);
+					 System.out.println("jsonString "+jsonString);
 					 currentUser = JSONObject.parseObject(jsonString, AccountVo.class);
+					 System.out.println("SessionUtil currentUser");
 				}
 			}
 		} catch (Exception e) {
