@@ -354,7 +354,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			if(colArr.size()>0) {
 				//1.组装数据
 				List<WorkColumn> cList = new ArrayList<WorkColumn>();
-				for (Object object : tagArr) {
+				for (Object object : colArr) {
 					WorkColumn col = new WorkColumn();
 					col.setColumn(String.valueOf(object));
 					col.setUid(body.getuId());

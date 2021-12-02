@@ -208,7 +208,7 @@ $(function(){
 	//编辑信息
 	$(document).on("click",".travel_area .work_edit_btn",function(){
 		var id = $("#tid").val();
-		location.href=ctxPath+"/work/workUpdateMd?id="+id;
+		window.open(ctxPath+"/work/workUpdateMd?id="+id);
 	})
 	//评论排序
 	$(document).on("click","#topbar-options-btn",function(){

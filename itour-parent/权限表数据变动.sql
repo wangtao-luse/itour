@@ -334,5 +334,8 @@ VALUES('/queryFavoriteList','-1','authc','旅行信息收藏夹列表','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/insertFavorite','-1','authc','旅行信息创建收藏夹','0');
 #-前台权限表###########################-
-
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/work/index','-1','anon','日志展示页面','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/work/detail','-1','anon','日志详情页面','0');
 	
