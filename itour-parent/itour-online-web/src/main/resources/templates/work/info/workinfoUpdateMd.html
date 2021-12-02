@@ -19,8 +19,9 @@
 			}
 			var articleType="${workInfo.articleType!}";
 			var modality="${workInfo.modality!}";
+			$("input:radio[value='"+modality+"']").prop('checked', true);
+
 			$("#articleType").val(articleType);
-			$("input[name='modality']").val(modality);
 			$(".modal-article-pushlish-wrp #js_description").trigger("keyup");
 			//标签
 			$(".mark_selection .el-tag").each(function(){
@@ -282,9 +283,9 @@ button {
 						    	<label class="form-entry__label">发布形式：</label>
 						    	<div class="form-entry__field">
 						    		<div class="switch-box">
-						    			<input type="radio" name="modality" id="public" value="2" checked="${workInfo.modality=='2'?'checked':''}"  class="form-control form-control-sm chk-switch">
+						    			<input type="radio" name="modality" id="public" value="2"   class="form-control form-control-sm chk-switch">
 						    			<label for="public" class="lab-switch">公开</label>
-						    			<input type="radio" name="modality" id="private" value="1" checked="${workInfo.modality=='1'?'checked':''}" class="form-control form-control-sm chk-switch">
+						    			<input type="radio" name="modality" id="private" value="1"  class="form-control form-control-sm chk-switch">
 						    			<label for="private" class="lab-switch">私密</label>
 						    		</div>
 						    	</div>
