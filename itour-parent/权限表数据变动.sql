@@ -338,4 +338,6 @@ INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/index','-1','anon','日志展示页面','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/detail','-1','anon','日志详情页面','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/work/commentList','-1','anon','日志详情页-评论列表','0');
 	

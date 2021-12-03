@@ -81,6 +81,9 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
 					}else {
 						responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total);
 					} 
+			 }else {
+				 responseMessage.setReturnResult( page.setRecords(cList)); 
+				 responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, cList.size());
 			 }
 			
 		}
