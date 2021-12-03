@@ -303,7 +303,7 @@ VALUES('/travel/getLocation','-1','authc','城市信息单条查询','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/travel/personCenter','-1','authc','个人中心（旅行攻略）','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
-VALUES('/travel/mdEdit','-1','authc','创作中心','0');
+VALUES('/travel/mdEdit','1','authc','创作中心','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/upload/fileUpload','-1','authc','单个文件上传','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
@@ -333,11 +333,19 @@ INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/queryFavoriteList','-1','authc','旅行信息收藏夹列表','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/insertFavorite','-1','authc','旅行信息创建收藏夹','0');
-#-前台权限表###########################-
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/index','-1','anon','日志展示页面','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/detail','-1','anon','日志详情页面','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/commentList','-1','anon','日志详情页-评论列表','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/work/workMd','2','anon','日志创作者权限','0');
+#-前台权限表###########################-
+INSERT INTO t_a_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES( '1', '爱旅行创作者', '', '2', '', '','');	
+INSERT INTO t_a_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
+VALUES( '2', '日志创作者', '', '2', '', '','' );
+
+UPDATE t_a_right_detail a set a.RIGHT_NO='1' WHERE a.URL='/travel/mdEdit';
 	
