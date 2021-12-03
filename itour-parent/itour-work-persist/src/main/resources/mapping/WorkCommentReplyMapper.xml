@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itour.persist.WorkCommentReplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itour.model.work.WorkCommentReply">
+        <id column="ID" property="id" />
+        <result column="COMMENT_ID" property="commentId" />
+        <result column="REPLY" property="reply" />
+        <result column="RTIME" property="rtime" />
+        <result column="FROM_UID" property="fromUid" />
+        <result column="TO_UID" property="toUid" />
+        <result column="NICE_COUNT" property="niceCount" />
+        <result column="STATUS" property="status" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, COMMENT_ID, REPLY, RTIME, FROM_UID, TO_UID, NICE_COUNT, STATUS
+    </sql>
+     <select id="queryCommentReplyList" parameterType="com.itour.model.work.vo.WorkCommentReplyVo" resultType="com.itour.model.work.vo.WorkCommentReplyVo">
+       select * from (
+	       SELECT c.*,tmp.AVATAR fromAvatar,tmp.NICKNAME fromNickname,tmp1.AVATAR toAvatar,tmp1.NICKNAME toNickname FROM t_w_work_comment_reply c,
+			(SELECT c.U_ID,c.NICKNAME,c.AVATAR FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp,
+			(select c.U_ID,c.NICKNAME,c.AVATAR FROM t_a_oauth c WHERE c.OAUTH_TYPE='email') tmp1
+			WHERE c.from_uid=tmp.U_ID and c.TO_UID=tmp1.U_ID 
+			<if test="null!=vo.idList"></if>
+			and c.COMMENT_ID in
+			<foreach collection="vo.idList" item="item" index="index" open="(" separator="," close=")">
+			  #{item}
+			 </foreach>
+		   ) c where c.STATUS=30 
+		     <if test="null!=vo.fromUid and ''!=vo.fromUid">
+		      or(c.STATUS='20' and c.FROM_UID=#{vo.fromUid} )
+		     </if>
+		order by c.RTIME desc
+     </select>
+</mapper>

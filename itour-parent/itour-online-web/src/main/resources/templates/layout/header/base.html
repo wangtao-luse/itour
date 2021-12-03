@@ -8,10 +8,12 @@
 						<li><a href="${ctxPath}/index" target="_blank">首页</a></li>
 						 <li class="toolbar-subMenu-box">
 							<a href="${ctxPath}/work/index" target="_blank">日志</a>
+							@if(shiro.hasPermission("/work/workMd")){ 
 							<div class="toolbar-subMenu">
 							   	  	<a href="${ctxPath}/work/workMd">写日志</a>
 							   	  	<a href="#">我的日志</a>							   	  	
 							</div>
+							@}
 						</li>
 						<!--<li><a href="#" target="_blank">糖友</a></li>
 						<li class="toolbar-subMenu-box">
@@ -32,6 +34,7 @@
 						
 					</div>
 					<div class="banner-btns itour-banner-fr">
+					  @if(shiro.hasPermission("/travel/mdEdit")){ 
 						<div class="banner-btn banner-btn-write toolbar-subMenu-box itour-banner-fl">
 							<a href="${ctxPath}/travel/mdEdit">
 								<i></i>创作中心
@@ -40,6 +43,7 @@
 							    <a href="${ctxPath}/travel/mdEdit">写攻略</a>
 							</div>
 						</div>
+					  @}
 					   <!--  <a href="#" target="_blank" class="banner-btn banner-btn-collect itour-banner-fl">收藏</a> -->
 					<!--    <div class="banner-btn banner-btn-msg  itour-banner-fl">
 					   	 <div class="toolbar-subMenu-box">

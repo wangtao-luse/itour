@@ -24,6 +24,6 @@
    </select>
    <!-- 获取所有的权限（菜单）及该角色下拥有的权限 （权限管理使用) -->
      <select id="authorizeRightList" parameterType="java.util.Map" resultType="Map">
-    SELECT a.*,IFNULL(b.ID,'0') RRID ,IFNULL(ROLE_ID,'0') ROLE_ID, IFNULL(Right_ID,'0') Right_ID FROM t_a_right a LEFT JOIN t_a_role_right b on a.MENU_NO=b.RIGHT_ID and b.ROLE_ID=#{rid}
+    SELECT a.*,IFNULL(b.ID,'0') RRID ,IFNULL(ROLE_ID,'0') ROLE_ID, IFNULL(Right_ID,'0') Right_ID FROM t_a_right a LEFT JOIN t_a_role_right b on a.MENU_NO=b.RIGHT_ID
      </select>
 </mapper>
