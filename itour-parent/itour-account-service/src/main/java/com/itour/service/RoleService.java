@@ -202,7 +202,7 @@ public ResponseMessage authorizeRightList(RequestMessage requestMessage) {
 			Object  parentId = String.valueOf(right.get("PARENT_ID"));
 			Object menuNo = right.get("MENU_NO");
 			Object rid = right.get("ROLE_ID");
-			if("0".equals(parentId)){//一级菜单
+			if("0".equals(parentId)||"-1".equals(parentId)){//一级菜单或特殊权限
 				jsonObject.put("id", right.get("ID"));//权限编号-->insert
 				jsonObject.put("text", right.get("MENU"));//菜单名称--->显示					
 				jsonObject.put("rrid", right.get("RRID"));//中间表编号-->insert

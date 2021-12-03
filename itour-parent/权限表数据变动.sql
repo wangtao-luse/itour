@@ -343,9 +343,9 @@ INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/workMd','2','anon','日志创作者权限','0');
 #-前台权限表###########################-
 INSERT INTO t_a_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
-VALUES( '1', '爱旅行创作者', '', '2', '', '','');	
+VALUES( '1', '爱旅行创作者', '-1', '2', '', '','');	
 INSERT INTO t_a_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
-VALUES( '2', '日志创作者', '', '2', '', '','' );
+VALUES( '2', '日志创作者', '-1', '2', '', '','' );
 
 UPDATE t_a_right_detail a set a.RIGHT_NO='1' WHERE a.URL='/travel/mdEdit';
 	
