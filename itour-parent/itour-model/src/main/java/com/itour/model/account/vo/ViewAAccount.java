@@ -2,6 +2,8 @@ package com.itour.model.account.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.itour.model.dto.LongRange;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -11,6 +13,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-08
  */
+@TableName("view_a_account")
 public class ViewAAccount extends Model<ViewAAccount> {
 
     private static final long serialVersionUID = 1L;

@@ -1,6 +1,7 @@
 package com.itour.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -287,6 +289,56 @@ public ResponseMessage getAccountGroupName(RequestMessage requestMessage) {
 		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 	}
 	
+	
+	return responseMessage;
+}
+/**
+ * 授权用户组
+ * @param requestMessage
+ * @return
+ */
+public ResponseMessage authorizeGroupList(RequestMessage requestMessage) {
+	ResponseMessage responseMessage = ResponseMessage.getSucess();
+	try {
+		//1.获取组列表
+		Wrapper<Group> queryWrapper = new QueryWrapper<Group>();
+		List<Group> selectList = this.baseMapper.selectList(queryWrapper);
+		//2.组装数据
+		JSONArray jsonArray = new JSONArray();		
+		for (Group g : selectList) {
+			//3.1组装组信息
+			if(0 == g.getgParent()) {
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("id", g.getId());
+				jsonObject.put("text",g.getgDesc());
+				jsonObject.put("state", "open");
+				jsonArray.add(jsonObject);
+				JSONArray childArray = new JSONArray();		
+				for (Group child : selectList) {
+					if(child.getgParent()==g.getId()) {
+						JSONObject  childJsonObject = new JSONObject();
+						childJsonObject.put("id", g.getId());
+						childJsonObject.put("text",g.getgDesc());
+						childJsonObject.put("state", "open");
+						childArray.add(childJsonObject);
+					}
+				}
+				jsonObject.put("children", childArray);
+			}
+			
+		}
+			
+			
+		responseMessage.setReturnResult(jsonArray);
+	}catch (BaseException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	     throw new BaseException(e.getMessage());
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+	}
 	
 	return responseMessage;
 }

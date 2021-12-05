@@ -497,4 +497,15 @@ public class AccountController {
 		ResponseMessage queryLoginList = this.accountConnector.queryLoginList(jsonObject, request);
 		return queryLoginList;
 	}
+	@RequestMapping("/authorizeGroupList")
+	@ResponseBody
+	public ResponseMessage authorizeGroupList(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+		ResponseMessage authorizeGroupList = this.accountConnector.authorizeGroupList(jsonObject, request);
+		return authorizeGroupList;
+	}
+	@RequestMapping("/accountGroupP")
+	public String accountGroupP(String uid,ModelMap model) {
+		model.addAttribute("uId", uid);
+		return "/system/account/usr/accountGroupP";
+	}
 }

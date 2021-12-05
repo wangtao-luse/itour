@@ -1,6 +1,8 @@
 package com.itour.model.account.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-10
  */
+@TableName("view_a_oauth")
 public class ViewAOauth extends Model<ViewAOauth> {
 
     private static final long serialVersionUID = 1L;

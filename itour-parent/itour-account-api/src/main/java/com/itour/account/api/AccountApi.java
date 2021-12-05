@@ -269,5 +269,12 @@ public ResponseMessage updateOAuth(@RequestBody RequestMessage requestMessage);
  */
 @RequestMapping(value = "/account/selectOauthtOne",produces = {"application/json;charset=UTF-8"})
 public ResponseMessage selectOauthtOne(@RequestBody RequestMessage requestMessage);
+/**
+ * 授权组
+ * @param requestMessage
+ * @return
+ */
+@RequestMapping(value = "/account/authorizeGroupList",produces = {"application/json;charset=UTF-8"})
+public ResponseMessage authorizeGroupList(@RequestBody RequestMessage requestMessage);
 }
 

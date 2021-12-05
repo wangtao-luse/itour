@@ -34,7 +34,7 @@ public class Group extends Model<Group> {
      * 所属组编号
      */
     @TableField("G_PARENT")
-    private Integer gParent;
+    private Long gParent;
 
     /**
      * 组描述
@@ -58,11 +58,11 @@ public class Group extends Model<Group> {
         this.gName = gName;
     }
 
-    public Integer getgParent() {
+    public Long getgParent() {
         return gParent;
     }
 
-    public void setgParent(Integer gParent) {
+    public void setgParent(Long gParent) {
         this.gParent = gParent;
     }
 

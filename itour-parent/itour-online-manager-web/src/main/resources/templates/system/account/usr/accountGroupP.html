@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+$(function(){
+	var postData={"uId":$("#uIdText").text()};
+	var option={
+			checkbox: true,	
+			cascadeCheck:false,
+            onClick:function(node){
+                var that = $(this);
+                if(node.checked){
+                    that.tree('uncheck',node.target);
+                    var cNodes = that.tree('getChildren',node.target);
+                    $.each(cNodes,function(index,value){
+                        that.tree('uncheck',value.target)
+                    })
+                }else{
+                    that.tree('check',node.target);
+                    var cNodes = that.tree('getChildren',node.target);
+                    $.each(cNodes,function(index,value){
+                        that.tree('check',value.target)
+                    })
+                }
+            }
+	}
+	initTree('/account/authorizeGroupList',JSON.stringify(postData),$('#resourceOauthTree'), option);
+	//为角色授权权限
+	$("#roleRightFun").click(function(){
+		var arr = getTreeRoleidsAndRightids($('#resourceTree'));
+		var url="/member/powerRight";
+		
+		var data={"roleId":$("#roleIdText").text(),"arr":arr};
+		postAjax(url,JSON.stringify(data),closeDialogCallBack,{});
+	});
+	
+});
+
+</script>
+<var id="uIdText" style="display: none">${uId}</var>
+<div id="roleGrantLayout" class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center'" title="系统资源" style="width: 300px; padding: 1px;">
+        <div class="well well-small">
+            <form id="form" method="post">
+                <input name="id" type="hidden" style="display: none" class="span2" value="${uId}" readonly="readonly">
+                <ul id="resourceTree"></ul>
+                <input id="resourceIds" name="choiceId" type="hidden" style="display: none"/>
+            </form>
+            <form id="grantsExportForm1" method="post" style="display: none" hidden>
+            <input name="id" type="hidden" style="display: none" class="span2" value="${uId}" readonly="readonly">
+            </form>
+        </div>
+    </div>
+</div>

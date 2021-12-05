@@ -1,6 +1,8 @@
 package com.itour.model.account.vo;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 /**
  * <p>
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-07-15
  */
+@TableName("view_a_account_group")
 public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
 
     private static final long serialVersionUID = 1L;
@@ -24,13 +27,13 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
     private String sex;
 
     @TableField("CREATEDATE")
-    private Integer createdate;
+    private Long createdate;
 
     @TableField("CREATEIP")
     private String createip;
 
     @TableField("LASTTIME")
-    private Integer lasttime;
+    private Long lasttime;
 
     @TableField("STATUS")
     private String status;
@@ -76,11 +79,11 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
         this.sex = sex;
     }
 
-    public Integer getCreatedate() {
+    public Long getCreatedate() {
         return createdate;
     }
 
-    public void setCreatedate(Integer createdate) {
+    public void setCreatedate(Long createdate) {
         this.createdate = createdate;
     }
 
@@ -92,11 +95,11 @@ public class ViewAAccountGroup extends Model<ViewAAccountGroup> {
         this.createip = createip;
     }
 
-    public Integer getLasttime() {
+    public Long getLasttime() {
         return lasttime;
     }
 
-    public void setLasttime(Integer lasttime) {
+    public void setLasttime(Long lasttime) {
         this.lasttime = lasttime;
     }
 

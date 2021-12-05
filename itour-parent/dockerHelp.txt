@@ -34,7 +34,7 @@ docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service
 docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-manager-web --restart=always
 
 9.itour-online-web
-docker run -d --name itour-online-web -p 9093:9093 -v /itour/img/code:/itour/img/code ben/itour-online-web --restart=always 
+docker run -d --name itour-online-web -p 9093:9093 -v /itour/img/code:/itour/img/code  -v  /root/spro/itour/upload:/root/spro/itour/upload ben/itour-online-web --restart=always 
 
 Portainer
 docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer

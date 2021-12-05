@@ -536,4 +536,5 @@ public class MemberController {
 		ResponseMessage checkOauthId = this.memberConnector.checkOauthId(tmpJson, request);
 		return checkOauthId;
 	}
+	
 }

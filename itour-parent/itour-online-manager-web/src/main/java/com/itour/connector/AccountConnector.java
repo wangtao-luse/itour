@@ -344,5 +344,16 @@ public ResponseMessage queryLoginList(JSONObject jsonObject,HttpServletRequest r
 	ResponseMessage responseMessage = accountApi.queryLoginList(requestMessage);
 	return responseMessage;
 }
+/**
+ * 授权组
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage authorizeGroupList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	ResponseMessage responseMessage = accountApi.authorizeGroupList(requestMessage);
+	return responseMessage;
+}
 
 }

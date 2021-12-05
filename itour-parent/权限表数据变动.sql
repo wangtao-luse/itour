@@ -10,7 +10,7 @@ INSERT t_m_oauth (U_ID,OAUTH_ID,OAUTH_TYPE,CREDENTIAL,NICKNAME,PWD)VALUES(
  '10000','wangtao','uname','64846c862d3c4fe65b9c659b1398ef77dfc51bd0','wangtao','a42617d417d7418dbcf5c30770fa0f7e'
 );
 INSERT t_m_account_group(U_ID,GROUP_ID)VALUES('10000','1');
-INSERT t_m_group_role(ROLE_ID,GROUP_ID)VALUES("2","1");
+INSERT t_m_group_role(ROLE_ID,GROUP_ID)VALUES('2','1');
 INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','1000');
 INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','1001');
 INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','1002');

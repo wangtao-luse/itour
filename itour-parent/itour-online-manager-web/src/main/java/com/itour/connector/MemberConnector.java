@@ -331,4 +331,5 @@ public class MemberConnector {
 		return memberApi.selectViewOAuthOne(requestMessage);
 	}
 	
+	
 }
