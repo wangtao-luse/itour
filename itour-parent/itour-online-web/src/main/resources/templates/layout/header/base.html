@@ -60,6 +60,7 @@
 						     </div>
 					   	 </div>					   	 
 					   </div> -->
+					  
 					    @if(!isEmpty(user)){
 					   <div class="banner-btn-login itour-banner-fl toolbar-subMenu-box" style="display: block;">
 					   	 <a class="hasAvatar" href="${ctxPath}/travel/personCenter">
@@ -74,15 +75,19 @@
 					   	 	<!--<a href="#" target="_blank"><i class="banner-icon banner-icon-mp"></i>攻略管理</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-blog"></i>我的博客</a>
 					   	 	<a href="#" target="_blank"><i class="banner-icon banner-icon-account"></i>设置</a> -->
+					   	 	<a href="${ctxPath}/account/reg" target="_blank"><i class="banner-icon"></i>注册</a>
 					   	 	<a href="${ctxPath}/shiro/logout" target="_blank"><i class="banner-icon banner-icon-logout"></i>退出</a>
 					   	 </div>
 					   </div>
 					   @}else{
 					   <div class="banner-btn-login itour-banner-fl" style="display: block;">
 					   	   <a class="" href="${ctxPath}/account/login">登录</a>
+					   	    @if(shiro.hasRole("GSAdmin")){
 					   	   <a class="" href="${ctxPath}/account/reg">注册</a>
+					   	    @}
 					   </div>
 					   @}
+					  
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,5 @@
 @layout("/layout/template-log.html",{title:'日志-详情'}){
+<link rel="stylesheet" href="${ctxPath}/md/css/editormd.min.css" />
 <link rel="stylesheet" href="${ctxPath}/css/common/rich.css" />
    <style>
 	   .richContent .richContent-inner {
@@ -25,6 +26,8 @@
 	
 }
 </style>
+
+<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
 <script type="text/javascript" src="${ctxPath}/js/work/detail.js" ></script>
 <script type="text/javascript" src="${ctxPath}/js/common/rich.js" ></script>
 
@@ -84,9 +87,10 @@
 	    								
 	    							</div>
 	    							<article class="richContent">
-	    								<div class="richContent-inner">
+	    								<div class="richContent-inner ">
 	    								   ${worktext.wcontent!}
 	    								</div>
+	    								 @if(shiro.hasRole("GSAdmin")){
 	    								<div class="contentItem-actions  richContent-actions  is-bottom travel_area">
 										@if(workInfo.niceUid==sessionUser.uId! && workInfo.niceStatus=='1'){
 											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn nice" tid="${workInfo.id}">
@@ -156,6 +160,7 @@
 											@}
 											
 	    								</div>
+	    								@}
 	    								<div class="fixed-line"></div>
 	    							</article>
 	    						</div>

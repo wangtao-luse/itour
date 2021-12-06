@@ -5,4 +5,7 @@ $(function(){
 		$(this).css("color","#0084ff");
 		}
 		});	
+	//样式调整
+	$(".richContent").addClass("markdown-body ");
+	
 });

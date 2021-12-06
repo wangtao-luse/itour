@@ -15,7 +15,7 @@
 			    							    		<div class="contentItem answerItem">
 			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">${t.title}</a></h2>
 			    							    			<div class="richContent is-collapsed" >
-			    							    			  <a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">
+			    							    			  <a href="${ctxPath}/work/detail?id=${t.id}" target="_blank" class="clearfix">
 			    							    			    @if(isNotEmpty(t.url)){
 			    							    				<div class="richContent-cover" tid=${t.id}>
 			    							    					<div class="richContent-cover-inner">
@@ -36,6 +36,7 @@
 			    							    					<button type="button" class="button contentItem-more button--plain"  tid=${t.id} >阅读全文</button>
 			    							    				</div>
 			    							    		        </a>
+			    							    		        @if(shiro.hasRole("GSAdmin")){
 			    							    				<div class="contentItem-actions">
 			    													<div class="contentItem-actions videoToolbar contentItem-action videoItem-toolbar">
 			    														<button class="button contentItem-action button--plain button--withIcon button--withLabel work_like_btn ${t.niceStatus=='1'?t.niceUid==sessionUser.uId?'nice':'':''}" tid=${t.id} niceStatus=${t.niceStatus}>
@@ -69,6 +70,7 @@
 			    														</button> 
 			    													</div>
 			    												</div>
+			    												@}
 			    							    			</div>
 			    							    		</div>
 			    							    	</div>
