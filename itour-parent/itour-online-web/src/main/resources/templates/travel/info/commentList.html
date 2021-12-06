@@ -1,5 +1,6 @@
 @#ajax commentList:{
 @var uid=user.uId!;
+ 				@if(shiro.hasRole("GSAdmin")){
 						<div class="comments-container comment-container">
 							<div class="commentsV2 commentsV2--withEditor commentsV2-withPagination">
 								<div class="topbar commentTopbar">
@@ -252,7 +253,8 @@
 								</div>
 								
 							</div>
+							@}
 							
 						</div>
-
+						@}
 					@}
