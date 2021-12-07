@@ -9,6 +9,7 @@
     top:0;
     left:0;
     right:0;
+    z-index:100;
 }
 #itour-banner a{
 	text-decoration: none;
@@ -1879,6 +1880,7 @@ border-radius: 2px;
 		 -webkit-box-shadow: 0 1px 3px rgba(18,18,18,.1);
 	    box-shadow: 0 1px 3px rgba(18,18,18,.1);
 	    -webkit-box-sizing: border-box;
+	    margin-top: 44px;
 	}
 	.infoMsgHead{
 		height: 120px;
@@ -2372,6 +2374,7 @@ color: #646464;
 .collectionEmptyState {
     font-size: 14px;
     height: 600px;
+    margin-bottom: 62px!important;
 }
 /****我的主页end***/
 /***创作中心start**/
