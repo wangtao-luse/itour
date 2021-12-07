@@ -6,6 +6,7 @@ $(function(){
 		}
 		});	
 	//样式调整
-	$(".richContent").addClass("markdown-body ");
+	$(".richContent").addClass("markdown-body editormd-preview-container").css({"width":"auto","overflow-x":"hidden"});
+	$("pre").addClass("prettyprint linenums prettyprinted ");
 	
 });

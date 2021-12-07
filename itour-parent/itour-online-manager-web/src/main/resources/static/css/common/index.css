@@ -5,7 +5,10 @@
 	color: #20232c;
 	background: #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
-    position: relative;
+    position: fixed;
+    top:0;
+    right:0;
+    left:0;
 }
 #itour-banner a{
 	text-decoration: none;
@@ -291,6 +294,7 @@ background-position-x: 0;
 	margin-right: 10px;
 	margin-bottom: 0;
 	width: 694px;
+	margin-top: 44px;
 }
 .topstory-mainColumnCard{
 	-webkit-box-shadow: 0 1px 3px rgba(18,18,18,0.1);
@@ -770,6 +774,7 @@ overflow: hidden;
 	-webkit-box-flex: 1;
 	-ms-flex: 1 1;
 	flex: 1 1;
+	margin-top: 44px;
 }
 
 .wechat-follow-wrap {

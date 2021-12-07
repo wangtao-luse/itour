@@ -342,5 +342,8 @@ function query(list){
 	var url="/travel/commentList?ajaxCmd=commentList";
 	postForm(url, JSON.stringify(data), function (result) {
 		$("#comment-container").html(result);
+		if(!result){
+			$("#comment-container").css("margin-bottom","62px")
+		}
       }, {"contentType": "application/json; charset=utf-8"});	
 }
