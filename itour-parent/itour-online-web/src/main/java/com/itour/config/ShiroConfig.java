@@ -95,6 +95,7 @@ public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 //		https://blog.csdn.net/zhangchen124/article/details/104725640/
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 		filterChainDefinitionMap.put("/css/**","anon");
+		filterChainDefinitionMap.put("/md/**","anon");
 		filterChainDefinitionMap.put("/js/**","anon");
 		filterChainDefinitionMap.put("/img/**","anon");
 		filterChainDefinitionMap.put("/uploaded/**","anon");
