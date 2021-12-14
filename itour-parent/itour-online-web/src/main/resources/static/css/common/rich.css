@@ -6,8 +6,8 @@ article.richContent p img{
 margin-bottom: 10px;	
 }	
 article.richContent p{
-	text-indent:2em;
-	margin-bottom: 0px;
+	/* text-indent:2em; */
+	margin-bottom: 0.27em;
 	
 }
 .richContent-inner h1 {
@@ -15,4 +15,7 @@ article.richContent p{
     margin-bottom: 0.67em;
     font-size: 2em;
     font-weight: bold;
+}
+.editormd-html-preview pre.prettyprint, .editormd-preview-container pre.prettyprint{
+	margin-top: 15px;
 }
