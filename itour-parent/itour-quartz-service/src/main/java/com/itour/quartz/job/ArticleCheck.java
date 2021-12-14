@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.itour.quartz.service.ArticleCheckService;
-
+/**
+ * 攻略和日志审核
+ * @author wwang
+ *
+ */
 public class ArticleCheck extends QuartzJobBean {
 	@Autowired
 	ArticleCheckService articleCheckService;
