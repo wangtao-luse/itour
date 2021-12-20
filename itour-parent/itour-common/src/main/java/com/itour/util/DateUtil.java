@@ -25,9 +25,9 @@ public static long currentLongDate() {
 	return time;
 }
 /**
- * 返回指定日期long类型日期
- * @param date
- * @return long
+ * 给定util.Date返回指定日期long类型日期
+ * @param date util.Date
+ * @return long 返回long类型日期
  */
 public static long getlongDate(Date date) {
 	long time = date.getTime();
@@ -47,7 +47,7 @@ public static String getDateStr(Date sDate) {
 		long differOfMinute = getDifferOfMinute(sDate,eDate);
 		long differOfHour = getDifferOfHour(sDate,eDate);
 		int differOfDay = getDifferOfDay(sDate,eDate);
-		int differOfMonth = getDifferOfMonth(sDate,eDate);
+		//int differOfMonth = getDifferOfMonth(sDate,eDate);
 		int differOfYear = getDifferOfYear(sDate,eDate);
 		if(differOfMinute<1) {
 			return differOfSecond+"秒前";
@@ -171,6 +171,24 @@ public static String getStrDate(Date date,String pattern) {
 	  String format = sdf.format(date);
 	return format;
 }
+/**
+ * 给定String类型日期转为Long类型日期
+ * @param date String类型日期
+ * @param pattern  日期格式
+ * @return 返回long类型的日期;-1:转换失败；
+ */
+public static long getLongDate(String date,String pattern) {
+	try {
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		Date parse = sdf.parse(date);
+		long time = parse.getTime();
+		return time;
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return -1;
+}
 
 
 
@@ -182,8 +200,7 @@ public static String getStrDate(Date date,String pattern) {
 
 
 
-
-/****--------------------------------------------------------------------------------为使用过的方法---------------------*/
+/****--------------------------------------------------------------------------------未使用过的方法---------------------*/
 
 
 
@@ -448,8 +465,17 @@ public static void main(String[] args) throws ParseException {
 	long time = DateUtil.getlongDate(parse);
 	//System.out.println("指定日期的long格式"+time);
 	testDate();
-	
+	/**
+	 * 2021-12-8 22:18  1639145880000 
+	 * 2021-12-12 21:28 1639315680000
+	 * 2021-12-13 20:28 1639398480000
+	 * 2021-12-18 20:18 1639829880000
+	 * 2021-12-20 08:18 1639959480000
+	 */
+	long l_time = getLongDate("2021-12-20 08:18","yyyy-MM-dd HH:mm");
+	System.out.println("Long日期"+l_time);
 }
+
 public static void test() {
 	//1.获取当前时间
 	Date now = new Date();

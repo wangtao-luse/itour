@@ -269,7 +269,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 					workInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 				}
 				
-			}else {
+			}else {//新增
 				workInfo.setUid(body.getuId());
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
