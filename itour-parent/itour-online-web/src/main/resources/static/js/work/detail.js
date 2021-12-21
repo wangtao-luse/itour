@@ -234,6 +234,7 @@ $(function(){
 	//获取指定元素在y轴上偏移量
 	var offsetTop = $(".fixed-line").offset().top;
 	var footerTop = $("#footer").offset().top;
+	var articleNavTop = $(".article-nav-right_box").offset().top;
 	//获取浏览器可见高度
 	var wheight = $(window).height();
 	if(offsetTop>=wheight){
@@ -242,7 +243,7 @@ $(function(){
 		.css("left",$(".storyCard").offset().left+"px");
 		$(".is-fixed.sticky").css("bottom",0);
 	}
-	console.log("offsetTop: "+offsetTop);
+	console.log("articleNavTop: "+articleNavTop);	
 	$(document).scroll(function() {
 		//https://www.cnblogs.com/yuqiandoudou/p/4436368.html
 		//1.获取垂直滚动的距离
@@ -256,7 +257,7 @@ $(function(){
 		//计算到底部滚动的距离
 		var b = dheight -wheight-90;
 		var h = offsetTop - wheight;
-		console.log("top: "+top);
+	//	console.log("top: "+top);
 		if(top<=h){
 			$(".contentItem-actions").addClass("is-fixed sticky");
 			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
@@ -264,17 +265,45 @@ $(function(){
 			$(".is-fixed.sticky").css("bottom",0);
 		}else {
 			$(".contentItem-actions").removeClass("is-fixed sticky")
-		}/*else if(top>=offsetTop&&top<=b){
-			$(".contentItem-actions").addClass("is-fixed sticky");
-			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
-			.css("left",$(".storyCard").offset().left+"px");
-			$(".is-fixed.sticky").css("bottom",0);
-		}else if(top>b){
-			$(".contentItem-actions").addClass("is-fixed sticky");
-			$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
-			.css("left",$(".storyCard").offset().left+"px");
-			$(".is-fixed.sticky").css("bottom","90px");
-		}*/
+		}
+		//console.log("top"+top);
+		var prevScrollTop = 0;
+		var isUp= "-1";
+		 var scrollTop = $(this).scrollTop();
+
+		    if ( scrollTop < 0 ) {
+		        scrollTop = 0;
+		    }
+		    if ( scrollTop > $('body').height() - $(window).height() ) {
+		        scrollTop = $('body').height() - $(window).height();
+		    }
+
+		    if (scrollTop >= prevScrollTop && scrollTop) {
+		        // scrolling down
+		    	isUp = "0";
+		    } else {
+		        // scrolling up
+		    	isUp = "1";
+		    }
+
+		    prevScrollTop = scrollTop;
+		
+		
+		//console.log("isUp "+isUp);
+		if(top>(articleNavTop-20)){
+			$(".article-nav-right_box").css("top","44px");	
+		}else{
+			if(isUp=="0"){
+				$(".article-nav-right_box").css("top",(articleNavTop-top)+"px");	
+			}else if(isUp=="1"){
+					$(".article-nav-right_box").css("top",(articleNavTop+top)+"px");	
+			}else{
+				$(".article-nav-right_box").css("top","44px");
+			}
+				
+		}
+		
+		
 	});
 	$(".contentItem-action.itour-favorites-btn").mouseout(function(){
 			$(this).find(".isactive").css("display","none");
