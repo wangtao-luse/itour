@@ -147,7 +147,7 @@
          SELECT 
            c.*,a.NICKNAME,a.AVATAR 
          FROM T_T_TRAVEL_INFO c, T_A_OAUTH a 
-         WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID AND c.`STATUS` ='30'
+         WHERE a.OAUTH_TYPE='email' AND a.U_ID=c.UID AND (c.`STATUS` ='20' or c.`STATUS` ='30')
          order by c.PUBLISHTIME DESC
          </when>
          <otherwise>
