@@ -223,15 +223,7 @@ $(function(){
 	    		
 	    	}
 	    	function createNav(){
-	    		var html = $(".article-nav-right_box");
-	    		 var str ="<div class='card article-nav-wrap' id='collapseTarget'>" +
-	    		 		       "<div class='article-nav-header'>" +
-								  "<div class='card-headerText'>文章导航</div>"+
-								"</div>"+
-								"<nav class='article-nav-list'></nav>"+
-						   "</div>";
-	    		    
-	    		    html.append(str);
+	    		var html = $(".article-nav-right_box");	    		 
 	    	 $(".richContent-inner h2").each(function(){
 	    	 	var target = $(this).prop("id");
 	    	 	var title = $(this).text();

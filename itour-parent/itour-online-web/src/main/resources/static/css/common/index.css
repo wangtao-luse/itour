@@ -2963,3 +2963,54 @@ color: #646464;
 	font-weight: bold;
 }
 /**文章导航end**/
+/**详情右边分类专栏开始**/
+
+.recommend-person-head{
+	 padding: 0 20px;
+	 height: 50px;	 
+	 line-height: 50px;
+	 -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
+	 border-bottom: 1px solid #f6f6f6;
+}
+.kind_person_column{} 
+.recomment-person-ctn{
+	padding: 12px 16px 16px 16px;
+	overflow: hidden;
+}.recomment-person-ctn *{
+	word-wrap: break-word;
+}
+.recomment-person-ctn .title .text{
+	max-width: 155px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	float: left;
+	margin-right: 8px;
+	font-size: 14px;
+	color: #555666;;
+}
+.recomment-person-ctn ul li{
+	cursor: pointer;
+	padding:8px 0px;
+}
+.recomment-person-ctn ul li:hover {
+ 	 background-color: rgba(0,132,255,0.1);
+ }
+.recomment-person-ctn ul li a{
+	
+}
+.recomment-person-ctn ul li a:hover .text {
+color: #0084ff;
+ 
+}
+.recomment-person-ctn ul li a span.count{
+	max-width: 42px;
+	font-size: 12px;
+	color: #999aaa;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/**详情右边分类专栏结束**/

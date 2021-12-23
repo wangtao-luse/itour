@@ -38,6 +38,16 @@ public ResponseMessage queryColumnList(JSONObject jsonObject,HttpServletRequest 
 	return workApi.queryColumnList(requestMessage);
 }
 /**
+ * 日志分类专栏（用于页面展示包含统计信息）
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage getShowColumnList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.getShowColumnList(requestMessage);
+}
+/**
  * 新增或修改工作日志
  * @param jsonObject
  * @param request
@@ -66,6 +76,16 @@ public ResponseMessage selectWorkInfoOne(JSONObject jsonObject,HttpServletReques
 public ResponseMessage selectWorkInfoList(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.selectWorkInfoList(requestMessage);
+}
+/**
+ * 根据专栏查询个人列表
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage queryWorkByColList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.queryWorkByColList(requestMessage);
 }
 /**
  * 个人博客单条(前台（详情）使用带用户信息(图像，昵称))
@@ -186,6 +206,16 @@ public ResponseMessage delWorkCommentReply(JSONObject jsonObject,HttpServletRequ
 public ResponseMessage workCommentReplyLikeSub(JSONObject jsonObject,HttpServletRequest request) {
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.workCommentReplyLikeSub(requestMessage);
+}
+/**
+ * 查询专栏单条
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage selectOneColumn(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.selectOneColumn(requestMessage);
 }
 
 

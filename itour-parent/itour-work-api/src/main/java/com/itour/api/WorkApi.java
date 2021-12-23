@@ -24,6 +24,13 @@ public interface WorkApi {
 	 */
 	@RequestMapping(value = "work/queryColumnList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage queryColumnList(RequestMessage requestMessage);		
+	/**
+	 * 日志标签查询（用于页面展示包含统计信息）
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/getShowColumnList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage getShowColumnList(RequestMessage requestMessage);		
 	/***
 	 *  新增或修改工作日志
 	 * @param requestMessage
@@ -270,6 +277,20 @@ public interface WorkApi {
 	 * @return
 	 */
 	@RequestMapping(value = "work/updatePvBatch",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage updatePvBatch(RequestMessage requestMessage);	
+	public ResponseMessage updatePvBatch(RequestMessage requestMessage);
+	/**
+	 * 根据分类专栏编号查询个人专栏文章
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/queryWorkByColList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryWorkByColList(RequestMessage requestMessage);	
+	/**
+	 * 查询工作日志专栏单条
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/selectOneColumn",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage selectOneColumn(RequestMessage requestMessage);	
 }
 

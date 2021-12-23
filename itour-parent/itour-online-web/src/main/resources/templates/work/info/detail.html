@@ -181,6 +181,37 @@ $(function(){
 	    			</div>
 	    			<div class="globalSideBar">
 	    				 @include("/layout/public/wechat-follow.html",{mold:"QQ"}){}
+	    				 <div class="article-nav-right_box">
+			    			 <div class="card article-nav-wrap" id="collapseTarget">
+								<div class="article-nav-header">
+									<div class="card-headerText">文章导航</div>
+								</div>
+								<nav class="article-nav-list">
+									
+								</nav>
+							 </div>
+		    				 <div class="card recommend-person-wrap">
+						    	<div class="recommend-person-head">
+						    		<div class="recommed-right-titel card-headerText">分类专栏</div>
+						    	</div>
+						    	<div class="kind_person_column">
+						    		<div class="recomment-person-ctn">
+						    			<ul>
+						    			@for(c in colShowList!){
+						    			  <li>
+						    			  	<a class="clearfix" target="_blank" href="${ctxPath}/work/category/${c.id}">
+						    			  	 <span class="title oneline"><span class="text">${c.column}</span></span>
+						    			  	 <span class="count fr">${c.count}篇</span>
+						    			    </a>
+						    			  </li>	
+						    			  @}				    	
+						    			</ul>
+						    		</div>
+						    	</div>
+					    	</div>
+	    				 </div>	
+	    				 
+					
 	    			</div>
 	    		</div>
 		    </div>

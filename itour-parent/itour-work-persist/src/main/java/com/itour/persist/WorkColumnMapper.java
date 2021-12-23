@@ -1,7 +1,12 @@
 package com.itour.persist;
 
-import com.itour.model.work.WorkColumn;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.work.WorkColumn;
+import com.itour.model.work.vo.WorkColumnVo;
 
 /**
  * <p>
@@ -12,5 +17,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-07-13
  */
 public interface WorkColumnMapper extends BaseMapper<WorkColumn> {
+	
+	List<WorkColumnVo> getShowColumnList(@Param("uid") String uid);
 
 }

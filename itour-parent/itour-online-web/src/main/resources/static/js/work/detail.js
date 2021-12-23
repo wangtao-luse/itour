@@ -235,6 +235,7 @@ $(function(){
 	var offsetTop = $(".fixed-line").offset().top;
 	var footerTop = $("#footer").offset().top;
 	var articleNavTop = $(".article-nav-right_box").offset().top;
+	var personTop = $(".recommend-person-wrap").offset().top;
 	//获取浏览器可见高度
 	var wheight = $(window).height();
 	if(offsetTop>=wheight){
@@ -243,6 +244,7 @@ $(function(){
 		.css("left",$(".storyCard").offset().left+"px");
 		$(".is-fixed.sticky").css("bottom",0);
 	}
+	
 	console.log("articleNavTop: "+articleNavTop);	
 	$(document).scroll(function() {
 		//https://www.cnblogs.com/yuqiandoudou/p/4436368.html
@@ -281,9 +283,11 @@ $(function(){
 		    if (scrollTop >= prevScrollTop && scrollTop) {
 		        // scrolling down
 		    	isUp = "0";
+		    	console.log("down");
 		    } else {
 		        // scrolling up
 		    	isUp = "1";
+		    	console.log("up");
 		    }
 
 		    prevScrollTop = scrollTop;
@@ -302,6 +306,30 @@ $(function(){
 			}
 				
 		}
+		
+		/*if(top>(personTop-20)){
+			var h = $(".article-nav-right_box").outerHeight();
+			$(".recommend-person-wrap").css("top",(articleNavTop+h+10)+"px");	
+		}else{
+			
+
+			if(isUp=="0"){
+				if(top>=(articleNavTop+h+top+10)){
+					articleNavTop=0;
+				}
+				var h = $(".article-nav-right_box").outerHeight();
+				//console.log("articleNavTop"+articleNavTop);
+				$(".recommend-person-wrap").css("top",(articleNavTop+h-top+10)+"px");	
+			}else if(isUp=="1"){
+				var h = $(".article-nav-right_box").outerHeight();
+				$(".recommend-person-wrap").css("top",(articleNavTop+h+top+10)+"px");	
+			}else{
+				
+				var h = $(".article-nav-right_box").outerHeight();
+				$(".recommend-person-wrap").css("top",(articleNavTop+h+10)+"px");
+			}
+				
+		}*/
 		
 		
 	});
