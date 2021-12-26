@@ -36,9 +36,12 @@ docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-man
 9.itour-online-web
 docker run -d --name itour-online-web -p 9093:9093 -v /itour/img/code:/itour/img/code  -v  /root/spro/itour/upload:/root/spro/itour/upload ben/itour-online-web --restart=always 
 
-Portainer
-docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
-docker run -d -p 9000:9000 --restart=always -v /mnt/portainer/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
+Portainer-ce
+docker run -d -p 9000:9000  --name ben-portainer \
+    --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer-ce
 MYSQL
 192.168.1.88
 docker run  -d  --restart=always  --name ben-dev-mysql -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=root -p 3308:3306 -v /var/dev/mysqldata:/var/lib/mysql -v /var/dev/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
