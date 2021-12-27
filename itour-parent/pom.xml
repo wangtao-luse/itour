@@ -496,7 +496,7 @@
                 <!-- redis相关 -->
                 <spring.redis.database>0</spring.redis.database>
                 <spring.redis.host>1.116.226.147</spring.redis.host>
-                <spring.redis.port>6380</spring.redis.port>
+                <spring.redis.port>6398</spring.redis.port>
                 <spring.redis.password>redis@958958</spring.redis.password>
                 <spring.redis.timeout>30000</spring.redis.timeout>
                 <spring.redis.pool.max-active>8</spring.redis.pool.max-active>
