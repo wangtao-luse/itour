@@ -373,7 +373,7 @@ public ResponseMessage updateOAuth(@RequestBody RequestMessage requestMessage) {
 	return oauthService.updateOAuth(requestMessage);
 }
 @Override
-public ResponseMessage authorizeGroupList(RequestMessage requestMessage) {
+public ResponseMessage authorizeGroupList(@RequestBody RequestMessage requestMessage) {
 	// TODO Auto-generated method stub
 	return groupService.authorizeGroupList(requestMessage);
 }
