@@ -1,0 +1,51 @@
+1.116.226.147 
+
+配置文件位置:放到/etc/应用名称/  如/etc/mysql/
+应用数据位置：放到/opt/data/应用名称_data 如/opt/data/portainer_data
+
+1.portainer-ce
+docker run -d -p 9000:9000 \
+    --name portainer \
+    --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /opt/data/portainer_data:/data \
+    portainer/portainer-ce
+
+2.Mysql
+docker run  -d  -p 3306:3306 \
+    --name ben-backup-mysql \
+    --restart=always \
+    -e TZ=Asia/Shanghai \
+    -e MYSQL_ROOT_PASSWORD=mysql@958958 \
+    -v /opt/data/mysql_backup/mysqldata:/var/lib/mysql \
+    -v /etc/mysql/mysql_backup/conf.d:/etc/mysql/conf.d \
+     mysql \
+    --lower-case-table-names=1 
+     
+docker run  -d  -p 3307:3306 \
+    --name ben-dev-mysql \
+    --restart=always \
+    -e TZ=Asia/Shanghai \
+    -e MYSQL_ROOT_PASSWORD=mysql@958958 \
+    -v /opt/data/mysql_dev/mysqldata:/var/lib/mysql \
+    -v /etc/mysql/mysq_dev/conf.d:/etc/mysql/conf.d \
+     mysql \
+     --lower-case-table-names=1
+ 
+3.Redis
+docker run -d -p 6397:6379 \
+     --restart=always \
+     --name ben-backup-redis \
+     -v /opt/data/redis_backup:/data \
+     -v /etc/redis/redids-backup/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+     redis \
+     --requirepass 'redis@958958'
+       
+docker run -d -p 6398:6379 \
+     --restart=always \
+     --name ben-dev-redis \
+     -v /opt/data/redis_dev:/data \
+     -v /etc/redis/redids-dev/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+     redis \
+     --requirepass 'redis@958958'
+     
