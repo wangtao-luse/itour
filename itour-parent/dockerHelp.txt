@@ -99,7 +99,7 @@ Minio
 docker run -d -p 9800:9800  \
    -p 9801:9801 \
    --name minio-service \
-   --restart-always \
+   --restart=always \
    -e "MINIO_ROOT_USER=root" \
    -e "MINIO_ROOT_PASSWORD=top@958958" \
    -v /opt/minio/data:/data  \
