@@ -1,12 +1,11 @@
 #Docker image for springboot file run
-#基础镜像使用java
+#1.使用FROM指令指明所基于的镜像名称;
 FROM java:8
-#作者
+#2.使用MAINTAINER指令说明维护者信息
 MAINTAINER wangtao <wwangtaoc11@163.com>
-#VOLUME 指定了临时文件目录为/tmp。
-# 其效果是在主机 /var/lib/docker 目录下创建了一个临时文件，并链接到容器的/tmp
+#3.创建一个数据卷挂载点
 VOLUME /tmp
-#将jar包添加到容器中并更名为itour.jar
+#4.添加内容到镜像
 ADD itour-online-web.jar itour.app
-#运行 jar
+#5.指定镜像的默认入口命令
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/itour.jar"]

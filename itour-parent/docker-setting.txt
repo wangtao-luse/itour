@@ -68,5 +68,5 @@ docker run -d -p 6379:6379 \
      -v /etc/redis/redis-spro/conf/redis.conf:/usr/local/etc/redis/redis.conf \
       redis \
      --requirepass 'redis@958958'   
-3.     
+
    
