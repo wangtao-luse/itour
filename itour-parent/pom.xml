@@ -670,7 +670,16 @@
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
-                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
+                <!-- 
+                   -Xms512m:堆最大大小;
+                   -Xmx512m:堆默认大小
+                   -Xmn200m:新生代大小
+                  	 相关资料：https://blog.csdn.net/liuziteng0228/article/details/85226698
+                  	       https://cloud.tencent.com/developer/news/562712
+                  	       https://www.dandelioncloud.cn/article/details/1439110455683014658
+                  	       https://www.jb51.net/article/202773.htm
+                 -->
+                <docker.entryPoint>["java","-Xms512m","-Xmx512m","-Xmn200m","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                  <!-- minio相关 -->
                 <minio.endpoint>http://192.168.1.88:9800</minio.endpoint>
                 <minio.accessKey>admin</minio.accessKey>
