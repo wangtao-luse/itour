@@ -17,7 +17,7 @@ docker run  -d  -p 3306:3306 \
     -e MYSQL_ROOT_PASSWORD=mysql@958958 \
     -v /opt/data/mysql_backup/mysqldata:/var/lib/mysql \
     -v /etc/mysql/mysql_backup/conf.d:/etc/mysql/conf.d \
-     mysql \
+     mysql:8.0   \
     --lower-case-table-names=1 
      
 docker run  -d  -p 3307:3306 \
@@ -27,7 +27,7 @@ docker run  -d  -p 3307:3306 \
     -e MYSQL_ROOT_PASSWORD=mysql@958958 \
     -v /opt/data/mysql_dev/mysqldata:/var/lib/mysql \
     -v /etc/mysql/mysq_dev/conf.d:/etc/mysql/conf.d \
-     mysql \
+     mysql:8.0   \
      --lower-case-table-names=1
  
 2.Redis
@@ -36,7 +36,7 @@ docker run -d -p 6397:6379 \
      --name ben-backup-redis \
      -v /opt/data/redis_backup:/data \
      -v /etc/redis/redids-backup/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-     redis \
+      redis:6.2 \
      --requirepass 'redis@958958'
        
 docker run -d -p 6398:6379 \
@@ -44,7 +44,7 @@ docker run -d -p 6398:6379 \
      --name ben-dev-redis \
      -v /opt/data/redis_dev:/data \
      -v /etc/redis/redids-dev/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-     redis \
+      redis:6.2 \
      --requirepass 'redis@958958'
  
 
@@ -57,16 +57,15 @@ docker run  -d  -p 3306:3306 \
    -e MYSQL_ROOT_PASSWORD=mysql@958958 \
    -v /opt/data/mysql_spro/mysqldata:/var/lib/mysql \
    -v /etc/mysql/mysql-spro/conf:/etc/mysql/conf.d  \
-   mysql  \
+   mysql:8.0   \
    --lower-case-table-names=1
 
 2.Redis
 docker run -d -p 6379:6379 \
      --restart=always \
      --name ben-spro-redis \
-     -v /opt/data//redis-spro/data:/data \
+     -v /opt/data/redis-spro/data:/data \
      -v /etc/redis/redis-spro/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-      redis \
+       redis:6.2 \
      --requirepass 'redis@958958'   
 
-   
