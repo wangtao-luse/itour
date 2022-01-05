@@ -25,7 +25,12 @@
 }
 </style>
 <script type="text/javascript" src="${ctxPath}/js/travel/detail.js" ></script>
-
+<script type="text/javascript">
+$(function(){
+	showNav();
+	createNav();
+});
+</script>
 
 @var uid=user.uId!;
 	    <input type="hidden" id="tid" value="${id}">

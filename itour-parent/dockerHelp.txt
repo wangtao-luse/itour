@@ -10,58 +10,108 @@ docker [options] IMAGE [COMMAND]
 --restart=always:重启docker时，自动启动相关容器
 --privileged=true 容器内部对挂载的目录拥有读写等特权
 1.itour-eureka-server
-  docker run -d --name itour-eureka-server -p 9090:9090 ben/itour-eureka-server --restart=always
+
+  docker run -d -p 9090:9090 \
+     --name itour-eureka-server \
+     --restart=always \
+     ben/itour-eureka-server 
 
 2.itour-account-service
-  docker run -d --name itour-account-service -p 9092:9092 ben/itour-account-service  --restart=always
+
+  docker run -d -p 9092:9092 \
+      --name itour-account-service \
+       --restart=always \
+      ben/itour-account-service 
 
 3.itour-travel-service
-  docker run -d --name itour-travel-service -p 9082:9082 ben/itour-travel-service  --restart=always
+
+  docker run -d -p 9082:9082 \
+     --name itour-travel-service \
+     --restart=always \
+     ben/itour-travel-service 
+     
 
 4.itour-dictionary-service
-docker run -d --name itour-dictionary-service -p 9099:9099  ben/itour-dictionary-service  --restart=always
+
+docker run -d -p 9099:9099 \
+   --name itour-dictionary-service \
+   --restart=always \
+   ben/itour-dictionary-service  
 
 5.itour-work-service
-docker run -d --name itour-work-service -p 9083:9083 ben/itour-work-service --restart=always
+
+docker run -d -p 9083:9083 \
+   --name itour-work-service  \
+   --restart=always \
+   ben/itour-work-service 
 
 6.itour-member-service
-docker run -d --name itour-member-service -p 9098:9098  ben/itour-member-service --restart=always
+
+docker run -d -p 9098:9098  \
+   --name itour-member-service  \
+   --restart=always \
+   ben/itour-member-service 
 
 7.itour-quartz-service
-docker run -d --name itour-quartz-service -p 9081:9081  ben/itour-quartz-service --restart=always
+
+docker run -d -p 9081:9081 \
+   --name itour-quartz-service  \
+   --restart=always \
+   ben/itour-quartz-service 
 
 8.itour-online-manager-web
-docker run -d --name itour-online-manager-web -p 9095:9095  ben/itour-online-manager-web --restart=always
+
+docker run -d -p 9095:9095 \
+   --name itour-online-manager-web  \
+   --restart=always \
+   ben/itour-online-manager-web 
 
 9.itour-online-web
-docker run -d --name itour-online-web -p 9093:9093 -v /itour/img/code:/itour/img/code  -v  /root/spro/itour/upload:/root/spro/itour/upload ben/itour-online-web --restart=always 
+docker run -d -p 9093:9093 \
+   --name itour-online-web \
+   --restart=always \
+   -v /itour/img/code:/itour/img/code \
+   -v  /root/spro/itour/upload:/root/spro/itour/upload \
+   ben/itour-online-web  
 
-Portainer
-docker run -d -p 9000:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
-docker run -d -p 9000:9000 --restart=always -v /mnt/portainer/run/docker.sock:/var/run/docker.sock --name ben-portainer portainer/portainer
+Portainer-ce
+docker run -d -p 9000:9000  --name ben-portainer \
+    --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer-ce
 MYSQL
 192.168.1.88
-docker run  -d  --restart=always  --name ben-dev-mysql -e MYSQL_ROOT_PASSWORD=root -p 3308:3306 -v /var/dev/mysqldata:/var/lib/mysql -v /var/dev/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
-docker run  -d  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -v /var/test/mysqldata:/var/lib/mysql -v /var/test/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
-docker run  -d  --restart=always  --name ben-pro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /var/pro/mysqldata:/var/lib/mysql  -v /var/pro/mysql/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
-1.116.226.147
-docker run  -d  --restart=always  --name ben-spro-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /mnt/mysql/spro/mysqldata:/var/lib/mysql  -v /mnt/mysql/spro/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
-docker run  -d  --restart=always  --name ben-test-mysql -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -v /mnt/mysql/test/mysqldata:/var/lib/mysql  -v /mnt/mysql/test/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
+docker run  -d  --restart=always  --name ben-dev-mysql -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=root -p 3308:3306 -v /var/dev/mysqldata:/var/lib/mysql -v /var/dev/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
+docker run  -d  --restart=always  --name ben-test-mysql -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3307:3306 -v /var/test/mysqldata:/var/lib/mysql -v /var/test/mysql/conf:/etc/mysql/conf.d  mysql --lower-case-table-names=1
+docker run  -d  --restart=always  --name ben-pro-mysql -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=mysql@958958 -p 3306:3306 -v /var/pro/mysqldata:/var/lib/mysql  -v /var/pro/mysql/conf:/etc/mysql/conf.d  mysql  --lower-case-table-names=1
 
-
+ 
 
 Redis 
 192.168.1.88
 docker run -itd --restart=always --name ben-spro-redis -p 6379:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /var/myredis/data:/data  -v /myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
-1.116.226.147
-docker run -itd --restart=always --name ben-test-redis -p 6380:6379 -v /mnt/redis/test/data:/data  -v /mnt/redis/test/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
-docker run -itd --restart=always --name ben-spro-redis -p 6397:6379 -v /mnt/redis/spro/data:/data  -v /mnt/redis/spro/conf/redis.conf:/usr/local/etc/redis/redis.conf redis --requirepass 'redis@958958'
 
 
 Minio
 单点模式
-docker run -d -p 9800:9800 --name minio-service -v /mnt/data:/data  -v /mnt/config:/root/.minio  minio/minio server /data
+docker run -d -p 9800:9800  \
+   -p 9801:9801 \
+   --name minio-service \
+   --restart=always \
+   -e "MINIO_ROOT_USER=root" \
+   -e "MINIO_ROOT_PASSWORD=top@958958" \
+   -v /opt/minio/data:/data  \
+   -v /etc/minio/config:/root/.minio \
+    minio/minio server /data \
+    --console-address ":9801"
+    
+    
+    
+    
+
+集群模式
 
 Nginx 
 Nginx  https://www.cnblogs.com/qiqiloved/p/13470064.html
@@ -87,7 +137,22 @@ docker run -d --name spro-nginx -p 80:80  -v /mnt/nginx/nginx.conf:/etc/nginx/ng
 日志目录:/var/log/nginx
 
 frps:
-docker run -d   --restart=always  -p 8081:8081 -p 8082:8082 -p 8083:8083 -p 8084:8084 -p 8085:8085 --name frp-server  -v /mnt/frp/frps.ini:/conf/frps.ini --restart=always cloverzrg/frps-docker
+docker run -d   -p 8081:8081 \
+   -p 8082:8082 \
+   -p 8083:8083 \
+   -p 8084:8084 \
+   -p 8085:8085 \
+   -p 6000:6000 \
+   --name frp-server \
+   --restart=always  \
+   -v /mnt/frp/frps.ini:/conf/frps.ini \
+   cloverzrg/frps-docker
 frpc:
-docker run -d -p 8085:8085 --restart=always --name frp-client -v /root/mnt/frpc/conf:/conf cloverzrg/frpc-docker
+
+docker run -d -p 8085:8085 \
+   --name frp-client \
+   --restart=always  \
+   -v /etc/frpc/conf:/conf \
+   cloverzrg/frpc-docker
+
 

@@ -146,3 +146,107 @@ $(function(){
    });
    
 })
+	function showNav(){
+	    		$(".richContent-inner h2").each(function(index,item){
+	    		   $(this).prop("id","item-"+(index+1))
+	    	    });
+	    	     var i = 1;
+	    	     var sm_parent="";
+	    	    $(".richContent-inner h3").each(function(index,item){
+		    		 var parent_id =  findParent($(this),"H2");
+		    		 if(index==0){
+		    		 	sm_parent = parent_id;
+		    		 }
+		    		 if(sm_parent!=parent_id){
+	    		 		i=1;
+	    		 		sm_parent =parent_id;
+	    		 	 }
+		    		 $(this).prop("id",parent_id+"-"+i);
+		    		 i++;
+	    	    });
+	    	     sm_parent="";
+	    	     i=1;
+	    	     $(".richContent-inner h4").each(function(index,item){
+		    		 var parent_id =  findParent($(this),"H3");
+		    		 if(index==0){
+		    		 	sm_parent = parent_id;
+		    		 }
+		    		 if(sm_parent!=parent_id){
+	    		 		i=1;
+	    		 		sm_parent =parent_id;
+	    		 	 }
+		    		 $(this).prop("id",parent_id+"-"+i);
+		    		 i++;
+	    	    });
+	    	    sm_parent="";
+	    	     i=1;
+	    	     $(".richContent-inner h5").each(function(index,item){
+		    		 var parent_id =  findParent($(this),"H4");
+		    		 if(index==0){
+		    		 	sm_parent = parent_id;
+		    		 }
+		    		 if(sm_parent!=parent_id){
+	    		 		i=1;
+	    		 		sm_parent =parent_id;
+	    		 	 }
+		    		 $(this).prop("id",parent_id+"-"+i);
+		    		 i++;
+	    	    });
+	    	    sm_parent="";
+	    	     i=1;
+	    	     $(".richContent-inner h6").each(function(index,item){
+		    		 var parent_id =  findParent($(this),"H5");
+		    		 if(index==0){
+		    		 	sm_parent = parent_id;
+		    		 }
+		    		 if(sm_parent!=parent_id){
+	    		 		i=1;
+	    		 		sm_parent =parent_id;
+	    		 	 }
+		    		 $(this).prop("id",parent_id+"-"+i);
+		    		 i++;
+	    	    });
+	    	   
+	    	   
+	    	}
+	    	function findParent(th,p_node){
+	    		//获取当前元素的上一个兄弟节点
+	    		var $this = $(th).prev();
+	    		var parent_id = $($this).prop("id");
+	    		//获取当前元素的上一个兄弟节点的标签名称
+	    		var tName = $($this).prop("tagName");
+	    		var reg = /^H\d{1}$/;
+	    		if(tName!=p_node||!reg.test(tName)){
+	    		  return findParent($this,p_node);
+	    		}
+	    		return parent_id;
+	    		
+	    	}
+	    	function createNav(){
+	    		var html = $(".article-nav-right_box");	    		 
+	    	 $(".richContent-inner h2").each(function(){
+	    	 	var target = $(this).prop("id");
+	    	 	var title = $(this).text();
+	    	 	$(".article-nav-list").append("<a class='list-group-item text-primary' href='#"+target+"' title='"+title.trim()+"'>"+title+"</a>");
+	    	 	createChild("h3",target);
+	    	 	
+	    	 })
+	    	}
+	       function createChild(node,target){
+	       	var html = $(".article-nav-list"); 
+	       	var t = parseInt(node.substring(1))-1;//2
+	       	//h3        item-1~item-N
+	       	$(node+"[id^='"+target+"']").each(function(){
+	       		var title = $(this).text();
+	       		var target_ = $(this).prop("id");
+	       		html.append("<a class='list-group-item nav"+t+"' href='#"+target_+"' title='"+title.trim()+"'>"+title+"</a>");
+	       		var node_ ="h"+(t+2);
+	       		if((t+1)<6){
+	       		  return createChild(node_,target_);
+	       		}
+	       		
+	       		
+	       	});
+	       	
+	       
+	       }

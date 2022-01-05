@@ -21,6 +21,7 @@ public class WorkInfoVo extends WorkInfo {
 	private String niceUid;
 	private String loginUid;
 	private String queryUid;
+	private Long colId;//专栏编号
 	public String getQueryUid() {
 		return queryUid;
 	}
@@ -104,5 +105,11 @@ public class WorkInfoVo extends WorkInfo {
 	}
 	public void setLoginUid(String loginUid) {
 		this.loginUid = loginUid;
+	}
+	public Long getColId() {
+		return colId;
+	}
+	public void setColId(Long colId) {
+		this.colId = colId;
 	}
 }

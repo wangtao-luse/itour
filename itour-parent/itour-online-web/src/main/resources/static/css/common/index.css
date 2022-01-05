@@ -2901,4 +2901,116 @@ color: #646464;
 	}
 
 /**md页面结束**/
+/**文章导航start**/
+.article-nav-right_box{
+	position: fixed;
+	top:260px;
+}
+.article-nav-wrap{
+	padding: 0px;
+	max-height: 400px;
+	min-width:296px;
+	white-space:nowrap;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-overflow: ellipsis;
+}
+.article-nav-header{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 50px;
+    padding: 0 20px;
+    border-bottom: 1px solid #f6f6f6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.card-headerText{
+	font-weight: 600;
+}
+.article-nav-list{
+	padding: 20px 0px 20px 20px;
+	
+}
+.list-group-item{
+	display: block;
+	color: #212529;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-width: 259px;
+	font-size: 14px;
+	height: 24px;
+	line-height: 24px;
+	box-sizing: border-box;
+}
+.list-group-item:hover{
+	color: #0084ff;
+	background-color: rgba(0,132,255,0.1);
+}
+.list-group-item.active{
+	color:#0084ff;
+}
+.article-nav-list .nav2 {
+    padding: 0.25rem 1.5rem;
+}
+.article-nav-list .text-primary{
+	font-weight: bold;
+}
+/**文章导航end**/
+/**详情右边分类专栏开始**/
 
+.recommend-person-head{
+	 padding: 0 20px;
+	 height: 50px;	 
+	 line-height: 50px;
+	 -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
+	 border-bottom: 1px solid #f6f6f6;
+}
+.kind_person_column{} 
+.recomment-person-ctn{
+	padding: 12px 16px 16px 16px;
+	overflow: hidden;
+}.recomment-person-ctn *{
+	word-wrap: break-word;
+}
+.recomment-person-ctn .title .text{
+	max-width: 155px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	float: left;
+	margin-right: 8px;
+	font-size: 14px;
+	color: #555666;;
+}
+.recomment-person-ctn ul li{
+	cursor: pointer;
+	padding:8px 0px;
+}
+.recomment-person-ctn ul li:hover {
+ 	 background-color: rgba(0,132,255,0.1);
+ }
+.recomment-person-ctn ul li a{
+	
+}
+.recomment-person-ctn ul li a:hover .text {
+color: #0084ff;
+ 
+}
+.recomment-person-ctn ul li a span.count{
+	max-width: 42px;
+	font-size: 12px;
+	color: #999aaa;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/**详情右边分类专栏结束**/

@@ -93,6 +93,14 @@ List<WorkInfoVo> selectDynamicList(Page page,@Param("vo")WorkInfoVo workInfoDto)
  * @return
  */
 int updatePvBatch(Collection<WorkInfo> entityList);
+/**
+ * 根据专栏查询列表个人
+ * @param page
+ * @param workInfoDto
+ * @return
+ */
+List<WorkInfoVo> queryWorkByColList(Page page,@Param("vo")WorkInfoVo workInfoDto);
+List<WorkInfoVo> queryWorkByColList(@Param("vo")WorkInfoVo workInfoDto);
 
 
 }

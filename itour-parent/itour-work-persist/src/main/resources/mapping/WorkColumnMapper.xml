@@ -13,5 +13,12 @@
     <sql id="Base_Column_List">
         ID, COLUMN, UID, CREATEDATE
     </sql>
+    
+    <select id="getShowColumnList" resultType="com.itour.model.work.vo.WorkColumnVo" parameterType="String">
+    select c.id, c.`COLUMN`,c.UID,tmp.count from t_w_work_column c,
+(
+select cid, count(*) count from t_w_work_info c,t_w_info_column d  where c.id =d.wid and c.UID=#{uid} GROUP BY uid,cid) tmp
+where c.id=tmp.cid ORDER BY  c.CREATEDATE DESC
+    </select>
 
 </mapper>

@@ -269,7 +269,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 					workInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 				}
 				
-			}else {
+			}else {//新增
 				workInfo.setUid(body.getuId());
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
@@ -502,6 +502,38 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return response;
+	}
+	/**
+	 * 根据专栏查询个人专栏列表
+	 * @param requestMessage
+	 * @return
+	 */
+	public ResponseMessage queryWorkByColList(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
+			WorkColumn col = workColumnMapper.selectById(vo.getColId());
+			String uid = col.getUid();
+			Long cid = col.getId();
+			vo.setQueryUid(uid);
+			vo.setColId(cid);
+			JSONObject pageJson = jsonObject.getJSONObject("page");
+			if(pageJson!=null) {
+				Page page = pageJson.toJavaObject(Page.class);
+				List<WorkInfoVo> sList = this.baseMapper.queryWorkByColList(page, vo);
+				page.setRecords(sList);
+				responseMessage.setReturnResult(page);
+			}else {
+				List<WorkInfoVo> sList = this.baseMapper.queryWorkByColList(vo);
+				responseMessage.setReturnResult(sList);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
 	}
 
 }

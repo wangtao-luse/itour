@@ -1,10 +1,12 @@
 package com.itour.model.work;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
 /**
  * <p>
  * 
@@ -16,76 +18,72 @@ import java.io.Serializable;
 @TableName("t_w_work_column")
 public class WorkColumn extends Model<WorkColumn> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 编号
-     */
-    @TableId(value = "ID", type = IdType.AUTO)
-    private Long id;
+	/**
+	 * 编号
+	 */
+	@TableId(value = "ID", type = IdType.AUTO)
+	private Long id;
 
-    /**
-     * 专栏名称
-     */
-    @TableField("`COLUMN`")
-    private String column;
+	/**
+	 * 专栏名称
+	 */
+	@TableField("`COLUMN`")
+	private String column;
 
-    /**
-     * 用户ID
-     */
-    @TableField("UID")
-    private String uid;
+	/**
+	 * 用户ID
+	 */
+	@TableField("UID")
+	private String uid;
 
-    /**
-     * 创建日期
-     */
-    @TableField("CREATEDATE")
-    private Long createdate;
+	/**
+	 * 创建日期
+	 */
+	@TableField("CREATEDATE")
+	private Long createdate;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getColumn() {
-        return column;
-    }
+	public String getColumn() {
+		return column;
+	}
 
-    public void setColumn(String column) {
-        this.column = column;
-    }
+	public void setColumn(String column) {
+		this.column = column;
+	}
 
-    public String getUid() {
-        return uid;
-    }
+	public String getUid() {
+		return uid;
+	}
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
-    public Long getCreatedate() {
-        return createdate;
-    }
+	public Long getCreatedate() {
+		return createdate;
+	}
 
-    public void setCreatedate(Long createdate) {
-        this.createdate = createdate;
-    }
+	public void setCreatedate(Long createdate) {
+		this.createdate = createdate;
+	}
 
-    @Override
-    protected Serializable pkVal() {
-        return null;
-    }
+	@Override
+	protected Serializable pkVal() {
+		return null;
+	}
 
-    @Override
-    public String toString() {
-        return "WorkColumn{" +
-        ", id=" + id +
-        ", column=" + column +
-        ", uid=" + uid +
-        ", createdate=" + createdate +
-        "}";
-    }
+	@Override
+	public String toString() {
+		return "WorkColumn{" + ", id=" + id + ", column=" + column + ", uid=" + uid + ", createdate=" + createdate
+				+ "}";
+	}
 }

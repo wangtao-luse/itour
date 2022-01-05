@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -191,8 +192,10 @@ public String detail(Long id,ModelMap model,HttpServletRequest request) {
 	 //1.独立IP访问数作为显示的浏览量（浏览量功能相关）
 	  ip(request,String.valueOf(id));
      //2.获取旅行信息
-      workInfo(id, model, request);
-    model.addAttribute("id", id);
+      WorkInfoVo workInfo = workInfo(id, model, request);
+      //获取分类专栏
+      queryColumnList(workInfo.getUid(),  request, model);
+      model.addAttribute("id", id);
 	return "/work/info/detail";
 }
 private void ip(HttpServletRequest request,String id) {
@@ -206,7 +209,7 @@ private void ip(HttpServletRequest request,String id) {
 			this.redisManager.incr(RedisKey.KEY_WORK_IP_COUNT, 1);
 		 }
 }
-private void workInfo(Long id, ModelMap model, HttpServletRequest request) {
+private WorkInfoVo workInfo(Long id, ModelMap model, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
 	WorkInfoVo tmp = new WorkInfoVo();
 	AccountVo sessionUser = SessionUtil.getSessionUser();
@@ -217,8 +220,9 @@ private void workInfo(Long id, ModelMap model, HttpServletRequest request) {
 	tmp.setId(id);
 	 jsonObject.put(Constant.COMMON_KEY_VO, tmp);
 	ResponseMessage resp = this.workConnector.selectWorkInfo(jsonObject , request);
+	WorkInfoVo travelInfo = new WorkInfoVo();
 	if(ResponseMessage.isSuccessResult(resp)) {
-		WorkInfoVo travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), WorkInfoVo.class);			
+		 travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), WorkInfoVo.class);			
 		 model.addAttribute("workInfo", travelInfo);
 		 //获取周末旅行攻略的内容
 			 jsonObject.clear();
@@ -240,6 +244,7 @@ private void workInfo(Long id, ModelMap model, HttpServletRequest request) {
 			 model.addAttribute("labelList", labelList);
 		 }
 	}
+	return travelInfo;
 }
 //点赞
 
@@ -356,8 +361,48 @@ public ResponseMessage delWorkCommentReply(@RequestBody JSONObject jsonObject,Ht
  */
 @RequestMapping("/workCommentReplyLikeSub")
 @ResponseBody
-public ResponseMessage workCommentReplyLikeSub(JSONObject jsonObject, HttpServletRequest request) {
+public ResponseMessage workCommentReplyLikeSub(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
 	ResponseMessage responseMessage = this.workConnector.workCommentReplyLikeSub(jsonObject, request);
 	return responseMessage;
+}
+/**
+ * 工作日期分类专栏
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public void queryColumnList(String uid, HttpServletRequest request,ModelMap model) {
+	JSONObject jsonObject = new JSONObject();
+	jsonObject.put("uid", uid);
+	ResponseMessage queryColumnList = this.workConnector.getShowColumnList(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(queryColumnList)) {
+		model.addAttribute("colShowList", queryColumnList.getReturnResult().get(Constant.COMMON_KEY_RESULT));
+	}
+}
+@RequestMapping("/category/{id}")
+public String category(@PathVariable(value = "id") Long id,Page page,ModelMap model,HttpServletRequest request) {
+	JSONObject jsonObject = new JSONObject();
+	WorkInfoVo vo = new WorkInfoVo();
+	   vo.setColId(id);
+	jsonObject.put(Constant.COMMON_KEY_VO, vo);
+	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
+	ResponseMessage selectWorkInfoList = this.workConnector.queryWorkByColList(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(selectWorkInfoList)) {
+		PageInfo pageInfo = FastJsonUtil.mapToObject(selectWorkInfoList.getReturnResult(), PageInfo.class);
+		List<WorkInfoVo> records = pageInfo.getRecords();
+		model.addAttribute("page", pageInfo);
+		model.addAttribute("workInfo", records);
+	}
+	jsonObject.clear();
+	WorkColumn col = new WorkColumn();
+	col.setId(id);
+	jsonObject.put(Constant.COMMON_KEY_VO, col);
+	ResponseMessage selectOneColumn = this.workConnector.selectOneColumn(jsonObject, request);
+	if(ResponseMessage.isSuccessResult(selectOneColumn)) {
+		WorkColumn mapToObject = FastJsonUtil.mapToObject(selectOneColumn.getReturnResult(), WorkColumn.class);
+		queryColumnList(mapToObject.getUid(),  request, model);
+	}
+	
+	return "/work/info/category";
 }
 }

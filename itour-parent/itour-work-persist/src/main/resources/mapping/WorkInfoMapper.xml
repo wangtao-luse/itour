@@ -24,6 +24,9 @@
     <sql id="Base_Column_List">
         ID, TITLE, URL, SUMMARY, ARTICLE_TYPE, PUBLISHTIME, UPDATETIME, MODALITY, UID, READ_COUNT, COMMENT_COUNT, LIKE_COUNT, PV,COLLECT_COUNT, STATUS
     </sql>
+    <sql id="workInfo_list">
+        
+    </sql>
      <select id="selectWorkInfoList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
 	     <choose>
 	         <when test="vo.loginUid==null or ''==vo.loginUid">
@@ -138,5 +141,9 @@
     </select>
     <select id="workColList" parameterType="java.lang.Long" resultType="com.itour.model.work.WorkColumn">
     SELECT c.* FROM t_w_work_column c,t_w_info_column d WHERE c.ID=d.CID AND WID=#{id} order by createdate desc
+    </select>
+    
+    <select id="queryWorkByColList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
+       SELECT c.*,d.CID,e.NICKNAME FROM t_w_work_info c,t_w_info_column d,t_a_oauth e WHERE c.ID = d.WID and c.UID=e.U_ID  and e.OAUTH_TYPE='email' and c.UID=#{vo.queryUid} and d.CID=#{vo.colId} order by c.PUBLISHTIME desc
     </select>
 </mapper>

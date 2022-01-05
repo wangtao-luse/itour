@@ -55,6 +55,14 @@ public class WorkApiController implements WorkApi {
 		return workColumnService.queryColumnList(requestMessage);
 	}
 	/**
+	 * 日志分类专栏查询用于展示
+	 */
+	@Override
+	public ResponseMessage getShowColumnList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workColumnService.getShowColumnList(requestMessage);
+	}
+	/**
 	 *  新增或修改工作日志
 	 */
 	@Override
@@ -257,6 +265,22 @@ public class WorkApiController implements WorkApi {
 	public ResponseMessage countReplyLikeList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return replyLikeService.countReplyLikeList(requestMessage);
+	}
+	/**
+	 * 根据专栏查询个人专栏文章
+	 */
+	@Override
+	public ResponseMessage queryWorkByColList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workInfoService.queryWorkByColList(requestMessage);
+	}
+	/**
+	 * 查询专栏单条
+	 */
+	@Override
+	public ResponseMessage selectOneColumn(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workColumnService.selectOneColumn(requestMessage);
 	}
 	
 	

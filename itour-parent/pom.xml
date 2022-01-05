@@ -5,37 +5,36 @@
   <artifactId>itour-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <modules>   
-    <module>itour-eureka-server</module>
-    <module>itour-model</module>
-    <module>itour-common</module>
-    <module>itour-account-persist</module>
-    <module>itour-account-service</module>
-    <module>itour-account-api</module>
-    <module>itour-online-web</module>
-    <module>itour-online-manager-web</module>
-    <module>itour-demo-web</module>
-    <module>itour-travel-service</module>
-    <module>itour-travel-persist</module>
-    <module>itour-travel-api</module>
-    <module>itour-work-api</module>
-    <module>itour-work-service</module>
-    <module>itour-work-persist</module>    
-    <module>itour-member-persist</module>
-    <module>itour-member-api</module>
-    <module>itour-member-service</module>
-    <module>itour-dictionary-persist</module>
-    <module>itour-dictionary-service</module>
-    <module>itour-dictionary-api</module>
-    <module>itour-quartz-service</module>
-    <module>itour-quartz-api</module>
-    <module>itour-quartz-persist</module>
-    <module>itour-find-api</module>
-    <module>itour-find-persist</module>
-    <module>itour-find-service</module>
-    <module>itour-follow-api</module>
-    <module>itour-follow-persist</module>
-    <module>itour-follow-service</module>
+  <modules> 
+   <module>itour-model</module>  
+   <module>itour-common</module>
+   <module>itour-eureka-server</module>
+   <module>itour-account-api</module>
+   <module>itour-account-persist</module>
+   <module>itour-account-service</module>
+   <module>itour-travel-api</module>
+   <module>itour-travel-persist</module>
+   <module>itour-travel-service</module>
+   <module>itour-work-api</module>
+   <module>itour-work-persist</module> 
+   <module>itour-work-service</module>   
+   <module>itour-member-api</module>
+   <module>itour-member-persist</module>    
+   <module>itour-member-service</module>
+   <module>itour-dictionary-api</module>
+   <module>itour-dictionary-persist</module>
+   <module>itour-dictionary-service</module>
+   <module>itour-find-api</module>
+   <module>itour-find-persist</module>
+   <module>itour-find-service</module>
+   <module>itour-follow-api</module>
+   <module>itour-follow-persist</module>
+   <module>itour-follow-service</module>
+   <module>itour-quartz-api</module>
+   <module>itour-quartz-persist</module>
+   <module>itour-quartz-service</module>
+   <module>itour-online-web</module>
+   <module>itour-online-manager-web</module>
   </modules>
   <!-- 将当前项目作为一个springboot-starter的子模块 -->
   <parent>
@@ -497,7 +496,7 @@
                 <!-- redis相关 -->
                 <spring.redis.database>0</spring.redis.database>
                 <spring.redis.host>1.116.226.147</spring.redis.host>
-                <spring.redis.port>6380</spring.redis.port>
+                <spring.redis.port>6398</spring.redis.port>
                 <spring.redis.password>redis@958958</spring.redis.password>
                 <spring.redis.timeout>30000</spring.redis.timeout>
                 <spring.redis.pool.max-active>8</spring.redis.pool.max-active>
@@ -631,10 +630,10 @@
                 <eureka.host>192.168.1.88</eureka.host>
                 <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
-                <spring.datasource.url>jdbc:mysql://192.168.1.88:3308/itour?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.url>jdbc:mysql://192.168.1.88:3306/itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
-                <spring.datasource.password>root</spring.datasource.password>
+                <spring.datasource.password>mysql@958958</spring.datasource.password>
                  <!-- redis相关 -->
                 <spring.redis.database>2</spring.redis.database>
                 <spring.redis.host>192.168.1.88</spring.redis.host>
@@ -671,7 +670,16 @@
                 <docker.maintainer>wangtao wwangtaoc11@163.com</docker.maintainer>
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
-                <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
+                <!-- 
+                   -Xms512m:堆最大大小;
+                   -Xmx512m:堆默认大小
+                   -Xmn200m:新生代大小
+                  	 相关资料：https://blog.csdn.net/liuziteng0228/article/details/85226698
+                  	       https://cloud.tencent.com/developer/news/562712
+                  	       https://www.dandelioncloud.cn/article/details/1439110455683014658
+                  	       https://www.jb51.net/article/202773.htm
+                 -->
+                <docker.entryPoint>["java","-Xms512m","-Xmx512m","-Xmn200m","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
                  <!-- minio相关 -->
                 <minio.endpoint>http://192.168.1.88:9800</minio.endpoint>
                 <minio.accessKey>admin</minio.accessKey>

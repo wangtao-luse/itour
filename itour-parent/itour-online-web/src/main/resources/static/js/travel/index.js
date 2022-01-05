@@ -19,23 +19,23 @@ $(function(){
 	        },cache: false, async: false});
 	    })	
 });
-	var current=1;
-	function loadMore(){
-		current=current+1;
-		var postDate = {"current":current,"size":"10"};
-		queryInfo(postDate);
-	}
+var current=1;
+function loadMore(){
+	current=current+1;
+	var postDate = {"current":current,"size":"10"};
+	queryInfo(postDate);
+}
 	
-	//默认查询
-	function queryInfo(postData){
-		var url="/index?ajaxCmd=content";
-		postForm(url, postData, function(result){
-			if(result){
-				$("#topstoryContent .topstory-recommend div:first").append(result);
-			}
-			
-		},{});
-	}
+//默认查询
+function queryInfo(postData){
+	var url="/index?ajaxCmd=content";
+	postForm(url, postData, function(result){
+		if(result){
+			$("#topstoryContent .topstory-recommend div:first").append(result);
+		}
+		
+	},{});
+}
 	
 	//https://www.jianshu.com/p/05ef1dd140e4
 	//https://www.jb51.net/article/104904.htm
