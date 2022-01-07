@@ -60,6 +60,7 @@ private String active;
 					url=small_url;
 				}
 				  path = this.getClass().getResource(url).getPath();
+				 String pa = request.getSession().getServletContext().getRealPath("static/img/");
 					InputStream resourceAsStream = this.getClass().getResourceAsStream("/static/img/code/login");
 			}else {
 				path = default_location;
