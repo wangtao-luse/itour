@@ -148,7 +148,6 @@ docker run -d   -p 8081:8081 \
    -v /mnt/frp/frps.ini:/conf/frps.ini \
    cloverzrg/frps-docker
 frpc:
-
 docker run -d -p 8085:8085 \
    --name frp-client \
    --restart=always  \

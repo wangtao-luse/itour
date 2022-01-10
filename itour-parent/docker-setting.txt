@@ -30,6 +30,8 @@ docker run  -d  -p 3307:3306 \
      mysql:8.0   \
      --lower-case-table-names=1
  
+
+ 
 2.Redis
 docker run -d -p 6397:6379 \
      --restart=always \
@@ -47,7 +49,18 @@ docker run -d -p 6398:6379 \
       redis:6.2 \
      --requirepass 'redis@958958'
  
-
+3.Frps
+docker run -d   -p 8181:8181 \
+   -p 8182:8182 \
+   -p 8183:8183 \
+   -p 8184:8184 \
+   -p 8185:8185 \
+   -p 6001:6001 \
+   -p 3308:3308 \
+   --name frp-server \
+   --restart=always  \
+   -v /etc/frp/frps.ini:/conf/frps.ini \
+   cloverzrg/frps-docker
 192.168.1.88
 1.Mysql
 docker run  -d  -p 3306:3306 \
@@ -67,5 +80,29 @@ docker run -d -p 6379:6379 \
      -v /opt/data/redis-spro/data:/data \
      -v /etc/redis/redis-spro/conf/redis.conf:/usr/local/etc/redis/redis.conf \
        redis:6.2 \
-     --requirepass 'redis@958958'   
+     --requirepass 'redis@958958' 
+3.Frpc
+docker run -d -p 8085:8085 \
+   --name frp-client \
+   --restart=always  \
+   -v /etc/frpc/conf:/conf \
+   cloverzrg/frpc-docker  
+   
+docker run -d -p 8086:8086 \
+   --name frp-backup-client \
+   --restart=always  \
+   -v /etc/frpc/backup/conf:/conf \
+   cloverzrg/frpc-docker  
 
+ CREATE USER 'ben'@'%' IDENTIFIED BY 'ben@958958';
+ GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'ben'@'%';
+ change master to 
+ master_host='1.116.226.147', 
+ master_user='ben', 
+ master_password='ben@958958',
+ master_port=3308, 
+ master_log_file='binlog.000025', 
+ master_log_pos=134954, 
+ master_connect_retry=30,
+ master_heartbeat_period=10;
+ 
