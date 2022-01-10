@@ -2959,6 +2959,9 @@ color: #646464;
 .article-nav-list .nav2 {
     padding: 0.25rem 1.5rem;
 }
+.article-nav-list .nav3 {
+    padding: 0.25rem 2rem;
+}
 .article-nav-list .text-primary{
 	font-weight: bold;
 }
