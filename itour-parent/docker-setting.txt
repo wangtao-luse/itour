@@ -16,7 +16,7 @@ docker run  -d  -p 3306:3306 \
     -e TZ=Asia/Shanghai \
     -e MYSQL_ROOT_PASSWORD=mysql@958958 \
     -v /opt/data/mysql_backup/mysqldata:/var/lib/mysql \
-    -v /etc/mysql/mysql_backup/conf.d:/etc/mysql/conf.d \
+    -v /etc/mysql/mysql_backup/my.cnf:/etc/mysql/my.cnf \
      mysql:8.0   \
     --lower-case-table-names=1 
      
