@@ -101,8 +101,8 @@ docker run -d -p 8086:8086 \
  master_user='ben', 
  master_password='ben@958958',
  master_port=3308, 
- master_log_file='binlog.000027', 
- master_log_pos=30278, 
+ master_log_file='mysql-bin.000001', 
+ master_log_pos=4220475, 
  master_connect_retry=30,
  master_heartbeat_period=10;
  
