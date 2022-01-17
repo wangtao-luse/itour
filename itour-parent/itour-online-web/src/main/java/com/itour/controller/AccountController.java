@@ -55,12 +55,12 @@ public class AccountController {
 	 * @return 注册页面
 	 */
 @RequestMapping("/reg")
-public String reg(HttpServletRequest request,ModelMap model) {
+public String reg(HttpServletRequest request, ModelMap model) {
 	//生成UUID(相当于一个令牌)
     String randomUUID = StringHelper.getUUID();
     request.getSession().setAttribute("uuid", randomUUID);
-   model.addAttribute("uuid", randomUUID);
-	return "account/reg";
+    model.addAttribute("uuid", randomUUID);
+    return "account/reg";
 }
 /**
  * 注册提交
@@ -70,25 +70,24 @@ public String reg(HttpServletRequest request,ModelMap model) {
  */
 @ResponseBody
 @RequestMapping("/regSub")
-public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-	 JSONObject tmpJson = new JSONObject();
-	 Oauth oauth = new Oauth();
-	       oauth.setOauthId(jsonObject.getString("email"));
-	       oauth.setCredential(jsonObject.getString("kl"));
-	       oauth.setNickname(jsonObject.getString("regName"));
-	       
-	       tmpJson.put("vo", oauth);
-	       tmpJson.put("ipaddr", jsonObject);
-	       Object oraginuid = request.getSession().getAttribute("uuid");
-	       String uuid = jsonObject.getString("uuid");
-	       if(!uuid.equals(oraginuid.toString())) {
-	    	   return ResponseMessage.getFailed("请不要重复提交");
-	       }
-	ResponseMessage regSub = this.accountConnector.regSub(tmpJson,request);	
-	if(Constant.SUCCESS_CODE.equals(regSub.getResultCode())) {
-		request.getSession().setAttribute("uuid", "");
-	}
-	return regSub;
+public ResponseMessage regSub(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
+    JSONObject tmpJson = new JSONObject();
+    Oauth oauth = new Oauth();
+    oauth.setOauthId(jsonObject.getString("email"));
+    oauth.setCredential(jsonObject.getString("kl"));
+    oauth.setNickname(jsonObject.getString("regName"));       
+    tmpJson.put("vo", oauth);
+    tmpJson.put("ipaddr", jsonObject);
+    Object oraginuid = request.getSession().getAttribute("uuid");
+    String uuid = jsonObject.getString("uuid");
+    if (!uuid.equals(oraginuid.toString())) {
+        return ResponseMessage.getFailed("请不要重复提交");
+    }
+    ResponseMessage regSub = this.accountConnector.regSub(tmpJson,request);	
+    if (Constant.SUCCESS_CODE.equals(regSub.getResultCode())) {
+        request.getSession().setAttribute("uuid", "");
+    }
+    return regSub;
 }
 /**
  * 检查用户名是否可用
@@ -97,12 +96,12 @@ public ResponseMessage regSub(@RequestBody JSONObject jsonObject,HttpServletRequ
  */
 @ResponseBody
 @RequestMapping("/checkRegName")
-public ResponseMessage checkRegName(@RequestParam(value = "regName")String regName,HttpServletRequest request) {
-	JSONObject jsonObject =new JSONObject();
-	jsonObject.put("type", "uname");
-	jsonObject.put("regName", regName);
-	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
-	return checkRegName;
+public ResponseMessage checkRegName(@RequestParam(value = "regName")String regName, HttpServletRequest request) {
+    JSONObject jsonObject =new JSONObject();
+    jsonObject.put("type", "uname");
+    jsonObject.put("regName", regName);
+    ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
+    return checkRegName;
 }
 /**
  * 检查邮箱是否可用
@@ -111,12 +110,12 @@ public ResponseMessage checkRegName(@RequestParam(value = "regName")String regNa
  */
 @ResponseBody
 @RequestMapping("/checkEmail")
-public ResponseMessage checkEmail(@RequestParam(value = "email")String email,HttpServletRequest request) {
-	JSONObject jsonObject =new JSONObject();
-	jsonObject.put("type", ConstAccount.EMAIL);
-	jsonObject.put("regName", email);
-	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
-	return checkRegName;
+public ResponseMessage checkEmail(@RequestParam(value = "email")String email, HttpServletRequest request) {
+    JSONObject jsonObject =new JSONObject();
+    jsonObject.put("type", ConstAccount.EMAIL);
+    jsonObject.put("regName", email);
+    ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
+    return checkRegName;
 }
 /**
  * 检查邮箱是否在该系统中存在
@@ -125,12 +124,12 @@ public ResponseMessage checkEmail(@RequestParam(value = "email")String email,Htt
  */
 @ResponseBody
 @RequestMapping("/checkExistEmail")
-public ResponseMessage checkExistEmail(@RequestParam(value = "email")String email,HttpServletRequest request) {
-	JSONObject jsonObject =new JSONObject();
-	jsonObject.put("type", ConstAccount.FINPWD);
-	jsonObject.put("regName", email);
-	ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
-	return checkRegName;
+public ResponseMessage checkExistEmail(@RequestParam(value = "email")String email, HttpServletRequest request) {
+    JSONObject jsonObject =new JSONObject();
+    jsonObject.put("type", ConstAccount.FINPWD);
+    jsonObject.put("regName", email);
+    ResponseMessage checkRegName = this.accountConnector.checkOauthId(jsonObject, request);
+    return checkRegName;
 }
 
 
@@ -141,7 +140,7 @@ public ResponseMessage checkExistEmail(@RequestParam(value = "email")String emai
  */
 @RequestMapping("/login")
 public String login() {
-	return "account/login";
+    return "account/login";
 }
 /**
  * 登陆提交
@@ -151,52 +150,52 @@ public String login() {
  */
 	@RequestMapping("/loginSub")
 	@ResponseBody
-public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
-		try {
-			String width = request.getHeader("X-Requested-With");
-			String username = jsonObject.getString("loginname");
-			String password = jsonObject.getString("nloginpwd");
-			String ip = jsonObject.getString("ip");
-			String cname = jsonObject.getString("city");
-			//获取当前的 Subject
-			Subject currentUser = SecurityUtils.getSubject();
-			System.out.println("------------------获取当前的 Subject currentUser:"+currentUser+"---------------");
-			System.out.println("获取当前的 Subject currentUser:"+currentUser);
-			//currentUser.getSession().setTimeout(1000*30);
-			if(!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
-				ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, ip,cname,jsonObject,request);
-				upt.setRememberMe(true);
-				try {
-					//执行登录
-					currentUser.login(upt);					
-				}catch (UnknownAccountException e) {//用户不存在
-					// TODO: handle exception
-					e.printStackTrace();
-					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-				}catch (IncorrectCredentialsException e) {//用户存在，但密码不匹配
-					// TODO: handle exception
-					e.printStackTrace();
-					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
-				}catch (LockedAccountException e) {//用户被锁定
-					// TODO: handle exception
-					e.printStackTrace();
-					return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_STATUS);
-			   }catch (AuthenticationException e) {
-					// TODO: handle exception
-					e.printStackTrace();
-					return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+public ResponseMessage loginSub(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
+    try {
+    	String width = request.getHeader("X-Requested-With");
+        String username = jsonObject.getString("loginname");
+		String password = jsonObject.getString("nloginpwd");
+		String ip = jsonObject.getString("ip");
+		String cname = jsonObject.getString("city");
+		//获取当前的 Subject
+		Subject currentUser = SecurityUtils.getSubject();
+		System.out.println("------------------获取当前的 Subject currentUser:"+currentUser+"---------------");
+		System.out.println("获取当前的 Subject currentUser:"+currentUser);
+		//currentUser.getSession().setTimeout(1000*30);
+		if (!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
+			ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, ip, cname, jsonObject, request);
+			upt.setRememberMe(true);
+			try {
+				//执行登录
+	            currentUser.login(upt);					
+			}catch (UnknownAccountException e) {//用户不存在
+	            // TODO: handle exception
+				e.printStackTrace();
+				return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
+			}catch (IncorrectCredentialsException e) {//用户存在，但密码不匹配
+				// TODO: handle exception
+				e.printStackTrace();
+				return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_ACCOUNTINFO);
+			}catch (LockedAccountException e) {//用户被锁定
+				// TODO: handle exception
+				e.printStackTrace();
+				return ResponseMessage.getFailed(ExceptionInfo.EXCEPTION_STATUS);
+			}catch (AuthenticationException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 					
-				}
-				
 			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+	
 		}
-		
-	return ResponseMessage.getSucess();
+
+    } catch (Exception e) {
+    	// TODO: handle exception
+		e.printStackTrace();
+		return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
+    }
+	
+    return ResponseMessage.getSucess();
 }
 	/**
 	 * 注册成功跳转页面
@@ -223,7 +222,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	 */
 	@RequestMapping("/findPwd")
 	@ResponseBody
-	public ResponseMessage findPwd(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
+	public ResponseMessage findPwd(@RequestBody JSONObject jsonObject, HttpServletRequest request) {
 		ResponseMessage findpwd = this.accountConnector.findpwd(jsonObject, request);
 		return findpwd;
 	}
@@ -235,7 +234,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	 */
 	@ResponseBody
 	@RequestMapping("/checkUserName")
-	public ResponseMessage checkUserName(@RequestParam(value = "email")String email,HttpServletRequest request) {
+	public ResponseMessage checkUserName(@RequestParam(value = "email")String email, HttpServletRequest request) {
 		JSONObject jsonObject =new JSONObject();
 		jsonObject.put("type", ConstAccount.FINPWD);
 		jsonObject.put("regName", email);
@@ -249,12 +248,12 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 	*/
 	@ResponseBody
 	@RequestMapping("/updateAvatar")
-	public ResponseMessage updateAvatar(MultipartFile file,int x,int y,int width,int height,HttpServletRequest request) {
+	public ResponseMessage updateAvatar(MultipartFile file, int x, int y, int width, int height, HttpServletRequest request) {
 		ResponseMessage upload = ResponseMessage.getSucess();
 		 try {
 			 MultipartFile newFile = ImageIOHelper.cut(file, x, y, width, height);
 			 upload = FileUploadHelper.upload(newFile, uploadFileLocation, resourceHandler, request,FileUploadHelper.FILESIZE_DEFAULT,FileUploadHelper.IMG_PREFIX_ONLINE);
-			if(Constant.SUCCESS_CODE.equals(upload.getResultCode())&&!StringUtils.isEmpty(upload.getReturnResult())) {
+			if (Constant.SUCCESS_CODE.equals(upload.getResultCode())&&!StringUtils.isEmpty(upload.getReturnResult())) {
 				String avatar = FastJsonUtil.mapTosStirng(upload.getReturnResult(), Constant.COMMON_KEY_RESULT);
 				AccountVo sessionUser = SessionUtil.getSessionUser();
 				Oauth o = new Oauth();
@@ -264,8 +263,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject,HttpServletRe
 				ResponseMessage updateOAuthById = this.accountConnector.updateOAuth(jsonObject, request);
 				if(Constant.FAILED_CODE.equals(updateOAuthById.getResultCode())) {
 					return ResponseMessage.getFailed(updateOAuthById.getResultMessage());
-				}else {
-					
+				} else {
 					Object primaryPrincipal = SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
 					Oauth currentOauth= JSONObject.parseObject(JSONObject.toJSONString(primaryPrincipal), Oauth.class);
 					currentOauth.setAvatar(avatar);
