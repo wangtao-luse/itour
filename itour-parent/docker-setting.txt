@@ -57,6 +57,8 @@ docker run -d   -p 8181:8181 \
    -p 8185:8185 \
    -p 6001:6001 \
    -p 3308:3308 \
+   -p 3309:3309 \
+   -p 6398:6398 \
    --name frp-server \
    --restart=always  \
    -v /etc/frp/frps.ini:/conf/frps.ini \
@@ -107,6 +109,7 @@ docker run -d -p 8086:8086 \
  master_heartbeat_period=10;
  
 192.168.1.18
+1.Mysql
 docker run  -d  -p 3309:3306 \
     --name ben-dev-mysql \
     --restart=always \
@@ -117,3 +120,12 @@ docker run  -d  -p 3309:3306 \
     -v /etc/mysql/mysq_dev/my.cnf:/etc/mysql/my.cnf \
      mysql:8.0   \
      --lower-case-table-names=1
+2.Redis
+docker run -d -p 6398:6379 \
+     --restart=always \
+     --name ben-dev-redis \
+     -v /opt/data/redis_dev:/data \
+     -v /etc/redis/redids-dev/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+      redis:6.2 \
+     --requirepass 'redis@958958'
+    
