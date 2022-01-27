@@ -120,12 +120,7 @@ docker run  -d  -p 3309:3306 \
     -v /etc/mysql/mysq_dev/my.cnf:/etc/mysql/my.cnf \
      mysql:8.0   \
      --lower-case-table-names=1
-<<<<<<< HEAD
-     
 
-
-     
-=======
 2.Redis
 docker run -d -p 6398:6379 \
      --restart=always \
@@ -134,5 +129,7 @@ docker run -d -p 6398:6379 \
      -v /etc/redis/redids-dev/conf/redis.conf:/usr/local/etc/redis/redis.conf \
       redis:6.2 \
      --requirepass 'redis@958958'
-    
->>>>>>> 63eac9bed766ccefa551aca36a6a267bf162da34
+
+
+
+    
