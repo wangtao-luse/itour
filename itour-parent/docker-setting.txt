@@ -7,7 +7,34 @@ docker run -d -p 9000:9000 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /opt/data/portainer_data:/data \
     portainer/portainer-ce
-
+    
+106.54.162.159
+1.frp-server(运行前需要准备配置文件frps.ini)
+docker run -d   -p 8081:8081 \
+   -p 8082:8082 \
+   -p 8083:8083 \
+   -p 8084:8084 \
+   -p 8085:8085 \
+   -p 6000:6000 \
+   -p 9093:9093 \
+   -p 9095:9095 \
+   --name frp-server \
+   --restart=always  \
+   -v /etc/frp/frps.ini:/conf/frps.ini \
+   cloverzrg/frps-docker
+ 
+2.Nginx (运行前需要准备配置文件)
+ docker run -d -p 80:80 \
+ 	--name spro-nginx \
+ 	--restart=always
+ 	--privileged=true
+ 	-v /etc/nginx/nginx.conf:/etc/nginx/nginx.conf \
+ 	-v /opt/nginx/log:/var/log/nginx \
+ 	-v /opt/nginx/html:/usr/share/nginx/html \
+ 	-v /etc/nginx/conf:/etc/nginx/conf.d  \
+ 	-v /etc/nginx/certificate:/etc/nginx/certificate 
+ 	 nginx
+   
 1.116.226.147 
 1.Mysql
 docker run  -d  -p 3306:3306 \
@@ -16,9 +43,59 @@ docker run  -d  -p 3306:3306 \
     -e TZ=Asia/Shanghai \
     -e MYSQL_ROOT_PASSWORD=mysql@958958 \
     -v /opt/data/mysql_backup/mysqldata:/var/lib/mysql \
+    -v /etc/mysql/mysql_backup/conf.d:/etc/mysql/conf.d \
     -v /etc/mysql/mysql_backup/my.cnf:/etc/mysql/my.cnf \
      mysql:8.0  \
     --lower-case-table-names=1 
+  
+2.Redis
+docker run -d -p 6379:6379 \
+     --restart=always \
+     --name ben-backup-redis \
+     -v /opt/data/redis_backup:/data \
+     -v /etc/redis/redis-backup/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+      redis:6.2 \
+     --requirepass 'redis@958958'\
+      --appendonly yes
+       
+
+ 
+3.Frps
+docker run -d   -p 8090:8090 \
+   -p 8091:8091 \
+   -p 8092:8092 \
+   -p 8093:8093 \
+   -p 8094:8094 \
+   -p 6000:6000 \
+   -p 3310:3310 \
+   -p 3311:3311 \
+   -p 6380:6380 \
+   -p 6381:6381 \
+   --name frp-server \
+   --restart=always  \
+   -v /etc/frp/frps.ini:/conf/frps.ini \
+   cloverzrg/frps-docker
+说明：-p 8090:8090 frp服务单和客户端通信使用的端口   
+    -p 8091:8091 http代理端口
+    -p 8092:8092  https代理端口
+    -p 8093:8093 frp后台管理页面端口
+    -p 6000:6000 ssh代理端口(用与外网来连接内网主机)
+    -p 3310:3310 ben-dev-mysql
+    -p 3311:3311 ben-spro-mysql
+    -p 6380:6380 ben-dev-redis
+    -p 6381:6381 ben-spro-redis
+192.168.1.88
+1.Mysql
+docker run  -d  -p 3306:3306 \
+    --name ben-spro-mysql \
+    --restart=always \
+    -e TZ=Asia/Shanghai \
+    -e MYSQL_ROOT_PASSWORD=mysql@958958 \
+    -v /opt/data/mysql_spro/mysqldata:/var/lib/mysql \
+    -v /etc/mysql/mysql_spro/conf.d:/etc/mysql/conf.d \
+    -v /etc/mysql/mysql_spro/my.cnf:/etc/mysql/my.cnf \
+     mysql:8.0   \
+     --lower-case-table-names=1
      
 docker run  -d  -p 3307:3306 \
     --name ben-dev-mysql \
@@ -26,71 +103,37 @@ docker run  -d  -p 3307:3306 \
     -e TZ=Asia/Shanghai \
     -e MYSQL_ROOT_PASSWORD=mysql@958958 \
     -v /opt/data/mysql_dev/mysqldata:/var/lib/mysql \
-    -v /etc/mysql/mysq_dev/conf.d:/etc/mysql/conf.d \
+    -v /etc/mysql/mysql_dev/conf.d:/etc/mysql/conf.d \
+    -v /etc/mysql/mysql_dev/my.cnf:/etc/mysql/my.cnf \
      mysql:8.0   \
      --lower-case-table-names=1
- 
-
- 
-2.Redis
-docker run -d -p 6397:6379 \
-     --restart=always \
-     --name ben-backup-redis \
-     -v /opt/data/redis_backup:/data \
-     -v /etc/redis/redids-backup/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-      redis:6.2 \
-     --requirepass 'redis@958958'
-       
-docker run -d -p 6398:6379 \
-     --restart=always \
-     --name ben-dev-redis \
-     -v /opt/data/redis_dev:/data \
-     -v /etc/redis/redids-dev/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-      redis:6.2 \
-     --requirepass 'redis@958958'
- 
-3.Frps
-docker run -d   -p 8181:8181 \
-   -p 8182:8182 \
-   -p 8183:8183 \
-   -p 8184:8184 \
-   -p 8185:8185 \
-   -p 6001:6001 \
-   -p 3308:3308 \
-   -p 3309:3309 \
-   -p 6398:6398 \
-   --name frp-server \
-   --restart=always  \
-   -v /etc/frp/frps.ini:/conf/frps.ini \
-   cloverzrg/frps-docker
-192.168.1.88
-1.Mysql
-docker run  -d  -p 3306:3306 \
-   --restart=always \
-   --name ben-spro-mysql \
-   -e TZ=Asia/Shanghai \
-   -e MYSQL_ROOT_PASSWORD=mysql@958958 \
-   -v /opt/data/mysql_spro/mysqldata:/var/lib/mysql \
-   -v /etc/mysql/mysql-spro/my.cnf:/etc/mysql/my.cnf  \
-   mysql:8.0   \
-   --lower-case-table-names=1
 
 2.Redis
 docker run -d -p 6379:6379 \
      --restart=always \
+     --name ben-dev-redis \
+     -v /opt/data/redis_dev:/data \
+     -v /etc/redis/redis_dev/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+      redis:6.2 \
+     --requirepass 'redis@958958'\
+     --appendonly yes
+     
+docker run -d -p 6378:6379 \
+     --restart=always \
      --name ben-spro-redis \
-     -v /opt/data/redis-spro/data:/data \
-     -v /etc/redis/redis-spro/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-       redis:6.2 \
-     --requirepass 'redis@958958' 
+     -v /opt/data/redis_spro:/data \
+     -v /etc/redis/redis_spro/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+      redis:6.2 \
+     --requirepass 'redis@958958'\
+     --appendonly yes
 3.Frpc
 docker run -d -p 8085:8085 \
    --name frp-client \
    --restart=always  \
-   -v /etc/frpc/conf:/conf \
+   -v /etc/frpc/visit/conf:/conf \
    cloverzrg/frpc-docker  
    
-docker run -d -p 8086:8086 \
+docker run -d -p 8094:8094 \
    --name frp-backup-client \
    --restart=always  \
    -v /etc/frpc/backup/conf:/conf \
@@ -98,38 +141,22 @@ docker run -d -p 8086:8086 \
 
  CREATE USER 'ben'@'%' IDENTIFIED BY 'ben@958958';
  GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'ben'@'%';
+ 
  change master to 
  master_host='1.116.226.147', 
  master_user='ben', 
  master_password='ben@958958',
- master_port=3308, 
- master_log_file='mysql-bin.000001', 
- master_log_pos=24132617, 
+ master_port=3306, 
+ master_log_file='mysql-bin.000005', 
+ master_log_pos=1004, 
  master_connect_retry=30,
  master_heartbeat_period=10;
  
 192.168.1.18
 1.Mysql
-docker run  -d  -p 3309:3306 \
-    --name ben-dev-mysql \
-    --restart=always \
-    -e TZ=Asia/Shanghai \
-    -e MYSQL_ROOT_PASSWORD=mysql@958958 \
-    -v /opt/data/mysql_dev/mysqldata:/var/lib/mysql \
-    -v /etc/mysql/mysq_dev/conf.d:/etc/mysql/conf.d \
-    -v /etc/mysql/mysq_dev/my.cnf:/etc/mysql/my.cnf \
-     mysql:8.0   \
-     --lower-case-table-names=1
-
 2.Redis
-docker run -d -p 6398:6379 \
-     --restart=always \
-     --name ben-dev-redis \
-     -v /opt/data/redis_dev:/data \
-     -v /etc/redis/redids-dev/conf/redis.conf:/usr/local/etc/redis/redis.conf \
-      redis:6.2 \
-     --requirepass 'redis@958958'
 
 
 
-    
+
+  

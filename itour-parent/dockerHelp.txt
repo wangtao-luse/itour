@@ -154,4 +154,19 @@ docker run -d -p 8085:8085 \
    -v /etc/frpc/conf:/conf \
    cloverzrg/frpc-docker
 
+vim /mnt/frp/frps.ini
+[common]
+#必选项,指定客户端与服务端通信使用的端口
+bind_port = 8081
+#非必选项,设置监听 HTTP 请求端口(http代理时必选项)可与bind_port设置一样
+vhost_http_port = 8082
+#非必选项,设置监听HTTPS请求端口(https代理时必选项)可与bind_port设置一样
+vhost_https_port = 8083
+#配置frp后台管理页面;
+dashboard_addr = 0.0.0.0
+dashboard_port = 8084
+dashboard_user = admin
+dashboard_pwd = admin
+#用于frps和frpc的校验
+token = 91a6b87a-6842-763a-8282-9fd65e1242fb
 
