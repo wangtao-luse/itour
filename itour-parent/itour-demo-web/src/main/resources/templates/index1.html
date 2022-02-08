@@ -7,13 +7,13 @@
     <link rel = "stylesheet" type = "text/css" href = "/jquery-easyui-1.10.1/themes/icon.css" >   
     <script type = "text/javascript" src = "/jquery-easyui-1.10.1/jquery.min.js" ></script>  
     <script type = "text/javascript" src = "/jquery-easyui-1.10.1/jquery.easyui.min.js" ></script>  
-
+    <script type = "text/javascript" src = "/base.js" ></script>  
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true">
 		<div data-options="region:'north'" style="height: 86px;overflow: hidden;">north</div>
 		<div data-options="region:'west'" title="模板导航" style="width: 210px;overflow: hidden;">
-			<ul id="tt" class="easyui-tree" id="index-west-tree">
+			<ul id="index-west-tree" class="easyui-tree" >
 			    <li>
 					<span>会员管理</span>
 					<ul>
@@ -32,10 +32,16 @@
 						<li><span>员工权限管理</span></li>
 					</ul>
 			    </li>
+			    <li>
+			    	<span>订单管理</span>
+			    	<ul>
+						<li><span>订单查询</span></li>
+					</ul>
+			    </li>
 			</ul>
 		</div>
 		<div data-options="region:'center'">
-		   <div class="index-tabs" >
+		   <div class="index-tabs" id="index-tabs">
 		     <div title="首页"></div>
 		      <div title="会员管理" data-options="closable:true"></div>
 		   </div>
@@ -50,7 +56,7 @@ $(".index-tabs").tabs({
 	border:false
 });
 $(function(){
-	initWestTree("/initWestTree",$("#index-west-tree"))
+	initWestTree("/initWestTree",$("#index-west-tree"),{})
 })
 </script>
 

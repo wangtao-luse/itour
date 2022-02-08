@@ -24,8 +24,7 @@ INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','2003');
 INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','2006');
 INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','2009');
 
-INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','4000');
-INSERT  t_m_role_right(ROLE_ID,RIGHT_ID) VALUES('2','4001');
+
 #######后台菜单相关开始###############-
 #-一级菜单 url给0;PARENT_ID给0;
 #-二级菜单M_ORDER给所属一级菜单的M_ORDER

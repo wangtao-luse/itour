@@ -38,4 +38,5 @@ public static void main(String[] args) {
     List<ReturnMessage> check = m.check(list);
     Object check1 = m.check1(1);
 }
+
 }

@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import com.itour.common.ReturnMessage;
+
+import cn.hutool.json.JSONArray;
 @Controller
 public class TestController{
 	@RequestMapping("/index")
@@ -27,10 +30,11 @@ public class TestController{
 	}
 	
 	@ResponseBody
+	@RequestMapping("/initWestTree")
 	public ReturnMessage initTreeData() {
 		ReturnMessage result = new ReturnMessage();
 		result.setCode("10");
-		result.setMsg("操作成果");
+		result.setMsg("操作成功！");
 		String str = "[{\r\n" + 
 				"    \"id\":1,\r\n" + 
 				"    \"text\":\"会员管理\",\r\n" + 
@@ -55,7 +59,31 @@ public class TestController{
 				"		\"text\":\"员工组管理\"\r\n" + 
 				"    }]\r\n" + 
 				"}]";
-		result.setData(str);
+		JSONArray jsonArray = new JSONArray();
+		JSONObject o1 = new JSONObject();
+		o1.put("id", "1");
+		o1.put("text", "会员管理");
+		o1.put("iconCls", "icon-save");
+		
+		JSONArray o1_child = new JSONArray();
+		JSONObject o1_child_o1 = new JSONObject();		
+		o1_child_o1.put("text", "会员查询");
+		o1_child_o1.put("state", "open");
+		o1_child.add(o1_child_o1);
+		
+		JSONObject o1_child_o2 = new JSONObject();		
+		o1_child_o2.put("text", "会员组查询");
+		o1_child_o2.put("state", "open");
+		JSONObject attributes1 = new JSONObject();
+		attributes1.put("url", "/demo/book/abc");
+		o1_child_o2.put("attributes", attributes1);
+		
+		o1_child.add(o1_child_o2);
+		
+		
+		o1.put("children", o1_child);
+		jsonArray.add(o1);
+		result.setData(jsonArray);
 		return result;
 	}
 	
