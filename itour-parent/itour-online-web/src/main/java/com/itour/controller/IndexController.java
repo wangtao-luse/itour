@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -46,6 +47,7 @@ private	RedisManager redisManager;
 	 */
 @RequestMapping("/index")
 public String index(Page page,TravelInfoDto travelInfoDto, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+
 		return indexPage(page, travelInfoDto, request, ajaxCmd, model);
 	
 }
