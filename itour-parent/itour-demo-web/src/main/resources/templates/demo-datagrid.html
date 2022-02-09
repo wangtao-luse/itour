@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <link rel = "stylesheet" type = "text/css" href = "/jquery-easyui-1.10.1/themes/default/easyui.css" >   
+    <link rel = "stylesheet" type = "text/css" href = "/jquery-easyui-1.10.1/themes/icon.css" >   
+    <script type = "text/javascript" src = "/jquery-easyui-1.10.1/jquery.min.js" ></script>  
+    <script type = "text/javascript" src = "/jquery-easyui-1.10.1/jquery.easyui.min.js" ></script>  
+    <script type = "text/javascript" src = "/base.js" ></script>  
+    <script type="text/javascript">
+     $(function(){
+    	 function getColumn(newoptions){
+    		var options ={
+    				columns:[[
+    					 {field: 'id', title: '编号', width: 150},
+    					 {field: 'name', title: '名称', width: 150},
+    					 {field: 'rq', title: '创建日期', width: 150},
+    				]]
+    		};
+    		return $.extend(options, newoptions);
+    	 }
+    		searchFunc("/datagrid/data",$("#dataGrid"),getColumn,{'c': 1, 's': 2,'k':'vo'});
+     });
+    </script>
+</head>
+<body>
+
+<div class="easyui-layout" data-options="fit:true,border:false">
+  <div data-options="region:'north',title:'查询条件' ,border:false" style="height: 180px; overflow: hidden;" >
+    <form id="searchForm"></form>
+  </div>
+  <div data-options="region:'center',title:'会员组列表' ,border:false">
+    <table id="dataGrid"></table>
+  </div>
+
+</div>
+
+</body>
+</html>
