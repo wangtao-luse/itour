@@ -5,6 +5,11 @@ server:  port: '@server.demo.port@'
 spring:  application:    name: itour-demo-web
   profiles:
     active: '@profiles.active@'
+  datasource: #mysql的配置
+    url: '@spring.datasource.url@'
+    driver-class-name: '@spring.datasource.driverClassName@'
+    username: '@spring.datasource.username@'
+    password: '@spring.datasource.password@'
 #eureka
 eureka:
   client:
@@ -27,4 +32,10 @@ feign:
     config:
       default:
         connect-timeout: '@feign.client.config.default.connect-timeout@'
-        read-timeout: '@feign.client.config.default.read-timeout@'    
+        read-timeout: '@feign.client.config.default.read-timeout@'  
+        
+mybatis-plus:
+  mapper-locations: classpath*:mapping/*.xml
+  type-aliases-package: com.itour.model
+  configuration:
+    map-underscore-to-camel-case: true  

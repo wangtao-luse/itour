@@ -489,7 +489,7 @@
                 <eureka.host>127.0.0.1</eureka.host>
                 <eureka.instance.prefer-ip-address>true</eureka.instance.prefer-ip-address>
                 <!-- 数据库相关 -->
-                <spring.datasource.url>jdbc:mysql://1.116.226.147:3309/itour?serverTimezone=UTC</spring.datasource.url>
+                <spring.datasource.url>jdbc:mysql://1.116.226.147:3310/dev_itour?serverTimezone=UTC</spring.datasource.url>
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>mysql@958958</spring.datasource.password>
