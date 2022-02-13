@@ -111,7 +111,18 @@ docker run -d -p 9800:9800  \
     
     
 
-集群模式
+纠删码模式
+docker run -d  -p 9000:9000 -p 9001:9001 \
+ --name minio \
+-v /mnt/data1 :/data1\
+-v /mnt/data2 :/data2\
+-v /mnt/data3 :/data3\
+-v /mnt/data4 :/data4\
+-v /mnt/data5 :/data5\
+-v /mnt/data6 :/data6\
+-v /mnt/data7 :/data7\
+-v /mnt/data8 :/data8\
+minio/minio server /data{1...8}  --console-address ":9801"
 
 Nginx 
 Nginx  https://www.cnblogs.com/qiqiloved/p/13470064.html
