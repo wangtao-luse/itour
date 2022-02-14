@@ -80,6 +80,7 @@ function getContextPath() {
     var result = pathName.substr(0, index + 1);
     return result;
 }
+/*******************************************Tree************************************************/
 //初始左边的Tree
 function initWestTree(url,treeNode,newOptions){
 	var sucessOption = {treeNode:treeNode,newOptions:newOptions};
@@ -121,6 +122,8 @@ function createWestTree(resultData,sucessOptions){
 	
 	
 }
+
+/*********************************************************************选项卡Tab*****************************************************/
 //添加tab页
 function addTab(params) {
     var iframe = '<iframe src="' + params.url + '" frameborder="0" style="border:0;width:100%;height:100%;"></iframe>';
@@ -141,6 +144,7 @@ function addTab(params) {
         t.tabs('add', opts)
     }
 }
+/***********************************************************************DataGrid********************************************************/
 //封装DataGrid带分页
 function initDataGrid(url,node,newOptions){
 	var options = {
@@ -159,20 +163,25 @@ function initDataGrid(url,node,newOptions){
 		nowrap:true,
 		pageNumber:1,
 		pageSize:(newOptions.postData&&newOptions.postData.page&&newOptions.postData.page.size)?newOptions.postData.page.size:10,
-		pageList: [50, 100, 300, 500, 1000],
+		pageList: [10, 50, 100, 300, 500, 1000],
 		toolbar:'#toolbar',
 		onLoadSuccess:function(){}
 	}
 	$.extend(options,newOptions);
 	node.datagrid(options);
 	node.datagrid('getPager').pagination({
-		onSelectPage : function(pageNumber, pageSize){
+		onSelectPage : function(pageNumber, pageSize){//当用户选择新的页面时触发
+			//设置分页（查询）
 			newOptions.postData.page.size = pageSize;
 			newOptions.postData.page.current = pageNumber;
+			//设置页面页码
+			newOptions.pageNumber = pageNumber;
+			newOptions.pageSize = pageSize;
 			initAjaxDataGrid(url,node,newOptions);
 		},
 		onChangePageSize : function(pageSize){
 			newOptions.postData.page.size = pageSize;
+			newOptions.pageSize = pageSize;
 			initAjaxDataGrid(url,node,newOptions);
 		},
 		onBeforeRefresh : function(pageNumber, pageSize){
@@ -210,6 +219,8 @@ function searchFunc(url,node,funcName,ops){
 	  ops&&ops.k?postData[ops.k] = formData:"";
 	  postData.page.size = ops&&ops.s?ops.s:"10";
 	  postData.page.current = ops&&ops.c?ops.c:"1";
+	  var pageNode = node.closest(".datagrid-wrap").find(".pagination-page-list");
+	  pageNode.length > 0 ? postData.page.size = pageNode.val() : "10";
 	  initAjaxDataGrid(url,node,funcName({"postData":postData}));
 	}
 //0,1,2..的对象数组转json
@@ -229,3 +240,22 @@ $.serializeObject = function (form) {
 function filterSpecial(value) {
     return value.replace(/[']/g, '')
 }
+
+/*****************************************************Dialog************************************************/
+function addFun(url,title,dataGridNode,newOptions){
+	var options = initDialogOptions(url,title,"addFunction",newOptions);
+}
+
+function initDialogOptions(url,title,btnId,newOptions){
+	 var options = {
+		        width: newOptions&&newOptions.width?newOptions.width:500,
+		        height: newOptions&&newOptions.height?newOptions.height:300,
+		        title: title,
+		        href: getContextPath() + url,
+		        buttons: [{id: mainBtnId, text: "保存"}]
+		    };
+	 newOptions ? $.extend(options, newOptions) : "";
+	 return options;
+	
+}
+

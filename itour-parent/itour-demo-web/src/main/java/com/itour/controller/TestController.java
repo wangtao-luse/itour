@@ -1,20 +1,22 @@
 package com.itour.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.common.ReturnMessage;
-import com.itour.entiy.Group;
+import com.itour.service.RightService;
 
 import cn.hutool.json.JSONArray;
 @Controller
 public class TestController{
+	@Autowired
+	RightService rightService;
 	@RequestMapping("/index")
 	public String index() {
 		System.out.println("index.html");
@@ -99,23 +101,18 @@ public class TestController{
 	}
 	@RequestMapping("/datagrid/data")
 	@ResponseBody
-	public ReturnMessage groupList() {
-		ReturnMessage glist = this.getGlist();
+	public ReturnMessage getRightList(@RequestBody JSONObject jsonObject) {
+		ReturnMessage glist = this.getlist( jsonObject);
 		return glist;
 		
 	}
-	public ReturnMessage getGlist() {
+	public ReturnMessage getlist(JSONObject jsonObject) {
 		ReturnMessage result = new ReturnMessage();
 		result.setCode("10");
-		result.setMsg("操作成功！");
-		List<Group> glist = new ArrayList<Group>();
-		glist.add(new Group(1L, "王维", "2022-2-1"));
-		glist.add(new Group(1L, "苏轼", "2022-2-2"));
-		glist.add(new Group(1L, "苏辙", "2022-2-3"));
-		glist.add(new Group(1L, "李清照", "2022-2-4"));
-		Page<Group> page = new Page<Group>();
-		page.setRecords(glist);
-		result.setData(page);
+		result.setMsg("操作成功！");	
+		Page page = jsonObject.getJSONObject("page").toJavaObject(Page.class);
+		Page queryRightList = rightService.queryRightList(page);
+		result.setData(queryRightList);
 		return result;
 	}
 	

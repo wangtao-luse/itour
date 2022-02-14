@@ -7,21 +7,38 @@
     <link rel = "stylesheet" type = "text/css" href = "/jquery-easyui-1.10.1/themes/icon.css" >   
     <script type = "text/javascript" src = "/jquery-easyui-1.10.1/jquery.min.js" ></script>  
     <script type = "text/javascript" src = "/jquery-easyui-1.10.1/jquery.easyui.min.js" ></script>  
+    <script type = "text/javascript" src = "/jquery-easyui-1.10.1/locale/easyui-lang-zh_CN.js" ></script>  
     <script type = "text/javascript" src = "/base.js" ></script>  
     <script type="text/javascript">
      $(function(){
     	 function getColumn(newoptions){
     		var options ={
+    				singleSelect:false,
     				columns:[[
-    					 {field: 'id', title: '编号', width: 150},
-    					 {field: 'name', title: '名称', width: 150},
-    					 {field: 'rq', title: '创建日期', width: 150},
+    					 {field:"",checkbox:true},
+    					 {field: 'id', title: '编号',width: 100},
+    					 {field: 'menuNo', title: '菜单唯一号', width: 100},
+    					 {field: 'menu', title: '菜单名称', width: 100},
     				]]
     		};
     		return $.extend(options, newoptions);
     	 }
-    		searchFunc("/datagrid/data",$("#dataGrid"),getColumn,{'c': 1, 's': 2,'k':'vo'});
+    		searchFunc("/datagrid/data",$("#dataGrid"),getColumn,{'c': 1, 's': 10,'k':'vo'});
+    		
+    		
      });
+     
+     function checkboxFun(){
+    	var rows=$('#dataGrid').datagrid('getChecked'); //返回复选框选中的所有行
+    	var row1 = $('#dataGrid').datagrid("getRows");//返回当前页的行
+    	var rows = $("#dataGrid").datagrid('getSelections');//返回所有选中的行，当没有选中的记录时，将返回空数组。
+    	//返回指定行的索引，row 参数可以是一个行记录或者一个 id 字段的值
+   	     var index =$('#subItem').datagrid('getRowIndex',rows[i]);
+    	//属性行指定下标的行
+    	 $('#dataGrid').datagrid('refreshRow',index);
+    	
+    	
+     }
     </script>
 </head>
 <body>
