@@ -50,7 +50,7 @@ public class MinioUtil {
 @Autowired
 private static MinioClient minioClient;
 /**
- * 初始化minio配置
+ * 初始化MinIO客户端
  */
 	
 	@PostConstruct
@@ -150,4 +150,6 @@ public static List<Bucket> getAllBuckets() {
 public static boolean bucketExists(String bucketName) {
     return minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
 }
+
+
 }
