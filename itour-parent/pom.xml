@@ -493,6 +493,11 @@
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>mysql@958958</spring.datasource.password>
+                
+                <spring.datasource.master1.url>jdbc:mysql://1.116.226.147:3310/dev_itour?serverTimezone=UTC</spring.datasource.master1.url>
+                <spring.datasource.master1.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.master1.driverClassName>
+                <spring.datasource.master1.username>root</spring.datasource.master1.username>
+                <spring.datasource.master1.password>mysql@958958</spring.datasource.master1.password>
                 <!-- redis相关 -->
                 <spring.redis.database>0</spring.redis.database>
                 <spring.redis.host>1.116.226.147</spring.redis.host>
@@ -634,6 +639,11 @@
                 <spring.datasource.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.driverClassName>
                 <spring.datasource.username>root</spring.datasource.username>
                 <spring.datasource.password>mysql@958958</spring.datasource.password>
+                
+                <spring.datasource.master1.url>jdbc:mysql://1.116.226.147:3311/dev_itour?serverTimezone=UTC</spring.datasource.master1.url>
+                <spring.datasource.master1.driverClassName>com.mysql.cj.jdbc.Driver</spring.datasource.master1.driverClassName>
+                <spring.datasource.master1.username>root</spring.datasource.master1.username>
+                <spring.datasource.master1.password>mysql@958958</spring.datasource.master1.password>
                  <!-- redis相关 -->
                 <spring.redis.database>2</spring.redis.database>
                 <spring.redis.host>192.168.1.88</spring.redis.host>

@@ -244,6 +244,9 @@ function filterSpecial(value) {
 /*****************************************************Dialog************************************************/
 function addFun(url,title,dataGridNode,newOptions){
 	var options = initDialogOptions(url,title,"addFunction",newOptions);
+	options.buttons[0].handler = function(){
+		
+	}
 }
 
 function initDialogOptions(url,title,btnId,newOptions){
