@@ -106,35 +106,120 @@ docker run -d -p 9800:9800  \
    -v /etc/minio/config:/root/.minio \
     minio/minio server /data \
     --console-address ":9801"
-    
+提示：单点模式存储的直接是文件    
     
     
     
 
 纠删码模式
-docker run -d  -p 9000:9000 -p 9001:9001 \
- --name minio \
--v /mnt/data1 :/data1\
--v /mnt/data2 :/data2\
--v /mnt/data3 :/data3\
--v /mnt/data4 :/data4\
--v /mnt/data5 :/data5\
--v /mnt/data6 :/data6\
--v /mnt/data7 :/data7\
--v /mnt/data8 :/data8\
-minio/minio server /data{1...8}  --console-address ":9801"
+docker run -d -p 9803:9803 \
+          -p 9804:9804 \
+          --name minio1 \
+          --restart=always \
+  		  -e "MINIO_ROOT_USER=root" \
+   		  -e "MINIO_ROOT_PASSWORD=top@958958" \
+          -v /opt/minio_code/data1:/data1 \
+          -v /opt/minio_code/data2:/data2 \
+          -v /opt/minio_code/data3:/data3 \
+          -v /opt/minio_code/data4:/data4 \
+          -v /opt/minio_code/data5:/data5 \
+          -v /opt/minio_code/data6:/data6 \
+          -v /opt/minio_code/data7:/data7 \
+          -v /opt/minio_code/data8:/data8 \
+          minio/minio server /data{1...8}  \
+          --console-address ":9804"
+          
+
+分布式:
+docker run -d \
+          --net=host \
+		  --name minio-server \
+          --restart=always \
+          -e "MINIO_ROOT_USER=root" \
+   		  -e "MINIO_ROOT_PASSWORD=top@958958" \
+   		  -v /opt/minios/export1:/export1 \
+   		  -v /opt/minios/export2:/export2 \
+   		  -v /opt/minios/export3:/export3 \
+   		  -v /opt/minios/export4:/export4 \
+minio/minio server http://192.168.1.18/opt/minios/export1 http://192.168.1.18/opt/minios/export2 \
+			 http://192.168.1.18/opt/minios/export3 http://192.168.1.18/opt/minios/export4 \
+			 http://192.168.1.68/opt/minios/export1 http://192.168.1.68/opt/minios/export2 \
+			 http://192.168.1.68/opt/minios/export3 http://192.168.1.68/opt/minios/export4 \
+			 http://192.168.1.78/opt/minios/export1 http://192.168.1.78/opt/minios/export2 \
+			 http://192.168.1.78/opt/minios/export3 http://192.168.1.78/opt/minios/export4 \
+			 http://192.168.1.88/opt/minios/export1 http://192.168.1.88/opt/minios/export2 \
+			 http://192.168.1.88/opt/minios/export3 http://192.168.1.88/opt/minios/export4 \			
+			 --address 192.168.1.18:9805
+简化：
+
+minio1			 
+docker run -d \
+--net=host \
+--name minio-server \
+--restart=always \
+-e "MINIO_ROOT_USER=root" \
+-e "MINIO_ROOT_PASSWORD=top@958958" \
+-v /opt/minios/export1:/export1 \
+-v /opt/minios/export2:/export2 \
+-v /opt/minios/export3:/export3 \
+-v /opt/minios/export4:/export4 \
+minio/minio server --address 192.168.1.88:9805  \
+http://192.168.1.18:9805/opt/minios/export{1...4} \
+ http://192.168.1.68:9805/opt/minios/export{1...4} \
+ http://192.168.1.78:9805/opt/minios/export{1...4} \
+ http://192.168.1.88:9805/opt/minios/export{1...4} 
+ 
+minio2
+docker run -d \
+--net=host \
+--name minio-server \
+--restart=always \
+-e "MINIO_ROOT_USER=root" \
+-e "MINIO_ROOT_PASSWORD=top@958958" \
+-v /opt/minios/export1:/export1 \
+-v /opt/minios/export2:/export2 \
+-v /opt/minios/export3:/export3 \
+-v /opt/minios/export4:/export4 \
+minio/minio server --address 192.168.1.18:9805 \
+http://192.168.1.18:9805/opt/minios/export{1...4} \
+ http://192.168.1.68:9805/opt/minios/export{1...4} \
+ http://192.168.1.78:9805/opt/minios/export{1...4} \
+ http://192.168.1.88:9805/opt/minios/export{1...4} 	
 
 
-minio server http://192.168.1.18/export1 http://192.168.1.18/export2 \
-			 http://192.168.1.18/export3 http://192.168.1.18/export4 \
-			 http://192.168.1.68/export1 http://192.168.1.68/export2 \
-			 http://192.168.1.68/export3 http://192.168.1.68/export4 \
-			 http://192.168.1.88/export1 http://192.168.1.88/export2 \
-			 http://192.168.1.88/export3 http://192.168.1.88/export4 \
-			 http://192.168.1.14/export1 http://192.168.1.14/export2 \
-			 http://192.168.1.14/export3 http://192.168.1.14/export4
-
-
+minio3
+docker run -d \
+--net=host \
+--name minio-server \
+--restart=always \
+-e "MINIO_ROOT_USER=root" \
+-e "MINIO_ROOT_PASSWORD=top@958958" \
+-v /opt/minios/export1:/export1 \
+-v /opt/minios/export2:/export2 \
+-v /opt/minios/export3:/export3 \
+-v /opt/minios/export4:/export4 \
+minio/minio server --address 192.168.1.78:9805 \
+http://192.168.1.18:9805/opt/minios/export{1...4} \
+http://192.168.1.68:9805/opt/minios/export{1...4} \
+http://192.168.1.78:9805/opt/minios/export{1...4} \
+http://192.168.1.88:9805/opt/minios/export{1...4} 		
+			 
+minio4
+docker run -d \
+--net=host \
+--name minio-server \
+--restart=always \
+-e "MINIO_ROOT_USER=root" \
+-e "MINIO_ROOT_PASSWORD=top@958958" \
+-v /opt/minios/export1:/export1 \
+-v /opt/minios/export2:/export2 \
+-v /opt/minios/export3:/export3 \
+-v /opt/minios/export4:/export4 \
+minio/minio server --address 192.168.1.68:9805 \
+http://192.168.1.18:9805/opt/minios/export{1...4} \
+http://192.168.1.68:9805/opt/minios/export{1...4} \
+http://192.168.1.78:9805/opt/minios/export{1...4} \
+http://192.168.1.88:9805/opt/minios/export{1...4} 
 Nginx 
 Nginx  https://www.cnblogs.com/qiqiloved/p/13470064.html
 1.在/mnt目录,创建挂载目录;
