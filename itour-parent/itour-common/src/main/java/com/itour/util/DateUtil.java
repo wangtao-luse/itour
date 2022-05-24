@@ -82,7 +82,8 @@ public static long getDifferOfSecond(Date sDate,Date eDate){
 	return ((eCalendar.getTimeInMillis()-sCalendar.getTimeInMillis())/1000);
 }
 /**
- * 计算两个日期之间相差多少分钟
+   * 计算两个日期之间相差多少分钟
+ * 
  * @param sDate 较小日期
  * @param eDate 较大日期
  * @return  
@@ -493,25 +494,30 @@ public static void testDate() throws ParseException {
 	//1.当前时间
 	Date current = new Date();
     //2.开始时间
-	Date stime = sdf1.parse("2016-07-25 08:30:00");
+	Date stime = sdf1.parse("2016-06-1 08:30:4");
 	//3.结束时间 
-	Date etime = sdf1.parse("2022-06-30 23:00:00");
+	Date etime = sdf1.parse("2016-06-1 08:30:59");
 	long differOfSecond = DateUtil.getDifferOfSecond(stime,etime);
 	System.out.println("相差 "+differOfSecond+"秒");
-	long differOfMinute = DateUtil.getDifferOfMinute(stime,etime);
-	System.out.println("相差 "+differOfMinute+"分钟");
-	long differOfHour = DateUtil.getDifferOfHour(stime, etime);
-	System.out.println("相差 "+differOfHour+"小时");
-	int differOfDay = DateUtil.getDifferOfDay(stime, etime);
-	System.out.println("相差 "+differOfDay+"天");
-	int differOfMonth = DateUtil.getDifferOfMonth(stime,etime);
-	System.out.println("相差 "+differOfMonth+"个月");
-	int differOfYear = DateUtil.getDifferOfYear(stime, etime);
-	System.out.println("相差 "+differOfYear+"年");
+		
+	long differOfMinute = DateUtil.getDifferOfMinute(stime, etime);
+	System.out.println("相差 " + differOfMinute + "分钟");
 	
-	String dateStr = DateUtil.getDateStr(new Date(1620280532680L));
-   String dateStr1 = DateUtil.getDateStr(new Date(1617699915280L));
-	System.out.println(dateStr);
-	System.out.println(dateStr1);
+		
+		long differOfHour = DateUtil.getDifferOfHour(stime, etime);
+		System.out.println("相差 " + differOfHour + "小时");
+		int differOfDay = DateUtil.getDifferOfDay(stime, etime);
+		System.out.println("相差 " + differOfDay + "天");
+		int differOfMonth = DateUtil.getDifferOfMonth(stime, etime);
+		System.out.println("相差 " + differOfMonth + "个月");
+		int differOfYear = DateUtil.getDifferOfYear(stime, etime);
+		System.out.println("相差 " + differOfYear + "年");
+	
+		/*
+		 * String dateStr = DateUtil.getDateStr(new Date(1620280532680L)); String
+		 * dateStr1 = DateUtil.getDateStr(new Date(1617699915280L)); String dateStr2=
+		 * DateUtil.getStrDate(new Date(1651885560068L),DateUtil.FMT_DATETIME_SHORT);
+		 * System.out.println(dateStr); System.out.println("wang"+dateStr2);
+		 */
 }
 }

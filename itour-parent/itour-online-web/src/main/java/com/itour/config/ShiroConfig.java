@@ -142,7 +142,7 @@ public HashedCredentialsMatcher credentialsMatcher(){
 @Bean(name = "sessionManager")
 public DefaultWebSessionManager sessionManager() {
     DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-    // 设置session过期时间3600s
+    // 设置session过期时间
     sessionManager.setGlobalSessionTimeout(3600000L);
     return sessionManager;
 }

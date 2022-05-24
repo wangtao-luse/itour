@@ -27,6 +27,7 @@ public class PageInfo<T> extends Page<T> {
 		if(total%size!=0) {
 			pages+=1;
 		}
+		this.ps =pages;
 		return pages;
 	}
 	public void setPs(long ps) {

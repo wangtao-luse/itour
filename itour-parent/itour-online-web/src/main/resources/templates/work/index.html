@@ -8,12 +8,12 @@
 	    					<div class="listShortcut">
 	    						<div class="topstory-recommend">
 	    							<div>
-	    							  @#ajax content:{
+	    							  @#ajax content: {
 	    							     @for(t in workInfo!){
 			    								<div class="card topstoryItem topstoryItem-isRecommend">
 			    							    	<div class="feed">
 			    							    		<div class="contentItem answerItem">
-			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">${t.title}</a></h2>
+			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">${t.title}--${page.current}</a></h2>
 			    							    			<div class="richContent is-collapsed" >
 			    							    			  <a href="${ctxPath}/work/detail?id=${t.id}" target="_blank" class="clearfix">
 			    							    			    @if(isNotEmpty(t.url)){
@@ -76,7 +76,9 @@
 			    							    	</div>
 			    							    </div>
 			    							
-	    							    @}elsefor{
+	    							    @}
+	    							  
+	    							    @if(isEmpty(workInfo) || workInfo.~size <= 0 ){
 	    							    	<div class="css-1g5evo1">
 				    							<div class="css-1jfwu0r">
 				    								<div class="css-sumlaa">
@@ -89,7 +91,21 @@
 				    						</div>
 	    							    
 	    							    @}
-	    							 @}
+		    							  @if((page.total > page.size) && (page.ps > page.current)){		    							  
+			    							<div class="text-center">
+		    							    	<ul class="pager">
+		    							    		<li id="btn-load-more">
+		    							    			<a href="javaScript:;" onclick="loadMore();">点击载入更多${page.ps}---${page.current}</a>
+		    							    		</li>
+		    							    		<li id="btn-loading" class="hidden">
+		    							    			<a href="#">
+		    							    			<i class="fa fa-spinner fa-spin"></i> 载入中
+		    							    			</a>
+		    							    		</li>
+		    							    	</ul>
+			    							 </div>
+		    							 @}
+	    							 @} 
 	    							    
 	    							    <div class="card topstoryItem topstoryItem-isRecommend" style="display:none">
 	    							    	<div class="feed">
@@ -175,20 +191,7 @@
 	    							    </div>
 	    							    
 	    							</div>
-	    							@if(workInfo.~size>10){
-	    							<div class="text-center">
-    							    	<ul class="pager">
-    							    		<li id="btn-load-more">
-    							    			<a href="javaScript:;" onclick="loadMore();">点击载入更多</a>
-    							    		</li>
-    							    		<li id="btn-loading" class="hidden">
-    							    			<a href="#">
-    							    			<i class="fa fa-spinner fa-spin"></i> 载入中
-    							    			</a>
-    							    		</li>
-    							    	</ul>
-	    							 </div>
-	    							 @}
+	    							
 	    						</div>
 	    					</div>
 	    				</div>

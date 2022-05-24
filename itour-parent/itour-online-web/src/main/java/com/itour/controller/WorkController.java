@@ -51,19 +51,23 @@ private RedisManager redisManager;
  * @return
  */
 @RequestMapping("/index")
-public String index(Page page,ModelMap model,HttpServletRequest request) {
+public String index(Page page,ModelMap model,HttpServletRequest request,String ajaxCmd) {
 	JSONObject jsonObject = new JSONObject();
 	WorkInfoVo vo = new WorkInfoVo();
 	jsonObject.put(Constant.COMMON_KEY_VO, vo);
 	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage selectWorkInfoList = this.workConnector.selectWorkInfoList(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(selectWorkInfoList)) {
-		PageInfo pageInfo = FastJsonUtil.mapToObject(selectWorkInfoList.getReturnResult(), PageInfo.class);
+		PageInfo<WorkInfoVo> pageInfo = FastJsonUtil.mapToObject(selectWorkInfoList.getReturnResult(), PageInfo.class);
 		List<WorkInfoVo> records = pageInfo.getRecords();
 		model.addAttribute("page", pageInfo);
 		model.addAttribute("workInfo", records);
 	}
-	return "/work/index";
+	if(StringUtils.isEmpty(ajaxCmd)) {
+	   return "/work/index";
+	}else {
+     return "/work/index#"+ajaxCmd;
+	}
 }
 /**
  * 日志新增页面
@@ -286,7 +290,7 @@ private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest 
 	ResponseMessage respMsg = this.workConnector.queryWorkCommentList(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(respMsg)) {
 		Map<String, Object> returnResult = respMsg.getReturnResult();
-		PageInfo resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
+		PageInfo<WorkCommentVo> resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
 		resultPage.pageNav();
 		resultPage.getPs();
 		List<WorkCommentVo> commentList = resultPage.getRecords();
@@ -388,7 +392,7 @@ public String category(@PathVariable(value = "id") Long id,Page page,ModelMap mo
 	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage selectWorkInfoList = this.workConnector.queryWorkByColList(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(selectWorkInfoList)) {
-		PageInfo pageInfo = FastJsonUtil.mapToObject(selectWorkInfoList.getReturnResult(), PageInfo.class);
+		PageInfo<WorkInfoVo> pageInfo = FastJsonUtil.mapToObject(selectWorkInfoList.getReturnResult(), PageInfo.class);
 		List<WorkInfoVo> records = pageInfo.getRecords();
 		model.addAttribute("page", pageInfo);
 		model.addAttribute("workInfo", records);

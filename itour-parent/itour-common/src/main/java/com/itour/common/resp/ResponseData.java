@@ -1,9 +1,11 @@
 package com.itour.common.resp;
 
-public class ResponseData<T> {
+import com.itour.constant.Constant;
+
+public class ResponseData<T extends Object> {
 private String code;
 private String msg;
-private T data;
+private  T data;
 public String getCode() {
 	return code;
 }
@@ -22,7 +24,18 @@ public T getData() {
 public void setData(T data) {
 	this.data = data;
 }
-public static void main(String[] args) {
-	
+
+public ResponseData() {
+}
+public ResponseData(String code, String msg) {
+	super();
+	this.code = code;
+	this.msg = msg;
+}
+public static ResponseData<Object> getSuccess(){
+	return new ResponseData<Object>(Constant.SUCCESS_CODE, Constant.SUCESS_MESSAGE);
+}
+public static ResponseData<Object> getSuccess(Object data){
+	return new ResponseData<Object>(Constant.SUCCESS_CODE, Constant.SUCESS_MESSAGE);
 }
 }
