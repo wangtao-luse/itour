@@ -37,6 +37,8 @@
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-spring</artifactId>
     </dependency>
+   
+     
 	<!-- httpClient -->
 	<dependency>
 	    <groupId>org.apache.httpcomponents</groupId>

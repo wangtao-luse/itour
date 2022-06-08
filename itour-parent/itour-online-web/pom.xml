@@ -55,10 +55,14 @@
 	    <artifactId>commonmark-ext-heading-anchor</artifactId>
 	</dependency>
 	<!-- shiro -->
-	<dependency>
+	<!-- <dependency>
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-spring</artifactId>
-    </dependency>
+    </dependency> -->
+    <dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-spring-boot-web-starter</artifactId>
+	</dependency>
 	<dependency>
 		<groupId>com.itour</groupId>
 		<artifactId>itour-quartz-api</artifactId>
