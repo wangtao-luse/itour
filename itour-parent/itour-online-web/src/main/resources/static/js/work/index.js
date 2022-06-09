@@ -28,10 +28,15 @@ $(function(){
 	
 	//默认查询
 	function queryInfo(postData){
-		var url="/index?ajaxCmd=content";
+		var url="/work/index?ajaxCmd=content";
 		postForm(url, postData, function(result){
 			if(result){
-				$("#topstoryContent .topstory-recommend div:first").append(result);
+				if($("#btn-load-more")){
+					$("#topstoryContent .topstory-recommend div:first .text-center").before(result);
+				}else{
+					$("#topstoryContent .topstory-recommend div:first").append(result);
+				}
+				
 			}
 			
 		},{});

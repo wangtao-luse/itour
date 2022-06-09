@@ -25,7 +25,7 @@ public class RedisConfig {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         //一般我们存取redis使用json格式的数据，为了存取方便，我们可以自定义序列化器来将数据自动使用json格式序列化
         //使用fastjson序列化
-         //默认使用JdkSerializationRedisSerializer方式序列话:存入Redis的值；
+         //默认使用JdkSerializationRedisSerializer方式序列化:存入Redis的值；
         FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<Object>(Object.class);
         // value值的序列化采用fastJsonRedisSerializer
         template.setValueSerializer(fastJsonRedisSerializer);

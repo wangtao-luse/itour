@@ -286,14 +286,15 @@ public class Lambda {
 	 */
 	public static void StreamOf() {
 		// 1. Individual values
-		Stream stream = Stream.of("a", "b", "c");
+		Stream<String> of = Stream.of("a", "b", "c");
 		// 2. Arrays
 		String [] strArray = new String[] {"a", "b", "c"};
-		stream = Stream.of(strArray);
-		stream = Arrays.stream(strArray);
+		 Stream<String> of2 = Stream.of(strArray);
+	    Stream<String> stream = Arrays.stream(strArray);
 		// 3. Collections
 		List<String> list = Arrays.asList(strArray);
-		stream = list.stream();
+		Stream stream2 = list.stream();
+		Stream<String> parallelStream = list.parallelStream();
 		System.out.println("2.构建Stream的常用方式:StreamOf()");
 	}
 	/**

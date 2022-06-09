@@ -27,6 +27,7 @@ import com.itour.persist.GroupRoleMapper;
  */
 @Service
 public class GroupRoleService extends ServiceImpl<GroupRoleMapper,GroupRole> {
+	public ResponseMessage test() {return null;}
     @Transactional
 	public ResponseMessage powerRole(RequestMessage requestMessage) {
     	ResponseMessage responseMessage =ResponseMessage.getSucess();

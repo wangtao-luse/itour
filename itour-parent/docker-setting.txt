@@ -87,7 +87,7 @@ docker run -d   -p 8090:8090 \
 192.168.1.88
 1.Mysql
 docker run  -d  -p 3306:3306 \
-    --name ben-spro-mysql \
+    --name ben-spro-mysql_test \
     --restart=always \
     -e TZ=Asia/Shanghai \
     -e MYSQL_ROOT_PASSWORD=mysql@958958 \
@@ -156,6 +156,7 @@ docker run -d -p 8094:8094 \
 1.Mysql
 2.Redis
 
+Mysql主从配置
 
 
 

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -51,11 +52,21 @@ public String index(Page page,TravelInfoDto travelInfoDto, HttpServletRequest re
 		return indexPage(page, travelInfoDto, request, ajaxCmd, model);
 	
 }
-//解决退出问题
-@RequestMapping("/")
-public String defaultPage(Page page,TravelInfoDto travelInfoDto, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+
+	
+@RequestMapping("/shiro/logout")
+public String logout(Page page, TravelInfoDto travelInfoDto, HttpServletRequest request, String ajaxCmd,
+		ModelMap model) {
+	Subject subject = SecurityUtils.getSubject();
+	subject.logout();
 	return indexPage(page, travelInfoDto, request, ajaxCmd, model);
 }
+
+//解决退出问题
+//@RequestMapping("/")
+//public String defaultPage(Page page,TravelInfoDto travelInfoDto, HttpServletRequest request,String ajaxCmd,ModelMap model) {
+//	return indexPage(page, travelInfoDto, request, ajaxCmd, model);
+//}
 private String indexPage(Page page, TravelInfoDto travelInfoDto, HttpServletRequest request, String ajaxCmd, ModelMap model) {
 	JSONObject jsonObject = new JSONObject();
 	AccountVo sessionUser = SessionUtil.getSessionUser();

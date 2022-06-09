@@ -116,7 +116,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 }
 public static void main(String[] args) {
 	System.out.println("414598c3a3f5f83061373e6b41b8663d".length());
-	String result = SimpleHashUtil.simpleHashMd5("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
+	String result = SimpleHashUtil.simpleHashMd5("taotao141421", "6cbaea19bfbb4db1b01d42426c106eee");
 	System.out.println(result);
 	String simpleHashSHA_1 = SimpleHashUtil.simpleHashSHA_1("taotao141421", "4a350bd65b1148f193765d8f0a2c31f4");
 	System.out.println("sha-1:"+simpleHashSHA_1);
