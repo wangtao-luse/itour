@@ -12,11 +12,11 @@
   <name>itour-eureka-server Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
+  <!-- eureka server--> 
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+	</dependency>
     <dependency>
     	<groupId>com.itour</groupId>
     	<artifactId>itour-common</artifactId>

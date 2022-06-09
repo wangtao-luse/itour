@@ -1,6 +1,7 @@
 package com.itour.common.redis;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -110,7 +111,8 @@ private StringRedisTemplate  stringRedisTemplate;
 				stringRedisTemplate.delete(key[0]);
 				return true;
 			}else {
-				stringRedisTemplate.delete(CollectionUtils.arrayToList(key));
+				List<String> arrayToList = (List<String>)CollectionUtils.arrayToList(key);
+				stringRedisTemplate.delete(arrayToList);
 				return true;
 			}
 		}

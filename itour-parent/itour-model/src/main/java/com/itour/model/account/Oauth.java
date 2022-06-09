@@ -2,7 +2,6 @@ package com.itour.model.account;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
-import io.swagger.annotations.ApiModel;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +15,6 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2020-05-03
  */
-@ApiModel(value = "用户认证表")
 @TableName("t_a_oauth")
 public class Oauth extends Model<Oauth> {
 

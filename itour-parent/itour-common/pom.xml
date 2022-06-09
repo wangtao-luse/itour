@@ -7,9 +7,7 @@
     <artifactId>itour-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.itour</groupId>
   <artifactId>itour-common</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>itour-common</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -49,14 +47,6 @@
 	    <artifactId>httpmime</artifactId>
 	</dependency>
 	<!-- 图像处理 -->
-	<dependency>
-	    <groupId>org.im4java</groupId>
-	    <artifactId>im4java</artifactId>
-	</dependency>
-	<dependency>
-	    <groupId>org.bytedeco.javacpp-presets</groupId>
-	    <artifactId>opencv</artifactId>
-	</dependency>
 	<dependency>
 	    <groupId>net.coobird</groupId>
 	    <artifactId>thumbnailator</artifactId>
