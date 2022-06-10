@@ -12,7 +12,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,10 +23,11 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
 import com.itour.connector.TravelConnector;
 import com.itour.constant.Constant;
-import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.SessionUtil;
+
+import cn.hutool.core.util.StrUtil;
 
 
 
@@ -70,7 +70,7 @@ public String logout(Page page, TravelInfoDto travelInfoDto, HttpServletRequest 
 private String indexPage(Page page, TravelInfoDto travelInfoDto, HttpServletRequest request, String ajaxCmd, ModelMap model) {
 	JSONObject jsonObject = new JSONObject();
 	AccountVo sessionUser = SessionUtil.getSessionUser();
-	if(!StringUtils.isEmpty(sessionUser)) {
+	if(!StrUtil.isEmptyIfStr(sessionUser)) {
 		travelInfoDto.setQueryUid(sessionUser.getuId());
 	}
 	jsonObject.put("vo", travelInfoDto);

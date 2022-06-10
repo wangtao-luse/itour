@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +37,8 @@ import com.itour.util.IpUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
 
+import cn.hutool.core.util.StrUtil;
+
 
 @Controller
 @RequestMapping("/work")
@@ -63,7 +64,7 @@ public String index(Page page,ModelMap model,HttpServletRequest request,String a
 		model.addAttribute("page", pageInfo);
 		model.addAttribute("workInfo", records);
 	}
-	if(StringUtils.isEmpty(ajaxCmd)) {
+	if(StrUtil.isEmpty(ajaxCmd)) {
 	   return "/work/index";
 	}else {
      return "/work/index#"+ajaxCmd;
@@ -94,7 +95,7 @@ public String workUpdateMd(Long id,ModelMap model,HttpServletRequest request) {
 	ResponseMessage selectWorkInfoOne = this.workConnector.selectWorkInfoOne(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(selectWorkInfoOne)) {
 		Map<String, Object> returnResult = selectWorkInfoOne.getReturnResult();
-		if(StringUtils.isEmpty(returnResult.get(Constant.COMMON_KEY_RESULT))) {
+		if(StrUtil.isEmptyIfStr(returnResult.get(Constant.COMMON_KEY_RESULT))) {
 			//提示没有权限操作该文章
 			model.addAttribute("error", ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
 		}else {
@@ -218,7 +219,7 @@ private WorkInfoVo workInfo(Long id, ModelMap model, HttpServletRequest request)
 	WorkInfoVo tmp = new WorkInfoVo();
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("sessionUser", sessionUser);
-	if(!StringUtils.isEmpty(sessionUser)) {
+	if(!StrUtil.isEmptyIfStr(sessionUser)) {
 		tmp.setQueryUid(sessionUser.getuId());
 	}
 	tmp.setId(id);

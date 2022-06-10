@@ -13,7 +13,7 @@
 			    								<div class="card topstoryItem topstoryItem-isRecommend">
 			    							    	<div class="feed">
 			    							    		<div class="contentItem answerItem">
-			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">${t.title}--${page.current}</a></h2>
+			    							    			<h2 class="contentItem-title"><a href="${ctxPath}/work/detail?id=${t.id}" target="_blank">${t.title}</a></h2>
 			    							    			<div class="richContent is-collapsed" >
 			    							    			  <a href="${ctxPath}/work/detail?id=${t.id}" target="_blank" class="clearfix">
 			    							    			    @if(isNotEmpty(t.url)){
@@ -91,11 +91,11 @@
 				    						</div>
 	    							    
 	    							    @}
-		    							  @if((page.total > page.size) && (page.ps > page.current)){		    							  
+		    							@if(page.current != page.ps && page.current< page.ps){		    							  
 			    							<div class="text-center">
 		    							    	<ul class="pager">
 		    							    		<li id="btn-load-more">
-		    							    			<a href="javaScript:;" onclick="loadMore();">点击载入更多${page.ps}---${page.current}</a>
+		    							    			<a href="javaScript:;" onclick="loadMore();">点击载入更多--当前页：${page.current}---sum:${page.ps}</a>
 		    							    		</li>
 		    							    		<li id="btn-loading" class="hidden">
 		    							    			<a href="#">
