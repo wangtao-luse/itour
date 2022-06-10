@@ -1,5 +1,6 @@
 package com.itour.config;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,14 +53,13 @@ public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager m
 	factoryBean.setLoginUrl("/account/login");
 	//配置路径过滤key：是ant路径,支持*,**,?;value配置shiro的默认过滤器, anon:匿名访问;authc:需要认证(登录)才能访问; 
 	//实际开发中会从数据库中读取对应的权限
-	Map<String,String> filterMap = new HashedMap<String, String>();
+	Map<String,String> filterMap = new LinkedHashMap<String, String>();
 	filterMap.put("/css/**","anon");
 	filterMap.put("/md/**","anon");
 	filterMap.put("/js/**","anon");
 	filterMap.put("/img/**","anon");
 	filterMap.put("/uploaded/**","anon");
 	filterMap.put("/test/**","anon");
-	filterMap.put("https://pv.sohu.com/**","anon");
 	ResponseMessage accountRightAnon = accountConnector.getAccountRightAnon(null, null);
 	Map<String, Object> returnResult = accountRightAnon.getReturnResult();
 	Object result = returnResult.get(Constant.COMMON_KEY_RESULT);
@@ -69,11 +69,11 @@ public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager m
 			Object islogin = map.get("ISLOGIN");
 			Object url = map.get("URL");
 			filterMap.put(url.toString(), islogin.toString());
-			logger.info(url+"<<<-------------------->>>"+islogin);
+			logger.info(url.toString()+"<<<-------------------->>>"+islogin.toString());
 		}
 	}
 	//不能访问的情况下shiro会自动跳转到setLoginUrl()的页面;
-	//filterMap.put("/**", "authc");
+	filterMap.put("/**", "authc");
 	factoryBean.setFilterChainDefinitionMap(filterMap);
 	return factoryBean;
 }
