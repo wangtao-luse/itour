@@ -37,13 +37,12 @@ public class MyRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// TODO Auto-generated method stub
-		logger.info("doGetAuthorizationInfo---------------------------->>>");
+		logger.info("---------------------------->>>doGetAuthorizationInfo进入资源权限授权---------------------------->>>");
 		// TODO Auto-generated method stub
 				//1.从PrincipalCollection获取登录用户的信息
 				//2.利用登录的用户信息来获取当前用户的角色或权限(可能需要查询数据库)
 				//3.创建SimpleAuthorizationInfo并设置roles属性和StringPermissions属性	
 				//1.1获取登录用户的信息
-				System.out.println("------------------------------------进入资源权限授权-------------------------------》");
 				Oauth primaryPrincipal =(Oauth) principals.getPrimaryPrincipal();
 				Set<String> roles= new HashSet<String>();
 				Set<String> permissions = new HashSet<String>();
@@ -67,16 +66,16 @@ public class MyRealm extends AuthorizingRealm {
 				ResponseMessage queryAccountRight = accountConnector.getAccountRightDetial(jsonObject, null);
 				Map<String, Object> map = queryAccountRight.getReturnResult();
 				List<Map<String, Object>> rightDetailList =(List<Map<String, Object>>) map.get(Constant.COMMON_KEY_RESULT);
-				System.out.println("------------------------------------资源权限-------------------------------》");
+				logger.info("------------------------------------资源权限-------------------------------》");
 				for (Map<String, Object> rightDetail : rightDetailList) {
 					permissions.add(String.valueOf(rightDetail.get("URL")));
-					System.out.println(rightDetail.get("URL"));
+					logger.info("------------------------------------"+rightDetail.get("URL")+"-------------------------------》");
 				}
 				//3.创建SimpleAuthorizationInfo
 				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 				info.setRoles(roles);
 				info.setStringPermissions(permissions);
-		return null;
+		return info;
 	}
 	/**  认证
      * 基本步骤：

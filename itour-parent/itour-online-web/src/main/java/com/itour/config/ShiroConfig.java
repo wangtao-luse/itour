@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.itour.cache.MyRedisCacheManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.AccountConnector;
 import com.itour.constant.Constant;
@@ -31,8 +32,6 @@ public class ShiroConfig {
 public Realm myRealm(HashedCredentialsMatcher credentialsMatcher) {
 	MyRealm myRealm = new MyRealm();
 	myRealm.setCredentialsMatcher(credentialsMatcher);
-	myRealm.setAuthorizationCachingEnabled(true);
-	myRealm.setAuthenticationCachingEnabled(true);
 	return myRealm;
 }
 //2.SecurityManager 流程控制
@@ -40,7 +39,7 @@ public Realm myRealm(HashedCredentialsMatcher credentialsMatcher) {
 public DefaultWebSecurityManager mySecurityManager(Realm myRealm) {
 	 DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 	 securityManager.setRealm(myRealm);
-	 securityManager.setCacheManager(memoryConstrainedCacheManager());
+	 securityManager.setCacheManager(memoryConstrainedCacheManager());	 
 	 return securityManager;
 }
 //3.ShiroFilterFactoryBean	请求过滤
@@ -93,5 +92,11 @@ public CacheManager memoryConstrainedCacheManager() {
 	MemoryConstrainedCacheManager  cacheManager = new MemoryConstrainedCacheManager();
 	return cacheManager;
 }
-
+//Shiro集成Redis缓存
+@Bean
+public MyRedisCacheManager redisCacheManager() {
+	MyRedisCacheManager redisManager = new MyRedisCacheManager();
+	return redisManager;
+			
+}
 }

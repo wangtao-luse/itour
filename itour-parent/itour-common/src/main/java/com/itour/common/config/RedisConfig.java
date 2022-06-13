@@ -13,7 +13,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
-import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 
 @Configuration
 @ConditionalOnClass(RedisOperations.class)
