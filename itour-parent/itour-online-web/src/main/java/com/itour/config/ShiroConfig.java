@@ -9,6 +9,7 @@ import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +94,7 @@ public CacheManager memoryConstrainedCacheManager() {
 	return cacheManager;
 }
 //Shiro集成Redis缓存
-@Bean
+//@Bean
 public MyRedisCacheManager redisCacheManager() {
 	MyRedisCacheManager redisManager = new MyRedisCacheManager();
 	return redisManager;
