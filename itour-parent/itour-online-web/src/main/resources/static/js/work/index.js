@@ -31,11 +31,23 @@ $(function(){
 		var url="/work/index?ajaxCmd=content";
 		postForm(url, postData, function(result){
 			if(result){
-				if($("#btn-load-more")){
-					$("#topstoryContent .topstory-recommend div:first .text-center").before(result);
-				}else{
+				var css =result.indexOf("css-1g5evo1");
+				var query =result.indexOf("card");
+			    var html = $(".topstory-recommend").html();
+			    var card = html.indexOf("card");
+				if(card==-1 && css !=-1){//页面上没有数据且查询结果没有数据
 					$("#topstoryContent .topstory-recommend div:first").append(result);
+				}else if(card != -1 && css !=-1){//页面有数据且查询没有数据
+					$("#btn-load-more").html("<a>没有更多数据了！</a>").css("color","#ddd");
+				}else if (card !=-1 && query !=-1){//页面有数据且查询有数据
+					if($("#btn-load-more")){					
+						$("#topstoryContent .topstory-recommend div:first .text-center").before(result);
+					}else{
+						$("#topstoryContent .topstory-recommend div:first").append(result);
+					}
 				}
+				
+				
 				
 			}
 			
