@@ -59,6 +59,10 @@ public class SpringMVCInterceptor implements HandlerInterceptor{
 			ModelAndView modelAndView) throws Exception {
 		
 		try {
+			//解决登出后从preHandle 中设置的session中用户信息没有情况bug
+			 AccountVo sessionUser = SessionUtil.getSessionUser();
+			 request.setAttribute("user", sessionUser);
+			 
 			long startTime=(long) request.getAttribute("startTime");
 			long endTime = System.currentTimeMillis();
 			long executeTime = endTime - startTime;
