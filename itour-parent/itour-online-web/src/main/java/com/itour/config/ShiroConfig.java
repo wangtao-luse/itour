@@ -108,7 +108,7 @@ public MyRedisCacheManager redisCacheManager() {
  * (如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,
  * 并在必要时进行安全逻辑验证 * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)
  * 和AuthorizationAttributeSourceAdvisor)即可实现此功能
- * 如果不配置，且使用了相关注解会导致页面404无法访问;
+ * 与springboot集成时，如果不配置，且使用了相关注解会导致页面404无法访问;
  * @return
  */
 @Bean

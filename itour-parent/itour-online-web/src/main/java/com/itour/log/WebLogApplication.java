@@ -42,18 +42,20 @@ import com.itour.exception.BaseException;
 @Component
 public class WebLogApplication {
     private static Logger logger = (Logger) LoggerFactory.getLogger(WebLogApplication.class);
-       //计算方法调用时间
-       ThreadLocal<Long> time=new ThreadLocal<>();
-       //防重复提交
-       private static final Cache<String, Object> CACHES = CacheBuilder.newBuilder()
+    //计算方法调用时间
+    ThreadLocal<Long> time = new ThreadLocal<>();
+    //防重复提交
+    private static final Cache<String, Object> CACHES = CacheBuilder.newBuilder()
                // 最大缓存 100 个
                .maximumSize(100)
                // 设置缓存过期时间为S
                .expireAfterWrite(3, TimeUnit.SECONDS)
                .build();
+    
     @Pointcut("execution(public * com.itour.controller..*.*(..))")
     public void webLog() {
     }
+    
      //前置通知
     @Before("webLog()") //在切入点的方法运行之前的时候
     public void logBeforeController(JoinPoint joinPoint) {
@@ -62,10 +64,7 @@ public class WebLogApplication {
          time.set(startTime); 
          //请求参数（用于日志处理）
         requestInfo(joinPoint);
- 
-    }
-
-	
+    }	
  
     @AfterReturning(returning = "object", pointcut = "webLog()")//后置通知
     public void doAfterReturning(JoinPoint JoinPoint ,Object object) throws Throwable {
@@ -86,21 +85,17 @@ public class WebLogApplication {
 	           result.put("page", object);
 	            logger.info("RESPONSE:"+result.toJSONString());
     	}
-        
-        
-        
  
     }
    
     @After("webLog()")//最终通知
-    public void doAfter(JoinPoint JoinPoint ){
-    }
+    public void doAfter(JoinPoint JoinPoint ){}
+    
     @AfterThrowing(pointcut = "webLog()")//报错后通知
-    public void afterThrow(JoinPoint JoinPoint ){
-        
-    }
+    public void afterThrow(JoinPoint JoinPoint ){}
+    
     @Around("webLog()")
-  public Object  doAround(ProceedingJoinPoint proceedingJoinPoint ) throws Exception{
+    public Object  doAround(ProceedingJoinPoint proceedingJoinPoint ) throws Exception{
         try {
         	 time.set(System.currentTimeMillis());
              System.out.println("###########方法前#########");
@@ -127,6 +122,7 @@ public class WebLogApplication {
             return ResponseMessage.getFailed(Constant.FAILED_SYSTEM_ERROR);
 		}
     }
+    
     /**
      * 防重复提交 基于本地缓存
      * @param method
@@ -150,6 +146,7 @@ public class WebLogApplication {
 		}
 		return resp;
 	}
+	
 	public void requestInfo(JoinPoint joinPoint) {
 		String string = joinPoint.toString();
         Object[] args = joinPoint.getArgs();

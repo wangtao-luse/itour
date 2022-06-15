@@ -1,6 +1,6 @@
 package com.itour.util;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 public class MethodUtils {
 private static final String SET_PREFIX ="set";	
