@@ -340,6 +340,10 @@ INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/commentList','-1','anon','日志详情页-评论列表','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/work/workMd','2','anon','日志创作者权限','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/work/workUpdateMd','2','authc','日志修改页面','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/work/savaOrUpdateWorkInfo','2','authc','日志新增或修改','1');
 #-前台权限表###########################-
 INSERT INTO t_a_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES( '1', '爱旅行创作者', '-1', '2', '', '','');	

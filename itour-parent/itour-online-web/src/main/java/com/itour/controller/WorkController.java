@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -75,6 +76,7 @@ public String index(Page page,ModelMap model,HttpServletRequest request,String a
  * @return
  */
 @RequestMapping("/workMd")
+@RequiresPermissions("/work/workMd")
 public String workMd(ModelMap model,HttpServletRequest request) {
 	workInfoData(model, request);	
 	return "/work/info/workinfoMd";
@@ -84,6 +86,7 @@ public String workMd(ModelMap model,HttpServletRequest request) {
  * @return
  */
 @RequestMapping("/workUpdateMd")
+@RequiresPermissions("/work/workUpdateMd")
 public String workUpdateMd(Long id,ModelMap model,HttpServletRequest request) {
 	//判断该用户是否有对该日志修改的权限
 	AccountVo sessionUser = SessionUtil.getSessionUser();
@@ -183,6 +186,7 @@ public String search() {
  * @return
  */
 @RequestMapping("/savaOrUpdateWorkInfo")
+@RequiresPermissions("/work/savaOrUpdateWorkInfo")
 @ResponseBody
 public ResponseMessage savaOrUpdateWorkInfo(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
 	ResponseMessage resp = this.workConnector.savaOrUpdateWorkInfo(jsonObject, request);
