@@ -69,7 +69,7 @@ public class MyRealm extends AuthorizingRealm {
 				logger.info("------------------------------------资源权限-------------------------------》");
 				for (Map<String, Object> rightDetail : rightDetailList) {
 					permissions.add(String.valueOf(rightDetail.get("URL")));
-					logger.info("------------------------------------"+rightDetail.get("URL")+"-------------------------------》");
+					logger.info(rightDetail.get("URL")+"");
 				}
 				//3.创建SimpleAuthorizationInfo
 				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

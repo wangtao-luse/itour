@@ -12,14 +12,16 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
-@RequestMapping("test")
+@Controller
+@RequestMapping("/test")
 public class TestController {
 	@RequestMapping("/login")
 public Map login(@RequestBody JSONObject jsonObject,HttpServletRequest request) {
@@ -63,4 +65,9 @@ public Map login(@RequestBody JSONObject jsonObject,HttpServletRequest request) 
 
 	return resultMap;
 }
+	@RequestMapping("/hello")
+	@ResponseBody
+	public String hello() {
+		return "hello";
+	}
 }

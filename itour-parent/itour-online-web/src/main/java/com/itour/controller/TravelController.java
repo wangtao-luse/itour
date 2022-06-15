@@ -13,7 +13,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +48,8 @@ import com.itour.util.IpUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
 import com.itour.util.StringHelper;
+
+import cn.hutool.core.util.StrUtil;
 
 @Controller
 @RequestMapping("/travel")
@@ -225,7 +226,7 @@ private void travelInfo(Long id, ModelMap model, HttpServletRequest request) {
 	TravelInfoDto tmp = new TravelInfoDto();
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	model.addAttribute("sessionUser", sessionUser);
-	if(!StringUtils.isEmpty(sessionUser)) {
+	if(!StrUtil.isEmptyIfStr(sessionUser)) {
 		tmp.setQueryUid(sessionUser.getuId());
 	}
 	tmp.setId(id);
@@ -263,7 +264,7 @@ private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest 
 	 page.setSize(10);
 	 jsonObject.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage respMsg = this.travelConnector.queryCommentList(jsonObject, request);
-	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StringUtils.isEmpty(respMsg.getReturnResult())) {
+	if(Constant.SUCCESS_CODE.equals(respMsg.getResultCode())&&!StrUtil.isEmptyIfStr(respMsg.getReturnResult())) {
 		Map<String, Object> returnResult = respMsg.getReturnResult();
 		PageInfo resultPage = FastJsonUtil.mapToObject(returnResult, PageInfo.class, Constant.COMMON_KEY_RESULT);
 		resultPage.pageNav();
@@ -520,7 +521,7 @@ public String search(TravelInfoDto dto,PageInfo page,HttpServletRequest request,
 	model.addAttribute("tList", records);
 	model.addAttribute("page", pageInfo);
 	model.addAttribute("search", parameter);
-	if(StringUtils.isEmpty(ajaxCmd)) {
+	if(StrUtil.isEmpty(ajaxCmd)) {
 		return "/travel/search";
 	}else {
 		return "/travel/search#"+ajaxCmd;
@@ -539,7 +540,7 @@ public String search(TravelInfoDto dto,PageInfo page,HttpServletRequest request,
 public String personCenter(HttpServletRequest request,ModelMap model) {
 	String uid = request.getParameter("rpm");
 	AccountVo sessionUser = SessionUtil.getSessionUser();
-	if(!StringUtils.isEmpty(uid)) {
+	if(!StrUtil.isEmpty(uid)) {
 		Oauth o = new Oauth();
 	       o.setuId(uid);
 	JSONObject parseObject = JSONObject.parseObject(JSONObject.toJSONString(o));
@@ -572,7 +573,7 @@ public String updateMd(Long id,HttpServletRequest request,ModelMap model) {
 	ResponseMessage selectTravelInfoOne = this.travelConnector.selectTravelInfoOne(jsonObject, request);
 	if(ResponseMessage.isSuccessResult(selectTravelInfoOne)) {
 		Map<String, Object> returnResult = selectTravelInfoOne.getReturnResult();
-		if(StringUtils.isEmpty(returnResult.get(Constant.COMMON_KEY_RESULT))) {
+		if(StrUtil.isEmptyIfStr(returnResult.get(Constant.COMMON_KEY_RESULT))) {
 			//提示没有权限操作该文章
 			model.addAttribute("error", ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
 		}else {
@@ -641,12 +642,12 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 	JSONObject jsonTmp = new JSONObject();
 	String mold = travelInfoDto.getMold();
 	//默认查询动态
-	if(StringUtils.isEmpty(mold)) {
+	if(StrUtil.isEmpty(mold)) {
 		travelInfoDto.setMold("1");
 	}
 	//queryUid有值说明是查看别人主页
 	String queryUid = jsonObject.getString("rpm");
-	if(StringUtils.isEmpty(queryUid)) {//查看自己的的主页
+	if(StrUtil.isEmpty(queryUid)) {//查看自己的的主页
 		travelInfoDto.setUid(sessionUser.getuId());
 		travelInfoDto.setOauthId( sessionUser.getOauthId());
 		travelInfoDto.setQueryUid(sessionUser.getuId());
@@ -680,7 +681,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		JSONObject tmpJSon = new JSONObject();
 		TravelInfoDto dto = new TravelInfoDto();
 		dto.setQueryUid(travelInfoDto.getQueryUid());
-		if(!StringUtils.isEmpty(queryUid)) {//统计可见收藏夹个数
+		if(!StrUtil.isEmpty(queryUid)) {//统计可见收藏夹个数
 		dto.setVisual(ConstAccount.PERSONCENTER_VISUAL_SHOW);
 		}
 		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
@@ -693,7 +694,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		//收藏
 		JSONObject tmpJson = new JSONObject();
 		FavoritesDto fdto = new FavoritesDto();
-		if(StringUtils.isEmpty(queryUid)) {
+		if(StrUtil.isEmpty(queryUid)) {
 			fdto.setUid(sessionUser.getuId());
 			
 		}else {
@@ -856,7 +857,7 @@ public ResponseMessage pageview(@RequestBody JSONObject jsonObject) {
 	String id = jsonObject.getString("id");
 	//如果编号为空key为uuid,否则key为攻略编号;
 	String key = StringHelper.getUuid();
-	if(!StringUtils.isEmpty(id)) {
+	if(!StrUtil.isEmpty(id)) {
 		key = id;
 	}
 	TravelInfoDto travelInfo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(TravelInfoDto.class);
@@ -875,5 +876,11 @@ public String pageViewP(String key,ModelMap model) {
    model.addAttribute("travelInfo", travelInfo);
    model.addAttribute("id", key);
 	return "/travel/info/pageview";
+}
+
+@RequestMapping("/hello")
+@ResponseBody
+public String hello() {
+	return "hello";
 }
 }

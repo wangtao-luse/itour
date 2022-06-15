@@ -16,7 +16,6 @@ import com.itour.common.file.FileUploadHelper;
 import com.itour.common.image.ThumbnailsHelper;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.util.StringHelper;
 
 @Controller
 public class PictureContoller {

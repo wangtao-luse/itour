@@ -54,7 +54,7 @@ public class WebLogApplication {
     @Pointcut("execution(public * com.itour.controller..*.*(..))")
     public void webLog() {
     }
- 
+     //前置通知
     @Before("webLog()") //在切入点的方法运行之前的时候
     public void logBeforeController(JoinPoint joinPoint) {
     	// 调用方法开始时间
@@ -67,11 +67,10 @@ public class WebLogApplication {
 
 	
  
-    @AfterReturning(returning = "object", pointcut = "webLog()")
+    @AfterReturning(returning = "object", pointcut = "webLog()")//后置通知
     public void doAfterReturning(JoinPoint JoinPoint ,Object object) throws Throwable {
         // 处理完请求，返回内容
     	if(object instanceof JSON) {
-    		 System.out.println("########后置通知########");
     	        String json=JSONObject.toJSONString(object);     	       
     	    	   long endTime = System.currentTimeMillis();
     	           long  t= endTime-time.get();
@@ -93,13 +92,11 @@ public class WebLogApplication {
  
     }
    
-    @After("webLog()")
+    @After("webLog()")//最终通知
     public void doAfter(JoinPoint JoinPoint ){
-    System.out.println("########最终通知####");
     }
-    @AfterThrowing(pointcut = "webLog()")
+    @AfterThrowing(pointcut = "webLog()")//报错后通知
     public void afterThrow(JoinPoint JoinPoint ){
-        System.out.println("#####报错了######" );
         
     }
     @Around("webLog()")
@@ -157,7 +154,6 @@ public class WebLogApplication {
 		String string = joinPoint.toString();
         Object[] args = joinPoint.getArgs();
         final Object target = joinPoint.getTarget();
-        System.out.println("########前置通知########");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         RequestMessage requestMessage = new RequestMessage();
