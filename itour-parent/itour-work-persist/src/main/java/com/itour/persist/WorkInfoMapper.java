@@ -22,17 +22,17 @@ import com.itour.model.work.vo.WorkInfoVo;
  */
 public interface WorkInfoMapper extends BaseMapper<WorkInfo> {
 /**
- * 个人博客列表
+ * 个人日志列表，主要提供前台列表展示使用
  * @param page
  * @param workInfoDto
- * @return
+ * @return 个人日志列表
  */
 List<WorkInfoVo> selectWorkInfoList(Page page,@Param("vo")WorkInfoVo workInfoDto);
 List<WorkInfoVo> selectWorkInfoList(@Param("vo")WorkInfoVo workInfoDto);
 /**
- * 个人博客单条(前台详情页面使用用户信息(图像，昵称))
+ * 个人日志单条(主要提供前台详情页面使用用户信息(图像，昵称))
  * @param workInfoDto
- * @return
+ * @return 个人日志单条
  */
 WorkInfoVo selectWorkInfo(@Param("vo")WorkInfoVo workInfoDto);
 /**
@@ -48,26 +48,6 @@ List<Label> workTagList(@Param("id") Long id);
  * @return
  */
 List<WorkColumn> workColList(@Param("id") Long id);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * 搜索页面使用
  * @param workInfoDto

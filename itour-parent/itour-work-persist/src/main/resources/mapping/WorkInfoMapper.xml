@@ -27,6 +27,11 @@
     <sql id="workInfo_list">
         
     </sql>
+     <!-- 
+        日志列表：
+    1.未登录的情况获取所有用户审核通过日志列表、对应日志作者的昵称、对应作者的图像并根据发布日期降序;
+    2.登录情况获取所有用户审核通过的日志列表、对应日志作者的昵称、对应作者的图像及当前用户是否点赞对应日志（likeStatus为0表示未点赞或取消点赞,1表示点赞过）、点赞的用户Id
+      -->
      <select id="selectWorkInfoList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
 	     <choose>
 	         <when test="vo.loginUid==null or ''==vo.loginUid">

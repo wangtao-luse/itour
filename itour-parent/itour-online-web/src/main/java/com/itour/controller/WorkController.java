@@ -88,7 +88,7 @@ public String workMd(ModelMap model,HttpServletRequest request) {
 @RequestMapping("/workUpdateMd")
 @RequiresPermissions("/work/workUpdateMd")
 public String workUpdateMd(Long id,ModelMap model,HttpServletRequest request) {
-	//判断该用户是否有对该日志修改的权限
+	//1.判断该用户是否有对该日志修改的权限
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	JSONObject jsonObject = new JSONObject();
 	WorkInfo work = new WorkInfo();

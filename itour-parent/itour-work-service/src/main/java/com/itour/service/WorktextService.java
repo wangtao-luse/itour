@@ -22,6 +22,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class WorktextService extends ServiceImpl<WorktextMapper, Worktext> {
+	/**
+	 * 获取日志文本
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage selecWorktextOne(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {

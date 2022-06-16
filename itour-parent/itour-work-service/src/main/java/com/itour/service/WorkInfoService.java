@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -24,7 +23,6 @@ import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
 import com.itour.model.dto.PageInfo;
-import com.itour.model.travel.TravelInfo;
 import com.itour.model.work.InfoColumn;
 import com.itour.model.work.InfoLabel;
 import com.itour.model.work.Label;
@@ -40,6 +38,8 @@ import com.itour.persist.WorkColumnMapper;
 import com.itour.persist.WorkInfoMapper;
 import com.itour.persist.WorktextMapper;
 import com.itour.util.DateUtil;
+
+import cn.hutool.core.util.StrUtil;
 
 /**
  * <p>
@@ -73,9 +73,11 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 	RedisManager redisManager;
 	
 	/**
-	 * 前台使用（包含了用户图像，昵称等信息）
+	 * 1.主要提供前台使用
+	 * 2.未登录时获取所有用户审核通过的日志,包含了日志对应的作者的昵称、图像;
+	 * 3.登录时获取所有用户审核通过的日志,包含了日志对应的作者的昵称、图像、登录用户是否点赞、点赞的用户Id;
 	 * @param requestMessage
-	 * @return
+	 * @return 日志信息列表
 	 */
 	public ResponseMessage selectWorkInfoList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
@@ -100,9 +102,9 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		return responseMessage;
 	}
 	/**
-	 *   查询工作日志单条
+	 * 查询工作日志单条
 	 * @param requestMessage
-	 * @return
+	 * @return 单条日志
 	 */
 	public ResponseMessage selectWorkInfoOne(RequestMessage requestMessage) {
 		   ResponseMessage responseMessage = ResponseMessage.getSucess();
@@ -110,9 +112,11 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			   JSONObject jsonObject = requestMessage.getBody().getContent();
 			   WorkInfo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
 			   QueryWrapper<WorkInfo> queryWrapper = new QueryWrapper<WorkInfo>();
+			   //1.查看Id对应日志的作者是否是当前登录者
 			   queryWrapper.eq(null!=vo.getId(), "ID", vo.getId());
-			   queryWrapper.eq(!StringUtils.isEmpty(vo.getUid()), "UID", vo.getUid());
+			   queryWrapper.eq(!StrUtil.isEmptyIfStr(vo.getUid()), "UID", vo.getUid());
 			   WorkInfo selectTraveInfo = this.baseMapper.selectOne(queryWrapper );
+			   
 			   responseMessage.setReturnResult(selectTraveInfo);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -122,9 +126,11 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		   return responseMessage;
 	   }
 	/**
-	 * 工作日志单条查询(保护用户昵称，图像等信息)
+	 * 1.主要提供给前台查看日志详情使用
+	 * 2.在未登录的情况下，获取对应日志信息、日志对应作者昵称及图像；
+	 * 3.在登录的情况下，获取对应的日志信息、日志对应作者昵称及图像、当前登录用户是否点赞、点赞的用户编号；
 	 * @param requestMessage
-	 * @return
+	 * @return 工作日志单条(包含日志详情、用户昵称，图像等信息)
 	 */
 	public ResponseMessage selectWorkInfo(RequestMessage requestMessage) {
 		   ResponseMessage responseMessage = ResponseMessage.getSucess();
@@ -141,7 +147,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		   return responseMessage;
 	   }
 	/**
-	 * 工作日志查询
+	 * 工作日志搜索
 	 * @param requestMessage
 	 * @return
 	 */
@@ -162,7 +168,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		return response;
 	}
 	/**
-	 * 个人中心
+	 * 日志个人中心
 	 * @param requestMessage
 	 * @return
 	 */
@@ -182,6 +188,11 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		}
 		return response;
 	}
+	/**
+	 * 日志个人中心数据统计
+	 * @param requestMessage
+	 * @return
+	 */
 	public ResponseMessage getInfoData(RequestMessage requestMessage) {
 		ResponseMessage response = ResponseMessage.getSucess();
 		try {
@@ -252,13 +263,13 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			String function = jsonObject.getString(Constant.COMMOM_FUNCTION);
 			//1.插入工作日志表
 			WorkInfo workInfo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
-			if(!StringUtils.isEmpty(workInfo.getId())) {//修改
+			if(!StrUtil.isEmptyIfStr(workInfo.getId())) {//修改
 				//1.检查该用户是否有权限修改此攻略
 				QueryWrapper<WorkInfo> queryWrapper = new QueryWrapper<WorkInfo>();
 				queryWrapper.eq("ID", workInfo.getId());
 				queryWrapper.eq("UID", body.getuId());
 				WorkInfo selectOne = this.baseMapper.selectOne(queryWrapper );
-				if(StringUtils.isEmpty(selectOne)) {
+				if(StrUtil.isEmptyIfStr(selectOne)) {
 					throw new BaseException(ConstantTravel.EXCEPTION_INFO_NOAUTHOR);
 				}
 				
@@ -283,7 +294,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			//2.插入工作日志内容表
 			 WorkInfo info = jsonObject.getJSONObject("vo").toJavaObject(WorkInfo.class);
 				String text = jsonObject.getString("markdown");
-				if(StringUtils.isEmpty(info.getId())) {//新增
+				if(StrUtil.isEmptyIfStr(info.getId())) {//新增
 					Worktext entity = new Worktext();
 					entity.setWid(workInfo.getId());
 					entity.setWcontent(text);

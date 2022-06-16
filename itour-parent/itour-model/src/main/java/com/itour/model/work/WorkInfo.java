@@ -49,7 +49,7 @@ public class WorkInfo extends Model<WorkInfo> {
     private String articleType;
 
     /**
-     * 创建日期
+     * 首次发布时间
      */
     @TableField("PUBLISHTIME")
     private Long publishtime;
@@ -95,7 +95,9 @@ public class WorkInfo extends Model<WorkInfo> {
      */
     @TableField("PV")
     private Integer pv;
-    
+    /**
+     * 收藏数
+     */
     @TableField("COLLECT_COUNT")
     private Integer collectCount;
     
