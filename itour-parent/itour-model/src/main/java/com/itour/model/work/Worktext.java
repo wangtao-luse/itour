@@ -25,13 +25,13 @@ public class Worktext extends Model<Worktext> {
     private Long id;
 
     /**
-     * 博文编号
+     * 日志编号
      */
     @TableField("WID")
     private Long wid;
 
     /**
-     * 工作博客文本
+     * 工作日志文本
      */
     @TableField("WCONTENT")
     private String wcontent;
