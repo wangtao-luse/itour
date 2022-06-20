@@ -33,10 +33,7 @@ import com.itour.exception.BaseException;
 import com.itour.model.quartz.QrtzJobDetails;
 import com.itour.persist.QrtzJobDetailsMapper;
 import com.itour.quartz.service.QuartzService;
-<<<<<<< HEAD
 
-=======
->>>>>>> 491b3e102507c2f54019c56fada1c3709b95db3f
 /**
  * <p>
  *  服务实现类
