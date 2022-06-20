@@ -516,13 +516,6 @@ ResponseMessage updateCommentReplyBatch(RequestMessage requestMessage);
  */
 @RequestMapping(value = "/travel/updateCommentBatch",produces = {"application/json;charset=UTF-8"})
 ResponseMessage updateCommentBatch(RequestMessage requestMessage);
-/**
- * 敏感字列表
- * @param requestMessage
- * @return
- */
-@RequestMapping(value = "/travel/querySensitiveWordList",produces = {"application/json;charset=UTF-8"})
-ResponseMessage querySensitiveWordList(RequestMessage requestMessage);
 
 /**
  * 周末攻略列表视图查询

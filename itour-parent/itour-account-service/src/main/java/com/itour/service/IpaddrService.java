@@ -1,6 +1,8 @@
 package com.itour.service;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -24,6 +26,7 @@ import com.itour.persist.IpaddrMapper;
  */
 @Service
 public class IpaddrService extends ServiceImpl<IpaddrMapper, Ipaddr>  {
+	private final static Logger logger=LoggerFactory.getLogger(IpaddrService.class);
 public ResponseMessage insertIPAddr(RequestMessage requestMessage){
 	ResponseMessage responseMessage = ResponseMessage.getSucess();
 	try {

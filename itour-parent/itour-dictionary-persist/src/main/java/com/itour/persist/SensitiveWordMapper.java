@@ -1,7 +1,7 @@
 package com.itour.persist;
 
-import com.itour.model.travel.SensitiveWord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.itour.model.dictionary.SensitiveWord;
 
 /**
  * <p>

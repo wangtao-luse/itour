@@ -1,6 +1,5 @@
 package com.itour.common.redis;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -42,6 +40,24 @@ private StringRedisTemplate  stringRedisTemplate;
 		 
 		 
 	 */
+	//----------------------------------Key部分--------------------------------------	
+	/**
+	 * 根据key 获取过期时间
+	 * @param key key不能为null
+	 * @return 时间（秒） 0:表示永久有效;-1:如果该值没有设置过期时间;-2:如果没有该值;
+	 */
+	public long getStrExpire(String key) {
+		return stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
+	}
+	/**
+	 * 判断key是否存在
+	 * @param key
+	 * @return
+	 */
+	public boolean hasStrKey(String key) {
+		return stringRedisTemplate.hasKey(key);
+	}
+   //----------------------------------String--------------------------------------
 	/**
 	 * 缓存放入 string（字符串)
 	 * @param key 键
@@ -84,22 +100,7 @@ private StringRedisTemplate  stringRedisTemplate;
 		return StringUtils.isEmpty(key)?"":stringRedisTemplate.opsForValue().get(key);
 				
 	}
-	/**
-	 * 根据key 获取过期时间
-	 * @param key key不能为null
-	 * @return 时间（秒） 0:表示永久有效;-1:如果该值没有设置过期时间;-2:如果没有该值;
-	 */
-	public long getStrExpire(String key) {
-		return stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
-	}
-	/**
-	 * 判断key是否存在
-	 * @param key
-	 * @return
-	 */
-	public boolean hasStrKey(String key) {
-		return stringRedisTemplate.hasKey(key);
-	}
+	
 	/**
 	 * 删除缓存
 	 * @param key 可以传入一个或多个
@@ -150,7 +151,7 @@ private StringRedisTemplate  stringRedisTemplate;
 	 * @param map map
 	 * @return true: 成功;false：失败;
 	 */
-	public  boolean hmset(String key,Map<Object, Object> map) {
+	public  boolean hmset(String key,Map<?, ?> map) {
 		try {
 			redisTemplate.opsForHash().putAll(key, map);
 			return true;
@@ -161,23 +162,7 @@ private StringRedisTemplate  stringRedisTemplate;
 		}
 		
 	}
-	/**
-	 * HashSet 缓存存放
-	 * @param key 键
-	 * @param m map
-	 * @return true: 成功;false：失败;
-	 */
-	public  boolean hmSset(String key,HashMap<String, Object> m) {
-		try {
-			redisTemplate.opsForHash().putAll(key, m);
-			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return false;
-		}
-		
-	}
+	
 	/**
 	 * HashSet 缓存存放且添加失效时间
 	 * @param key 键

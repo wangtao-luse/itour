@@ -40,8 +40,4 @@ upload:
 #log    
 logging:
   path: '@log.home@'
-#minio
-minio:
-  endpoint: '@minio.endpoint@'
-  accessKey: '@minio.accessKey@'
-  secretKey: '@minio.secretKey@'
+

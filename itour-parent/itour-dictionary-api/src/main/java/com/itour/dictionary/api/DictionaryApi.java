@@ -64,5 +64,12 @@ public interface DictionaryApi {
 	 */
 	@RequestMapping(value = "/dictionary/updateWebsite",produces = {"application/json;charset=UTF-8"})
 	ResponseMessage updateWebsite(@RequestBody RequestMessage requestMessage);
-	
+	/**
+	 * 敏感字列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/querySensitiveWordList",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage querySensitiveWordList(RequestMessage requestMessage);
+
 }

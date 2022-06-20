@@ -1,4 +1,4 @@
-package com.itour.model.travel;
+package com.itour.model.dictionary;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author wangtao
  * @since 2021-04-21
  */
-@TableName("t_c_sensitive_word")
+@TableName("t_d_sensitive_word")
 public class SensitiveWord extends Model<SensitiveWord> {
 
     private static final long serialVersionUID = 1L;

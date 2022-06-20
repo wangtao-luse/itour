@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +30,7 @@ import com.itour.persist.AccountGroupMapper;
  */
 @Service
 public class AccountGroupService extends ServiceImpl<AccountGroupMapper, AccountGroup> {
-	
+	private final static Logger logger=LoggerFactory.getLogger(AccountGroupService.class);
 	/**
 	 * 分配会员
 	 * @param requestMessage

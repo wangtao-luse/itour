@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -49,8 +48,8 @@ private AccountMapper accountMapper;
 	@Autowired
 private IpaddrService ipaddrService;
 	/**
-	 * 登录
-	 * 1.校验用户名和密码(t_a_oauth)
+	 * 登录提交
+	 * 1.校验用户名(t_a_oauth),密码校验由Shiro完成；
 	 * 1.1 校验用户状态是否正常(t_a_account)
 	 * 1.2修改最近登录时间
 	 * 2.插入登录记录(t_a_login_list)
@@ -64,7 +63,7 @@ private IpaddrService ipaddrService;
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			Oauth oauth = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);
-			//1.校验用户名
+			//1.校验用户名是否存在
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", oauth.getOauthId());
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
@@ -106,15 +105,16 @@ private IpaddrService ipaddrService;
 		return responseMessage;
 	}
 	/**
-	   * 检查用户名、邮箱是否可用
+	   *   检查用户名是否可用
 	 * @param requestMessage
 	 * @return 不可用：返回错误信息
 	 */
 	public ResponseMessage checkOauthId(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
-			 String regName = requestMessage.getBody().getContent().getString("regName");
-			 String type = requestMessage.getBody().getContent().getString("type");
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			 String regName = jsonObject.getString("regName");//用户名（email或用户名）
+			 String type = jsonObject.getString("type");//用户类型:email或用户名
 			 if(StringUtils.isEmpty(regName)) {				 
 				 throw new BaseException(ExceptionInfo.EXCEPTION_ISEMPTY);
 			 }			 
@@ -134,7 +134,7 @@ private IpaddrService ipaddrService;
 				}
 				
 			}else {
-				//找回密码时使用
+				//找回密码时使校验输入的用户名是否存在
 				if(ConstAccount.FINPWD.equals(type)) {
 					throw new BaseException(ConstantMessage.UNKNOWUNAME);
 				}
@@ -158,15 +158,18 @@ private IpaddrService ipaddrService;
 	@Transactional
 	public ResponseMessage updateCredential(RequestMessage requestMessage) {
 		try {
+			//1.获取邮箱地址和密码
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			String regName = jsonObject.getString("email");
 			String credential=jsonObject.getString("pwd");
+			//2.校验账号是否正确
 			QueryWrapper<Oauth> queryWrapper = new QueryWrapper<Oauth>();
 			queryWrapper.eq("OAUTH_ID", regName);
 			Oauth selectOne = this.baseMapper.selectOne(queryWrapper);
 			if(selectOne==null) {
 				throw new BaseException(ExceptionInfo.EXCEPTION_USRNAME);
 			}
+		    //3.修改密码
 			String getuId = selectOne.getuId();
 			List<Oauth> selectList = this.baseMapper.selectList(new QueryWrapper<Oauth>().eq("U_ID", getuId));
 			String salt = StringHelper.getUUID();
@@ -176,6 +179,9 @@ private IpaddrService ipaddrService;
 				oauth.setCredential(result);
 			}
 	        boolean updateBatchById = this.updateBatchById(selectList);
+	        if(!updateBatchById) {
+	        	return ResponseMessage.getFailed();
+	        }
 		} catch (BaseException e) {
 			// TODO: handle exception
 			e.printStackTrace();

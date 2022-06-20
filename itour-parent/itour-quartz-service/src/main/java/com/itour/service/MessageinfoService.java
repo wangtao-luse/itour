@@ -7,6 +7,7 @@ import com.itour.constant.ConstantMessage;
 import com.itour.exception.BaseException;
 import com.itour.model.quartz.Messageinfo;
 import com.itour.persist.MessageinfoMapper;
+import com.itour.quartz.service.WorkCommentReplyService;
 import com.itour.service.MessageinfoService;
 import com.itour.util.DateUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -26,6 +27,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class MessageinfoService extends ServiceImpl<MessageinfoMapper, Messageinfo> {
+	private final static Logger logger=LoggerFactory.getLogger(MessageinfoService.class);
 	/**
 	 * 发送email
 	 * @param email
@@ -113,8 +117,7 @@ public static void main(String[] args) throws MessagingException {
 		           transport.connect("wwangtaoc11@163.com","VAKMXBHEUSDJWCDH");//发件人邮箱,授权码(可以在邮箱设置中获取到授权码的信息)
 		           
 		           transport.sendMessage(msg, msg.getAllRecipients());
-		           
-		           System.out.println("邮件发送成功...");
+		           logger.info("邮件发送成功...");
 		           transport.close();
 }
 /**

@@ -2,7 +2,10 @@ package com.itour.quartz.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,7 @@ import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 @Service
 public class ArticleCheckService {
+	private static final Logger logger = LoggerFactory.getLogger(ArticleCheckService.class);
 	@Autowired
 	private TravelApi travelApi;
 	@Autowired
@@ -39,6 +43,7 @@ public class ArticleCheckService {
 		RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
 		ResponseMessage queryTravelInfoList = this.travelApi.queryViewTravelinfoWeekinfoList(requestMessage);
 		if(ResponseMessage.isSuccessResult(queryTravelInfoList)) {
+			//2.检查是否含有敏感字
 			List<TravelInfo> list = new ArrayList<TravelInfo>();
 			List<ViewTravelinfoWeekinfo> infoList = FastJsonUtil.mapToList(queryTravelInfoList.getReturnResult(), ViewTravelinfoWeekinfo.class);
 			for (ViewTravelinfoWeekinfo travel : infoList) {
@@ -46,6 +51,8 @@ public class ArticleCheckService {
 				boolean sensitive = sensitiveWordFilter.isSensitive(travel.getWeekContent());
 				if(sensitive) {
 					t.setStatus(Constant.COMMON_STATUS_CHECK);
+					Set<String> sensitiveWord = sensitiveWordFilter.getSensitiveWord(travel.getWeekContent());
+					logger.error("包含敏感字符： "+sensitiveWord);
 				}else {
 					t.setStatus(Constant.COMMON_STATUS_CHECKED);
 					Long updatetime = t.getUpdatetime();
@@ -57,7 +64,7 @@ public class ArticleCheckService {
 				list.add(t);
 				
 			}
-			//2.审核
+			//2.修改文章的状态
 			jsonObject.clear();
 			jsonObject.put(Constant.COMMON_KEY_ARR, list);
 			RequestMessage req = HttpDataUtil.postData(jsonObject, null);
@@ -83,6 +90,8 @@ public class ArticleCheckService {
 				boolean sensitive = sensitiveWordFilter.isSensitive(work.getWcontent());
 				if(sensitive) {
 					t.setStatus(Constant.COMMON_STATUS_CHECK);
+					Set<String> sensitiveWord = sensitiveWordFilter.getSensitiveWord(work.getWcontent());
+					logger.error("包含敏感字符： "+sensitiveWord);
 				}else {
 					t.setStatus(Constant.COMMON_STATUS_CHECKED);
 					Long updatetime = t.getUpdatetime();
@@ -94,7 +103,7 @@ public class ArticleCheckService {
 				list.add(t);
 				
 			}
-			//2.审核
+			//2.修改日志状态
 			jsonObject.clear();
 			jsonObject.put(Constant.COMMON_KEY_ARR, list);
 			RequestMessage req = HttpDataUtil.postData(jsonObject, null);

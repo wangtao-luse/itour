@@ -7,9 +7,7 @@
     <artifactId>itour-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.itour</groupId>
   <artifactId>itour-online-web</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>itour-online-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -71,6 +69,11 @@
 	<dependency>
 		<groupId>com.itour</groupId>
 		<artifactId>itour-work-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-dictionary-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   </dependencies>

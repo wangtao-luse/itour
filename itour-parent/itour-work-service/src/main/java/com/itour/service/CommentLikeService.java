@@ -48,7 +48,7 @@ public class CommentLikeService extends ServiceImpl<CommentLikeMapper, CommentLi
 			Long cid = commentNice.getCid();
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			 m.put(uid+"::"+cid, commentNice);
-			 redisManager.hmSset(RedisKey.KEY_ITOUR_COMMENT_NICE, m);
+			 redisManager.hmset(RedisKey.KEY_ITOUR_COMMENT_NICE, m);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -9,6 +9,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.dictionary.api.DictionaryApi;
 import com.itour.service.DictionaryService;
+import com.itour.service.SensitiveWordService;
 import com.itour.service.ViewDDictionaryService;
 import com.itour.service.WebsiteRecommendService;
 @RestController
@@ -19,6 +20,8 @@ public class DictionaryApiController implements DictionaryApi {
 	ViewDDictionaryService viewDDictionaryService;
 	@Autowired
 	WebsiteRecommendService websiteRecommendService;
+	@Autowired
+	SensitiveWordService sensitiveWordService;
 	/**
 	 * 字典列表
 	 */
@@ -83,6 +86,10 @@ public class DictionaryApiController implements DictionaryApi {
 		// TODO Auto-generated method stub
 		return websiteRecommendService.updateWebsite(requestMessage);
 	}
-
+	@Override
+	public ResponseMessage querySensitiveWordList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return sensitiveWordService.querySensitiveWordList(requestMessage);
+	}
 
 }

@@ -16,7 +16,6 @@ import com.itour.service.LocationService;
 import com.itour.service.NiceService;
 import com.itour.service.PageviewService;
 import com.itour.service.RegionService;
-import com.itour.service.SensitiveWordService;
 import com.itour.service.TagService;
 import com.itour.service.TransportationInfoService;
 import com.itour.service.TransportationTypeService;
@@ -75,8 +74,7 @@ public class TravelApiController implements TravelApi {
 	CommentNiceService commentNiceService;
 	@Autowired
 	CommentReplyNiceService commentReplyNiceService;
-	@Autowired
-	SensitiveWordService sensitiveWordService;
+	
 	@Autowired
 	ViewTravelinfoWeekinfoService viewTravelinfoWeekinfoService;
 	@Autowired
@@ -633,11 +631,7 @@ public class TravelApiController implements TravelApi {
 		// TODO Auto-generated method stub
 		return travelCommentService.updateCommentBatch(requestMessage);
 	}
-	@Override
-	public ResponseMessage querySensitiveWordList(@RequestBody RequestMessage requestMessage) {
-		// TODO Auto-generated method stub
-		return sensitiveWordService.querySensitiveWordList(requestMessage);
-	}
+	
 	@Override
 	public ResponseMessage queryViewTravelinfoWeekinfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub

@@ -3,7 +3,7 @@
 <mapper namespace="com.itour.persist.SensitiveWordMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.itour.model.travel.SensitiveWord">
+    <resultMap id="BaseResultMap" type="com.itour.model.dictionary.SensitiveWord">
         <id column="ID" property="id" />
         <result column="WORD_CONTENT" property="wordContent" />
     </resultMap>

@@ -380,7 +380,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			//key 不存在直接放入缓存
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			 m.put(uid+"::"+tid, n);
-			 redisManager.hmSset(RedisKey.KEY_ITOUR_NICE, m);
+			 redisManager.hmset(RedisKey.KEY_ITOUR_NICE, m);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

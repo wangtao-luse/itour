@@ -3,6 +3,8 @@ package com.itour.quartz.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ import com.itour.util.FastJsonUtil;
 
 @Service
 public class CommentCheckService {
+	private static final Logger logger = LoggerFactory.getLogger(CommentCheckService.class);
 	@Autowired
 	private TravelApi travelApi;
 	@Autowired

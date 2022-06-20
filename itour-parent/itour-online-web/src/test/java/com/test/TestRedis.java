@@ -72,8 +72,8 @@ public class TestRedis {
 		t.setUid("10001");
 		HashMap<String, Object> m = new HashMap<String, Object>();
 		m.put(t.getTag(), t);
-		boolean hmset = this.redisManager.hmSset("nice", m);
-		System.out.println(hmset);
+		//boolean hmset = this.redisManager.hmSset("nice", m);
+		//System.out.println(hmset);
 		Map<Object, Object> hget = this.redisManager.hget("nice");
 		
 		

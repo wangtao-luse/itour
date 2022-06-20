@@ -486,10 +486,7 @@
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
-                <!-- minio相关 -->
-                <minio.endpoint>http://1.116.226.147:9002</minio.endpoint>
-                <minio.accessKey>root</minio.accessKey>
-                <minio.secretKey>minio@958958</minio.secretKey>
+               
             </properties>
         </profile>
         <!--测试环境--> 
@@ -557,10 +554,7 @@
                 <docker.imageTag>latest</docker.imageTag>
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <docker.entryPoint>["java","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
-                <!-- minio相关 -->
-                <minio.endpoint>http://1.116.226.147:9800</minio.endpoint>
-                <minio.accessKey>admin</minio.accessKey>
-                <minio.secretKey>[pwd@888]</minio.secretKey>
+                
             </properties>
         </profile>
          <!--模拟生产环境-->
@@ -636,10 +630,7 @@
                   	       https://www.jb51.net/article/202773.htm
                  -->
                 <docker.entryPoint>["java","-Xms512m","-Xmx512m","-Xmn200m","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
-                 <!-- minio相关 -->
-                <minio.endpoint>http://192.168.1.18:9008</minio.endpoint>
-                <minio.accessKey>root</minio.accessKey>
-                <minio.secretKey>minio@958958</minio.secretKey>
+                 
             </properties>
         </profile>
         <!--生产环境 --> 
@@ -707,10 +698,7 @@
                 <docker.cmd>["java","-version"]</docker.cmd>
                 <!-- -Xms64m  -Xmx128m  -Xmn32m  -Xss256k  -XX:SurvivorRatio=8  -XX:+UseConcMarkSweepGC -->
                 <docker.entryPoint>["java","-XX:MetaspaceSize=128m","-XX:MaxMetaspaceSize=56m","-Xms64m","-Xmx128m","-Xmn32m","-Xss256k","-XX:SurvivorRatio=8","-XX:+UseConcMarkSweepGC","-jar","${project.build.finalName}.jar"]</docker.entryPoint>
-                 <!-- minio相关 -->
-                <minio.endpoint>http://1.116.226.147:9800</minio.endpoint>
-                <minio.accessKey>admin</minio.accessKey>
-                <minio.secretKey>[pwd@988]</minio.secretKey>
+                 
             </properties>
         </profile>
     </profiles>

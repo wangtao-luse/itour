@@ -2,8 +2,8 @@ package com.itour.config;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import org.quartz.Scheduler;
+/*
+import org.quartz.Scheduler;*/
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
@@ -13,7 +13,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 //https://www.jb51.net/article/140541.htm
 //https://blog.csdn.net/typ1805/article/details/82998351
-@Configuration
+//@Configuration
 public class ScheduleConfig implements SchedulingConfigurer {
 /**
  * 在实际项目中，我们一个系统可能会定义多个定时任务。那么多个定时任务之间是可以相互独立且可以并行执行的。

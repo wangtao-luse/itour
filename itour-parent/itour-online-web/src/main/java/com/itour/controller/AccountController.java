@@ -13,6 +13,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -42,6 +44,7 @@ import com.itour.util.StringHelper;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 	@Autowired
 	AccountConnector accountConnector;
 	
@@ -159,8 +162,7 @@ public ResponseMessage loginSub(@RequestBody JSONObject jsonObject, HttpServletR
 		String cname = jsonObject.getString("city");
 		//获取当前的 Subject
 		Subject currentUser = SecurityUtils.getSubject();
-		System.out.println("------------------获取当前的 Subject currentUser:"+currentUser+"---------------");
-		System.out.println("获取当前的 Subject currentUser:"+currentUser);
+		logger.info("------------------获取当前的 Subject currentUser:"+currentUser+"---------------");
 		//currentUser.getSession().setTimeout(1000*30);
 		if (!currentUser.isAuthenticated()) {//当前用户是否已经被认证，即是否登录
 			ExUsernamePasswordToken upt = new ExUsernamePasswordToken(username, password, ip, cname, jsonObject, request);

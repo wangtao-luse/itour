@@ -7,9 +7,7 @@
     <artifactId>itour-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.itour</groupId>
   <artifactId>itour-quartz-service</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>itour-quartz-service</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -39,10 +37,10 @@
 	  <groupId>com.alibaba</groupId>
 	  <artifactId>druid</artifactId>
 	</dependency>
-	<dependency>
+	<!-- <dependency>
 	   <groupId>org.springframework</groupId>
 	   <artifactId>spring-jdbc</artifactId>
-	</dependency>
+	</dependency> -->
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-quartz</artifactId>
@@ -61,8 +59,14 @@
 		<groupId>com.itour</groupId>
 		<artifactId>itour-work-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+	</dependency> 
+	<dependency>
+		<groupId>com.itour</groupId>
+		<artifactId>itour-dictionary-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
-  </dependencies>  <build>
+  </dependencies>  
+  <build>
     <finalName>${project.artifactId}</finalName> 
     <plugins>
 		<plugin>

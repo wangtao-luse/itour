@@ -23,6 +23,8 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,7 @@ import org.springframework.stereotype.Service;
 	 */
 	@Service
 	public class QuartzService {
-	 
+		private static final Logger logger = LoggerFactory.getLogger(QuartzService.class);
 	    @Autowired
 	    private Scheduler scheduler;
 	 

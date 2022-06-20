@@ -7,28 +7,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.itour.api.TravelApi;
 import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.model.travel.SensitiveWord;
+import com.itour.dictionary.api.DictionaryApi;
+import com.itour.model.dictionary.SensitiveWord;
 import com.itour.util.FastJsonUtil;
 @Configuration
 public class SensitiveWordFilter implements InitializingBean {
-
+	private static final Logger logger = LoggerFactory.getLogger(SensitiveWordFilter.class);
 	/**
 	 * https://www.jianshu.com/p/f0af22d671a5
 	 * https://blog.csdn.net/qq_33101675/article/details/77836725
 	 */
 	@Autowired
-	TravelApi travelApi;
+	DictionaryApi dictionaryApi;
 	// {冰={毒={isEnd=1}, isEnd=0}, 白={粉={isEnd=1}, isEnd=0}, 大={麻={isEnd=1}, isEnd=0, 坏={蛋={isEnd=1}, isEnd=0}}}
     private static Map<Object, Object> sensitiveWordMap;
  
@@ -181,15 +182,19 @@ public class SensitiveWordFilter implements InitializingBean {
      * 初始化敏感词
      */
     private void initSensitiveWord() {
+    	//1.获取敏感字列表
     	JSONObject jsonObject = new JSONObject();
     	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, null);
-        ResponseMessage sensitiveWordList = this.travelApi.querySensitiveWordList(requestMessage);
-        if(Constant.SUCCESS_CODE.equals(sensitiveWordList.getResultCode())&&!StringUtils.isEmpty(sensitiveWordList.getReturnResult())) {
-        	List<SensitiveWord> list = FastJsonUtil.mapToList(sensitiveWordList.getReturnResult(), SensitiveWord.class, Constant.COMMON_KEY_RESULT);
+        ResponseMessage resp = this.dictionaryApi.querySensitiveWordList(requestMessage);
+        
+        if(ResponseMessage.isSuccessResult(resp)) {
+        	//2.将敏感字列表放入Set集合中
+        	List<SensitiveWord> list = FastJsonUtil.mapToList(resp.getReturnResult(), SensitiveWord.class, Constant.COMMON_KEY_RESULT);
 	        Set<String> sensitiveWordSet = new HashSet<>();
 	        list.stream().forEach(l -> {
 	            sensitiveWordSet.add(l.getWordContent());
 	        });
+	        //3.构建敏感字Map
 	        Iterator<String> iterator = sensitiveWordSet.iterator();
 	        String key;
 	        Map nowMap;
@@ -214,8 +219,9 @@ public class SensitiveWordFilter implements InitializingBean {
 	                    nowMap.put("isEnd", "1");
 	                }
 	            }
-	            System.out.println(sensitiveWordMap);
+	          
 	        }
+	        logger.info(sensitiveWordMap+"");
       }
     }
 

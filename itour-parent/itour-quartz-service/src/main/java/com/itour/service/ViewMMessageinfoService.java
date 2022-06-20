@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,6 +29,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ViewMMessageinfoService extends ServiceImpl<ViewMMessageinfoMapper, ViewMMessageinfo>{
+	private final static Logger logger=LoggerFactory.getLogger(ViewMMessageinfoService.class);
 	public ResponseMessage queryViewMessageList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {

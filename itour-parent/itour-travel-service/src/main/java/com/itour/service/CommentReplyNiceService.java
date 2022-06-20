@@ -64,7 +64,7 @@ public class CommentReplyNiceService extends ServiceImpl<CommentReplyNiceMapper,
 			Long cid = commentNice.getRid();
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			 m.put(uid+"::"+cid, commentNice);
-			 redisManager.hmSset(RedisKey.KEY_ITOUR_COMMENTREPLY_NICE, m);
+			 redisManager.hmset(RedisKey.KEY_ITOUR_COMMENTREPLY_NICE, m);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

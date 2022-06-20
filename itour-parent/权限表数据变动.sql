@@ -256,6 +256,9 @@ INSERT INTO T_D_DICTIONARY(CODE_SET,`CODE`,CNAME,CREATEDATE)VALUES('OAUTH_TYPE',
 INSERT INTO T_D_DICTIONARY(CODE_SET,`CODE`,CNAME,CREATEDATE)VALUES('MSG_AIM','1','注册验证码',1612414470071);
 INSERT INTO T_D_DICTIONARY(CODE_SET,`CODE`,CNAME,CREATEDATE)VALUES('WEBSITE_FEE','1','收费',1612414470071);
 INSERT INTO T_D_DICTIONARY(CODE_SET,`CODE`,CNAME,CREATEDATE)VALUES('WEBSITE_FEE','0','免费',1612414470071);
+###字典模块权限###########
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/dictionary/querySensitiveWordList','-1','anon','关键字列表查询','0');
 ###前台菜单明细表#################################
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/index','-1','anon','首页','0');
@@ -350,5 +353,5 @@ VALUES( '1', '爱旅行创作者', '-1', '2', '', '','');
 INSERT INTO t_a_right (MENU_NO, MENU, PARENT_ID, MENU_TYPE, URL, M_ORDER, S_ORDER )
 VALUES( '2', '日志创作者', '-1', '2', '', '','' );
 
-
+alter table t_c_sensitive_word rename to t_d_sensitive_word;
 	

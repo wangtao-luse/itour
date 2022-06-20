@@ -24,7 +24,7 @@ import com.itour.util.ArrayUtils;
 import com.itour.util.FastJsonUtil;
 @Service
 public class WorkCommentLikeService {
-	private final static Logger logger=LoggerFactory.getLogger(TravelNiceService.class);
+	private final static Logger logger=LoggerFactory.getLogger(WorkCommentLikeService.class);
 	@Autowired
 	RedisManager redisManager;
 	@Autowired
