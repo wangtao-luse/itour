@@ -1,6 +1,5 @@
 package com.itour.controller;
 
-import java.nio.channels.FileChannel.MapMode;
 
 import javax.servlet.http.HttpServletRequest;
 
