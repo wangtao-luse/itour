@@ -47,7 +47,7 @@
   	<json.version>20190722</json.version>
   	<mybatis-plus.version>3.2.0</mybatis-plus.version>
   	<oracle.version>8.0.0</oracle.version>
-  	<mysql.version>8.0.18</mysql.version>
+  	<mysql.version>8.0.28</mysql.version>
   	<mybatis-plus-generator.version>3.3.0</mybatis-plus-generator.version>
   	<beetl.version>1.2.19.RELEASE</beetl.version>
   	<pagehelper.version>5.1.11</pagehelper.version>
