@@ -6,11 +6,15 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.itour.interceptor.SpringMVCInterceptor;
+import com.itour.interceptor.WebsiteInterceptor;
 
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 	@Autowired
 	private SpringMVCInterceptor springMVCInterceptor;
+	@Autowired
+	WebsiteInterceptor websiteInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry interceptorRegistry ) {
 		//SpringMVCInterceptor springMVCInterceptor = new SpringMVCInterceptor();
@@ -19,6 +23,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		String [] addpath= {"/**"};
 		String [] excludePath= {"/error","/css/**","/js/**","/img/**"};
 		interceptorRegistry.addInterceptor(springMVCInterceptor).excludePathPatterns(excludePath).addPathPatterns(addpath);
+		interceptorRegistry.addInterceptor(websiteInterceptor).excludePathPatterns(excludePath).addPathPatterns(addpath);
 	}
 
 }

@@ -16,6 +16,7 @@ public class SessionUtil {
 	private final static Logger logger=LoggerFactory.getLogger(SessionUtil.class);
 	//权限key
     public static final String SESSION_PERMISSION="session_permission";
+    public static final String SESSION_VISIT_NAME = "session_visit_name";
     
 	public static Session getSession() {
 		try {
@@ -32,17 +33,14 @@ public class SessionUtil {
 		AccountVo currentUser = null;
 		try {
 			Subject subject = SecurityUtils.getSubject();
-			System.out.println("SessionUtil getSessionUser---------------------------------------------------------------------");
-			System.out.println("SessionUtil getSessionUser subject ");
+			logger.info("SessionUtil getSessionUser subject");
 			if (null!=subject ) {
 				PrincipalCollection principalCollection = subject.getPrincipals();
 				if ( null!=principalCollection && !principalCollection.isEmpty()) {
 					 Object primaryPrincipal = principalCollection.getPrimaryPrincipal();
-					 System.out.println("SessionUtil primaryPrincipal"+primaryPrincipal);
 					 String jsonString = JSONObject.toJSONString(primaryPrincipal);
-					 System.out.println("jsonString "+jsonString);
+					 logger.info("jsonString "+jsonString);
 					 currentUser = JSONObject.parseObject(jsonString, AccountVo.class);
-					 System.out.println("SessionUtil currentUser");
 				}
 			}
 		} catch (Exception e) {

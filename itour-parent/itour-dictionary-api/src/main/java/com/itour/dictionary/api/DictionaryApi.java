@@ -71,5 +71,33 @@ public interface DictionaryApi {
 	 */
 	@RequestMapping(value = "/dictionary/querySensitiveWordList",produces = {"application/json;charset=UTF-8"})
 	ResponseMessage querySensitiveWordList(RequestMessage requestMessage);
+	/**
+	 * 网站访问数据统计列表
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/selectWebsiteVisitInfoList",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage selectWebsiteVisitInfoList(RequestMessage requestMessage);
+	/**
+	 * 网站访问最近的记录
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/selectRecentlyOne",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage selectRecentlyOne(RequestMessage requestMessage);
+	/**
+	 * 网站访问数据批量保存或修改
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/saveOrUpdateVisitInfoBatch",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage saveOrUpdateVisitInfoBatch(RequestMessage requestMessage);
+	/**
+	 * 网站访问数据IP数据批量保存或修改
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "/dictionary/saveOrUpdateIpInfoBatch",produces = {"application/json;charset=UTF-8"})
+	ResponseMessage saveOrUpdateIpInfoBatch(RequestMessage requestMessage);
 
 }

@@ -61,7 +61,7 @@ public class TravelPageviewJob extends QuartzJobBean{
    }
 	public void updateIp() {
 		//1.获取独立IP数
-    	 String ip = this.redisManager.get(RedisKey.KEY_ITOUR_IP_COUNT);
+    	 String ip = this.redisManager.get(RedisKey.KEY_ITOURINFO_IP_LIST);
     	//2.移除对应的key
 	}
 	public void updateUnique() {

@@ -1,6 +1,7 @@
 package com.itour.util;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +17,7 @@ public class IpUtil {
 	        }
 	        if (ip == null || ip.length () == 0 || "unknown".equalsIgnoreCase (ip)) {
 	            ip = request.getRemoteAddr ();
-	            if (ip.equals ("127.0.0.1")) {
+	            if (ip.equals ("127.0.0.1")|| ip.equals("0:0:0:0:0:0:0:1")) {
 	                //根据网卡取本机配置的IP
 	                InetAddress inet = null;
 	                try {
@@ -35,5 +36,6 @@ public class IpUtil {
 	        }
 	        return ip;
 	    }
-}
 
+
+}

@@ -1,12 +1,17 @@
 package com.itour.controller;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itour.common.redis.RedisKeyManager;
 import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
@@ -44,6 +50,7 @@ import cn.hutool.core.util.StrUtil;
 @Controller
 @RequestMapping("/work")
 public class WorkController {
+    public static final Logger logger = LoggerFactory.getLogger(WorkController.class);
 	@Autowired
 	WorkConnector workConnector;
 	@Autowired
@@ -192,13 +199,20 @@ public ResponseMessage savaOrUpdateWorkInfo(@RequestBody JSONObject jsonObject,H
 	ResponseMessage resp = this.workConnector.savaOrUpdateWorkInfo(jsonObject, request);
 	return resp;
 }
+
 /**
  * 日志详情页面
  * @return
  */
 @RequestMapping("/detail")
 public String detail(Long id,ModelMap model,HttpServletRequest request) {
-	 //1.独立IP访问数作为显示的浏览量（浏览量功能相关）
+	/**
+	 * 1.pv(浏览量):页面浏览量,同一页面多次打开浏览量累计;
+	 * 2.ip(独立ip):1天内使用不同IP地址的用户访问网站的数量,同一IP无论访问了网站里的多少个页面，独立IP数均为1。
+	 * 3.vv(访问次数):从访客来到您网站到最终关闭网站的所有页面离开，计为1次访问。若访客连续30分钟没有新开和刷新页面，或者访客关闭了。
+	 * 4.(uv)独立访客:1天内相同的访客多次访问您的网站只计算1个UV，以cookie为依据。
+	 */
+	//1.独立IP访问数作为显示的浏览量（浏览量功能相关）
 	  ip(request,String.valueOf(id));
      //2.获取旅行信息
       WorkInfoVo workInfo = workInfo(id, model, request);
@@ -207,15 +221,25 @@ public String detail(Long id,ModelMap model,HttpServletRequest request) {
       model.addAttribute("id", id);
 	return "/work/info/detail";
 }
+/**
+ * 独立IP数也称IP数，指1天内使用不同IP地址的用户访问网站的数量，同一IP无论访问了几个页面，独立IP数均为1;
+ * 实现思路：
+ * 1.浏览时使用key=ip::yyyy-MM-dd::文章Id方式
+ * @param request
+ * @param id
+ */
 private void ip(HttpServletRequest request,String id) {
-	 //1.组装key
+	
+	 //1.组装key,ip::yyyy-MM-dd::文章Id
 	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
 	 String ipAddr = IpUtil.getIpAddr(request);
+	 //key=192.168.1.8::2022-6-22::1
 	 String key=ipAddr+"::"+strDate+"::"+id;
-		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_WORK_IPS, key);		 
+	 //2.判断对应的key是否已经存在
+	 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_WORKINFO_IP_LIST, key);		 
 		 if(!isMember) {//缓存中没有则添加到缓存
-		 	this.redisManager.sAdd(RedisKey.KEY_WORK_IPS,key);
-			this.redisManager.incr(RedisKey.KEY_WORK_IP_COUNT, 1);
+			 //3.对应的IP对应的key放入缓存
+		 	this.redisManager.sAdd(RedisKey.KEY_WORKINFO_IP_LIST,key);		 	
 		 }
 }
 private WorkInfoVo workInfo(Long id, ModelMap model, HttpServletRequest request) {

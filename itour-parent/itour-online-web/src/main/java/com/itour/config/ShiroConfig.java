@@ -11,6 +11,7 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
@@ -41,7 +42,8 @@ public Realm myRealm(HashedCredentialsMatcher credentialsMatcher) {
 public DefaultWebSecurityManager mySecurityManager(Realm myRealm) {
 	 DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 	 securityManager.setRealm(myRealm);
-	 securityManager.setCacheManager(memoryConstrainedCacheManager());	 
+	 securityManager.setCacheManager(memoryConstrainedCacheManager());	
+	 securityManager.setSessionManager(sessionManager());
 	 return securityManager;
 }
 //3.ShiroFilterFactoryBean	请求过滤
@@ -102,6 +104,13 @@ public MyRedisCacheManager redisCacheManager() {
 	MyRedisCacheManager redisManager = new MyRedisCacheManager();
 	return redisManager;
 			
+}
+@Bean
+public DefaultWebSessionManager sessionManager() {
+	DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+	// 设置session过期时间1800s
+	sessionManager.setGlobalSessionTimeout(1800000L);
+	return sessionManager;
 }
 /**
  * 开启Shiro的注解，

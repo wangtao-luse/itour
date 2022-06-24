@@ -64,6 +64,12 @@ public class FileUtil {
 		return b;
 
 	}
+/**
+ * 上传图片
+ * @param inputStream
+ * @param jsonObject
+ * @return
+ */
 public static boolean uploadPhoto(InputStream inputStream,JSONObject jsonObject) {
 	//文件名称
 	String fileName = jsonObject.getString("fileName");
@@ -155,6 +161,12 @@ public static boolean checkedSuffix(String fileName,String function){
 	
 	return matches;
 }
+/**
+ * 上次pdf文件
+ * @param inputStream
+ * @param jsonObject
+ * @return
+ */
 public static boolean uploadPdf(InputStream inputStream,JSONObject jsonObject) {
 	//文件名称
 		String fileName = jsonObject.getString("fileName");
@@ -177,11 +189,17 @@ public static boolean uploadPdf(InputStream inputStream,JSONObject jsonObject) {
 		 ByteArrayOutputStream baos = (ByteArrayOutputStream) ImageUtils.resize(inputStream, resizeWidth);
 	     inputStream = new ByteArrayInputStream(baos.toByteArray());
 		}
-	boolean saveFile = saveFile(inputStream, fileName, savePath);
+	boolean saveFile = saveFile(inputStream, newfileName, saveFileDictionary);
 	return saveFile;
 }
+/**
+ * 上次文本文档
+ * @param inputStream
+ * @param jsonObject
+ * @return
+ */
 public static boolean uploadDoc(InputStream inputStream,JSONObject jsonObject) {
-	//文件名称
+	   //文件名称
 		String fileName = jsonObject.getString("fileName");
 		//检查图片后缀
 		checkedSuffix(fileName, ConstantFile.FUNCTION_DOC);
@@ -202,9 +220,15 @@ public static boolean uploadDoc(InputStream inputStream,JSONObject jsonObject) {
 		 ByteArrayOutputStream baos = (ByteArrayOutputStream) ImageUtils.resize(inputStream, resizeWidth);
 	     inputStream = new ByteArrayInputStream(baos.toByteArray());
 		}
-	boolean saveFile = saveFile(inputStream, fileName, savePath);
+	boolean saveFile = saveFile(inputStream, newfileName, saveFileDictionary);
 	return saveFile;
 }
+/**
+ * 上次pdf或文本文档
+ * @param inputStream
+ * @param jsonObject
+ * @return
+ */
 public static boolean uploadPdfAndDoc(InputStream inputStream,JSONObject jsonObject) {
 	//文件名称
 		String fileName = jsonObject.getString("fileName");
@@ -227,7 +251,7 @@ public static boolean uploadPdfAndDoc(InputStream inputStream,JSONObject jsonObj
 		 ByteArrayOutputStream baos = (ByteArrayOutputStream) ImageUtils.resize(inputStream, resizeWidth);
 	     inputStream = new ByteArrayInputStream(baos.toByteArray());
 		}
-	boolean saveFile = saveFile(inputStream, fileName, savePath);
+	boolean saveFile = saveFile(inputStream, newfileName, saveFileDictionary);
 	return saveFile;
 }
 public static void main(String[] args) throws IOException {
@@ -251,4 +275,5 @@ public static void main(String[] args) throws IOException {
 	
 	
 }
+
 }

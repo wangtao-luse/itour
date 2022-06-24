@@ -36,18 +36,18 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_WORK;
+  			 String model=ItourMpGenerator.MODEL_DICTIONARY;
   			        
   			        
   			 /**
   			  * 是否为视图
   			  */
-  			 boolean isView =true;//视图
+  			 boolean isView =false;//视图
   			 /**
   			  * 需要生成的表名
   			  */
   			 String [] include= new String[] {
-  					 "view_workInfo_worktext"
+  					 "T_D_WEBSITE_ip_info"
   			           		 
   			 };
   			 /**
@@ -112,9 +112,9 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 
 		
             dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-            dsc.setUrl("jdbc:mysql://106.54.162.159:3308/itour?serverTimezone=UTC");
+            dsc.setUrl("jdbc:mysql://1.116.226.147:3307/itour?serverTimezone=UTC");
             dsc.setUsername("root");
-            dsc.setPassword("root");
+            dsc.setPassword("mysql@958958");
             mpg.setDataSource(dsc);
 
             // 策略配置

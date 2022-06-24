@@ -11,7 +11,9 @@ import com.itour.dictionary.api.DictionaryApi;
 import com.itour.service.DictionaryService;
 import com.itour.service.SensitiveWordService;
 import com.itour.service.ViewDDictionaryService;
+import com.itour.service.WebsiteIpInfoService;
 import com.itour.service.WebsiteRecommendService;
+import com.itour.service.WebsiteVisitInfoService;
 @RestController
 public class DictionaryApiController implements DictionaryApi {
 	@Autowired
@@ -22,6 +24,10 @@ public class DictionaryApiController implements DictionaryApi {
 	WebsiteRecommendService websiteRecommendService;
 	@Autowired
 	SensitiveWordService sensitiveWordService;
+	@Autowired
+	WebsiteVisitInfoService websiteVisitInfoService;
+	@Autowired
+	WebsiteIpInfoService websiteIpInfoService;
 	/**
 	 * 字典列表
 	 */
@@ -90,6 +96,29 @@ public class DictionaryApiController implements DictionaryApi {
 	public ResponseMessage querySensitiveWordList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return sensitiveWordService.querySensitiveWordList(requestMessage);
+	}
+	/**
+	 * 网站访问信息统计
+	 */
+	@Override
+	public ResponseMessage selectWebsiteVisitInfoList(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return websiteVisitInfoService.selectWebsiteVisitInfoList(requestMessage);
+	}
+	@Override
+	public ResponseMessage selectRecentlyOne(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return websiteVisitInfoService.selectRecentlyOne(requestMessage);
+	}
+	@Override
+	public ResponseMessage saveOrUpdateVisitInfoBatch(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return websiteVisitInfoService.saveOrUpdateVisitInfoBatch(requestMessage);
+	}
+	@Override
+	public ResponseMessage saveOrUpdateIpInfoBatch(RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return websiteIpInfoService.saveOrUpdateIpInfoBatch(requestMessage);
 	}
 
 }

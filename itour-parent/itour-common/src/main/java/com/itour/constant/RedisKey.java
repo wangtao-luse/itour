@@ -38,7 +38,7 @@ public static String KEY_ITOUR_VIDEO_VIEW="itour_video_view";
 /**
  * 旅行文章独立IP统计
  */
-public static String KEY_ITOUR_IP_COUNT="itour_ip_count";
+public static String KEY_ITOURINFO_IP_LIST="key_itourInfo_ip_list";
 /**
  * 所有浏览过攻略的IP
  */
@@ -66,13 +66,10 @@ public static long TIMEOUT=60*60*2;
 
 /**工作日志部分**/
 /**
- * 所有浏览日志的IP
+ *  工作日志独立IP统计
  */
-public static String KEY_WORK_IPS="work_ips";
-/**
- * 工作日志独立IP统计
- */
-public static String KEY_WORK_IP_COUNT="work_ip_count";
+public static String KEY_WORKINFO_IP_LIST="key_workinfo_ip_list";
+
 /**
  * 工作日志点赞
  */
@@ -85,5 +82,25 @@ public static String KEY_WORK_COMMENT_NICE="work_comment_nice";
  * 公作日志评论回复点赞
  */
 public static String KEY_WORK_COMMENTREPLY_NICE="work_commentReply_nice";
+
+
+
+
+/***
+ * 站点访问量
+ */
+public static String KEY_ITOUR_PV_COUNT = "key_itour_pv_count";
+/***
+ * 站点独立访客
+ */
+public static String KEY_ITOUR_UV_COUNT = "key_itour_uv_count";
+/**
+ *站点独立IP访问量
+ */
+public static String KEY_ITOUR_IP_LIST = "key_itour_ip_list";
+/**
+ *站点独立IP访问量
+ */
+public static String KEY_ITOUR_VV_COUNT = "key_itour_vv_count";
 
 }

@@ -298,10 +298,9 @@ private void ip(HttpServletRequest request,String id) {
 	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
 	 String ipAddr = IpUtil.getIpAddr(request);
 	 String key=ipAddr+"::"+strDate+"::"+id;
-		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOUR_IPS, key);
+		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOURINFO_IP_LIST, key);
 		 if(!isMember) {//缓存中没有则添加到缓存
-		 	this.redisManager.sAdd(RedisKey.KEY_ITOUR_IPS,key);
-			this.redisManager.incr(RedisKey.KEY_ITOUR_IP_COUNT, 1);
+		 	this.redisManager.sAdd(RedisKey.KEY_ITOURINFO_IP_LIST,key);
 		 }
 }
 public void pv(HttpServletRequest request,String id) {
