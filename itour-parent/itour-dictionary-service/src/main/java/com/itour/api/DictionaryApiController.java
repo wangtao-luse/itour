@@ -101,22 +101,22 @@ public class DictionaryApiController implements DictionaryApi {
 	 * 网站访问信息统计
 	 */
 	@Override
-	public ResponseMessage selectWebsiteVisitInfoList(RequestMessage requestMessage) {
+	public ResponseMessage selectWebsiteVisitInfoList(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return websiteVisitInfoService.selectWebsiteVisitInfoList(requestMessage);
 	}
 	@Override
-	public ResponseMessage selectRecentlyOne(RequestMessage requestMessage) {
+	public ResponseMessage selectRecentlyOne(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return websiteVisitInfoService.selectRecentlyOne(requestMessage);
 	}
 	@Override
-	public ResponseMessage saveOrUpdateVisitInfoBatch(RequestMessage requestMessage) {
+	public ResponseMessage saveOrUpdateVisitInfoBatch(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return websiteVisitInfoService.saveOrUpdateVisitInfoBatch(requestMessage);
 	}
 	@Override
-	public ResponseMessage saveOrUpdateIpInfoBatch(RequestMessage requestMessage) {
+	public ResponseMessage saveOrUpdateIpInfoBatch(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return websiteIpInfoService.saveOrUpdateIpInfoBatch(requestMessage);
 	}

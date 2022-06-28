@@ -57,7 +57,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  （是否创建service）
   			  */
-		     boolean isOverflowService=true;
+		     boolean isOverflowService=false;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 

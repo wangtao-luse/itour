@@ -80,13 +80,14 @@ private void websiteUvCount(HttpServletRequest request,HttpServletResponse respo
 private void websiteIpCount(HttpServletRequest request) {
 	
 	String ipAddress = IpUtil.getIpAddr(request);
-	String strDate = DateUtil.getStrDate(new Date(), DateUtil.FMT_DATETIME_SHORT);
-	String key = ipAddress+"::"+strDate;
+	String key = ipAddress;
+	String strDate = DateUtil.getStrDate(new Date(), DateUtil.FMT_DATETIME);
 	if (!StringUtils.isEmpty(ipAddress)) {
 		//判断Redis中是否存在
-		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOUR_IP_LIST, key);	
+		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOUR_IP_LIST, key);
 		 if(!isMember) {
 			 this.redisManager.sAdd(RedisKey.KEY_ITOUR_IP_LIST, key);
+			 this.redisManager.sAdd(RedisKey.KEY_ITOUR_IP_LIST_DATE, ipAddress+"::"+strDate);
 		 }
 	}
 	

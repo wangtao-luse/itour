@@ -230,18 +230,20 @@ public String detail(Long id,ModelMap model,HttpServletRequest request) {
  */
 private void ip(HttpServletRequest request,String id) {
 	
-	 //1.组装key,ip::yyyy-MM-dd::文章Id
-	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	 //1.组装key,ip::文章Id
+	 String strDate = DateUtil.getStrDate(new Date(), DateUtil.FMT_DATETIME);
 	 String ipAddr = IpUtil.getIpAddr(request);
 	 //key=192.168.1.8::2022-6-22::1
-	 String key=ipAddr+"::"+strDate+"::"+id;
+	 String key=ipAddr+"::"+id;
 	 //2.判断对应的key是否已经存在
 	 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_WORKINFO_IP_LIST, key);		 
 		 if(!isMember) {//缓存中没有则添加到缓存
 			 //3.对应的IP对应的key放入缓存
 		 	this.redisManager.sAdd(RedisKey.KEY_WORKINFO_IP_LIST,key);		 	
+		 	this.redisManager.sisMember(RedisKey.KEY_WORKINFO_IP_LIST_DATE, ipAddr+"::"+strDate+"::"+id);
 		 }
 }
+
 private WorkInfoVo workInfo(Long id, ModelMap model, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
 	WorkInfoVo tmp = new WorkInfoVo();

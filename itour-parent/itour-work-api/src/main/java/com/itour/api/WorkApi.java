@@ -239,17 +239,6 @@ public interface WorkApi {
 	@RequestMapping(value = "work/countReplyLikeList",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage countReplyLikeList(RequestMessage requestMessage);	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 个人博客搜索页列表
 	 * @param requestMessage
@@ -292,5 +281,12 @@ public interface WorkApi {
 	 */
 	@RequestMapping(value = "work/selectOneColumn",produces = {"application/json;charset=UTF-8"})
 	public ResponseMessage selectOneColumn(RequestMessage requestMessage);	
+	/**
+	 * 日志独立访问IP记录
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/saveOrupdateWorkIpInfo",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage saveOrupdateWorkIpInfo(RequestMessage requestMessage);	
 }
 

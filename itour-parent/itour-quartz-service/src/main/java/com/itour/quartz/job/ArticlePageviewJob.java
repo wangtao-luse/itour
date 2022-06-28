@@ -19,15 +19,25 @@ import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.model.travel.Pageview;
 import com.itour.model.travel.TravelInfo;
-
-public class TravelPageviewJob extends QuartzJobBean{
-	@Autowired
+import com.itour.quartz.service.ArticlePageViewService;
+/**
+ * 日志和攻略独立IP访问量数据处理
+ * @author wwang
+ *
+ */
+public class ArticlePageviewJob extends QuartzJobBean{
+	    @Autowired
 	 RedisManager redisManager;
 		@Autowired
 	 TravelApi travelApi;
+	    @Autowired
+	 ArticlePageViewService articlePageViewService;
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		// TODO Auto-generated method stub
+		//日志独立IP访问数据处理
+		articlePageViewService.workInfoData();
+		//攻略
 		saveOrUpdatePageview();
 	}
     private void  saveOrUpdatePageview() {
@@ -88,6 +98,7 @@ public class TravelPageviewJob extends QuartzJobBean{
 		}
     	
     	//3.从缓存中移除对应的key
+    	
     	return pvList;
 	}
 	

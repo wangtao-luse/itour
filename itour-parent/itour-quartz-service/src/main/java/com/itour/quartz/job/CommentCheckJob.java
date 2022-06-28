@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.itour.quartz.service.CommentCheckService;
-
+/**
+ * 评论审核job
+ * @author wwang
+ *
+ */
 public class CommentCheckJob extends QuartzJobBean{
 	@Autowired
 	CommentCheckService commentCheckService;

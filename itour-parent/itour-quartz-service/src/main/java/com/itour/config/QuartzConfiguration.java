@@ -9,9 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.itour.quartz.job.ArticleCheck;
+import com.itour.quartz.job.ArticlePageviewJob;
 import com.itour.quartz.job.CommentCheckJob;
 import com.itour.quartz.job.TravelNiceJob;
-import com.itour.quartz.job.TravelPageviewJob;
+import com.itour.quartz.job.WebsiteJob;
 
 @Configuration
 public class QuartzConfiguration {
@@ -34,11 +35,12 @@ public class QuartzConfiguration {
 	                .build();
 	        return trigger;
 	    }
-	    /**
-	     * 攻略和日志评论审核30秒一次
-	     * @return
-	     */
-	
+	    
+	   
+	/**
+	 *  攻略和日志评论审核30秒一次
+	 * @return
+	 */
 	@Bean
 	public JobDetail workJobDetail() {
 		JobDetail jobDetail = JobBuilder.newJob(CommentCheckJob.class).storeDurably().build();
@@ -53,6 +55,40 @@ public class QuartzConfiguration {
 		return trigger;
 	}
 	 
+	/**
+	 * 网站浏览量每天23:30
+	 * @return
+	 */
+	@Bean
+	public JobDetail websiteJobDetail() {
+		JobDetail jobDetail = JobBuilder.newJob(WebsiteJob.class).storeDurably().build();
+		return jobDetail;
+	}
+	
+	@Bean
+	public Trigger websiteTrigger() { // 构建
+		CronScheduleBuilder cronSchedule =
+				CronScheduleBuilder.cronSchedule("0 30 23 * * ?");
+		Trigger trigger = TriggerBuilder.newTrigger().forJob(websiteJobDetail()).withSchedule(cronSchedule).build();
+		return trigger;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	    /**
 	     * 日志和攻略点赞数据更新 5分钟一次
 	     * @return
@@ -69,7 +105,7 @@ public class QuartzConfiguration {
 	public Trigger niceTrigger() { // 构建 
 		CronScheduleBuilder cronSchedule =
 		CronScheduleBuilder.cronSchedule("0 0/5 * * * ?");
-		Trigger trigger = TriggerBuilder.newTrigger().forJob(workJobDetail()).withSchedule(cronSchedule).build();
+		Trigger trigger = TriggerBuilder.newTrigger().forJob(niceJobDetail()).withSchedule(cronSchedule).build();
 		return trigger;
 	}
 	 
@@ -80,7 +116,7 @@ public class QuartzConfiguration {
 	
 	@Bean
 	public JobDetail pvJobDetail() {
-		JobDetail jobDetail = JobBuilder.newJob(TravelPageviewJob.class).storeDurably().build();
+		JobDetail jobDetail = JobBuilder.newJob(ArticlePageviewJob.class).storeDurably().build();
 		return jobDetail;
 	}
 
@@ -88,8 +124,12 @@ public class QuartzConfiguration {
 	public Trigger pvTrigger() { // 构建
 		CronScheduleBuilder cronSchedule =
 		CronScheduleBuilder.cronSchedule("0 0/5 * * * ?");
-		Trigger trigger = TriggerBuilder.newTrigger().forJob(workJobDetail()).withSchedule(cronSchedule).build();
+		Trigger trigger = TriggerBuilder.newTrigger().forJob(pvJobDetail()).withSchedule(cronSchedule).build();
 		return trigger;
 	}
+	
+
+	
+	
 	 
 }

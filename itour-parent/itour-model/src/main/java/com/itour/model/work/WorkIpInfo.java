@@ -1,4 +1,4 @@
-package com.itour.model.dictionary;
+package com.itour.model.work;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -7,14 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 /**
  * <p>
- * 网站访独立IP访问记录
+ * 日志独立IP访问记录
  * </p>
  *
  * @author wangtao
  * @since 2022-06-28
  */
-@TableName("t_d_website_ip_info")
-public class WebsiteIpInfo extends Model<WebsiteIpInfo> {
+@TableName("t_w_work_ip_info")
+public class WorkIpInfo extends Model<WorkIpInfo> {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,7 @@ public class WebsiteIpInfo extends Model<WebsiteIpInfo> {
      * 编号
      */
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 访问的IP地址
@@ -31,10 +31,16 @@ public class WebsiteIpInfo extends Model<WebsiteIpInfo> {
     private String ipAddr;
 
     /**
-     * IP访问的时间
+     * IP访问时间
      */
     @TableField("IP_VISIT_TIME")
     private Long ipVisitTime;
+
+    /**
+     * 文章Id
+     */
+    @TableField("TID")
+    private Long tid;
 
     /**
      * 创建时间
@@ -42,11 +48,11 @@ public class WebsiteIpInfo extends Model<WebsiteIpInfo> {
     @TableField("CREATE_DATE")
     private Long createDate;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,6 +72,14 @@ public class WebsiteIpInfo extends Model<WebsiteIpInfo> {
         this.ipVisitTime = ipVisitTime;
     }
 
+    public Long getTid() {
+        return tid;
+    }
+
+    public void setTid(Long tid) {
+        this.tid = tid;
+    }
+
     public Long getCreateDate() {
         return createDate;
     }
@@ -81,10 +95,11 @@ public class WebsiteIpInfo extends Model<WebsiteIpInfo> {
 
     @Override
     public String toString() {
-        return "WebsiteIpInfo{" +
+        return "WorkIpInfo{" +
         ", id=" + id +
         ", ipAddr=" + ipAddr +
         ", ipVisitTime=" + ipVisitTime +
+        ", tid=" + tid +
         ", createDate=" + createDate +
         "}";
     }

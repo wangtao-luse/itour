@@ -17,6 +17,11 @@ import com.itour.quartz.service.TravelNiceService;
 import com.itour.quartz.service.WorkCommentLikeService;
 import com.itour.quartz.service.WorkCommentReplyService;
 import com.itour.quartz.service.WorkLikeService;
+/**
+ * 文章点赞Job
+ * @author wwang
+ *
+ */
 public class TravelNiceJob extends QuartzJobBean {
 private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
 @Autowired

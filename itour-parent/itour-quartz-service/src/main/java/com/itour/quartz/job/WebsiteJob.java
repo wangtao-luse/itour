@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.itour.quartz.service.WebsiteSerice;
+/**
+ * 网站访问量(独立IP、浏览量PV、访问次数VV、独立访客数据处理)
+ * @author wwang
+ *
+ */
 public class WebsiteJob extends QuartzJobBean{
 	@Autowired
 	WebsiteSerice websiteSerice;

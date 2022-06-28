@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author wangtao
- * @since 2022-06-24
+ * @since 2022-06-28
  */
 public interface WebsiteIpInfoMapper extends BaseMapper<WebsiteIpInfo> {
 

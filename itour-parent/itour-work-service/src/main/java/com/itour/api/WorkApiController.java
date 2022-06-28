@@ -15,6 +15,7 @@ import com.itour.service.WorkColumnService;
 import com.itour.service.WorkCommentReplyService;
 import com.itour.service.WorkCommentService;
 import com.itour.service.WorkInfoService;
+import com.itour.service.WorkIpInfoService;
 import com.itour.service.WorktextService;
 @RestController
 public class WorkApiController implements WorkApi {
@@ -38,6 +39,8 @@ public class WorkApiController implements WorkApi {
 	LikeService likeService;
 	@Autowired
 	ReplyLikeService replyLikeService;
+	@Autowired
+	WorkIpInfoService workIpInfoService;
 	/**
 	 * 日志标签列表查询
 	 */
@@ -281,6 +284,11 @@ public class WorkApiController implements WorkApi {
 	public ResponseMessage selectOneColumn(@RequestBody RequestMessage requestMessage) {
 		// TODO Auto-generated method stub
 		return workColumnService.selectOneColumn(requestMessage);
+	}
+	@Override
+	public ResponseMessage saveOrupdateWorkIpInfo(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return workIpInfoService.saveOrupdateWorkIpInfo(requestMessage);
 	}
 	
 	

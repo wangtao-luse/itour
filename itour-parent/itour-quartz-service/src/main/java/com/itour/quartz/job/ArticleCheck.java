@@ -7,7 +7,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.itour.quartz.service.ArticleCheckService;
 /**
- * 攻略和日志审核
+ * 攻略和日志审核定时处理
  * @author wwang
  *
  */

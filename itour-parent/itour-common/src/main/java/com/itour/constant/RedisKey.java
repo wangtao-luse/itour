@@ -66,9 +66,11 @@ public static long TIMEOUT=60*60*2;
 
 /**工作日志部分**/
 /**
- *  工作日志独立IP统计
+ *  工作日志独立IP列表
  */
 public static String KEY_WORKINFO_IP_LIST="key_workinfo_ip_list";
+
+public static String KEY_WORKINFO_IP_LIST_DATE="key_workinfo_ip_list_date";
 
 /**
  * 工作日志点赞
@@ -95,11 +97,13 @@ public static String KEY_ITOUR_PV_COUNT = "key_itour_pv_count";
  */
 public static String KEY_ITOUR_UV_COUNT = "key_itour_uv_count";
 /**
- *站点独立IP访问量
+ *站点独立IP列表
  */
 public static String KEY_ITOUR_IP_LIST = "key_itour_ip_list";
+
+public static String KEY_ITOUR_IP_LIST_DATE ="key_itour_ip_list_date";
 /**
- *站点独立IP访问量
+ *站点访问次数
  */
 public static String KEY_ITOUR_VV_COUNT = "key_itour_vv_count";
 
