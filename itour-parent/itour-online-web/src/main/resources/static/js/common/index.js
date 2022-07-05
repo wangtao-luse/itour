@@ -226,8 +226,8 @@ $(function(){
 	    		var html = $(".article-nav-right_box");	    		 
 	    	 $(".richContent-inner h2").each(function(){
 	    	 	var target = $(this).prop("id");
-	    	 	var title = $(this).text();
-	    	 	$(".article-nav-list").append("<a class='list-group-item text-primary' href='#"+target+"' title='"+title.trim()+"'>"+title+"</a>");
+	    	 	var title = $(this).html();	    	 	
+	    	 	$(".article-nav-list").append("<a class='list-group-item text-primary' href='#"+target+"' title='"+title.trim()+"'>"+title.trim()+"</a>");
 	    	 	createChild("h3",target);
 	    	 	
 	    	 })
@@ -237,9 +237,9 @@ $(function(){
 	       	var t = parseInt(node.substring(1))-1;//2
 	       	//h3        item-1~item-N
 	       	$(node+"[id^='"+target+"']").each(function(){
-	       		var title = $(this).text();
+	       		var title = $(this).html();
 	       		var target_ = $(this).prop("id");
-	       		html.append("<a class='list-group-item nav"+t+"' href='#"+target_+"' title='"+title.trim()+"'>"+title+"</a>");
+	       		html.append("<a class='list-group-item nav"+t+"' href='#"+target_+"' title='"+title.trim()+"'>"+title.trim()+"</a>");
 	       		var node_ ="h"+(t+2);
 	       		if((t+1)<6){
 	       		  return createChild(node_,target_);

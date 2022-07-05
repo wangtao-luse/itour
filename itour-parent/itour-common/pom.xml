@@ -101,8 +101,16 @@
 		</dependency>
 		
 		  <dependency>
-	    <groupId>com.baomidou</groupId>
-	    <artifactId>mybatis-plus-boot-starter</artifactId>
+		    <groupId>com.baomidou</groupId>
+		    <artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+         <groupId>commons-net</groupId>
+         <artifactId>commons-net</artifactId>
+	</dependency>
+	<dependency>
+	  <groupId>com.jcraft</groupId>
+	  <artifactId>jsch</artifactId>
 	</dependency>
   </dependencies>
 </project>

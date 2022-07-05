@@ -95,6 +95,7 @@
     <itextpdf.version>5.5.13.2</itextpdf.version>
     <itext-asian.version>5.2.0</itext-asian.version>
     <minio.version>8.3.1</minio.version>
+    <commons-net.version>3.8.0</commons-net.version>
     
   </properties> 
   <dependencies>
@@ -396,8 +397,21 @@
 				    <artifactId>itext-asian</artifactId>
 				    <version>${itext-asian.version}</version>
 				</dependency>
-				
-				
+				<!-- FTP上传 -->
+				<dependency>
+		           <groupId>commons-net</groupId>
+		           <artifactId>commons-net</artifactId>
+		           <version>${commons-net.version}</version>
+		 		</dependency>
+		 		<!-- 解决commons-net
+		 		     org.apache.commons.net.MalformedServerReplyException: Could not parse response code.
+					 Server Reply: SSH-2.0-OpenSSH_8.0
+		 		 -->
+		 		<dependency>
+				  <groupId>com.jcraft</groupId>
+				  <artifactId>jsch</artifactId>
+				  <version>0.1.55</version>
+				</dependency>
 				
 				
 				
