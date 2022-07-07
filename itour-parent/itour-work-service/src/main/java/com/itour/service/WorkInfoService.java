@@ -2,6 +2,7 @@ package com.itour.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -504,7 +505,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			 n.setCreatedate(DateUtil.currentLongDate());
 			//将点赞对象放入缓存并设置缓存超时时间
 			//key 不存在直接放入缓存
-			HashMap<String, Object> m = new HashMap<String, Object>();
+			 LinkedHashMap<String, Object> m = new LinkedHashMap<String, Object>();
 			 m.put(uid+"::"+tid, n);
 			 redisManager.hmset(RedisKey.KEY_WORK_NICE, m);
 		} catch (Exception e) {

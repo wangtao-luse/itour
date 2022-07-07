@@ -22,8 +22,8 @@ import com.itour.quartz.service.WorkLikeService;
  * @author wwang
  *
  */
-public class TravelNiceJob extends QuartzJobBean {
-private final static Logger logger=LoggerFactory.getLogger(TravelNiceJob.class);
+public class ArticleNiceJob extends QuartzJobBean {
+private final static Logger logger=LoggerFactory.getLogger(ArticleNiceJob.class);
 @Autowired
 TravelNiceService travelNiceService;
 @Autowired
