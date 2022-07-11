@@ -21,9 +21,11 @@ public static final String VISIT_COOKIE_NAME = "visit.wangtao.club";
  */
 public static String getCookieValue(HttpServletRequest  request, String cookieName) {
 	Cookie[] cookies = request.getCookies();
-	for (Cookie cookie : cookies) {
-		if(cookieName.equals(cookie.getName())) {
-			return  cookie.getValue();
+	if(null != cookies) {
+		for (Cookie cookie : cookies) {
+			if(cookieName.equals(cookie.getName())) {
+				return  cookie.getValue();
+			}
 		}
 	}
 	return null;
