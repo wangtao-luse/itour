@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import com.itour.util.StringHelper;
 @Controller
 @RequestMapping("/msg")
 public class MessageController {
+	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	@Autowired
 	MessageConnector meesageConnector;
 	/**
@@ -46,7 +49,8 @@ public class MessageController {
 	    msg.setAim(ConstantMessage.MSG_AIM_REGISTER);
 	    msg.setOrigin(ConstantMessage.MSG_ORIGIN_ONLINE);
 	    msg.setIp(ip);;
-	    jsonObject.put("vo", msg);	    
+	    jsonObject.put("vo", msg);	  
+	    logger.info(msg.getText());
 	   ResponseMessage responseMessage = this.meesageConnector.sendEmailCode(jsonObject, request);
 	   if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 		   String uuid = StringHelper.getUuid();

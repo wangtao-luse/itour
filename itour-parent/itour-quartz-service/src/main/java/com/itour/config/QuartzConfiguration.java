@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.itour.quartz.job.ArticleCheck;
+import com.itour.quartz.job.ArticleNiceJob;
 import com.itour.quartz.job.ArticlePageviewJob;
 import com.itour.quartz.job.CommentCheckJob;
-import com.itour.quartz.job.TravelNiceJob;
 import com.itour.quartz.job.WebsiteJob;
 
 @Configuration
@@ -97,7 +97,7 @@ public class QuartzConfiguration {
 	
 	@Bean
 	public JobDetail niceJobDetail() {
-		JobDetail jobDetail = JobBuilder.newJob(TravelNiceJob.class).storeDurably().build();
+		JobDetail jobDetail = JobBuilder.newJob(ArticleNiceJob.class).storeDurably().build();
 		return jobDetail;
 	}
 
