@@ -71,7 +71,7 @@
   	<!-- 在docker运行时要用的，只是一个前缀而已，就像包名一样,可自己任意定义此名称 -->
   	<docker.image.prefix>ben</docker.image.prefix> 
   	<org.redisson.version>3.14.1</org.redisson.version>
-  	<axis2.version>1.6.2</axis2.version>
+  	<axis2.version>1.6.3</axis2.version>
   </properties> 
   <dependencies>
   <!-- springboot web -->
