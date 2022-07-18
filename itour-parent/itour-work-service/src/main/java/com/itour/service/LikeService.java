@@ -1,23 +1,24 @@
 package com.itour.service;
 
-import com.itour.common.req.RequestMessage;
-import com.itour.common.resp.ResponseMessage;
-import com.itour.constant.Constant;
-import com.itour.exception.BaseException;
-import com.itour.model.travel.Nice;
-import com.itour.model.work.Like;
-import com.itour.persist.LikeMapper;
-import com.itour.service.LikeService;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.itour.common.req.RequestMessage;
+import com.itour.common.resp.ResponseMessage;
+import com.itour.constant.Constant;
+import com.itour.exception.BaseException;
+import com.itour.model.dto.PageInfo;
+import com.itour.model.work.Like;
+import com.itour.model.work.dto.LikeDto;
+import com.itour.model.work.vo.LikeVo;
+import com.itour.persist.LikeMapper;
 
 /**
  * <p>
@@ -90,5 +91,24 @@ public class LikeService extends ServiceImpl<LikeMapper, Like>  {
 			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
 		}
 		return response;
+	}
+	public ResponseMessage queryLikeList(RequestMessage requestMessage) {
+		ResponseMessage responseMessage = ResponseMessage.getSucess();
+		try {
+			JSONObject jsonObject = requestMessage.getBody().getContent();
+			LikeDto favortieDto = jsonObject.getJSONObject(Constant.COMMON_KEY_DTO).toJavaObject(LikeDto.class);
+			JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
+			if(null!=pageVo) {
+				PageInfo page = pageVo.toJavaObject(PageInfo.class);
+				List<LikeVo> selectFavoritesList = this.baseMapper.selectLikeList(page, favortieDto);
+				page.setRecords(selectFavoritesList);
+				responseMessage.setReturnResult(page);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new BaseException(Constant.FAILED_SYSTEM_ERROR);
+		}
+		return responseMessage;
 	}
 }

@@ -287,6 +287,9 @@ public interface WorkApi {
 	 * @return
 	 */
 	@RequestMapping(value = "work/saveOrupdateWorkIpInfo",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage saveOrupdateWorkIpInfo(RequestMessage requestMessage);	
+	public ResponseMessage saveOrupdateWorkIpInfo(RequestMessage requestMessage);
+	
+	@RequestMapping(value = "work/queryLikeList",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage queryLikeList(RequestMessage requestMessage);	
 }
 

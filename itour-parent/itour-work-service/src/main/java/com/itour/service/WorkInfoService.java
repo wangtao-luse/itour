@@ -31,6 +31,7 @@ import com.itour.model.work.Like;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
+import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.model.work.vo.WorkInfoVo;
 import com.itour.persist.InfoColumnMapper;
 import com.itour.persist.InfoLabelMapper;
@@ -156,7 +157,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		ResponseMessage response = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
+			WorkInfoDto vo = jsonObject.getJSONObject(Constant.COMMON_KEY_DTO).toJavaObject(WorkInfoDto.class);
 			PageInfo pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
 			List<WorkInfoVo> infoData = this.baseMapper.searchTextList(pageVo,vo);
 			Page setRecords = pageVo.setRecords(infoData);

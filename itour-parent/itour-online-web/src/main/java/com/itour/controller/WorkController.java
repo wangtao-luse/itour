@@ -1,12 +1,10 @@
 package com.itour.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -22,20 +20,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.itour.common.redis.RedisKeyManager;
 import com.itour.common.redis.RedisManager;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.common.vo.AccountVo;
+import com.itour.connector.AccountConnector;
 import com.itour.connector.WorkConnector;
+import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
+import com.itour.model.account.Oauth;
 import com.itour.model.dto.PageInfo;
+import com.itour.model.travel.dto.FavoritesDto;
+import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.travel.vo.ViewCommentReply;
 import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
+import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.model.work.vo.WorkCommentVo;
 import com.itour.model.work.vo.WorkInfoVo;
 import com.itour.util.DateUtil;
@@ -55,6 +58,8 @@ public class WorkController {
 	WorkConnector workConnector;
 	@Autowired
 private RedisManager redisManager;
+	@Autowired 
+	AccountConnector accountConnector;
 /**
  * 日志页面
  * @return
@@ -181,10 +186,26 @@ private void workInfoData(ModelMap model, HttpServletRequest request) {
  * @return
  */
 @RequestMapping("/search")
-public String search() {
-	return "/work/search";
+public String search(WorkInfoDto dto,PageInfo page,HttpServletRequest request,ModelMap model,String ajaxCmd) {
+	String parameter = request.getParameter("search");
+	JSONObject jsonObject = new JSONObject();
+	dto.setTitle(parameter);
+	jsonObject.put(Constant.COMMON_KEY_DTO, dto);
+	jsonObject.put(Constant.COMMON_KEY_PAGE, page);
+	ResponseMessage searchTextList = this.workConnector.searchTextList(jsonObject, request);
+	PageInfo pageInfo = FastJsonUtil.mapToObject(searchTextList.getReturnResult(), PageInfo.class);
+	
+	List<WorkInfoVo> records = pageInfo.getRecords();
+	model.addAttribute("tList", records);
+	model.addAttribute("page", pageInfo);
+	model.addAttribute("search", parameter);
+	if(StrUtil.isEmpty(ajaxCmd)) {
+		return "/work/search";
+	}else {
+		return "/work/search#"+ajaxCmd;
+	}
+	
 }
-
 
 /**
  * 日志新增编辑
@@ -439,5 +460,116 @@ public String category(@PathVariable(value = "id") Long id,Page page,ModelMap mo
 	}
 	
 	return "/work/info/category";
+}
+
+@RequestMapping("/infoManager")
+public String infoManager(HttpServletRequest request,ModelMap model) {
+	String uid = request.getParameter("rpm");
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	if(!StrUtil.isEmpty(uid)) {
+		Oauth o = new Oauth();
+	       o.setuId(uid);
+	JSONObject parseObject = JSONObject.parseObject(JSONObject.toJSONString(o));
+	ResponseMessage selectOauthtOne = accountConnector.selectOauthtOne(parseObject, request);
+	Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
+	    model.addAttribute("account", oa);
+	}else {
+		model.addAttribute("account", sessionUser);
+	}
+	
+	model.addAttribute("sessionUser", sessionUser);
+	model.addAttribute("rpm", uid);
+	
+	
+	return "/work/info/infoManager";
+}
+@RequestMapping("/inofMangerList")
+public String inofMangerList(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
+	TravelInfoDto travelInfoDto = jsonObject.toJavaObject(TravelInfoDto.class);
+	PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
+	AccountVo sessionUser = SessionUtil.getSessionUser();
+	JSONObject jsonTmp = new JSONObject();
+	String mold = travelInfoDto.getMold();
+	//默认查询动态
+	if(StrUtil.isEmpty(mold)) {
+		travelInfoDto.setMold("1");
+	}
+	//queryUid有值说明是查看别人主页
+	String queryUid = jsonObject.getString("rpm");
+	if(StrUtil.isEmpty(queryUid)) {//查看自己的的主页
+		travelInfoDto.setUid(sessionUser.getuId());
+		travelInfoDto.setOauthId( sessionUser.getOauthId());
+		travelInfoDto.setQueryUid(sessionUser.getuId());
+	}else {//查看别人的主页
+		  //查看目标用户的用户信息
+		  Oauth o = new Oauth();
+		       o.setuId(queryUid);
+		JSONObject parseObject = JSONObject.parseObject(JSONObject.toJSONString(o));
+		ResponseMessage selectOauthtOne = accountConnector.selectOauthtOne(parseObject, request);
+		Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
+		travelInfoDto.setUid(queryUid);
+		travelInfoDto.setOauthId(oa.getOauthId());
+		travelInfoDto.setQueryUid(queryUid);
+	}
+	jsonTmp.put(Constant.COMMON_KEY_VO, travelInfoDto);
+	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
+	ResponseMessage responseMessage = workConnector.queryPersonCenterList(jsonTmp, request);
+	if(ResponseMessage.isSuccessResult(responseMessage)) {
+		PageInfo p = FastJsonUtil.mapToObject(responseMessage.getReturnResult(), PageInfo.class);
+		List<JSONObject> records = p.getRecords();
+		
+		List<WorkInfoVo> rList = new ArrayList<WorkInfoVo>();
+		for (JSONObject info : records) {
+			WorkInfoVo dto = info.toJavaObject(WorkInfoVo.class);
+			if(!ConstAccount.PERSONCENTER_COLLECT.equals(mold)) {
+				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
+			}
+			rList.add(dto);	
+		}
+		//统计
+		JSONObject tmpJSon = new JSONObject();
+		TravelInfoDto dto = new TravelInfoDto();
+		dto.setQueryUid(travelInfoDto.getQueryUid());
+		if(!StrUtil.isEmpty(queryUid)) {//统计可见收藏夹个数
+		dto.setVisual(ConstAccount.PERSONCENTER_VISUAL_SHOW);
+		}
+		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
+		ResponseMessage infoData = this.workConnector.getInfoData(tmpJSon , request);
+		boolean b = ResponseMessage.resultIsEmpty(infoData);
+		if(!b) {
+			TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
+			model.addAttribute("dt", countInfo);	
+		}
+		//收藏
+		JSONObject tmpJson = new JSONObject();
+		FavoritesDto fdto = new FavoritesDto();
+		if(StrUtil.isEmpty(queryUid)) {
+			fdto.setUid(sessionUser.getuId());
+			
+		}else {
+			fdto.setUid(queryUid);
+			fdto.setVisual(ConstAccount.PERSONCENTER_VISUAL_SHOW);
+		}
+		
+		tmpJson.put(Constant.COMMON_KEY_DTO, fdto);
+		tmpJson.put(Constant.COMMON_KEY_PAGE,page );
+		ResponseMessage queryfavList = this.workConnector.queryLikeList(tmpJson, request);
+		if(!ResponseMessage.resultIsEmpty(queryfavList)) {
+			PageInfo pageInfo = FastJsonUtil.mapToObject(queryfavList.getReturnResult(), PageInfo.class);
+			List<FavoritesDto> fList = pageInfo.getRecords();
+			model.addAttribute("fList", fList);		
+		}		
+		model.addAttribute("cList",rList);
+		model.addAttribute("page",p);
+		model.addAttribute("usr",sessionUser);
+		model.addAttribute("qUid",travelInfoDto.getQueryUid());
+		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
+		
+	}
+	model.addAttribute("travelInfoDto",travelInfoDto);
+	model.addAttribute("mold",travelInfoDto.getMold());
+	  return "/work/info/infoManagerList#"+ajaxCmd;
+	
+			
 }
 }

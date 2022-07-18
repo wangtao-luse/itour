@@ -675,7 +675,15 @@ UID	VARCHAR(10)	COMMENT'用户编号',
 CREATEDATE	BIGINT	COMMENT'点赞时间',
 STATUS VARCHAR(2) DEFAULT '1' COMMENT'状态（0:取消;1:有效）'
 )COMMENT '个人博客点赞评论回复表';
-
+#7.日志收藏记录表
+CREATE TABLE IF NOT EXISTS T_W_COLLECT(
+ID	INT	PRIMARY KEY AUTO_INCREMENT COMMENT'编号',
+WID	INT	COMMENT'博客编号',
+CTIME	BIGINT	COMMENT'收藏时间',
+UID	VARCHAR(10)	COMMENT'收藏用户编号',
+FID	INT	COMMENT'所属收藏夹',
+STATUS VARCHAR(2)COMMENT'状态(1:收藏;2:取消收藏)'
+) COMMENT '日志收藏表';
 #######------------------------------------视频模块----------------------------------------############
 #7.1视频信息（T_V_VIDEO_INFO)
 CREATE TABLE IF NOT EXISTS T_V_VIDEO_INFO (

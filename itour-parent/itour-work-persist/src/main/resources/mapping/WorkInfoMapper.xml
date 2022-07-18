@@ -76,13 +76,11 @@
     
     </select>
     
-        <select id="searchTextList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
+        <select id="searchTextList" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.vo.WorkInfoVo">
       SELECT t1.*,t2.NICKNAME,1 mold FROM t_w_work_info t1  
         INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID and t2.OAUTH_TYPE='email'
-		and (t1.TITLE like "%"#{vo.title}"%" or t1.SUMMARY LIKE "%"#{vo.title}"%")
-		<if test="vo.type!=null and '' !=vo.type">
-		  and t1.type=#{vo.type}
-		</if>
+		and (t1.TITLE like "%"#{dto.title}"%" or t1.SUMMARY LIKE "%"#{dto.title}"%")
+		
       
     </select>
      <select id="getInfoData" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
@@ -99,16 +97,16 @@
 		            SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold,1 dynamic,IFNULL(t3.`STATUS`,'0') likeStatus,t3.UID likeUid
 				   FROM t_w_work_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID
 						and t1.UID=#{vo.uid} and t1.`STATUS`='30' and t2.OAUTH_ID=#{vo.oauthId}
-						LEFT JOIN t_w_like t3 ON t1.ID= t3.TID and t3.UID=#{vo.loginUid}
+						LEFT JOIN t_w_like t3 ON t1.ID= t3.WID and t3.UID=#{vo.loginUid}
 				) c1
 				  UNION ALL				
 				SELECT * FROM (
 					SELECT t1.*,t2.CREATEDATE time,t3.NICKNAME,t3.AVATAR, 1 mold,2 dynamic,IFNULL(t4.`STATUS`,'0') likeStatus,t4.UID likeUid
-					FROM t_w_work_info t1 INNER JOIN t_w_like t2 ON t1.ID = t2.TID 
+					FROM t_w_work_info t1 INNER JOIN t_w_like t2 ON t1.ID = t2.WID 
 						and t1.`STATUS`='30' and  t2.UID=#{vo.uid} and t2.STATUS='1'
 					INNER JOIN t_a_oauth t3 on t1.UID =t3.U_ID 
 						and t3.OAUTH_TYPE='email'
-					LEFT JOIN t_w_like t4 ON t1.ID= t4.TID and t4.UID=#{vo.loginUid}
+					LEFT JOIN t_w_like t4 ON t1.ID= t4.WID and t4.UID=#{vo.loginUid}
 				) c2				
 			)c3 ORDER BY time DESC
 		  </if>
@@ -116,7 +114,7 @@
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 2 mold,IFNULL(t3.`STATUS`,'0') likeStatus,t3.UID likeUid
 		   FROM t_w_work_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID
 				and t1.UID=#{vo.uid} and t1.`STATUS`='30' and t2.OAUTH_ID=#{vo.oauthId}
-				LEFT JOIN t_w_like t3 ON t1.ID= t3.TID and t3.UID=#{vo.loginUid}
+				LEFT JOIN t_w_like t3 ON t1.ID= t3.WID and t3.UID=#{vo.loginUid}
 				<foreach collection="vo.orderbyList" item="item" separator="," index="index">
 				 <if test="index==0">
 				  order by
@@ -131,7 +129,7 @@
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold,IFNULL(t3.`STATUS`,'0') likeStatus,t3.UID likeUid
 		   FROM t_w_work_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID
 				and t1.UID=#{vo.uid} and t1.`STATUS`='10' and t2.OAUTH_ID=#{vo.oauthId}
-				LEFT JOIN t_w_like t3 ON t1.ID= t3.TID and t3.UID=#{vo.loginUid}
+				LEFT JOIN t_w_like t3 ON t1.ID= t3.WID and t3.UID=#{vo.loginUid}
 		  </if>
 		
     </select>

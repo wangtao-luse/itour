@@ -35,6 +35,7 @@ $(function(){
 				var query =result.indexOf("card");
 			    var html = $(".topstory-recommend").html();
 			    var card = html.indexOf("card");
+			    console.log("wangtao");
 				if(card==-1 && css !=-1){//页面上没有数据且查询结果没有数据
 					$("#topstoryContent .topstory-recommend div:first").append(result);
 				}else if(card != -1 && css !=-1){//页面有数据且查询没有数据

@@ -1,0 +1,133 @@
+@layout("/layout/template.html",{title:'爱旅行-日志管理'}){
+<style>
+.imageBox {
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border: 1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor: move;
+}
+.imageBox .thumbBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+.profile-main{
+margin-top: 60px;
+margin-bottom: 94px;
+}
+</style>
+<script type="text/javascript" src="${ctxPath}/js/work/infoManager.js" ></script>
+		<div class="modal-wrapper undefined Modal-enter-done personCenter_add_collect" style="display: none;"></div>
+        <input  type="hidden" id="rpm" value="${rpm}">
+	    <div class="profile-main">
+	    	<div class="profile-mainColumn" id="profile-mainColumn">
+	    	</div>
+	    	<div class="profile-sideColumn">
+	    		 @include("../../layout/public/wechat-follow.html"){}
+	    	</div>
+	    </div>
+	    <div>
+	    	<div>
+	    		<div>
+	    			<div class="popover-content popover-content--null select-popoverTarget popover-content-enter-done" id="popover-order-content"  style="top: 276.833px; left: 814px; font-size: 14px; display: none;">
+	    				<div class="select-list" role="listbox">
+	    					<button class="select-option" id="select1-0">按时间排序</button>
+	    					<button class="select-option" id="select1-1">赞同数排序</button>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	   <!--  <div>
+	    	<div>
+	    		<div>
+	    			<div class="popover-content popover-content--top popover-content--arrowed popover-content-enter-done" id="popover10-content"style="left: 380.493px; top: 1900.333px;">
+	    				<span class="popover-arrow popover-arrow--top" style="left: 49px; top: 42px;"></span>
+	    				<a href="#" type="button" class="button columnItem-botton button--plain">管理专栏</a>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div> -->
+		<div class="modi_dialog upload-dialog" style="display:none">
+			<div class="vue-image-crop-upload">
+				<div class="vicp-wrap">
+					<div class="vicp-close"><i class="vicp-icon4 vic-icon">x</i></div>
+					<h3 class="upword">上传图像</h3>
+					<h3 class="upword" style="display: none;">修改图像</h3>
+					<div class="vicp-step1" >
+						<div class="vicp-drop-area" id="drop_area" draggable="true">
+							<img src="${ctxPath}/img/common/upload.png" class="vicp-icon1" />
+							<span class="vicp-hint">点击或拖动图片至此处</span>
+							<input type="file" style="display: none;" class="inpuit-file-avatar">
+						</div>
+						<div class="vicp-operate">
+							<a>取消</a>
+						</div>
+					</div>
+					<p class="img_tip1">图片宽度*高度至少为150*150像素，大小不超过2MB</p>
+					<div class="vicp-step2" style="display: none;" >
+						<div class="vicp-crop">
+							<div class="vicp-crop-left">
+								<div class="vicp-img-container container">
+								   <div class="photo-orgin-wrap"><img alt="原图" class="orgin-photo"></div>
+								</div>
+								<div class="vicp-range">
+									<input type="range" step="1" min="0" max="100" />
+									<i class="vicp-icon5" id="btnZoomOut"></i>
+									<i class="vicp-icon6" id="btnZoomIn">+</i>
+								</div>
+							</div>
+							<div class="vicp-crop-right">
+								<div class="vicp-preview">
+									<div class="vicp-preview-item vicp-preview-item-circle">
+									<div class="photo-preview-wrap"><img alt="图片预览" class="pre-photo" style="width: 100px;height: 100px;"></div>
+										<span>图像预览</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="vicp-operate">
+							<a>上一步</a>
+							<a class="vicp-operate-btn">上传并保存</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-wrapper undefined modal-enter-done delete-collect-confirm" style="display: none;">
+		 	<div class="modal-backdrop"></div>
+		 	<div class="modal modal--default css-comfirm" tabindex="0">
+		 		<div class="modal-inner">
+		 			<div class="modal-content">
+		 				<div class="css-confirm-ctn">
+		 					<div class="css-title-cofirm">删除收藏夹</div>
+		 					<div class="css-comfirm-tip">
+		 						<div class="collectionsDeleteButton">
+		 							你确认要删除这个收藏夹吗？
+		 							<span class="collectionsDeleteButton-hint">
+		 								删除收藏夹后，里面收藏的内容也一并删除
+		 							</span>
+		 						</div>
+		 					</div>
+		 					<div class="css-comfirm-bottom">
+		 						<button type="button" class="button css-mr4">取消</button>
+		 						<button type="button" class="button button--primary button--blue">确认</button>
+		 					</div>
+		 				</div>
+		 			</div>
+		 		</div>
+		 	</div>
+		 </div>
+@}

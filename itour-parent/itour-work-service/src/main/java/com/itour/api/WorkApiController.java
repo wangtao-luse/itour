@@ -290,6 +290,11 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return workIpInfoService.saveOrupdateWorkIpInfo(requestMessage);
 	}
+	@Override
+	public ResponseMessage queryLikeList(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return likeService.queryLikeList(requestMessage);
+	}
 	
 	
 	

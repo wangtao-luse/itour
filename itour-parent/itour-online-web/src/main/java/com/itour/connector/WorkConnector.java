@@ -217,6 +217,23 @@ public ResponseMessage selectOneColumn(JSONObject jsonObject,HttpServletRequest 
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.selectOneColumn(requestMessage);
 }
+public ResponseMessage searchTextList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.searchTextList(requestMessage);
+}
+public ResponseMessage queryPersonCenterList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.queryPersonCenterList(requestMessage);
+}
+public ResponseMessage getInfoData(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.getInfoData(requestMessage);
+}
+public ResponseMessage queryLikeList(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.queryLikeList(requestMessage);
+}
+
 
 
 }

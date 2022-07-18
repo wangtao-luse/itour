@@ -138,7 +138,7 @@ $(function(){
 	$(document).on("change",".mark_selection_box .tag__option-label",function(e){
 				  var checked = $(".mark_selection_box .tag__option-chk:checked");
 				  var uncheked = $(".mark_selection_box .tag__option-chk:not(:checked)");
-				  var check = $(this).find(".tag__option-chk").is(':checked')
+				  var check = $(this).find(".tag__option-chk").is(':checked');
 				  var clen =checked.length;
 				  var ulen =uncheked.length;
 				  var text = $(this).find(".spanIsAgree").text();

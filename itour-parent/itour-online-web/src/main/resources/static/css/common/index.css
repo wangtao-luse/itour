@@ -845,6 +845,7 @@ overflow: hidden;
     border-top: 1px solid #EEE;
     padding: 10px 0;
     color: #888;
+    height:64px;
     line-height: 1.6;
     vertical-align: top;
     background: #FFF;
@@ -2964,6 +2965,9 @@ color: #646464;
 }
 .article-nav-list .nav4 {
     padding: 0.25rem 2.5rem;
+}
+.article-nav-list .nav5 {
+    padding: 0.25rem 3rem;
 }
 .article-nav-list .text-primary{
 	font-weight: bold;

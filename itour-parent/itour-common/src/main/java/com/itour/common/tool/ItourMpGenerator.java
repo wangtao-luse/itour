@@ -36,7 +36,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
         	/**
         	 * 模块名称
         	 */
-  			 String model=ItourMpGenerator.MODEL_DICTIONARY;
+  			 String model=ItourMpGenerator.MODEL_WORK;
   			        
   			        
   			 /**
@@ -47,7 +47,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			  * 需要生成的表名
   			  */
   			 String [] include= new String[] {
-  					 "T_D_WEBSITE_ip_info"
+  					 "T_W_COLLECT"
   			           		 
   			 };
   			 /**
@@ -57,7 +57,7 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
   			 /**
   			  * 是否需要覆盖Service  （是否创建service）
   			  */
-		     boolean isOverflowService=false;
+		     boolean isOverflowService=true;
 			GenneratorCode(model, isView, include, tableprefix,isOverflowService);
 		 
         	 

@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.model.work.Label;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
+import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.model.work.vo.WorkInfoVo;
 
 /**
@@ -53,7 +54,7 @@ List<WorkColumn> workColList(@Param("id") Long id);
  * @param workInfoDto
  * @return
  */
-List<WorkInfoVo> searchTextList(Page page,@Param("vo")WorkInfoVo workInfoDto);
+List<WorkInfoVo> searchTextList(Page page,@Param("dto")WorkInfoDto workInfoDto);
 /**
  * 个人中心统计
  * @param workInfoDto
