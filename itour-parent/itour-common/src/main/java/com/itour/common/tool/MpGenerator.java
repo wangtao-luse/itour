@@ -1,5 +1,6 @@
 package com.itour.common.tool;
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
@@ -26,7 +27,6 @@ import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
             gc.setBaseResultMap(true);// XML ResultMap
             gc.setBaseColumnList(true);// XML columList
             gc.setAuthor("wangtao");
-
             // 自定义文件命名，注意 %s 会自动填充表实体属性！
             gc.setMapperName("%sMapper");
             gc.setXmlName("%sMapper");

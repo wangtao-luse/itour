@@ -221,4 +221,9 @@ h1, h2, h3 {
 .CommentsV2-pagination {
     border-top: 1px solid #ebebeb;
 }
-
+.text-default{
+	color: #0084FF!important;
+}
+.text-red{
+	color:red!important;
+}
