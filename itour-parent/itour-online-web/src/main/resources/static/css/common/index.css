@@ -2903,14 +2903,14 @@ color: #646464;
 
 /**md页面结束**/
 /**文章导航start**/
-.article-nav-right_box{
-	position: fixed;
-	top:260px;
-}
+ .article-nav-right_box{
+	/* position: fixed;
+	top:760px; */
+} 
 .article-nav-wrap{
 	padding: 0px;
-	max-height: 400px;
-	min-width:296px;
+	/* max-height: 400px;
+	min-width:296px; */
 	white-space:nowrap;
 	overflow-x: hidden;
 	overflow-y: auto;

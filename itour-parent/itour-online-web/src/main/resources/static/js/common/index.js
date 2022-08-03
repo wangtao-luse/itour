@@ -164,6 +164,7 @@ $(function(){
 		    		 $(this).prop("id",parent_id+"-"+i);
 		    		 i++;
 	    	    });
+	    	    
 	    	     sm_parent="";
 	    	     i=1;
 	    	     $(".richContent-inner h4").each(function(index,item){
@@ -209,14 +210,15 @@ $(function(){
 	    	   
 	    	   
 	    	}
-	    	function findParent(th,p_node){
+	    	function findParent(th,p_node){//H3
 	    		//获取当前元素的上一个兄弟节点
 	    		var $this = $(th).prev();
 	    		var parent_id = $($this).prop("id");
 	    		//获取当前元素的上一个兄弟节点的标签名称
 	    		var tName = $($this).prop("tagName");
 	    		var reg = /^H\d{1}$/;
-	    		if(tName!=p_node||!reg.test(tName)){
+	    		var len = $(p_node).length;
+	    		if((tName!=p_node||!reg.test(tName))&&len>0){
 	    		  return findParent($this,p_node);
 	    		}
 	    		return parent_id;
@@ -231,6 +233,12 @@ $(function(){
 	    	 	createChild("h3",target);
 	    	 	
 	    	 })
+	    	 
+	    	 var len = $(".article-nav-list a").length;
+	    	 	if(len <=0){
+	    	 		$(".article-nav-wrap").hide();
+	    	 		$(".recommend-person-wrap").css("margin-bottom"," 100px")
+	    	 	}
 	    	}
 	       function createChild(node,target){
 	       	var html = $(".article-nav-list"); 
