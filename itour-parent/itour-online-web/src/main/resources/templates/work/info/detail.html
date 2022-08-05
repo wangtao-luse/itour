@@ -30,7 +30,18 @@
     line-height: 30px;
 }
 
-
+.recomment-person-ctn li:nth-child(n+7){
+display:none;
+}
+a.flexible-btn img {
+    width: 12px;
+    height: 7px;
+}
+a.flexible-btn{
+    color: #555666;
+    cursor: pointer;
+}
+   
 </style>
 
 <script type="text/javascript" src="${ctxPath}/js/work/detail.js" ></script>
@@ -39,8 +50,35 @@
 $(function(){
 	showNav();
 	createNav();
-	
-	
+	$("a.flexible-btn").click(function(){
+		$(".recomment-person-ctn li:nth-child(n+7)").css("display","block");
+		$(".text-center.more_all").remove();
+	})
+	//1.获取
+	 var  top_y = $(".article-nav-right_box").offset().top;
+	//默认偏移量
+	 var y =30;
+	 $(document).scroll(function(){
+		 //1.获取垂直滚动的距离 即当前滚动的地方的窗口顶端到整个页面顶端的距离
+		 var top = $(document).scrollTop();	
+		 //导航的高度
+		var container_h = $(".article-nav-right_box").height();
+		 //浏览器可见高度
+		 var show_h = $(window).height();
+		 //整个文档的高度
+		 var doc_h = $(document).height();
+	     if (top > top_y){	//滚动的距离大于容器偏移量时
+			 if (top>=(doc_h-show_h)){//滑到底部是
+					y = -(container_h - show_h +60);
+			 }
+			 $(".article-nav-right_box").css("position","fixed").css("top",y+"px"); 
+		 }else{
+		
+				 $(".article-nav-right_box").css("position","").css("top","");   
+			 
+			 
+		 }
+	 })
 });
 </script>
 
@@ -201,7 +239,12 @@ $(function(){
 					    			  	 <span class="count fr">${c.count}篇</span>
 					    			    </a>
 					    			  </li>	
-					    			  @}				    	
+					    			  @}
+					    			  @if(colShowList.~size>6)
+					    			  <p class="text-center more_all">
+									      <a class="flexible-btn" data-fbox="aside-archive">
+									      <img class="look-more" src="${ctxPath}/img/common/arrowDownWhite.png" alt=""></a>
+									    </p>				    	
 					    			</ul>
 					    		</div>
 					    	</div>
