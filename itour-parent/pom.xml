@@ -109,13 +109,13 @@
 		<artifactId>spring-boot-starter-test</artifactId>
 		<scope>test</scope>
 	</dependency>
-	 <dependency>
+	
+	<!-- junit支持 -->
+	<dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-	
-	
 	<!-- eureka client -->
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>

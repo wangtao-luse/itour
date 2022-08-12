@@ -41,7 +41,9 @@ a.flexible-btn{
     color: #555666;
     cursor: pointer;
 }
-   
+.editormd-html-preview, .editormd-preview-container{
+font-size:16px;
+ }  
 </style>
 
 <script type="text/javascript" src="${ctxPath}/js/work/detail.js" ></script>
@@ -71,7 +73,8 @@ $(function(){
 			 if (top>=(doc_h-show_h)){//滑到底部是
 					y = -(container_h - show_h +60);
 			 }
-			 $(".article-nav-right_box").css("position","fixed").css("top",y+"px"); 
+	        var w =$(".wechat-follow-wrap").outerWidth()
+			 $(".article-nav-right_box").css("position","fixed").css("top",y+"px").css("width",w+"px"); 
 		 }else{
 		
 				 $(".article-nav-right_box").css("position","").css("top","");   
