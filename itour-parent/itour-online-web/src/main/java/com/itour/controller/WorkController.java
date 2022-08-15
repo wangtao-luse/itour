@@ -287,7 +287,7 @@ private WorkInfoVo workInfo(Long id, ModelMap model, HttpServletRequest request)
 			ResponseMessage weekinfo =  this.workConnector.selecWorktextOne(jsonObject, request);
 			if(Constant.SUCCESS_CODE.equals(weekinfo.getResultCode())) {
 				Worktext worktext = FastJsonUtil.mapToObject(weekinfo.getReturnResult(), Worktext.class, Constant.COMMON_KEY_RESULT);
-				String markdownToHtml = MarkdownUtils.markdownToHtml(worktext.getWcontent());
+				String markdownToHtml = MarkdownUtils.markdownToHtmlExtensitons(worktext.getWcontent());
 				worktext.setWcontent(markdownToHtml);
 				model.addAttribute("worktext", worktext);
 			}

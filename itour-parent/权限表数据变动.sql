@@ -291,6 +291,8 @@ INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/checkemailCode','-1','anon','校验邮箱验证码','0');
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
 VALUES('/msg/sendCodetoEmail','-1','anon','发送验证码','0');
+INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)
+VALUES('/account/checkExistEmail','-1','anon','查看邮箱是否存在','0');
 ##旅行模块################################-
 
 INSERT INTO T_A_RIGHT_DETAIL(URL,RIGHT_No,ISLOGIN,`DESC`,ISLOG)

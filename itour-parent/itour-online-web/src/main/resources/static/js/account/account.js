@@ -963,7 +963,7 @@ function checkExistEmail(email){
 			$(".item-rcol .input-tip").append("<i class='i-error'></i>"+errormsg);
 			$(".item-rcol .input-tip").show();
 			$(".checkCode").trigger("click");
-   	},cache: false, async:true,contentType:"application/x-www-form-urlencoded"});
+   	},cache: false, async:false,contentType:"application/x-www-form-urlencoded"});
    
    
 	    	
