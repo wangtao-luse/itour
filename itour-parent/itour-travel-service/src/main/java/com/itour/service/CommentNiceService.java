@@ -18,16 +18,15 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.travel.CommentNice;
-import com.itour.model.travel.Nice;
 import com.itour.persist.CommentNiceMapper;
-import com.itour.util.DateUtil;
 
 /**
  * <p>
  *  服务实现类
  * </p>
- *
+ *DateHelper
  * @author wangtao
  * @since 2021-04-20
  */
@@ -58,7 +57,7 @@ public class CommentNiceService extends ServiceImpl<CommentNiceMapper, CommentNi
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			CommentNice commentNice = jsonObject.toJavaObject(CommentNice.class);
-			commentNice.setCreatedate(DateUtil.currentLongDate());
+			commentNice.setCreatedate(DateHelper.currentLongDate());
 			//key 不存在直接放入缓存
 			String uid = commentNice.getUid();
 			Long cid = commentNice.getCid();

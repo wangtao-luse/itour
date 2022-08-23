@@ -14,12 +14,12 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.CommentReply;
 import com.itour.model.travel.TravelComment;
 import com.itour.persist.CommentReplyMapper;
 import com.itour.persist.TravelCommentMapper;
-import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -74,7 +74,7 @@ public class TravelCommentService extends ServiceImpl<TravelCommentMapper, Trave
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			TravelComment commentVo = jsonObject.toJavaObject(TravelComment.class);
-			commentVo.setCtime(DateUtil.currentLongDate());
+			commentVo.setCtime(DateHelper.currentLongDate());
 			commentVo.setStatus(Constant.COMMON_STATUS_CHECKING);
 			this.baseMapper.insert(commentVo);
 		} catch (Exception e) {

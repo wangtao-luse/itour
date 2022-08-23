@@ -28,6 +28,8 @@ import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
+import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.model.account.Oauth;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.Favorites;
@@ -42,12 +44,10 @@ import com.itour.model.travel.vo.ViewCommentReply;
 import com.itour.model.travel.vo.ViewTravelColumn;
 import com.itour.model.travel.vo.ViewTravelComment;
 import com.itour.model.travel.vo.ViewTravelTag;
-import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
 import com.itour.util.MarkdownUtils;
 import com.itour.util.SessionUtil;
-import com.itour.util.StringHelper;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -277,7 +277,7 @@ private void commentList(JSONObject jsonTmp, ModelMap model, HttpServletRequest 
 	
 }
 public void unique(HttpServletRequest request,String id) {
-	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	String strDate = DateHelper.getStrDate(new Date(), "yyyy-MM-dd");
 	 Cookie[] cookies = request.getCookies();
 	 String cookie_=null;
 	 for (Cookie cookie : cookies) {
@@ -295,7 +295,7 @@ public void unique(HttpServletRequest request,String id) {
 }
 private void ip(HttpServletRequest request,String id) {
 	 //1.组装key
-	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	 String strDate = DateHelper.getStrDate(new Date(), "yyyy-MM-dd");
 	 String ipAddr = IpUtil.getIpAddr(request);
 	 String key=ipAddr+"::"+strDate+"::"+id;
 		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOURINFO_IP_LIST, key);
@@ -305,7 +305,7 @@ private void ip(HttpServletRequest request,String id) {
 }
 public void pv(HttpServletRequest request,String id) {
 	//1.组装key
-	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	String strDate = DateHelper.getStrDate(new Date(), "yyyy-MM-dd");
 	String ipAddr = IpUtil.getIpAddr(request);
 	String key=ipAddr+"::"+strDate+"::"+id;
 	String k=strDate+"::"+id;
@@ -317,7 +317,7 @@ public void pv(HttpServletRequest request,String id) {
 }
 private void pageView(String id) {
 	//1.浏览量
-	String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	String strDate = DateHelper.getStrDate(new Date(), "yyyy-MM-dd");
 	String key=RedisKey.KEY_ITOUR_PAGEVIEW+"::"+strDate+"::"+id;
 	this.redisManager.incr(key, 1);
 	boolean isMember = this.redisManager.sisMember(RedisKey.ITOUR_PAGEVIEW_IDS,id);
@@ -672,7 +672,7 @@ public String queryPersonCenterList(@RequestBody JSONObject jsonObject,ModelMap 
 		for (JSONObject info : records) {
 			TravelInfoDto dto = info.toJavaObject(TravelInfoDto.class);
 			if(!ConstAccount.PERSONCENTER_COLLECT.equals(mold)) {
-				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
+				dto.setCreateDateFmt(DateHelper.getDateStr(new Date(dto.getTime())));
 			}
 			rList.add(dto);	
 		}
@@ -837,7 +837,7 @@ public ResponseMessage delFavortie(Long id, HttpServletRequest request) {
 	JSONObject jsonObject = new JSONObject();
 	Favorites favorite = new Favorites();
 	favorite.setId(id);
-	favorite.setDeleteDate(DateUtil.currentLongDate());
+	favorite.setDeleteDate(DateHelper.currentLongDate());
 	jsonObject.put(Constant.COMMON_KEY_VO, favorite);
 	ResponseMessage updateFavorite = this.travelConnector.updateFavorite(jsonObject, request);
 	return updateFavorite;

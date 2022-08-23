@@ -16,10 +16,10 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.travel.Tag;
 import com.itour.model.travel.TravelInfo;
 import com.itour.persist.TagMapper;
-import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -83,7 +83,7 @@ public class TagService extends ServiceImpl<TagMapper, Tag> {
 			//2.该用户下是否已经创建了该标签
 			javaList.stream().forEach(item->{
 				item.setUid(uid);
-				item.setCreatedate(DateUtil.currentLongDate());
+				item.setCreatedate(DateHelper.currentLongDate());
 				String tag = item.getTag();
 				//判断该用户下是否已经创建了该标签，如果已经创建了返回true;
 				boolean present = selectList.stream().filter(t->t.getTag().equals(tag)).findAny().isPresent();

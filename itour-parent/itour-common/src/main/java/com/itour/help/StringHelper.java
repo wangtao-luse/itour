@@ -1,4 +1,4 @@
-package com.itour.util;
+package com.itour.help;
 
 import java.util.UUID;
 
@@ -20,7 +20,7 @@ public static String getUuid() {
 	return randomUUID;
 }
 public static boolean isEmpty(Object obj) {
-	return obj==null||obj=="";
+	return obj == null || obj == "" || "null".equals(obj);
 }
 
 }

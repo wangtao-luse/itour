@@ -1,10 +1,10 @@
-package com.itour.util;
+package com.itour.help;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArrayUtils {
+public class ArrayHelper {
 /**
  * 将String[]数组按逗号(,)分隔转为字符串
  * @param arr

@@ -16,10 +16,10 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.model.travel.TravelColumn;
 import com.itour.persist.TravelColumnMapper;
-import com.itour.util.DateUtil;
-import com.itour.util.StringHelper;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -150,7 +150,7 @@ public class TravelColumnService extends ServiceImpl<TravelColumnMapper, TravelC
 			//设置属性且判重
 			javaList.stream().forEach(t->{
 				t.setUid(getuId);
-				t.setCreatedate(DateUtil.currentLongDate());
+				t.setCreatedate(DateHelper.currentLongDate());
 				boolean present = selectList.stream().filter(p->p.getColumn().equals(t.getColumn())).findAny().isPresent();
 				if(!present) {
 					reqList.add(t);

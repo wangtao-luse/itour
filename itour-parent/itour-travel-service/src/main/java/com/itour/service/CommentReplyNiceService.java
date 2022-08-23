@@ -6,10 +6,10 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.travel.CommentReplyNice;
 import com.itour.persist.CommentReplyNiceMapper;
 import com.itour.service.CommentReplyNiceService;
-import com.itour.util.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -58,7 +58,7 @@ public class CommentReplyNiceService extends ServiceImpl<CommentReplyNiceMapper,
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			CommentReplyNice commentNice = jsonObject.toJavaObject(CommentReplyNice.class);
-			commentNice.setCreatedate(DateUtil.currentLongDate());
+			commentNice.setCreatedate(DateHelper.currentLongDate());
 			//key 不存在直接放入缓存
 			String uid = commentNice.getUid();
 			Long cid = commentNice.getRid();

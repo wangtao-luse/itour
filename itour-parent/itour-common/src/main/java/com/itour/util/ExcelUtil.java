@@ -44,6 +44,7 @@ import com.itour.constant.ExceptionInfo;
 import com.itour.entity.Excel;
 import com.itour.entity.Person;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 
 public class ExcelUtil {
 /**
@@ -83,7 +84,7 @@ public class ExcelUtil {
 		list.add(new Excel("编号", "id"));
 		list.add(new Excel("姓名", "name"));
 		list.add(new Excel("生日", "birthday"));
-		list.add(new Excel("最后修改日期", "updateDate",DateUtil.FMT_DATETIME_SHORT));
+		list.add(new Excel("最后修改日期", "updateDate",DateHelper.FMT_DATETIME_SHORT));
 		
 		
 		 Workbook workbook = poiWriteExcel("用户表",list,aList);
@@ -215,7 +216,7 @@ public static <T> List<T> poiReadExcel(InputStream is,String fileName,Class<T> c
 			}else if("Date".equals(name)) {
 				String pattern = collist.get(i).getPattern();
 				if(StringUtils.isEmpty(pattern)) {
-					pattern=DateUtil.FMT_DATE;
+					pattern=DateHelper.FMT_DATE;
 				}
 				SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 				String dateCellValue = cell.getStringCellValue();
@@ -516,7 +517,7 @@ private static Workbook getWorkbook(InputStream is, String fileName) throws IOEx
 			cell.setCellValue("");
 		}else {
 			if(StringUtils.isEmpty(pattern)) {
-				pattern=DateUtil.FMT_DATE;
+				pattern=DateHelper.FMT_DATE;
 			}
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			String v = sdf.format((Date)value);

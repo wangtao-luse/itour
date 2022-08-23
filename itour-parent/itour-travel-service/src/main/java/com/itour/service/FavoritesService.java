@@ -15,11 +15,11 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.Favorites;
 import com.itour.model.travel.dto.FavoritesDto;
 import com.itour.persist.FavoritesMapper;
-import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -121,7 +121,7 @@ public ResponseMessage insertFavorite(RequestMessage requestMessage) {
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		Favorites favoriteVo = jsonObject.getJSONObject("vo").toJavaObject(Favorites.class);
-		favoriteVo.setCreatedate(DateUtil.currentLongDate());
+		favoriteVo.setCreatedate(DateHelper.currentLongDate());
 		favoriteVo.setUid(requestMessage.getBody().getuId());
 		favoriteVo.setStatus(Constant.COMMON_DELETE);
 		String favorite = favoriteVo.getFavorite();

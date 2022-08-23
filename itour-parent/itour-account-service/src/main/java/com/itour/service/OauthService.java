@@ -21,15 +21,15 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantMessage;
 import com.itour.constant.ExceptionInfo;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.model.account.Account;
 import com.itour.model.account.LoginList;
 import com.itour.model.account.Oauth;
 import com.itour.persist.AccountMapper;
 import com.itour.persist.LoginListMapper;
 import com.itour.persist.OauthMapper;
-import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
-import com.itour.util.StringHelper;
 
 /**
  * <p>
@@ -78,12 +78,12 @@ private IpaddrService ipaddrService;
 	        	throw new BaseException(ExceptionInfo.EXCEPTION_STATUS);
 	        }
 	        //1.2修改最近登录时间
-	        account.setLasttime(DateUtil.currentLongDate());
+	        account.setLasttime(DateHelper.currentLongDate());
 	        this.accountMapper.updateById(account);
 	        responseMessage.setReturnResult(selectOne);
 	        //插入登录记录
 	        LoginList loginList = new LoginList();
-	        loginList.setLoginTime(DateUtil.currentLongDate());
+	        loginList.setLoginTime(DateHelper.currentLongDate());
 	        loginList.setOauthId(oauth.getOauthId());
 	        loginList.setOauthType(selectOne.getOauthType());
 	        loginList.setuId(selectOne.getuId());

@@ -18,9 +18,9 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.help.ArrayHelper;
 import com.itour.model.work.Like;
 import com.itour.model.work.WorkInfo;
-import com.itour.util.ArrayUtils;
 import com.itour.util.FastJsonUtil;
 @Service
 public class WorkLikeService {
@@ -73,7 +73,7 @@ public class WorkLikeService {
 			// 4.更新点赞数
 			//4.1 统计文章点赞数;
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("tids", ArrayUtils.listToStr(tidList));
+			jsonObject.put("tids", ArrayHelper.listToStr(tidList));
 			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
 			ResponseMessage respose = workApi.countLikeList(postData);
 			if (Constant.SUCCESS_CODE.equals(respose.getResultCode())) {

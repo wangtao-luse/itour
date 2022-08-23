@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.itour.constant.Constant;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
 
@@ -93,6 +94,9 @@ public final class ResponseMessage implements Serializable {
 		return new ResponseMessage(Constant.FAILED_CODE, faileMsg);
 	}
 	public static boolean isSuccessResult(ResponseMessage resp) {
+		if(ObjectUtil.isNotNull(resp)) {
+			
+		}
 		Map<String, Object> map = resp.getReturnResult();
 		return Constant.SUCCESS_CODE.equals(resp.getResultCode())&&!StrUtil.isEmptyIfStr(map);
 	}

@@ -20,9 +20,9 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantV;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.travel.History;
 import com.itour.persist.HistoryMapper;
-import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -76,10 +76,10 @@ public ResponseMessage insertHistory(RequestMessage requestMessage) {
 			QueryWrapper<History> queryWrapper = new QueryWrapper<History>();
 			queryWrapper.eq("U_ID", history.getuId());
 			queryWrapper.eq("TITLE", history.getTitle());
-			queryWrapper.ge("CREATEDATE", DateUtil.getMidnight());
+			queryWrapper.ge("CREATEDATE", DateHelper.getMidnight());
 			History selectOne = this.baseMapper.selectOne(queryWrapper );
 			if(selectOne!=null) {
-				selectOne.setCreatedate(DateUtil.currentLongDate());
+				selectOne.setCreatedate(DateHelper.currentLongDate());
 				this.baseMapper.updateById(selectOne);
 			}else {
 				this.baseMapper.insert(history);

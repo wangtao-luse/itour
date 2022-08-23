@@ -23,6 +23,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.Tag;
@@ -38,7 +39,6 @@ import com.itour.persist.TravelInfoMapper;
 import com.itour.persist.TravelTagMapper;
 import com.itour.persist.TravelinfoColumnMapper;
 import com.itour.persist.WeekInfoMapper;
-import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -267,12 +267,12 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 				}
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					travelInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
-					travelInfo.setUpdatetime(DateUtil.currentLongDate());
+					travelInfo.setUpdatetime(DateHelper.currentLongDate());
 				}else if(Constant.COMMON_FUNCTION_DRAFT.equals(function)) {
 					travelInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 				}				
 			}else {
-				travelInfo.setPublishtime(DateUtil.currentLongDate());
+				travelInfo.setPublishtime(DateHelper.currentLongDate());
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					travelInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
 				}else if(Constant.COMMON_FUNCTION_DRAFT.equals(function)) {
@@ -375,7 +375,7 @@ public class TravelInfoService extends ServiceImpl<TravelInfoMapper, TravelInfo>
 			 n.setStatus(status);
 			 n.setTid(tid);
 			 n.setUid(uid);
-			 n.setCreatedate(DateUtil.currentLongDate());
+			 n.setCreatedate(DateHelper.currentLongDate());
 			//将点赞对象放入缓存并设置缓存超时时间
 			//key 不存在直接放入缓存
 			HashMap<String, Object> m = new HashMap<String, Object>();

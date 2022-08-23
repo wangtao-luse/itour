@@ -19,6 +19,7 @@ import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.member.Account;
 import com.itour.model.member.AccountGroup;
 import com.itour.model.member.Group;
@@ -28,7 +29,6 @@ import com.itour.persist.AccountGroupMapper;
 import com.itour.persist.AccountMapper;
 import com.itour.persist.GroupMapper;
 import com.itour.persist.OauthMapper;
-import com.itour.util.DateUtil;
 import com.itour.util.SimpleHashUtil;
 
 /**
@@ -75,7 +75,7 @@ public 	ResponseMessage regiesterSub(RequestMessage requestMesage) {
 		account.setStatus("1");
 		account.setCreateip(addr.getIp());
 		//注册日期		
-		account.setCreatedate(DateUtil.currentLongDate());
+		account.setCreatedate(DateHelper.currentLongDate());
 		this.baseMapper.insert(account);
 		//2.插入用户认证表
 		Oauth o = jsonObject.getJSONObject("vo").toJavaObject(Oauth.class);

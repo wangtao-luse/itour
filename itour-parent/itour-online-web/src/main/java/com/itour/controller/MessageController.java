@@ -19,10 +19,10 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.MessageConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantMessage;
+import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.model.quartz.Messageinfo;
-import com.itour.util.DateUtil;
 import com.itour.util.MessageUtil;
-import com.itour.util.StringHelper;
 
 @Controller
 @RequestMapping("/msg")
@@ -55,7 +55,7 @@ public class MessageController {
 	   if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 		   String uuid = StringHelper.getUuid();
 		   responseMessage.add("key_email_code", uuid);
-		   Date addSecond = DateUtil.addSecond(new Date(), 120);
+		   Date addSecond = DateHelper.addSecond(new Date(), 120);
 		   HttpSession session = request.getSession();
 		   session.setAttribute(uuid, code+","+(addSecond.getTime()));
 	   }
@@ -85,7 +85,7 @@ public class MessageController {
 		if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 			String uuid = StringHelper.getUuid();
 			responseMessage.add("key_email_code", uuid);
-			Date addSecond = DateUtil.addSecond(new Date(), 120);
+			Date addSecond = DateHelper.addSecond(new Date(), 120);
 			request.getSession().setAttribute(uuid, code+","+(addSecond.getTime()));
 		}
 		return responseMessage;

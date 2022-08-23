@@ -1,4 +1,4 @@
-package com.itour.util;
+package com.itour.help;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUtil {
+public class DateHelper {
 public static final String FMT_DATE ="yyyy-MM-dd";
 public static final String FMT_TIME ="HH:mm:ss";
 public static final String FMT_DATETIME ="yyyy-MM-dd HH:mm:ss";
@@ -58,7 +58,7 @@ public static String getDateStr(Date sDate) {
 		}else if(differOfDay<8) {
 			return differOfDay+"天前";
 		}else if(differOfYear<1) {
-			return DateUtil.getStrDate(sDate, DateUtil.FMT_MONTH_DAY);
+			return DateHelper.getStrDate(sDate, DateHelper.FMT_MONTH_DAY);
 		}else {
 			return differOfYear+"年前";
 		}
@@ -414,7 +414,7 @@ public static final int daysBetween(Date early, Date late) {
  */
 public static long getMidnight() throws ParseException {
     //1.得到long类型的当前时间
-	long current = DateUtil.getlongDate(new Date());
+	long current = DateHelper.getlongDate(new Date());
 	//2.将当前日期格式化为yyyy-MM-dd
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String format = sdf.format(new Date(current));
@@ -454,7 +454,7 @@ public static Date getWeekEnd() throws ParseException{
 
 public static void main(String[] args) throws ParseException {
 	//得到long类型的当前时间
-	long longDate = DateUtil.getlongDate(new Date());
+	long longDate = DateHelper.getlongDate(new Date());
 	//System.out.println(getlongDate);//1589436700
 									//1589438064
 									//1691766000
@@ -463,7 +463,7 @@ public static void main(String[] args) throws ParseException {
 	String format = sdf.format(d);
 	//System.out.println(format);
 	Date parse = sdf.parse("2023-08-11 23:00");
-	long time = DateUtil.getlongDate(parse);
+	long time = DateHelper.getlongDate(parse);
 	//System.out.println("指定日期的long格式"+time);
 	testDate();
 	/**
@@ -497,20 +497,20 @@ public static void testDate() throws ParseException {
 	Date stime = sdf1.parse("2016-06-1 08:30:4");
 	//3.结束时间 
 	Date etime = sdf1.parse("2016-06-1 08:30:59");
-	long differOfSecond = DateUtil.getDifferOfSecond(stime,etime);
+	long differOfSecond = DateHelper.getDifferOfSecond(stime,etime);
 	System.out.println("相差 "+differOfSecond+"秒");
 		
-	long differOfMinute = DateUtil.getDifferOfMinute(stime, etime);
+	long differOfMinute = DateHelper.getDifferOfMinute(stime, etime);
 	System.out.println("相差 " + differOfMinute + "分钟");
 	
 		
-		long differOfHour = DateUtil.getDifferOfHour(stime, etime);
+		long differOfHour = DateHelper.getDifferOfHour(stime, etime);
 		System.out.println("相差 " + differOfHour + "小时");
-		int differOfDay = DateUtil.getDifferOfDay(stime, etime);
+		int differOfDay = DateHelper.getDifferOfDay(stime, etime);
 		System.out.println("相差 " + differOfDay + "天");
-		int differOfMonth = DateUtil.getDifferOfMonth(stime, etime);
+		int differOfMonth = DateHelper.getDifferOfMonth(stime, etime);
 		System.out.println("相差 " + differOfMonth + "个月");
-		int differOfYear = DateUtil.getDifferOfYear(stime, etime);
+		int differOfYear = DateHelper.getDifferOfYear(stime, etime);
 		System.out.println("相差 " + differOfYear + "年");
 	
 		/*

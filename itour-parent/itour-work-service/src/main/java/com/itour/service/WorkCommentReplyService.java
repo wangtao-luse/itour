@@ -17,11 +17,11 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.work.ReplyLike;
 import com.itour.model.work.WorkCommentReply;
 import com.itour.persist.WorkCommentReplyMapper;
-import com.itour.util.DateUtil;
 
 /**
  * <p>
@@ -98,7 +98,7 @@ public class WorkCommentReplyService extends ServiceImpl<WorkCommentReplyMapper,
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			WorkCommentReply commentReply = jsonObject.toJavaObject(WorkCommentReply.class);
-			commentReply.setRtime(DateUtil.currentLongDate());
+			commentReply.setRtime(DateHelper.currentLongDate());
 			commentReply.setStatus(Constant.COMMON_STATUS_CHECKING);
 			this.baseMapper.insert(commentReply);
 		} catch (Exception e) {
@@ -134,7 +134,7 @@ public class WorkCommentReplyService extends ServiceImpl<WorkCommentReplyMapper,
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			ReplyLike commentNice = jsonObject.toJavaObject(ReplyLike.class);
-			commentNice.setCreatedate(DateUtil.currentLongDate());
+			commentNice.setCreatedate(DateHelper.currentLongDate());
 			//key 不存在直接放入缓存
 			String uid = commentNice.getUid();
 			Long cid = commentNice.getRid();

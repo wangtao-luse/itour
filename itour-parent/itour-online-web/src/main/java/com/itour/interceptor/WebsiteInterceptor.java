@@ -15,11 +15,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.itour.common.redis.RedisManager;
 import com.itour.constant.RedisKey;
+import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.util.CookieUtil;
-import com.itour.util.DateUtil;
 import com.itour.util.IpUtil;
 import com.itour.util.SessionUtil;
-import com.itour.util.StringHelper;
 @Component
 public class WebsiteInterceptor implements HandlerInterceptor {
 	private static final Logger logger = LoggerFactory.getLogger(WebsiteInterceptor.class);
@@ -81,7 +81,7 @@ private void websiteIpCount(HttpServletRequest request) {
 	
 	String ipAddress = IpUtil.getIpAddr(request);
 	String key = ipAddress;
-	String strDate = DateUtil.getStrDate(new Date(), DateUtil.FMT_DATETIME);
+	String strDate = DateHelper.getStrDate(new Date(), DateHelper.FMT_DATETIME);
 	if (!StringUtils.isEmpty(ipAddress)) {
 		//判断Redis中是否存在
 		 boolean isMember = this.redisManager.sisMember(RedisKey.KEY_ITOUR_IP_LIST, key);

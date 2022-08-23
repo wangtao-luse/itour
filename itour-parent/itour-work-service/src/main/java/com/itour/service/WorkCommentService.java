@@ -20,6 +20,7 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.work.WorkComment;
 import com.itour.model.work.WorkCommentReply;
@@ -27,7 +28,6 @@ import com.itour.model.work.vo.WorkCommentReplyVo;
 import com.itour.model.work.vo.WorkCommentVo;
 import com.itour.persist.WorkCommentMapper;
 import com.itour.persist.WorkCommentReplyMapper;
-import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 
 /**
@@ -136,7 +136,7 @@ public ResponseMessage insertComment(RequestMessage requestMessage) {
 	try {
 		JSONObject jsonObject = requestMessage.getBody().getContent();
 		WorkComment commentVo = jsonObject.toJavaObject(WorkComment.class);
-		commentVo.setCtime(DateUtil.currentLongDate());
+		commentVo.setCtime(DateHelper.currentLongDate());
 		commentVo.setStatus(Constant.COMMON_STATUS_CHECKING);
 		this.baseMapper.insert(commentVo);
 	} catch (Exception e) {

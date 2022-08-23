@@ -5,10 +5,10 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.travel.Collect;
 import com.itour.persist.CollectMapper;
 import com.itour.service.CollectService;
-import com.itour.util.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -82,7 +82,7 @@ public ResponseMessage collectArticle(RequestMessage requestMessage) {
 		List<Collect> javaList = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(Collect.class);
 		for (Collect collect : javaList) {
 			collect.setUid(getuId);
-			collect.setCtime(DateUtil.currentLongDate());
+			collect.setCtime(DateHelper.currentLongDate());
 			collect.setStatus(ConstantTravel.TRAVEL_COLLECT_STATUS);
 			//之前收藏过直接修改状态
 			Collect selectOne = this.baseMapper.selectOne(new QueryWrapper<Collect>().eq("UID", collect.getUid()).eq("TID", collect.getTid()).eq("FID", collect.getFid()));

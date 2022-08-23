@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.OnlienApp;
 import com.itour.common.redis.RedisManager;
+import com.itour.help.DateUtil;
 import com.itour.model.travel.Tag;
-import com.itour.util.DateUtil;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OnlienApp.class)
 public class TestRedis {

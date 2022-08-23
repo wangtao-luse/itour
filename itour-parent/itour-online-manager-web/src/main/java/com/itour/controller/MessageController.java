@@ -17,8 +17,8 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.connector.MessageConnector;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantMessage;
+import com.itour.help.DateHelper;
 import com.itour.model.quartz.Messageinfo;
-import com.itour.util.DateUtil;
 import com.itour.util.MessageUtil;
 
 @Controller
@@ -48,7 +48,7 @@ public class MessageController {
 	   ResponseMessage responseMessage = this.meesageConnector.sendEmailCode(jsonObject, request);
 	   if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 		   request.getSession().setAttribute("code", code);
-		   Date addSecond = DateUtil.addSecond(new Date(), 120);
+		   Date addSecond = DateHelper.addSecond(new Date(), 120);
 		   request.getSession().setAttribute("limittime",addSecond.getTime());
 	   }
 	    return responseMessage;
@@ -80,7 +80,7 @@ public class MessageController {
 	   ResponseMessage responseMessage = this.meesageConnector.sendEmailCode(jsonObject, request);
 	   if(Constant.SUCCESS_CODE.equals(responseMessage.getResultCode())) {
 		   request.getSession().setAttribute("code", code);
-		   Date addSecond = DateUtil.addSecond(new Date(), 120);
+		   Date addSecond = DateHelper.addSecond(new Date(), 120);
 		   request.getSession().setAttribute("limittime",addSecond.getTime());
 	   }
 	    return responseMessage;

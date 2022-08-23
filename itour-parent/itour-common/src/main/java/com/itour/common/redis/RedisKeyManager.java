@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.itour.util.DateUtil;
+import com.itour.help.DateHelper;
 import com.itour.util.IpUtil;
 
 public class RedisKeyManager {
@@ -14,7 +14,7 @@ public class RedisKeyManager {
  */
 public static String key_ip(HttpServletRequest request ,String id) {
 	 //1.组装key,ip::yyyy-MM-dd::文章Id
-	 String strDate = DateUtil.getStrDate(new Date(), "yyyy-MM-dd");
+	 String strDate = DateHelper.getStrDate(new Date(), "yyyy-MM-dd");
 	 String ipAddr = IpUtil.getIpAddr(request);
 	 String key=ipAddr+"::"+strDate+"::"+id;
 return key;	

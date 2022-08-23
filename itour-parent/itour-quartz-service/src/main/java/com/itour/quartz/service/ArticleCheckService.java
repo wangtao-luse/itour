@@ -16,12 +16,12 @@ import com.itour.common.HttpDataUtil;
 import com.itour.common.req.RequestMessage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
+import com.itour.help.DateHelper;
 import com.itour.init.SensitiveWordFilter;
 import com.itour.model.travel.TravelInfo;
 import com.itour.model.travel.vo.ViewTravelinfoWeekinfo;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.vo.ViewWorkinfoWorktext;
-import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 @Service
 public class ArticleCheckService {
@@ -57,7 +57,7 @@ public class ArticleCheckService {
 					t.setStatus(Constant.COMMON_STATUS_CHECKED);
 					Long updatetime = t.getUpdatetime();
 					if(null==updatetime) {
-						t.setUpdatetime(DateUtil.currentLongDate());
+						t.setUpdatetime(DateHelper.currentLongDate());
 					}
 				}
 				t.setId(travel.getId());
@@ -96,7 +96,7 @@ public class ArticleCheckService {
 					t.setStatus(Constant.COMMON_STATUS_CHECKED);
 					Long updatetime = t.getUpdatetime();
 					if(null==updatetime) {
-						t.setUpdatetime(DateUtil.currentLongDate());
+						t.setUpdatetime(DateHelper.currentLongDate());
 					}
 				}
 				t.setId(work.getId());

@@ -23,6 +23,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.help.DateHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.work.InfoColumn;
 import com.itour.model.work.InfoLabel;
@@ -39,7 +40,6 @@ import com.itour.persist.LabelMapper;
 import com.itour.persist.WorkColumnMapper;
 import com.itour.persist.WorkInfoMapper;
 import com.itour.persist.WorktextMapper;
-import com.itour.util.DateUtil;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -277,7 +277,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
-					workInfo.setUpdatetime(DateUtil.currentLongDate());
+					workInfo.setUpdatetime(DateHelper.currentLongDate());
 				}else if(Constant.COMMON_FUNCTION_DRAFT.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 				}
@@ -286,7 +286,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				workInfo.setUid(body.getuId());
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_CHECKING);
-					workInfo.setPublishtime(DateUtil.currentLongDate());
+					workInfo.setPublishtime(DateHelper.currentLongDate());
 				}else if(Constant.COMMON_FUNCTION_DRAFT.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 				}
@@ -316,7 +316,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 						Label label = new Label();
 						label.setTag(String.valueOf(object));
 						label.setUid(body.getuId());
-						label.setCreatedate(DateUtil.currentLongDate());
+						label.setCreatedate(DateHelper.currentLongDate());
 						lList.add(label);
 					}
 					QueryWrapper<Label> queryWrapper = new QueryWrapper<Label>();
@@ -371,7 +371,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 					WorkColumn col = new WorkColumn();
 					col.setColumn(String.valueOf(object));
 					col.setUid(body.getuId());
-					col.setCreatedate(DateUtil.currentLongDate());
+					col.setCreatedate(DateHelper.currentLongDate());
 					cList.add(col);
 				}
 				QueryWrapper<WorkColumn> queryWrapper = new QueryWrapper<WorkColumn>();
@@ -503,7 +503,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			 n.setStatus(status);
 			 n.setWid(tid);
 			 n.setUid(uid);
-			 n.setCreatedate(DateUtil.currentLongDate());
+			 n.setCreatedate(DateHelper.currentLongDate());
 			//将点赞对象放入缓存并设置缓存超时时间
 			//key 不存在直接放入缓存
 			 LinkedHashMap<String, Object> m = new LinkedHashMap<String, Object>();

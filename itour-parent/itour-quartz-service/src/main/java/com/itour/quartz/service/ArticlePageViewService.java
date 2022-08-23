@@ -16,8 +16,8 @@ import com.itour.common.redis.RedisManager;
 import com.itour.common.req.RequestMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
+import com.itour.help.DateHelper;
 import com.itour.model.work.WorkIpInfo;
-import com.itour.util.DateUtil;
 @Service
 public class ArticlePageViewService {
 	@Autowired
@@ -37,8 +37,8 @@ public class ArticlePageViewService {
 				         String time = split[1];
 				         String tid = split[2];
 				         ipInfo.setIpAddr(ip);
-				         ipInfo.setIpVisitTime(DateUtil.getLongDate(time, DateUtil.FMT_DATETIME));
-				         ipInfo.setCreateDate(DateUtil.currentLongDate());
+				         ipInfo.setIpVisitTime(DateHelper.getLongDate(time, DateHelper.FMT_DATETIME));
+				         ipInfo.setCreateDate(DateHelper.currentLongDate());
 				         ipInfo.setTid(Long.getLong(tid));
 				         list.add(ipInfo);
 				         

@@ -17,9 +17,9 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.dictionary.api.DictionaryApi;
+import com.itour.help.DateHelper;
 import com.itour.model.dictionary.WebsiteIpInfo;
 import com.itour.model.dictionary.WebsiteVisitInfo;
-import com.itour.util.DateUtil;
 @Service
 public class WebsiteSerice {
 	private final static Logger logger=LoggerFactory.getLogger(WebsiteSerice.class);
@@ -57,7 +57,7 @@ public class WebsiteSerice {
 				websiteInfo.setVv(today_vv);
 				websiteInfo.setUv(today_uv);
 				websiteInfo.setPv(today_pv);				
-				websiteInfo.setCountDate(DateUtil.currentLongDate());
+				websiteInfo.setCountDate(DateHelper.currentLongDate());
 				list.add(websiteInfo);
 				//2.组装独立IP记录
 				WebsiteIpInfo info = new WebsiteIpInfo();
@@ -65,8 +65,8 @@ public class WebsiteSerice {
 				String ip =split[0];
 				String date =split[1];
 				info.setIpAddr(ip);				
-				info.setIpVisitTime(DateUtil.getLongDate(date, DateUtil.FMT_DATETIME));
-				info.setCreateDate(DateUtil.currentLongDate());
+				info.setIpVisitTime(DateHelper.getLongDate(date, DateHelper.FMT_DATETIME));
+				info.setCreateDate(DateHelper.currentLongDate());
 				ipList.add(info);
 				
 			}

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.constant.RedisKey;
+import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.model.account.Oauth;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.travel.dto.FavoritesDto;
@@ -41,7 +44,6 @@ import com.itour.model.work.Worktext;
 import com.itour.model.work.dto.WorkInfoDto;
 import com.itour.model.work.vo.WorkCommentVo;
 import com.itour.model.work.vo.WorkInfoVo;
-import com.itour.util.DateUtil;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.IpUtil;
 import com.itour.util.MarkdownUtils;
@@ -167,6 +169,9 @@ private void workInfoData(ModelMap model, HttpServletRequest request) {
 	      label_vo.setUid(sessionUser.getuId());
 	jsonObject.put(Constant.COMMON_KEY_VO, label_vo);
 	ResponseMessage resp = this.workConnector.queryLabelList(jsonObject, request);
+	if(!StringHelper.isEmpty(resp)&&Constant.SUCCESS_CODE.equals(resp.getResultCode())&&!StringHelper.isEmpty(resp.getReturnResult()) ) {
+		
+	}
 	if(ResponseMessage.isSuccessResult(resp)) {
 		List<Label> labelList = FastJsonUtil.mapToList(resp.getReturnResult(), Label.class);
 		model.addAttribute("labelList", labelList);
@@ -252,7 +257,7 @@ public String detail(Long id,ModelMap model,HttpServletRequest request) {
 private void ip(HttpServletRequest request,String id) {
 	
 	 //1.组装key,ip::文章Id
-	 String strDate = DateUtil.getStrDate(new Date(), DateUtil.FMT_DATETIME);
+	 String strDate = DateHelper.getStrDate(new Date(), DateHelper.FMT_DATETIME);
 	 String ipAddr = IpUtil.getIpAddr(request);
 	 //key=192.168.1.8::2022-6-22::1
 	 String key=ipAddr+"::"+id;
@@ -522,7 +527,7 @@ public String inofMangerList(@RequestBody JSONObject jsonObject,ModelMap model,S
 		for (JSONObject info : records) {
 			WorkInfoVo dto = info.toJavaObject(WorkInfoVo.class);
 			if(!ConstAccount.PERSONCENTER_COLLECT.equals(mold)) {
-				dto.setCreateDateFmt(DateUtil.getDateStr(new Date(dto.getTime())));
+				dto.setCreateDateFmt(DateHelper.getDateStr(new Date(dto.getTime())));
 			}
 			rList.add(dto);	
 		}

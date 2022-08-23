@@ -36,10 +36,10 @@ import com.itour.connector.AccountConnector;
 import com.itour.constant.ConstAccount;
 import com.itour.constant.Constant;
 import com.itour.constant.ExceptionInfo;
+import com.itour.help.StringHelper;
 import com.itour.model.account.Oauth;
 import com.itour.util.FastJsonUtil;
 import com.itour.util.SessionUtil;
-import com.itour.util.StringHelper;
 
 @Controller
 @RequestMapping("/account")

@@ -23,8 +23,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.itour.common.dto.VerifyImage;
 import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
-import com.itour.util.DateUtil;
-import com.itour.util.StringHelper;
+import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.util.VerifyImageUtil;
 
 
@@ -155,7 +155,7 @@ private String active;
 			   //验证码有效期
 			   long valueOf = Long.valueOf(time);
 			   //当前时间
-			   long longDate = DateUtil.currentLongDate();
+			   long longDate = DateHelper.currentLongDate();
 			   if(longDate>valueOf) {//当前日期大于验证码有效期
 				   return ResponseMessage.getFailed("验证码已失效");
 			   }else {
@@ -168,7 +168,7 @@ public static void main(String[] args) {
 	Date d1= new Date();
 	long t1 = d1.getTime();
   System.out.println(t1);
-   Date addSecond = DateUtil.addSecond(d1, 120);
+   Date addSecond = DateHelper.addSecond(d1, 120);
    System.out.println(addSecond.getTime());
  String  small_location = File.separator+"itour"+File.separator+"img"+File.separator+"code"+File.separator+"login";
  small_location ="d:"+File.separator+"temp";

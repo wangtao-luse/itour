@@ -19,9 +19,9 @@ import com.itour.common.resp.ResponseMessage;
 import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
+import com.itour.help.ArrayHelper;
 import com.itour.model.travel.Nice;
 import com.itour.model.travel.TravelInfo;
-import com.itour.util.ArrayUtils;
 import com.itour.util.FastJsonUtil;
 @Service
 public class TravelNiceService {
@@ -82,7 +82,7 @@ public class TravelNiceService {
 			// 4.更新点赞数
 			//4.1 统计文章点赞数;
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("tids", ArrayUtils.listToStr(tidList));
+			jsonObject.put("tids", ArrayHelper.listToStr(tidList));
 			RequestMessage postData = HttpDataUtil.postData(jsonObject, null);
 			ResponseMessage respose = travelApi.countNiceList(postData);
 			if (Constant.SUCCESS_CODE.equals(respose.getResultCode())) {
