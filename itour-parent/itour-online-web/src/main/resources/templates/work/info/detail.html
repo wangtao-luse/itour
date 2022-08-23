@@ -1,10 +1,6 @@
 @layout("/layout/template-log.html",{title:'日志-详情'}){
 <link rel="stylesheet" href="${ctxPath}/md/css/editormd.min.css" />
 <link rel="stylesheet" href="${ctxPath}/css/common/rich.css" />
-<script type="text/javascript" src="${ctxPath}/md/editormd.min.js" ></script>
-<script type="text/javascript" src="${ctxPath}/md/lib/marked.min.js" ></script>
-<script type="text/javascript" src="${ctxPath}/md/lib/prettify.min.js" ></script>
-<script type="text/javascript" src="${ctxPath}/js/work/infoMd.js" ></script>
    <style>
 	   .richContent .richContent-inner {
 	     max-height: none;
@@ -247,11 +243,12 @@ $(function(){
 					    			    </a>
 					    			  </li>	
 					    			  @}
-					    			  @if(colShowList.~size>6)
+					    			  @if(colShowList.~size>6){
 					    			  <p class="text-center more_all">
 									      <a class="flexible-btn" data-fbox="aside-archive">
 									      <img class="look-more" src="${ctxPath}/img/common/arrowDownWhite.png" alt=""></a>
-									    </p>				    	
+									    </p>
+									    @}				    	
 					    			</ul>
 					    		</div>
 					    	</div>
