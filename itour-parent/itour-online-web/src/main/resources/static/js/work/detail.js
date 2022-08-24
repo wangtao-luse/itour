@@ -232,12 +232,12 @@ $(function(){
 		}
 	});
 	//获取指定元素在y轴上偏移量
-	/*var offsetTop = $(".fixed-line").offset().top;
+	var offsetTop = $(".fixed-line").offset().top;
 	var footerTop = $("#footer").offset().top;
 	var articleNavTop = $(".article-nav-right_box").offset().top;
-	var personTop = $(".recommend-person-wrap").offset().top;*/
+	var personTop = $(".recommend-person-wrap").offset().top;
 	//获取浏览器可见高度
-	/*var wheight = $(window).height();
+	var wheight = $(window).height();
 	if(offsetTop>=wheight){
 		$(".contentItem-actions").addClass("is-fixed sticky");
 		$(".is-fixed.sticky").css("width", $(".storyCard").outerWidth()+"px")
@@ -245,8 +245,8 @@ $(function(){
 		$(".is-fixed.sticky").css("bottom",0);
 	}
 	
-	console.log("articleNavTop: "+articleNavTop);	*/
-	/*$(document).scroll(function() {
+	console.log("articleNavTop: "+articleNavTop);	
+	$(document).scroll(function() {
 		//https://www.cnblogs.com/yuqiandoudou/p/4436368.html
 		//1.获取垂直滚动的距离
 		  //scrollTop()==0的时候就是顶端了;
@@ -268,6 +268,8 @@ $(function(){
 		}else {
 			$(".contentItem-actions").removeClass("is-fixed sticky")
 		}
+		
+		/**
 		//console.log("top"+top);
 		var prevScrollTop = 0;
 		var isUp= "-1";
@@ -307,9 +309,9 @@ $(function(){
 				
 		}
 	
+		*/
 		
-		
-	});*/
+	});
 	$(".contentItem-action.itour-favorites-btn").mouseout(function(){
 			$(this).find(".isactive").css("display","none");
 			$(this).find(".isdefault").css("display","inline");

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.alibaba.fastjson.JSONObject;
 import com.itour.OnlienApp;
 import com.itour.common.redis.RedisManager;
-import com.itour.help.DateUtil;
+import com.itour.help.DateHelper;
 import com.itour.model.travel.Tag;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OnlienApp.class)
@@ -39,7 +39,7 @@ public class TestRedis {
 	@Test
 	public void testsetJavaBean() {
 		Tag t = new Tag();
-		t.setCreatedate(DateUtil.currentLongDate());
+		t.setCreatedate(DateHelper.currentLongDate());
 		t.setId(1L);
 		t.setTag("上海");
 		t.setUid("10000");
@@ -66,7 +66,7 @@ public class TestRedis {
 	@Test
 	public void testHash() {
 		Tag t = new Tag();
-		t.setCreatedate(DateUtil.currentLongDate());
+		t.setCreatedate(DateHelper.currentLongDate());
 		t.setId(1L);
 		t.setTag("杭州1");
 		t.setUid("10001");
