@@ -57,8 +57,11 @@ public class ReplyLikeService extends ServiceImpl<ReplyLikeMapper, ReplyLike> {
 		ResponseMessage response = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			List<ReplyLike> javaList = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(ReplyLike.class);
-			this.saveOrUpdateBatch(javaList, javaList.size());
+			List<ReplyLike> javaList = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(ReplyLike.class); 
+			if (javaList.size()>0) {
+				this.saveOrUpdateBatch(javaList, javaList.size());
+			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

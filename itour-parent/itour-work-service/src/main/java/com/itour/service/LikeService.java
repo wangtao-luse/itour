@@ -64,7 +64,9 @@ public class LikeService extends ServiceImpl<LikeMapper, Like>  {
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			List<Like> javaList = jsonObject.getJSONArray(Constant.COMMON_KEY_ARR).toJavaList(Like.class);
-			this.saveOrUpdateBatch(javaList, javaList.size());
+			if (javaList.size()>0) {
+			  this.saveOrUpdateBatch(javaList, javaList.size());
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

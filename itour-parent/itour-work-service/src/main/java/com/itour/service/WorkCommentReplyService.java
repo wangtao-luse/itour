@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,6 +17,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.RedisKey;
 import com.itour.exception.BaseException;
 import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.work.ReplyLike;
 import com.itour.model.work.WorkCommentReply;
@@ -66,12 +66,15 @@ public class WorkCommentReplyService extends ServiceImpl<WorkCommentReplyMapper,
 	public ResponseMessage queryWorkCommentReplyList(RequestMessage requestMessage) {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
+			//1.获取参数
 			JSONObject jsonObject = requestMessage.getBody().getContent();
 			WorkCommentReply workcomment = jsonObject.getJSONObject("vo").toJavaObject(WorkCommentReply.class);
 			JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
+			//2.构建SQL
 			QueryWrapper<WorkCommentReply> queryWrapper = new QueryWrapper<WorkCommentReply>();
-			queryWrapper.eq(!StringUtils.isEmpty(workcomment.getStatus()), "STATUS", workcomment.getStatus());
-			if(!StringUtils.isEmpty(pageVo)) {
+			queryWrapper.eq(!StringHelper.isEmpty(workcomment.getStatus()), "STATUS", workcomment.getStatus());
+		    //3.执行SQL，返回结果
+			if(!StringHelper.isEmpty(pageVo)) {
 				PageInfo page = pageVo.toJavaObject(PageInfo.class);
 				PageInfo selectPage = this.baseMapper.selectPage(page, queryWrapper);
 				responseMessage.setReturnResult(selectPage);

@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -21,6 +20,7 @@ import com.itour.constant.Constant;
 import com.itour.constant.ConstantTravel;
 import com.itour.exception.BaseException;
 import com.itour.help.DateHelper;
+import com.itour.help.StringHelper;
 import com.itour.model.dto.PageInfo;
 import com.itour.model.work.WorkComment;
 import com.itour.model.work.WorkCommentReply;
@@ -57,7 +57,7 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
 		String getuId = requestMessage.getBody().getuId();
 		vo.setUid(getuId);
 		//2.获取对应文章评论		
-		if(StringUtils.isEmpty(pageVo)) {//获取文章下的评论及回复
+		if(StringHelper.isEmpty(pageVo)) {//获取文章下的评论及回复
 			//获取文章下的评论
 			 List<WorkCommentVo> commentList = this.baseMapper.commentList(vo);
 			//3.获取对应文章评论下的回复
@@ -75,7 +75,7 @@ public ResponseMessage queryWorkCommentList(RequestMessage requestMessage) {
 					long total = page.getTotal();
 					if(total>0) {
 						Integer  replaysize =(Integer)commentList.get(ConstantTravel.TRAVEL_REPLYSIZE);
-						if(!StringUtils.isEmpty(replaysize)) {
+						if(!StringHelper.isEmpty(replaysize)) {
 							responseMessage.add(ConstantTravel.TRAVEL_COMMENTSIZE, total+replaysize);
 						}
 					}else {
