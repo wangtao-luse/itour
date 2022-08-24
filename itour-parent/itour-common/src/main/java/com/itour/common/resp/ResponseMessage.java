@@ -7,6 +7,7 @@ import java.util.Map;
 
 
 import com.itour.constant.Constant;
+import com.itour.help.StringHelper;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -16,31 +17,30 @@ import cn.hutool.core.util.StrUtil;
 public final class ResponseMessage implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 00:失败
-	 * 10:成功
-	 */
+    //返回状态码(00:失败;10:成功)
 	private String resultCode;
+	//返回提示消息
 	private String resultMessage;
+	//返回数据
 	private Map<String, Object> returnResult = new HashMap<String, Object>();
 	public ResponseMessage() {
 	}
+	//为了快速构建ResponseMessage对象
 	public ResponseMessage(String resultCode, String resultMessage) {
-		super();
 		this.resultCode = resultCode;
 		this.resultMessage = resultMessage;
 	}
+	//快速构建ResponseMessage对象,将Map封装到返回对象中
 	public ResponseMessage(Map map) {
-		super();
 		this.resultCode = Constant.SUCCESS_CODE;
 		this.resultMessage = Constant.SUCESS_MESSAGE;
 		this.returnResult=map;
 	}
+	//快速构建ResponseMessage对象,将数据封装到返回对象中
 	public ResponseMessage(Object object) {
-		super();
 		this.resultCode = Constant.SUCCESS_CODE;
 		this.resultMessage = Constant.SUCESS_MESSAGE;
-		this.returnResult.put("result", object);
+		this.returnResult.put(Constant.COMMON_KEY_RESULT, object);
 	}
 	public String getResultCode() {
 		return resultCode;
@@ -65,13 +65,13 @@ public final class ResponseMessage implements Serializable {
 	//具体原因不清楚。。。。。待解决
 	  public void setReturnResult(Object object,Object...obj) { 
 		  Map<String,Object> map = new  HashMap<String, Object>();
-		  map.put("result", object);
+		  map.put(Constant.COMMON_KEY_RESULT, object);
 		  this.returnResult = map;
 	  }
 	  
 
 	public  ResponseMessage add(Object object) {
-		this.returnResult.put("data", object);
+		this.returnResult.put(Constant.COMMON_KEY_DATA, object);
 		return this;
 	}
 
@@ -93,21 +93,44 @@ public final class ResponseMessage implements Serializable {
 	public static ResponseMessage getFailed(String faileMsg) {
 		return new ResponseMessage(Constant.FAILED_CODE, faileMsg);
 	}
+	/**
+	 * 判断是否调用成功
+	 * @param resp
+	 * @return
+	 */
 	public static boolean isSuccessResult(ResponseMessage resp) {
-		if(ObjectUtil.isNotNull(resp)) {
-			
+		if(ObjectUtil.isNull(resp)) {
+			return false;
 		}
 		Map<String, Object> map = resp.getReturnResult();
-		return Constant.SUCCESS_CODE.equals(resp.getResultCode())&&!StrUtil.isEmptyIfStr(map);
+		
+		return Constant.SUCCESS_CODE.equals(resp.getResultCode())&&!StringHelper.isEmpty(resp.getReturnResult());
 	}
+	/**
+	 * 判断是否调用失败
+	 * @param resp
+	 * @return
+	 */
 	public static boolean isFailResult(ResponseMessage resp) {
-		Map<String, Object> map = resp.getReturnResult();
-		return Constant.FAILED_CODE.equals(resp.getResultCode())||StrUtil.isEmptyIfStr(map);
+		if(ObjectUtil.isNull(resp)) {
+			return false;
+		}
+		return Constant.FAILED_CODE.equals(resp.getResultCode())||StringHelper.isEmpty(resp.getReturnResult());
 	}
+	/**
+	 * 判断调用后是否返回数据
+	 * @param resp
+	 * @return 
+	 */
 	public static boolean resultIsEmpty(ResponseMessage resp) {
+		if(ObjectUtil.isNull(resp)) {
+			return true;
+		}
+		boolean code = Constant.SUCCESS_CODE.equals(resp.getResultCode());
+		boolean returnResult = !StringHelper.isEmpty(resp.getReturnResult());
 		Map<String, Object> result = resp.getReturnResult();
 		Object object = result.get(Constant.COMMON_KEY_RESULT);
-		return object == null ||"".equals(object);
+		return code && returnResult &&(object == null || "".equals(object));
 		
 	}
 

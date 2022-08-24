@@ -19,6 +19,7 @@ public static final String COMMON_KEY_ARR="arr";
 public static final String COMMON_KEY_VO="vo";
 public static final String COMMON_KEY_DTO="dto";
 public static final String COMMON_KEY_PO="po";
+public static final String COMMON_KEY_DATA ="data";
 //请求的key
 public static final String COMMON_VO_NEEDTOTAL="needTotal";
 
