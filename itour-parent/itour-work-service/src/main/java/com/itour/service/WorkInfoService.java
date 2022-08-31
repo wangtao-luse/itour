@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +51,7 @@ import cn.hutool.core.util.StrUtil;
  */
 @Service
 public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
+	private static final int List = 0;
 	@Autowired
 	WorktextMapper worktextMapper;
 	@Autowired
@@ -281,7 +280,9 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 				}else if(Constant.COMMON_FUNCTION_DRAFT.equals(function)) {
 					workInfo.setStatus(Constant.COMMON_STATUS_DRAFT);
 				}
-				
+ 			   this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_TEXT, String.valueOf(workInfo.getId()));
+ 			   this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_LABEL, String.valueOf(workInfo.getId()));
+ 			   this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_COLUMN_LIST, body.getuId());
 			}else {//新增
 				workInfo.setUid(body.getuId());
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
@@ -450,7 +451,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		return responseMessage;
 	}
 	/**
-	 * 博客的标签
+	 * 博客的标签，从缓存中取，如果缓存中不存在则从数据库中取
 	 * @param requestMessage
 	 * @return
 	 */
@@ -458,9 +459,20 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		ResponseMessage responseMessage = ResponseMessage.getSucess();
 		try {
 			JSONObject jsonObject = requestMessage.getBody().getContent();
-			Long id = jsonObject.getLong("id");
-			List<Label> workTagList = this.baseMapper.workTagList(id);
-			responseMessage.setReturnResult(workTagList);
+			Long id = jsonObject.getLong("id");		
+			String key = RedisKey.KEY_WORK_ARTICLE_LABEL;
+			Object hget = this.redisManager.hget(key, String.valueOf(id));
+			if(null !=hget) {
+				responseMessage.setReturnResult((List<Label>)hget);	
+			}else {
+				List<Label> workTagList = this.baseMapper.workTagList(id);	
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put(String.valueOf(id), workTagList);
+				this.redisManager.hmset(key, map);
+				responseMessage.setReturnResult(workTagList);
+			}
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

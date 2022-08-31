@@ -106,5 +106,12 @@ public static String KEY_ITOUR_IP_LIST_DATE ="key_itour_ip_list_date";
  *站点访问次数
  */
 public static String KEY_ITOUR_VV_COUNT = "key_itour_vv_count";
+//工作日志内容缓存
+public static String KEY_WORK_ARTICLE_TEXT ="work_article";
+//工作日志标签缓存
+public static String KEY_WORK_ARTICLE_LABEL ="work_article_label";
+//工作日志中，每个用户对应的分类专栏及每个专栏下的文章统计
+public static String KEY_WORK_ARTICLE_COLUMN_LIST = "work_article_colum_list";
+
 
 }

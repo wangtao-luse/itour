@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -241,7 +242,7 @@ private StringRedisTemplate  stringRedisTemplate;
 	 * @param value
 	 * @return
 	 */
-	public boolean lpush(String key, String value) {
+	public boolean lpush(String key, Object value) {
 		try {
 			 redisTemplate.opsForList().leftPush(key, value);
 			 return true;
@@ -315,6 +316,19 @@ private StringRedisTemplate  stringRedisTemplate;
 	public Object index(String key, int index) {
 		try {
 			return redisTemplate.opsForList().index(key, index);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		
+	}
+	public List<?> getList(String key) {
+		
+		try {
+			ListOperations<String, Object> opsForList = redisTemplate.opsForList();
+			long lGetListSize = lGetListSize(key);
+			List<Object> range = opsForList.range(key, 0, lGetListSize);
+			return range;
 		}catch (Exception e) {
 			// TODO: handle exception
 			return null;

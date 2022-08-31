@@ -139,6 +139,7 @@
        	update t_w_work_info set pv=IFNULL(pv,0)+#{pv}  where id=#{id}     	
        </foreach>
     </update>
+    <!-- 查询对应工作日志的标签 -->
     <select id="workTagList" parameterType="java.lang.Long" resultType="com.itour.model.work.Label">
     SELECT d.* FROM t_w_info_label c,t_w_label d where c.label_id=d.ID and c.WID=#{id} order by createdate desc
     </select>
