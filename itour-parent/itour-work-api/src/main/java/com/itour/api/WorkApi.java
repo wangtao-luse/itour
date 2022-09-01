@@ -290,6 +290,13 @@ public interface WorkApi {
 	public ResponseMessage saveOrupdateWorkIpInfo(RequestMessage requestMessage);
 	
 	@RequestMapping(value = "work/queryLikeList",produces = {"application/json;charset=UTF-8"})
-	public ResponseMessage queryLikeList(RequestMessage requestMessage);	
+	public ResponseMessage queryLikeList(RequestMessage requestMessage);
+	/**
+	 * 当前用户是否对工作日志点赞过
+	 * @param requestMessage
+	 * @return
+	 */
+	@RequestMapping(value = "work/checkIsLike",produces = {"application/json;charset=UTF-8"})
+	public ResponseMessage checkIsLike(RequestMessage requestMessage);	
 }
 

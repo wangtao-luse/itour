@@ -37,6 +37,7 @@ import com.itour.model.travel.dto.FavoritesDto;
 import com.itour.model.travel.dto.TravelInfoDto;
 import com.itour.model.travel.vo.ViewCommentReply;
 import com.itour.model.work.Label;
+import com.itour.model.work.Like;
 import com.itour.model.work.WorkColumn;
 import com.itour.model.work.WorkInfo;
 import com.itour.model.work.Worktext;
@@ -284,7 +285,7 @@ private WorkInfoVo workInfo(Long id, ModelMap model, HttpServletRequest request)
 	if(ResponseMessage.isSuccessResult(resp)) {
 		 travelInfo = FastJsonUtil.mapToObject(resp.getReturnResult(), WorkInfoVo.class);			
 		 model.addAttribute("workInfo", travelInfo);
-		 //获取周末旅行攻略的内容
+		 //获取工作日志的内容
 			 jsonObject.clear();
 			 jsonObject.put("wid", id);
 			
@@ -304,6 +305,20 @@ private WorkInfoVo workInfo(Long id, ModelMap model, HttpServletRequest request)
 			 model.addAttribute("labelList", labelList);
 		 }
 	}
+	if(!StringHelper.isEmpty(sessionUser)) {
+		jsonObject.clear();
+		Like like = new Like();
+		like.setWid(id);
+		like.setUid(sessionUser.getuId());
+		jsonObject.put(Constant.COMMON_KEY_VO,like);
+		ResponseMessage checkIsLike = this.workConnector.checkIsLike(jsonObject, request);
+		if(!ResponseMessage.resultIsEmpty(checkIsLike)) {
+			Like likePojo = FastJsonUtil.mapToObject(checkIsLike.getReturnResult(), Like.class);
+			model.addAttribute("like", likePojo);
+		}
+	}
+	
+	
 	return travelInfo;
 }
 //点赞

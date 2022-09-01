@@ -88,7 +88,7 @@ $(function(){
 @var uid=user.uId!;
 	    <input type="hidden" id="tid" value="${id}">
 	    <input type="hidden" id="order" value="1">
-	     <input type="hidden" id="rpm" value="${workInfo.uid}">
+	     <input type="hidden" id="rpm" value="${workInfo.uid!}">
 		<div id="ct-out" style="width: 100%;position: fixed; left: 0;bottom: 10%;text-align: center;z-index: 9000;display: none">
 			<span id="ct-outContent" style="display: inline-block;background:rgb(67,116,240);color:rgb(255, 255, 255);max-width:80%;padding:8px 24px;border-radius: 4px;font-size: 16px;">请填写评论内容</span>
 		</div>
@@ -145,8 +145,8 @@ $(function(){
 	    								</div>
 	    								 @if(shiro.hasRole("GSAdmin")){
 	    								<div class="contentItem-actions  richContent-actions  is-bottom travel_area">
-										@if(workInfo.niceUid==sessionUser.uId! && workInfo.niceStatus=='1'){
-											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn nice" tid="${workInfo.id}">
+										@if(!isEmpty(like!) && like.status=='1'){
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel work_like_btn like" tid="${workInfo.id}">
 												<span style="display: inline-flex; align-items: center;">​
 												<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22" style="display: none;">
 												<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" >	
@@ -157,7 +157,7 @@ $(function(){
 												@}												
 										    </button>
 										@}else{
-											<button class="button contentItem-action button--plain button--withIcon button--withLabel travel_nice_btn" tid="${workInfo.id}">
+											<button class="button contentItem-action button--plain button--withIcon button--withLabel work_like_btn" tid="${workInfo.id}">
 											<span style="display: inline-flex; align-items: center;">​
 											<img class="isdefault" src="${ctxPath}/img/common/tobarThumbUp.png" width="22" height="22">
 											<img class="isactive" src="${ctxPath}/img/common/tobarThumbUpactive.png" width="22" height="22" style="display: none;">	

@@ -38,6 +38,7 @@ import com.itour.persist.LabelMapper;
 import com.itour.persist.WorkColumnMapper;
 import com.itour.persist.WorkInfoMapper;
 import com.itour.persist.WorktextMapper;
+import com.itour.util.FastJsonUtil;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -138,8 +139,21 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		   try {
 			   JSONObject jsonObject = requestMessage.getBody().getContent();
 			   WorkInfoVo vo = jsonObject.getJSONObject("vo").toJavaObject(WorkInfoVo.class);
-			   WorkInfoVo selectTraveInfo = this.baseMapper.selectWorkInfo(vo);
-			   responseMessage.setReturnResult(selectTraveInfo);
+			   Long id = vo.getId();
+			   Object hget = this.redisManager.hget(RedisKey.KEY_WORK_ARTICLE_INFO, String.valueOf(id));
+			   
+			   if(hget !=null) {
+				   JSONObject json = (JSONObject)hget;
+				   WorkInfoVo javaObject = json.toJavaObject(WorkInfoVo.class);
+				   responseMessage.setReturnResult(javaObject);
+			   }else {
+				   WorkInfoVo selectTraveInfo = this.baseMapper.selectWorkInfo(vo);
+				   responseMessage.setReturnResult(selectTraveInfo);
+				   HashMap<String, Object> map = new HashMap<String, Object>();
+				   map.put(String.valueOf(id), selectTraveInfo);
+				   this.redisManager.hmset(RedisKey.KEY_WORK_ARTICLE_INFO, map);
+			   }
+			 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -147,6 +161,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 		}
 		   return responseMessage;
 	   }
+
 	/**
 	 * 工作日志搜索
 	 * @param requestMessage
@@ -283,6 +298,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
  			   this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_TEXT, String.valueOf(workInfo.getId()));
  			   this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_LABEL, String.valueOf(workInfo.getId()));
  			   this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_COLUMN_LIST, body.getuId());
+ 			   this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_INFO, String.valueOf(workInfo.getId()));
 			}else {//新增
 				workInfo.setUid(body.getuId());
 				if(Constant.COMMON_FUNCTION_SAVE.equals(function)) {
@@ -463,6 +479,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			String key = RedisKey.KEY_WORK_ARTICLE_LABEL;
 			Object hget = this.redisManager.hget(key, String.valueOf(id));
 			if(null !=hget) {
+				
 				responseMessage.setReturnResult((List<Label>)hget);	
 			}else {
 				List<Label> workTagList = this.baseMapper.workTagList(id);	
@@ -520,7 +537,7 @@ public class WorkInfoService extends ServiceImpl<WorkInfoMapper, WorkInfo> {
 			//key 不存在直接放入缓存
 			 LinkedHashMap<String, Object> m = new LinkedHashMap<String, Object>();
 			 m.put(uid+"::"+tid, n);
-			 redisManager.hmset(RedisKey.KEY_WORK_NICE, m);
+			 redisManager.hmset(RedisKey.KEY_WORK_LIKE, m);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

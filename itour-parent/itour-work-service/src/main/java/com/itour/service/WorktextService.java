@@ -44,7 +44,9 @@ public class WorktextService extends ServiceImpl<WorktextMapper, Worktext> {
 			// 1.从缓存中取
 			Object obj = this.redisMager.hget(RedisKey.KEY_WORK_ARTICLE_TEXT, String.valueOf(wid));
 			if (null != obj) {
-				responseMessage.setReturnResult((Worktext) obj);
+				JSONObject json = (JSONObject)obj;
+				Worktext javaObject = json.toJavaObject(Worktext.class);
+				responseMessage.setReturnResult(javaObject);
 			} else {// 2.从缓存中没有取到,从数据库获取
 				QueryWrapper<Worktext> queryWrapper = new QueryWrapper<Worktext>();
 				queryWrapper.eq(null != wid, "WID", wid);

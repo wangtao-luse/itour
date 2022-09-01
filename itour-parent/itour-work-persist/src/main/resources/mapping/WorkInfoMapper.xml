@@ -54,27 +54,13 @@
      </select>
      
      <select id="selectWorkInfo" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
-    
-    <choose>
-      <when test="vo.loginUid==null or ''==vo.loginUid" >
       	SELECT t1.*,t2.NICKNAME,t2.AVATAR
 	FROM
 		t_w_work_info t1 INNER JOIN
 		T_A_OAUTH t2 
 	ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' and t1.STATUS='30' AND t1.ID=#{vo.id}
-      </when>
-      <otherwise>
-      SELECT t1.*,t2.NICKNAME,t2.AVATAR,IFNULL(t3.`STATUS`,'0') likeStatus,t3.UID likeUid
-	FROM
-		t_w_work_info t1 INNER JOIN
-		T_A_OAUTH t2 
-	ON t1.UID= t2.U_ID AND t2.OAUTH_TYPE='email' and t1.STATUS='30' AND t1.ID=#{vo.id}
-	LEFT JOIN 
-	 t_w_like t3 ON t1.ID=t3.TID and t3.uid=#{vo.loginUid} 
-      </otherwise>
-    </choose>
-    
     </select>
+
     
         <select id="searchTextList" parameterType="com.itour.model.work.dto.WorkInfoDto" resultType="com.itour.model.work.vo.WorkInfoVo">
       SELECT t1.*,t2.NICKNAME,1 mold FROM t_w_work_info t1  

@@ -233,6 +233,16 @@ public ResponseMessage queryLikeList(JSONObject jsonObject,HttpServletRequest re
 	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
 	return workApi.queryLikeList(requestMessage);
 }
+/**
+ * 判断用户是否点赞过
+ * @param jsonObject
+ * @param request
+ * @return
+ */
+public ResponseMessage checkIsLike(JSONObject jsonObject,HttpServletRequest request) {
+	RequestMessage requestMessage = HttpDataUtil.postData(jsonObject, request);
+	return workApi.checkIsLike(requestMessage);
+}
 
 
 

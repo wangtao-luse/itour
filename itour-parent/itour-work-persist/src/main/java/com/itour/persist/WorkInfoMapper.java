@@ -36,6 +36,8 @@ List<WorkInfoVo> selectWorkInfoList(@Param("vo")WorkInfoVo workInfoDto);
  * @return 个人日志单条
  */
 WorkInfoVo selectWorkInfo(@Param("vo")WorkInfoVo workInfoDto);
+
+
 /**
  * 个人博客标签查询
  * @param id

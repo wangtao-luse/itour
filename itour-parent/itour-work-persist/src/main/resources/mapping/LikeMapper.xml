@@ -25,4 +25,8 @@
 				LEFT JOIN
 		 	(SELECT c.fid ,count(*) collectCount FROM t_t_collect c WHERE c.uid=#{dto.uid} and c.STATUS='1'GROUP BY c.fid) t3 ON t1.id=t3.fid
     </select>
+    
+        <select id="checkIsLike" parameterType="com.itour.model.work.Like" resultType="com.itour.model.work.Like">
+         select UID,`STATUS` from t_w_like c WHERE WID=#{wid} AND UID=#{uid} AND `STATUS`='1'        
+    </select>
 </mapper>

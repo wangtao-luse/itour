@@ -295,6 +295,11 @@ public class WorkApiController implements WorkApi {
 		// TODO Auto-generated method stub
 		return likeService.queryLikeList(requestMessage);
 	}
+	@Override
+	public ResponseMessage checkIsLike(@RequestBody RequestMessage requestMessage) {
+		// TODO Auto-generated method stub
+		return likeService.checkIsLike(requestMessage);
+	}
 	
 	
 	

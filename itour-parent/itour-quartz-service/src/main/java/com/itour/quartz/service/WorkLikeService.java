@@ -32,7 +32,7 @@ public class WorkLikeService {
 	public void insertLike() {
 		try {
 			// 1.从Redis缓存中取出点赞的数据;
-			Map<Object, Object> map = redisManager.hget(RedisKey.KEY_WORK_NICE);
+			Map<Object, Object> map = redisManager.hget(RedisKey.KEY_WORK_LIKE);
 			// 2.查看该用户是否已经点赞
 			List<Like> saveOrupdateList = new ArrayList<Like>();
 			List<String> tidList = new ArrayList<String>();
@@ -61,7 +61,12 @@ public class WorkLikeService {
 					}
 
 				}
+				
 				tidList.add(String.valueOf(like.getWid()));//批量更新点赞数;
+				
+				//将是否点赞的相关相关信息从缓存中移除，checkIsLike（）方法中写入缓存(查询详情的时候会调次方法)
+				String hashKeys = like.getUid()+"::"+like.getWid();
+				this.redisManager.hdel(RedisKey.KEY_WORK_ARTICLE_INFO_LIKE, hashKeys);
 			});
 			// 批量同步点赞数据到数据库
 			if (saveOrupdateList.size() > 0) {
@@ -102,7 +107,7 @@ public class WorkLikeService {
 					//4.3清楚缓存
 					saveOrupdateList.forEach(key->{
 						String hashKey=key.getUid()+"::"+key.getWid();
-						boolean hdel = this.redisManager.hdel(RedisKey.KEY_WORK_NICE, hashKey);	
+						boolean hdel = this.redisManager.hdel(RedisKey.KEY_WORK_LIKE, hashKey);	
 					});
 				}
 			}

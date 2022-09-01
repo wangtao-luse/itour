@@ -12,6 +12,7 @@ import com.itour.model.work.WorkColumn;
 import com.itour.model.work.vo.WorkColumnVo;
 import com.itour.persist.WorkColumnMapper;
 import com.itour.service.WorkColumnService;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -79,7 +80,10 @@ public class WorkColumnService extends ServiceImpl<WorkColumnMapper, WorkColumn>
 			String uid = jsonObject.getString("uid");
 			Object list = redisManager.hget(RedisKey.KEY_WORK_ARTICLE_COLUMN_LIST, uid);
 			if(null != list) {
-				responseMessage.setReturnResult((List<WorkColumnVo>)list);
+				JSONArray colList = (JSONArray)list;
+				List<WorkColumnVo> javaList = colList.toJavaList(WorkColumnVo.class);
+				responseMessage.setReturnResult(javaList);
+				
 			}else {
 				List<WorkColumnVo> showColumnList = this.baseMapper.getShowColumnList(uid);
 				responseMessage.setReturnResult(showColumnList);

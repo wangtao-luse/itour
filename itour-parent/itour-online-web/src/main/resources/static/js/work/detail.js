@@ -11,8 +11,8 @@ $(function(){
 		$(this).find(".isactive").css("display","none");
 	});
 	
-	$(".contentItem-action.travel_nice_btn").mouseout(function(){
-		var has = $(this).hasClass("nice");
+	$(".contentItem-action.work_like_btn").mouseout(function(){
+		var has = $(this).hasClass("like");
 		if(!has){
 			$(this).find(".isactive").css("display","none");
 			$(this).find(".isdefault").css("display","inline");
@@ -21,12 +21,12 @@ $(function(){
 		}
 		
 	})
-	$(".contentItem-action.travel_nice_btn").mouseover(function(){
+	$(".contentItem-action.work_like_btn").mouseover(function(){
 		$(this).find(".isdefault").css("display","none");
 		$(this).find(".isactive").css("display","inline");
 		$(this).css("color","#0077E6");
 	})
-	$(".contentItem-action.travel_nice_btn").click(function(){
+	$(".contentItem-action.work_like_btn").click(function(){
 		var has = $(this).hasClass("nice");
 		if(has){
 			$(this).find(".isactive").css("display","none");

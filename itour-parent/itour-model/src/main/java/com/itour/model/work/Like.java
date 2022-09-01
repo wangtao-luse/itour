@@ -25,13 +25,13 @@ public class Like extends Model<Like> {
     private Long id;
 
     /**
-     * 旅行信息编号
+     * 工作日志编号
      */
     @TableField("WID")
     private Long wid;
 
     /**
-     * 用户编号
+     * 点赞用户编号
      */
     @TableField("UID")
     private String uid;

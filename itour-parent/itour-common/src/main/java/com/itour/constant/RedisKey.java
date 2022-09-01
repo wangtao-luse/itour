@@ -75,7 +75,7 @@ public static String KEY_WORKINFO_IP_LIST_DATE="key_workinfo_ip_list_date";
 /**
  * 工作日志点赞
  */
-public static String KEY_WORK_NICE="work_nice";
+public static String KEY_WORK_LIKE="work_article_like";
 /**
  * 工作日志评论点赞
  */
@@ -107,11 +107,16 @@ public static String KEY_ITOUR_IP_LIST_DATE ="key_itour_ip_list_date";
  */
 public static String KEY_ITOUR_VV_COUNT = "key_itour_vv_count";
 //工作日志内容缓存
-public static String KEY_WORK_ARTICLE_TEXT ="work_article";
+public static String KEY_WORK_ARTICLE_TEXT ="work_article_text";
 //工作日志标签缓存
 public static String KEY_WORK_ARTICLE_LABEL ="work_article_label";
 //工作日志中，每个用户对应的分类专栏及每个专栏下的文章统计
 public static String KEY_WORK_ARTICLE_COLUMN_LIST = "work_article_colum_list";
+//工作日志信息
+public static String KEY_WORK_ARTICLE_INFO ="work_article_info";
+
+public static String KEY_WORK_ARTICLE_INFO_LIKE ="work_article_info_like";
+
 
 
 }

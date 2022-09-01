@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itour.model.work.Like;
 import com.itour.model.work.dto.LikeDto;
 import com.itour.model.work.vo.LikeVo;
+import com.itour.model.work.vo.WorkInfoVo;
 
 /**
  * <p>
@@ -25,4 +26,6 @@ public interface LikeMapper extends BaseMapper<Like> {
 	List<Map<String,Object>> countLike(@Param("tid") String tid);
 	
 	List<LikeVo> selectLikeList (Page page,@Param("dto") LikeDto dto);
+	
+	Like checkIsLike(Like like);
 }
