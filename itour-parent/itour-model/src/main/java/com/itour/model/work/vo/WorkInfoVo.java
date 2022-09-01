@@ -16,6 +16,7 @@ public class WorkInfoVo extends WorkInfo {
 	private String oauthId;
 	private Long infoCount;
 	private Long draffCount;
+	private Long articleCount;
 	private List<Orderby> orderbyList = new ArrayList<Orderby>();
 	private String niceStatus;
 	private String niceUid;
@@ -111,5 +112,11 @@ public class WorkInfoVo extends WorkInfo {
 	}
 	public void setColId(Long colId) {
 		this.colId = colId;
+	}
+	public Long getArticleCount() {
+		return articleCount;
+	}
+	public void setArticleCount(Long articleCount) {
+		this.articleCount = articleCount;
 	}
 }

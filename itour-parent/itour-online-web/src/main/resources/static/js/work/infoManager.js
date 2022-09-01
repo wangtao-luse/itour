@@ -67,7 +67,7 @@ $(document).on("click",".Pagination.CommentsV2-pagination button",function(){
 	var pageNo = $(this).attr("pageNo");
 	var mold=$("#mold").val();
 	var data={"mold":mold,"page":{"current":pageNo,"size":"10"}};
-	var url="/travel/queryPersonCenterList?ajaxCmd=content";
+	var url="/work/inofMangerList?ajaxCmd=content";
 	postForm(url, JSON.stringify(data), function (result) {
 		if(result){
 			$("#profile-mainColumn").html(result);
@@ -87,7 +87,7 @@ $(document).on("click","#percenter-nice-btn",function(){
 	}
 	
 	var data={tid:tid,status:status};
-	postAjax("/niceSub", JSON.stringify(data), function (result) {
+	postAjax("/work/likeSub", JSON.stringify(data), function (result) {
 		console.log(tid);
     }, {errorFunction:function(result){
     	alert(result.resultMessage);

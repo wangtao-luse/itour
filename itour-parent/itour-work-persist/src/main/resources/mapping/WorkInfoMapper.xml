@@ -70,10 +70,10 @@
       
     </select>
      <select id="getInfoData" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">
-    SELECT t1.infoCount,t2.draffCount FROM(
-    	SELECT UID,STATUS,count(*) infoCount FROM t_w_work_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='30')t1 
-    	INNER JOIN (
-    	SELECT UID,STATUS,count(*) draffCount FROM t_w_work_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.uid} and c.`STATUS`='10') t2
+    SELECT t1.articleCount,t2.draffCount FROM(
+    	SELECT UID,STATUS,count(*) articleCount FROM t_w_work_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.queryUid} and c.`STATUS`='30')t1 
+    	 LEFT JOIN (
+    	SELECT UID,STATUS,count(*) draffCount FROM t_w_work_info c  GROUP BY UID,STATUS HAVING  c.UID=#{vo.queryUid} and c.`STATUS`='10') t2
 		ON t1.UID=t2.UID
     </select>
     <select id="selectDynamicList" parameterType="com.itour.model.work.vo.WorkInfoVo" resultType="com.itour.model.work.vo.WorkInfoVo">

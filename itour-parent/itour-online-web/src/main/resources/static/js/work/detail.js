@@ -50,7 +50,7 @@ $(function(){
 	    	}
 	    	
 	    	var data={tid:tid,status:status};
-	    	postAjax("/niceSub", JSON.stringify(data), function (result) {
+	    	postAjax("/work/likeSub", JSON.stringify(data), function (result) {
 	    		console.log(tid);
 	        }, {errorFunction:function(result){
 	        	alert(result.resultMessage);

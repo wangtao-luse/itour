@@ -504,21 +504,21 @@ public String infoManager(HttpServletRequest request,ModelMap model) {
 }
 @RequestMapping("/inofMangerList")
 public String inofMangerList(@RequestBody JSONObject jsonObject,ModelMap model,String ajaxCmd,HttpServletRequest request) {
-	TravelInfoDto travelInfoDto = jsonObject.toJavaObject(TravelInfoDto.class);
+	WorkInfoDto workDto = jsonObject.toJavaObject(WorkInfoDto.class);
 	PageInfo page = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE).toJavaObject(PageInfo.class);
 	AccountVo sessionUser = SessionUtil.getSessionUser();
 	JSONObject jsonTmp = new JSONObject();
-	String mold = travelInfoDto.getMold();
+	String mold = workDto.getMold();
 	//默认查询动态
 	if(StrUtil.isEmpty(mold)) {
-		travelInfoDto.setMold("1");
+		workDto.setMold("1");
 	}
 	//queryUid有值说明是查看别人主页
 	String queryUid = jsonObject.getString("rpm");
 	if(StrUtil.isEmpty(queryUid)) {//查看自己的的主页
-		travelInfoDto.setUid(sessionUser.getuId());
-		travelInfoDto.setOauthId( sessionUser.getOauthId());
-		travelInfoDto.setQueryUid(sessionUser.getuId());
+		workDto.setUid(sessionUser.getuId());
+		workDto.setOauthId( sessionUser.getOauthId());
+		workDto.setQueryUid(sessionUser.getuId());
 	}else {//查看别人的主页
 		  //查看目标用户的用户信息
 		  Oauth o = new Oauth();
@@ -526,11 +526,11 @@ public String inofMangerList(@RequestBody JSONObject jsonObject,ModelMap model,S
 		JSONObject parseObject = JSONObject.parseObject(JSONObject.toJSONString(o));
 		ResponseMessage selectOauthtOne = accountConnector.selectOauthtOne(parseObject, request);
 		Oauth oa = FastJsonUtil.mapToObject(selectOauthtOne.getReturnResult(), Oauth.class);
-		travelInfoDto.setUid(queryUid);
-		travelInfoDto.setOauthId(oa.getOauthId());
-		travelInfoDto.setQueryUid(queryUid);
+		workDto.setUid(queryUid);
+		workDto.setOauthId(oa.getOauthId());
+		workDto.setQueryUid(queryUid);
 	}
-	jsonTmp.put(Constant.COMMON_KEY_VO, travelInfoDto);
+	jsonTmp.put(Constant.COMMON_KEY_VO, workDto);
 	jsonTmp.put(Constant.COMMON_KEY_PAGE, page);
 	ResponseMessage responseMessage = workConnector.queryPersonCenterList(jsonTmp, request);
 	if(ResponseMessage.isSuccessResult(responseMessage)) {
@@ -547,16 +547,15 @@ public String inofMangerList(@RequestBody JSONObject jsonObject,ModelMap model,S
 		}
 		//统计
 		JSONObject tmpJSon = new JSONObject();
-		TravelInfoDto dto = new TravelInfoDto();
-		dto.setQueryUid(travelInfoDto.getQueryUid());
+		WorkInfoDto dto = new WorkInfoDto();
+		dto.setQueryUid(workDto.getQueryUid());
 		if(!StrUtil.isEmpty(queryUid)) {//统计可见收藏夹个数
 		dto.setVisual(ConstAccount.PERSONCENTER_VISUAL_SHOW);
 		}
 		tmpJSon.put(Constant.COMMON_KEY_VO, dto);
 		ResponseMessage infoData = this.workConnector.getInfoData(tmpJSon , request);
-		boolean b = ResponseMessage.resultIsEmpty(infoData);
-		if(!b) {
-			TravelInfoDto countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), TravelInfoDto.class);
+		if(!ResponseMessage.resultIsEmpty(infoData)) {
+			WorkInfoVo countInfo = FastJsonUtil.mapToObject(infoData.getReturnResult(), WorkInfoVo.class);
 			model.addAttribute("dt", countInfo);	
 		}
 		//收藏
@@ -581,12 +580,12 @@ public String inofMangerList(@RequestBody JSONObject jsonObject,ModelMap model,S
 		model.addAttribute("cList",rList);
 		model.addAttribute("page",p);
 		model.addAttribute("usr",sessionUser);
-		model.addAttribute("qUid",travelInfoDto.getQueryUid());
+		model.addAttribute("qUid",workDto.getQueryUid());
 		model.addAttribute("isAsc",jsonObject.getString("isAsc"));
 		
 	}
-	model.addAttribute("travelInfoDto",travelInfoDto);
-	model.addAttribute("mold",travelInfoDto.getMold());
+	model.addAttribute("travelInfoDto",workDto);
+	model.addAttribute("mold",workDto.getMold());
 	  return "/work/info/infoManagerList#"+ajaxCmd;
 	
 			

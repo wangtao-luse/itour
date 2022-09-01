@@ -119,7 +119,11 @@
 	    						    			<div class="popover">
 	    						    				<div class="popover-user-toggle">
 	    						    					<a href="${ctxPath}/travel/personCenter?rpm=${c.uid}">
+	    						    					 @if(!isEmpty(c.avatar)){
 	    						    						<img src="${c.avatar}" width="38" height="38" class="avatar authorInfo-avatar" />
+	    						    					@}else{
+	    						    					<img src="${ctxPath}/img/common/avatar-5.webp" width="38" height="38" class="avatar authorInfo-avatar" />
+	    						    					@}
 	    						    					</a>
 	    						    				</div>
 	    						    			</div>
