@@ -102,7 +102,6 @@ public final class ResponseMessage implements Serializable {
 		if(ObjectUtil.isNull(resp)) {
 			return false;
 		}
-		Map<String, Object> map = resp.getReturnResult();
 		
 		return Constant.SUCCESS_CODE.equals(resp.getResultCode());
 	}
