@@ -111,6 +111,7 @@
 				 </if>
 				</foreach>
 		  </if>
+		 
 		  <if test='vo.mold =="5"'>
 		   SELECT t1.*,t1.PUBLISHTIME time,t2.NICKNAME,t2.AVATAR, 1 mold,IFNULL(t3.`STATUS`,'0') likeStatus,t3.UID likeUid
 		   FROM t_w_work_info t1 INNER JOIN t_a_oauth t2 on t1.UID = t2.U_ID

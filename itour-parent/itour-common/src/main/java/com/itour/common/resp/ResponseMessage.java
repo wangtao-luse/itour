@@ -102,9 +102,8 @@ public final class ResponseMessage implements Serializable {
 		if(ObjectUtil.isNull(resp)) {
 			return false;
 		}
-		Map<String, Object> map = resp.getReturnResult();
 		
-		return Constant.SUCCESS_CODE.equals(resp.getResultCode())&&!StringHelper.isEmpty(resp.getReturnResult());
+		return Constant.SUCCESS_CODE.equals(resp.getResultCode());
 	}
 	/**
 	 * 判断是否调用失败
@@ -115,7 +114,7 @@ public final class ResponseMessage implements Serializable {
 		if(ObjectUtil.isNull(resp)) {
 			return false;
 		}
-		return Constant.FAILED_CODE.equals(resp.getResultCode())||StringHelper.isEmpty(resp.getReturnResult());
+		return Constant.FAILED_CODE.equals(resp.getResultCode());
 	}
 	/**
 	 * 判断调用后是否返回数据

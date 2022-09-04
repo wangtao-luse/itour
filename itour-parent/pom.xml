@@ -438,7 +438,7 @@
             <id>dev</id>
             <activation>
                 <!--默认激活：如果在不指定profile时默认是开发环境-->
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profiles.active>dev</profiles.active>
@@ -510,7 +510,7 @@
             </activation>
             <properties>
                 <profiles.active>test</profiles.active>
-                <server.eureka.port>9090</server.eureka.port>
+                <server.eureka.port>9000</server.eureka.port>
                 <server.zuul.port>9091</server.zuul.port>
                 <server.account.port>9092</server.account.port>
                 <server.online.port>9093</server.online.port>
