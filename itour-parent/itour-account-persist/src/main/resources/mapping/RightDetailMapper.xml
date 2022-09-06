@@ -11,6 +11,7 @@
         <result column="ISLOGIN" property="islogin" />
         <result column="DESC" property="desc" />
         <result column="ISLOG" property="islog" />
+        
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
