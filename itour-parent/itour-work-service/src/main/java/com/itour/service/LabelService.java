@@ -41,7 +41,7 @@ public ResponseMessage queryLabelList(RequestMessage requestMessage) {
 		JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 		//2.构建查询条件
 		QueryWrapper<Label> queryWrapper = new QueryWrapper<Label>();
-		queryWrapper.eq(StringUtils.isEmpty(vo.getUid()),"UID", vo.getUid());
+		queryWrapper.eq(!StringUtils.isEmpty(vo.getUid()),"UID", vo.getUid());
 		queryWrapper.orderByDesc("CREATEDATE");
 		//3.执行查询
 		if(pageVo!=null) {	

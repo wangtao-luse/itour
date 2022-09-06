@@ -169,9 +169,6 @@ private void workInfoData(ModelMap model, HttpServletRequest request) {
 	      label_vo.setUid(sessionUser.getuId());
 	jsonObject.put(Constant.COMMON_KEY_VO, label_vo);
 	ResponseMessage resp = this.workConnector.queryLabelList(jsonObject, request);
-	if(!StringHelper.isEmpty(resp)&&Constant.SUCCESS_CODE.equals(resp.getResultCode())&&!StringHelper.isEmpty(resp.getReturnResult()) ) {
-		
-	}
 	if(ResponseMessage.isSuccessResult(resp)) {
 		List<Label> labelList = FastJsonUtil.mapToList(resp.getReturnResult(), Label.class);
 		model.addAttribute("labelList", labelList);

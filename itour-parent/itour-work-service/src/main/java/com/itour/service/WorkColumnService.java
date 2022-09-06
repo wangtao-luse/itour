@@ -50,7 +50,7 @@ public class WorkColumnService extends ServiceImpl<WorkColumnMapper, WorkColumn>
 			WorkColumn vo = jsonObject.getJSONObject(Constant.COMMON_KEY_VO).toJavaObject(WorkColumn.class);
 			JSONObject pageVo = jsonObject.getJSONObject(Constant.COMMON_KEY_PAGE);
 			QueryWrapper queryWrapper = new QueryWrapper<WorkColumn>();
-			queryWrapper.eq(StringHelper.isEmpty(vo.getUid()), "UID", vo.getUid());
+			queryWrapper.eq(!StringHelper.isEmpty(vo.getUid()), "UID", vo.getUid());
 			queryWrapper.orderByDesc("CREATEDATE");
 			if(pageVo!=null) {	
 				PageInfo page = pageVo.toJavaObject(PageInfo.class);
